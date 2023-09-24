@@ -22,5 +22,6 @@ module.exports = {
   },
   rules: {
     indent: 'off',
+    'no-use-before-define': ['error', { functions: false, classes: false }],
   },
 };
