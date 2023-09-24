@@ -18,12 +18,20 @@
     const MIN_REVIEWS_LOCAL_STORAGE_KEY = "minReviewsFilter";
     const MIN_RATING_LOCAL_STORAGE_KEY = "minRatingFilter";
 
+    const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
+    const PRODUCT_CARD_SELECTOR = ".product-card";
+    const PRODUCT_CARD_REVIEWS_SELECTOR = ".product-card__count";
+    const PRODUCT_CARD_RATING_SELECTOR = ".address-rate-mini";
+    const PRODUCT_CARD_PRICE_SELECTOR = ".price__lower-price";
+
+    const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
+
     let minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
     let minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
     let minPriceValue = getMinPriceValueFromURL();
 
     setTimeout(function () {
-        const filtersBlockWrap = document.querySelector('.filters-block__wrap');
+        const filtersBlockWrap = document.querySelector(FILTERS_BLOCK_WRAP_SELECTOR);
 
         if (filtersBlockWrap) {
             const filtersBlockContainer = document.createElement("div");
@@ -38,21 +46,21 @@
     }, 1000);
 
     function cleanList() {
-        let productCards = document.querySelectorAll(".product-card");
+        let productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
 
         productCards.forEach(
             (productCard) => {
-                let productCardCount = productCard.querySelector(".product-card__count");
+                let productCardCount = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
 
                 const productCardCountText = productCardCount.innerText;
                 const productCardCountDigit = +productCardCountText.replace(/\D/g, "");
 
-                let productCardRating = productCard.querySelector(".address-rate-mini");
+                let productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
 
                 const productCardRatingText = productCardRating.innerText;
                 const productCardRatingDigit = +productCardRatingText;
 
-                let productCardPrice = productCard.querySelector(".price__lower-price");
+                let productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
 
                 let productCardPriceDigit = 0;
 
@@ -131,11 +139,11 @@
     function getMinPriceValueFromURL() {
         let params = new URLSearchParams(window.location.search);
 
-        if (!params.has('priceU')) {
+        if (!params.has(PRICE_FILTER_URL_PARAMS_NAME)) {
             return 0;
         }
 
-        const priceFilterParams = params.get('priceU');
+        const priceFilterParams = params.get(PRICE_FILTER_URL_PARAMS_NAME);
         const priceFilterArray = priceFilterParams.split(";");
         const minPriceValue = priceFilterArray[0] / 100;
 
