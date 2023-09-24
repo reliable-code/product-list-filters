@@ -39,90 +39,90 @@
 
             initListClean();
         }, 1000);
+    }
 
-        function initListClean() {
-            const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
+    function initListClean() {
+        const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
 
-            const minDivStyle = 'padding-left: 14px; margin-top: 12px;';
-            const minInputStyle = 'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px;';
+        const minDivStyle = 'padding-left: 14px; margin-top: 12px;';
+        const minInputStyle = 'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px;';
 
-            const minReviewsDiv = document.createElement('div');
-            minReviewsDiv.style = minDivStyle;
-            const minReviewsDivText = document.createTextNode('Минимально отзывов: ');
-            minReviewsDiv.appendChild(minReviewsDivText);
+        const minReviewsDiv = document.createElement('div');
+        minReviewsDiv.style = minDivStyle;
+        const minReviewsDivText = document.createTextNode('Минимально отзывов: ');
+        minReviewsDiv.appendChild(minReviewsDivText);
 
-            const minReviewsInput = document.createElement('input');
-            minReviewsInput.type = 'number';
-            minReviewsInput.value = minReviewsValue;
-            minReviewsInput.style = minInputStyle;
-            minReviewsInput.addEventListener('change', updateMinReviewsInput);
-            minReviewsDiv.appendChild(minReviewsInput);
+        const minReviewsInput = document.createElement('input');
+        minReviewsInput.type = 'number';
+        minReviewsInput.value = minReviewsValue;
+        minReviewsInput.style = minInputStyle;
+        minReviewsInput.addEventListener('change', updateMinReviewsInput);
+        minReviewsDiv.appendChild(minReviewsInput);
 
-            const minRatingDiv = document.createElement('div');
-            minRatingDiv.style = minDivStyle;
-            const minRatingDivText = document.createTextNode('Минимальный рейтинг: ');
-            minRatingDiv.appendChild(minRatingDivText);
+        const minRatingDiv = document.createElement('div');
+        minRatingDiv.style = minDivStyle;
+        const minRatingDivText = document.createTextNode('Минимальный рейтинг: ');
+        minRatingDiv.appendChild(minRatingDivText);
 
-            const minRatingInput = document.createElement('input');
-            minRatingInput.type = 'number';
-            minRatingInput.value = minRatingValue;
-            minRatingInput.style = minInputStyle;
-            minRatingInput.addEventListener('change', updateMinRatingInput);
-            minRatingDiv.appendChild(minRatingInput);
+        const minRatingInput = document.createElement('input');
+        minRatingInput.type = 'number';
+        minRatingInput.value = minRatingValue;
+        minRatingInput.style = minInputStyle;
+        minRatingInput.addEventListener('change', updateMinRatingInput);
+        minRatingDiv.appendChild(minRatingInput);
 
-            searchResultsSort.appendChild(minReviewsDiv);
-            searchResultsSort.appendChild(minRatingDiv);
+        searchResultsSort.appendChild(minReviewsDiv);
+        searchResultsSort.appendChild(minRatingDiv);
 
-            cleanList();
+        cleanList();
 
-            window.addEventListener('scroll', cleanList);
-        }
+        window.addEventListener('scroll', cleanList);
+    }
 
-        function cleanList() {
-            const searchResultContainer = document.querySelector(SEARCH_RESULT_SELECTOR);
-            const productCardsWrap = searchResultContainer.querySelector(':scope > div');
-            const productCards = productCardsWrap.querySelectorAll(':scope > div');
+    function cleanList() {
+        const searchResultContainer = document.querySelector(SEARCH_RESULT_SELECTOR);
+        const productCardsWrap = searchResultContainer.querySelector(':scope > div');
+        const productCards = productCardsWrap.querySelectorAll(':scope > div');
 
-            productCards.forEach(
-                (productCard) => {
-                    const productCardRatingWrap = productCard.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
+        productCards.forEach(
+            (productCard) => {
+                const productCardRatingWrap = productCard.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
 
-                    if (!productCardRatingWrap) {
-                        productCard.remove();
+                if (!productCardRatingWrap) {
+                    productCard.remove();
 
-                        return;
-                    }
+                    return;
+                }
 
-                    const productCardRatingWrapSpans = productCardRatingWrap.querySelectorAll(':scope > span');
+                const productCardRatingWrapSpans = productCardRatingWrap.querySelectorAll(':scope > span');
 
-                    const productCardReviews = productCardRatingWrapSpans[1];
+                const productCardReviews = productCardRatingWrapSpans[1];
 
-                    const productCardReviewsText = productCardReviews.innerText;
-                    const productCardReviewsDigit = +productCardReviewsText;
+                const productCardReviewsText = productCardReviews.innerText;
+                const productCardReviewsDigit = +productCardReviewsText;
 
-                    const productCardRating = productCardRatingWrapSpans[0];
+                const productCardRating = productCardRatingWrapSpans[0];
 
-                    const productCardRatingText = productCardRating.innerText;
-                    const productCardRatingDigit = +productCardRatingText;
+                const productCardRatingText = productCardRating.innerText;
+                const productCardRatingDigit = +productCardRatingText;
 
-                    if (productCardReviewsDigit < minReviewsValue || productCardRatingDigit < minRatingValue) {
-                        productCard.remove();
-                    }
-                },
-            );
-        }
+                if (productCardReviewsDigit < minReviewsValue || productCardRatingDigit < minRatingValue) {
+                    productCard.remove();
+                }
+            },
+        );
+    }
 
-        function updateMinReviewsInput(e) {
-            updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
-        }
+    function updateMinReviewsInput(e) {
+        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    }
 
-        function updateMinRatingInput(e) {
-            updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-        }
+    function updateMinRatingInput(e) {
+        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    }
 
-        function updateInput(keyName, e) {
-            localStorage.setItem(keyName, e.target.value);
-            window.location.reload();
-        }
+    function updateInput(keyName, e) {
+        localStorage.setItem(keyName, e.target.value);
+        window.location.reload();
     }
 }());
