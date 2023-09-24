@@ -9,34 +9,32 @@
 // @grant        none
 // ==/UserScript==
 
-(function () {
-    'use strict';
-
+(function main() {
     const MIN_REVIEWS = 50;
     const MIN_RATING = 4.8;
 
-    const MIN_REVIEWS_LOCAL_STORAGE_KEY = "minReviewsFilter";
-    const MIN_RATING_LOCAL_STORAGE_KEY = "minRatingFilter";
+    const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
+    const MIN_RATING_LOCAL_STORAGE_KEY = 'minRatingFilter';
 
     const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
-    const PRODUCT_CARD_SELECTOR = ".product-card";
-    const PRODUCT_CARD_REVIEWS_SELECTOR = ".product-card__count";
-    const PRODUCT_CARD_RATING_SELECTOR = ".address-rate-mini";
-    const PRODUCT_CARD_PRICE_SELECTOR = ".price__lower-price";
+    const PRODUCT_CARD_SELECTOR = '.product-card';
+    const PRODUCT_CARD_REVIEWS_SELECTOR = '.product-card__count';
+    const PRODUCT_CARD_RATING_SELECTOR = '.address-rate-mini';
+    const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
 
     const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
-    let minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
-    let minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
+    const minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
+    const minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
     let minPriceValue = getMinPriceValueFromURL();
 
-    setTimeout(function () {
+    setTimeout(() => {
         const filtersBlockWrap = document.querySelector(FILTERS_BLOCK_WRAP_SELECTOR);
 
         if (filtersBlockWrap) {
-            const filtersBlockContainer = document.createElement("div");
-            filtersBlockContainer.classList.add("filters-block__container");
-            filtersBlockContainer.style = "display: flex;";
+            const filtersBlockContainer = document.createElement('div');
+            filtersBlockContainer.classList.add('filters-block__container');
+            filtersBlockContainer.style = 'display: flex;';
             filtersBlockWrap.appendChild(filtersBlockContainer);
 
             appendFilterControls(filtersBlockContainer);
@@ -46,27 +44,27 @@
     }, 1000);
 
     function cleanList() {
-        let productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
+        const productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
 
         productCards.forEach(
             (productCard) => {
-                let productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
+                const productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
 
                 const productCardReviewsText = productCardReviews.innerText;
-                const productCardReviewsDigit = +productCardReviewsText.replace(/\D/g, "");
+                const productCardReviewsDigit = +productCardReviewsText.replace(/\D/g, '');
 
-                let productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
+                const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
 
                 const productCardRatingText = productCardRating.innerText;
                 const productCardRatingDigit = +productCardRatingText;
 
-                let productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
+                const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
 
                 let productCardPriceDigit = 0;
 
                 if (productCardPrice) {
                     const productCardPriceText = productCardPrice.innerText;
-                    productCardPriceDigit = +productCardPriceText.replace(/\D/g, "");
+                    productCardPriceDigit = +productCardPriceText.replace(/\D/g, '');
                 }
 
                 if (productCardReviewsDigit < minReviewsValue
@@ -74,48 +72,48 @@
                     || productCardPriceDigit < minPriceValue) {
                     productCard.remove();
                 }
-            }
+            },
         );
     }
 
     function appendFilterControls(filtersBlockContainer) {
-        const minDivStyle = "padding-left: 7px; margin-top: 14px;";
+        const minDivStyle = 'padding-left: 7px; margin-top: 14px;';
 
-        const minReviewsDiv = document.createElement("div");
+        const minReviewsDiv = document.createElement('div');
         minReviewsDiv.style = minDivStyle;
-        minReviewsDiv.textContent = "Минимально отзывов: ";
+        minReviewsDiv.textContent = 'Минимально отзывов: ';
 
-        const minReviewsInput = document.createElement("input");
-        minReviewsInput.type = "number";
+        const minReviewsInput = document.createElement('input');
+        minReviewsInput.type = 'number';
         minReviewsInput.value = minReviewsValue;
-        minReviewsInput.step = "1";
-        minReviewsInput.min = "1";
-        minReviewsInput.max = "999999";
-        minReviewsInput.addEventListener("change", updateMinReviewsInput);
+        minReviewsInput.step = '1';
+        minReviewsInput.min = '1';
+        minReviewsInput.max = '999999';
+        minReviewsInput.addEventListener('change', updateMinReviewsInput);
         minReviewsDiv.appendChild(minReviewsInput);
 
-        const minRatingDiv = document.createElement("div");
+        const minRatingDiv = document.createElement('div');
         minRatingDiv.style = minDivStyle;
-        minRatingDiv.textContent = "Минимальный рейтинг: ";
+        minRatingDiv.textContent = 'Минимальный рейтинг: ';
 
-        const minRatingInput = document.createElement("input");
-        minRatingInput.type = "number";
+        const minRatingInput = document.createElement('input');
+        minRatingInput.type = 'number';
         minRatingInput.value = minRatingValue;
-        minRatingInput.step = "0.1";
-        minRatingInput.min = "4.0";
-        minRatingInput.max = "5.0";
-        minRatingInput.addEventListener("change", updateMinRatingInput);
+        minRatingInput.step = '0.1';
+        minRatingInput.min = '4.0';
+        minRatingInput.max = '5.0';
+        minRatingInput.addEventListener('change', updateMinRatingInput);
         minRatingDiv.appendChild(minRatingInput);
 
-        const minPriceDiv = document.createElement("div");
+        const minPriceDiv = document.createElement('div');
         minPriceDiv.style = minDivStyle;
-        minPriceDiv.textContent = "Минимальная цена: " + minPriceValue;
+        minPriceDiv.textContent = `Минимальная цена: ${minPriceValue}`;
 
         setInterval(checkMinPrice, 1500);
 
         filtersBlockContainer.appendChild(minReviewsDiv);
         filtersBlockContainer.appendChild(minRatingDiv);
-        filtersBlockContainer.appendChild(minPriceDiv);;
+        filtersBlockContainer.appendChild(minPriceDiv);
     }
 
     function updateMinReviewsInput(e) {
@@ -127,23 +125,23 @@
     }
 
     function getMinPriceValueFromURL() {
-        let params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
 
         if (!params.has(PRICE_FILTER_URL_PARAMS_NAME)) {
             return 0;
         }
 
         const priceFilterParams = params.get(PRICE_FILTER_URL_PARAMS_NAME);
-        const priceFilterArray = priceFilterParams.split(";");
-        const minPriceValue = priceFilterArray[0] / 100;
+        const priceFilterArray = priceFilterParams.split(';');
+        minPriceValue = priceFilterArray[0] / 100;
 
         return minPriceValue;
     }
 
     function checkMinPrice() {
-        let currentMinPriceValue = getMinPriceValueFromURL();
+        const currentMinPriceValue = getMinPriceValueFromURL();
 
-        if (minPriceValue != currentMinPriceValue) {
+        if (minPriceValue !== currentMinPriceValue) {
             window.location.reload();
         }
     }
@@ -152,4 +150,4 @@
         localStorage.setItem(keyName, e.target.value);
         window.location.reload();
     }
-})();
+}());
