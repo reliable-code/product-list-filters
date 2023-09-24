@@ -37,27 +37,27 @@
 
         if (productCardLinks.length) {
             productCardLinks.forEach(
-                (element) => {
-                    let productCardLinksParent = element.parentNode;
+                (productCardLink) => {
+                    let productCardLinksParent = productCardLink.parentNode;
                     let productCard = productCardLinksParent.parentNode.parentNode;
 
-                    const discountLi = productCardLinksParent.querySelector("li");
+                    const promoLabel = productCardLinksParent.querySelector("li");
 
-                    if (!discountLi) {
+                    if (!promoLabel) {
                         productCard.remove();
                         return;
                     }
 
-                    const discountLiText = discountLi.innerText;
+                    const promoLabelText = promoLabel.innerText;
 
-                    if (!discountLiText.includes('%')) {
+                    if (!promoLabelText.includes('%')) {
                         productCard.remove();
                         return;
                     }
 
-                    const discountLiDigit = +discountLiText.replace(/\D/g, "");
+                    const discountValue = +promoLabelText.replace(/\D/g, "");
 
-                    if (discountLiDigit < minDiscountValue) {
+                    if (discountValue < minDiscountValue) {
                         productCard.remove();
                     }
                 }
