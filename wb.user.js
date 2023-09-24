@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WB List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.2
+// @version      0.3
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @match        https://www.wildberries.ru/*
@@ -24,8 +24,8 @@
 
     const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
-    const minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
-    const minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
+    const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
+    const minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
     let minPriceValue = getMinPriceValueFromURL();
 
     setTimeout(() => {
