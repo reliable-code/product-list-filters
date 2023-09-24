@@ -86,7 +86,8 @@
 
         productCards.forEach(
             (productCard) => {
-                const productCardRatingWrap = productCard.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
+                const productCardRatingWrap =
+                    productCard.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
 
                 if (!productCardRatingWrap) {
                     productCard.remove();
@@ -106,7 +107,8 @@
                 const productCardRatingText = productCardRating.innerText;
                 const productCardRatingDigit = +productCardRatingText;
 
-                if (productCardReviewsDigit < minReviewsValue || productCardRatingDigit < minRatingValue) {
+                if (productCardReviewsDigit < minReviewsValue
+                    || productCardRatingDigit < minRatingValue) {
                     productCard.remove();
                 }
             },

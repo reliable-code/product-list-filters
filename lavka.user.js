@@ -16,8 +16,8 @@
     const MAIN_CONTENT_SELECTOR = '#main-content-id';
     const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
-    const localStorageMinDiscount = localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY);
-    const minDiscountValue = +(localStorageMinDiscount ?? MIN_DISCOUNT);
+    const minDiscountValue =
+        +(localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY) ?? MIN_DISCOUNT);
 
     const mainContent = document.querySelector(MAIN_CONTENT_SELECTOR);
 
