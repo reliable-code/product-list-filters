@@ -15,6 +15,10 @@
     const MIN_REVIEWS_LOCAL_STORAGE_KEY = "minReviewsFilter";
     const MIN_RATING_LOCAL_STORAGE_KEY = "minRatingFilter";
 
+    const PAGINATOR_CONTENT_SELECTOR = "#paginatorContent";
+    const RESULTS_HEADER_SELECTOR = '[data-widget="resultsHeader"]';
+
+    const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
     const SEARCH_RESULT_SELECTOR = ".widget-search-result-container";
     const PRODUCT_CARD_RATING_WRAP_SELECTOR = ".tsBodyMBold";
 
@@ -24,10 +28,10 @@
     let minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
     let minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
 
-    if (document.querySelector("#paginatorContent")) {
+    if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
         window.scrollTo(0, document.body.scrollHeight);
         setTimeout(function () {
-            const resultsHeader = document.querySelector('[data-widget="resultsHeader"]');
+            const resultsHeader = document.querySelector(RESULTS_HEADER_SELECTOR);
 
             if (resultsHeader) {
                 resultsHeader.scrollIntoView();
@@ -39,7 +43,7 @@
         }, 1000);
 
         function initListClean() {
-            const searchResultsSort = document.querySelector('[data-widget="searchResultsSort"]');
+            const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
 
             const minDivStyle = "padding-left: 14px; margin-top: 12px;";
             const minInputStyle = "border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px;";
@@ -83,9 +87,6 @@
             const productCardsWrap = searchResultContainer.querySelector(":scope > div");
             let productCards = productCardsWrap.querySelectorAll(":scope > div");
 
-            // if (!productCards.length) {
-            //     productCards = document.querySelectorAll(PRODUCT_CARD_LIST_SELECTOR);
-            // }
             productCards.forEach(
                 (element) => {
                     let productCardRatingWrap = element.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
