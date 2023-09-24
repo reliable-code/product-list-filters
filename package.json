@@ -1,0 +1,14 @@
+{
+  "name": "product-list-filters",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reliable-code/product-list-filters.git"
+  },
+  "author": "reliable-code",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.28.1"
+  }
+}
