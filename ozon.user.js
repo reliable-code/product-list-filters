@@ -86,11 +86,11 @@
             let productCards = productCardsWrap.querySelectorAll(":scope > div");
 
             productCards.forEach(
-                (element) => {
-                    let productCardRatingWrap = element.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
+                (productCard) => {
+                    let productCardRatingWrap = productCard.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
 
                     if (!productCardRatingWrap) {
-                        element.remove();
+                        productCard.remove();
 
                         return;
                     }
@@ -108,7 +108,7 @@
                     const productCardRatingDigit = +productCardRatingText;
 
                     if (productCardCountDigit < minReviewsValue || productCardRatingDigit < minRatingValue) {
-                        element.remove();
+                        productCard.remove();
                     }
                 }
             );
