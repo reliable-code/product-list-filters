@@ -9,28 +9,26 @@
 // @grant        none
 // ==/UserScript==
 
-(function () {
-    'use strict';
+(function main() {
+    const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
+    const MIN_RATING_LOCAL_STORAGE_KEY = 'minRatingFilter';
 
-    const MIN_REVIEWS_LOCAL_STORAGE_KEY = "minReviewsFilter";
-    const MIN_RATING_LOCAL_STORAGE_KEY = "minRatingFilter";
-
-    const PAGINATOR_CONTENT_SELECTOR = "#paginatorContent";
+    const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
     const RESULTS_HEADER_SELECTOR = '[data-widget="resultsHeader"]';
 
     const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
-    const SEARCH_RESULT_SELECTOR = ".widget-search-result-container";
-    const PRODUCT_CARD_RATING_WRAP_SELECTOR = ".tsBodyMBold";
+    const SEARCH_RESULT_SELECTOR = '.widget-search-result-container';
+    const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 
     const MIN_REVIEWS = 50;
     const MIN_RATING = 4.8;
 
-    let minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
-    let minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
+    const minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
+    const minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
 
     if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
         window.scrollTo(0, document.body.scrollHeight);
-        setTimeout(function () {
+        setTimeout(() => {
             const resultsHeader = document.querySelector(RESULTS_HEADER_SELECTOR);
 
             if (resultsHeader) {
@@ -45,31 +43,31 @@
         function initListClean() {
             const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
 
-            const minDivStyle = "padding-left: 14px; margin-top: 12px;";
-            const minInputStyle = "border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px;";
+            const minDivStyle = 'padding-left: 14px; margin-top: 12px;';
+            const minInputStyle = 'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px;';
 
-            const minReviewsDiv = document.createElement("div");
+            const minReviewsDiv = document.createElement('div');
             minReviewsDiv.style = minDivStyle;
-            const minReviewsDivText = document.createTextNode("Минимально отзывов: ");
+            const minReviewsDivText = document.createTextNode('Минимально отзывов: ');
             minReviewsDiv.appendChild(minReviewsDivText);
 
-            const minReviewsInput = document.createElement("input");
-            minReviewsInput.type = "number";
+            const minReviewsInput = document.createElement('input');
+            minReviewsInput.type = 'number';
             minReviewsInput.value = minReviewsValue;
             minReviewsInput.style = minInputStyle;
-            minReviewsInput.addEventListener("change", updateMinReviewsInput);
+            minReviewsInput.addEventListener('change', updateMinReviewsInput);
             minReviewsDiv.appendChild(minReviewsInput);
 
-            const minRatingDiv = document.createElement("div");
+            const minRatingDiv = document.createElement('div');
             minRatingDiv.style = minDivStyle;
-            const minRatingDivText = document.createTextNode("Минимальный рейтинг: ");
+            const minRatingDivText = document.createTextNode('Минимальный рейтинг: ');
             minRatingDiv.appendChild(minRatingDivText);
 
-            const minRatingInput = document.createElement("input");
-            minRatingInput.type = "number";
+            const minRatingInput = document.createElement('input');
+            minRatingInput.type = 'number';
             minRatingInput.value = minRatingValue;
             minRatingInput.style = minInputStyle;
-            minRatingInput.addEventListener("change", updateMinRatingInput);
+            minRatingInput.addEventListener('change', updateMinRatingInput);
             minRatingDiv.appendChild(minRatingInput);
 
             searchResultsSort.appendChild(minReviewsDiv);
@@ -82,12 +80,12 @@
 
         function cleanList() {
             const searchResultContainer = document.querySelector(SEARCH_RESULT_SELECTOR);
-            const productCardsWrap = searchResultContainer.querySelector(":scope > div");
-            let productCards = productCardsWrap.querySelectorAll(":scope > div");
+            const productCardsWrap = searchResultContainer.querySelector(':scope > div');
+            const productCards = productCardsWrap.querySelectorAll(':scope > div');
 
             productCards.forEach(
                 (productCard) => {
-                    let productCardRatingWrap = productCard.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
+                    const productCardRatingWrap = productCard.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
 
                     if (!productCardRatingWrap) {
                         productCard.remove();
@@ -95,14 +93,14 @@
                         return;
                     }
 
-                    const productCardRatingWrapSpans = productCardRatingWrap.querySelectorAll(":scope > span");
+                    const productCardRatingWrapSpans = productCardRatingWrap.querySelectorAll(':scope > span');
 
-                    let productCardReviews = productCardRatingWrapSpans[1];
+                    const productCardReviews = productCardRatingWrapSpans[1];
 
                     const productCardReviewsText = productCardReviews.innerText;
                     const productCardReviewsDigit = +productCardReviewsText;
 
-                    let productCardRating = productCardRatingWrapSpans[0];
+                    const productCardRating = productCardRatingWrapSpans[0];
 
                     const productCardRatingText = productCardRating.innerText;
                     const productCardRatingDigit = +productCardRatingText;
@@ -110,7 +108,7 @@
                     if (productCardReviewsDigit < minReviewsValue || productCardRatingDigit < minRatingValue) {
                         productCard.remove();
                     }
-                }
+                },
             );
         }
 
@@ -127,4 +125,4 @@
             window.location.reload();
         }
     }
-})();
+}());
