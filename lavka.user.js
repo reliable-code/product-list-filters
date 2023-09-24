@@ -15,9 +15,12 @@
     const MIN_DISCOUNT = 20;
     const MIN_DISCOUNT_LOCAL_STORAGE_KEY = "minDiscountFilter";
 
+    const MAIN_CONTENT_SELECTOR = '#main-content-id';
+    const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
+
     let minDiscountValue = localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY) ?? MIN_DISCOUNT;
 
-    const mainContent = document.querySelector('#main-content-id');
+    const mainContent = document.querySelector(MAIN_CONTENT_SELECTOR);
 
     if (mainContent) {
         appendFilterControls(mainContent);
@@ -30,7 +33,7 @@
             return;
         }
 
-        const productCardLinks = document.querySelectorAll('[data-type="product-card-link"]');
+        const productCardLinks = document.querySelectorAll(PRODUCT_CARD_LINK_SELECTOR);
 
         if (productCardLinks.length) {
             productCardLinks.forEach(
