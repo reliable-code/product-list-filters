@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Lavka List Clean
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/reliable-code/product-list-filters
 // @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        https://lavka.yandex.ru/54/
+// @description  Remove product cards without discount
+// @author       reliable-code
+// @match        https://lavka.yandex.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex.ru
 // @grant        none
 // ==/UserScript==
