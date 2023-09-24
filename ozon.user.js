@@ -77,9 +77,7 @@
 
             cleanList();
 
-            window.addEventListener('scroll', function () {
-                cleanList();
-            });
+            window.addEventListener('scroll', cleanList);
         }
 
         function cleanList() {
