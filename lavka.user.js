@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Lavka List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.2
+// @version      0.3
 // @description  Remove product cards without discount
 // @author       reliable-code
 // @match        https://lavka.yandex.ru/*
