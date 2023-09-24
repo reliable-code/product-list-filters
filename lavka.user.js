@@ -10,15 +10,13 @@
 // ==/UserScript==
 
 (function () {
-    'use strict';
-
     const MIN_DISCOUNT = 20;
-    const MIN_DISCOUNT_LOCAL_STORAGE_KEY = "minDiscountFilter";
+    const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';
 
     const MAIN_CONTENT_SELECTOR = '#main-content-id';
     const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
-    let minDiscountValue = localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY) ?? MIN_DISCOUNT;
+    const minDiscountValue = localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY) ?? MIN_DISCOUNT;
 
     const mainContent = document.querySelector(MAIN_CONTENT_SELECTOR);
 
@@ -38,10 +36,10 @@
         if (productCardLinks.length) {
             productCardLinks.forEach(
                 (productCardLink) => {
-                    let productCardLinksParent = productCardLink.parentNode;
-                    let productCard = productCardLinksParent.parentNode.parentNode;
+                    const productCardLinksParent = productCardLink.parentNode;
+                    const productCard = productCardLinksParent.parentNode.parentNode;
 
-                    const promoLabel = productCardLinksParent.querySelector("li");
+                    const promoLabel = productCardLinksParent.querySelector('li');
 
                     if (!promoLabel) {
                         productCard.remove();
@@ -55,30 +53,30 @@
                         return;
                     }
 
-                    const discountValue = +promoLabelText.replace(/\D/g, "");
+                    const discountValue = +promoLabelText.replace(/\D/g, '');
 
                     if (discountValue < minDiscountValue) {
                         productCard.remove();
                     }
-                }
+                },
             );
         }
     }
 
     function appendFilterControls(mainContent) {
-        const minDivStyle = "";
+        const minDivStyle = '';
 
-        const minDiscountDiv = document.createElement("div");
+        const minDiscountDiv = document.createElement('div');
         minDiscountDiv.style = minDivStyle;
-        minDiscountDiv.textContent = "Минимальная скидка: ";
+        minDiscountDiv.textContent = 'Минимальная скидка: ';
 
-        const minDiscountInput = document.createElement("input");
-        minDiscountInput.type = "number";
+        const minDiscountInput = document.createElement('input');
+        minDiscountInput.type = 'number';
         minDiscountInput.value = minDiscountValue;
-        minDiscountInput.step = "1";
-        minDiscountInput.min = "0";
-        minDiscountInput.max = "100";
-        minDiscountInput.addEventListener("change", updateMinDiscountInput);
+        minDiscountInput.step = '1';
+        minDiscountInput.min = '0';
+        minDiscountInput.max = '100';
+        minDiscountInput.addEventListener('change', updateMinDiscountInput);
         minDiscountDiv.appendChild(minDiscountInput);
 
         mainContent.insertBefore(minDiscountDiv, mainContent.firstChild);
@@ -92,4 +90,4 @@
         localStorage.setItem(keyName, e.target.value);
         window.location.reload();
     }
-})();
+}());
