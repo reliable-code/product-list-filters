@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WB List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.1
+// @version      0.2
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @match        https://www.wildberries.ru/*
@@ -50,10 +50,10 @@
 
         productCards.forEach(
             (productCard) => {
-                let productCardCount = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
+                let productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
 
-                const productCardCountText = productCardCount.innerText;
-                const productCardCountDigit = +productCardCountText.replace(/\D/g, "");
+                const productCardReviewsText = productCardReviews.innerText;
+                const productCardReviewsDigit = +productCardReviewsText.replace(/\D/g, "");
 
                 let productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
 
@@ -69,7 +69,7 @@
                     productCardPriceDigit = +productCardPriceText.replace(/\D/g, "");
                 }
 
-                if (productCardCountDigit < minReviewsValue
+                if (productCardReviewsDigit < minReviewsValue
                     || productCardRatingDigit < minRatingValue
                     || productCardPriceDigit < minPriceValue) {
                     productCard.remove();
