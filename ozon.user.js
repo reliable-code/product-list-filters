@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Ozon List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.2
+// @version      0.3
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @match        https://www.ozon.ru/*
