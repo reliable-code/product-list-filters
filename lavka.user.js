@@ -9,25 +9,26 @@
 // @grant        none
 // ==/UserScript==
 
-(function () {
+(function main() {
     const MIN_DISCOUNT = 20;
     const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';
 
     const MAIN_CONTENT_SELECTOR = '#main-content-id';
     const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
-    const minDiscountValue = localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY) ?? MIN_DISCOUNT;
+    const localStorageMinDiscount = localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY);
+    const minDiscountValue = +(localStorageMinDiscount ?? MIN_DISCOUNT);
 
     const mainContent = document.querySelector(MAIN_CONTENT_SELECTOR);
 
     if (mainContent) {
-        appendFilterControls(mainContent);
+        appendFilterControls();
 
         setInterval(cleanList, 500);
     }
 
     function cleanList() {
-        if (minDiscountValue == 0) {
+        if (minDiscountValue === 0) {
             return;
         }
 
@@ -63,7 +64,7 @@
         }
     }
 
-    function appendFilterControls(mainContent) {
+    function appendFilterControls() {
         const minDivStyle = '';
 
         const minDiscountDiv = document.createElement('div');
