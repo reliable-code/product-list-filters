@@ -73,7 +73,6 @@
                     || productCardRatingDigit < minRatingValue
                     || productCardPriceDigit < minPriceValue) {
                     productCard.remove();
-                    //productCard.style.backgroundColor = "red";
                 }
             }
         );
@@ -113,15 +112,6 @@
         minPriceDiv.textContent = "Минимальная цена: " + minPriceValue;
 
         setInterval(checkMinPrice, 1500);
-
-        // const minPriceInput = document.createElement("input");
-        // minPriceInput.type = "number";
-        // minPriceInput.value = minPriceValue;
-        // minPriceInput.step = "1";
-        // minPriceInput.min = "0";
-        // minPriceInput.max = "999999";
-        // minPriceInput.addEventListener("change", updateMinPriceInput);
-        // minPriceDiv.appendChild(minPriceInput);
 
         filtersBlockContainer.appendChild(minReviewsDiv);
         filtersBlockContainer.appendChild(minRatingDiv);
