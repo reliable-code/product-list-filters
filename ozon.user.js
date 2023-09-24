@@ -97,17 +97,17 @@
 
                     const productCardRatingWrapSpans = productCardRatingWrap.querySelectorAll(":scope > span");
 
-                    let productCardCount = productCardRatingWrapSpans[1];
+                    let productCardReviews = productCardRatingWrapSpans[1];
 
-                    const productCardCountText = productCardCount.innerText;
-                    const productCardCountDigit = +productCardCountText;
+                    const productCardReviewsText = productCardReviews.innerText;
+                    const productCardReviewsDigit = +productCardReviewsText;
 
                     let productCardRating = productCardRatingWrapSpans[0];
 
                     const productCardRatingText = productCardRating.innerText;
                     const productCardRatingDigit = +productCardRatingText;
 
-                    if (productCardCountDigit < minReviewsValue || productCardRatingDigit < minRatingValue) {
+                    if (productCardReviewsDigit < minReviewsValue || productCardRatingDigit < minRatingValue) {
                         productCard.remove();
                     }
                 }
