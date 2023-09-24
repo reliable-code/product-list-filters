@@ -111,7 +111,6 @@
 
                     if (productCardCountDigit < minReviewsValue || productCardRatingDigit < minRatingValue) {
                         element.remove();
-                        //productCard.style.backgroundColor = "red";
                     }
                 }
             );
