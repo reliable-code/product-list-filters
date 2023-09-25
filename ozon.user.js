@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Ozon List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.5
+// @version      0.6
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
@@ -16,6 +16,7 @@
     const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
     const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
+    const ADV_SEARCH_SHELF_SELECTOR = '[data-widget="skuAdvSearchShelf"]';
     const RESULTS_HEADER_SELECTOR = '[data-widget="resultsHeader"]';
 
     const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
@@ -29,6 +30,9 @@
     const minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
 
     if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
+        const advSearchShelf = document.querySelector(ADV_SEARCH_SHELF_SELECTOR);
+        if (advSearchShelf) advSearchShelf.remove();
+
         window.scrollTo(0, document.body.scrollHeight);
         setTimeout(() => {
             const resultsHeader = document.querySelector(RESULTS_HEADER_SELECTOR);
