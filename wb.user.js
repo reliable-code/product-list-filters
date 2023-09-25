@@ -29,6 +29,15 @@
     const minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
     const minPriceValue = getMinPriceValueFromURL();
 
+    function getCategoryName() {
+        const { pathname } = window.location;
+        const pathElements = pathname.split('/');
+        const lastPathElement = pathElements.pop();
+        const categoryName = lastPathElement || 'common';
+
+        return categoryName;
+    }
+
     setTimeout(() => {
         const filtersBlockWrap = document.querySelector(FILTERS_BLOCK_WRAP_SELECTOR);
 
