@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Ozon List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.4
+// @version      0.5
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
@@ -40,7 +40,7 @@
             }
 
             initListClean();
-        }, 1000);
+        }, 1500);
     }
 
     function getCategoryName() {
