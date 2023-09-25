@@ -11,8 +11,9 @@
 // ==/UserScript==
 
 (function main() {
-    const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
-    const MIN_RATING_LOCAL_STORAGE_KEY = 'minRatingFilter';
+    const CATEGORY_NAME = getCategoryName();
+    const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
+    const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
     const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
     const RESULTS_HEADER_SELECTOR = '[data-widget="resultsHeader"]';
