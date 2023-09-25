@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Ozon List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.6
+// @version      0.6.1
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
@@ -30,11 +30,11 @@
     const minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
 
     if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
-        const advSearchShelf = document.querySelector(ADV_SEARCH_SHELF_SELECTOR);
-        if (advSearchShelf) advSearchShelf.remove();
-
         window.scrollTo(0, document.body.scrollHeight);
         setTimeout(() => {
+            const advSearchShelf = document.querySelector(ADV_SEARCH_SHELF_SELECTOR);
+            if (advSearchShelf) advSearchShelf.remove();
+
             const resultsHeader = document.querySelector(RESULTS_HEADER_SELECTOR);
 
             if (resultsHeader) {
