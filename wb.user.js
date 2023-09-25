@@ -4,6 +4,7 @@
 // @version      0.4
 // @description  Remove product cards by filter
 // @author       reliable-code
+// @license      MIT
 // @match        https://www.wildberries.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=wildberries.ru
 // @grant        none

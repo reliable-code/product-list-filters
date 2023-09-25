@@ -4,6 +4,7 @@
 // @version      0.4
 // @description  Remove product cards without discount
 // @author       reliable-code
+// @license      MIT
 // @match        https://lavka.yandex.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex.ru
 // @grant        none
