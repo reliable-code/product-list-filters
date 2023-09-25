@@ -42,6 +42,14 @@
         }, 1000);
     }
 
+    function getCategoryName() {
+        const { pathname } = window.location;
+        const pathElements = pathname.split('/');
+        const categoryName = pathElements[2] ?? 'common';
+
+        return categoryName;
+    }
+
     function initListClean() {
         const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
 
