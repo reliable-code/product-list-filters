@@ -20,7 +20,9 @@
 
     const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
 
-    if (document.querySelector(APPOINTMENTS_PAGE)) {
+    const appointmentsPage = document.querySelector(APPOINTMENTS_PAGE);
+
+    if (appointmentsPage) {
         const specialPlacementCards = document.querySelectorAll(SPECIAL_PLACEMENT_CARD_SELECTOR);
         specialPlacementCards.forEach(
             (specialPlacementCard) => specialPlacementCard.remove(),
