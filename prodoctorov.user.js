@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Prodoctorov List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.3
+// @version      0.3.1
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
@@ -27,11 +27,6 @@
     const appointmentsPage = document.querySelector(APPOINTMENTS_PAGE);
 
     if (appointmentsPage) {
-        const specialPlacementCards = document.querySelectorAll(SPECIAL_PLACEMENT_CARD_SELECTOR);
-        specialPlacementCards.forEach(
-            (specialPlacementCard) => specialPlacementCard.remove(),
-        );
-
         initListClean();
 
         setInterval(checkListCleanInitiated, 500);
@@ -39,6 +34,7 @@
 
     function checkListCleanInitiated() {
         const minReviewsDiv = appointmentsPage.querySelector(`#${MIN_REVIEWS_DIV_ID}`);
+
         if (!minReviewsDiv) {
             initListClean();
         }
@@ -63,7 +59,16 @@
 
         appointmentsPage.insertBefore(minReviewsDiv, appointmentsPage.firstChild);
 
+        removeSpecialPlacementCards();
+
         cleanList();
+    }
+
+    function removeSpecialPlacementCards() {
+        const specialPlacementCards = document.querySelectorAll(SPECIAL_PLACEMENT_CARD_SELECTOR);
+        specialPlacementCards.forEach(
+            (specialPlacementCard) => specialPlacementCard.remove(),
+        );
     }
 
     function cleanList() {
