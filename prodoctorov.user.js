@@ -5,7 +5,7 @@
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
-// @match        https://www.prodoctorov.ru/*
+// @match        https://prodoctorov.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=prodoctorov.ru
 // @grant        none
 // ==/UserScript==
@@ -13,9 +13,19 @@
 (function main() {
     const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
+    const APPOINTMENTS_PAGE = '.appointments_page';
+    const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
+
     const MIN_REVIEWS = 10;
 
     const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
+
+    if (document.querySelector(APPOINTMENTS_PAGE)) {
+        const specialPlacementCards = document.querySelectorAll(SPECIAL_PLACEMENT_CARD_SELECTOR);
+        specialPlacementCards.forEach(
+            (specialPlacementCard) => specialPlacementCard.remove(),
+        );
+    }
 
     function updateMinReviewsInput(e) {
         updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
