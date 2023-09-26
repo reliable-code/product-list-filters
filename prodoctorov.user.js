@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Prodoctorov List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.2
+// @version      0.3
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
@@ -15,6 +15,8 @@
 
     const APPOINTMENTS_PAGE = '.appointments_page';
     const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
+
+    const MIN_REVIEWS_DIV_ID = 'minReviewsDiv';
 
     const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 
@@ -31,6 +33,15 @@
         );
 
         initListClean();
+
+        setInterval(checkListCleanInitiated, 500);
+    }
+
+    function checkListCleanInitiated() {
+        const minReviewsDiv = appointmentsPage.querySelector(`#${MIN_REVIEWS_DIV_ID}`);
+        if (!minReviewsDiv) {
+            initListClean();
+        }
     }
 
     function initListClean() {
@@ -38,6 +49,7 @@
         const minInputStyle = '';
 
         const minReviewsDiv = document.createElement('div');
+        minReviewsDiv.id = MIN_REVIEWS_DIV_ID;
         minReviewsDiv.style = minDivStyle;
         const minReviewsDivText = document.createTextNode('Минимально отзывов: ');
         minReviewsDiv.appendChild(minReviewsDivText);
