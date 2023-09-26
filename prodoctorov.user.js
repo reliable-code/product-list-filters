@@ -16,6 +16,8 @@
     const APPOINTMENTS_PAGE = '.appointments_page';
     const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
 
+    const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
+
     const MIN_REVIEWS = 10;
 
     const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
@@ -48,6 +50,29 @@
         minReviewsDiv.appendChild(minReviewsInput);
 
         appointmentsPage.insertBefore(minReviewsDiv, appointmentsPage.firstChild);
+
+        cleanList();
+    }
+
+    function cleanList() {
+        const doctorCards = appointmentsPage.querySelectorAll(DOCTOR_CARD_SELECTOR);
+
+        doctorCards.forEach(
+            (doctorCard) => {
+                const profileCard = doctorCard.querySelector('.b-profile-card');
+
+                if (!profileCard) return;
+
+                const reviewsLink = profileCard.querySelector(':scope > a');
+
+                const reviewsLinkText = reviewsLink.innerText;
+                const reviewsLinkDigit = +reviewsLinkText.replace(/\D/g, '');
+
+                if (reviewsLinkDigit < minReviewsValue) {
+                    doctorCard.remove();
+                }
+            },
+        );
     }
 
     function updateMinReviewsInput(e) {
