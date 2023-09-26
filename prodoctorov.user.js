@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Prodoctorov List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.3.1
+// @version      0.3.2
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
@@ -81,6 +81,10 @@
                 if (!profileCard) return;
 
                 const reviewsLink = profileCard.querySelector(':scope > a');
+
+                if (!reviewsLink) {
+                    doctorCard.remove();
+                }
 
                 const reviewsLinkText = reviewsLink.innerText;
                 const reviewsLinkDigit = +reviewsLinkText.replace(/\D/g, '');
