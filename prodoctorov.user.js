@@ -11,4 +11,14 @@
 // ==/UserScript==
 
 (function main() {
+    const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
+
+    function updateMinReviewsInput(e) {
+        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateInput(keyName, e) {
+        localStorage.setItem(keyName, e.target.value);
+        window.location.reload();
+    }
 }());
