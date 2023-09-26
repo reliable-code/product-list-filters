@@ -13,6 +13,10 @@
 (function main() {
     const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
+    const MIN_REVIEWS = 10;
+
+    const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
+
     function updateMinReviewsInput(e) {
         updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
     }
