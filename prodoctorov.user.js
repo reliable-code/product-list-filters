@@ -27,6 +27,27 @@
         specialPlacementCards.forEach(
             (specialPlacementCard) => specialPlacementCard.remove(),
         );
+
+        initListClean();
+    }
+
+    function initListClean() {
+        const minDivStyle = '';
+        const minInputStyle = '';
+
+        const minReviewsDiv = document.createElement('div');
+        minReviewsDiv.style = minDivStyle;
+        const minReviewsDivText = document.createTextNode('Минимально отзывов: ');
+        minReviewsDiv.appendChild(minReviewsDivText);
+
+        const minReviewsInput = document.createElement('input');
+        minReviewsInput.type = 'number';
+        minReviewsInput.value = minReviewsValue;
+        minReviewsInput.style = minInputStyle;
+        minReviewsInput.addEventListener('change', updateMinReviewsInput);
+        minReviewsDiv.appendChild(minReviewsInput);
+
+        appointmentsPage.insertBefore(minReviewsDiv, appointmentsPage.firstChild);
     }
 
     function updateMinReviewsInput(e) {
