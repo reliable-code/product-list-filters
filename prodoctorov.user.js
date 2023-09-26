@@ -102,14 +102,20 @@
     }
 
     function appendAdditionalLinks(doctorCard, profileCard) {
+        appendAdditionalLink(doctorCard, profileCard, 'НаПоправку');
+        appendAdditionalLink(doctorCard, profileCard, 'DocDoc');
+        appendAdditionalLink(doctorCard, profileCard, 'ДОКТУ');
+    }
+
+    function appendAdditionalLink(doctorCard, profileCard, siteName) {
         const doctorCardName = doctorCard.querySelector(DOCTOR_CARD_NAME_SELECTOR);
         const doctorName = doctorCardName.innerText;
-        const siteName = 'НаПоправку';
         const searchString = `${doctorName} ${siteName}`;
         const encodedSearchString = encodeURIComponent(searchString);
 
         const lineBreak = document.createElement('br');
         profileCard.appendChild(lineBreak);
+
         const searchUrlLink = document.createElement('a');
         searchUrlLink.href = `http://www.google.com/search?q=${encodedSearchString}&btnI`;
         searchUrlLink.textContent = siteName;
