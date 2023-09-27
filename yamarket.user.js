@@ -14,6 +14,7 @@
     const MIN_REVIEWS = 5;
     const MIN_RATING = 4.8;
 
+    const SEARCH_WRAP_SELECTOR = '[data-grabber="SearchSerp"]';
     const VIRTUOSO_SCROLLER_SELECTOR = '[data-virtuoso-scroller="true"]';
     const PRODUCT_CARD_SNIPPET_SELECTOR = '[data-autotest-id="product-snippet"]';
     const PRODUCT_CARD_PARENT_ATTRIBUTE = 'data-apiary-widget-name';
@@ -33,13 +34,17 @@
         return categoryName;
     }
 
-    setInterval(cleanList, 500);
+    const searchWrap = document.querySelector(SEARCH_WRAP_SELECTOR);
+
+    if (searchWrap) {
+        setInterval(cleanList, 500);
+    }
 
     function cleanList() {
-        const virtuosoScroller = document.querySelector(VIRTUOSO_SCROLLER_SELECTOR);
+        const virtuosoScroller = searchWrap.querySelector(VIRTUOSO_SCROLLER_SELECTOR);
         if (virtuosoScroller) virtuosoScroller.style.minHeight = '0';
 
-        const productCardSnippets = document.querySelectorAll(PRODUCT_CARD_SNIPPET_SELECTOR);
+        const productCardSnippets = searchWrap.querySelectorAll(PRODUCT_CARD_SNIPPET_SELECTOR);
 
         productCardSnippets.forEach(
             (productCardSnippet) => {
