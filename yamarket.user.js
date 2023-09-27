@@ -30,6 +30,9 @@
 
         return categoryName;
     }
+
+    setInterval(cleanList, 500);
+
     function cleanList() {
         const productCardSnippets = document.querySelectorAll(PRODUCT_CARD_SNIPPET_SELECTOR);
 
