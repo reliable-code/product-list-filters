@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Yamarket List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.1
+// @version      0.1.1
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
@@ -11,4 +11,13 @@
 // ==/UserScript==
 
 (function main() {
+
+    function getCategoryName() {
+        const { pathname } = window.location;
+        const pathElements = pathname.split('/');
+        const lastPathElement = pathElements.pop();
+        const categoryName = lastPathElement || 'common';
+        console.log(categoryName);
+        return categoryName;
+    }
 }());
