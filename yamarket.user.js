@@ -14,8 +14,9 @@
     const MIN_REVIEWS = 5;
     const MIN_RATING = 4.8;
 
-    const PRODUCT_CARD_SNIPPET_SELECTOR = '[data-apiary-widget-name="@marketfront/Snippet"]';
     const VIRTUOSO_SCROLLER_SELECTOR = '[data-virtuoso-scroller="true"]';
+    const PRODUCT_CARD_SNIPPET_SELECTOR = '[data-autotest-id="product-snippet"]';
+    const PRODUCT_CARD_PARENT_ATTRIBUTE = 'data-apiary-widget-name';
 
     const CATEGORY_NAME = getCategoryName();
     const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
@@ -42,7 +43,14 @@
 
         productCardSnippets.forEach(
             (productCardSnippet) => {
-                const productCard = productCardSnippet.parentNode.parentNode;
+                const productCardSnippetParent = productCardSnippet.parentNode;
+
+                const isFirstLoad =
+                    productCardSnippetParent.hasAttribute(PRODUCT_CARD_PARENT_ATTRIBUTE);
+
+                const productCard = isFirstLoad
+                    ? productCardSnippetParent.parentNode.parentNode
+                    : productCardSnippetParent;
 
                 const ratingMeter = productCardSnippet.querySelector('[role="meter"]');
 
