@@ -24,9 +24,8 @@
     function getCategoryName() {
         const { pathname } = window.location;
         const pathElements = pathname.split('/');
-        const lastPathElement = pathElements.pop();
-        const categoryName = lastPathElement || 'common';
-        console.log(categoryName);
+        const categoryName = pathElements[1] ?? 'common';
+
         return categoryName;
     }
 }());
