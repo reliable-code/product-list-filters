@@ -15,6 +15,7 @@
     const MIN_RATING = 4.8;
 
     const SEARCH_WRAP_SELECTOR = '[data-grabber="SearchSerp"]';
+    const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
     const VIRTUOSO_SCROLLER_SELECTOR = '[data-virtuoso-scroller="true"]';
     const PRODUCT_CARD_SNIPPET_SELECTOR = '[data-autotest-id="product-snippet"]';
     const PRODUCT_CARD_PARENT_ATTRIBUTE = 'data-apiary-widget-name';
@@ -37,6 +38,11 @@
     const searchWrap = document.querySelector(SEARCH_WRAP_SELECTOR);
 
     if (searchWrap) {
+        const searchControls =
+            document.querySelector(SEARCH_CONTROLS_SELECTOR);
+
+        if (searchControls) appendFilterControls(searchControls);
+
         setInterval(cleanList, 500);
     }
 
