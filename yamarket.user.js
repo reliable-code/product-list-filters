@@ -40,6 +40,45 @@
         setInterval(cleanList, 500);
     }
 
+    function appendFilterControls(searchControls) {
+        const filterControls = document.createElement('div');
+        filterControls.style = 'display: flex; gap: 10px;';
+
+        const minDivStyle = '';
+
+        const minReviewsDiv = document.createElement('div');
+        minReviewsDiv.style = minDivStyle;
+        minReviewsDiv.textContent = 'Минимально отзывов: ';
+
+        const minReviewsInput = document.createElement('input');
+        minReviewsInput.type = 'number';
+        minReviewsInput.value = minReviewsValue;
+        minReviewsInput.step = '1';
+        minReviewsInput.min = '1';
+        minReviewsInput.max = '999999';
+        minReviewsInput.addEventListener('change', updateMinReviewsInput);
+        minReviewsDiv.appendChild(minReviewsInput);
+
+        const minRatingDiv = document.createElement('div');
+        minRatingDiv.style = minDivStyle;
+        minRatingDiv.textContent = 'Минимальный рейтинг: ';
+
+        const minRatingInput = document.createElement('input');
+        minRatingInput.type = 'number';
+        minRatingInput.value = minRatingValue;
+        minRatingInput.step = '0.1';
+        minRatingInput.min = '4.0';
+        minRatingInput.max = '5.0';
+        minRatingInput.addEventListener('change', updateMinRatingInput);
+        minRatingDiv.appendChild(minRatingInput);
+
+        filterControls.appendChild(minReviewsDiv);
+        filterControls.appendChild(minRatingDiv);
+
+        const searchControlsParent = searchControls.parentNode;
+        searchControlsParent.insertBefore(filterControls, searchControls.nextSibling);
+    }
+
     function cleanList() {
         const virtuosoScroller = searchWrap.querySelector(VIRTUOSO_SCROLLER_SELECTOR);
         if (virtuosoScroller) virtuosoScroller.style.minHeight = '0';
