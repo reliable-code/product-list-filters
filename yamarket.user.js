@@ -85,6 +85,25 @@
         searchControlsParent.insertBefore(filterControls, searchControls.nextSibling);
     }
 
+    function createFilterControl(
+        controlStyle, titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
+    ) {
+        const filterControl = document.createElement('div');
+        filterControl.style = controlStyle;
+        filterControl.textContent = titleText;
+
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.value = inputValue;
+        input.step = inputStep;
+        input.min = inputMinValue;
+        input.max = inputMaxValue;
+        input.addEventListener('change', inputOnChange);
+        filterControl.appendChild(input);
+
+        return filterControl;
+    }
+
     function cleanList() {
         const virtuosoScroller = searchWrap.querySelector(VIRTUOSO_SCROLLER_SELECTOR);
         if (virtuosoScroller) virtuosoScroller.style.minHeight = '0';
