@@ -105,7 +105,7 @@
                 const ratingMeter = productCardSnippet.querySelector('[role="meter"]');
 
                 if (!ratingMeter) {
-                    removeProductCard(productCard);
+                    productCard.remove();
 
                     return;
                 }
@@ -124,20 +124,10 @@
 
                 if (productCardReviewsDigit < minReviewsValue
                     || productCardRatingDigit < minRatingValue) {
-                    removeProductCard(productCard);
+                    productCard.remove();
                 }
             },
         );
-    }
-
-    function removeProductCard(productCard) {
-        const { parentNode } = productCard;
-
-        productCard.remove();
-
-        if (!parentNode.childNodes.length) {
-            parentNode.parentNode.remove();
-        }
     }
 
     function updateMinReviewsInput(e) {
