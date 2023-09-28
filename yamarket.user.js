@@ -50,33 +50,17 @@
         const filterControls = document.createElement('div');
         filterControls.style = 'display: flex; gap: 10px;';
 
-        const minDivStyle = '';
+        const controlStyle = '';
 
-        const minReviewsDiv = document.createElement('div');
-        minReviewsDiv.style = minDivStyle;
-        minReviewsDiv.textContent = 'Минимально отзывов: ';
+        const minReviewsDiv =
+            createFilterControl(
+                controlStyle, 'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+            );
 
-        const minReviewsInput = document.createElement('input');
-        minReviewsInput.type = 'number';
-        minReviewsInput.value = minReviewsValue;
-        minReviewsInput.step = '1';
-        minReviewsInput.min = '1';
-        minReviewsInput.max = '999999';
-        minReviewsInput.addEventListener('change', updateMinReviewsInput);
-        minReviewsDiv.appendChild(minReviewsInput);
-
-        const minRatingDiv = document.createElement('div');
-        minRatingDiv.style = minDivStyle;
-        minRatingDiv.textContent = 'Минимальный рейтинг: ';
-
-        const minRatingInput = document.createElement('input');
-        minRatingInput.type = 'number';
-        minRatingInput.value = minRatingValue;
-        minRatingInput.step = '0.1';
-        minRatingInput.min = '4.0';
-        minRatingInput.max = '5.0';
-        minRatingInput.addEventListener('change', updateMinRatingInput);
-        minRatingDiv.appendChild(minRatingInput);
+        const minRatingDiv =
+            createFilterControl(
+                controlStyle, 'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
+            );
 
         filterControls.appendChild(minReviewsDiv);
         filterControls.appendChild(minRatingDiv);
