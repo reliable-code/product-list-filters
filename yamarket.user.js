@@ -50,16 +50,15 @@
         const filterControls = document.createElement('div');
         filterControls.style = 'display: flex; gap: 10px;';
 
-        const controlStyle = '';
 
         const minReviewsDiv =
             createFilterControl(
-                controlStyle, 'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+                'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
             );
 
         const minRatingDiv =
             createFilterControl(
-                controlStyle, 'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
+                'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
             );
 
         filterControls.appendChild(minReviewsDiv);
@@ -70,7 +69,10 @@
     }
 
     function createFilterControl(
-        controlStyle, titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
+        titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
+    ) {
+        const controlStyle = 'border-radius: 7px;';
+        const inputStyle = '';
     ) {
         const filterControl = document.createElement('div');
         filterControl.style = controlStyle;
