@@ -48,8 +48,8 @@
 
     function appendFilterControls(searchControls) {
         const filterControls = document.createElement('div');
-        filterControls.style = 'display: flex; gap: 10px;';
-
+        filterControls.style =
+            'display: flex; gap: 10px; padding: 0 10px 15px; font-size: 14px; font-weight: 500;';
 
         const minReviewsDiv =
             createFilterControl(
