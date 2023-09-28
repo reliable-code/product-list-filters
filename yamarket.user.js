@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Yamarket List Clean
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.3
+// @version      0.3.1
 // @description  Remove product cards by filter
 // @author       reliable-code
 // @license      MIT
