@@ -109,6 +109,27 @@
         filtersBlockContainer.appendChild(minPriceDiv);
     }
 
+    function createFilterControl(
+        titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
+    ) {
+        const controlStyle = 'padding-left: 7px; margin-top: 14px;';
+        const inputStyle = '';
+
+        const filterControl =
+            createDefaultFilterControl(
+                controlStyle,
+                titleText,
+                inputStyle,
+                inputValue,
+                inputStep,
+                inputMinValue,
+                inputMaxValue,
+                inputOnChange,
+            );
+
+        return filterControl;
+    }
+
     function createDefaultFilterControl(
         controlStyle,
         titleText,
