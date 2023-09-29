@@ -145,30 +145,32 @@
         productCards.forEach(
             (productCard) => {
                 const productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
-
-                const productCardReviewsText = productCardReviews.innerText;
-                const productCardReviewsDigit = +productCardReviewsText.replace(/\D/g, '');
+                const productCardReviewsNumber = getElementInnerNumber(productCardReviews);
 
                 const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
-
-                const productCardRatingText = productCardRating.innerText;
-                const productCardRatingDigit = +productCardRatingText;
+                const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
                 const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
 
-                let productCardPriceDigit = 0;
+                let productCardPriceNumber = 0;
 
                 if (productCardPrice) {
-                    const productCardPriceText = productCardPrice.innerText;
-                    productCardPriceDigit = +productCardPriceText.replace(/\D/g, '');
+                    productCardPriceNumber = getElementInnerNumber(productCardPrice);
                 }
 
-                if (productCardReviewsDigit < minReviewsValue
-                    || productCardRatingDigit < minRatingValue
-                    || productCardPriceDigit < minPriceValue) {
+                if (productCardReviewsNumber < minReviewsValue
+                    || productCardRatingNumber < minRatingValue
+                    || productCardPriceNumber < minPriceValue) {
                     productCard.remove();
                 }
             },
         );
+    }
+
+    function getElementInnerNumber(element) {
+        const elementText = element.innerText;
+        const elementNumber = +elementText.replace(/\D/g, '');
+
+        return elementNumber;
     }
 }());
