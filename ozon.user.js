@@ -29,6 +29,14 @@
     const minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
     const minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
 
+    function getCategoryName() {
+        const { pathname } = window.location;
+        const pathElements = pathname.split('/');
+        const categoryName = pathElements[2] ?? 'common';
+
+        return categoryName;
+    }
+
     if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
         window.scrollTo(0, document.body.scrollHeight);
         setTimeout(() => {
@@ -45,14 +53,6 @@
 
             initListClean();
         }, 1500);
-    }
-
-    function getCategoryName() {
-        const { pathname } = window.location;
-        const pathElements = pathname.split('/');
-        const categoryName = pathElements[2] ?? 'common';
-
-        return categoryName;
     }
 
     function initListClean() {
@@ -74,6 +74,19 @@
         cleanList();
 
         window.addEventListener('scroll', cleanList);
+    }
+
+    function updateMinReviewsInput(e) {
+        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateMinRatingInput(e) {
+        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateInput(keyName, e) {
+        localStorage.setItem(keyName, e.target.value);
+        window.location.reload();
     }
 
     function createFilterControl(
@@ -163,18 +176,5 @@
         const elementNumber = +elementText;
 
         return elementNumber;
-    }
-
-    function updateMinReviewsInput(e) {
-        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
-    }
-
-    function updateMinRatingInput(e) {
-        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-    }
-
-    function updateInput(keyName, e) {
-        localStorage.setItem(keyName, e.target.value);
-        window.location.reload();
     }
 }());

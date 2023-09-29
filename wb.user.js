@@ -93,6 +93,19 @@
         filtersBlockContainer.appendChild(minPriceDiv);
     }
 
+    function updateMinReviewsInput(e) {
+        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateMinRatingInput(e) {
+        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateInput(keyName, e) {
+        localStorage.setItem(keyName, e.target.value);
+        window.location.reload();
+    }
+
     function createFilterControl(
         controlStyle,
         titleText,
@@ -116,6 +129,14 @@
         filterControl.appendChild(input);
 
         return filterControl;
+    }
+
+    function checkMinPrice() {
+        const currentMinPriceValue = getMinPriceValueFromURL();
+
+        if (minPriceValue !== currentMinPriceValue) {
+            window.location.reload();
+        }
     }
 
     function cleanList() {
@@ -149,26 +170,5 @@
                 }
             },
         );
-    }
-
-    function checkMinPrice() {
-        const currentMinPriceValue = getMinPriceValueFromURL();
-
-        if (minPriceValue !== currentMinPriceValue) {
-            window.location.reload();
-        }
-    }
-
-    function updateMinReviewsInput(e) {
-        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
-    }
-
-    function updateMinRatingInput(e) {
-        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-    }
-
-    function updateInput(keyName, e) {
-        localStorage.setItem(keyName, e.target.value);
-        window.location.reload();
     }
 }());

@@ -68,6 +68,19 @@
         searchControlsParent.insertBefore(filterControls, searchControls.nextSibling);
     }
 
+    function updateMinReviewsInput(e) {
+        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateMinRatingInput(e) {
+        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateInput(keyName, e) {
+        localStorage.setItem(keyName, e.target.value);
+        window.location.reload();
+    }
+
     function createFilterControl(
         titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
     ) {
@@ -160,18 +173,5 @@
                 }
             },
         );
-    }
-
-    function updateMinReviewsInput(e) {
-        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
-    }
-
-    function updateMinRatingInput(e) {
-        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-    }
-
-    function updateInput(keyName, e) {
-        localStorage.setItem(keyName, e.target.value);
-        window.location.reload();
     }
 }());

@@ -47,6 +47,15 @@
         mainContent.insertBefore(minDiscountDiv, mainContent.firstChild);
     }
 
+    function updateMinDiscountInput(e) {
+        updateInput(MIN_DISCOUNT_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateInput(keyName, e) {
+        localStorage.setItem(keyName, e.target.value);
+        window.location.reload();
+    }
+
     function cleanList() {
         if (minDiscountValue === 0) {
             return;
@@ -82,14 +91,5 @@
                 },
             );
         }
-    }
-
-    function updateMinDiscountInput(e) {
-        updateInput(MIN_DISCOUNT_LOCAL_STORAGE_KEY, e);
-    }
-
-    function updateInput(keyName, e) {
-        localStorage.setItem(keyName, e.target.value);
-        window.location.reload();
     }
 }());
