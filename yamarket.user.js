@@ -161,14 +161,14 @@
 
                 const productCardReviews = ratingInfoSpans[1];
                 const productCardReviewsText = productCardReviews.innerText;
-                const productCardReviewsDigit = +productCardReviewsText;
+                const productCardReviewsNumber = +productCardReviewsText;
 
                 const productCardRating = ratingInfoSpans[0];
                 const productCardRatingText = productCardRating.innerText;
-                const productCardRatingDigit = +productCardRatingText;
+                const productCardRatingNumber = +productCardRatingText;
 
-                if (productCardReviewsDigit < minReviewsValue
-                    || productCardRatingDigit < minRatingValue) {
+                if (productCardReviewsNumber < minReviewsValue
+                    || productCardRatingNumber < minRatingValue) {
                     productCard.remove();
                 }
             },
