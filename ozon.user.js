@@ -79,8 +79,10 @@
     function createFilterControl(
         titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
     ) {
-        const controlStyle = 'padding-left: 14px; margin-top: 12px;';
-        const inputStyle = 'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px;';
+        const controlStyle =
+            'padding-left: 14px; margin-top: 12px;';
+        const inputStyle =
+            'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px; width: 90px;';
 
         const filterControl =
             createDefaultFilterControl(
