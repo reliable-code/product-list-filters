@@ -58,32 +58,15 @@
     function initListClean() {
         const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
 
-        const minDivStyle = 'padding-left: 14px; margin-top: 12px;';
-        const minInputStyle = 'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px;';
+        const minReviewsDiv =
+            createFilterControl(
+                'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+            );
 
-        const minReviewsDiv = document.createElement('div');
-        minReviewsDiv.style = minDivStyle;
-        const minReviewsDivText = document.createTextNode('Минимально отзывов: ');
-        minReviewsDiv.appendChild(minReviewsDivText);
-
-        const minReviewsInput = document.createElement('input');
-        minReviewsInput.type = 'number';
-        minReviewsInput.value = minReviewsValue;
-        minReviewsInput.style = minInputStyle;
-        minReviewsInput.addEventListener('change', updateMinReviewsInput);
-        minReviewsDiv.appendChild(minReviewsInput);
-
-        const minRatingDiv = document.createElement('div');
-        minRatingDiv.style = minDivStyle;
-        const minRatingDivText = document.createTextNode('Минимальный рейтинг: ');
-        minRatingDiv.appendChild(minRatingDivText);
-
-        const minRatingInput = document.createElement('input');
-        minRatingInput.type = 'number';
-        minRatingInput.value = minRatingValue;
-        minRatingInput.style = minInputStyle;
-        minRatingInput.addEventListener('change', updateMinRatingInput);
-        minRatingDiv.appendChild(minRatingInput);
+        const minRatingDiv =
+            createFilterControl(
+                'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
+            );
 
         searchResultsSort.appendChild(minReviewsDiv);
         searchResultsSort.appendChild(minRatingDiv);
