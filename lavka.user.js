@@ -28,6 +28,25 @@
         setInterval(cleanList, 500);
     }
 
+    function appendFilterControls() {
+        const minDivStyle = '';
+
+        const minDiscountDiv = document.createElement('div');
+        minDiscountDiv.style = minDivStyle;
+        minDiscountDiv.textContent = 'Минимальная скидка: ';
+
+        const minDiscountInput = document.createElement('input');
+        minDiscountInput.type = 'number';
+        minDiscountInput.value = minDiscountValue;
+        minDiscountInput.step = '1';
+        minDiscountInput.min = '0';
+        minDiscountInput.max = '100';
+        minDiscountInput.addEventListener('change', updateMinDiscountInput);
+        minDiscountDiv.appendChild(minDiscountInput);
+
+        mainContent.insertBefore(minDiscountDiv, mainContent.firstChild);
+    }
+
     function cleanList() {
         if (minDiscountValue === 0) {
             return;
@@ -63,25 +82,6 @@
                 },
             );
         }
-    }
-
-    function appendFilterControls() {
-        const minDivStyle = '';
-
-        const minDiscountDiv = document.createElement('div');
-        minDiscountDiv.style = minDivStyle;
-        minDiscountDiv.textContent = 'Минимальная скидка: ';
-
-        const minDiscountInput = document.createElement('input');
-        minDiscountInput.type = 'number';
-        minDiscountInput.value = minDiscountValue;
-        minDiscountInput.step = '1';
-        minDiscountInput.min = '0';
-        minDiscountInput.max = '100';
-        minDiscountInput.addEventListener('change', updateMinDiscountInput);
-        minDiscountDiv.appendChild(minDiscountInput);
-
-        mainContent.insertBefore(minDiscountDiv, mainContent.firstChild);
     }
 
     function updateMinDiscountInput(e) {
