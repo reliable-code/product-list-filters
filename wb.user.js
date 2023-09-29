@@ -58,6 +58,8 @@
         const filtersBlockWrap = document.querySelector(FILTERS_BLOCK_WRAP_SELECTOR);
 
         if (filtersBlockWrap) {
+            removeRecentItemsBlock();
+
             const filtersBlockContainer = document.createElement('div');
             filtersBlockContainer.classList.add('filters-block__container');
             filtersBlockContainer.style = 'display: flex;';
@@ -68,6 +70,15 @@
             setInterval(cleanList, 500);
         }
     }, 1000);
+
+    function removeRecentItemsBlock() {
+        const recentItems = document.querySelector('.j-recent-items');
+
+        if (recentItems) {
+            const { parentNode } = recentItems;
+            parentNode.remove();
+        }
+    }
 
     function appendFilterControls(filtersBlockContainer) {
         const controlStyle = 'padding-left: 7px; margin-top: 14px;';
