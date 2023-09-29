@@ -145,21 +145,24 @@
                 const productCardRatingWrapSpans = productCardRatingWrap.querySelectorAll(':scope > span');
 
                 const productCardReviews = productCardRatingWrapSpans[1];
-
-                const productCardReviewsText = productCardReviews.innerText;
-                const productCardReviewsDigit = +productCardReviewsText;
+                const productCardReviewsNumber = getElementInnerNumber(productCardReviews);
 
                 const productCardRating = productCardRatingWrapSpans[0];
+                const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
-                const productCardRatingText = productCardRating.innerText;
-                const productCardRatingDigit = +productCardRatingText;
-
-                if (productCardReviewsDigit < minReviewsValue
-                    || productCardRatingDigit < minRatingValue) {
+                if (productCardReviewsNumber < minReviewsValue
+                    || productCardRatingNumber < minRatingValue) {
                     productCard.remove();
                 }
             },
         );
+    }
+
+    function getElementInnerNumber(element) {
+        const elementText = element.innerText;
+        const elementNumber = +elementText;
+
+        return elementNumber;
     }
 
     function updateMinReviewsInput(e) {
