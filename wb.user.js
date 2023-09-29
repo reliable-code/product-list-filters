@@ -162,12 +162,7 @@
                 const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
                 const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
-
-                let productCardPriceNumber = 0;
-
-                if (productCardPrice) {
-                    productCardPriceNumber = getElementInnerNumber(productCardPrice);
-                }
+                const productCardPriceNumber = getElementInnerNumber(productCardPrice);
 
                 if (productCardReviewsNumber < minReviewsValue
                     || productCardRatingNumber < minRatingValue
