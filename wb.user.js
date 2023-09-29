@@ -39,6 +39,21 @@
         return categoryName;
     }
 
+    function getMinPriceValueFromURL() {
+        const params = new URLSearchParams(window.location.search);
+
+        if (!params.has(PRICE_FILTER_URL_PARAMS_NAME)) {
+            return 0;
+        }
+
+        const priceFilterParams = params.get(PRICE_FILTER_URL_PARAMS_NAME);
+        const priceFilterParamsArray = priceFilterParams.split(';');
+        const minPriceFilterParam = priceFilterParamsArray[0];
+        const minPriceFilterValue = minPriceFilterParam / 100;
+
+        return minPriceFilterValue;
+    }
+
     setTimeout(() => {
         const filtersBlockWrap = document.querySelector(FILTERS_BLOCK_WRAP_SELECTOR);
 
@@ -53,39 +68,6 @@
             setInterval(cleanList, 500);
         }
     }, 1000);
-
-    function cleanList() {
-        const productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
-
-        productCards.forEach(
-            (productCard) => {
-                const productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
-
-                const productCardReviewsText = productCardReviews.innerText;
-                const productCardReviewsDigit = +productCardReviewsText.replace(/\D/g, '');
-
-                const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
-
-                const productCardRatingText = productCardRating.innerText;
-                const productCardRatingDigit = +productCardRatingText;
-
-                const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
-
-                let productCardPriceDigit = 0;
-
-                if (productCardPrice) {
-                    const productCardPriceText = productCardPrice.innerText;
-                    productCardPriceDigit = +productCardPriceText.replace(/\D/g, '');
-                }
-
-                if (productCardReviewsDigit < minReviewsValue
-                    || productCardRatingDigit < minRatingValue
-                    || productCardPriceDigit < minPriceValue) {
-                    productCard.remove();
-                }
-            },
-        );
-    }
 
     function appendFilterControls(filtersBlockContainer) {
         const minDivStyle = 'padding-left: 7px; margin-top: 14px;';
@@ -127,27 +109,37 @@
         filtersBlockContainer.appendChild(minPriceDiv);
     }
 
-    function updateMinReviewsInput(e) {
-        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
-    }
+    function cleanList() {
+        const productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
 
-    function updateMinRatingInput(e) {
-        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-    }
+        productCards.forEach(
+            (productCard) => {
+                const productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
 
-    function getMinPriceValueFromURL() {
-        const params = new URLSearchParams(window.location.search);
+                const productCardReviewsText = productCardReviews.innerText;
+                const productCardReviewsDigit = +productCardReviewsText.replace(/\D/g, '');
 
-        if (!params.has(PRICE_FILTER_URL_PARAMS_NAME)) {
-            return 0;
-        }
+                const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
 
-        const priceFilterParams = params.get(PRICE_FILTER_URL_PARAMS_NAME);
-        const priceFilterParamsArray = priceFilterParams.split(';');
-        const minPriceFilterParam = priceFilterParamsArray[0];
-        const minPriceFilterValue = minPriceFilterParam / 100;
+                const productCardRatingText = productCardRating.innerText;
+                const productCardRatingDigit = +productCardRatingText;
 
-        return minPriceFilterValue;
+                const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
+
+                let productCardPriceDigit = 0;
+
+                if (productCardPrice) {
+                    const productCardPriceText = productCardPrice.innerText;
+                    productCardPriceDigit = +productCardPriceText.replace(/\D/g, '');
+                }
+
+                if (productCardReviewsDigit < minReviewsValue
+                    || productCardRatingDigit < minRatingValue
+                    || productCardPriceDigit < minPriceValue) {
+                    productCard.remove();
+                }
+            },
+        );
     }
 
     function checkMinPrice() {
@@ -156,6 +148,14 @@
         if (minPriceValue !== currentMinPriceValue) {
             window.location.reload();
         }
+    }
+
+    function updateMinReviewsInput(e) {
+        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    }
+
+    function updateMinRatingInput(e) {
+        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
     }
 
     function updateInput(keyName, e) {
