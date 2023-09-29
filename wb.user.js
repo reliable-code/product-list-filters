@@ -70,36 +70,20 @@
     }, 1000);
 
     function appendFilterControls(filtersBlockContainer) {
-        const minDivStyle = 'padding-left: 7px; margin-top: 14px;';
+        const controlStyle = 'padding-left: 7px; margin-top: 14px;';
 
-        const minReviewsDiv = document.createElement('div');
-        minReviewsDiv.style = minDivStyle;
-        minReviewsDiv.textContent = 'Минимально отзывов: ';
+        const minReviewsDiv =
+            createFilterControl(
+                controlStyle, 'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+            );
 
-        const minReviewsInput = document.createElement('input');
-        minReviewsInput.type = 'number';
-        minReviewsInput.value = minReviewsValue;
-        minReviewsInput.step = '1';
-        minReviewsInput.min = '1';
-        minReviewsInput.max = '999999';
-        minReviewsInput.addEventListener('change', updateMinReviewsInput);
-        minReviewsDiv.appendChild(minReviewsInput);
-
-        const minRatingDiv = document.createElement('div');
-        minRatingDiv.style = minDivStyle;
-        minRatingDiv.textContent = 'Минимальный рейтинг: ';
-
-        const minRatingInput = document.createElement('input');
-        minRatingInput.type = 'number';
-        minRatingInput.value = minRatingValue;
-        minRatingInput.step = '0.1';
-        minRatingInput.min = '4.0';
-        minRatingInput.max = '5.0';
-        minRatingInput.addEventListener('change', updateMinRatingInput);
-        minRatingDiv.appendChild(minRatingInput);
+        const minRatingDiv =
+            createFilterControl(
+                controlStyle, 'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
+            );
 
         const minPriceDiv = document.createElement('div');
-        minPriceDiv.style = minDivStyle;
+        minPriceDiv.style = controlStyle;
         minPriceDiv.textContent = `Минимальная цена: ${minPriceValue}`;
 
         setInterval(checkMinPrice, 1500);
@@ -110,30 +94,8 @@
     }
 
     function createFilterControl(
-        titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
-    ) {
-        const controlStyle = 'padding-left: 7px; margin-top: 14px;';
-        const inputStyle = '';
-
-        const filterControl =
-            createDefaultFilterControl(
-                controlStyle,
-                titleText,
-                inputStyle,
-                inputValue,
-                inputStep,
-                inputMinValue,
-                inputMaxValue,
-                inputOnChange,
-            );
-
-        return filterControl;
-    }
-
-    function createDefaultFilterControl(
         controlStyle,
         titleText,
-        inputStyle,
         inputValue,
         inputStep,
         inputMinValue,
@@ -145,7 +107,6 @@
         filterControl.textContent = titleText;
 
         const input = document.createElement('input');
-        input.style = inputStyle;
         input.type = 'number';
         input.value = inputValue;
         input.step = inputStep;
