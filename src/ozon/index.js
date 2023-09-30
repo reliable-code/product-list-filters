@@ -1,4 +1,4 @@
-import { updateInput, getElementInnerNumber } from '../common/dom';
+import { updateInput, createDefaultFilterControl, getElementInnerNumber } from '../common/dom';
 
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
@@ -92,33 +92,6 @@ function createFilterControl(
             inputMaxValue,
             inputOnChange,
         );
-
-    return filterControl;
-}
-
-function createDefaultFilterControl(
-    controlStyle,
-    titleText,
-    inputStyle,
-    inputValue,
-    inputStep,
-    inputMinValue,
-    inputMaxValue,
-    inputOnChange,
-) {
-    const filterControl = document.createElement('div');
-    filterControl.style = controlStyle;
-    filterControl.textContent = titleText;
-
-    const input = document.createElement('input');
-    input.style = inputStyle;
-    input.type = 'number';
-    input.value = inputValue;
-    input.step = inputStep;
-    input.min = inputMinValue;
-    input.max = inputMaxValue;
-    input.addEventListener('change', inputOnChange);
-    filterControl.appendChild(input);
 
     return filterControl;
 }
