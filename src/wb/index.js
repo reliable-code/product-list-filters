@@ -160,9 +160,10 @@ function cleanList() {
     );
 }
 
-function getElementInnerNumber(element) {
-    const elementText = element.innerText;
-    const elementNumber = +elementText.replace(/\D/g, '');
+function getElementInnerNumber(element, cleanText = false) {
+    let elementText = element.innerText;
+    if (cleanText) elementText = elementText.replace(/\D/g, '');
+    const elementNumber = +elementText;
 
     return elementNumber;
 }
