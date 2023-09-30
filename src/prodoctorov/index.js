@@ -1,3 +1,5 @@
+import { updateInput } from '../common/dom';
+
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
@@ -46,11 +48,6 @@ function initListClean() {
 
 function updateMinReviewsInput(e) {
     updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
-}
-
-function updateInput(keyName, e) {
-    localStorage.setItem(keyName, e.target.value);
-    window.location.reload();
 }
 
 function removeSpecialPlacementCards() {

@@ -1,4 +1,4 @@
-import { getElementInnerNumber } from '../common/dom';
+import { updateInput, getElementInnerNumber } from '../common/dom';
 
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
@@ -71,11 +71,6 @@ function updateMinReviewsInput(e) {
 
 function updateMinRatingInput(e) {
     updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-}
-
-function updateInput(keyName, e) {
-    localStorage.setItem(keyName, e.target.value);
-    window.location.reload();
 }
 
 function createFilterControl(

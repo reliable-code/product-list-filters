@@ -6,3 +6,7 @@ export function getElementInnerNumber(element, cleanText = false) {
     return elementNumber;
 }
 
+export function updateInput(keyName, e) {
+    localStorage.setItem(keyName, e.target.value);
+    window.location.reload();
+}

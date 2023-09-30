@@ -1,4 +1,4 @@
-import { getElementInnerNumber } from '../common/dom';
+import { updateInput, getElementInnerNumber } from '../common/dom';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
@@ -99,11 +99,6 @@ function updateMinReviewsInput(e) {
 
 function updateMinRatingInput(e) {
     updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-}
-
-function updateInput(keyName, e) {
-    localStorage.setItem(keyName, e.target.value);
-    window.location.reload();
 }
 
 function createFilterControl(
