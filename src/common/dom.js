@@ -10,8 +10,8 @@ export function createDefaultFilterControl(
     inputMinValue,
     inputMaxValue,
     inputOnChange,
-    controlStyle,
-    inputStyle,
+    controlStyle = '',
+    inputStyle = '',
 ) {
     const filterControl = document.createElement('div');
     filterControl.style = controlStyle;
