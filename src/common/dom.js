@@ -4,14 +4,14 @@ export function updateInput(keyName, e) {
 }
 
 export function createDefaultFilterControl(
-    controlStyle,
     titleText,
-    inputStyle,
     inputValue,
     inputStep,
     inputMinValue,
     inputMaxValue,
     inputOnChange,
+    controlStyle,
+    inputStyle,
 ) {
     const filterControl = document.createElement('div');
     filterControl.style = controlStyle;

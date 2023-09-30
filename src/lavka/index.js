@@ -22,9 +22,7 @@ function appendFilterControls() {
     const inputStyle = '';
 
     const minDiscountDiv =
-        createDefaultFilterControl(
-            controlStyle, 'Минимальная скидка: ', inputStyle, minDiscountValue, '1', '0', '100', updateMinDiscountInput,
-        );
+        createDefaultFilterControl('Минимальная скидка: ', minDiscountValue, '1', '0', '100', updateMinDiscountInput, controlStyle, inputStyle);
 
     mainContent.insertBefore(minDiscountDiv, mainContent.firstChild);
 }

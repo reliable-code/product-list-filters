@@ -74,14 +74,10 @@ function appendFilterControls(filtersBlockContainer) {
     const inputStyle = '';
 
     const minReviewsDiv =
-        createDefaultFilterControl(
-            controlStyle, 'Минимально отзывов: ', inputStyle, minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
-        );
+        createDefaultFilterControl('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput, controlStyle, inputStyle);
 
     const minRatingDiv =
-        createDefaultFilterControl(
-            controlStyle, 'Минимальный рейтинг: ', inputStyle, minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
-        );
+        createDefaultFilterControl('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, controlStyle, inputStyle);
 
     const minPriceDiv = document.createElement('div');
     minPriceDiv.style = controlStyle;

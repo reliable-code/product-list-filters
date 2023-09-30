@@ -27,9 +27,7 @@ function initListClean() {
     const inputStyle = '';
 
     const minReviewsDiv =
-        createDefaultFilterControl(
-            controlStyle, 'Минимально отзывов: ', inputStyle, minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
-        );
+        createDefaultFilterControl('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput, controlStyle, inputStyle);
 
     minReviewsDiv.id = MIN_REVIEWS_DIV_ID;
 

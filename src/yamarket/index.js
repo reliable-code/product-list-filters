@@ -45,14 +45,10 @@ function appendFilterControls(searchControls) {
         'border-radius: 7px; border: none; padding: 9px 11px; box-shadow: inset 0 0 0 1.5px #d2d0cc;';
 
     const minReviewsDiv =
-        createDefaultFilterControl(
-            controlStyle, 'Минимально отзывов: ', inputStyle, minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
-        );
+        createDefaultFilterControl('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput, controlStyle, inputStyle);
 
     const minRatingDiv =
-        createDefaultFilterControl(
-            controlStyle, 'Минимальный рейтинг: ', inputStyle, minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
-        );
+        createDefaultFilterControl('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, controlStyle, inputStyle);
 
     filterControls.appendChild(minReviewsDiv);
     filterControls.appendChild(minRatingDiv);
