@@ -1,3 +1,5 @@
+import { getElementInnerNumber } from '../common/dom';
+
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
 const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
@@ -156,11 +158,4 @@ function cleanList() {
             }
         },
     );
-}
-
-function getElementInnerNumber(element) {
-    const elementText = element.innerText;
-    const elementNumber = +elementText;
-
-    return elementNumber;
 }

@@ -1,3 +1,5 @@
+import { getElementInnerNumber } from '../common/dom';
+
 const MIN_REVIEWS = 5;
 const MIN_RATING = 4.8;
 
@@ -158,11 +160,4 @@ function cleanList() {
             }
         },
     );
-}
-
-function getElementInnerNumber(element) {
-    const elementText = element.innerText;
-    const elementNumber = +elementText;
-
-    return elementNumber;
 }

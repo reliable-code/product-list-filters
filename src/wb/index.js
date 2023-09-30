@@ -1,3 +1,5 @@
+import { getElementInnerNumber } from '../common/dom';
+
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
 
@@ -158,12 +160,4 @@ function cleanList() {
             }
         },
     );
-}
-
-function getElementInnerNumber(element, cleanText = false) {
-    let elementText = element.innerText;
-    if (cleanText) elementText = elementText.replace(/\D/g, '');
-    const elementNumber = +elementText;
-
-    return elementNumber;
 }
