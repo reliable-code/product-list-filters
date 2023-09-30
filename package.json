@@ -7,6 +7,10 @@
     "url": "git+https://github.com/reliable-code/product-list-filters.git"
   },
   "author": "reliable-code",
+  "scripts": {
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
   "devDependencies": {
     "eslint": "^8.50.0",
     "eslint-config-airbnb-base": "^15.0.0",
