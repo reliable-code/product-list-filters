@@ -1,4 +1,4 @@
-import { updateInput, getElementInnerNumber } from '../common/dom';
+import { updateInput, createDefaultFilterControl, getElementInnerNumber } from '../common/dom';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
@@ -71,15 +71,16 @@ function removeRecentItemsBlock() {
 
 function appendFilterControls(filtersBlockContainer) {
     const controlStyle = 'padding-left: 7px; margin-top: 14px;';
+    const inputStyle = '';
 
     const minReviewsDiv =
-        createFilterControl(
-            controlStyle, 'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+        createDefaultFilterControl(
+            controlStyle, 'Минимально отзывов: ', inputStyle, minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
         );
 
     const minRatingDiv =
-        createFilterControl(
-            controlStyle, 'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
+        createDefaultFilterControl(
+            controlStyle, 'Минимальный рейтинг: ', inputStyle, minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
         );
 
     const minPriceDiv = document.createElement('div');
@@ -99,31 +100,6 @@ function updateMinReviewsInput(e) {
 
 function updateMinRatingInput(e) {
     updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-}
-
-function createFilterControl(
-    controlStyle,
-    titleText,
-    inputValue,
-    inputStep,
-    inputMinValue,
-    inputMaxValue,
-    inputOnChange,
-) {
-    const filterControl = document.createElement('div');
-    filterControl.style = controlStyle;
-    filterControl.textContent = titleText;
-
-    const input = document.createElement('input');
-    input.type = 'number';
-    input.value = inputValue;
-    input.step = inputStep;
-    input.min = inputMinValue;
-    input.max = inputMaxValue;
-    input.addEventListener('change', inputOnChange);
-    filterControl.appendChild(input);
-
-    return filterControl;
 }
 
 function checkMinPrice() {
