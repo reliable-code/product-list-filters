@@ -40,14 +40,18 @@ function appendFilterControls(searchControls) {
     filterControls.style =
         'display: flex; gap: 10px; padding: 0 10px 15px; font-size: 16px; font-weight: 500;';
 
+    const controlStyle = '';
+    const inputStyle =
+        'border-radius: 7px; border: none; padding: 9px 11px; box-shadow: inset 0 0 0 1.5px #d2d0cc;';
+
     const minReviewsDiv =
-        createFilterControl(
-            'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+        createDefaultFilterControl(
+            controlStyle, 'Минимально отзывов: ', inputStyle, minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
         );
 
     const minRatingDiv =
-        createFilterControl(
-            'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
+        createDefaultFilterControl(
+            controlStyle, 'Минимальный рейтинг: ', inputStyle, minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
         );
 
     filterControls.appendChild(minReviewsDiv);
@@ -63,28 +67,6 @@ function updateMinReviewsInput(e) {
 
 function updateMinRatingInput(e) {
     updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-}
-
-function createFilterControl(
-    titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
-) {
-    const controlStyle = '';
-    const inputStyle =
-        'border-radius: 7px; border: none; padding: 9px 11px; box-shadow: inset 0 0 0 1.5px #d2d0cc;';
-
-    const filterControl =
-        createDefaultFilterControl(
-            controlStyle,
-            titleText,
-            inputStyle,
-            inputValue,
-            inputStep,
-            inputMinValue,
-            inputMaxValue,
-            inputOnChange,
-        );
-
-    return filterControl;
 }
 
 function cleanList() {
