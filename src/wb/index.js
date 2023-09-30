@@ -1,182 +1,168 @@
-// ==UserScript==
-// @name         WB List Clean
-// @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.5
-// @description  Remove product cards by filter
-// @author       reliable-code
-// @license      MIT
-// @match        https://www.wildberries.ru/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=wildberries.ru
-// @grant        none
-// ==/UserScript==
+const MIN_REVIEWS = 50;
+const MIN_RATING = 4.8;
 
-(function main() {
-    const MIN_REVIEWS = 50;
-    const MIN_RATING = 4.8;
+const CATEGORY_NAME = getCategoryName();
+const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
+const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
-    const CATEGORY_NAME = getCategoryName();
-    const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
-    const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
+const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
+const PRODUCT_CARD_SELECTOR = '.product-card';
+const PRODUCT_CARD_REVIEWS_SELECTOR = '.product-card__count';
+const PRODUCT_CARD_RATING_SELECTOR = '.address-rate-mini';
+const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
 
-    const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
-    const PRODUCT_CARD_SELECTOR = '.product-card';
-    const PRODUCT_CARD_REVIEWS_SELECTOR = '.product-card__count';
-    const PRODUCT_CARD_RATING_SELECTOR = '.address-rate-mini';
-    const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
+const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
-    const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
+const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
+const minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
+const minPriceValue = getMinPriceValueFromURL();
 
-    const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
-    const minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
-    const minPriceValue = getMinPriceValueFromURL();
+function getCategoryName() {
+    const { pathname } = window.location;
+    const pathElements = pathname.split('/');
+    const lastPathElement = pathElements.pop();
+    const categoryName = lastPathElement || 'common';
 
-    function getCategoryName() {
-        const { pathname } = window.location;
-        const pathElements = pathname.split('/');
-        const lastPathElement = pathElements.pop();
-        const categoryName = lastPathElement || 'common';
+    return categoryName;
+}
 
-        return categoryName;
+function getMinPriceValueFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    if (!params.has(PRICE_FILTER_URL_PARAMS_NAME)) {
+        return 0;
     }
 
-    function getMinPriceValueFromURL() {
-        const params = new URLSearchParams(window.location.search);
+    const priceFilterParams = params.get(PRICE_FILTER_URL_PARAMS_NAME);
+    const priceFilterParamsArray = priceFilterParams.split(';');
+    const minPriceFilterParam = priceFilterParamsArray[0];
+    const minPriceFilterValue = minPriceFilterParam / 100;
 
-        if (!params.has(PRICE_FILTER_URL_PARAMS_NAME)) {
-            return 0;
-        }
+    return minPriceFilterValue;
+}
 
-        const priceFilterParams = params.get(PRICE_FILTER_URL_PARAMS_NAME);
-        const priceFilterParamsArray = priceFilterParams.split(';');
-        const minPriceFilterParam = priceFilterParamsArray[0];
-        const minPriceFilterValue = minPriceFilterParam / 100;
+setTimeout(() => {
+    const filtersBlockWrap = document.querySelector(FILTERS_BLOCK_WRAP_SELECTOR);
 
-        return minPriceFilterValue;
+    if (filtersBlockWrap) {
+        removeRecentItemsBlock();
+
+        const filtersBlockContainer = document.createElement('div');
+        filtersBlockContainer.classList.add('filters-block__container');
+        filtersBlockContainer.style = 'display: flex;';
+        filtersBlockWrap.appendChild(filtersBlockContainer);
+
+        appendFilterControls(filtersBlockContainer);
+
+        setInterval(cleanList, 500);
     }
+}, 1000);
 
-    setTimeout(() => {
-        const filtersBlockWrap = document.querySelector(FILTERS_BLOCK_WRAP_SELECTOR);
+function removeRecentItemsBlock() {
+    const recentItems = document.querySelector('.j-recent-items');
 
-        if (filtersBlockWrap) {
-            removeRecentItemsBlock();
-
-            const filtersBlockContainer = document.createElement('div');
-            filtersBlockContainer.classList.add('filters-block__container');
-            filtersBlockContainer.style = 'display: flex;';
-            filtersBlockWrap.appendChild(filtersBlockContainer);
-
-            appendFilterControls(filtersBlockContainer);
-
-            setInterval(cleanList, 500);
-        }
-    }, 1000);
-
-    function removeRecentItemsBlock() {
-        const recentItems = document.querySelector('.j-recent-items');
-
-        if (recentItems) {
-            const { parentNode } = recentItems;
-            parentNode.remove();
-        }
+    if (recentItems) {
+        const { parentNode } = recentItems;
+        parentNode.remove();
     }
+}
 
-    function appendFilterControls(filtersBlockContainer) {
-        const controlStyle = 'padding-left: 7px; margin-top: 14px;';
+function appendFilterControls(filtersBlockContainer) {
+    const controlStyle = 'padding-left: 7px; margin-top: 14px;';
 
-        const minReviewsDiv =
-            createFilterControl(
-                controlStyle, 'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
-            );
+    const minReviewsDiv =
+        createFilterControl(
+            controlStyle, 'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+        );
 
-        const minRatingDiv =
-            createFilterControl(
-                controlStyle, 'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
-            );
+    const minRatingDiv =
+        createFilterControl(
+            controlStyle, 'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
+        );
 
-        const minPriceDiv = document.createElement('div');
-        minPriceDiv.style = controlStyle;
-        minPriceDiv.textContent = `Минимальная цена: ${minPriceValue}`;
+    const minPriceDiv = document.createElement('div');
+    minPriceDiv.style = controlStyle;
+    minPriceDiv.textContent = `Минимальная цена: ${minPriceValue}`;
 
-        setInterval(checkMinPrice, 1500);
+    setInterval(checkMinPrice, 1500);
 
-        filtersBlockContainer.appendChild(minReviewsDiv);
-        filtersBlockContainer.appendChild(minRatingDiv);
-        filtersBlockContainer.appendChild(minPriceDiv);
-    }
+    filtersBlockContainer.appendChild(minReviewsDiv);
+    filtersBlockContainer.appendChild(minRatingDiv);
+    filtersBlockContainer.appendChild(minPriceDiv);
+}
 
-    function updateMinReviewsInput(e) {
-        updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
-    }
+function updateMinReviewsInput(e) {
+    updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+}
 
-    function updateMinRatingInput(e) {
-        updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-    }
+function updateMinRatingInput(e) {
+    updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
+}
 
-    function updateInput(keyName, e) {
-        localStorage.setItem(keyName, e.target.value);
+function updateInput(keyName, e) {
+    localStorage.setItem(keyName, e.target.value);
+    window.location.reload();
+}
+
+function createFilterControl(
+    controlStyle,
+    titleText,
+    inputValue,
+    inputStep,
+    inputMinValue,
+    inputMaxValue,
+    inputOnChange,
+) {
+    const filterControl = document.createElement('div');
+    filterControl.style = controlStyle;
+    filterControl.textContent = titleText;
+
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.value = inputValue;
+    input.step = inputStep;
+    input.min = inputMinValue;
+    input.max = inputMaxValue;
+    input.addEventListener('change', inputOnChange);
+    filterControl.appendChild(input);
+
+    return filterControl;
+}
+
+function checkMinPrice() {
+    const currentMinPriceValue = getMinPriceValueFromURL();
+
+    if (minPriceValue !== currentMinPriceValue) {
         window.location.reload();
     }
+}
 
-    function createFilterControl(
-        controlStyle,
-        titleText,
-        inputValue,
-        inputStep,
-        inputMinValue,
-        inputMaxValue,
-        inputOnChange,
-    ) {
-        const filterControl = document.createElement('div');
-        filterControl.style = controlStyle;
-        filterControl.textContent = titleText;
+function cleanList() {
+    const productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
 
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.value = inputValue;
-        input.step = inputStep;
-        input.min = inputMinValue;
-        input.max = inputMaxValue;
-        input.addEventListener('change', inputOnChange);
-        filterControl.appendChild(input);
+    productCards.forEach(
+        (productCard) => {
+            const productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
+            const productCardReviewsNumber = getElementInnerNumber(productCardReviews);
 
-        return filterControl;
-    }
+            const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
+            const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
-    function checkMinPrice() {
-        const currentMinPriceValue = getMinPriceValueFromURL();
+            const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
+            const productCardPriceNumber = getElementInnerNumber(productCardPrice);
 
-        if (minPriceValue !== currentMinPriceValue) {
-            window.location.reload();
-        }
-    }
+            if (productCardReviewsNumber < minReviewsValue
+                || productCardRatingNumber < minRatingValue
+                || productCardPriceNumber < minPriceValue) {
+                productCard.remove();
+            }
+        },
+    );
+}
 
-    function cleanList() {
-        const productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
+function getElementInnerNumber(element) {
+    const elementText = element.innerText;
+    const elementNumber = +elementText.replace(/\D/g, '');
 
-        productCards.forEach(
-            (productCard) => {
-                const productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
-                const productCardReviewsNumber = getElementInnerNumber(productCardReviews);
-
-                const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
-                const productCardRatingNumber = getElementInnerNumber(productCardRating);
-
-                const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
-                const productCardPriceNumber = getElementInnerNumber(productCardPrice);
-
-                if (productCardReviewsNumber < minReviewsValue
-                    || productCardRatingNumber < minRatingValue
-                    || productCardPriceNumber < minPriceValue) {
-                    productCard.remove();
-                }
-            },
-        );
-    }
-
-    function getElementInnerNumber(element) {
-        const elementText = element.innerText;
-        const elementNumber = +elementText.replace(/\D/g, '');
-
-        return elementNumber;
-    }
-}());
+    return elementNumber;
+}
