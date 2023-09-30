@@ -1,4 +1,4 @@
-import { updateInput } from '../common/dom';
+import { updateInput, createDefaultFilterControl } from '../common/dom';
 
 const MIN_DISCOUNT = 20;
 const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';
@@ -18,20 +18,13 @@ if (mainContent) {
 }
 
 function appendFilterControls() {
-    const minDivStyle = '';
+    const controlStyle = '';
+    const inputStyle = '';
 
-    const minDiscountDiv = document.createElement('div');
-    minDiscountDiv.style = minDivStyle;
-    minDiscountDiv.textContent = 'Минимальная скидка: ';
-
-    const minDiscountInput = document.createElement('input');
-    minDiscountInput.type = 'number';
-    minDiscountInput.value = minDiscountValue;
-    minDiscountInput.step = '1';
-    minDiscountInput.min = '0';
-    minDiscountInput.max = '100';
-    minDiscountInput.addEventListener('change', updateMinDiscountInput);
-    minDiscountDiv.appendChild(minDiscountInput);
+    const minDiscountDiv =
+        createDefaultFilterControl(
+            controlStyle, 'Минимальная скидка: ', inputStyle, minDiscountValue, '1', '0', '100', updateMinDiscountInput,
+        );
 
     mainContent.insertBefore(minDiscountDiv, mainContent.firstChild);
 }
