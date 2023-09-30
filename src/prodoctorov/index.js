@@ -1,4 +1,4 @@
-import { updateInput } from '../common/dom';
+import { updateInput, createDefaultFilterControl } from '../common/dom';
 
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
@@ -23,21 +23,15 @@ if (appointmentsPage) {
 }
 
 function initListClean() {
-    const minDivStyle = '';
-    const minInputStyle = '';
+    const controlStyle = '';
+    const inputStyle = '';
 
-    const minReviewsDiv = document.createElement('div');
+    const minReviewsDiv =
+        createDefaultFilterControl(
+            controlStyle, 'Минимально отзывов: ', inputStyle, minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+        );
+
     minReviewsDiv.id = MIN_REVIEWS_DIV_ID;
-    minReviewsDiv.style = minDivStyle;
-    const minReviewsDivText = document.createTextNode('Минимально отзывов: ');
-    minReviewsDiv.appendChild(minReviewsDivText);
-
-    const minReviewsInput = document.createElement('input');
-    minReviewsInput.type = 'number';
-    minReviewsInput.value = minReviewsValue;
-    minReviewsInput.style = minInputStyle;
-    minReviewsInput.addEventListener('change', updateMinReviewsInput);
-    minReviewsDiv.appendChild(minReviewsInput);
 
     appointmentsPage.insertBefore(minReviewsDiv, appointmentsPage.firstChild);
 
