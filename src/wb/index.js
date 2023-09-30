@@ -143,13 +143,13 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             const productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
-            const productCardReviewsNumber = getElementInnerNumber(productCardReviews);
+            const productCardReviewsNumber = getElementInnerNumber(productCardReviews, true);
 
             const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
             const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
-            const productCardPriceNumber = getElementInnerNumber(productCardPrice);
+            const productCardPriceNumber = getElementInnerNumber(productCardPrice, true);
 
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue
