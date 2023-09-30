@@ -1,4 +1,4 @@
-import { updateInput, createDefaultFilterControl } from '../common/dom';
+import { createDefaultFilterControl, updateInput } from '../common/dom';
 
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
@@ -23,11 +23,8 @@ if (appointmentsPage) {
 }
 
 function initListClean() {
-    const controlStyle = '';
-    const inputStyle = '';
-
     const minReviewsDiv =
-        createDefaultFilterControl('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput, controlStyle, inputStyle);
+        createDefaultFilterControl('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput);
 
     minReviewsDiv.id = MIN_REVIEWS_DIV_ID;
 

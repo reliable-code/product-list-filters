@@ -1,4 +1,4 @@
-import { updateInput, createDefaultFilterControl, getElementInnerNumber } from '../common/dom';
+import { createDefaultFilterControl, getElementInnerNumber, updateInput } from '../common/dom';
 
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
@@ -81,10 +81,16 @@ function createFilterControl(
     const inputStyle =
         'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px; width: 90px;';
 
-    const filterControl =
-        createDefaultFilterControl(titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange, controlStyle, inputStyle);
-
-    return filterControl;
+    return createDefaultFilterControl(
+        titleText,
+        inputValue,
+        inputStep,
+        inputMinValue,
+        inputMaxValue,
+        inputOnChange,
+        controlStyle,
+        inputStyle,
+    );
 }
 
 function cleanList() {

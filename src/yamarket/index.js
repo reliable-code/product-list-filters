@@ -1,4 +1,4 @@
-import { updateInput, createDefaultFilterControl, getElementInnerNumber } from '../common/dom';
+import { createDefaultFilterControl, getElementInnerNumber, updateInput } from '../common/dom';
 
 const MIN_REVIEWS = 5;
 const MIN_RATING = 4.8;
@@ -40,15 +40,14 @@ function appendFilterControls(searchControls) {
     filterControls.style =
         'display: flex; gap: 10px; padding: 0 10px 15px; font-size: 16px; font-weight: 500;';
 
-    const controlStyle = '';
     const inputStyle =
         'border-radius: 7px; border: none; padding: 9px 11px; box-shadow: inset 0 0 0 1.5px #d2d0cc;';
 
     const minReviewsDiv =
-        createDefaultFilterControl('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput, controlStyle, inputStyle);
+        createDefaultFilterControl('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput, '', inputStyle);
 
     const minRatingDiv =
-        createDefaultFilterControl('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, controlStyle, inputStyle);
+        createDefaultFilterControl('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, '', inputStyle);
 
     filterControls.appendChild(minReviewsDiv);
     filterControls.appendChild(minRatingDiv);
