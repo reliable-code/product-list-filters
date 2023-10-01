@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name         Prodoctorov List Clean
 // @description  Remove profile cards by filter
-// @grant        none
 // @match        https://prodoctorov.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.4.1
+// @version      0.4.69618830
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=prodoctorov.ru
 // @author       reliable-code
 // ==/UserScript==
