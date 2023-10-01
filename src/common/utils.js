@@ -1,4 +1,2 @@
-const getUniqueTimestampSlice =
+module.exports.getUniqueTimestampSlice =
     () => Date.now().toString().slice(1, 9);
-
-exports.getUniqueTimestampSlice = getUniqueTimestampSlice;
