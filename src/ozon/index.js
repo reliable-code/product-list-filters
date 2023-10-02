@@ -1,6 +1,7 @@
 import {
     getFirstElement,
     getAllElements,
+    insertAfter,
     createDefaultFilterControl,
     getElementInnerNumber,
     updateInput,
@@ -74,11 +75,9 @@ setTimeout(() => {
             if (isInStickyContainer) {
                 productBadReviewsLinkWrap.style = 'margin-top: 10px;';
 
-                productReviewsWrapParent.parentNode
-                    .insertBefore(productBadReviewsLinkWrap, productReviewsWrapParent.nextSibling);
+                insertAfter(productReviewsWrapParent, productBadReviewsLinkWrap);
             } else {
-                productReviewsWrap.parentNode
-                    .insertBefore(productBadReviewsLinkWrap, productReviewsWrap.nextSibling);
+                insertAfter(productReviewsWrap, productBadReviewsLinkWrap);
             }
         }
     }
