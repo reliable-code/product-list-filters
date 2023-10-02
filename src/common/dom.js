@@ -14,6 +14,10 @@ export function getAllElements(parentNode, selector) {
     return elements;
 }
 
+export function insertAfter(existingNode, newNode) {
+    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+
 export function updateInput(keyName, e) {
     localStorage.setItem(keyName, e.target.value);
     window.location.reload();
