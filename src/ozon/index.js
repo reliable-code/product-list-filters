@@ -89,7 +89,7 @@ if (comments) {
 }
 
 function initListClean() {
-    const searchResultsSort = getFirstElement(document, SEARCH_RESULTS_SORT_SELECTOR);
+    const searchResultsSort = getFirstElement(document, SEARCH_RESULTS_SORT_SELECTOR, true);
 
     const minReviewsDiv =
         createFilterControl(
@@ -138,8 +138,8 @@ function createFilterControl(
 }
 
 function cleanList() {
-    const searchResultContainer = getFirstElement(document, SEARCH_RESULT_SELECTOR);
-    const productCardsWrap = getFirstElement(searchResultContainer, ':scope > div');
+    const searchResultContainer = getFirstElement(document, SEARCH_RESULT_SELECTOR, true);
+    const productCardsWrap = getFirstElement(searchResultContainer, ':scope > div', true);
     const productCards = productCardsWrap.querySelectorAll(':scope > div');
 
     productCards.forEach(
@@ -153,7 +153,7 @@ function cleanList() {
                 return;
             }
 
-            const productCardRatingWrapSpans = getAllElements(productCardRatingWrap, ':scope > span');
+            const productCardRatingWrapSpans = getAllElements(productCardRatingWrap, ':scope > span', true);
 
             const productCardReviews = productCardRatingWrapSpans[1];
             const productCardReviewsNumber = getElementInnerNumber(productCardReviews);

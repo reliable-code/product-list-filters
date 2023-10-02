@@ -1,15 +1,15 @@
-export function getFirstElement(parentNode, selector) {
+export function getFirstElement(parentNode, selector, logNotFound = false) {
     const element = parentNode.querySelector(selector);
 
-    if (!element) console.log(`No element found for selector: ${selector}`);
+    if (logNotFound && !element) console.log(`No element found for selector: ${selector}`);
 
     return element;
 }
 
-export function getAllElements(parentNode, selector) {
+export function getAllElements(parentNode, selector, logNotFound = false) {
     const elements = parentNode.querySelectorAll(selector);
 
-    if (!elements.length) console.log(`No elements found for selector: ${selector}`);
+    if (logNotFound && !elements.length) console.log(`No elements found for selector: ${selector}`);
 
     return elements;
 }
