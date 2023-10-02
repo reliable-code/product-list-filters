@@ -56,7 +56,7 @@ setTimeout(() => {
     const productReviewsWrap = document.querySelector(PRODUCT_REVIEWS_WRAP_SELECTOR);
 
     if (productReviewsWrap) {
-        const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
+        const productReviewsLink = productReviewsWrap.querySelector('a');
         if (productReviewsLink) {
             const productBadReviewsLinkWrap = document.createElement('div');
             productBadReviewsLinkWrap.style = 'margin-top: 10px;';
