@@ -50,7 +50,18 @@ setTimeout(() => {
     if (productReviewsWrap) {
         const productReviewsLink = productReviewsWrap.querySelector('a');
         if (productReviewsLink) {
-            productReviewsLink.href += '?sort=score_asc';
+            const productBadReviewsLinkWrap = document.createElement('div');
+            productBadReviewsLinkWrap.style = 'margin-top: 10px;';
+
+            const productBadReviewsLink = document.createElement('a');
+            productBadReviewsLink.href = `${productReviewsLink.href}?sort=score_asc`;
+            productBadReviewsLink.textContent = 'Плохие отзывы';
+
+            productBadReviewsLinkWrap.appendChild(productBadReviewsLink);
+
+            const productReviewsWrapParent = productReviewsWrap.parentNode;
+            productReviewsWrapParent.parentNode
+                .insertBefore(productBadReviewsLinkWrap, productReviewsWrapParent.nextSibling);
         }
     }
 }, 1500);
