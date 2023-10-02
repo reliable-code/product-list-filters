@@ -7,6 +7,7 @@ const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const ADV_SEARCH_SHELF_SELECTOR = '[data-widget="skuAdvSearchShelf"]';
 const RESULTS_HEADER_SELECTOR = '[data-widget="resultsHeader"]';
+const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
 
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 const SEARCH_RESULT_SELECTOR = '.widget-search-result-container';
@@ -43,6 +44,16 @@ if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
         initListClean();
     }, 1500);
 }
+
+setTimeout(() => {
+    const productReviewsWrap = document.querySelector(PRODUCT_REVIEWS_WRAP_SELECTOR);
+    if (productReviewsWrap) {
+        const productReviewsLink = productReviewsWrap.querySelector('a');
+        if (productReviewsLink) {
+            productReviewsLink.href += '?sort=score_asc';
+        }
+    }
+}, 1500);
 
 function initListClean() {
     const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
