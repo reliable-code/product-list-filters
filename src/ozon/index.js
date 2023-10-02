@@ -1,4 +1,6 @@
-import { createDefaultFilterControl, getElementInnerNumber, updateInput } from '../common/dom';
+import {
+    getElement, createDefaultFilterControl, getElementInnerNumber, updateInput,
+} from '../common/dom';
 
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
@@ -48,8 +50,9 @@ if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
 
 setTimeout(() => {
     const productReviewsWrap = document.querySelector(PRODUCT_REVIEWS_WRAP_SELECTOR);
+
     if (productReviewsWrap) {
-        const productReviewsLink = productReviewsWrap.querySelector('a');
+        const productReviewsLink = getElement(productReviewsWrap, 'a');
         if (productReviewsLink) {
             const productBadReviewsLinkWrap = document.createElement('div');
             productBadReviewsLinkWrap.style = 'margin-top: 10px;';
@@ -73,7 +76,7 @@ if (comments) {
 }
 
 function initListClean() {
-    const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
+    const searchResultsSort = getElement(document, SEARCH_RESULTS_SORT_SELECTOR);
 
     const minReviewsDiv =
         createFilterControl(
@@ -122,8 +125,8 @@ function createFilterControl(
 }
 
 function cleanList() {
-    const searchResultContainer = document.querySelector(SEARCH_RESULT_SELECTOR);
-    const productCardsWrap = searchResultContainer.querySelector(':scope > div');
+    const searchResultContainer = getElement(document, SEARCH_RESULT_SELECTOR);
+    const productCardsWrap = getElement(searchResultContainer, ':scope > div');
     const productCards = productCardsWrap.querySelectorAll(':scope > div');
 
     productCards.forEach(
