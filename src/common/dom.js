@@ -6,6 +6,14 @@ export function getFirstElement(parentNode, selector) {
     return element;
 }
 
+export function getAllElements(parentNode, selector) {
+    const elements = parentNode.querySelectorAll(selector);
+
+    if (!elements.length) console.log(`No elements found for selector: ${selector}`);
+
+    return elements;
+}
+
 export function updateInput(keyName, e) {
     localStorage.setItem(keyName, e.target.value);
     window.location.reload();
