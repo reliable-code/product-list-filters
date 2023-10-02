@@ -1,4 +1,9 @@
-import { createDefaultFilterControl, getElementInnerNumber, updateInput } from '../common/dom';
+import {
+    insertAfter,
+    createDefaultFilterControl,
+    getElementInnerNumber,
+    updateInput,
+} from '../common/dom';
 
 const MIN_REVIEWS = 5;
 const MIN_RATING = 4.8;
@@ -52,8 +57,7 @@ function appendFilterControls(searchControls) {
     filterControls.appendChild(minReviewsDiv);
     filterControls.appendChild(minRatingDiv);
 
-    const searchControlsParent = searchControls.parentNode;
-    searchControlsParent.insertBefore(filterControls, searchControls.nextSibling);
+    insertAfter(searchControls, filterControls);
 }
 
 function updateMinReviewsInput(e) {
