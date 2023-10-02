@@ -1,3 +1,11 @@
+export function getElement(parentNode, selector) {
+    const element = parentNode.querySelector(selector);
+
+    if (!element) console.log(`No element found for selector: ${selector}`);
+
+    return element;
+}
+
 export function updateInput(keyName, e) {
     localStorage.setItem(keyName, e.target.value);
     window.location.reload();
