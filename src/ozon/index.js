@@ -1,5 +1,6 @@
 import {
     getFirstElement,
+    getAllElements,
     createDefaultFilterControl,
     getElementInnerNumber,
     updateInput,
@@ -143,7 +144,7 @@ function cleanList() {
                 return;
             }
 
-            const productCardRatingWrapSpans = productCardRatingWrap.querySelectorAll(':scope > span');
+            const productCardRatingWrapSpans = getAllElements(productCardRatingWrap, ':scope > span');
 
             const productCardReviews = productCardRatingWrapSpans[1];
             const productCardReviewsNumber = getElementInnerNumber(productCardReviews);
