@@ -1,5 +1,8 @@
 import {
-    getElement, createDefaultFilterControl, getElementInnerNumber, updateInput,
+    getFirstElement,
+    createDefaultFilterControl,
+    getElementInnerNumber,
+    updateInput,
 } from '../common/dom';
 
 const CATEGORY_NAME = getCategoryName();
@@ -52,7 +55,7 @@ setTimeout(() => {
     const productReviewsWrap = document.querySelector(PRODUCT_REVIEWS_WRAP_SELECTOR);
 
     if (productReviewsWrap) {
-        const productReviewsLink = getElement(productReviewsWrap, 'a');
+        const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
         if (productReviewsLink) {
             const productBadReviewsLinkWrap = document.createElement('div');
             productBadReviewsLinkWrap.style = 'margin-top: 10px;';
@@ -76,7 +79,7 @@ if (comments) {
 }
 
 function initListClean() {
-    const searchResultsSort = getElement(document, SEARCH_RESULTS_SORT_SELECTOR);
+    const searchResultsSort = getFirstElement(document, SEARCH_RESULTS_SORT_SELECTOR);
 
     const minReviewsDiv =
         createFilterControl(
@@ -125,8 +128,8 @@ function createFilterControl(
 }
 
 function cleanList() {
-    const searchResultContainer = getElement(document, SEARCH_RESULT_SELECTOR);
-    const productCardsWrap = getElement(searchResultContainer, ':scope > div');
+    const searchResultContainer = getFirstElement(document, SEARCH_RESULT_SELECTOR);
+    const productCardsWrap = getFirstElement(searchResultContainer, ':scope > div');
     const productCards = productCardsWrap.querySelectorAll(':scope > div');
 
     productCards.forEach(

@@ -1,4 +1,4 @@
-export function getElement(parentNode, selector) {
+export function getFirstElement(parentNode, selector) {
     const element = parentNode.querySelector(selector);
 
     if (!element) console.log(`No element found for selector: ${selector}`);
