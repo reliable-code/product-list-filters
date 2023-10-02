@@ -58,8 +58,9 @@ setTimeout(() => {
     if (productReviewsWrap) {
         const productReviewsLink = productReviewsWrap.querySelector('a');
         if (productReviewsLink) {
+            const productReviewsWrapParent = productReviewsWrap.parentNode;
+
             const productBadReviewsLinkWrap = document.createElement('div');
-            productBadReviewsLinkWrap.style = 'margin-top: 10px;';
 
             const productBadReviewsLink = document.createElement('a');
             productBadReviewsLink.href = `${productReviewsLink.href}?sort=score_asc`;
@@ -67,9 +68,15 @@ setTimeout(() => {
 
             productBadReviewsLinkWrap.appendChild(productBadReviewsLink);
 
-            const productReviewsWrapParent = productReviewsWrap.parentNode;
-            productReviewsWrapParent.parentNode
-                .insertBefore(productBadReviewsLinkWrap, productReviewsWrapParent.nextSibling);
+            const isInStickyContainer =
+                productReviewsWrapParent.parentNode.matches('[data-widget="stickyContainer"]');
+
+            if (isInStickyContainer) {
+                productBadReviewsLinkWrap.style = 'margin-top: 10px;';
+
+                productReviewsWrapParent.parentNode
+                    .insertBefore(productBadReviewsLinkWrap, productReviewsWrapParent.nextSibling);
+            }
         }
     }
 }, 1500);
