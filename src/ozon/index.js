@@ -8,6 +8,7 @@ const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const ADV_SEARCH_SHELF_SELECTOR = '[data-widget="skuAdvSearchShelf"]';
 const RESULTS_HEADER_SELECTOR = '[data-widget="resultsHeader"]';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
+const COMMENTS_SELECTOR = '#comments';
 
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 const SEARCH_RESULT_SELECTOR = '.widget-search-result-container';
@@ -65,6 +66,11 @@ setTimeout(() => {
         }
     }
 }, 1500);
+
+const comments = document.querySelector(COMMENTS_SELECTOR);
+if (comments) {
+    comments.scrollIntoView();
+}
 
 function initListClean() {
     const searchResultsSort = document.querySelector(SEARCH_RESULTS_SORT_SELECTOR);
