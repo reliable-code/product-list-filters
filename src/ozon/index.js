@@ -76,6 +76,9 @@ setTimeout(() => {
 
                 productReviewsWrapParent.parentNode
                     .insertBefore(productBadReviewsLinkWrap, productReviewsWrapParent.nextSibling);
+            } else {
+                productReviewsWrap.parentNode
+                    .insertBefore(productBadReviewsLinkWrap, productReviewsWrap.nextSibling);
             }
         }
     }
