@@ -17,14 +17,18 @@ const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 const minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
 
 setTimeout(() => {
+    setInterval(initListClean, 500);
+}, 1000);
+
+function initListClean() {
     const productCardList = getFirstElement(document, PRODUCT_CARD_LIST_SELECTOR);
 
     if (productCardList) {
         appendFilterControlsIfNeeded(productCardList);
 
-        setInterval(cleanList, 500);
+        cleanList();
     }
-}, 1000);
+}
 
 function appendFilterControlsIfNeeded(filtersBlockContainer) {
     const minRatingDiv = getFirstElement(filtersBlockContainer, `#${MIN_RATING_DIV_ID}`);
