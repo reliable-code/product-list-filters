@@ -2,7 +2,8 @@ import {
     createDefaultFilterControl,
     getAllElements,
     getElementInnerNumber,
-    getFirstElement, updateInput
+    getFirstElement,
+    updateInput,
 } from '../common/dom';
 
 const MIN_RATING = 4.0;
