@@ -1,4 +1,4 @@
-import { getElementInnerNumber } from '../common/dom';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom';
 
 const MIN_RATING = 4.0;
 
@@ -10,7 +10,7 @@ const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 const minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
 
 setTimeout(() => {
-    const productCardList = document.querySelector(PRODUCT_CARD_LIST_SELECTOR);
+    const productCardList = getFirstElement(document, PRODUCT_CARD_LIST_SELECTOR);
 
     if (productCardList) {
         setInterval(cleanList, 500);
@@ -18,11 +18,11 @@ setTimeout(() => {
 }, 1000);
 
 function cleanList() {
-    const productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
+    const productCards = getAllElements(document, PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(
         (productCard) => {
-            const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
+            const productCardRating = getFirstElement(productCard, PRODUCT_CARD_RATING_SELECTOR);
 
             if (!productCardRating) {
                 productCard.remove();
