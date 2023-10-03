@@ -99,24 +99,33 @@ if (comments) {
 function initListClean() {
     const searchResultsSort = getFirstElement(document, SEARCH_RESULTS_SORT_SELECTOR, true);
 
+    const controlStyle =
+        'padding-left: 14px; margin-top: 12px;';
+    const inputStyle =
+        'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px; width: 90px;';
+
     const minReviewsDiv =
-        createFilterControl(
+        createDefaultFilterControl(
             'Минимально отзывов: ',
             minReviewsValue,
             '1',
             '1',
             '999999',
             updateMinReviewsInput,
+            controlStyle,
+            inputStyle,
         );
 
     const minRatingDiv =
-        createFilterControl(
+        createDefaultFilterControl(
             'Минимальный рейтинг: ',
             minRatingValue,
             '0.1',
             '4.0',
             '5.0',
             updateMinRatingInput,
+            controlStyle,
+            inputStyle,
         );
 
     searchResultsSort.appendChild(minReviewsDiv);
@@ -133,26 +142,6 @@ function updateMinReviewsInput(e) {
 
 function updateMinRatingInput(e) {
     updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-}
-
-function createFilterControl(
-    titleText, inputValue, inputStep, inputMinValue, inputMaxValue, inputOnChange,
-) {
-    const controlStyle =
-        'padding-left: 14px; margin-top: 12px;';
-    const inputStyle =
-        'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px; width: 90px;';
-
-    return createDefaultFilterControl(
-        titleText,
-        inputValue,
-        inputStep,
-        inputMinValue,
-        inputMaxValue,
-        inputOnChange,
-        controlStyle,
-        inputStyle,
-    );
 }
 
 function cleanList() {
