@@ -28,6 +28,8 @@ if (appointmentsPage) {
     setInterval(checkListCleanInitiated, 500);
 }
 
+appendReviewsInfoToHeader();
+
 function initListClean() {
     const minReviewsDiv =
         createDefaultFilterControl('Минимально отзывов: ',
@@ -111,4 +113,32 @@ function checkListCleanInitiated() {
     if (!minReviewsDiv) {
         initListClean();
     }
+}
+
+function appendReviewsInfoToHeader() {
+    const reviewsFilter = getFirstElement(document, '.reviews-filter:not(.b-reviews-page__filter)');
+
+    if (!reviewsFilter) return;
+
+    const nameSpanHolder =
+        getFirstElement(document, '.b-doctor-intro__title-first-line', true);
+
+    if (!nameSpanHolder) return;
+
+    const nameSpan = getFirstElement(nameSpanHolder, '[itemprop="name"]', true);
+
+    if (!nameSpan) return;
+
+    const reviewsInfo = document.createElement('div');
+    reviewsInfo.classList.add('v-application');
+
+    const reviewsFilterSpans = getAllElements(reviewsFilter, ':scope > span', true);
+
+    for (let i = 1; i <= 3; i += 1) {
+        const reviewsFilterSpan = reviewsFilterSpans[i];
+        const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
+        reviewsInfo.append(reviewsFilterSpanCopy);
+    }
+
+    nameSpan.append(reviewsInfo);
 }
