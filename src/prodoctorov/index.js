@@ -97,12 +97,12 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
     const encodedSearchString = encodeURIComponent(searchString);
 
     const lineBreak = document.createElement('br');
-    profileCard.appendChild(lineBreak);
+    profileCard.append(lineBreak);
 
     const searchUrlLink = document.createElement('a');
     searchUrlLink.href = `https://www.google.com/search?q=${encodedSearchString}&btnI`;
     searchUrlLink.textContent = siteName;
-    profileCard.appendChild(searchUrlLink);
+    profileCard.append(searchUrlLink);
 }
 
 function checkListCleanInitiated() {
