@@ -73,9 +73,9 @@ setTimeout(() => {
             productBadReviewsLinkSpan.style = 'padding-left: 8px;';
             productBadReviewsLinkSpan.textContent = 'Плохие отзывы';
 
-            productBadReviewsLink.appendChild(productBadReviewsLinkSpan);
+            productBadReviewsLink.append(productBadReviewsLinkSpan);
 
-            productBadReviewsLinkWrap.appendChild(productBadReviewsLink);
+            productBadReviewsLinkWrap.append(productBadReviewsLink);
 
             const isInStickyContainer =
                 productReviewsWrapParent.parentNode.matches('[data-widget="stickyContainer"]');
@@ -128,8 +128,8 @@ function initListClean() {
             inputStyle,
         );
 
-    searchResultsSort.appendChild(minReviewsDiv);
-    searchResultsSort.appendChild(minRatingDiv);
+    searchResultsSort.append(minReviewsDiv);
+    searchResultsSort.append(minRatingDiv);
 
     cleanList();
 
