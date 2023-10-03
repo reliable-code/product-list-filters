@@ -1,6 +1,7 @@
 import {
     createDefaultFilterControl,
     getAllElements,
+    getElementInnerNumber,
     getFirstElement,
     updateInput,
 } from '../common/dom';
@@ -72,10 +73,9 @@ function cleanList() {
                 return;
             }
 
-            const reviewsLinkText = reviewsLink.innerText;
-            const reviewsLinkDigit = +reviewsLinkText.replace(/\D/g, '');
+            const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
-            if (reviewsLinkDigit < minReviewsValue) {
+            if (reviewsLinkNumber < minReviewsValue) {
                 doctorCard.remove();
             }
 
