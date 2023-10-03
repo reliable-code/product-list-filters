@@ -10,6 +10,7 @@ const MIN_RATING = 4.0;
 
 const MIN_RATING_LOCAL_STORAGE_KEY = 'min-rating-filter';
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
+const MIN_RATING_DIV_ID = 'minRatingDiv';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
@@ -43,6 +44,7 @@ function appendFilterControls(filtersBlockContainer) {
             controlStyle,
             inputStyle);
 
+    minRatingDiv.id = MIN_RATING_DIV_ID;
     filtersBlockContainer.prepend(minRatingDiv);
 }
 
