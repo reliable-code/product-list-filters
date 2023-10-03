@@ -1,5 +1,7 @@
 import {
     createDefaultFilterControl,
+    getAllElements,
+    getFirstElement,
     updateInput,
 } from '../common/dom';
 
@@ -17,7 +19,7 @@ const MIN_REVIEWS = 10;
 
 const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
 
-const appointmentsPage = document.querySelector(APPOINTMENTS_PAGE);
+const appointmentsPage = getFirstElement(document, APPOINTMENTS_PAGE);
 
 if (appointmentsPage) {
     initListClean();
@@ -27,7 +29,12 @@ if (appointmentsPage) {
 
 function initListClean() {
     const minReviewsDiv =
-        createDefaultFilterControl('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput);
+        createDefaultFilterControl('Минимально отзывов: ',
+            minReviewsValue,
+            '1',
+            '1',
+            '999999',
+            updateMinReviewsInput);
 
     minReviewsDiv.id = MIN_REVIEWS_DIV_ID;
 
@@ -43,22 +50,21 @@ function updateMinReviewsInput(e) {
 }
 
 function removeSpecialPlacementCards() {
-    const specialPlacementCards = document.querySelectorAll(SPECIAL_PLACEMENT_CARD_SELECTOR);
+    const specialPlacementCards = getAllElements(document, SPECIAL_PLACEMENT_CARD_SELECTOR);
+
     specialPlacementCards.forEach(
         (specialPlacementCard) => specialPlacementCard.remove(),
     );
 }
 
 function cleanList() {
-    const doctorCards = appointmentsPage.querySelectorAll(DOCTOR_CARD_SELECTOR);
+    const doctorCards = getAllElements(appointmentsPage, DOCTOR_CARD_SELECTOR);
 
     doctorCards.forEach(
         (doctorCard) => {
-            const profileCard = doctorCard.querySelector('.b-profile-card');
+            const profileCard = getFirstElement(doctorCard, '.b-profile-card', true);
 
-            if (!profileCard) return;
-
-            const reviewsLink = profileCard.querySelector(':scope > a');
+            const reviewsLink = getFirstElement(profileCard, ':scope > a');
 
             if (!reviewsLink) {
                 doctorCard.remove();
@@ -85,7 +91,7 @@ function appendAdditionalLinks(doctorCard, profileCard) {
 }
 
 function appendAdditionalLink(doctorCard, profileCard, siteName) {
-    const doctorCardName = doctorCard.querySelector(DOCTOR_CARD_NAME_SELECTOR);
+    const doctorCardName = getFirstElement(doctorCard, DOCTOR_CARD_NAME_SELECTOR, true);
     const doctorName = doctorCardName.innerText;
     const searchString = `${doctorName} ${siteName}`;
     const encodedSearchString = encodeURIComponent(searchString);
@@ -100,7 +106,7 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
 }
 
 function checkListCleanInitiated() {
-    const minReviewsDiv = appointmentsPage.querySelector(`#${MIN_REVIEWS_DIV_ID}`);
+    const minReviewsDiv = getFirstElement(appointmentsPage, `#${MIN_REVIEWS_DIV_ID}`);
 
     if (!minReviewsDiv) {
         initListClean();
