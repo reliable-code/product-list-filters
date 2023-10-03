@@ -146,7 +146,7 @@ function appendReviewsInfoToHeader() {
 
 function scrollToParentAndClick(element) {
     return () => {
-        element.parentNode.scrollIntoView();
+        element.parentNode.scrollIntoView({ behavior: 'smooth' });
         element.click();
     };
 }
