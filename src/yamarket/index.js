@@ -54,8 +54,7 @@ function appendFilterControls(searchControls) {
     const minRatingDiv =
         createDefaultFilterControl('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, '', inputStyle);
 
-    filterControls.append(minReviewsDiv);
-    filterControls.append(minRatingDiv);
+    filterControls.append(minReviewsDiv, minRatingDiv);
 
     insertAfter(searchControls, filterControls);
 }

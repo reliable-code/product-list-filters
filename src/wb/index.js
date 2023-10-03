@@ -84,9 +84,7 @@ function appendFilterControls(filtersBlockContainer) {
 
     setInterval(checkMinPrice, 1500);
 
-    filtersBlockContainer.append(minReviewsDiv);
-    filtersBlockContainer.append(minRatingDiv);
-    filtersBlockContainer.append(minPriceDiv);
+    filtersBlockContainer.append(minReviewsDiv, minRatingDiv, minPriceDiv);
 }
 
 function updateMinReviewsInput(e) {

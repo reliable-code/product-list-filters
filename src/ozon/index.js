@@ -128,8 +128,7 @@ function initListClean() {
             inputStyle,
         );
 
-    searchResultsSort.append(minReviewsDiv);
-    searchResultsSort.append(minRatingDiv);
+    searchResultsSort.append(minReviewsDiv, minRatingDiv);
 
     cleanList();
 
