@@ -52,7 +52,7 @@ setTimeout(() => {
         const filtersBlockContainer = document.createElement('div');
         filtersBlockContainer.classList.add('filters-block__container');
         filtersBlockContainer.style = 'display: flex;';
-        filtersBlockWrap.appendChild(filtersBlockContainer);
+        filtersBlockWrap.append(filtersBlockContainer);
 
         appendFilterControls(filtersBlockContainer);
 
@@ -84,9 +84,9 @@ function appendFilterControls(filtersBlockContainer) {
 
     setInterval(checkMinPrice, 1500);
 
-    filtersBlockContainer.appendChild(minReviewsDiv);
-    filtersBlockContainer.appendChild(minRatingDiv);
-    filtersBlockContainer.appendChild(minPriceDiv);
+    filtersBlockContainer.append(minReviewsDiv);
+    filtersBlockContainer.append(minRatingDiv);
+    filtersBlockContainer.append(minPriceDiv);
 }
 
 function updateMinReviewsInput(e) {
