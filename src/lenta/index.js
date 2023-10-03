@@ -20,11 +20,21 @@ setTimeout(() => {
     const productCardList = getFirstElement(document, PRODUCT_CARD_LIST_SELECTOR);
 
     if (productCardList) {
-        appendFilterControls(productCardList);
+        appendFilterControlsIfNeeded(productCardList);
 
         setInterval(cleanList, 500);
     }
 }, 1000);
+
+function appendFilterControlsIfNeeded(filtersBlockContainer) {
+    const minRatingDiv = getFirstElement(filtersBlockContainer, `#${MIN_RATING_DIV_ID}`);
+
+    if (minRatingDiv) {
+        return;
+    }
+
+    appendFilterControls(filtersBlockContainer);
+}
 
 function appendFilterControls(filtersBlockContainer) {
     const controlStyle = 'margin-left: 10px;';
