@@ -66,7 +66,11 @@ setTimeout(() => {
             const productBadReviewsLink = document.createElement('a');
             productBadReviewsLink.style = 'padding-left: 8px;';
             productBadReviewsLink.href = `${productReviewsLink.href}?sort=score_asc`;
-            productBadReviewsLink.textContent = 'Плохие отзывы';
+
+            const productBadReviewsLinkSpan = document.createElement('span');
+            productBadReviewsLinkSpan.textContent = 'Плохие отзывы';
+
+            productBadReviewsLink.appendChild(productBadReviewsLinkSpan);
 
             const icon =
                 '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
