@@ -137,9 +137,16 @@ function appendReviewsInfoToHeader() {
     for (let i = 1; i <= 3; i += 1) {
         const reviewsFilterSpan = reviewsFilterSpans[i];
         const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
-        reviewsFilterSpanCopy.addEventListener('click', () => reviewsFilterSpan.click());
+        reviewsFilterSpanCopy.addEventListener('click', scrollToParentAndClick(reviewsFilterSpan));
         reviewsInfo.append(reviewsFilterSpanCopy);
     }
 
     nameSpan.append(reviewsInfo);
+}
+
+function scrollToParentAndClick(element) {
+    return () => {
+        element.parentNode.scrollIntoView();
+        element.click();
+    };
 }
