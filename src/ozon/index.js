@@ -36,13 +36,13 @@ function getCategoryName() {
     return categoryName;
 }
 
-if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
+if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
     window.scrollTo(0, document.body.scrollHeight);
     setTimeout(() => {
-        const advSearchShelf = document.querySelector(ADV_SEARCH_SHELF_SELECTOR);
+        const advSearchShelf = getFirstElement(document, ADV_SEARCH_SHELF_SELECTOR);
         if (advSearchShelf) advSearchShelf.remove();
 
-        const resultsHeader = document.querySelector(RESULTS_HEADER_SELECTOR);
+        const resultsHeader = getFirstElement(document, RESULTS_HEADER_SELECTOR);
 
         if (resultsHeader) {
             resultsHeader.scrollIntoView();
@@ -55,10 +55,10 @@ if (document.querySelector(PAGINATOR_CONTENT_SELECTOR)) {
 }
 
 setTimeout(() => {
-    const productReviewsWrap = document.querySelector(PRODUCT_REVIEWS_WRAP_SELECTOR);
+    const productReviewsWrap = getFirstElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR);
 
     if (productReviewsWrap) {
-        const productReviewsLink = productReviewsWrap.querySelector('a');
+        const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
         if (productReviewsLink) {
             const productReviewsWrapParent = productReviewsWrap.parentNode;
 
@@ -91,7 +91,7 @@ setTimeout(() => {
     }
 }, 1500);
 
-const comments = document.querySelector(COMMENTS_SELECTOR);
+const comments = getFirstElement(document, COMMENTS_SELECTOR);
 if (comments) {
     comments.scrollIntoView();
 }
@@ -148,12 +148,12 @@ function createFilterControl(
 function cleanList() {
     const searchResultContainer = getFirstElement(document, SEARCH_RESULT_SELECTOR, true);
     const productCardsWrap = getFirstElement(searchResultContainer, ':scope > div', true);
-    const productCards = productCardsWrap.querySelectorAll(':scope > div');
+    const productCards = getAllElements(productCardsWrap, ':scope > div');
 
     productCards.forEach(
         (productCard) => {
             const productCardRatingWrap =
-                productCard.querySelector(PRODUCT_CARD_RATING_WRAP_SELECTOR);
+                getFirstElement(productCard, PRODUCT_CARD_RATING_WRAP_SELECTOR);
 
             if (!productCardRatingWrap) {
                 productCard.remove();
