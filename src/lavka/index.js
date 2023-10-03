@@ -1,4 +1,10 @@
-import { insertAfter, createDefaultFilterControl, updateInput } from '../common/dom';
+import {
+    createDefaultFilterControl,
+    getAllElements,
+    getFirstElement,
+    insertAfter,
+    updateInput,
+} from '../common/dom';
 
 const MIN_DISCOUNT = 20;
 const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';
@@ -9,7 +15,7 @@ const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 const minDiscountValue =
     +(localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY) ?? MIN_DISCOUNT);
 
-const mainContent = document.querySelector(MAIN_CONTENT_SELECTOR);
+const mainContent = getFirstElement(document, MAIN_CONTENT_SELECTOR);
 
 if (mainContent) {
     appendFilterControls();
@@ -33,7 +39,7 @@ function cleanList() {
         return;
     }
 
-    const productCardLinks = document.querySelectorAll(PRODUCT_CARD_LINK_SELECTOR);
+    const productCardLinks = getAllElements(document, PRODUCT_CARD_LINK_SELECTOR);
 
     if (productCardLinks.length) {
         productCardLinks.forEach(
@@ -41,7 +47,7 @@ function cleanList() {
                 const productCardLinksParent = productCardLink.parentNode;
                 const productCard = productCardLinksParent.parentNode.parentNode;
 
-                const promoLabel = productCardLinksParent.querySelector('li');
+                const promoLabel = getFirstElement(productCardLinksParent,'li');
 
                 if (!promoLabel) {
                     productCard.remove();
