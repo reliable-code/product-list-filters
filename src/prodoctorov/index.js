@@ -137,6 +137,7 @@ function appendReviewsInfoToHeader() {
     for (let i = 1; i <= 3; i += 1) {
         const reviewsFilterSpan = reviewsFilterSpans[i];
         const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
+        reviewsFilterSpanCopy.addEventListener('click', () => reviewsFilterSpan.click());
         reviewsInfo.append(reviewsFilterSpanCopy);
     }
 
