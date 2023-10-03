@@ -45,7 +45,7 @@ export function createDefaultFilterControl(
     input.min = inputMinValue;
     input.max = inputMaxValue;
     input.addEventListener('change', inputOnChange);
-    filterControl.appendChild(input);
+    filterControl.append(input);
 
     return filterControl;
 }
