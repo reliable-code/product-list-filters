@@ -25,10 +25,22 @@ setTimeout(() => {
 }, 1000);
 
 function appendFilterControls(filtersBlockContainer) {
-    const controlStyle = '';
+    const controlStyle = 'margin-left: 10px;';
+    const inputStyle =
+        'border: 1px solid #C9C9C9;' +
+        'border-radius: 8px;' +
+        'height: 40px;' +
+        'padding: 0 16px;';
 
     const minRatingDiv =
-        createDefaultFilterControl('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, controlStyle);
+        createDefaultFilterControl('Минимальный рейтинг: ',
+            minRatingValue,
+            '0.1',
+            '4.0',
+            '5.0',
+            updateMinRatingInput,
+            controlStyle,
+            inputStyle);
 
     filtersBlockContainer.prepend(minRatingDiv);
 }
