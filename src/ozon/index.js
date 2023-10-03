@@ -64,33 +64,30 @@ setTimeout(() => {
             const productBadReviewsLinkWrap = document.createElement('div');
 
             const productBadReviewsLink = document.createElement('a');
-            productBadReviewsLink.style = 'padding-left: 8px;';
-            productBadReviewsLink.href = `${productReviewsLink.href}?sort=score_asc`;
-
-            const productBadReviewsLinkSpan = document.createElement('span');
-            productBadReviewsLinkSpan.textContent = 'Плохие отзывы';
-
-            productBadReviewsLink.appendChild(productBadReviewsLinkSpan);
-
             const icon =
                 '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
                 '<path d="M7.99997 4H17.1919C17.9865 4 18.7058 4.47039 19.0243 5.19836L21.8323 11.6167C21.9429 11.8695 22 12.1424 22 12.4184V13C22 14.1046 21.1045 15 20 15H13.5L14.7066 19.4243C14.8772 20.0498 14.5826 20.7087 14.0027 20.9986V20.9986C13.4204 21.2898 12.7134 21.1274 12.3164 20.6114L8.41472 15.5392C8.14579 15.1896 7.99997 14.7608 7.99997 14.3198V14M7.99997 4H2V14H7.99997M7.99997 4V14" stroke="#005bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>\n' +
                 '</svg>';
-            productBadReviewsLinkWrap.innerHTML = icon;
+            productBadReviewsLink.innerHTML = icon;
+            productBadReviewsLink.style = 'align-items: center; display: flex;';
+            productBadReviewsLink.href = `${productReviewsLink.href}?sort=score_asc`;
+
+            const productBadReviewsLinkSpan = document.createElement('span');
+            productBadReviewsLinkSpan.style = 'padding-left: 8px;';
+            productBadReviewsLinkSpan.textContent = 'Плохие отзывы';
+
+            productBadReviewsLink.appendChild(productBadReviewsLinkSpan);
+
             productBadReviewsLinkWrap.appendChild(productBadReviewsLink);
 
             const isInStickyContainer =
                 productReviewsWrapParent.parentNode.matches('[data-widget="stickyContainer"]');
 
-            const productBadReviewsLinkWrapStyle = 'align-items: center; display: flex;';
-
             if (isInStickyContainer) {
-                productBadReviewsLinkWrap.style = `${productBadReviewsLinkWrapStyle} margin-top: 10px;`;
+                productBadReviewsLinkWrap.style = 'margin-top: 10px;';
 
                 insertAfter(productReviewsWrapParent, productBadReviewsLinkWrap);
             } else {
-                productBadReviewsLinkWrap.style = productBadReviewsLinkWrapStyle;
-
                 insertAfter(productReviewsWrap, productBadReviewsLinkWrap);
             }
         }
