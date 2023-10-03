@@ -41,32 +41,30 @@ function cleanList() {
 
     const productCardLinks = getAllElements(document, PRODUCT_CARD_LINK_SELECTOR);
 
-    if (productCardLinks.length) {
-        productCardLinks.forEach(
-            (productCardLink) => {
-                const productCardLinksParent = productCardLink.parentNode;
-                const productCard = productCardLinksParent.parentNode.parentNode;
+    productCardLinks.forEach(
+        (productCardLink) => {
+            const productCardLinksParent = productCardLink.parentNode;
+            const productCard = productCardLinksParent.parentNode.parentNode;
 
-                const promoLabel = getFirstElement(productCardLinksParent,'li');
+            const promoLabel = getFirstElement(productCardLinksParent, 'li');
 
-                if (!promoLabel) {
-                    productCard.remove();
-                    return;
-                }
+            if (!promoLabel) {
+                productCard.remove();
+                return;
+            }
 
-                const promoLabelText = promoLabel.innerText;
+            const promoLabelText = promoLabel.innerText;
 
-                if (!promoLabelText.includes('%')) {
-                    productCard.remove();
-                    return;
-                }
+            if (!promoLabelText.includes('%')) {
+                productCard.remove();
+                return;
+            }
 
-                const discountValue = +promoLabelText.replace(/\D/g, '');
+            const discountValue = +promoLabelText.replace(/\D/g, '');
 
-                if (discountValue < minDiscountValue) {
-                    productCard.remove();
-                }
-            },
-        );
-    }
+            if (discountValue < minDiscountValue) {
+                productCard.remove();
+            }
+        },
+    );
 }
