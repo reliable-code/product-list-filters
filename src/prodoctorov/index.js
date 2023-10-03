@@ -1,4 +1,7 @@
-import { insertAfter, createDefaultFilterControl, updateInput } from '../common/dom';
+import {
+    createDefaultFilterControl,
+    updateInput,
+} from '../common/dom';
 
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
@@ -28,7 +31,7 @@ function initListClean() {
 
     minReviewsDiv.id = MIN_REVIEWS_DIV_ID;
 
-    insertAfter(appointmentsPage, minReviewsDiv);
+    appointmentsPage.prepend(minReviewsDiv);
 
     removeSpecialPlacementCards();
 
