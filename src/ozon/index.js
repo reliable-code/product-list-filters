@@ -101,12 +101,22 @@ function initListClean() {
 
     const minReviewsDiv =
         createFilterControl(
-            'Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput,
+            'Минимально отзывов: ',
+            minReviewsValue,
+            '1',
+            '1',
+            '999999',
+            updateMinReviewsInput,
         );
 
     const minRatingDiv =
         createFilterControl(
-            'Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput,
+            'Минимальный рейтинг: ',
+            minRatingValue,
+            '0.1',
+            '4.0',
+            '5.0',
+            updateMinRatingInput,
         );
 
     searchResultsSort.appendChild(minReviewsDiv);
