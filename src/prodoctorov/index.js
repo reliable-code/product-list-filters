@@ -87,7 +87,7 @@ function cleanList() {
 function appendAdditionalLinks(doctorCard, profileCard) {
     appendAdditionalLink(doctorCard, profileCard, 'НаПоправку');
     appendAdditionalLink(doctorCard, profileCard, 'DocDoc');
-    appendAdditionalLink(doctorCard, profileCard, 'ДОКТУ');
+    appendAdditionalLink(doctorCard, profileCard, 'Докту');
 }
 
 function appendAdditionalLink(doctorCard, profileCard, siteName) {
