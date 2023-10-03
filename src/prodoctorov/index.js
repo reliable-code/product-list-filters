@@ -100,7 +100,7 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
     profileCard.appendChild(lineBreak);
 
     const searchUrlLink = document.createElement('a');
-    searchUrlLink.href = `http://www.google.com/search?q=${encodedSearchString}&btnI`;
+    searchUrlLink.href = `https://www.google.com/search?q=${encodedSearchString}&btnI`;
     searchUrlLink.textContent = siteName;
     profileCard.appendChild(searchUrlLink);
 }
