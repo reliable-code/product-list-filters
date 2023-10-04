@@ -53,7 +53,7 @@ export function createFilterControlNumber(
 
 export function createFilterControlCheckbox(
     titleText,
-    inputValue,
+    isChecked,
     inputOnChange,
     controlStyle = '',
     inputStyle = '',
@@ -65,7 +65,7 @@ export function createFilterControlCheckbox(
     const input = document.createElement('input');
     input.style = inputStyle;
     input.type = 'checkbox';
-    input.value = inputValue;
+    input.checked = isChecked;
     input.addEventListener('change', inputOnChange);
 
     filterControl.append(input);
