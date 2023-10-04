@@ -49,14 +49,16 @@ function appendFilterControls(filtersBlockContainer) {
         'padding: 0 16px;';
 
     const minRatingDiv =
-        createDefaultFilterControl('Минимальный рейтинг: ',
+        createDefaultFilterControl(
+            'Минимальный рейтинг: ',
             minRatingValue,
             '0.1',
             '4.0',
             '5.0',
             updateMinRatingInput,
             controlStyle,
-            inputStyle);
+            inputStyle,
+        );
 
     minRatingDiv.id = MIN_RATING_DIV_ID;
     filtersBlockContainer.prepend(minRatingDiv);
