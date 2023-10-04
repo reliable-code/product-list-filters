@@ -23,7 +23,7 @@ export function updateInput(keyName, e) {
     window.location.reload();
 }
 
-export function createDefaultFilterControl(
+export function createFilterControlNumber(
     titleText,
     inputValue,
     inputStep,

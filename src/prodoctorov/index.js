@@ -1,5 +1,5 @@
 import {
-    createDefaultFilterControl,
+    createFilterControlNumber,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -32,7 +32,7 @@ appendReviewsInfoToHeader();
 
 function initListClean() {
     const minReviewsDiv =
-        createDefaultFilterControl('Минимально отзывов: ',
+        createFilterControlNumber('Минимально отзывов: ',
             minReviewsValue,
             '1',
             '1',

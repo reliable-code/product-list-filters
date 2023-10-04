@@ -1,5 +1,5 @@
 import {
-    createDefaultFilterControl,
+    createFilterControlNumber,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -49,7 +49,7 @@ function appendFilterControls(filtersBlockContainer) {
         'padding: 0 16px;';
 
     const minRatingDiv =
-        createDefaultFilterControl(
+        createFilterControlNumber(
             'Минимальный рейтинг: ',
             minRatingValue,
             '0.1',

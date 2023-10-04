@@ -1,5 +1,5 @@
 import {
-    createDefaultFilterControl,
+    createFilterControlNumber,
     getAllElements,
     getFirstElement,
     insertAfter,
@@ -25,7 +25,7 @@ if (mainContent) {
 
 function appendFilterControls() {
     const minDiscountDiv =
-        createDefaultFilterControl('Минимальная скидка: ', minDiscountValue, '1', '0', '100', updateMinDiscountInput);
+        createFilterControlNumber('Минимальная скидка: ', minDiscountValue, '1', '0', '100', updateMinDiscountInput);
 
     insertAfter(mainContent, minDiscountDiv);
 }

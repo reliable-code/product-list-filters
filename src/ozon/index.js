@@ -1,6 +1,6 @@
 import { thumbsDownIcon } from './icons';
 import {
-    createDefaultFilterControl,
+    createFilterControlNumber,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -105,7 +105,7 @@ function initListClean() {
         'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px; width: 90px;';
 
     const minReviewsDiv =
-        createDefaultFilterControl(
+        createFilterControlNumber(
             'Минимально отзывов: ',
             minReviewsValue,
             '1',
@@ -117,7 +117,7 @@ function initListClean() {
         );
 
     const minRatingDiv =
-        createDefaultFilterControl(
+        createFilterControlNumber(
             'Минимальный рейтинг: ',
             minRatingValue,
             '0.1',
