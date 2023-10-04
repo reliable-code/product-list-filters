@@ -19,7 +19,15 @@ export function insertAfter(existingNode, newNode) {
 }
 
 export function updateInput(keyName, e) {
-    localStorage.setItem(keyName, e.target.value);
+    const { target } = e;
+    const { type } = target;
+
+    if (type === 'number') {
+        localStorage.setItem(keyName, target.value);
+    } else if (type === 'checkbox') {
+        localStorage.setItem(keyName, target.checked);
+    }
+
     window.location.reload();
 }
 
