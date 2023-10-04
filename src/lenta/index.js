@@ -77,6 +77,10 @@ function updateMinRatingInput(e) {
     updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
 }
 
+function updateNoRatingInput(e) {
+    updateInput(NO_RATING_LOCAL_STORAGE_KEY, e);
+}
+
 function cleanList() {
     const productCards = getAllElements(document, PRODUCT_CARD_SELECTOR);
 
