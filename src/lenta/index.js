@@ -110,7 +110,9 @@ function cleanList() {
             const productCardRating = getFirstElement(productCard, PRODUCT_CARD_RATING_SELECTOR);
 
             if (!productCardRating) {
-                productCard.remove();
+                if (!noRatingChecked) productCard.remove();
+
+                return;
             }
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
