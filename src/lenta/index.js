@@ -7,14 +7,19 @@ import {
 } from '../common/dom';
 
 const MIN_RATING = 4.0;
+const NO_RATING = false;
 
 const MIN_RATING_LOCAL_STORAGE_KEY = 'min-rating-filter';
+const NO_RATING_LOCAL_STORAGE_KEY = 'no-rating-filter';
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const FILTERS_CONTAINER_ID = 'filtersContainer';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
-const minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
+const minRatingValue =
+    +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
+const noRatingChecked =
+    JSON.parse((localStorage.getItem(NO_RATING_LOCAL_STORAGE_KEY) ?? NO_RATING));
 
 setTimeout(() => {
     setInterval(initListClean, 500);
