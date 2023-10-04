@@ -1,4 +1,5 @@
 import {
+    createFilterControlCheckbox,
     createFilterControlNumber,
     getAllElements,
     getElementInnerNumber,
@@ -48,14 +49,24 @@ function appendFilterControlsIfNeeded(productCardList) {
 function appendFilterControls(productCardList) {
     const filtersContainer = document.createElement('div');
     filtersContainer.id = FILTERS_CONTAINER_ID;
-    filtersContainer.style = 'margin-left: 10px;';
+    filtersContainer.style =
+        'display: flex;' +
+        'grid-gap: 15px;' +
+        'margin-left: 10px;';
 
-    const controlStyle = '';
-    const inputStyle =
+    const controlStyle =
+        'display: flex;' +
+        'align-items: center;';
+    const numberInputStyle =
         'border: 1px solid #C9C9C9;' +
         'border-radius: 8px;' +
         'height: 40px;' +
         'padding: 0 16px;';
+    const checkboxInputStyle =
+        'border: 1px solid #C9C9C9;' +
+        'border-radius: 4px;' +
+        'width: 22px;' +
+        'height: 22px;';
 
     const minRatingDiv =
         createFilterControlNumber(
@@ -66,10 +77,20 @@ function appendFilterControls(productCardList) {
             '5.0',
             updateMinRatingInput,
             controlStyle,
-            inputStyle,
+            numberInputStyle,
+        );
+
+    const noRatingDiv =
+        createFilterControlCheckbox(
+            'Без рейтинга: ',
+            noRatingChecked,
+            updateNoRatingInput,
+            controlStyle,
+            checkboxInputStyle,
         );
 
     filtersContainer.append(minRatingDiv);
+    filtersContainer.append(noRatingDiv);
     productCardList.prepend(filtersContainer);
 }
 
