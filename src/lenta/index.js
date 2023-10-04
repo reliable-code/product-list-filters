@@ -10,7 +10,7 @@ const MIN_RATING = 4.0;
 
 const MIN_RATING_LOCAL_STORAGE_KEY = 'min-rating-filter';
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
-const MIN_RATING_DIV_ID = 'minRatingDiv';
+const FILTERS_CONTAINER_ID = 'filtersContainer';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
@@ -30,18 +30,22 @@ function initListClean() {
     }
 }
 
-function appendFilterControlsIfNeeded(filtersBlockContainer) {
-    const minRatingDiv = getFirstElement(filtersBlockContainer, `#${MIN_RATING_DIV_ID}`);
+function appendFilterControlsIfNeeded(productCardList) {
+    const filtersContainer = getFirstElement(productCardList, `#${FILTERS_CONTAINER_ID}`);
 
-    if (minRatingDiv) {
+    if (filtersContainer) {
         return;
     }
 
-    appendFilterControls(filtersBlockContainer);
+    appendFilterControls(productCardList);
 }
 
-function appendFilterControls(filtersBlockContainer) {
-    const controlStyle = 'margin-left: 10px;';
+function appendFilterControls(productCardList) {
+    const filtersContainer = document.createElement('div');
+    filtersContainer.id = FILTERS_CONTAINER_ID;
+    filtersContainer.style = 'margin-left: 10px;';
+
+    const controlStyle = '';
     const inputStyle =
         'border: 1px solid #C9C9C9;' +
         'border-radius: 8px;' +
@@ -60,8 +64,8 @@ function appendFilterControls(filtersBlockContainer) {
             inputStyle,
         );
 
-    minRatingDiv.id = MIN_RATING_DIV_ID;
-    filtersBlockContainer.prepend(minRatingDiv);
+    filtersContainer.append(minRatingDiv);
+    productCardList.prepend(filtersContainer);
 }
 
 function updateMinRatingInput(e) {
