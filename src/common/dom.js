@@ -45,6 +45,29 @@ export function createFilterControlNumber(
     input.min = inputMinValue;
     input.max = inputMaxValue;
     input.addEventListener('change', inputOnChange);
+
+    filterControl.append(input);
+
+    return filterControl;
+}
+
+export function createFilterControlCheckbox(
+    titleText,
+    inputValue,
+    inputOnChange,
+    controlStyle = '',
+    inputStyle = '',
+) {
+    const filterControl = document.createElement('div');
+    filterControl.style = controlStyle;
+    filterControl.textContent = titleText;
+
+    const input = document.createElement('input');
+    input.style = inputStyle;
+    input.type = 'checkbox';
+    input.value = inputValue;
+    input.addEventListener('change', inputOnChange);
+
     filterControl.append(input);
 
     return filterControl;
