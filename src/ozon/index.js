@@ -39,7 +39,11 @@ if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
     await initListClean();
 }
 
-setTimeout(() => {
+setTimeout(async () => {
+    appendBadReviewsLink();
+}, 1500);
+
+function appendBadReviewsLink() {
     const productReviewsWrap = getFirstElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR);
 
     if (productReviewsWrap) {
@@ -74,7 +78,7 @@ setTimeout(() => {
             }
         }
     }
-}, 1500);
+}
 
 const comments = getFirstElement(document, COMMENTS_SELECTOR);
 if (comments) {
