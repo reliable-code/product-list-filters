@@ -7,7 +7,6 @@ import {
     insertAfter,
     updateInput,
     waitForElement,
-    waitForElementWithTimeout,
 } from '../common/dom';
 
 const CATEGORY_NAME = getCategoryName();
@@ -126,8 +125,7 @@ function cleanList() {
 }
 
 async function appendBadReviewsLink() {
-    const productReviewsWrap =
-        await waitForElementWithTimeout(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500);
+    const productReviewsWrap = await waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500);
 
     if (productReviewsWrap) {
         const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
