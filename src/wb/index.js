@@ -53,12 +53,7 @@ const filtersBlockWrap = await waitForElement(document, FILTERS_BLOCK_WRAP_SELEC
 if (filtersBlockWrap) {
     removeRecentItemsBlock();
 
-    const filtersBlockContainer = document.createElement('div');
-    filtersBlockContainer.classList.add('filters-block__container');
-    filtersBlockContainer.style = 'display: flex;';
-    filtersBlockWrap.append(filtersBlockContainer);
-
-    appendFilterControls(filtersBlockContainer);
+    appendFilterControls();
 
     setInterval(cleanList, 500);
 }
@@ -72,7 +67,12 @@ function removeRecentItemsBlock() {
     }
 }
 
-function appendFilterControls(filtersBlockContainer) {
+function appendFilterControls() {
+    const filtersBlockContainer = document.createElement('div');
+    filtersBlockContainer.classList.add('filters-block__container');
+    filtersBlockContainer.style = 'display: flex;';
+    filtersBlockWrap.append(filtersBlockContainer);
+
     const controlStyle = 'padding-left: 7px; margin-top: 14px;';
 
     const minReviewsDiv =
