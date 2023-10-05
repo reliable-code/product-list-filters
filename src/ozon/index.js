@@ -13,8 +13,6 @@ const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
 const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
-const ADV_SEARCH_SHELF_SELECTOR = '[data-widget="skuAdvSearchShelf"]';
-const RESULTS_HEADER_SELECTOR = '[data-widget="resultsHeader"]';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
 const COMMENTS_SELECTOR = '#comments';
 
