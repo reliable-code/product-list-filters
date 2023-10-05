@@ -1,7 +1,7 @@
 import {
-    insertAfter,
     createFilterControlNumber,
-    getElementInnerNumber,
+    getChildElementInnerNumber,
+    insertAfter,
     updateInput,
 } from '../common/dom';
 
@@ -96,11 +96,9 @@ function cleanList() {
 
             const ratingInfoSpans = ratingInfoWrap.querySelectorAll(':scope > span');
 
-            const productCardReviews = ratingInfoSpans[1];
-            const productCardReviewsNumber = getElementInnerNumber(productCardReviews);
+            const productCardReviewsNumber = getChildElementInnerNumber(ratingInfoSpans, 1);
 
-            const productCardRating = ratingInfoSpans[0];
-            const productCardRatingNumber = getElementInnerNumber(productCardRating);
+            const productCardRatingNumber = getChildElementInnerNumber(ratingInfoSpans, 0);
 
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue) {
