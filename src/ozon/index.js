@@ -124,14 +124,20 @@ function cleanList() {
     );
 }
 
-async function appendBadReviewsLink() {
+async function waitForElementWithTimeout(parentNode, selector, timeout) {
     let productReviewsWrap;
 
     try {
-        productReviewsWrap = await waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500);
+        productReviewsWrap = await waitForElement(parentNode, selector, timeout);
     } catch (e) {
         console.log(e);
     }
+    return productReviewsWrap;
+}
+
+async function appendBadReviewsLink() {
+    const productReviewsWrap =
+        await waitForElementWithTimeout(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500);
 
     if (productReviewsWrap) {
         const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
