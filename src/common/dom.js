@@ -108,7 +108,7 @@ export function getChildElementInnerNumber(element, childIndex, cleanText = fals
 }
 
 export function waitForElement(parentNode, selector, timeout = null) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         const observer = new MutationObserver(mutationCallback);
 
         observer.observe(parentNode, {
@@ -121,6 +121,7 @@ export function waitForElement(parentNode, selector, timeout = null) {
             timeoutId = setTimeout(
                 () => {
                     observer.disconnect();
+                    reject(`No element found for selector: ${selector}`);
                 },
                 timeout,
             );
