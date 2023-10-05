@@ -106,19 +106,26 @@ function checkMinPrice() {
     }
 }
 
+function getFirstElementInnerNumber(parentNode, selector, cleanText) {
+    const element = parentNode.querySelector(selector);
+    const elementNumber = getElementInnerNumber(element, cleanText);
+
+    return elementNumber;
+}
+
 function cleanList() {
     const productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(
         (productCard) => {
-            const productCardReviews = productCard.querySelector(PRODUCT_CARD_REVIEWS_SELECTOR);
-            const productCardReviewsNumber = getElementInnerNumber(productCardReviews, true);
+            const productCardReviewsNumber =
+                getFirstElementInnerNumber(productCard, PRODUCT_CARD_REVIEWS_SELECTOR, true);
 
-            const productCardRating = productCard.querySelector(PRODUCT_CARD_RATING_SELECTOR);
-            const productCardRatingNumber = getElementInnerNumber(productCardRating);
+            const productCardRatingNumber =
+                getFirstElementInnerNumber(productCard, PRODUCT_CARD_RATING_SELECTOR);
 
-            const productCardPrice = productCard.querySelector(PRODUCT_CARD_PRICE_SELECTOR);
-            const productCardPriceNumber = getElementInnerNumber(productCardPrice, true);
+            const productCardPriceNumber =
+                getFirstElementInnerNumber(productCard, PRODUCT_CARD_PRICE_SELECTOR, true);
 
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue
