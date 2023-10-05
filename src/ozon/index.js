@@ -37,14 +37,12 @@ function getCategoryName() {
 
 if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
     await initListClean();
+} else {
+    await appendBadReviewsLink();
 }
 
-setTimeout(async () => {
-    appendBadReviewsLink();
-}, 1500);
-
-function appendBadReviewsLink() {
-    const productReviewsWrap = getFirstElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR);
+async function appendBadReviewsLink() {
+    const productReviewsWrap = await waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR);
 
     if (productReviewsWrap) {
         const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
