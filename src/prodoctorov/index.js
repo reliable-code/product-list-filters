@@ -26,9 +26,9 @@ if (appointmentsPage) {
     initListClean();
 
     setInterval(checkListCleanInitiated, 500);
+} else {
+    appendReviewsInfoToHeader();
 }
-
-appendReviewsInfoToHeader();
 
 function initListClean() {
     const minReviewsDiv =
