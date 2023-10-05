@@ -2,7 +2,7 @@ import { thumbsDownIcon } from './icons';
 import {
     createFilterControlNumber,
     getAllElements,
-    getElementInnerNumber,
+    getChildElementInnerNumber,
     getFirstElement,
     insertAfter,
     updateInput,
@@ -145,13 +145,6 @@ function updateMinReviewsInput(e) {
 
 function updateMinRatingInput(e) {
     updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
-}
-
-function getChildElementInnerNumber(element, childIndex) {
-    const childElement = element[childIndex];
-    const elementNumber = getElementInnerNumber(childElement);
-
-    return elementNumber;
 }
 
 function cleanList() {
