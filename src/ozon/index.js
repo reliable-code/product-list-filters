@@ -6,6 +6,7 @@ import {
     getFirstElement,
     insertAfter,
     updateInput,
+    waitForElement,
 } from '../common/dom';
 
 const CATEGORY_NAME = getCategoryName();
@@ -35,9 +36,7 @@ function getCategoryName() {
 }
 
 if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
-    setTimeout(() => {
-        initListClean();
-    }, 1500);
+    await initListClean();
 }
 
 setTimeout(() => {
@@ -82,8 +81,8 @@ if (comments) {
     comments.scrollIntoView();
 }
 
-function initListClean() {
-    const searchResultsSort = getFirstElement(document, SEARCH_RESULTS_SORT_SELECTOR, true);
+async function initListClean() {
+    const searchResultsSort = await waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR);
 
     const controlStyle =
         'padding-left: 14px; margin-top: 12px;';
