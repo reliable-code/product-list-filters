@@ -90,7 +90,7 @@ export function createFilterControl(titleText, controlStyle = '') {
 }
 
 export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
-    const element = parentNode.querySelector(selector);
+    const element = getFirstElement(parentNode, selector, true);
     const elementNumber = getElementInnerNumber(element, cleanText);
 
     return elementNumber;
