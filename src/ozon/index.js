@@ -39,8 +39,7 @@ function getCategoryName() {
 if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
     window.scrollTo(0, document.body.scrollHeight);
     setTimeout(() => {
-        const advSearchShelf = getFirstElement(document, ADV_SEARCH_SHELF_SELECTOR);
-        if (advSearchShelf) advSearchShelf.remove();
+        removeAdvSearchShelf();
 
         const resultsHeader = getFirstElement(document, RESULTS_HEADER_SELECTOR);
 
@@ -52,6 +51,11 @@ if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
 
         initListClean();
     }, 1500);
+}
+
+function removeAdvSearchShelf() {
+    const advSearchShelf = getFirstElement(document, ADV_SEARCH_SHELF_SELECTOR);
+    if (advSearchShelf) advSearchShelf.remove();
 }
 
 setTimeout(() => {
