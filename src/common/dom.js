@@ -44,7 +44,7 @@ export function createFilterControlNumber(
     const {
         filterControl,
         input,
-    } = createFilterControlBase(controlStyle, titleText, inputOnChange, inputStyle);
+    } = createFilterControlBaseInput(controlStyle, titleText, inputOnChange, inputStyle);
 
     input.type = 'number';
     input.value = inputValue;
@@ -67,7 +67,7 @@ export function createFilterControlCheckbox(
     const {
         filterControl,
         input,
-    } = createFilterControlBase(controlStyle, titleText, inputOnChange, inputStyle);
+    } = createFilterControlBaseInput(controlStyle, titleText, inputOnChange, inputStyle);
 
     input.type = 'checkbox';
     input.checked = isChecked;
@@ -77,7 +77,7 @@ export function createFilterControlCheckbox(
     return filterControl;
 }
 
-function createFilterControlBase(controlStyle, titleText, inputOnChange, inputStyle) {
+function createFilterControlBaseInput(controlStyle, titleText, inputOnChange, inputStyle) {
     const filterControl = document.createElement('div');
     filterControl.style = controlStyle;
     filterControl.textContent = titleText;
