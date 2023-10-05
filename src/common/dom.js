@@ -107,7 +107,7 @@ export function getChildElementInnerNumber(element, childIndex, cleanText = fals
     return elementNumber;
 }
 
-export function waitForElement(parentNode, selector) {
+export function waitForElement(parentNode, selector, timeout = null) {
     return new Promise((resolve) => {
         const observer = new MutationObserver(mutationCallback);
 
@@ -116,8 +116,19 @@ export function waitForElement(parentNode, selector) {
             subtree: true,
         });
 
+        let timeoutId = null;
+        if (timeout) {
+            timeoutId = setTimeout(
+                () => {
+                    observer.disconnect();
+                },
+                timeout,
+            );
+        }
+
         function mutationCallback() {
             if (parentNode.querySelector(selector)) {
+                if (timeoutId) clearTimeout(timeoutId);
                 observer.disconnect();
                 resolve(parentNode.querySelector(selector));
             }
