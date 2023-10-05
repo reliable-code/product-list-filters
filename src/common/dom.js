@@ -79,15 +79,20 @@ export function createFilterControlCheckbox(
 
 function createFilterControlBaseInput(controlStyle, titleText, inputOnChange, inputStyle) {
     const filterControl = createFilterControl(titleText, controlStyle);
-
-    const input = document.createElement('input');
-    input.addEventListener('change', inputOnChange);
-    input.style = inputStyle;
+    const input = createBaseInput(inputOnChange, inputStyle);
 
     return {
         filterControl,
         input,
     };
+}
+
+function createBaseInput(inputOnChange, inputStyle) {
+    const input = document.createElement('input');
+    input.addEventListener('change', inputOnChange);
+    input.style = inputStyle;
+
+    return input;
 }
 
 export function createFilterControl(titleText, controlStyle = '') {
