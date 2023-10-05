@@ -1,4 +1,9 @@
-import { createFilterControlNumber, getElementInnerNumber, updateInput } from '../common/dom';
+import {
+    createFilterControlNumber,
+    getElementInnerNumber,
+    updateInput,
+    waitForElement,
+} from '../common/dom';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
@@ -43,22 +48,20 @@ function getMinPriceValueFromURL() {
     return minPriceFilterValue;
 }
 
-setTimeout(() => {
-    const filtersBlockWrap = document.querySelector(FILTERS_BLOCK_WRAP_SELECTOR);
+const filtersBlockWrap = await waitForElement(document, FILTERS_BLOCK_WRAP_SELECTOR, 1500);
 
-    if (filtersBlockWrap) {
-        removeRecentItemsBlock();
+if (filtersBlockWrap) {
+    removeRecentItemsBlock();
 
-        const filtersBlockContainer = document.createElement('div');
-        filtersBlockContainer.classList.add('filters-block__container');
-        filtersBlockContainer.style = 'display: flex;';
-        filtersBlockWrap.append(filtersBlockContainer);
+    const filtersBlockContainer = document.createElement('div');
+    filtersBlockContainer.classList.add('filters-block__container');
+    filtersBlockContainer.style = 'display: flex;';
+    filtersBlockWrap.append(filtersBlockContainer);
 
-        appendFilterControls(filtersBlockContainer);
+    appendFilterControls(filtersBlockContainer);
 
-        setInterval(cleanList, 500);
-    }
-}, 1000);
+    setInterval(cleanList, 500);
+}
 
 function removeRecentItemsBlock() {
     const recentItems = document.querySelector('.j-recent-items');
