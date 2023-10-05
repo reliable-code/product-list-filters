@@ -38,15 +38,8 @@ function getCategoryName() {
 
 if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
     setTimeout(() => {
-        removeAdvSearchShelf();
-
         initListClean();
     }, 1500);
-}
-
-function removeAdvSearchShelf() {
-    const advSearchShelf = getFirstElement(document, ADV_SEARCH_SHELF_SELECTOR);
-    if (advSearchShelf) advSearchShelf.remove();
 }
 
 setTimeout(() => {
