@@ -7,6 +7,7 @@ import {
     insertAfter,
     updateInput,
     waitForElement,
+    waitForElementWithTimeout,
 } from '../common/dom';
 
 const CATEGORY_NAME = getCategoryName();
@@ -122,17 +123,6 @@ function cleanList() {
             }
         },
     );
-}
-
-async function waitForElementWithTimeout(parentNode, selector, timeout) {
-    let productReviewsWrap;
-
-    try {
-        productReviewsWrap = await waitForElement(parentNode, selector, timeout);
-    } catch (e) {
-        console.log(e);
-    }
-    return productReviewsWrap;
 }
 
 async function appendBadReviewsLink() {

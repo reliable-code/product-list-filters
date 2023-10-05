@@ -136,3 +136,15 @@ export function waitForElement(parentNode, selector, timeout = null) {
         }
     });
 }
+
+export async function waitForElementWithTimeout(parentNode, selector, timeout) {
+    let element;
+
+    try {
+        element = await waitForElement(parentNode, selector, timeout);
+    } catch (e) {
+        console.log(e);
+    }
+
+    return element;
+}
