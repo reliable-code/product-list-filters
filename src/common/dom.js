@@ -107,16 +107,16 @@ export function getChildElementInnerNumber(element, childIndex, cleanText = fals
     return elementNumber;
 }
 
-export function waitForElement(selector) {
+export function waitForElement(parentNode, selector) {
     return new Promise((resolve) => {
         const observer = new MutationObserver(() => {
-            if (document.querySelector(selector)) {
+            if (parentNode.querySelector(selector)) {
                 observer.disconnect();
-                resolve(document.querySelector(selector));
+                resolve(parentNode.querySelector(selector));
             }
         });
 
-        observer.observe(document.body, {
+        observer.observe(parentNode, {
             childList: true,
             subtree: true,
         });
