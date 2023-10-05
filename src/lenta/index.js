@@ -91,6 +91,7 @@ function appendFilterControls(productCardList) {
 
     filtersContainer.append(minRatingDiv);
     filtersContainer.append(noRatingDiv);
+
     productCardList.prepend(filtersContainer);
 }
 
