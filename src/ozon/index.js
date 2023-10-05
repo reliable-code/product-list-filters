@@ -125,7 +125,13 @@ function cleanList() {
 }
 
 async function appendBadReviewsLink() {
-    const productReviewsWrap = await waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR);
+    let productReviewsWrap;
+
+    try {
+        productReviewsWrap = await waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500);
+    } catch (e) {
+        console.log(e);
+    }
 
     if (productReviewsWrap) {
         const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
