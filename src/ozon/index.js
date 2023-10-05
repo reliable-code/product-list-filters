@@ -37,17 +37,8 @@ function getCategoryName() {
 }
 
 if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
-    window.scrollTo(0, document.body.scrollHeight);
     setTimeout(() => {
         removeAdvSearchShelf();
-
-        const resultsHeader = getFirstElement(document, RESULTS_HEADER_SELECTOR);
-
-        if (resultsHeader) {
-            resultsHeader.scrollIntoView();
-        } else {
-            window.scrollTo(0, 0);
-        }
 
         initListClean();
     }, 1500);
