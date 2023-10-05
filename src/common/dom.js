@@ -78,9 +78,7 @@ export function createFilterControlCheckbox(
 }
 
 function createFilterControlBaseInput(controlStyle, titleText, inputOnChange, inputStyle) {
-    const filterControl = document.createElement('div');
-    filterControl.style = controlStyle;
-    filterControl.textContent = titleText;
+    const filterControl = createFilterControl(titleText, controlStyle);
 
     const input = document.createElement('input');
     input.addEventListener('change', inputOnChange);
@@ -90,6 +88,14 @@ function createFilterControlBaseInput(controlStyle, titleText, inputOnChange, in
         filterControl,
         input,
     };
+}
+
+export function createFilterControl(titleText, controlStyle = '') {
+    const filterControl = document.createElement('div');
+    filterControl.textContent = titleText;
+    filterControl.style = controlStyle;
+
+    return filterControl;
 }
 
 export function getElementInnerNumber(element, cleanText = false) {
