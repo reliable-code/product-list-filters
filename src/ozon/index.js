@@ -147,6 +147,13 @@ function updateMinRatingInput(e) {
     updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
 }
 
+function getChildElementInnerNumber(element, childIndex) {
+    const childElement = element[childIndex];
+    const elementNumber = getElementInnerNumber(childElement);
+
+    return elementNumber;
+}
+
 function cleanList() {
     const searchResultContainer = getFirstElement(document, SEARCH_RESULT_SELECTOR, true);
     const productCardsWrap = getFirstElement(searchResultContainer, ':scope > div', true);
@@ -165,11 +172,11 @@ function cleanList() {
 
             const productCardRatingWrapSpans = getAllElements(productCardRatingWrap, ':scope > span', true);
 
-            const productCardReviews = productCardRatingWrapSpans[1];
-            const productCardReviewsNumber = getElementInnerNumber(productCardReviews);
+            const productCardReviewsNumber =
+                getChildElementInnerNumber(productCardRatingWrapSpans, 1);
 
-            const productCardRating = productCardRatingWrapSpans[0];
-            const productCardRatingNumber = getElementInnerNumber(productCardRating);
+            const productCardRatingNumber =
+                getChildElementInnerNumber(productCardRatingWrapSpans, 0);
 
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue) {
