@@ -1,7 +1,7 @@
 import {
     createFilterControl,
     createFilterControlNumber,
-    getElementInnerNumber,
+    getFirstElementInnerNumber,
     updateInput,
     waitForElement,
 } from '../common/dom';
@@ -104,13 +104,6 @@ function checkMinPrice() {
     if (minPriceValue !== currentMinPriceValue) {
         window.location.reload();
     }
-}
-
-function getFirstElementInnerNumber(parentNode, selector, cleanText) {
-    const element = parentNode.querySelector(selector);
-    const elementNumber = getElementInnerNumber(element, cleanText);
-
-    return elementNumber;
 }
 
 function cleanList() {

@@ -89,6 +89,13 @@ export function createFilterControl(titleText, controlStyle = '') {
     return filterControl;
 }
 
+export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
+    const element = parentNode.querySelector(selector);
+    const elementNumber = getElementInnerNumber(element, cleanText);
+
+    return elementNumber;
+}
+
 export function getElementInnerNumber(element, cleanText = false) {
     let elementText = element.innerText;
     if (cleanText) elementText = elementText.replace(/\D/g, '');
