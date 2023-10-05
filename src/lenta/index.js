@@ -22,9 +22,7 @@ const minRatingValue =
 const noRatingChecked =
     JSON.parse((localStorage.getItem(NO_RATING_LOCAL_STORAGE_KEY) ?? NO_RATING));
 
-setTimeout(() => {
-    setInterval(initListClean, 500);
-}, 1000);
+setInterval(initListClean, 500);
 
 function initListClean() {
     const productCardList = getFirstElement(document, PRODUCT_CARD_LIST_SELECTOR);
