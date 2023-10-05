@@ -35,16 +35,15 @@ function getCategoryName() {
     return categoryName;
 }
 
-if (getFirstElement(document, PAGINATOR_CONTENT_SELECTOR)) {
+const paginatorContent = getFirstElement(document, PAGINATOR_CONTENT_SELECTOR);
+const comments = getFirstElement(document, COMMENTS_SELECTOR);
+
+if (paginatorContent) {
     await initListClean();
+} else if (comments) {
+    comments.scrollIntoView();
 } else {
     await appendBadReviewsLink();
-}
-
-
-const comments = getFirstElement(document, COMMENTS_SELECTOR);
-if (comments) {
-    comments.scrollIntoView();
 }
 
 async function initListClean() {
