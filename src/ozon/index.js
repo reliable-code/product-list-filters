@@ -135,8 +135,7 @@ function initListClean() {
     searchResultsSort.append(minReviewsDiv, minRatingDiv);
 
     cleanList();
-
-    window.addEventListener('scroll', cleanList);
+    setInterval(cleanList, 500);
 }
 
 function updateMinReviewsInput(e) {
