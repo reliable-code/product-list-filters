@@ -193,7 +193,7 @@ async function appendRatingValue(productReviewsWrap) {
 
     const starsContainer = productReviewsWrap.children[0].children[0].children[0];
 
-    const ratingValueDivStyle = 'margin-left: 3px; color: #005bff;';
+    const ratingValueDivStyle = 'margin: 0 4px; color: #005bff;';
     const ratingValueDiv = createDiv(ratingValue, ratingValueDivStyle);
 
     starsContainer.append(ratingValueDiv);
