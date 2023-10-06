@@ -134,7 +134,9 @@ function appendReviewsInfoToHeader() {
 
     const reviewsFilterSpans = getAllElements(reviewsFilter, ':scope > span', true);
 
-    for (let i = 1; i <= 3; i += 1) {
+    const lastReviewsFilterSpansIndex = reviewsFilterSpans.length - 1;
+
+    for (let i = 1; i <= lastReviewsFilterSpansIndex; i += 1) {
         const reviewsFilterSpan = reviewsFilterSpans[i];
         const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
         reviewsFilterSpanCopy.addEventListener('click', scrollToParentAndClick(reviewsFilterSpan));
