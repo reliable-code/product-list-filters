@@ -159,9 +159,9 @@ async function appendBadReviewsLinkAndRatingValue() {
             } else {
                 insertAfter(productReviewsWrap, productBadReviewsLinkWrap);
             }
-
-            await appendRatingValue(productReviewsWrap);
         }
+
+        await appendRatingValue(productReviewsWrap);
     }
 }
 
