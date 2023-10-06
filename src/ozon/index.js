@@ -167,9 +167,7 @@ async function appendBadReviewsLink() {
 
 async function appendRatingValue(productReviewsWrap) {
     const createReviewButton =
-        await waitForElement(document, CREATE_REVIEW_BUTTON_SELECTOR, 2000);
-
-    if (!createReviewButton) return;
+        await waitForElement(document, CREATE_REVIEW_BUTTON_SELECTOR);
 
     const reviewsInfoContainer = createReviewButton.parentNode;
     const ratingInfoContainer =
