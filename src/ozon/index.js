@@ -87,11 +87,11 @@ async function initListClean() {
 }
 
 function updateMinReviewsInput(e) {
-    updateValue(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function updateMinRatingInput(e) {
-    updateValue(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {

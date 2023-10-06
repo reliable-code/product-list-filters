@@ -49,7 +49,7 @@ function initListClean() {
 }
 
 function updateMinReviewsInput(e) {
-    updateValue(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function removeSpecialPlacementCards() {

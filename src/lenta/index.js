@@ -94,11 +94,11 @@ function appendFilterControls(productCardList) {
 }
 
 function updateMinRatingInput(e) {
-    updateValue(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function updateNoRatingInput(e) {
-    updateValue(NO_RATING_LOCAL_STORAGE_KEY, e);
+    updateValue(e, NO_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {

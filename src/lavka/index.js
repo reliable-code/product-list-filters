@@ -31,7 +31,7 @@ function appendFilterControls() {
 }
 
 function updateMinDiscountInput(e) {
-    updateValue(MIN_DISCOUNT_LOCAL_STORAGE_KEY, e);
+    updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {

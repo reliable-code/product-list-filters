@@ -18,7 +18,7 @@ export function insertAfter(existingNode, newNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
 
-export function updateValue(keyName, event, needReload = true) {
+export function updateValue(event, keyName, needReload = true) {
     const { target } = event;
     const { type } = target;
 
