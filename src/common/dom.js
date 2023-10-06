@@ -33,6 +33,8 @@ export function updateValue(event, keyName, needReload = true) {
     localStorage.setItem(keyName, valueToSet);
 
     if (needReload) window.location.reload();
+
+    return valueToSet;
 }
 
 export function createFilterControlNumber(
