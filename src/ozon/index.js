@@ -1,5 +1,6 @@
 import { thumbsDownIcon } from './icons';
 import {
+    createDiv,
     createFilterControlNumber,
     getAllElements,
     getChildElementInnerNumber,
@@ -189,8 +190,9 @@ async function appendRatingValue(productReviewsWrap) {
     if (!ratingValue) return;
 
     const starsContainer = productReviewsWrap.children[0].children[0].children[0];
-    const ratingValueDiv = document.createElement('div');
-    ratingValueDiv.innerText = ratingValue;
-    ratingValueDiv.style = 'margin-left: 3px; color: #005bff;';
+
+    const ratingValueDivStyle = 'margin-left: 3px; color: #005bff;';
+    const ratingValueDiv = createDiv(ratingValue, ratingValueDivStyle);
+
     starsContainer.append(ratingValueDiv);
 }
