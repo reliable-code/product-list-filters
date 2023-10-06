@@ -94,11 +94,11 @@ function appendFilterControls(productCardList) {
 }
 
 function updateMinRatingInput(e) {
-    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY, false);
 }
 
 function updateNoRatingInput(e) {
-    noRatingChecked = updateValue(e, NO_RATING_LOCAL_STORAGE_KEY);
+    noRatingChecked = updateValue(e, NO_RATING_LOCAL_STORAGE_KEY, false);
 }
 
 function cleanList() {
@@ -109,7 +109,11 @@ function cleanList() {
             const productCardRating = getFirstElement(productCard, PRODUCT_CARD_RATING_SELECTOR);
 
             if (!productCardRating) {
-                if (!noRatingChecked) productCard.remove();
+                if (!noRatingChecked) {
+                    productCard.style.display = 'none';
+                } else {
+                    productCard.style.display = 'block';
+                }
 
                 return;
             }
@@ -117,7 +121,9 @@ function cleanList() {
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
             if (productCardRatingNumber < minRatingValue) {
-                productCard.remove();
+                productCard.style.display = 'none';
+            } else {
+                productCard.style.display = 'block';
             }
         },
     );
