@@ -18,7 +18,7 @@ export function insertAfter(existingNode, newNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
 
-export function updateValue(keyName, e) {
+export function updateValue(keyName, e, needReload = true) {
     const { target } = e;
     const { type } = target;
 
@@ -28,7 +28,7 @@ export function updateValue(keyName, e) {
         localStorage.setItem(keyName, target.checked);
     }
 
-    window.location.reload();
+    if (needReload) window.location.reload();
 }
 
 export function createFilterControlNumber(
