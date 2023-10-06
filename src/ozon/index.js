@@ -130,38 +130,42 @@ async function appendBadReviewsLinkAndRatingValue() {
     const productReviewsWrap = await waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500);
 
     if (productReviewsWrap) {
-        const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
-        if (productReviewsLink) {
-            const productReviewsWrapParent = productReviewsWrap.parentNode;
-
-            const productBadReviewsLinkWrap = document.createElement('div');
-
-            const productBadReviewsLink = document.createElement('a');
-            productBadReviewsLink.innerHTML = thumbsDownIcon;
-            productBadReviewsLink.style = 'align-items: center; display: flex;';
-            productBadReviewsLink.href = `${productReviewsLink.href}?sort=score_asc`;
-
-            const productBadReviewsLinkSpan = document.createElement('span');
-            productBadReviewsLinkSpan.style = 'padding-left: 8px;';
-            productBadReviewsLinkSpan.textContent = 'Плохие отзывы';
-
-            productBadReviewsLink.append(productBadReviewsLinkSpan);
-
-            productBadReviewsLinkWrap.append(productBadReviewsLink);
-
-            const isInStickyContainer =
-                productReviewsWrapParent.parentNode.matches('[data-widget="stickyContainer"]');
-
-            if (isInStickyContainer) {
-                productBadReviewsLinkWrap.style = 'margin-top: 10px;';
-
-                insertAfter(productReviewsWrapParent, productBadReviewsLinkWrap);
-            } else {
-                insertAfter(productReviewsWrap, productBadReviewsLinkWrap);
-            }
-        }
-
+        appendBadReviewsLink(productReviewsWrap);
         await appendRatingValue(productReviewsWrap);
+    }
+}
+
+function appendBadReviewsLink(productReviewsWrap) {
+    const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
+
+    if (productReviewsLink) {
+        const productReviewsWrapParent = productReviewsWrap.parentNode;
+
+        const productBadReviewsLinkWrap = document.createElement('div');
+
+        const productBadReviewsLink = document.createElement('a');
+        productBadReviewsLink.innerHTML = thumbsDownIcon;
+        productBadReviewsLink.style = 'align-items: center; display: flex;';
+        productBadReviewsLink.href = `${productReviewsLink.href}?sort=score_asc`;
+
+        const productBadReviewsLinkSpan = document.createElement('span');
+        productBadReviewsLinkSpan.style = 'padding-left: 8px;';
+        productBadReviewsLinkSpan.textContent = 'Плохие отзывы';
+
+        productBadReviewsLink.append(productBadReviewsLinkSpan);
+
+        productBadReviewsLinkWrap.append(productBadReviewsLink);
+
+        const isInStickyContainer =
+            productReviewsWrapParent.parentNode.matches('[data-widget="stickyContainer"]');
+
+        if (isInStickyContainer) {
+            productBadReviewsLinkWrap.style = 'margin-top: 10px;';
+
+            insertAfter(productReviewsWrapParent, productBadReviewsLinkWrap);
+        } else {
+            insertAfter(productReviewsWrap, productBadReviewsLinkWrap);
+        }
     }
 }
 
