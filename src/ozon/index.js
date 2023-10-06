@@ -105,7 +105,7 @@ function cleanList() {
                 getFirstElement(productCard, PRODUCT_CARD_RATING_WRAP_SELECTOR);
 
             if (!productCardRatingWrap) {
-                productCard.remove();
+                productCard.style.display = 'none';
 
                 return;
             }
@@ -120,7 +120,7 @@ function cleanList() {
 
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue) {
-                productCard.remove();
+                productCard.style.display = 'none';
             }
         },
     );
