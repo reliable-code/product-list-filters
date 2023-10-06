@@ -22,11 +22,15 @@ export function updateValue(event, keyName, needReload = true) {
     const { target } = event;
     const { type } = target;
 
+    let valueToSet;
+
     if (type === 'number') {
-        localStorage.setItem(keyName, target.value);
+        valueToSet = target.value;
     } else if (type === 'checkbox') {
-        localStorage.setItem(keyName, target.checked);
+        valueToSet = target.checked;
     }
+
+    localStorage.setItem(keyName, valueToSet);
 
     if (needReload) window.location.reload();
 }
