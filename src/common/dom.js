@@ -19,11 +19,15 @@ export function insertAfter(existingNode, newNode) {
 }
 
 export function hideElement(element) {
-    element.style.display = 'none';
+    setElementDisplay(element, 'none');
 }
 
 export function showElement(element) {
-    element.style.display = 'block';
+    setElementDisplay(element, 'block');
+}
+
+function setElementDisplay(element, display) {
+    element.style.display = display;
 }
 
 export function updateValue(event, keyName, needReload = true) {
