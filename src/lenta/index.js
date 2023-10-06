@@ -17,9 +17,9 @@ const FILTERS_CONTAINER_ID = 'filtersContainer';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
-const minRatingValue =
+let minRatingValue =
     +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
-const noRatingChecked =
+let noRatingChecked =
     JSON.parse((localStorage.getItem(NO_RATING_LOCAL_STORAGE_KEY) ?? NO_RATING));
 
 setInterval(initListClean, 500);
@@ -94,11 +94,11 @@ function appendFilterControls(productCardList) {
 }
 
 function updateMinRatingInput(e) {
-    updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function updateNoRatingInput(e) {
-    updateValue(e, NO_RATING_LOCAL_STORAGE_KEY);
+    noRatingChecked = updateValue(e, NO_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {
