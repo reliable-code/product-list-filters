@@ -73,18 +73,18 @@ export function createFilterControlCheckbox(
     return filterControl;
 }
 
-function createBaseInput(inputOnChange, inputStyle) {
+function createBaseInput(inputOnChange, style) {
     const input = document.createElement('input');
     input.addEventListener('change', inputOnChange);
-    input.style = inputStyle;
+    input.style = style;
 
     return input;
 }
 
-export function createDiv(textContent, controlStyle = '') {
+export function createDiv(textContent, style = '') {
     const div = document.createElement('div');
     div.textContent = textContent;
-    div.style = controlStyle;
+    div.style = style;
 
     return div;
 }
