@@ -2,7 +2,7 @@ import {
     createDiv,
     createFilterControlNumber,
     getFirstElementInnerNumber,
-    updateInput,
+    updateValue,
     waitForElement,
 } from '../common/dom';
 
@@ -91,11 +91,11 @@ function appendFilterControls() {
 }
 
 function updateMinReviewsInput(e) {
-    updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    updateValue(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
 }
 
 function updateMinRatingInput(e) {
-    updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    updateValue(MIN_RATING_LOCAL_STORAGE_KEY, e);
 }
 
 function checkMinPrice() {

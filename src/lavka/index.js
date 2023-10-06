@@ -3,7 +3,7 @@ import {
     getAllElements,
     getFirstElement,
     insertAfter,
-    updateInput,
+    updateValue,
 } from '../common/dom';
 
 const MIN_DISCOUNT = 20;
@@ -31,7 +31,7 @@ function appendFilterControls() {
 }
 
 function updateMinDiscountInput(e) {
-    updateInput(MIN_DISCOUNT_LOCAL_STORAGE_KEY, e);
+    updateValue(MIN_DISCOUNT_LOCAL_STORAGE_KEY, e);
 }
 
 function cleanList() {

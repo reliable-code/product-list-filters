@@ -4,7 +4,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    updateInput,
+    updateValue,
 } from '../common/dom';
 
 const MIN_RATING = 4.0;
@@ -94,11 +94,11 @@ function appendFilterControls(productCardList) {
 }
 
 function updateMinRatingInput(e) {
-    updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    updateValue(MIN_RATING_LOCAL_STORAGE_KEY, e);
 }
 
 function updateNoRatingInput(e) {
-    updateInput(NO_RATING_LOCAL_STORAGE_KEY, e);
+    updateValue(NO_RATING_LOCAL_STORAGE_KEY, e);
 }
 
 function cleanList() {

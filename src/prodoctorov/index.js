@@ -3,7 +3,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    updateInput,
+    updateValue,
 } from '../common/dom';
 
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
@@ -49,7 +49,7 @@ function initListClean() {
 }
 
 function updateMinReviewsInput(e) {
-    updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    updateValue(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
 }
 
 function removeSpecialPlacementCards() {

@@ -2,7 +2,7 @@ import {
     createFilterControlNumber,
     getArrayElementInnerNumber,
     insertAfter,
-    updateInput,
+    updateValue,
 } from '../common/dom';
 
 const MIN_REVIEWS = 5;
@@ -60,11 +60,11 @@ function appendFilterControls(searchControls) {
 }
 
 function updateMinReviewsInput(e) {
-    updateInput(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
+    updateValue(MIN_REVIEWS_LOCAL_STORAGE_KEY, e);
 }
 
 function updateMinRatingInput(e) {
-    updateInput(MIN_RATING_LOCAL_STORAGE_KEY, e);
+    updateValue(MIN_RATING_LOCAL_STORAGE_KEY, e);
 }
 
 function cleanList() {
