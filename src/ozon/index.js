@@ -3,7 +3,7 @@ import {
     createDiv,
     createFilterControlNumber,
     getAllElements,
-    getChildElementInnerNumber,
+    getArrayElementInnerNumber,
     getFirstElement,
     insertAfter,
     updateInput,
@@ -113,10 +113,10 @@ function cleanList() {
             const productCardRatingWrapSpans = getAllElements(productCardRatingWrap, ':scope > span', true);
 
             const productCardReviewsNumber =
-                getChildElementInnerNumber(productCardRatingWrapSpans, 1);
+                getArrayElementInnerNumber(productCardRatingWrapSpans, 1);
 
             const productCardRatingNumber =
-                getChildElementInnerNumber(productCardRatingWrapSpans, 0);
+                getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
 
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue) {

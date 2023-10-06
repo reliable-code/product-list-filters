@@ -1,6 +1,6 @@
 import {
     createFilterControlNumber,
-    getChildElementInnerNumber,
+    getArrayElementInnerNumber,
     insertAfter,
     updateInput,
 } from '../common/dom';
@@ -96,9 +96,9 @@ function cleanList() {
 
             const ratingInfoSpans = ratingInfoWrap.querySelectorAll(':scope > span');
 
-            const productCardReviewsNumber = getChildElementInnerNumber(ratingInfoSpans, 1);
+            const productCardReviewsNumber = getArrayElementInnerNumber(ratingInfoSpans, 1);
 
-            const productCardRatingNumber = getChildElementInnerNumber(ratingInfoSpans, 0);
+            const productCardRatingNumber = getArrayElementInnerNumber(ratingInfoSpans, 0);
 
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue) {

@@ -104,9 +104,9 @@ export function getElementInnerNumber(element, cleanText = false) {
     return elementNumber;
 }
 
-export function getChildElementInnerNumber(element, childIndex, cleanText = false) {
-    const childElement = element[childIndex];
-    const elementNumber = getElementInnerNumber(childElement, cleanText);
+export function getArrayElementInnerNumber(array, elementIndex, cleanText = false) {
+    const element = array[elementIndex];
+    const elementNumber = getElementInnerNumber(element, cleanText);
 
     return elementNumber;
 }
