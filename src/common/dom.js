@@ -18,6 +18,14 @@ export function insertAfter(existingNode, newNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
 
+export function hideElement(element) {
+    element.style.display = 'none';
+}
+
+export function showElement(element) {
+    element.style.display = 'block';
+}
+
 export function updateValue(event, keyName, needReload = true) {
     const { target } = event;
     const { type } = target;

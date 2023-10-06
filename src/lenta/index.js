@@ -4,6 +4,8 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    hideElement,
+    showElement,
     updateValue,
 } from '../common/dom';
 
@@ -99,14 +101,6 @@ function updateMinRatingInput(e) {
 
 function updateNoRatingInput(e) {
     noRatingChecked = updateValue(e, NO_RATING_LOCAL_STORAGE_KEY, false);
-}
-
-function hideElement(element) {
-    element.style.display = 'none';
-}
-
-function showElement(element) {
-    element.style.display = 'block';
 }
 
 function cleanList() {
