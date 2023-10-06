@@ -45,7 +45,7 @@ if (paginatorContent) {
 } else if (comments) {
     comments.scrollIntoView();
 } else {
-    await appendBadReviewsLink();
+    await appendBadReviewsLinkAndRatingValue();
 }
 
 async function initListClean() {
@@ -126,7 +126,7 @@ function cleanList() {
     );
 }
 
-async function appendBadReviewsLink() {
+async function appendBadReviewsLinkAndRatingValue() {
     const productReviewsWrap = await waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500);
 
     if (productReviewsWrap) {
