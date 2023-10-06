@@ -1,5 +1,5 @@
 import {
-    createFilterControl,
+    createDiv,
     createFilterControlNumber,
     getFirstElementInnerNumber,
     updateInput,
@@ -83,7 +83,7 @@ function appendFilterControls() {
         createFilterControlNumber('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, controlStyle);
 
     const minPriceDiv =
-        createFilterControl(`Минимальная цена: ${minPriceValue}`, controlStyle);
+        createDiv(`Минимальная цена: ${minPriceValue}`, controlStyle);
 
     setInterval(checkMinPrice, 1500);
 

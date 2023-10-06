@@ -41,7 +41,7 @@ export function createFilterControlNumber(
     controlStyle = '',
     inputStyle = '',
 ) {
-    const filterControl = createFilterControl(titleText, controlStyle);
+    const filterControl = createDiv(titleText, controlStyle);
     const input = createBaseInput(inputOnChange, inputStyle);
 
     input.type = 'number';
@@ -62,7 +62,7 @@ export function createFilterControlCheckbox(
     controlStyle = '',
     inputStyle = '',
 ) {
-    const filterControl = createFilterControl(titleText, controlStyle);
+    const filterControl = createDiv(titleText, controlStyle);
     const input = createBaseInput(inputOnChange, inputStyle);
 
     input.type = 'checkbox';
@@ -81,12 +81,12 @@ function createBaseInput(inputOnChange, inputStyle) {
     return input;
 }
 
-export function createFilterControl(titleText, controlStyle = '') {
-    const filterControl = document.createElement('div');
-    filterControl.textContent = titleText;
-    filterControl.style = controlStyle;
+export function createDiv(textContent, controlStyle = '') {
+    const div = document.createElement('div');
+    div.textContent = textContent;
+    div.style = controlStyle;
 
-    return filterControl;
+    return div;
 }
 
 export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
