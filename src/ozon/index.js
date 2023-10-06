@@ -20,6 +20,7 @@ const COMMENTS_SELECTOR = '#comments';
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 const SEARCH_RESULT_SELECTOR = '.widget-search-result-container';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
+const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
@@ -157,6 +158,35 @@ async function appendBadReviewsLink() {
             } else {
                 insertAfter(productReviewsWrap, productBadReviewsLinkWrap);
             }
+
+            const createReviewButton =
+                await waitForElement(document, CREATE_REVIEW_BUTTON_SELECTOR, 2000);
+
+            if (!createReviewButton) return;
+
+            const reviewsInfoContainer = createReviewButton.parentNode;
+            const ratingInfoContainer =
+                await waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]', 2000);
+            const ratingValueContainer = ratingInfoContainer.children[0].children[0].children[1];
+
+            let ratingValue;
+
+            try {
+                [ratingValue] =
+                    ratingValueContainer.innerText
+                        .replace(/\s/g, '')
+                        .split('/');
+            } catch (e) {
+                console.log(`Failed to get ratingValue: ${e.message}`);
+            }
+
+            if (!ratingValue) return;
+
+            const starsContainer = productReviewsWrap.children[0].children[0].children[0];
+            const ratingValueDiv = document.createElement('div');
+            ratingValueDiv.innerText = ratingValue;
+            ratingValueDiv.style = 'margin-left: 3px; color: #005bff;';
+            starsContainer.append(ratingValueDiv);
         }
     }
 }
