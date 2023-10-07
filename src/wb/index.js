@@ -109,18 +109,17 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinReviewsInput(e) {
-    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY, false);
 }
 
 function updateMinRatingInput(e) {
-    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY, false);
 }
 
 function checkMinPrice() {
     const currentMinPriceValue = getMinPriceValueFromURL();
 
     if (minPriceValue !== currentMinPriceValue) {
-        window.location.reload();
         minPriceValue = currentMinPriceValue;
     }
 }
