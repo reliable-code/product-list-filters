@@ -41,23 +41,48 @@ if (searchWrap) {
     setInterval(cleanList, 500);
 }
 
-function appendFilterControls(searchControls) {
-    const filterControls = document.createElement('div');
+function appendFiltersContainer(filterControls, parentNode) {
     filterControls.style =
-        'display: flex; gap: 10px; padding: 0 10px 15px; font-size: 16px; font-weight: 500;';
+        'display: flex;' +
+        'gap: 10px;' +
+        'padding: 0 10px 15px;' +
+        'font-size: 16px;' +
+        'font-weight: 500;';
 
     const inputStyle =
-        'border-radius: 7px; border: none; padding: 9px 11px; box-shadow: inset 0 0 0 1.5px #d2d0cc;';
+        'border-radius: 7px;' +
+        'border: none;' +
+        'padding: 9px 11px;' +
+        'box-shadow: inset 0 0 0 1.5px #d2d0cc;';
 
     const minReviewsDiv =
-        createFilterControlNumber('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput, '', inputStyle);
+        createFilterControlNumber('Минимально отзывов: ',
+            minReviewsValue,
+            '1',
+            '1',
+            '999999',
+            updateMinReviewsInput,
+            '',
+            inputStyle);
 
     const minRatingDiv =
-        createFilterControlNumber('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, '', inputStyle);
+        createFilterControlNumber('Минимальный рейтинг: ',
+            minRatingValue,
+            '0.1',
+            '4.0',
+            '5.0',
+            updateMinRatingInput,
+            '',
+            inputStyle);
 
     filterControls.append(minReviewsDiv, minRatingDiv);
 
-    insertAfter(searchControls, filterControls);
+    insertAfter(parentNode, filterControls);
+}
+
+function appendFilterControls(searchControls) {
+    const filterControls = document.createElement('div');
+    appendFiltersContainer(filterControls, searchControls);
 }
 
 function updateMinReviewsInput(e) {
