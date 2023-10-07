@@ -11,7 +11,7 @@ const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
 
-const MIN_REVIEWS_DIV_ID = 'minReviewsDiv';
+const FILTERS_CONTAINER_ID = 'filtersContainer';
 
 const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
@@ -31,6 +31,8 @@ if (appointmentsPage) {
 }
 
 function initListClean() {
+    const filtersContainer = document.createElement('div');
+    filtersContainer.id = FILTERS_CONTAINER_ID;
     const minReviewsDiv =
         createFilterControlNumber('Минимально отзывов: ',
             minReviewsValue,
@@ -39,9 +41,8 @@ function initListClean() {
             '999999',
             updateMinReviewsInput);
 
-    minReviewsDiv.id = MIN_REVIEWS_DIV_ID;
-
-    appointmentsPage.prepend(minReviewsDiv);
+    filtersContainer.append(minReviewsDiv);
+    appointmentsPage.prepend(filtersContainer);
 
     removeSpecialPlacementCards();
 
@@ -108,7 +109,7 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
 }
 
 function checkListCleanInitiated() {
-    const minReviewsDiv = getFirstElement(appointmentsPage, `#${MIN_REVIEWS_DIV_ID}`);
+    const minReviewsDiv = getFirstElement(appointmentsPage, `#${FILTERS_CONTAINER_ID}`);
 
     if (!minReviewsDiv) {
         initListClean();
