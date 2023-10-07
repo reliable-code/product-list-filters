@@ -1,6 +1,7 @@
 import {
     appendFilterControlsIfNeeded,
     createFilterControlNumber,
+    createMinReviewsFilterControl,
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
@@ -57,14 +58,9 @@ function appendFiltersContainer(filterControls, parentNode) {
         'box-shadow: inset 0 0 0 1.5px #d2d0cc;';
 
     const minReviewsDiv =
-        createFilterControlNumber('Минимально отзывов: ',
-            minReviewsValue,
-            '1',
-            '1',
-            '999999',
-            updateMinReviewsInput,
-            '',
-            inputStyle);
+        createMinReviewsFilterControl(
+            minReviewsValue, updateMinReviewsInput, '', inputStyle,
+        );
 
     const minRatingDiv =
         createFilterControlNumber('Минимальный рейтинг: ',
