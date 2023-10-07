@@ -25,9 +25,9 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
 
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
-const minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
-const minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
-const minPriceValue = getMinPriceValueFromURL();
+let minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
+let minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let minPriceValue = getMinPriceValueFromURL();
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -109,11 +109,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinReviewsInput(e) {
-    updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function updateMinRatingInput(e) {
-    updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function checkMinPrice() {
@@ -121,6 +121,7 @@ function checkMinPrice() {
 
     if (minPriceValue !== currentMinPriceValue) {
         window.location.reload();
+        minPriceValue = currentMinPriceValue;
     }
 }
 
