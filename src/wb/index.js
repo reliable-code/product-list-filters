@@ -53,7 +53,7 @@ function getMinPriceValueFromURL() {
     return minPriceFilterValue;
 }
 
-setInterval(initListClean, 500);
+setInterval(initListClean, 100);
 
 function initListClean() {
     const filtersBlockWrap = getFirstElement(document, FILTERS_BLOCK_WRAP_SELECTOR);
