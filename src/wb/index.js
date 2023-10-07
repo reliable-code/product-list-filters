@@ -29,6 +29,8 @@ let minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KE
 let minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
 let minPriceValue = getMinPriceValueFromURL();
 
+const minPriceDivTextContent = () => `Минимальная цена: ${minPriceValue}`;
+
 function getCategoryName() {
     const { pathname } = window.location;
     const pathElements = pathname.split('/');
@@ -100,7 +102,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             controlStyle);
 
     const minPriceDiv =
-        createDiv(`Минимальная цена: ${minPriceValue}`, controlStyle);
+        createDiv(minPriceDivTextContent(), controlStyle);
 
     setInterval(checkMinPrice, 1500);
 
