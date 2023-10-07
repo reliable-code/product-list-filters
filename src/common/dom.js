@@ -126,6 +126,24 @@ export function createMinRatingFilterControl(
     );
 }
 
+export function createMinReviewsFilterControl(
+    inputValue,
+    inputOnChange,
+    controlStyle = '',
+    inputStyle = '',
+) {
+    return createFilterControlNumber(
+        'Минимально отзывов: ',
+        inputValue,
+        '1',
+        '1',
+        '999999',
+        inputOnChange,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
     const element = getFirstElement(parentNode, selector, true);
     const elementNumber = getElementInnerNumber(element, cleanText);
