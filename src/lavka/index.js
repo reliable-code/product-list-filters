@@ -1,4 +1,5 @@
 import {
+    appendFilterControlsIfNeeded,
     createFilterControlNumber,
     getAllElements,
     getFirstElement,
@@ -26,26 +27,13 @@ function initListClean() {
     const productCardLinks = getAllElements(document, PRODUCT_CARD_LINK_SELECTOR);
 
     if (productCardLinks.length) {
-        appendFilterControlsIfNeeded();
+        appendFilterControlsIfNeeded(mainContent, FILTERS_CONTAINER_ID, appendFiltersContainer);
 
         cleanList(productCardLinks);
     }
 }
 
-function appendFilterControlsIfNeeded() {
-    const filtersContainer = getFirstElement(mainContent, `#${FILTERS_CONTAINER_ID}`);
-
-    if (filtersContainer) {
-        return;
-    }
-
-    appendFilterControls();
-}
-
-function appendFilterControls() {
-    const filtersContainer = document.createElement('div');
-    filtersContainer.id = FILTERS_CONTAINER_ID;
-
+function appendFiltersContainer(filtersContainer, parentNode) {
     const minDiscountDiv =
         createFilterControlNumber(
             'Минимальная скидка: ',
@@ -57,7 +45,7 @@ function appendFilterControls() {
         );
 
     filtersContainer.append(minDiscountDiv);
-    insertAfter(mainContent.firstChild, filtersContainer);
+    insertAfter(parentNode.firstChild, filtersContainer);
 }
 
 function updateMinDiscountInput(e) {
