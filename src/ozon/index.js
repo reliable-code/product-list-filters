@@ -7,6 +7,7 @@ import {
     getFirstElement,
     hideElement,
     insertAfter,
+    showElement,
     updateValue,
     waitForElement,
 } from '../common/dom';
@@ -88,11 +89,11 @@ async function initListClean() {
 }
 
 function updateMinReviewsInput(e) {
-    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY, false);
 }
 
 function updateMinRatingInput(e) {
-    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY, false);
 }
 
 function cleanList() {
@@ -122,6 +123,8 @@ function cleanList() {
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue) {
                 hideElement(productCard);
+            } else {
+                showElement(productCard);
             }
         },
     );
