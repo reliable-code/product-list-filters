@@ -18,10 +18,16 @@ const minDiscountValue =
 
 const mainContent = getFirstElement(document, MAIN_CONTENT_SELECTOR);
 
-if (mainContent) {
-    appendFilterControls();
+setInterval(initListClean, 500);
 
-    setInterval(cleanList, 500);
+function initListClean() {
+    const productCardLinks = getAllElements(document, PRODUCT_CARD_LINK_SELECTOR);
+
+    if (productCardLinks.length) {
+        appendFilterControlsIfNeeded();
+
+        cleanList(productCardLinks);
+    }
 }
 
 function appendFilterControlsIfNeeded() {
@@ -49,12 +55,10 @@ function updateMinDiscountInput(e) {
     updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
 }
 
-function cleanList() {
+function cleanList(productCardLinks) {
     if (minDiscountValue === 0) {
         return;
     }
-
-    const productCardLinks = getAllElements(document, PRODUCT_CARD_LINK_SELECTOR);
 
     productCardLinks.forEach(
         (productCardLink) => {
