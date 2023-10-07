@@ -24,9 +24,7 @@ let minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? M
 const appointmentsPage = getFirstElement(document, APPOINTMENTS_PAGE);
 
 if (appointmentsPage) {
-    initListClean();
-
-    setInterval(checkListCleanInitiated, 500);
+    setInterval(initListClean, 500);
 } else {
     appendReviewsInfoToHeader();
 }
@@ -127,14 +125,6 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
     searchUrlLink.textContent = siteName;
 
     profileCard.append(lineBreak, searchUrlLink);
-}
-
-function checkListCleanInitiated() {
-    const minReviewsDiv = getFirstElement(appointmentsPage, `#${FILTERS_CONTAINER_ID}`);
-
-    if (!minReviewsDiv) {
-        initListClean();
-    }
 }
 
 function appendReviewsInfoToHeader() {
