@@ -10,7 +10,6 @@ import { getLocalStorageValueOrDefault } from '../common/storage';
 const MIN_REVIEWS = 5;
 const MIN_RATING = 4.8;
 
-const SEARCH_WRAP_SELECTOR = '[data-grabber="SearchSerp"]';
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
 const VIRTUOSO_SCROLLER_SELECTOR = '[data-virtuoso-scroller="true"]';
 const PRODUCT_CARD_SNIPPET_SELECTOR = '[data-autotest-id="product-snippet"]';
@@ -31,13 +30,10 @@ function getCategoryName() {
     return categoryName;
 }
 
-const searchWrap = document.querySelector(SEARCH_WRAP_SELECTOR);
+const searchControls = document.querySelector(SEARCH_CONTROLS_SELECTOR);
 
-if (searchWrap) {
-    const searchControls =
-        document.querySelector(SEARCH_CONTROLS_SELECTOR);
-
-    if (searchControls) appendFilterControlsIfNeeded(searchControls, appendFiltersContainer);
+if (searchControls) {
+    appendFilterControlsIfNeeded(searchControls, appendFiltersContainer);
 
     setInterval(cleanList, 500);
 }
@@ -90,10 +86,10 @@ function updateMinRatingInput(e) {
 }
 
 function cleanList() {
-    const virtuosoScroller = searchWrap.querySelector(VIRTUOSO_SCROLLER_SELECTOR);
+    const virtuosoScroller = document.querySelector(VIRTUOSO_SCROLLER_SELECTOR);
     if (virtuosoScroller) virtuosoScroller.style.minHeight = '0';
 
-    const productCardSnippets = searchWrap.querySelectorAll(PRODUCT_CARD_SNIPPET_SELECTOR);
+    const productCardSnippets = document.querySelectorAll(PRODUCT_CARD_SNIPPET_SELECTOR);
 
     productCardSnippets.forEach(
         (productCardSnippet) => {
