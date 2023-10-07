@@ -27,8 +27,8 @@ const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
 
-const minReviewsValue = localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS;
-const minRatingValue = localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING;
+let minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
+let minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -88,11 +88,11 @@ async function initListClean() {
 }
 
 function updateMinReviewsInput(e) {
-    updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function updateMinRatingInput(e) {
-    updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {
