@@ -13,7 +13,7 @@ const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 const FILTERS_CONTAINER_ID = 'filtersContainer';
 
-const minDiscountValue =
+let minDiscountValue =
     +(localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY) ?? MIN_DISCOUNT);
 
 const mainContent = getFirstElement(document, MAIN_CONTENT_SELECTOR);
@@ -52,7 +52,7 @@ function appendFilterControls() {
 }
 
 function updateMinDiscountInput(e) {
-    updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
+    minDiscountValue = updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
 }
 
 function cleanList(productCardLinks) {
