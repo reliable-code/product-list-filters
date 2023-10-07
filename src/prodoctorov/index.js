@@ -31,6 +31,14 @@ if (appointmentsPage) {
 }
 
 function initListClean() {
+    appendFilterControls();
+
+    removeSpecialPlacementCards();
+
+    cleanList();
+}
+
+function appendFilterControls() {
     const filtersContainer = document.createElement('div');
     filtersContainer.id = FILTERS_CONTAINER_ID;
     const minReviewsDiv =
@@ -43,10 +51,6 @@ function initListClean() {
 
     filtersContainer.append(minReviewsDiv);
     appointmentsPage.prepend(filtersContainer);
-
-    removeSpecialPlacementCards();
-
-    cleanList();
 }
 
 function updateMinReviewsInput(e) {
