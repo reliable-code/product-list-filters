@@ -1,6 +1,6 @@
 import {
     appendFilterControlsIfNeeded,
-    createFilterControlNumber,
+    createMinRatingFilterControl,
     createMinReviewsFilterControl,
     getAllElements,
     getArrayElementInnerNumber,
@@ -63,14 +63,9 @@ function appendFiltersContainer(filterControls, parentNode) {
         );
 
     const minRatingDiv =
-        createFilterControlNumber('Минимальный рейтинг: ',
-            minRatingValue,
-            '0.1',
-            '4.0',
-            '5.0',
-            updateMinRatingInput,
-            '',
-            inputStyle);
+        createMinRatingFilterControl(
+            minRatingValue, updateMinRatingInput, '', inputStyle,
+        );
 
     filterControls.append(minReviewsDiv, minRatingDiv);
 
