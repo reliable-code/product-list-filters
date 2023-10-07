@@ -2,6 +2,7 @@ import { thumbsDownIcon } from './icons';
 import {
     createDiv,
     createFilterControlNumber,
+    createMinRatingFilterControl,
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
@@ -72,12 +73,8 @@ async function initListClean() {
         );
 
     const minRatingDiv =
-        createFilterControlNumber(
-            'Минимальный рейтинг: ',
+        createMinRatingFilterControl(
             minRatingValue,
-            '0.1',
-            '4.0',
-            '5.0',
             updateMinRatingInput,
             controlStyle,
             inputStyle,

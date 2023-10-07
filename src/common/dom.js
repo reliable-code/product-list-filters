@@ -114,7 +114,7 @@ export function createMinRatingFilterControl(
     controlStyle = '',
     inputStyle = '',
 ) {
-    createFilterControlNumber(
+    return createFilterControlNumber(
         'Минимальный рейтинг: ',
         inputValue,
         '0.1',
