@@ -34,19 +34,19 @@ if (appointmentsPage) {
 function initListClean() {
     removeSpecialPlacementCards();
 
-    appendFilterControlsIfNeeded();
+    appendFilterControlsIfNeeded(appointmentsPage, FILTERS_CONTAINER_ID, appendFilterContainer);
 
     cleanList();
 }
 
-function appendFilterControlsIfNeeded() {
-    const filtersContainer = getFirstElement(appointmentsPage, `#${FILTERS_CONTAINER_ID}`);
+function appendFilterControlsIfNeeded(parentNode, filtersContainerId, appendFilterContainerFunc) {
+    const filtersContainer = getFirstElement(parentNode, `#${filtersContainerId}`);
 
     if (filtersContainer) {
         return;
     }
 
-    appendFilterControls(FILTERS_CONTAINER_ID, appendFilterContainer, appointmentsPage);
+    appendFilterControls(FILTERS_CONTAINER_ID, appendFilterContainerFunc, parentNode);
 }
 
 function appendFilterControls(filtersContainerId, appendFilterContainerFunc, parentNode) {
