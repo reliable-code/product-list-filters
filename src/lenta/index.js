@@ -1,4 +1,5 @@
 import {
+    appendFilterControlsIfNeeded,
     createFilterControlCheckbox,
     createFilterControlNumber,
     getAllElements,
@@ -30,25 +31,13 @@ function initListClean() {
     const productCardList = getFirstElement(document, PRODUCT_CARD_LIST_SELECTOR);
 
     if (productCardList) {
-        appendFilterControlsIfNeeded(productCardList);
+        appendFilterControlsIfNeeded(productCardList, FILTERS_CONTAINER_ID, appendFiltersContainer);
 
         cleanList();
     }
 }
 
-function appendFilterControlsIfNeeded(productCardList) {
-    const filtersContainer = getFirstElement(productCardList, `#${FILTERS_CONTAINER_ID}`);
-
-    if (filtersContainer) {
-        return;
-    }
-
-    appendFilterControls(productCardList);
-}
-
-function appendFilterControls(productCardList) {
-    const filtersContainer = document.createElement('div');
-    filtersContainer.id = FILTERS_CONTAINER_ID;
+function appendFiltersContainer(filtersContainer, parentNode) {
     filtersContainer.style =
         'display: flex;' +
         'grid-gap: 15px;' +
@@ -92,7 +81,7 @@ function appendFilterControls(productCardList) {
     filtersContainer.append(minRatingDiv);
     filtersContainer.append(noRatingDiv);
 
-    productCardList.prepend(filtersContainer);
+    parentNode.prepend(filtersContainer);
 }
 
 function updateMinRatingInput(e) {
