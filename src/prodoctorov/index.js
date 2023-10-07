@@ -46,14 +46,14 @@ function appendFilterControlsIfNeeded() {
         return;
     }
 
-    appendFilterControls(FILTERS_CONTAINER_ID, appointmentsPage);
+    appendFilterControls(FILTERS_CONTAINER_ID, appendFilterContainer, appointmentsPage);
 }
 
-function appendFilterControls(filtersContainerId, parentNode) {
+function appendFilterControls(filtersContainerId, appendFilterContainerFunc, parentNode) {
     const filtersContainer = document.createElement('div');
     filtersContainer.id = filtersContainerId;
 
-    appendFilterContainer(filtersContainer, parentNode);
+    appendFilterContainerFunc(filtersContainer, parentNode);
 }
 
 function appendFilterContainer(filtersContainer, parentNode) {
