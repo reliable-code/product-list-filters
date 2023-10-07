@@ -1,6 +1,7 @@
 import {
     appendFilterControlsIfNeeded,
     createFilterControlNumber,
+    getAllElements,
     getArrayElementInnerNumber,
     hideElement,
     insertAfter,
@@ -88,10 +89,12 @@ function updateMinRatingInput(e) {
 }
 
 function cleanList() {
-    const virtuosoScroller = document.querySelector(VIRTUOSO_SCROLLER_SELECTOR);
-    if (virtuosoScroller) virtuosoScroller.style.minHeight = '0';
+    const virtuosoScrollers = getAllElements(document, VIRTUOSO_SCROLLER_SELECTOR);
+    virtuosoScrollers.forEach((virtuosoScroller) => {
+        virtuosoScroller.style.minHeight = '0';
+    });
 
-    const productCardSnippets = document.querySelectorAll(PRODUCT_CARD_SNIPPET_SELECTOR);
+    const productCardSnippets = getAllElements(document, PRODUCT_CARD_SNIPPET_SELECTOR);
 
     productCardSnippets.forEach(
         (productCardSnippet) => {
@@ -114,7 +117,7 @@ function cleanList() {
 
             const ratingInfoWrap = ratingMeter.parentNode;
 
-            const ratingInfoSpans = ratingInfoWrap.querySelectorAll(':scope > span');
+            const ratingInfoSpans = getAllElements(ratingInfoWrap, ':scope > span');
 
             const productCardReviewsNumber = getArrayElementInnerNumber(ratingInfoSpans, 1);
 
