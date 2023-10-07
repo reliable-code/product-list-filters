@@ -53,7 +53,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinReviewsInput(e) {
-    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY, false);
+    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function removeSpecialPlacementCards() {

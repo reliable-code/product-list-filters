@@ -30,7 +30,7 @@ function setElementDisplay(element, display) {
     element.style.display = display;
 }
 
-export function updateValue(event, keyName, needReload = true) {
+export function updateValue(event, keyName) {
     const { target } = event;
     const { type } = target;
 
@@ -46,8 +46,6 @@ export function updateValue(event, keyName, needReload = true) {
     }
 
     localStorage.setItem(keyName, valueToSet);
-
-    if (needReload) window.location.reload();
 
     return valueToSet;
 }

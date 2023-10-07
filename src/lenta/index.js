@@ -83,11 +83,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinRatingInput(e) {
-    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY, false);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function updateNoRatingInput(e) {
-    noRatingChecked = updateValue(e, NO_RATING_LOCAL_STORAGE_KEY, false);
+    noRatingChecked = updateValue(e, NO_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {

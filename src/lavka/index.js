@@ -48,7 +48,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinDiscountInput(e) {
-    minDiscountValue = updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY, false);
+    minDiscountValue = updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
 }
 
 function cleanList(productCardLinks) {

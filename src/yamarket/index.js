@@ -82,11 +82,11 @@ function appendFiltersContainer(filterControls, parentNode) {
 }
 
 function updateMinReviewsInput(e) {
-    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY, false);
+    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function updateMinRatingInput(e) {
-    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY, false);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {
