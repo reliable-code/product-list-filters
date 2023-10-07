@@ -1,4 +1,5 @@
 import {
+    appendFilterControlsIfNeeded,
     createDiv,
     createFilterControlNumber,
     getFirstElementInnerNumber,
@@ -55,7 +56,7 @@ const filtersBlockWrap = await waitForElement(document, FILTERS_BLOCK_WRAP_SELEC
 if (filtersBlockWrap) {
     removeRecentItemsBlock();
 
-    appendFilterControls();
+    appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
 
     setInterval(cleanList, 500);
 }
@@ -67,13 +68,6 @@ function removeRecentItemsBlock() {
         const { parentNode } = recentItems;
         parentNode.remove();
     }
-}
-
-function appendFilterControls() {
-    const filtersContainer = document.createElement('div');
-    filtersContainer.classList.add('filters-block__container');
-
-    appendFiltersContainer(filtersContainer, filtersBlockWrap);
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
