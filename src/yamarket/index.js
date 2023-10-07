@@ -1,4 +1,5 @@
 import {
+    appendFilterControlsIfNeeded,
     createFilterControlNumber,
     getArrayElementInnerNumber,
     insertAfter,
@@ -36,7 +37,7 @@ if (searchWrap) {
     const searchControls =
         document.querySelector(SEARCH_CONTROLS_SELECTOR);
 
-    if (searchControls) appendFilterControls(searchControls);
+    if (searchControls) appendFilterControlsIfNeeded(searchControls, appendFiltersContainer);
 
     setInterval(cleanList, 500);
 }
@@ -78,11 +79,6 @@ function appendFiltersContainer(filterControls, parentNode) {
     filterControls.append(minReviewsDiv, minRatingDiv);
 
     insertAfter(parentNode, filterControls);
-}
-
-function appendFilterControls(searchControls) {
-    const filterControls = document.createElement('div');
-    appendFiltersContainer(filterControls, searchControls);
 }
 
 function updateMinReviewsInput(e) {
