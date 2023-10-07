@@ -1,4 +1,5 @@
 import {
+    appendFilterControlsIfNeeded,
     createFilterControlNumber,
     getAllElements,
     getElementInnerNumber,
@@ -37,19 +38,6 @@ function initListClean() {
     appendFilterControlsIfNeeded(appointmentsPage, FILTERS_CONTAINER_ID, appendFiltersContainer);
 
     cleanList();
-}
-
-function appendFilterControlsIfNeeded(parentNode, filtersContainerId, appendFiltersContainerFunc) {
-    let filtersContainer = getFirstElement(parentNode, `#${filtersContainerId}`);
-
-    if (filtersContainer) {
-        return;
-    }
-
-    filtersContainer = document.createElement('div');
-    filtersContainer.id = filtersContainerId;
-
-    appendFiltersContainerFunc(filtersContainer, parentNode);
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {

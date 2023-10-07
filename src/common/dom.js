@@ -162,3 +162,16 @@ export function waitForElement(parentNode, selector, timeout = null) {
         }
     });
 }
+
+export function appendFilterControlsIfNeeded(parentNode, filtersContainerId, appendFiltersContainerFunc) {
+    let filtersContainer = getFirstElement(parentNode, `#${filtersContainerId}`);
+
+    if (filtersContainer) {
+        return;
+    }
+
+    filtersContainer = document.createElement('div');
+    filtersContainer.id = filtersContainerId;
+
+    appendFiltersContainerFunc(filtersContainer, parentNode);
+}
