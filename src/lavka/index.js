@@ -24,6 +24,16 @@ if (mainContent) {
     setInterval(cleanList, 500);
 }
 
+function appendFilterControlsIfNeeded() {
+    const filtersContainer = getFirstElement(mainContent, `#${FILTERS_CONTAINER_ID}`);
+
+    if (filtersContainer) {
+        return;
+    }
+
+    appendFilterControls();
+}
+
 function appendFilterControls() {
     const filtersContainer = document.createElement('div');
     filtersContainer.id = FILTERS_CONTAINER_ID;
