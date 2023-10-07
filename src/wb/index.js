@@ -51,14 +51,18 @@ function getMinPriceValueFromURL() {
     return minPriceFilterValue;
 }
 
-const filtersBlockWrap = await waitForElement(document, FILTERS_BLOCK_WRAP_SELECTOR, 1500);
+setInterval(initListClean, 500);
 
-if (filtersBlockWrap) {
-    removeRecentItemsBlock();
+async function initListClean() {
+    const filtersBlockWrap = await waitForElement(document, FILTERS_BLOCK_WRAP_SELECTOR, 1500);
 
-    appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
+    if (filtersBlockWrap) {
+        removeRecentItemsBlock();
 
-    setInterval(cleanList, 500);
+        appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
+
+        cleanList();
+    }
 }
 
 function removeRecentItemsBlock() {
