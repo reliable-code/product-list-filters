@@ -2,7 +2,9 @@ import {
     appendFilterControlsIfNeeded,
     createFilterControlNumber,
     getArrayElementInnerNumber,
+    hideElement,
     insertAfter,
+    showElement,
     updateValue,
 } from '../common/dom';
 import { getLocalStorageValueOrDefault } from '../common/storage';
@@ -120,7 +122,9 @@ function cleanList() {
 
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue) {
-                productCard.remove();
+                hideElement(productCard);
+            } else {
+                showElement(productCard);
             }
         },
     );
