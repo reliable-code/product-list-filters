@@ -5,6 +5,7 @@ import {
     updateValue,
     waitForElement,
 } from '../common/dom';
+import { getLocalStorageValueOrDefault } from '../common/storage';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
@@ -21,8 +22,8 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
 
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
-const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
-const minRatingValue = +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
+const minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
+const minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
 const minPriceValue = getMinPriceValueFromURL();
 
 function getCategoryName() {
