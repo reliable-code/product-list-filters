@@ -31,11 +31,21 @@ if (appointmentsPage) {
 }
 
 function initListClean() {
-    appendFilterControls();
-
     removeSpecialPlacementCards();
 
+    appendFilterControlsIfNeeded();
+
     cleanList();
+}
+
+function appendFilterControlsIfNeeded() {
+    const filtersContainer = getFirstElement(appointmentsPage, `#${FILTERS_CONTAINER_ID}`);
+
+    if (filtersContainer) {
+        return;
+    }
+
+    appendFilterControls(appointmentsPage);
 }
 
 function appendFilterControls() {
