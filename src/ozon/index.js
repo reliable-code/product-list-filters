@@ -85,8 +85,7 @@ async function initListClean() {
 
     searchResultsSort.append(minReviewsDiv, minRatingDiv);
 
-    cleanList();
-    setInterval(cleanList, 500);
+    setInterval(cleanList, 100);
 }
 
 function updateMinReviewsInput(e) {
