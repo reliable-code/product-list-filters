@@ -2,7 +2,9 @@ import {
     createFilterControlNumber,
     getAllElements,
     getFirstElement,
+    hideElement,
     insertAfter,
+    showElement,
     updateValue,
 } from '../common/dom';
 
@@ -59,7 +61,7 @@ function appendFilterControls() {
 }
 
 function updateMinDiscountInput(e) {
-    minDiscountValue = updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
+    minDiscountValue = updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY, false);
 }
 
 function cleanList(productCardLinks) {
@@ -89,7 +91,9 @@ function cleanList(productCardLinks) {
             const discountValue = +promoLabelText.replace(/\D/g, '');
 
             if (discountValue < minDiscountValue) {
-                productCard.remove();
+                hideElement(productCard);
+            } else {
+                showElement(productCard);
             }
         },
     );
