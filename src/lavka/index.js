@@ -27,7 +27,7 @@ function initListClean() {
     const productCardLinks = getAllElements(document, PRODUCT_CARD_LINK_SELECTOR);
 
     if (productCardLinks.length) {
-        appendFilterControlsIfNeeded(mainContent, FILTERS_CONTAINER_ID, appendFiltersContainer);
+        appendFilterControlsIfNeeded(mainContent, appendFiltersContainer, FILTERS_CONTAINER_ID);
 
         cleanList(productCardLinks);
     }

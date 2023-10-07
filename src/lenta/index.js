@@ -31,7 +31,7 @@ function initListClean() {
     const productCardList = getFirstElement(document, PRODUCT_CARD_LIST_SELECTOR);
 
     if (productCardList) {
-        appendFilterControlsIfNeeded(productCardList, FILTERS_CONTAINER_ID, appendFiltersContainer);
+        appendFilterControlsIfNeeded(productCardList, appendFiltersContainer, FILTERS_CONTAINER_ID);
 
         cleanList();
     }

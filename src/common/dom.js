@@ -163,7 +163,11 @@ export function waitForElement(parentNode, selector, timeout = null) {
     });
 }
 
-export function appendFilterControlsIfNeeded(parentNode, filtersContainerId, appendFiltersContainerFunc) {
+export function appendFilterControlsIfNeeded(
+    parentNode,
+    appendFiltersContainerFunc,
+    filtersContainerId,
+) {
     let filtersContainer = getFirstElement(parentNode, `#${filtersContainerId}`);
 
     if (filtersContainer) {

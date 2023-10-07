@@ -35,7 +35,7 @@ if (appointmentsPage) {
 function initListClean() {
     removeSpecialPlacementCards();
 
-    appendFilterControlsIfNeeded(appointmentsPage, FILTERS_CONTAINER_ID, appendFiltersContainer);
+    appendFilterControlsIfNeeded(appointmentsPage, appendFiltersContainer, FILTERS_CONTAINER_ID);
 
     cleanList();
 }
