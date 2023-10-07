@@ -1,6 +1,6 @@
 import {
     appendFilterControlsIfNeeded,
-    createFilterControlNumber,
+    createMinReviewsFilterControl,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -40,13 +40,7 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    const minReviewsDiv =
-        createFilterControlNumber('Минимально отзывов: ',
-            minReviewsValue,
-            '1',
-            '1',
-            '999999',
-            updateMinReviewsInput);
+    const minReviewsDiv = createMinReviewsFilterControl(minReviewsValue, updateMinReviewsInput);
 
     filtersContainer.append(minReviewsDiv);
     parentNode.prepend(filtersContainer);
