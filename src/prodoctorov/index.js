@@ -18,7 +18,7 @@ const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
 
 const MIN_REVIEWS = 10;
 
-const minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
+let minReviewsValue = +(localStorage.getItem(MIN_REVIEWS_LOCAL_STORAGE_KEY) ?? MIN_REVIEWS);
 
 const appointmentsPage = getFirstElement(document, APPOINTMENTS_PAGE);
 
@@ -49,7 +49,7 @@ function initListClean() {
 }
 
 function updateMinReviewsInput(e) {
-    updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY, false);
 }
 
 function removeSpecialPlacementCards() {
