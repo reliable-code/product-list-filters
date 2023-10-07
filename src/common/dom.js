@@ -40,6 +40,9 @@ export function updateValue(event, keyName, needReload = true) {
         valueToSet = target.value;
     } else if (type === 'checkbox') {
         valueToSet = target.checked;
+    } else {
+        console.log(`Unknown input type: ${type}`);
+        return null;
     }
 
     localStorage.setItem(keyName, valueToSet);
