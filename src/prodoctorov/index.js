@@ -34,29 +34,25 @@ if (appointmentsPage) {
 function initListClean() {
     removeSpecialPlacementCards();
 
-    appendFilterControlsIfNeeded(appointmentsPage, FILTERS_CONTAINER_ID, appendFilterContainer);
+    appendFilterControlsIfNeeded(appointmentsPage, FILTERS_CONTAINER_ID, appendFiltersContainer);
 
     cleanList();
 }
 
-function appendFilterControlsIfNeeded(parentNode, filtersContainerId, appendFilterContainerFunc) {
-    const filtersContainer = getFirstElement(parentNode, `#${filtersContainerId}`);
+function appendFilterControlsIfNeeded(parentNode, filtersContainerId, appendFiltersContainerFunc) {
+    let filtersContainer = getFirstElement(parentNode, `#${filtersContainerId}`);
 
     if (filtersContainer) {
         return;
     }
 
-    appendFilterControls(FILTERS_CONTAINER_ID, appendFilterContainerFunc, parentNode);
-}
-
-function appendFilterControls(filtersContainerId, appendFilterContainerFunc, parentNode) {
-    const filtersContainer = document.createElement('div');
+    filtersContainer = document.createElement('div');
     filtersContainer.id = filtersContainerId;
 
-    appendFilterContainerFunc(filtersContainer, parentNode);
+    appendFiltersContainerFunc(filtersContainer, parentNode);
 }
 
-function appendFilterContainer(filtersContainer, parentNode) {
+function appendFiltersContainer(filtersContainer, parentNode) {
     const minReviewsDiv =
         createFilterControlNumber('Минимально отзывов: ',
             minReviewsValue,
