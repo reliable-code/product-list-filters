@@ -22,8 +22,8 @@ export function hideElement(element) {
     setElementDisplay(element, 'none');
 }
 
-export function showElement(element) {
-    setElementDisplay(element, 'block');
+export function showElement(element, display = 'block') {
+    setElementDisplay(element, display);
 }
 
 function setElementDisplay(element, display) {
