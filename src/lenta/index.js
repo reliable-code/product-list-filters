@@ -16,7 +16,6 @@ const NO_RATING = false;
 const MIN_RATING_LOCAL_STORAGE_KEY = 'min-rating-filter';
 const NO_RATING_LOCAL_STORAGE_KEY = 'no-rating-filter';
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
-const FILTERS_CONTAINER_ID = 'filtersContainer';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
@@ -31,7 +30,7 @@ function initListClean() {
     const productCardList = getFirstElement(document, PRODUCT_CARD_LIST_SELECTOR);
 
     if (productCardList) {
-        appendFilterControlsIfNeeded(productCardList, appendFiltersContainer, FILTERS_CONTAINER_ID);
+        appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
 
         cleanList();
     }

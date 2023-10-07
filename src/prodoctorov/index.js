@@ -14,8 +14,6 @@ const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
 
-const FILTERS_CONTAINER_ID = 'filtersContainer';
-
 const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
@@ -35,7 +33,7 @@ if (appointmentsPage) {
 function initListClean() {
     removeSpecialPlacementCards();
 
-    appendFilterControlsIfNeeded(appointmentsPage, appendFiltersContainer, FILTERS_CONTAINER_ID);
+    appendFilterControlsIfNeeded(appointmentsPage, appendFiltersContainer);
 
     cleanList();
 }
