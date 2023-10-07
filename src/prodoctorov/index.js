@@ -15,6 +15,7 @@ const FILTERS_CONTAINER_ID = 'filtersContainer';
 
 const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
+const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 
 const MIN_REVIEWS = 10;
 
@@ -102,9 +103,15 @@ function cleanList() {
 }
 
 function appendAdditionalLinks(doctorCard, profileCard) {
+    if (profileCard.classList.contains(ADDITIONAL_LINKS_APPENDED_CLASS)) {
+        return;
+    }
+
     appendAdditionalLink(doctorCard, profileCard, 'НаПоправку');
     appendAdditionalLink(doctorCard, profileCard, 'DocDoc');
     appendAdditionalLink(doctorCard, profileCard, 'Докту');
+
+    profileCard.classList.add(ADDITIONAL_LINKS_APPENDED_CLASS);
 }
 
 function appendAdditionalLink(doctorCard, profileCard, siteName) {
