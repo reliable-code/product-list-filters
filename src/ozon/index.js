@@ -125,7 +125,7 @@ function cleanList() {
                 || productCardRatingNumber < minRatingValue) {
                 hideElement(productCard);
             } else {
-                showElement(productCard);
+                showElement(productCard, 'flex');
             }
         },
     );
