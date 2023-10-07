@@ -20,8 +20,8 @@ const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
 const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
-const minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
-const minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
+let minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -82,11 +82,11 @@ function appendFiltersContainer(filterControls, parentNode) {
 }
 
 function updateMinReviewsInput(e) {
-    updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function updateMinRatingInput(e) {
-    updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {
