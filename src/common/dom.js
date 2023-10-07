@@ -108,6 +108,24 @@ export function createDiv(textContent, style = '') {
     return div;
 }
 
+export function createMinRatingFilterControl(
+    inputValue,
+    inputOnChange,
+    controlStyle = '',
+    inputStyle = '',
+) {
+    createFilterControlNumber(
+        'Минимальный рейтинг: ',
+        inputValue,
+        '0.1',
+        '3.0',
+        '5.0',
+        inputOnChange,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
     const element = getFirstElement(parentNode, selector, true);
     const elementNumber = getElementInnerNumber(element, cleanText);
