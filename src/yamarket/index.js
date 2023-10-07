@@ -3,6 +3,7 @@ import {
     createFilterControlNumber,
     getAllElements,
     getArrayElementInnerNumber,
+    getFirstElement,
     hideElement,
     insertAfter,
     showElement,
@@ -33,7 +34,7 @@ function getCategoryName() {
     return categoryName;
 }
 
-const searchControls = document.querySelector(SEARCH_CONTROLS_SELECTOR);
+const searchControls = getFirstElement(document, SEARCH_CONTROLS_SELECTOR);
 
 if (searchControls) {
     appendFilterControlsIfNeeded(searchControls, appendFiltersContainer);
@@ -107,7 +108,7 @@ function cleanList() {
                 ? productCardSnippetParent.parentNode.parentNode
                 : productCardSnippetParent;
 
-            const ratingMeter = productCardSnippet.querySelector('[role="meter"]');
+            const ratingMeter = getFirstElement(productCardSnippet, '[role="meter"]');
 
             if (!ratingMeter) {
                 productCard.remove();
