@@ -166,7 +166,7 @@ export function waitForElement(parentNode, selector, timeout = null) {
 export function appendFilterControlsIfNeeded(
     parentNode,
     appendFiltersContainerFunc,
-    filtersContainerId,
+    filtersContainerId = 'customFiltersContainer',
 ) {
     let filtersContainer = getFirstElement(parentNode, `#${filtersContainerId}`);
 
