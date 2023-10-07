@@ -3,6 +3,8 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    hideElement,
+    showElement,
     updateValue,
 } from '../common/dom';
 
@@ -92,7 +94,9 @@ function cleanList() {
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
             if (reviewsLinkNumber < minReviewsValue) {
-                doctorCard.remove();
+                hideElement(doctorCard);
+            } else {
+                showElement(doctorCard, 'flex');
             }
 
             appendAdditionalLinks(doctorCard, profileCard);
