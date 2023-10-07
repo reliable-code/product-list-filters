@@ -49,9 +49,14 @@ function appendFilterControlsIfNeeded() {
     appendFilterControls(appointmentsPage);
 }
 
-function appendFilterControls() {
+function appendFilterControls(parentNode) {
     const filtersContainer = document.createElement('div');
     filtersContainer.id = FILTERS_CONTAINER_ID;
+
+    appendFilterContainer(filtersContainer, parentNode);
+}
+
+function appendFilterContainer(filtersContainer, parentNode) {
     const minReviewsDiv =
         createFilterControlNumber('Минимально отзывов: ',
             minReviewsValue,
@@ -61,7 +66,7 @@ function appendFilterControls() {
             updateMinReviewsInput);
 
     filtersContainer.append(minReviewsDiv);
-    appointmentsPage.prepend(filtersContainer);
+    parentNode.prepend(filtersContainer);
 }
 
 function updateMinReviewsInput(e) {
