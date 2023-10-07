@@ -9,6 +9,7 @@ import {
     showElement,
     updateValue,
 } from '../common/dom';
+import { getLocalStorageValueOrDefault } from '../common/storage';
 
 const MIN_RATING = 4.0;
 const NO_RATING = false;
@@ -19,10 +20,8 @@ const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
-let minRatingValue =
-    +(localStorage.getItem(MIN_RATING_LOCAL_STORAGE_KEY) ?? MIN_RATING);
-let noRatingChecked =
-    JSON.parse((localStorage.getItem(NO_RATING_LOCAL_STORAGE_KEY) ?? NO_RATING));
+let minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let noRatingChecked = getLocalStorageValueOrDefault(NO_RATING_LOCAL_STORAGE_KEY, NO_RATING);
 
 setInterval(initListClean, 500);
 
