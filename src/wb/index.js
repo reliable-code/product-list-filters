@@ -4,6 +4,8 @@ import {
     createFilterControlNumber,
     getFirstElement,
     getFirstElementInnerNumber,
+    hideElement,
+    showElement,
     updateValue,
 } from '../common/dom';
 import { getLocalStorageValueOrDefault } from '../common/storage';
@@ -139,7 +141,9 @@ function cleanList() {
             if (productCardReviewsNumber < minReviewsValue
                 || productCardRatingNumber < minRatingValue
                 || productCardPriceNumber < minPriceValue) {
-                productCard.remove();
+                hideElement(productCard);
+            } else {
+                showElement(productCard);
             }
         },
     );
