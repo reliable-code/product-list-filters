@@ -104,7 +104,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minPriceDiv =
         createDiv(minPriceDivTextContent(), controlStyle);
 
-    setInterval(checkMinPrice, 1500);
+    setInterval(() => checkMinPrice(minPriceDiv), 500);
 
     filtersContainer.append(minReviewsDiv, minRatingDiv, minPriceDiv);
     parentNode.append(filtersContainer);
@@ -118,11 +118,12 @@ function updateMinRatingInput(e) {
     minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY, false);
 }
 
-function checkMinPrice() {
+function checkMinPrice(minPriceDiv) {
     const currentMinPriceValue = getMinPriceValueFromURL();
 
     if (minPriceValue !== currentMinPriceValue) {
         minPriceValue = currentMinPriceValue;
+        minPriceDiv.textContent = minPriceDivTextContent();
     }
 }
 
