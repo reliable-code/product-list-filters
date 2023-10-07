@@ -11,6 +11,7 @@ const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
+const FILTERS_CONTAINER_ID = 'filtersContainer';
 
 const minDiscountValue =
     +(localStorage.getItem(MIN_DISCOUNT_LOCAL_STORAGE_KEY) ?? MIN_DISCOUNT);
@@ -24,10 +25,14 @@ if (mainContent) {
 }
 
 function appendFilterControls() {
+    const filtersContainer = document.createElement('div');
+    filtersContainer.id = FILTERS_CONTAINER_ID;
+
     const minDiscountDiv =
         createFilterControlNumber('Минимальная скидка: ', minDiscountValue, '1', '0', '100', updateMinDiscountInput);
 
-    insertAfter(mainContent, minDiscountDiv);
+    filtersContainer.append(minDiscountDiv);
+    insertAfter(mainContent.firstChild, filtersContainer);
 }
 
 function updateMinDiscountInput(e) {
