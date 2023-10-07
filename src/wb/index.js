@@ -70,25 +70,42 @@ function removeRecentItemsBlock() {
 }
 
 function appendFilterControls() {
-    const filtersBlockContainer = document.createElement('div');
-    filtersBlockContainer.classList.add('filters-block__container');
-    filtersBlockContainer.style = 'display: flex;';
-    filtersBlockWrap.append(filtersBlockContainer);
+    const filtersContainer = document.createElement('div');
+    filtersContainer.classList.add('filters-block__container');
+
+    appendFiltersContainer(filtersContainer, filtersBlockWrap);
+}
+
+function appendFiltersContainer(filtersContainer, parentNode) {
+    filtersContainer.style = 'display: flex;';
 
     const controlStyle = 'padding-left: 7px; margin-top: 14px;';
 
     const minReviewsDiv =
-        createFilterControlNumber('Минимально отзывов: ', minReviewsValue, '1', '1', '999999', updateMinReviewsInput, controlStyle);
+        createFilterControlNumber('Минимально отзывов: ',
+            minReviewsValue,
+            '1',
+            '1',
+            '999999',
+            updateMinReviewsInput,
+            controlStyle);
 
     const minRatingDiv =
-        createFilterControlNumber('Минимальный рейтинг: ', minRatingValue, '0.1', '4.0', '5.0', updateMinRatingInput, controlStyle);
+        createFilterControlNumber('Минимальный рейтинг: ',
+            minRatingValue,
+            '0.1',
+            '4.0',
+            '5.0',
+            updateMinRatingInput,
+            controlStyle);
 
     const minPriceDiv =
         createDiv(`Минимальная цена: ${minPriceValue}`, controlStyle);
 
     setInterval(checkMinPrice, 1500);
 
-    filtersBlockContainer.append(minReviewsDiv, minRatingDiv, minPriceDiv);
+    filtersContainer.append(minReviewsDiv, minRatingDiv, minPriceDiv);
+    parentNode.append(filtersContainer);
 }
 
 function updateMinReviewsInput(e) {
