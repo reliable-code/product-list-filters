@@ -45,7 +45,14 @@ function appendFilterControls() {
     filtersContainer.id = FILTERS_CONTAINER_ID;
 
     const minDiscountDiv =
-        createFilterControlNumber('Минимальная скидка: ', minDiscountValue, '1', '0', '100', updateMinDiscountInput);
+        createFilterControlNumber(
+            'Минимальная скидка: ',
+            minDiscountValue,
+            '1',
+            '0',
+            '100',
+            updateMinDiscountInput,
+        );
 
     filtersContainer.append(minDiscountDiv);
     insertAfter(mainContent.firstChild, filtersContainer);
