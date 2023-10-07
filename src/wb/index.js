@@ -2,9 +2,9 @@ import {
     appendFilterControlsIfNeeded,
     createDiv,
     createFilterControlNumber,
+    getFirstElement,
     getFirstElementInnerNumber,
     updateValue,
-    waitForElement,
 } from '../common/dom';
 import { getLocalStorageValueOrDefault } from '../common/storage';
 
@@ -53,8 +53,8 @@ function getMinPriceValueFromURL() {
 
 setInterval(initListClean, 500);
 
-async function initListClean() {
-    const filtersBlockWrap = await waitForElement(document, FILTERS_BLOCK_WRAP_SELECTOR, 1500);
+function initListClean() {
+    const filtersBlockWrap = getFirstElement(document, FILTERS_BLOCK_WRAP_SELECTOR);
 
     if (filtersBlockWrap) {
         removeRecentItemsBlock();
