@@ -9,6 +9,7 @@ import {
     updateValue,
 } from '../common/dom';
 import { getLocalStorageValueOrDefault } from '../common/storage';
+import { removeNonDigit } from '../common/string';
 
 const MIN_DISCOUNT = 20;
 const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';
@@ -75,7 +76,7 @@ function cleanList(productCardLinks) {
                 return;
             }
 
-            const discountValue = +promoLabelText.replace(/\D/g, '');
+            const discountValue = +removeNonDigit(promoLabelText);
 
             if (discountValue < minDiscountValue) {
                 hideElement(productCard);
