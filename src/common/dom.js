@@ -82,10 +82,10 @@ function createBaseInput(inputOnChange, style) {
     return input;
 }
 
-export function createDiv(textContent, style = '') {
+export function createDiv(textContent = null, style = null) {
     const div = document.createElement('div');
-    div.textContent = textContent;
-    div.style = style;
+    if (textContent) div.textContent = textContent;
+    if (style) div.style = style;
 
     return div;
 }
