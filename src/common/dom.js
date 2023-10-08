@@ -1,3 +1,5 @@
+import { removeNonDigit } from './string';
+
 export function getFirstElement(parentNode, selector, logNotFound = false) {
     const element = parentNode.querySelector(selector);
 
@@ -153,7 +155,7 @@ export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
 
 export function getElementInnerNumber(element, cleanText = false) {
     let elementText = element.innerText;
-    if (cleanText) elementText = elementText.replace(/\D/g, '');
+    if (cleanText) elementText = removeNonDigit(elementText);
     const elementNumber = +elementText;
 
     return elementNumber;
