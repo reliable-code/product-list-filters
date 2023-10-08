@@ -63,7 +63,7 @@ async function initListClean() {
     const minReviewsDiv =
         createMinReviewsFilterControl(
             minReviewsValue,
-            updateMinReviewsInput,
+            updateMinReviewsValue,
             controlStyle,
             inputStyle,
         );
@@ -71,7 +71,7 @@ async function initListClean() {
     const minRatingDiv =
         createMinRatingFilterControl(
             minRatingValue,
-            updateMinRatingInput,
+            updateMinRatingValue,
             controlStyle,
             inputStyle,
         );
@@ -81,11 +81,11 @@ async function initListClean() {
     setInterval(cleanList, 100);
 }
 
-function updateMinReviewsInput(e) {
+function updateMinReviewsValue(e) {
     minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
-function updateMinRatingInput(e) {
+function updateMinRatingValue(e) {
     minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
@@ -105,7 +105,8 @@ function cleanList() {
                 return;
             }
 
-            const productCardRatingWrapSpans = getAllElements(productCardRatingWrap, ':scope > span', true);
+            const productCardRatingWrapSpans =
+                getAllElements(productCardRatingWrap, ':scope > span', true);
 
             const productCardReviewsNumber =
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 1);
