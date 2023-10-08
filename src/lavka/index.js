@@ -1,6 +1,6 @@
 import {
     appendFilterControlsIfNeeded,
-    createFilterControlNumber,
+    createMinDiscountFilterControl,
     getAllElements,
     getFirstElement,
     hideElement,
@@ -33,15 +33,7 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    const minDiscountDiv =
-        createFilterControlNumber(
-            'Минимальная скидка: ',
-            minDiscountValue,
-            '1',
-            '0',
-            '100',
-            updateMinDiscountValue,
-        );
+    const minDiscountDiv = createMinDiscountFilterControl(minDiscountValue, updateMinDiscountValue);
 
     filtersContainer.append(minDiscountDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
