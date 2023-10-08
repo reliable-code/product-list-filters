@@ -144,6 +144,21 @@ export function createMinDiscountFilterControl(
     );
 }
 
+export function createNoRatingFilterControl(
+    isChecked,
+    inputOnChange,
+    controlStyle = '',
+    inputStyle = '',
+) {
+    return createFilterControlCheckbox(
+        'Без рейтинга: ',
+        isChecked,
+        inputOnChange,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
     const element = getFirstElement(parentNode, selector, true);
     const elementNumber = getElementInnerNumber(element, cleanText);
