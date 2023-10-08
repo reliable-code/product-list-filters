@@ -13,6 +13,7 @@ import {
     waitForElement,
 } from '../common/dom';
 import { getLocalStorageValueOrDefault } from '../common/storage';
+import { removeSpaces } from '../common/string';
 
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
@@ -180,8 +181,7 @@ async function appendRatingValue(productReviewsWrap) {
 
     try {
         [ratingValue] =
-            ratingValueContainer.innerText
-                .replace(/\s/g, '')
+            removeSpaces(ratingValueContainer.innerText)
                 .split('/');
     } catch (e) {
         console.log(`Failed to get ratingValue: ${e.message}`);
