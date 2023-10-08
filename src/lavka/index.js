@@ -41,14 +41,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             '1',
             '0',
             '100',
-            updateMinDiscountInput,
+            updateMinDiscountValue,
         );
 
     filtersContainer.append(minDiscountDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
 }
 
-function updateMinDiscountInput(e) {
+function updateMinDiscountValue(e) {
     minDiscountValue = updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
 }
 
