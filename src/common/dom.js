@@ -126,6 +126,24 @@ export function createMinReviewsFilterControl(
     );
 }
 
+export function createMinDiscountFilterControl(
+    inputValue,
+    inputOnChange,
+    controlStyle = '',
+    inputStyle = '',
+) {
+    return createFilterControlNumber(
+        'Минимальная скидка: ',
+        inputValue,
+        '1',
+        '0',
+        '100',
+        inputOnChange,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
     const element = getFirstElement(parentNode, selector, true);
     const elementNumber = getElementInnerNumber(element, cleanText);
