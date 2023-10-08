@@ -1,6 +1,6 @@
 import { removeNonDigit } from './string';
 
-export function getFirstElement(parentNode, selector, logNotFound = false) {
+export function getFirstElement(selector, parentNode, logNotFound = false) {
     const element = parentNode.querySelector(selector);
 
     if (logNotFound && !element) console.log(`No element found for selector: ${selector}`);
@@ -160,7 +160,7 @@ export function createNoRatingFilterControl(
 }
 
 export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
-    const element = getFirstElement(parentNode, selector, true);
+    const element = getFirstElement(selector, parentNode, true);
     const elementNumber = getElementInnerNumber(element, cleanText);
 
     return elementNumber;
@@ -217,7 +217,7 @@ export function appendFilterControlsIfNeeded(
     appendFiltersContainerFunc,
     filtersContainerId = 'customFiltersContainer',
 ) {
-    let filtersContainer = getFirstElement(parentNode, `#${filtersContainerId}`);
+    let filtersContainer = getFirstElement(`#${filtersContainerId}`, parentNode);
 
     if (filtersContainer) {
         return;

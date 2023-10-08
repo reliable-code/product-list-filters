@@ -22,7 +22,7 @@ const MIN_REVIEWS = 10;
 
 let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
 
-const appointmentsPage = getFirstElement(document, APPOINTMENTS_PAGE);
+const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE, document);
 
 if (appointmentsPage) {
     setInterval(initListClean, 500);
@@ -62,9 +62,9 @@ function cleanList() {
 
     doctorCards.forEach(
         (doctorCard) => {
-            const profileCard = getFirstElement(doctorCard, '.b-profile-card', true);
+            const profileCard = getFirstElement('.b-profile-card', doctorCard, true);
 
-            const reviewsLink = getFirstElement(profileCard, ':scope > a');
+            const reviewsLink = getFirstElement(':scope > a', profileCard);
 
             if (!reviewsLink) {
                 doctorCard.remove();
@@ -98,7 +98,7 @@ function appendAdditionalLinks(doctorCard, profileCard) {
 }
 
 function appendAdditionalLink(doctorCard, profileCard, siteName) {
-    const doctorCardName = getFirstElement(doctorCard, DOCTOR_CARD_NAME_SELECTOR, true);
+    const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
     const doctorName = doctorCardName.innerText;
     const searchString = `${doctorName} ${siteName}`;
     const encodedSearchString = encodeURIComponent(searchString);
@@ -114,16 +114,16 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
 
 function appendReviewsInfoToHeader() {
     const reviewsFilter =
-        getFirstElement(document, '.reviews-filter:not(.b-reviews-page__filter)');
+        getFirstElement('.reviews-filter:not(.b-reviews-page__filter)', document);
 
     if (!reviewsFilter) return;
 
     const nameSpanHolder =
-        getFirstElement(document, '.b-doctor-intro__title-first-line', true);
+        getFirstElement('.b-doctor-intro__title-first-line', document, true);
 
     if (!nameSpanHolder) return;
 
-    const nameSpan = getFirstElement(nameSpanHolder, '[itemprop="name"]', true);
+    const nameSpan = getFirstElement('[itemprop="name"]', nameSpanHolder, true);
 
     if (!nameSpan) return;
 

@@ -34,7 +34,7 @@ function getCategoryName() {
     return categoryName;
 }
 
-const searchControls = getFirstElement(document, SEARCH_CONTROLS_SELECTOR);
+const searchControls = getFirstElement(SEARCH_CONTROLS_SELECTOR, document);
 
 if (searchControls) {
     appendFilterControlsIfNeeded(searchControls, appendFiltersContainer);
@@ -98,7 +98,7 @@ function cleanList() {
                 ? productCardSnippetParent.parentNode.parentNode
                 : productCardSnippetParent;
 
-            const ratingMeter = getFirstElement(productCardSnippet, '[role="meter"]');
+            const ratingMeter = getFirstElement('[role="meter"]', productCardSnippet);
 
             if (!ratingMeter) {
                 productCard.remove();

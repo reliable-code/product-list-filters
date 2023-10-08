@@ -18,7 +18,7 @@ const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
 let minDiscountValue = getStorageValueOrDefault(MIN_DISCOUNT_LOCAL_STORAGE_KEY, MIN_DISCOUNT);
 
-const mainContent = getFirstElement(document, MAIN_CONTENT_SELECTOR);
+const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR, document);
 
 setInterval(initListClean, 500);
 
@@ -53,7 +53,7 @@ function cleanList(productCardLinks) {
             const productCardLinksParent = productCardLink.parentNode;
             const productCard = productCardLinksParent.parentNode.parentNode;
 
-            const promoLabel = getFirstElement(productCardLinksParent, 'li');
+            const promoLabel = getFirstElement('li', productCardLinksParent);
 
             if (!promoLabel) {
                 productCard.remove();

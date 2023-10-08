@@ -41,8 +41,8 @@ function getCategoryName() {
     return categoryName;
 }
 
-const paginatorContent = getFirstElement(document, PAGINATOR_CONTENT_SELECTOR);
-const comments = getFirstElement(document, COMMENTS_SELECTOR);
+const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR, document);
+const comments = getFirstElement(COMMENTS_SELECTOR, document);
 
 if (paginatorContent) {
     await initListClean();
@@ -90,14 +90,14 @@ function updateMinRatingValue(e) {
 }
 
 function cleanList() {
-    const searchResultContainer = getFirstElement(document, SEARCH_RESULT_SELECTOR, true);
-    const productCardsWrap = getFirstElement(searchResultContainer, ':scope > div', true);
+    const searchResultContainer = getFirstElement(SEARCH_RESULT_SELECTOR, document, true);
+    const productCardsWrap = getFirstElement(':scope > div', searchResultContainer, true);
     const productCards = getAllElements(productCardsWrap, ':scope > div');
 
     productCards.forEach(
         (productCard) => {
             const productCardRatingWrap =
-                getFirstElement(productCard, PRODUCT_CARD_RATING_WRAP_SELECTOR);
+                getFirstElement(PRODUCT_CARD_RATING_WRAP_SELECTOR, productCard);
 
             if (!productCardRatingWrap) {
                 hideElement(productCard);
@@ -134,7 +134,7 @@ async function appendBadReviewsLinkAndRatingValue() {
 }
 
 function appendBadReviewsLink(productReviewsWrap) {
-    const productReviewsLink = getFirstElement(productReviewsWrap, 'a');
+    const productReviewsLink = getFirstElement('a', productReviewsWrap);
 
     if (productReviewsLink) {
         const productReviewsWrapParent = productReviewsWrap.parentNode;
