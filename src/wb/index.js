@@ -70,7 +70,7 @@ function initListClean() {
 }
 
 function removeRecentItemsBlock() {
-    const recentItems = document.querySelector('.j-recent-items');
+    const recentItems = getFirstElement('.j-recent-items');
 
     if (recentItems) {
         const { parentNode } = recentItems;
