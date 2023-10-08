@@ -1,7 +1,7 @@
 import {
     appendFilterControlsIfNeeded,
-    createFilterControlCheckbox,
     createMinRatingFilterControl,
+    createNoRatingFilterControl,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -63,8 +63,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         );
 
     const noRatingDiv =
-        createFilterControlCheckbox(
-            'Без рейтинга: ',
+        createNoRatingFilterControl(
             noRatingChecked,
             updateNoRatingValue,
             controlStyle,
