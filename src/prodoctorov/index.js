@@ -40,13 +40,13 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    const minReviewsDiv = createMinReviewsFilterControl(minReviewsValue, updateMinReviewsInput);
+    const minReviewsDiv = createMinReviewsFilterControl(minReviewsValue, updateMinReviewsValue);
 
     filtersContainer.append(minReviewsDiv);
     parentNode.prepend(filtersContainer);
 }
 
-function updateMinReviewsInput(e) {
+function updateMinReviewsValue(e) {
     minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
@@ -114,7 +114,8 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
 }
 
 function appendReviewsInfoToHeader() {
-    const reviewsFilter = getFirstElement(document, '.reviews-filter:not(.b-reviews-page__filter)');
+    const reviewsFilter =
+        getFirstElement(document, '.reviews-filter:not(.b-reviews-page__filter)');
 
     if (!reviewsFilter) return;
 
