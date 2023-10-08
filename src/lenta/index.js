@@ -72,8 +72,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             checkboxInputStyle,
         );
 
-    filtersContainer.append(minRatingDiv);
-    filtersContainer.append(noRatingDiv);
+    filtersContainer.append(minRatingDiv, noRatingDiv);
 
     parentNode.prepend(filtersContainer);
 }
