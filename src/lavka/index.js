@@ -23,7 +23,7 @@ const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
 setInterval(initListClean, 500);
 
 function initListClean() {
-    const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, document);
+    const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR);
 
     if (productCardLinks.length) {
         appendFilterControlsIfNeeded(mainContent, appendFiltersContainer);

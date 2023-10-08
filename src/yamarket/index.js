@@ -80,12 +80,12 @@ function updateMinRatingValue(e) {
 }
 
 function cleanList() {
-    const virtuosoScrollers = getAllElements(VIRTUOSO_SCROLLER_SELECTOR, document);
+    const virtuosoScrollers = getAllElements(VIRTUOSO_SCROLLER_SELECTOR);
     virtuosoScrollers.forEach((virtuosoScroller) => {
         virtuosoScroller.style.minHeight = '0';
     });
 
-    const productCardSnippets = getAllElements(PRODUCT_CARD_SNIPPET_SELECTOR, document);
+    const productCardSnippets = getAllElements(PRODUCT_CARD_SNIPPET_SELECTOR);
 
     productCardSnippets.forEach(
         (productCardSnippet) => {

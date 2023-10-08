@@ -50,7 +50,7 @@ function updateMinReviewsValue(e) {
 }
 
 function removeSpecialPlacementCards() {
-    const specialPlacementCards = getAllElements(SPECIAL_PLACEMENT_CARD_SELECTOR, document);
+    const specialPlacementCards = getAllElements(SPECIAL_PLACEMENT_CARD_SELECTOR);
 
     specialPlacementCards.forEach(
         (specialPlacementCard) => specialPlacementCard.remove(),
