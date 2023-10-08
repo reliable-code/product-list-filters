@@ -58,7 +58,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minRatingDiv =
         createMinRatingFilterControl(
             minRatingValue,
-            updateMinRatingInput,
+            updateMinRatingValue,
             controlStyle,
             numberInputStyle,
         );
@@ -67,7 +67,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createFilterControlCheckbox(
             'Без рейтинга: ',
             noRatingChecked,
-            updateNoRatingInput,
+            updateNoRatingValue,
             controlStyle,
             checkboxInputStyle,
         );
@@ -77,11 +77,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function updateMinRatingInput(e) {
+function updateMinRatingValue(e) {
     minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
-function updateNoRatingInput(e) {
+function updateNoRatingValue(e) {
     noRatingChecked = updateValue(e, NO_RATING_LOCAL_STORAGE_KEY);
 }
 
