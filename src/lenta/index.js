@@ -25,7 +25,7 @@ let noRatingChecked = getStorageValueOrDefault(NO_RATING_LOCAL_STORAGE_KEY, NO_R
 setInterval(initListClean, 500);
 
 function initListClean() {
-    const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR, document);
+    const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
 
     if (productCardList) {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);

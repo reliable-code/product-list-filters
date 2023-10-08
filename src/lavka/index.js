@@ -18,7 +18,7 @@ const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
 let minDiscountValue = getStorageValueOrDefault(MIN_DISCOUNT_LOCAL_STORAGE_KEY, MIN_DISCOUNT);
 
-const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR, document);
+const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
 
 setInterval(initListClean, 500);
 

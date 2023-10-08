@@ -41,8 +41,8 @@ function getCategoryName() {
     return categoryName;
 }
 
-const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR, document);
-const comments = getFirstElement(COMMENTS_SELECTOR, document);
+const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
+const comments = getFirstElement(COMMENTS_SELECTOR);
 
 if (paginatorContent) {
     await initListClean();

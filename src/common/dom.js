@@ -1,6 +1,6 @@
 import { removeNonDigit } from './string';
 
-export function getFirstElement(selector, parentNode, logNotFound = false) {
+export function getFirstElement(selector, parentNode = document, logNotFound = false) {
     const element = parentNode.querySelector(selector);
 
     if (logNotFound && !element) console.log(`No element found for selector: ${selector}`);

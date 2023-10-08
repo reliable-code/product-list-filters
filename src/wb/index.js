@@ -58,7 +58,7 @@ function getMinPriceValueFromURL() {
 setInterval(initListClean, 100);
 
 function initListClean() {
-    const filtersBlockWrap = getFirstElement(FILTERS_BLOCK_WRAP_SELECTOR, document);
+    const filtersBlockWrap = getFirstElement(FILTERS_BLOCK_WRAP_SELECTOR);
 
     if (filtersBlockWrap) {
         removeRecentItemsBlock();

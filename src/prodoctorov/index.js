@@ -22,7 +22,7 @@ const MIN_REVIEWS = 10;
 
 let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
 
-const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE, document);
+const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 
 if (appointmentsPage) {
     setInterval(initListClean, 500);
@@ -114,7 +114,7 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
 
 function appendReviewsInfoToHeader() {
     const reviewsFilter =
-        getFirstElement('.reviews-filter:not(.b-reviews-page__filter)', document);
+        getFirstElement('.reviews-filter:not(.b-reviews-page__filter)');
 
     if (!reviewsFilter) return;
 

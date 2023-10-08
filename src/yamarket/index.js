@@ -34,7 +34,7 @@ function getCategoryName() {
     return categoryName;
 }
 
-const searchControls = getFirstElement(SEARCH_CONTROLS_SELECTOR, document);
+const searchControls = getFirstElement(SEARCH_CONTROLS_SELECTOR);
 
 if (searchControls) {
     appendFilterControlsIfNeeded(searchControls, appendFiltersContainer);
