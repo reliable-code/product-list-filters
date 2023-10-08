@@ -6,9 +6,8 @@ import {
     getFirstElement,
     hideElement,
     showElement,
-    updateValue,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault } from '../common/storage';
+import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
 
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 

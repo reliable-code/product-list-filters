@@ -9,10 +9,9 @@ import {
     hideElement,
     insertAfter,
     showElement,
-    updateValue,
     waitForElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault } from '../common/storage';
+import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
 import { removeSpaces } from '../common/string';
 
 const CATEGORY_NAME = getCategoryName();

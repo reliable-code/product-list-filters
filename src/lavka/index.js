@@ -6,9 +6,8 @@ import {
     hideElement,
     insertAfter,
     showElement,
-    updateValue,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault } from '../common/storage';
+import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
 import { removeNonDigit } from '../common/string';
 
 const MIN_DISCOUNT = 20;

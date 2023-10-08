@@ -8,9 +8,8 @@ import {
     hideElement,
     insertAfter,
     showElement,
-    updateValue,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault } from '../common/storage';
+import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
 
 const MIN_REVIEWS = 5;
 const MIN_RATING = 4.8;
