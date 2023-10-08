@@ -1,6 +1,7 @@
 import {
     appendFilterControlsIfNeeded,
     createDiv,
+    createLink,
     createMinReviewsFilterControl,
     getAllElements,
     getElementInnerNumber,
@@ -106,9 +107,8 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
 
     const lineBreak = document.createElement('br');
 
-    const searchUrlLink = document.createElement('a');
-    searchUrlLink.href = `https://www.google.com/search?q=${encodedSearchString}&btnI`;
-    searchUrlLink.textContent = siteName;
+    const searchUrlLink =
+        createLink(`https://www.google.com/search?q=${encodedSearchString}&btnI`, siteName);
 
     profileCard.append(lineBreak, searchUrlLink);
 }
