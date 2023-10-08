@@ -1,6 +1,7 @@
 import { thumbsDownIcon } from './icons';
 import {
     createDiv,
+    createLink,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     getAllElements,
@@ -141,10 +142,12 @@ function appendBadReviewsLink(productReviewsWrap) {
 
         const productBadReviewsLinkWrap = createDiv();
 
-        const productBadReviewsLink = document.createElement('a');
-        productBadReviewsLink.innerHTML = thumbsDownIcon;
-        productBadReviewsLink.style = 'align-items: center; display: flex;';
-        productBadReviewsLink.href = `${productReviewsLink.href}?sort=score_asc`;
+        const productBadReviewsLink =
+            createLink(
+                `${productReviewsLink.href}?sort=score_asc`,
+                thumbsDownIcon,
+                'align-items: center; display: flex;',
+            );
 
         const productBadReviewsLinkSpan = document.createElement('span');
         productBadReviewsLinkSpan.style = 'padding-left: 8px;';
