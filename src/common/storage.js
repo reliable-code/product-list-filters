@@ -1,5 +1,7 @@
+const storage = localStorage;
+
 export function getStorageValueOrDefault(key, defaultValue) {
-    const localStorageItem = localStorage.getItem(key);
+    const localStorageItem = storage.getItem(key);
 
     return localStorageItem ? JSON.parse(localStorageItem) : defaultValue;
 }
@@ -19,7 +21,7 @@ export function setStorageValueFromEvent(event, keyName) {
         return null;
     }
 
-    localStorage.setItem(keyName, valueToSet);
+    storage.setItem(keyName, valueToSet);
 
     return valueToSet;
 }
