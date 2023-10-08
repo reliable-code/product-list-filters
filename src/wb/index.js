@@ -85,10 +85,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const controlStyle = 'padding-left: 7px; margin-top: 14px;';
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsValue, updateMinReviewsInput, controlStyle);
+        createMinReviewsFilterControl(minReviewsValue, updateMinReviewsValue, controlStyle);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingValue, updateMinRatingInput, controlStyle);
+        createMinRatingFilterControl(minRatingValue, updateMinRatingValue, controlStyle);
 
     const minPriceDiv =
         createDiv(minPriceDivTextContent(), controlStyle);
@@ -99,11 +99,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-function updateMinReviewsInput(e) {
+function updateMinReviewsValue(e) {
     minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
-function updateMinRatingInput(e) {
+function updateMinRatingValue(e) {
     minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
