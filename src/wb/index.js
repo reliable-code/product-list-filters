@@ -3,6 +3,7 @@ import {
     createDiv,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
+    getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
     hideElement,
@@ -116,7 +117,7 @@ function checkMinPrice(minPriceDiv) {
 }
 
 function cleanList() {
-    const productCards = document.querySelectorAll(PRODUCT_CARD_SELECTOR);
+    const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(
         (productCard) => {
