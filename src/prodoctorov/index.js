@@ -27,7 +27,7 @@ let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MI
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 
 if (appointmentsPage) {
-    setInterval(initListClean, 500);
+    setInterval(initListClean, 100);
 } else {
     appendReviewsInfoToHeader();
 }
