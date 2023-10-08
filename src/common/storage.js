@@ -4,7 +4,7 @@ export function getLocalStorageValueOrDefault(key, defaultValue) {
     return localStorageItem ? JSON.parse(localStorageItem) : defaultValue;
 }
 
-export function updateValue(event, keyName) {
+export function setStorageValueFromEvent(event, keyName) {
     const { target } = event;
     const { type } = target;
 

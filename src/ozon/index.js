@@ -11,7 +11,7 @@ import {
     showElement,
     waitForElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
+import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeSpaces } from '../common/string';
 
 const CATEGORY_NAME = getCategoryName();
@@ -82,11 +82,11 @@ async function initListClean() {
 }
 
 function updateMinReviewsValue(e) {
-    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function updateMinRatingValue(e) {
-    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {

@@ -8,7 +8,7 @@ import {
     hideElement,
     showElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
+import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 
 const MIN_RATING = 4.0;
 const NO_RATING = false;
@@ -77,11 +77,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinRatingValue(e) {
-    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function updateNoRatingValue(e) {
-    noRatingChecked = updateValue(e, NO_RATING_LOCAL_STORAGE_KEY);
+    noRatingChecked = setStorageValueFromEvent(e, NO_RATING_LOCAL_STORAGE_KEY);
 }
 
 function cleanList() {

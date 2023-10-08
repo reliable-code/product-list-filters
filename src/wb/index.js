@@ -8,7 +8,7 @@ import {
     hideElement,
     showElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
+import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
@@ -99,11 +99,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinReviewsValue(e) {
-    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function updateMinRatingValue(e) {
-    minRatingValue = updateValue(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_LOCAL_STORAGE_KEY);
 }
 
 function checkMinPrice(minPriceDiv) {

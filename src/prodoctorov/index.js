@@ -7,7 +7,7 @@ import {
     hideElement,
     showElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
+import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
@@ -46,7 +46,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinReviewsValue(e) {
-    minReviewsValue = updateValue(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
 }
 
 function removeSpecialPlacementCards() {

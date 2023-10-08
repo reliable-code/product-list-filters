@@ -7,7 +7,7 @@ import {
     insertAfter,
     showElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, updateValue } from '../common/storage';
+import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeNonDigit } from '../common/string';
 
 const MIN_DISCOUNT = 20;
@@ -48,7 +48,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinDiscountValue(e) {
-    minDiscountValue = updateValue(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
+    minDiscountValue = setStorageValueFromEvent(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
 }
 
 function cleanList(productCardLinks) {
