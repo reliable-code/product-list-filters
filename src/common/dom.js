@@ -8,7 +8,7 @@ export function getFirstElement(selector, parentNode = document, logNotFound = f
     return element;
 }
 
-export function getAllElements(parentNode, selector, logNotFound = false) {
+export function getAllElements(selector, parentNode, logNotFound = false) {
     const elements = parentNode.querySelectorAll(selector);
 
     if (logNotFound && !elements.length) console.log(`No elements found for selector: ${selector}`);

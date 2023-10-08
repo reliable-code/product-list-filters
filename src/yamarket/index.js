@@ -80,12 +80,12 @@ function updateMinRatingValue(e) {
 }
 
 function cleanList() {
-    const virtuosoScrollers = getAllElements(document, VIRTUOSO_SCROLLER_SELECTOR);
+    const virtuosoScrollers = getAllElements(VIRTUOSO_SCROLLER_SELECTOR, document);
     virtuosoScrollers.forEach((virtuosoScroller) => {
         virtuosoScroller.style.minHeight = '0';
     });
 
-    const productCardSnippets = getAllElements(document, PRODUCT_CARD_SNIPPET_SELECTOR);
+    const productCardSnippets = getAllElements(PRODUCT_CARD_SNIPPET_SELECTOR, document);
 
     productCardSnippets.forEach(
         (productCardSnippet) => {
@@ -108,7 +108,7 @@ function cleanList() {
 
             const ratingInfoWrap = ratingMeter.parentNode;
 
-            const ratingInfoSpans = getAllElements(ratingInfoWrap, ':scope > span');
+            const ratingInfoSpans = getAllElements(':scope > span', ratingInfoWrap);
 
             const productCardReviewsNumber = getArrayElementInnerNumber(ratingInfoSpans, 1);
 

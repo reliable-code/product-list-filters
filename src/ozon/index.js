@@ -92,7 +92,7 @@ function updateMinRatingValue(e) {
 function cleanList() {
     const searchResultContainer = getFirstElement(SEARCH_RESULT_SELECTOR, document, true);
     const productCardsWrap = getFirstElement(':scope > div', searchResultContainer, true);
-    const productCards = getAllElements(productCardsWrap, ':scope > div');
+    const productCards = getAllElements(':scope > div', productCardsWrap);
 
     productCards.forEach(
         (productCard) => {
@@ -106,7 +106,7 @@ function cleanList() {
             }
 
             const productCardRatingWrapSpans =
-                getAllElements(productCardRatingWrap, ':scope > span', true);
+                getAllElements(':scope > span', productCardRatingWrap, true);
 
             const productCardReviewsNumber =
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 1);

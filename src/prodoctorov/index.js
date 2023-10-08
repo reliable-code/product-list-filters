@@ -50,7 +50,7 @@ function updateMinReviewsValue(e) {
 }
 
 function removeSpecialPlacementCards() {
-    const specialPlacementCards = getAllElements(document, SPECIAL_PLACEMENT_CARD_SELECTOR);
+    const specialPlacementCards = getAllElements(SPECIAL_PLACEMENT_CARD_SELECTOR, document);
 
     specialPlacementCards.forEach(
         (specialPlacementCard) => specialPlacementCard.remove(),
@@ -58,7 +58,7 @@ function removeSpecialPlacementCards() {
 }
 
 function cleanList() {
-    const doctorCards = getAllElements(appointmentsPage, DOCTOR_CARD_SELECTOR);
+    const doctorCards = getAllElements(DOCTOR_CARD_SELECTOR, appointmentsPage);
 
     doctorCards.forEach(
         (doctorCard) => {
@@ -130,7 +130,7 @@ function appendReviewsInfoToHeader() {
     const reviewsInfo = document.createElement('div');
     reviewsInfo.classList.add('v-application');
 
-    const reviewsFilterSpans = getAllElements(reviewsFilter, ':scope > span', true);
+    const reviewsFilterSpans = getAllElements(':scope > span', reviewsFilter, true);
 
     const lastReviewsFilterSpansIndex = reviewsFilterSpans.length - 1;
 

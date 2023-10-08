@@ -84,7 +84,7 @@ function updateNoRatingValue(e) {
 }
 
 function cleanList() {
-    const productCards = getAllElements(document, PRODUCT_CARD_SELECTOR);
+    const productCards = getAllElements(PRODUCT_CARD_SELECTOR, document);
 
     productCards.forEach(
         (productCard) => {
