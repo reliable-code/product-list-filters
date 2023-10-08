@@ -11,7 +11,7 @@ import {
     showElement,
     waitForElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeSpaces } from '../common/string';
 
 const CATEGORY_NAME = getCategoryName();
@@ -30,8 +30,8 @@ const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
 
-let minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
-let minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
+let minRatingValue = getStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
 
 function getCategoryName() {
     const { pathname } = window.location;

@@ -9,7 +9,7 @@ import {
     insertAfter,
     showElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 
 const MIN_REVIEWS = 5;
 const MIN_RATING = 4.8;
@@ -23,8 +23,8 @@ const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
 const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
-let minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
-let minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
+let minRatingValue = getStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
 
 function getCategoryName() {
     const { pathname } = window.location;

@@ -7,7 +7,7 @@ import {
     hideElement,
     showElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
@@ -20,7 +20,7 @@ const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 
 const MIN_REVIEWS = 10;
 
-let minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
+let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
 
 const appointmentsPage = getFirstElement(document, APPOINTMENTS_PAGE);
 

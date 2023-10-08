@@ -7,7 +7,7 @@ import {
     insertAfter,
     showElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeNonDigit } from '../common/string';
 
 const MIN_DISCOUNT = 20;
@@ -16,7 +16,7 @@ const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
-let minDiscountValue = getLocalStorageValueOrDefault(MIN_DISCOUNT_LOCAL_STORAGE_KEY, MIN_DISCOUNT);
+let minDiscountValue = getStorageValueOrDefault(MIN_DISCOUNT_LOCAL_STORAGE_KEY, MIN_DISCOUNT);
 
 const mainContent = getFirstElement(document, MAIN_CONTENT_SELECTOR);
 

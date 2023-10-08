@@ -8,7 +8,7 @@ import {
     hideElement,
     showElement,
 } from '../common/dom';
-import { getLocalStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
@@ -25,8 +25,8 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
 
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
-let minReviewsValue = getLocalStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
-let minRatingValue = getLocalStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
+let minRatingValue = getStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
 let minPriceValue = getMinPriceValueFromURL();
 
 const minPriceDivTextContent = () => `Минимальная цена: ${minPriceValue}`;
