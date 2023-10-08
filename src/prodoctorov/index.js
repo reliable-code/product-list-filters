@@ -1,5 +1,6 @@
 import {
     appendFilterControlsIfNeeded,
+    createDiv,
     createMinReviewsFilterControl,
     getAllElements,
     getElementInnerNumber,
@@ -127,7 +128,7 @@ function appendReviewsInfoToHeader() {
 
     if (!nameSpan) return;
 
-    const reviewsInfo = document.createElement('div');
+    const reviewsInfo = createDiv();
     reviewsInfo.classList.add('v-application');
 
     const reviewsFilterSpans = getAllElements(':scope > span', reviewsFilter, true);

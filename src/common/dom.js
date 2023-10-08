@@ -223,7 +223,7 @@ export function appendFilterControlsIfNeeded(
         return;
     }
 
-    filtersContainer = document.createElement('div');
+    filtersContainer = createDiv();
     filtersContainer.id = filtersContainerId;
 
     appendFiltersContainerFunc(filtersContainer, parentNode);

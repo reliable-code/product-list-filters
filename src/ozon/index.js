@@ -139,7 +139,7 @@ function appendBadReviewsLink(productReviewsWrap) {
     if (productReviewsLink) {
         const productReviewsWrapParent = productReviewsWrap.parentNode;
 
-        const productBadReviewsLinkWrap = document.createElement('div');
+        const productBadReviewsLinkWrap = createDiv();
 
         const productBadReviewsLink = document.createElement('a');
         productBadReviewsLink.innerHTML = thumbsDownIcon;
