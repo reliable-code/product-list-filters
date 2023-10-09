@@ -1,5 +1,17 @@
 import { createDiv, createInput, getFirstElement } from './dom';
 
+function createNumberInput(
+    inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
+) {
+    const input = createInput('number', inputOnChange, inputStyle);
+    input.value = inputValue;
+    input.step = inputStep;
+    input.min = inputMinValue;
+    input.max = inputMaxValue;
+
+    return input;
+}
+
 export function createFilterControlNumber(
     titleText,
     inputValue,
@@ -11,12 +23,9 @@ export function createFilterControlNumber(
     inputStyle = '',
 ) {
     const filterControl = createDiv(titleText, controlStyle);
-    const input = createInput('number', inputOnChange, inputStyle);
-
-    input.value = inputValue;
-    input.step = inputStep;
-    input.min = inputMinValue;
-    input.max = inputMaxValue;
+    const input = createNumberInput(
+        inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
+    );
 
     filterControl.append(input);
 
