@@ -18,7 +18,7 @@ const SHOW_EXPIRED = false;
 const MIN_VOTES_LOCAL_STORAGE_KEY = 'min-votes-filter';
 const SHOW_EXPIRED_LOCAL_STORAGE_KEY = 'show-expired-filter';
 const PRODUCT_CARD_LIST_SELECTOR = '.listLayout-main';
-const PRODUCT_CARD_SELECTOR = '.thread:not(.js-telegram-widget)';
+const PRODUCT_CARD_SELECTOR = '.thread--type-list:not(.js-telegram-widget)';
 const PRODUCT_CARD_RATING_SELECTOR = '.vote-box > span';
 
 let minVotesValue = getStorageValueOrDefault(MIN_VOTES_LOCAL_STORAGE_KEY, MIN_VOTES);
