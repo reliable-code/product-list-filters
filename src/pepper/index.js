@@ -37,15 +37,36 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style = '';
+    filtersContainer.style =
+        'display: flex;' +
+        'grid-gap: 15px;' +
+        'margin-top: 0.5em;' +
+        'padding: 11px 19px;' +
+        'background-color: #fff;' +
+        'border-radius: 8px;';
 
-    const controlStyle = '';
-    const numberInputStyle = '';
-    const checkboxInputStyle = '';
+    const controlStyle =
+        'display: flex;' +
+        'align-items: center;';
+    const inputStyle =
+        'border: 1px solid #d1d5db;' +
+        'border-radius: 8px;' +
+        'margin-left: 7px;';
+    const numberInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'padding: 7px 14px;' +
+        'background-color: #fff;';
+    const checkboxInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'width: 24px;' +
+        'height: 24px;';
 
     const minVotesDiv =
         createMinVotesFilterControl(
-            minVotesValue, updateMinVotesValue, controlStyle, numberInputStyle,
+            minVotesValue,
+            updateMinVotesValue,
+            controlStyle,
+            numberInputStyle,
         );
 
     const showExpiredDiv =
