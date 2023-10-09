@@ -32,6 +32,10 @@ function setElementDisplay(element, display) {
     element.style.display = display;
 }
 
+export function setElementBackground(element, background) {
+    element.style.background = background;
+}
+
 export function createInput(type = null, inputOnChange = null, style = null) {
     const input = document.createElement('input');
     if (type) input.type = type;
