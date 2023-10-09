@@ -6,6 +6,7 @@ module.exports = monkey({
         lavka: './src/lavka/index.js',
         lenta: './src/lenta/index.js',
         ozon: './src/ozon/index.js',
+        pepper: './src/pepper/index.js',
         prodoctorov: './src/prodoctorov/index.js',
         wb: './src/wb/index.js',
         yamarket: './src/yamarket/index.js',
