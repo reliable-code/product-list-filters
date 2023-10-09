@@ -1,8 +1,5 @@
 import {
-    appendFilterControlsIfNeeded,
     createDiv,
-    createMinRatingFilterControl,
-    createMinReviewsFilterControl,
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
@@ -10,6 +7,11 @@ import {
     showElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import {
+    appendFilterControlsIfNeeded,
+    createMinRatingFilterControl,
+    createMinReviewsFilterControl,
+} from '../common/filter';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;

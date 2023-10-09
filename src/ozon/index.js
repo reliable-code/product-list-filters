@@ -2,8 +2,6 @@ import { thumbsDownIcon } from './icons';
 import {
     createDiv,
     createLink,
-    createMinRatingFilterControl,
-    createMinReviewsFilterControl,
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
@@ -14,6 +12,7 @@ import {
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeSpaces } from '../common/string';
+import { createMinRatingFilterControl, createMinReviewsFilterControl } from '../common/filter';
 
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;

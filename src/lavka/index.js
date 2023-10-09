@@ -1,6 +1,4 @@
 import {
-    appendFilterControlsIfNeeded,
-    createMinDiscountFilterControl,
     getAllElements,
     getFirstElement,
     hideElement,
@@ -9,6 +7,7 @@ import {
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeNonDigit } from '../common/string';
+import { appendFilterControlsIfNeeded, createMinDiscountFilterControl } from '../common/filter';
 
 const MIN_DISCOUNT = 20;
 const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';

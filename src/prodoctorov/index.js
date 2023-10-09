@@ -1,8 +1,6 @@
 import {
-    appendFilterControlsIfNeeded,
     createDiv,
     createLink,
-    createMinReviewsFilterControl,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -10,6 +8,7 @@ import {
     showElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { appendFilterControlsIfNeeded, createMinReviewsFilterControl } from '../common/filter';
 
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
 
