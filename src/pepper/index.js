@@ -29,11 +29,12 @@ setInterval(initListClean, 100);
 const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
 
 function initListClean() {
+    const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
-    if (productCardList) {
+    if (productCardList && productCards.length) {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
 
-        cleanList();
+        cleanList(productCards);
     }
 }
 
@@ -92,9 +93,7 @@ function updateShowExpiredValue(e) {
     showExpiredChecked = setStorageValueFromEvent(e, SHOW_EXPIRED_LOCAL_STORAGE_KEY);
 }
 
-function cleanList() {
-    const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
-
+function cleanList(productCards) {
     productCards.forEach(
         (productCard) => {
             const isExpired = productCard.classList.contains('thread--expired');
