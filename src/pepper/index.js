@@ -12,8 +12,8 @@ const MIN_VOTES = 100;
 
 const MIN_VOTES_LOCAL_STORAGE_KEY = 'min-votes-filter';
 const PRODUCT_CARD_LIST_SELECTOR = '.listLayout-main';
-const PRODUCT_CARD_SELECTOR = '.thread:not(.thread--expired):not(.js-telegram-widget)';
-const PRODUCT_CARD_RATING_SELECTOR = '.vote-temp';
+const PRODUCT_CARD_SELECTOR = '.thread:not(.js-telegram-widget)';
+const PRODUCT_CARD_RATING_SELECTOR = '.vote-box > span';
 
 let minVotesValue = getStorageValueOrDefault(MIN_VOTES_LOCAL_STORAGE_KEY, MIN_VOTES);
 
