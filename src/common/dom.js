@@ -72,7 +72,7 @@ export function createFilterControlCheckbox(
     return filterControl;
 }
 
-function createInput(type = null, inputOnChange = null, style = null) {
+export function createInput(type = null, inputOnChange = null, style = null) {
     const input = document.createElement('input');
     if (type) input.type = type;
     if (inputOnChange) input.addEventListener('change', inputOnChange);
