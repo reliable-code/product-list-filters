@@ -24,7 +24,7 @@ const PRODUCT_CARD_RATING_SELECTOR = '.vote-box > span';
 let minVotesValue = getStorageValueOrDefault(MIN_VOTES_LOCAL_STORAGE_KEY, MIN_VOTES);
 let showExpiredChecked = getStorageValueOrDefault(SHOW_EXPIRED_LOCAL_STORAGE_KEY, SHOW_EXPIRED);
 
-setInterval(initListClean, 500);
+setInterval(initListClean, 100);
 
 function initListClean() {
     const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
