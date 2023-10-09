@@ -32,6 +32,13 @@ export function createFilterControlNumber(
     return filterControl;
 }
 
+function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
+    const input = createInput('checkbox', inputOnChange, inputStyle);
+    input.checked = isChecked;
+
+    return input;
+}
+
 export function createFilterControlCheckbox(
     titleText,
     isChecked,
@@ -40,9 +47,7 @@ export function createFilterControlCheckbox(
     inputStyle = '',
 ) {
     const filterControl = createDiv(titleText, controlStyle);
-    const input = createInput('checkbox', inputOnChange, inputStyle);
-
-    input.checked = isChecked;
+    const input = createCheckboxInput(inputOnChange, inputStyle, isChecked);
 
     filterControl.append(input);
 
