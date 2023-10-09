@@ -1,16 +1,6 @@
-import { createDiv, createInput, getFirstElement } from './dom';
-
-function createNumberInput(
-    inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
-) {
-    const input = createInput('number', inputOnChange, inputStyle);
-    input.value = inputValue;
-    input.step = inputStep;
-    input.min = inputMinValue;
-    input.max = inputMaxValue;
-
-    return input;
-}
+import {
+ createCheckboxInput, createDiv, createNumberInput, getFirstElement,
+} from './dom';
 
 export function createFilterControlNumber(
     titleText,
@@ -30,13 +20,6 @@ export function createFilterControlNumber(
     filterControl.append(input);
 
     return filterControl;
-}
-
-function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
-    const input = createInput('checkbox', inputOnChange, inputStyle);
-    input.checked = isChecked;
-
-    return input;
 }
 
 export function createFilterControlCheckbox(

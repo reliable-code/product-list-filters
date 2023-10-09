@@ -41,6 +41,25 @@ export function createInput(type = null, inputOnChange = null, style = null) {
     return input;
 }
 
+export function createNumberInput(
+    inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
+) {
+    const input = createInput('number', inputOnChange, inputStyle);
+    input.value = inputValue;
+    input.step = inputStep;
+    input.min = inputMinValue;
+    input.max = inputMaxValue;
+
+    return input;
+}
+
+export function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
+    const input = createInput('checkbox', inputOnChange, inputStyle);
+    input.checked = isChecked;
+
+    return input;
+}
+
 export function createDiv(textContent = null, style = null) {
     const div = document.createElement('div');
     if (textContent) div.textContent = textContent;
