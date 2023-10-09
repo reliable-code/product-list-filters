@@ -91,6 +91,24 @@ export function createMinDiscountFilterControl(
     );
 }
 
+export function createMinVotesFilterControl(
+    inputValue,
+    inputOnChange,
+    controlStyle = '',
+    inputStyle = '',
+) {
+    return createFilterControlNumber(
+        'Минимально голосов: ',
+        inputValue,
+        '50',
+        '0',
+        '10000',
+        inputOnChange,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createNoRatingFilterControl(
     isChecked,
     inputOnChange,
