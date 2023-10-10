@@ -138,12 +138,13 @@ function cleanList() {
 }
 
 async function appendBadReviewsLinkAndRatingValue() {
-    const productReviewsWrap = await waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500);
+    waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500)
+        .then(productReviewsWrap => {
+            if (!productReviewsWrap) return;
 
-    if (productReviewsWrap) {
-        appendBadReviewsLink(productReviewsWrap);
-        await appendRatingValue(productReviewsWrap);
-    }
+            appendBadReviewsLink(productReviewsWrap);
+            await appendRatingValue(productReviewsWrap);
+        });
 }
 
 function appendBadReviewsLink(productReviewsWrap) {
@@ -191,6 +192,19 @@ async function appendRatingValue(productReviewsWrap) {
         await waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]', 2000);
     const ratingValueContainer = ratingInfoContainer.children[0].children[0].children[1];
 
+    const ratingValue = getRatingValue(ratingValueContainer);
+
+    if (!ratingValue) return;
+
+    const starsContainer = productReviewsWrap.children[0].children[0].children[0];
+
+    const ratingValueDivStyle = 'margin: 0 4px; color: #005bff;';
+    const ratingValueDiv = createDiv(ratingValue, ratingValueDivStyle);
+
+    starsContainer.append(ratingValueDiv);
+}
+
+function getRatingValue(ratingValueContainer) {
     let ratingValue;
 
     try {
@@ -201,12 +215,5 @@ async function appendRatingValue(productReviewsWrap) {
         console.log(`Failed to get ratingValue: ${e.message}`);
     }
 
-    if (!ratingValue) return;
-
-    const starsContainer = productReviewsWrap.children[0].children[0].children[0];
-
-    const ratingValueDivStyle = 'margin: 0 4px; color: #005bff;';
-    const ratingValueDiv = createDiv(ratingValue, ratingValueDivStyle);
-
-    starsContainer.append(ratingValueDiv);
+    return ratingValue;
 }
