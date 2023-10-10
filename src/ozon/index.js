@@ -53,7 +53,7 @@ if (paginatorContent) {
 } else if (comments) {
     comments.scrollIntoView();
 } else {
-    await appendBadReviewsLinkAndRatingValue();
+    appendBadReviewsLinkAndRatingValue();
 }
 
 function initListClean() {
@@ -137,13 +137,13 @@ function cleanList() {
     );
 }
 
-async function appendBadReviewsLinkAndRatingValue() {
+function appendBadReviewsLinkAndRatingValue() {
     waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500)
-        .then(productReviewsWrap => {
+        .then((productReviewsWrap) => {
             if (!productReviewsWrap) return;
 
             appendBadReviewsLink(productReviewsWrap);
-            await appendRatingValue(productReviewsWrap);
+            appendRatingValue(productReviewsWrap);
         });
 }
 
@@ -183,25 +183,28 @@ function appendBadReviewsLink(productReviewsWrap) {
     }
 }
 
-async function appendRatingValue(productReviewsWrap) {
-    const createReviewButton =
-        await waitForElement(document, CREATE_REVIEW_BUTTON_SELECTOR);
+function appendRatingValue(productReviewsWrap) {
+    waitForElement(document, CREATE_REVIEW_BUTTON_SELECTOR)
+        .then((createReviewButton) => {
+            const reviewsInfoContainer = createReviewButton.parentNode;
 
-    const reviewsInfoContainer = createReviewButton.parentNode;
-    const ratingInfoContainer =
-        await waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]', 2000);
-    const ratingValueContainer = ratingInfoContainer.children[0].children[0].children[1];
+            waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]', 2000)
+                .then((ratingInfoContainer) => {
+                    const ratingValueContainer =
+                        ratingInfoContainer.children[0].children[0].children[1];
 
-    const ratingValue = getRatingValue(ratingValueContainer);
+                    const ratingValue = getRatingValue(ratingValueContainer);
 
-    if (!ratingValue) return;
+                    if (!ratingValue) return;
 
-    const starsContainer = productReviewsWrap.children[0].children[0].children[0];
+                    const starsContainer = productReviewsWrap.children[0].children[0].children[0];
 
-    const ratingValueDivStyle = 'margin: 0 4px; color: #005bff;';
-    const ratingValueDiv = createDiv(ratingValue, ratingValueDivStyle);
+                    const ratingValueDivStyle = 'margin: 0 4px; color: #005bff;';
+                    const ratingValueDiv = createDiv(ratingValue, ratingValueDivStyle);
 
-    starsContainer.append(ratingValueDiv);
+                    starsContainer.append(ratingValueDiv);
+                });
+        });
 }
 
 function getRatingValue(ratingValueContainer) {
