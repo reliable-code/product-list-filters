@@ -49,19 +49,20 @@ const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
 const comments = getFirstElement(COMMENTS_SELECTOR);
 
 if (paginatorContent) {
-    await initListClean();
+    initListClean();
 } else if (comments) {
     comments.scrollIntoView();
 } else {
     await appendBadReviewsLinkAndRatingValue();
 }
 
-async function initListClean() {
-    const searchResultsSort = await waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR);
+function initListClean() {
+    waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
+        .then((searchResultsSort) => {
+            appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-    appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
-
-    setInterval(cleanList, 100);
+            setInterval(cleanList, 100);
+        });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
