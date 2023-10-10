@@ -52,9 +52,7 @@ if (paginatorContent) {
     await appendBadReviewsLinkAndRatingValue();
 }
 
-async function initListClean() {
-    const searchResultsSort = await waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR);
-
+function appendFiltersContainer(parentNode) {
     const controlStyle =
         'padding-left: 14px; margin-top: 12px;';
     const inputStyle =
@@ -76,7 +74,13 @@ async function initListClean() {
             inputStyle,
         );
 
-    searchResultsSort.append(minReviewsDiv, minRatingDiv);
+    parentNode.append(minReviewsDiv, minRatingDiv);
+}
+
+async function initListClean() {
+    const searchResultsSort = await waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR);
+
+    appendFiltersContainer(searchResultsSort);
 
     setInterval(cleanList, 100);
 }
