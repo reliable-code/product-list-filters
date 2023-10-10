@@ -12,7 +12,11 @@ import {
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeSpaces } from '../common/string';
-import { createMinRatingFilterControl, createMinReviewsFilterControl } from '../common/filter';
+import {
+    appendFilterControlsIfNeeded,
+    createMinRatingFilterControl,
+    createMinReviewsFilterControl,
+} from '../common/filter';
 
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
@@ -52,7 +56,17 @@ if (paginatorContent) {
     await appendBadReviewsLinkAndRatingValue();
 }
 
-function appendFiltersContainer(parentNode) {
+async function initListClean() {
+    const searchResultsSort = await waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR);
+
+    appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
+
+    setInterval(cleanList, 100);
+}
+
+function appendFiltersContainer(filtersContainer, parentNode) {
+    filtersContainer.style = 'display: flex;';
+
     const controlStyle =
         'padding-left: 14px; margin-top: 12px;';
     const inputStyle =
@@ -74,15 +88,9 @@ function appendFiltersContainer(parentNode) {
             inputStyle,
         );
 
-    parentNode.append(minReviewsDiv, minRatingDiv);
-}
+    filtersContainer.append(minReviewsDiv, minRatingDiv);
 
-async function initListClean() {
-    const searchResultsSort = await waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR);
-
-    appendFiltersContainer(searchResultsSort);
-
-    setInterval(cleanList, 100);
+    parentNode.append(filtersContainer);
 }
 
 function updateMinReviewsValue(e) {
