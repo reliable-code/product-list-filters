@@ -7,7 +7,7 @@ import {
     getFirstElement,
     hideElement,
     insertAfter,
-    showElement,
+    showHideElement,
     waitForElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
@@ -19,8 +19,8 @@ import {
 } from '../common/filter';
 
 const CATEGORY_NAME = getCategoryName();
-const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
-const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
+const MIN_REVIEWS_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
+const MIN_RATING_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -34,8 +34,8 @@ const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
 
-let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
-let minRatingValue = getStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
+let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -95,11 +95,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinReviewsValue(e) {
-    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_STORAGE_KEY);
 }
 
 function updateMinRatingValue(e) {
-    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_STORAGE_KEY);
 }
 
 function cleanList() {
@@ -127,12 +127,10 @@ function cleanList() {
             const productCardRatingNumber =
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
 
-            if (productCardReviewsNumber < minReviewsValue
-                || productCardRatingNumber < minRatingValue) {
-                hideElement(productCard);
-            } else {
-                showElement(productCard, 'flex');
-            }
+            const conditionToHide =
+                productCardReviewsNumber < minReviewsValue ||
+                productCardRatingNumber < minRatingValue;
+            showHideElement(productCard, conditionToHide, 'flex');
         },
     );
 }
