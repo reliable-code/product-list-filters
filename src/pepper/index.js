@@ -3,26 +3,31 @@ import {
     getElementInnerNumber,
     getFirstElement,
     hideElement,
+    showElement,
     showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
+    createEnabledFilterControl,
     createFilterControlCheckbox,
     createMinVotesFilterControl,
 } from '../common/filter';
 
 const MIN_VOTES = 100;
 const SHOW_EXPIRED = false;
+const FILTER_ENABLED = true;
 
 const MIN_VOTES_STORAGE_KEY = 'min-votes-filter';
 const SHOW_EXPIRED_STORAGE_KEY = 'show-expired-filter';
+const FILTER_ENABLED_STORAGE_KEY = 'filter-enabled';
 const PRODUCT_CARD_LIST_SELECTOR = '.listLayout-main';
 const PRODUCT_CARD_SELECTOR = '.thread--type-list:not(.js-telegram-widget)';
 const PRODUCT_CARD_RATING_SELECTOR = '.vote-box > span';
 
 let minVotesValue = getStorageValueOrDefault(MIN_VOTES_STORAGE_KEY, MIN_VOTES);
 let showExpiredChecked = getStorageValueOrDefault(SHOW_EXPIRED_STORAGE_KEY, SHOW_EXPIRED);
+let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
 
 setInterval(initListClean, 100);
 
@@ -80,7 +85,15 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             checkboxInputStyle,
         );
 
-    filtersContainer.append(minVotesDiv, showExpiredDiv);
+    const filterEnabledDiv =
+        createEnabledFilterControl(
+            filterEnabledChecked,
+            updateFilterEnabledValue,
+            controlStyle,
+            checkboxInputStyle,
+        );
+
+    filtersContainer.append(minVotesDiv, showExpiredDiv, filterEnabledDiv);
 
     parentNode.prepend(filtersContainer);
 }
@@ -93,9 +106,19 @@ function updateShowExpiredValue(e) {
     showExpiredChecked = setStorageValueFromEvent(e, SHOW_EXPIRED_STORAGE_KEY);
 }
 
+function updateFilterEnabledValue(e) {
+    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
+}
+
 function cleanList(productCards) {
     productCards.forEach(
         (productCard) => {
+            if (!filterEnabledChecked) {
+                showElement(productCard);
+
+                return;
+            }
+
             const isExpired = productCard.classList.contains('thread--expired');
 
             if (isExpired && !showExpiredChecked) {
