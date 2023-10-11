@@ -3,7 +3,7 @@ const commonMeta = require('../common/meta');
 
 module.exports = {
     name: 'Lavka List Clean',
-    version: `0.5.${getUniqueTimestampSlice()}`,
+    version: `0.6.${getUniqueTimestampSlice()}`,
     match: ['https://lavka.yandex.ru/*'],
     description: 'Remove product cards without discount',
     icon: 'https://www.google.com/s2/favicons?sz=64&domain=yandex.ru',

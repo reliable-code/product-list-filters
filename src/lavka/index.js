@@ -1,17 +1,29 @@
 import {
- getAllElements, getFirstElement, insertAfter, showHideElement,
+    getAllElements,
+    getFirstElement,
+    hideElement,
+    insertAfter,
+    showElement,
+    showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeNonDigit } from '../common/string';
-import { appendFilterControlsIfNeeded, createMinDiscountFilterControl } from '../common/filter';
+import {
+    appendFilterControlsIfNeeded,
+    createEnabledFilterControl,
+    createMinDiscountFilterControl,
+} from '../common/filter';
 
 const MIN_DISCOUNT = 20;
 const MIN_DISCOUNT_STORAGE_KEY = 'minDiscountFilter';
+const FILTER_ENABLED = true;
+const FILTER_ENABLED_STORAGE_KEY = 'filter-enabled';
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
 let minDiscountValue = getStorageValueOrDefault(MIN_DISCOUNT_STORAGE_KEY, MIN_DISCOUNT);
+let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
 
 const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
 
@@ -28,14 +40,22 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    const minDiscountDiv = createMinDiscountFilterControl(minDiscountValue, updateMinDiscountValue);
+    const minDiscountDiv =
+        createMinDiscountFilterControl(minDiscountValue, updateMinDiscountValue);
 
-    filtersContainer.append(minDiscountDiv);
+    const filterEnabledDiv =
+        createEnabledFilterControl(filterEnabledChecked, updateFilterEnabledValue);
+
+    filtersContainer.append(minDiscountDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
 }
 
 function updateMinDiscountValue(e) {
     minDiscountValue = setStorageValueFromEvent(e, MIN_DISCOUNT_STORAGE_KEY);
+}
+
+function updateFilterEnabledValue(e) {
+    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
 }
 
 function cleanList(productCardLinks) {
@@ -48,17 +68,23 @@ function cleanList(productCardLinks) {
             const productCardLinksParent = productCardLink.parentNode;
             const productCard = productCardLinksParent.parentNode.parentNode;
 
+            if (!filterEnabledChecked) {
+                showElement(productCard);
+
+                return;
+            }
+
             const promoLabel = getFirstElement('li', productCardLinksParent);
 
             if (!promoLabel) {
-                productCard.remove();
+                hideElement(productCard);
                 return;
             }
 
             const promoLabelText = promoLabel.innerText;
 
             if (!promoLabelText.includes('%')) {
-                productCard.remove();
+                hideElement(productCard);
                 return;
             }
 
