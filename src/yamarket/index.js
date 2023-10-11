@@ -2,9 +2,8 @@ import {
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
-    hideElement,
     insertAfter,
-    showElement,
+    showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import {
@@ -22,11 +21,11 @@ const PRODUCT_CARD_SNIPPET_SELECTOR = '[data-autotest-id="product-snippet"]';
 const PRODUCT_CARD_PARENT_ATTRIBUTE = 'data-apiary-widget-name';
 
 const CATEGORY_NAME = getCategoryName();
-const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
-const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
+const MIN_REVIEWS_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
+const MIN_RATING_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
-let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
-let minRatingValue = getStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
+let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -74,11 +73,11 @@ function appendFiltersContainer(filterControls, parentNode) {
 }
 
 function updateMinReviewsValue(e) {
-    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_STORAGE_KEY);
 }
 
 function updateMinRatingValue(e) {
-    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_STORAGE_KEY);
 }
 
 function cleanList() {
@@ -116,12 +115,10 @@ function cleanList() {
 
             const productCardRatingNumber = getArrayElementInnerNumber(ratingInfoSpans, 0);
 
-            if (productCardReviewsNumber < minReviewsValue
-                || productCardRatingNumber < minRatingValue) {
-                hideElement(productCard);
-            } else {
-                showElement(productCard);
-            }
+            const conditionToHide =
+                productCardReviewsNumber < minReviewsValue ||
+                productCardRatingNumber < minRatingValue;
+            showHideElement(productCard, conditionToHide);
         },
     );
 }
