@@ -124,6 +124,21 @@ export function createNoRatingFilterControl(
     );
 }
 
+export function createEnabledFilterControl(
+    isChecked,
+    inputOnChange,
+    controlStyle = '',
+    inputStyle = '',
+) {
+    return createFilterControlCheckbox(
+        'Вкл: ',
+        isChecked,
+        inputOnChange,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function appendFilterControlsIfNeeded(
     parentNode,
     appendFiltersContainerFunc,

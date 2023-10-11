@@ -9,7 +9,7 @@ import {
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
-    createFilterControlCheckbox,
+    createEnabledFilterControl,
     createMinRatingFilterControl,
     createNoRatingFilterControl,
 } from '../common/filter';
@@ -78,8 +78,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         );
 
     const filterEnabledDiv =
-        createFilterControlCheckbox(
-            'Вкл:',
+        createEnabledFilterControl(
             filterEnabledChecked,
             updateFilterEnabledValue,
             controlStyle,
