@@ -9,21 +9,25 @@ import {
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
+    createFilterControlCheckbox,
     createMinRatingFilterControl,
     createNoRatingFilterControl,
 } from '../common/filter';
 
 const MIN_RATING = 4.0;
 const NO_RATING = false;
+const FILTER_ENABLED = true;
 
 const MIN_RATING_STORAGE_KEY = 'min-rating-filter';
 const NO_RATING_STORAGE_KEY = 'no-rating-filter';
+const FILTER_ENABLED_STORAGE_KEY = 'filter-enabled';
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
 let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
 let noRatingChecked = getStorageValueOrDefault(NO_RATING_STORAGE_KEY, NO_RATING);
+let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
 
 setInterval(initListClean, 500);
 
@@ -73,7 +77,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             checkboxInputStyle,
         );
 
-    filtersContainer.append(minRatingDiv, noRatingDiv);
+    const filterEnabledDiv =
+        createFilterControlCheckbox(
+            'Вкл:',
+            filterEnabledChecked,
+            updateFilterEnabledValue,
+            controlStyle,
+            checkboxInputStyle,
+        );
+
+    filtersContainer.append(minRatingDiv, noRatingDiv, filterEnabledDiv);
 
     parentNode.prepend(filtersContainer);
 }
@@ -86,11 +99,21 @@ function updateNoRatingValue(e) {
     noRatingChecked = setStorageValueFromEvent(e, NO_RATING_STORAGE_KEY);
 }
 
+function updateFilterEnabledValue(e) {
+    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
+}
+
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(
         (productCard) => {
+            if (!filterEnabledChecked) {
+                showElement(productCard);
+
+                return;
+            }
+
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
             if (!productCardRating) {
