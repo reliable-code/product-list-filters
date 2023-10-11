@@ -48,10 +48,35 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    const minReviewsDiv = createMinReviewsFilterControl(minReviewsValue, updateMinReviewsValue);
+    filtersContainer.style =
+        'display: flex;' +
+        'grid-gap: 15px;' +
+        'margin-top: 5px;' +
+        'font-size: 15px;';
+
+    const controlStyle =
+        'display: flex;' +
+        'align-items: center;';
+
+    const inputStyle =
+        'margin: 0px 4px;';
+    const numberInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'width: 45px;';
+    const checkboxInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'width: 20px;' +
+        'height: 20px;';
+
+    const minReviewsDiv =
+        createMinReviewsFilterControl(
+            minReviewsValue, updateMinReviewsValue, controlStyle, numberInputStyle,
+        );
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabledChecked, updateFilterEnabledValue);
+        createEnabledFilterControl(
+            filterEnabledChecked, updateFilterEnabledValue, controlStyle, checkboxInputStyle,
+        );
 
     filtersContainer.append(minReviewsDiv, filterEnabledDiv);
     parentNode.prepend(filtersContainer);
