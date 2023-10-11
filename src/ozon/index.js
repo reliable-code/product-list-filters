@@ -7,6 +7,7 @@ import {
     getFirstElement,
     hideElement,
     insertAfter,
+    showElement,
     showHideElement,
     waitForElement,
 } from '../common/dom';
@@ -14,6 +15,7 @@ import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/st
 import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
+    createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
 } from '../common/filter';
@@ -21,6 +23,7 @@ import {
 const CATEGORY_NAME = getCategoryName();
 const MIN_REVIEWS_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
 const MIN_RATING_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
+const FILTER_ENABLED_STORAGE_KEY = `${CATEGORY_NAME}-filter-enabled`;
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -33,9 +36,11 @@ const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
 const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
+const FILTER_ENABLED = true;
 
 let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
 let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
+let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -66,19 +71,29 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style = 'display: flex;';
+    filtersContainer.style =
+        'display: flex;' +
+        'grid-gap: 15px;' +
+        'margin: 14px 0px 0px 15px;';
 
     const controlStyle =
-        'padding-left: 14px; margin-top: 12px;';
-    const inputStyle =
-        'border: 2px solid #b3bcc5; border-radius: 6px; padding: 6px 10px; width: 90px;';
+        'display: flex;' +
+        'align-items: center;';
+    const numberInputStyle =
+        'border: 2px solid #b3bcc5;' +
+        'border-radius: 6px;' +
+        'padding: 6px 10px;' +
+        'width: 90px;';
+    const checkboxInputStyle =
+        'width: 25px;' +
+        'height: 25px;';
 
     const minReviewsDiv =
         createMinReviewsFilterControl(
             minReviewsValue,
             updateMinReviewsValue,
             controlStyle,
-            inputStyle,
+            numberInputStyle,
         );
 
     const minRatingDiv =
@@ -86,10 +101,18 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             minRatingValue,
             updateMinRatingValue,
             controlStyle,
-            inputStyle,
+            numberInputStyle,
         );
 
-    filtersContainer.append(minReviewsDiv, minRatingDiv);
+    const filterEnabledDiv =
+        createEnabledFilterControl(
+            filterEnabledChecked,
+            updateFilterEnabledValue,
+            controlStyle,
+            checkboxInputStyle,
+        );
+
+    filtersContainer.append(minReviewsDiv, minRatingDiv, filterEnabledDiv);
 
     parentNode.append(filtersContainer);
 }
@@ -102,6 +125,10 @@ function updateMinRatingValue(e) {
     minRatingValue = setStorageValueFromEvent(e, MIN_RATING_STORAGE_KEY);
 }
 
+function updateFilterEnabledValue(e) {
+    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
+}
+
 function cleanList() {
     const searchResultContainer = getFirstElement(SEARCH_RESULT_SELECTOR, document, true);
     const productCardsWrap = getFirstElement(':scope > div', searchResultContainer, true);
@@ -109,6 +136,12 @@ function cleanList() {
 
     productCards.forEach(
         (productCard) => {
+            if (!filterEnabledChecked) {
+                showElement(productCard);
+
+                return;
+            }
+
             const productCardRatingWrap =
                 getFirstElement(PRODUCT_CARD_RATING_WRAP_SELECTOR, productCard);
 
