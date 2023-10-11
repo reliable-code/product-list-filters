@@ -28,11 +28,11 @@ export function showElement(element, display = 'block') {
     setElementDisplay(element, display);
 }
 
-export function showHideElement(element, conditionToHide) {
+export function showHideElement(element, conditionToHide, display = 'block') {
     if (conditionToHide) {
         hideElement(element);
     } else {
-        showElement(element);
+        showElement(element, display);
     }
 }
 
