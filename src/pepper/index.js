@@ -3,7 +3,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
     hideElement,
-    showElement,
+    showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import {
@@ -108,11 +108,7 @@ function cleanList(productCards) {
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
-            if (productCardRatingNumber < minVotesValue) {
-                hideElement(productCard);
-            } else {
-                showElement(productCard);
-            }
+            showHideElement(productCard, productCardRatingNumber < minVotesValue);
         },
     );
 }

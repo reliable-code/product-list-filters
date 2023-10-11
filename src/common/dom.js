@@ -28,6 +28,14 @@ export function showElement(element, display = 'block') {
     setElementDisplay(element, display);
 }
 
+export function showHideElement(element, conditionToHide) {
+    if (conditionToHide) {
+        hideElement(element);
+    } else {
+        showElement(element);
+    }
+}
+
 function setElementDisplay(element, display) {
     element.style.display = display;
 }
