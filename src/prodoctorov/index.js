@@ -4,12 +4,19 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    hideElement,
+    showElement,
     showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
-import { appendFilterControlsIfNeeded, createMinReviewsFilterControl } from '../common/filter';
+import {
+    appendFilterControlsIfNeeded,
+    createEnabledFilterControl,
+    createMinReviewsFilterControl,
+} from '../common/filter';
 
 const MIN_REVIEWS_STORAGE_KEY = 'minReviewsFilter';
+const FILTER_ENABLED_STORAGE_KEY = 'filter-enabled';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
@@ -19,8 +26,10 @@ const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 
 const MIN_REVIEWS = 10;
+const FILTER_ENABLED = true;
 
 let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
+let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
 
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 
@@ -41,12 +50,19 @@ function initListClean() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     const minReviewsDiv = createMinReviewsFilterControl(minReviewsValue, updateMinReviewsValue);
 
-    filtersContainer.append(minReviewsDiv);
+    const filterEnabledDiv =
+        createEnabledFilterControl(filterEnabledChecked, updateFilterEnabledValue);
+
+    filtersContainer.append(minReviewsDiv, filterEnabledDiv);
     parentNode.prepend(filtersContainer);
 }
 
 function updateMinReviewsValue(e) {
     minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_STORAGE_KEY);
+}
+
+function updateFilterEnabledValue(e) {
+    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
 }
 
 function removeSpecialPlacementCards() {
@@ -62,12 +78,18 @@ function cleanList() {
 
     doctorCards.forEach(
         (doctorCard) => {
+            if (!filterEnabledChecked) {
+                showElement(doctorCard, 'flex');
+
+                return;
+            }
+
             const profileCard = getFirstElement('.b-profile-card', doctorCard, true);
 
             const reviewsLink = getFirstElement(':scope > a', profileCard);
 
             if (!reviewsLink) {
-                doctorCard.remove();
+                hideElement(doctorCard);
 
                 return;
             }
