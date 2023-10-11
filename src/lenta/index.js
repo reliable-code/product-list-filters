@@ -2,7 +2,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    hideElement,
     showElement,
     showHideElement,
 } from '../common/dom';
@@ -116,11 +115,7 @@ function cleanList() {
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
             if (!productCardRating) {
-                if (!noRatingChecked) {
-                    hideElement(productCard);
-                } else {
-                    showElement(productCard);
-                }
+                showHideElement(productCard, !noRatingChecked);
 
                 return;
             }
