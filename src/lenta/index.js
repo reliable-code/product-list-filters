@@ -4,6 +4,7 @@ import {
     getFirstElement,
     hideElement,
     showElement,
+    showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import {
@@ -15,14 +16,14 @@ import {
 const MIN_RATING = 4.0;
 const NO_RATING = false;
 
-const MIN_RATING_LOCAL_STORAGE_KEY = 'min-rating-filter';
-const NO_RATING_LOCAL_STORAGE_KEY = 'no-rating-filter';
+const MIN_RATING_STORAGE_KEY = 'min-rating-filter';
+const NO_RATING_STORAGE_KEY = 'no-rating-filter';
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
-let minRatingValue = getStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
-let noRatingChecked = getStorageValueOrDefault(NO_RATING_LOCAL_STORAGE_KEY, NO_RATING);
+let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
+let noRatingChecked = getStorageValueOrDefault(NO_RATING_STORAGE_KEY, NO_RATING);
 
 setInterval(initListClean, 500);
 
@@ -78,11 +79,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinRatingValue(e) {
-    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_STORAGE_KEY);
 }
 
 function updateNoRatingValue(e) {
-    noRatingChecked = setStorageValueFromEvent(e, NO_RATING_LOCAL_STORAGE_KEY);
+    noRatingChecked = setStorageValueFromEvent(e, NO_RATING_STORAGE_KEY);
 }
 
 function cleanList() {
@@ -104,11 +105,7 @@ function cleanList() {
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
-            if (productCardRatingNumber < minRatingValue) {
-                hideElement(productCard);
-            } else {
-                showElement(productCard);
-            }
+            showHideElement(productCard, productCardRatingNumber < minRatingValue);
         },
     );
 }
