@@ -1,21 +1,17 @@
 import {
-    getAllElements,
-    getFirstElement,
-    hideElement,
-    insertAfter,
-    showElement,
+ getAllElements, getFirstElement, insertAfter, showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded, createMinDiscountFilterControl } from '../common/filter';
 
 const MIN_DISCOUNT = 20;
-const MIN_DISCOUNT_LOCAL_STORAGE_KEY = 'minDiscountFilter';
+const MIN_DISCOUNT_STORAGE_KEY = 'minDiscountFilter';
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
-let minDiscountValue = getStorageValueOrDefault(MIN_DISCOUNT_LOCAL_STORAGE_KEY, MIN_DISCOUNT);
+let minDiscountValue = getStorageValueOrDefault(MIN_DISCOUNT_STORAGE_KEY, MIN_DISCOUNT);
 
 const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
 
@@ -39,7 +35,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinDiscountValue(e) {
-    minDiscountValue = setStorageValueFromEvent(e, MIN_DISCOUNT_LOCAL_STORAGE_KEY);
+    minDiscountValue = setStorageValueFromEvent(e, MIN_DISCOUNT_STORAGE_KEY);
 }
 
 function cleanList(productCardLinks) {
@@ -68,11 +64,7 @@ function cleanList(productCardLinks) {
 
             const discountValue = +removeNonDigit(promoLabelText);
 
-            if (discountValue < minDiscountValue) {
-                hideElement(productCard);
-            } else {
-                showElement(productCard);
-            }
+            showHideElement(productCard, discountValue < minDiscountValue);
         },
     );
 }
