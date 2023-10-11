@@ -15,14 +15,14 @@ import {
 const MIN_VOTES = 100;
 const SHOW_EXPIRED = false;
 
-const MIN_VOTES_LOCAL_STORAGE_KEY = 'min-votes-filter';
-const SHOW_EXPIRED_LOCAL_STORAGE_KEY = 'show-expired-filter';
+const MIN_VOTES_STORAGE_KEY = 'min-votes-filter';
+const SHOW_EXPIRED_STORAGE_KEY = 'show-expired-filter';
 const PRODUCT_CARD_LIST_SELECTOR = '.listLayout-main';
 const PRODUCT_CARD_SELECTOR = '.thread--type-list:not(.js-telegram-widget)';
 const PRODUCT_CARD_RATING_SELECTOR = '.vote-box > span';
 
-let minVotesValue = getStorageValueOrDefault(MIN_VOTES_LOCAL_STORAGE_KEY, MIN_VOTES);
-let showExpiredChecked = getStorageValueOrDefault(SHOW_EXPIRED_LOCAL_STORAGE_KEY, SHOW_EXPIRED);
+let minVotesValue = getStorageValueOrDefault(MIN_VOTES_STORAGE_KEY, MIN_VOTES);
+let showExpiredChecked = getStorageValueOrDefault(SHOW_EXPIRED_STORAGE_KEY, SHOW_EXPIRED);
 
 setInterval(initListClean, 100);
 
@@ -86,11 +86,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinVotesValue(e) {
-    minVotesValue = setStorageValueFromEvent(e, MIN_VOTES_LOCAL_STORAGE_KEY);
+    minVotesValue = setStorageValueFromEvent(e, MIN_VOTES_STORAGE_KEY);
 }
 
 function updateShowExpiredValue(e) {
-    showExpiredChecked = setStorageValueFromEvent(e, SHOW_EXPIRED_LOCAL_STORAGE_KEY);
+    showExpiredChecked = setStorageValueFromEvent(e, SHOW_EXPIRED_STORAGE_KEY);
 }
 
 function cleanList(productCards) {
