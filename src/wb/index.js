@@ -3,8 +3,7 @@ import {
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
-    hideElement,
-    showElement,
+    showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import {
@@ -17,8 +16,8 @@ const MIN_REVIEWS = 50;
 const MIN_RATING = 4.8;
 
 const CATEGORY_NAME = getCategoryName();
-const MIN_REVIEWS_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
-const MIN_RATING_LOCAL_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
+const MIN_REVIEWS_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
+const MIN_RATING_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_SELECTOR = '.product-card';
@@ -28,8 +27,8 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
 
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
-let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
-let minRatingValue = getStorageValueOrDefault(MIN_RATING_LOCAL_STORAGE_KEY, MIN_RATING);
+let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
+let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
 let minPriceValue = getMinPriceValueFromURL();
 
 const minPriceDivTextContent = () => `Минимальная цена: ${minPriceValue}`;
@@ -102,11 +101,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinReviewsValue(e) {
-    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_STORAGE_KEY);
 }
 
 function updateMinRatingValue(e) {
-    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_LOCAL_STORAGE_KEY);
+    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_STORAGE_KEY);
 }
 
 function checkMinPrice(minPriceDiv) {
@@ -132,13 +131,11 @@ function cleanList() {
             const productCardPriceNumber =
                 getFirstElementInnerNumber(productCard, PRODUCT_CARD_PRICE_SELECTOR, true);
 
-            if (productCardReviewsNumber < minReviewsValue
-                || productCardRatingNumber < minRatingValue
-                || productCardPriceNumber < minPriceValue) {
-                hideElement(productCard);
-            } else {
-                showElement(productCard);
-            }
+            const conditionToHide =
+                productCardReviewsNumber < minReviewsValue ||
+                productCardRatingNumber < minRatingValue ||
+                productCardPriceNumber < minPriceValue;
+            showHideElement(productCard, conditionToHide);
         },
     );
 }
