@@ -4,13 +4,12 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    hideElement,
-    showElement,
+    showHideElement,
 } from '../common/dom';
 import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
 import { appendFilterControlsIfNeeded, createMinReviewsFilterControl } from '../common/filter';
 
-const MIN_REVIEWS_LOCAL_STORAGE_KEY = 'minReviewsFilter';
+const MIN_REVIEWS_STORAGE_KEY = 'minReviewsFilter';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
@@ -21,7 +20,7 @@ const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 
 const MIN_REVIEWS = 10;
 
-let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_LOCAL_STORAGE_KEY, MIN_REVIEWS);
+let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
 
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 
@@ -47,7 +46,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function updateMinReviewsValue(e) {
-    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_LOCAL_STORAGE_KEY);
+    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_STORAGE_KEY);
 }
 
 function removeSpecialPlacementCards() {
@@ -75,11 +74,9 @@ function cleanList() {
 
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
-            if (reviewsLinkNumber < minReviewsValue) {
-                hideElement(doctorCard);
-            } else {
-                showElement(doctorCard, 'flex');
-            }
+            showHideElement(
+                doctorCard, reviewsLinkNumber < minReviewsValue, 'flex',
+            );
 
             appendAdditionalLinks(doctorCard, profileCard);
         },
