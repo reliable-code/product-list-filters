@@ -8,8 +8,8 @@ export function createFilterControlNumber(
     inputStep,
     inputMinValue,
     inputMaxValue,
-    controlStyle = '',
-    inputStyle = '',
+    controlStyle = null,
+    inputStyle = null,
 ) {
     const filterControl = createDiv(titleText, controlStyle);
     const input = createNumberInput(
@@ -29,8 +29,8 @@ export function createFilterControlNumber(
 export function createFilterControlCheckbox(
     titleText,
     storageValue,
-    controlStyle = '',
-    inputStyle = '',
+    controlStyle = null,
+    inputStyle = null,
 ) {
     const filterControl =
         createDiv(titleText, controlStyle);
@@ -44,8 +44,8 @@ export function createFilterControlCheckbox(
 
 export function createMinRatingFilterControl(
     storageValue,
-    controlStyle = '',
-    inputStyle = '',
+    controlStyle = null,
+    inputStyle = null,
 ) {
     return createFilterControlNumber(
         'Минимальный рейтинг: ',
@@ -60,8 +60,8 @@ export function createMinRatingFilterControl(
 
 export function createMinReviewsFilterControl(
     storageValue,
-    controlStyle = '',
-    inputStyle = '',
+    controlStyle = null,
+    inputStyle = null,
 ) {
     return createFilterControlNumber(
         'Минимально отзывов: ',
@@ -76,8 +76,8 @@ export function createMinReviewsFilterControl(
 
 export function createMinDiscountFilterControl(
     storageValue,
-    controlStyle = '',
-    inputStyle = '',
+    controlStyle = null,
+    inputStyle = null,
 ) {
     return createFilterControlNumber(
         'Минимальная скидка: ',
@@ -92,8 +92,8 @@ export function createMinDiscountFilterControl(
 
 export function createMinVotesFilterControl(
     storageValue,
-    controlStyle = '',
-    inputStyle = '',
+    controlStyle = null,
+    inputStyle = null,
 ) {
     return createFilterControlNumber(
         'Минимально голосов: ',
@@ -108,8 +108,8 @@ export function createMinVotesFilterControl(
 
 export function createNoRatingFilterControl(
     storageValue,
-    controlStyle = '',
-    inputStyle = '',
+    controlStyle = null,
+    inputStyle = null,
 ) {
     return createFilterControlCheckbox(
         'Без рейтинга: ',
@@ -121,8 +121,8 @@ export function createNoRatingFilterControl(
 
 export function createEnabledFilterControl(
     storageValue,
-    controlStyle = '',
-    inputStyle = '',
+    controlStyle = null,
+    inputStyle = null,
 ) {
     return createFilterControlCheckbox(
         'Вкл: ',
