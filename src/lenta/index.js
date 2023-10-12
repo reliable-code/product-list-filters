@@ -5,7 +5,7 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { StorageValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -13,20 +13,13 @@ import {
     createNoRatingFilterControl,
 } from '../common/filter';
 
-const MIN_RATING = 4.0;
-const NO_RATING = false;
-const FILTER_ENABLED = true;
+const minRatingFilter = new StorageValue('min-rating-filter', 4.0);
+const noRatingFilter = new StorageValue('no-rating-filter', false);
+const filterEnabled = new StorageValue('filter-enabled', true);
 
-const MIN_RATING_STORAGE_KEY = 'min-rating-filter';
-const NO_RATING_STORAGE_KEY = 'no-rating-filter';
-const FILTER_ENABLED_STORAGE_KEY = 'filter-enabled';
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
-
-let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
-let noRatingChecked = getStorageValueOrDefault(NO_RATING_STORAGE_KEY, NO_RATING);
-let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
 
 setInterval(initListClean, 500);
 
@@ -62,24 +55,24 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const minRatingDiv =
         createMinRatingFilterControl(
-            minRatingValue,
-            updateMinRatingValue,
+            minRatingFilter.value,
+            minRatingFilter.updateValueFromEvent,
             controlStyle,
             numberInputStyle,
         );
 
     const noRatingDiv =
         createNoRatingFilterControl(
-            noRatingChecked,
-            updateNoRatingValue,
+            noRatingFilter.value,
+            noRatingFilter.updateValueFromEvent,
             controlStyle,
             checkboxInputStyle,
         );
 
     const filterEnabledDiv =
         createEnabledFilterControl(
-            filterEnabledChecked,
-            updateFilterEnabledValue,
+            filterEnabled.value,
+            filterEnabled.updateValueFromEvent,
             controlStyle,
             checkboxInputStyle,
         );
@@ -89,24 +82,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function updateMinRatingValue(e) {
-    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_STORAGE_KEY);
-}
-
-function updateNoRatingValue(e) {
-    noRatingChecked = setStorageValueFromEvent(e, NO_RATING_STORAGE_KEY);
-}
-
-function updateFilterEnabledValue(e) {
-    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
-}
-
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(
         (productCard) => {
-            if (!filterEnabledChecked) {
+            if (!filterEnabled.value) {
                 showElement(productCard);
 
                 return;
@@ -115,14 +96,14 @@ function cleanList() {
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
             if (!productCardRating) {
-                showHideElement(productCard, !noRatingChecked);
+                showHideElement(productCard, !noRatingFilter.value);
 
                 return;
             }
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
-            showHideElement(productCard, productCardRatingNumber < minRatingValue);
+            showHideElement(productCard, productCardRatingNumber < minRatingFilter.value);
         },
     );
 }
