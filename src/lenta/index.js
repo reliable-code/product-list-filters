@@ -67,11 +67,19 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
+function expandProductCardName(productCard) {
+    const productCardName = getFirstElement('.lu-product-card-name_new', productCard);
+    productCardName.style.display = 'inline-block';
+    productCardName.style.height = '91px';
+}
+
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(
         (productCard) => {
+            expandProductCardName(productCard);
+
             if (!filterEnabled.value) {
                 showElement(productCard);
 
