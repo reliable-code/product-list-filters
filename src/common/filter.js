@@ -4,17 +4,21 @@ import {
 
 export function createFilterControlNumber(
     titleText,
-    inputValue,
+    storageValue,
     inputStep,
     inputMinValue,
     inputMaxValue,
-    inputOnChange,
     controlStyle = '',
     inputStyle = '',
 ) {
     const filterControl = createDiv(titleText, controlStyle);
     const input = createNumberInput(
-        inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
+        storageValue.updateValueFromEvent,
+        inputStyle,
+        storageValue.value,
+        inputStep,
+        inputMinValue,
+        inputMaxValue,
     );
 
     filterControl.append(input);
@@ -45,11 +49,10 @@ export function createMinRatingFilterControl(
 ) {
     return createFilterControlNumber(
         'Минимальный рейтинг: ',
-        storageValue.value,
+        storageValue,
         '0.1',
         '3.0',
         '5.0',
-        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
@@ -62,11 +65,10 @@ export function createMinReviewsFilterControl(
 ) {
     return createFilterControlNumber(
         'Минимально отзывов: ',
-        storageValue.value,
+        storageValue,
         '1',
         '1',
         '999999',
-        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
@@ -79,11 +81,10 @@ export function createMinDiscountFilterControl(
 ) {
     return createFilterControlNumber(
         'Минимальная скидка: ',
-        storageValue.value,
+        storageValue,
         '1',
         '0',
         '100',
-        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
@@ -96,11 +97,10 @@ export function createMinVotesFilterControl(
 ) {
     return createFilterControlNumber(
         'Минимально голосов: ',
-        storageValue.value,
+        storageValue,
         '50',
         '0',
         '10000',
-        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
