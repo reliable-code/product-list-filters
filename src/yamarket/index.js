@@ -7,7 +7,7 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { StorageValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -15,23 +15,19 @@ import {
     createMinReviewsFilterControl,
 } from '../common/filter';
 
-const MIN_REVIEWS = 5;
-const MIN_RATING = 4.8;
-const FILTER_ENABLED = true;
-
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
 const VIRTUOSO_SCROLLER_SELECTOR = '[data-virtuoso-scroller="true"]';
 const PRODUCT_CARD_SNIPPET_SELECTOR = '[data-autotest-id="product-snippet"]';
 const PRODUCT_CARD_PARENT_ATTRIBUTE = 'data-apiary-widget-name';
 
 const CATEGORY_NAME = getCategoryName();
-const MIN_REVIEWS_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
-const MIN_RATING_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
-const FILTER_ENABLED_STORAGE_KEY = `${CATEGORY_NAME}-filter-enabled`;
 
-let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
-let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
-let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
+const minReviewsFilter =
+    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, 50);
+const minRatingFilter =
+    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
+const filterEnabled =
+    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -75,34 +71,22 @@ function appendFiltersContainer(filterControls, parentNode) {
 
     const minReviewsDiv =
         createMinReviewsFilterControl(
-            minReviewsValue, updateMinReviewsValue, controlStyle, numberInputStyle,
+            minReviewsFilter.value, minReviewsFilter.updateValueFromEvent, controlStyle, numberInputStyle,
         );
 
     const minRatingDiv =
         createMinRatingFilterControl(
-            minRatingValue, updateMinRatingValue, controlStyle, numberInputStyle,
+            minRatingFilter.value, minRatingFilter.updateValueFromEvent, controlStyle, numberInputStyle,
         );
 
     const filterEnabledDiv =
         createEnabledFilterControl(
-            filterEnabledChecked, updateFilterEnabledValue, controlStyle, checkboxInputStyle,
+            filterEnabled.value, filterEnabled.updateValueFromEvent, controlStyle, checkboxInputStyle,
         );
 
     filterControls.append(minReviewsDiv, minRatingDiv, filterEnabledDiv);
 
     insertAfter(parentNode, filterControls);
-}
-
-function updateMinReviewsValue(e) {
-    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_STORAGE_KEY);
-}
-
-function updateMinRatingValue(e) {
-    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_STORAGE_KEY);
-}
-
-function updateFilterEnabledValue(e) {
-    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
 }
 
 function cleanList() {
@@ -124,7 +108,7 @@ function cleanList() {
                 ? productCardSnippetParent.parentNode.parentNode
                 : productCardSnippetParent;
 
-            if (!filterEnabledChecked) {
+            if (!filterEnabled.value) {
                 showElement(productCard);
 
                 return;
@@ -147,8 +131,8 @@ function cleanList() {
             const productCardRatingNumber = getArrayElementInnerNumber(ratingInfoSpans, 0);
 
             const conditionToHide =
-                productCardReviewsNumber < minReviewsValue ||
-                productCardRatingNumber < minRatingValue;
+                productCardReviewsNumber < minReviewsFilter.value ||
+                productCardRatingNumber < minRatingFilter.value;
             showHideElement(productCard, conditionToHide);
         },
     );
