@@ -63,18 +63,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 20px;';
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(
-            minReviewsFilter,
-            controlStyle,
-            numberInputStyle,
-        );
+        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
 
     const filterEnabledDiv =
-        createEnabledFilterControl(
-            filterEnabled,
-            controlStyle,
-            checkboxInputStyle,
-        );
+        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
     filtersContainer.append(minReviewsDiv, filterEnabledDiv);
     parentNode.prepend(filtersContainer);

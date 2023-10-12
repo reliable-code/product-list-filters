@@ -105,24 +105,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 22px;';
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(
-            minReviewsFilter, controlStyle, numberInputStyle,
-        );
+        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
 
     const minRatingDiv =
-        createMinRatingFilterControl(
-            minRatingFilter, controlStyle, numberInputStyle,
-        );
+        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
     const minPriceDiv =
-        createDiv(
-            minPriceDivTextContent(), priceControlStyle,
-        );
+        createDiv(minPriceDivTextContent(), priceControlStyle);
 
     const filterEnabledDiv =
-        createEnabledFilterControl(
-            filterEnabled, controlStyle, checkboxInputStyle,
-        );
+        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
     setInterval(() => checkMinPrice(minPriceDiv), 500);
 
