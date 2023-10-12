@@ -6,7 +6,7 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { StorageValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -14,20 +14,13 @@ import {
     createMinVotesFilterControl,
 } from '../common/filter';
 
-const MIN_VOTES = 100;
-const SHOW_EXPIRED = false;
-const FILTER_ENABLED = true;
+const minVotesFilter = new StorageValue('min-votes-filter', 100);
+const showExpiredFilter = new StorageValue('show-expired-filter', false);
+const filterEnabled = new StorageValue('filter-enabled', true);
 
-const MIN_VOTES_STORAGE_KEY = 'min-votes-filter';
-const SHOW_EXPIRED_STORAGE_KEY = 'show-expired-filter';
-const FILTER_ENABLED_STORAGE_KEY = 'filter-enabled';
 const PRODUCT_CARD_LIST_SELECTOR = '.listLayout-main';
 const PRODUCT_CARD_SELECTOR = '.thread--type-list:not(.js-telegram-widget)';
 const PRODUCT_CARD_RATING_SELECTOR = '.vote-box > span';
-
-let minVotesValue = getStorageValueOrDefault(MIN_VOTES_STORAGE_KEY, MIN_VOTES);
-let showExpiredChecked = getStorageValueOrDefault(SHOW_EXPIRED_STORAGE_KEY, SHOW_EXPIRED);
-let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
 
 setInterval(initListClean, 100);
 
@@ -70,8 +63,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const minVotesDiv =
         createMinVotesFilterControl(
-            minVotesValue,
-            updateMinVotesValue,
+            minVotesFilter.value,
+            minVotesFilter.updateValueFromEvent,
             controlStyle,
             numberInputStyle,
         );
@@ -79,16 +72,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const showExpiredDiv =
         createFilterControlCheckbox(
             'Завершённые: ',
-            showExpiredChecked,
-            updateShowExpiredValue,
+            showExpiredFilter.value,
+            showExpiredFilter.updateValueFromEvent,
             controlStyle,
             checkboxInputStyle,
         );
 
     const filterEnabledDiv =
         createEnabledFilterControl(
-            filterEnabledChecked,
-            updateFilterEnabledValue,
+            filterEnabled.value,
+            filterEnabled.updateValueFromEvent,
             controlStyle,
             checkboxInputStyle,
         );
@@ -98,22 +91,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function updateMinVotesValue(e) {
-    minVotesValue = setStorageValueFromEvent(e, MIN_VOTES_STORAGE_KEY);
-}
-
-function updateShowExpiredValue(e) {
-    showExpiredChecked = setStorageValueFromEvent(e, SHOW_EXPIRED_STORAGE_KEY);
-}
-
-function updateFilterEnabledValue(e) {
-    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
-}
-
 function cleanList(productCards) {
     productCards.forEach(
         (productCard) => {
-            if (!filterEnabledChecked) {
+            if (!filterEnabled.value) {
                 showElement(productCard);
 
                 return;
@@ -121,7 +102,7 @@ function cleanList(productCards) {
 
             const isExpired = productCard.classList.contains('thread--expired');
 
-            if (isExpired && !showExpiredChecked) {
+            if (isExpired && !showExpiredFilter.value) {
                 hideElement(productCard);
 
                 return;
@@ -131,7 +112,9 @@ function cleanList(productCards) {
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
-            showHideElement(productCard, productCardRatingNumber < minVotesValue);
+            showHideElement(
+                productCard, productCardRatingNumber < minVotesFilter.value,
+            );
         },
     );
 }
