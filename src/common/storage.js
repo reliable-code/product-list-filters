@@ -25,3 +25,14 @@ export function setStorageValueFromEvent(event, keyName) {
 
     return valueToSet;
 }
+
+export class StorageValue {
+    constructor(storageKey, defaultValue) {
+        this.value = getStorageValueOrDefault(storageKey, defaultValue);
+        this.storageKey = storageKey;
+    }
+
+    updateValueFromEvent = (event) => {
+        this.value = setStorageValueFromEvent(event, this.storageKey);
+    };
+}
