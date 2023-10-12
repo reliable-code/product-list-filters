@@ -8,15 +8,12 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { StorageValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createMinReviewsFilterControl,
 } from '../common/filter';
-
-const MIN_REVIEWS_STORAGE_KEY = 'minReviewsFilter';
-const FILTER_ENABLED_STORAGE_KEY = 'filter-enabled';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
@@ -25,11 +22,8 @@ const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 
-const MIN_REVIEWS = 10;
-const FILTER_ENABLED = true;
-
-let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
-let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
+const minReviewsFilter = new StorageValue('min-reviews-filter', 10);
+const filterEnabled = new StorageValue('filter-enabled', true);
 
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 
@@ -70,24 +64,22 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const minReviewsDiv =
         createMinReviewsFilterControl(
-            minReviewsValue, updateMinReviewsValue, controlStyle, numberInputStyle,
+            minReviewsFilter.value,
+            minReviewsFilter.updateValueFromEvent,
+            controlStyle,
+            numberInputStyle,
         );
 
     const filterEnabledDiv =
         createEnabledFilterControl(
-            filterEnabledChecked, updateFilterEnabledValue, controlStyle, checkboxInputStyle,
+            filterEnabled.value,
+            filterEnabled.updateValueFromEvent,
+            controlStyle,
+            checkboxInputStyle,
         );
 
     filtersContainer.append(minReviewsDiv, filterEnabledDiv);
     parentNode.prepend(filtersContainer);
-}
-
-function updateMinReviewsValue(e) {
-    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_STORAGE_KEY);
-}
-
-function updateFilterEnabledValue(e) {
-    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
 }
 
 function removeSpecialPlacementCards() {
@@ -103,7 +95,7 @@ function cleanList() {
 
     doctorCards.forEach(
         (doctorCard) => {
-            if (!filterEnabledChecked) {
+            if (!filterEnabled.value) {
                 showElement(doctorCard, 'flex');
 
                 return;
@@ -122,7 +114,7 @@ function cleanList() {
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
             showHideElement(
-                doctorCard, reviewsLinkNumber < minReviewsValue, 'flex',
+                doctorCard, reviewsLinkNumber < minReviewsFilter.value, 'flex',
             );
 
             appendAdditionalLinks(doctorCard, profileCard);
