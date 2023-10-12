@@ -109,15 +109,14 @@ export function createMinVotesFilterControl(
 }
 
 export function createNoRatingFilterControl(
-    isChecked,
-    inputOnChange,
+    storageValue,
     controlStyle = '',
     inputStyle = '',
 ) {
     return createFilterControlCheckbox(
         'Без рейтинга: ',
-        isChecked,
-        inputOnChange,
+        storageValue.value,
+        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );

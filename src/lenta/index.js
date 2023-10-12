@@ -63,8 +63,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const noRatingDiv =
         createNoRatingFilterControl(
-            noRatingFilter.value,
-            noRatingFilter.updateValueFromEvent,
+            noRatingFilter,
             controlStyle,
             checkboxInputStyle,
         );
