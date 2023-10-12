@@ -11,7 +11,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { StorageValue } from '../common/storage';
 import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
@@ -19,11 +19,6 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
 } from '../common/filter';
-
-const CATEGORY_NAME = getCategoryName();
-const MIN_REVIEWS_STORAGE_KEY = `${CATEGORY_NAME}-min-reviews-filter`;
-const MIN_RATING_STORAGE_KEY = `${CATEGORY_NAME}-min-rating-filter`;
-const FILTER_ENABLED_STORAGE_KEY = `${CATEGORY_NAME}-filter-enabled`;
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -34,13 +29,14 @@ const SEARCH_RESULT_SELECTOR = '.widget-search-result-container';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
-const MIN_REVIEWS = 50;
-const MIN_RATING = 4.8;
-const FILTER_ENABLED = true;
+const CATEGORY_NAME = getCategoryName();
 
-let minReviewsValue = getStorageValueOrDefault(MIN_REVIEWS_STORAGE_KEY, MIN_REVIEWS);
-let minRatingValue = getStorageValueOrDefault(MIN_RATING_STORAGE_KEY, MIN_RATING);
-let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
+const minReviewsFilter =
+    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, 50);
+const minRatingFilter =
+    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
+const filterEnabled =
+    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -90,24 +86,24 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const minReviewsDiv =
         createMinReviewsFilterControl(
-            minReviewsValue,
-            updateMinReviewsValue,
+            minReviewsFilter.value,
+            minReviewsFilter.updateValueFromEvent,
             controlStyle,
             numberInputStyle,
         );
 
     const minRatingDiv =
         createMinRatingFilterControl(
-            minRatingValue,
-            updateMinRatingValue,
+            minRatingFilter.value,
+            minRatingFilter.updateValueFromEvent,
             controlStyle,
             numberInputStyle,
         );
 
     const filterEnabledDiv =
         createEnabledFilterControl(
-            filterEnabledChecked,
-            updateFilterEnabledValue,
+            filterEnabled.value,
+            filterEnabled.updateValueFromEvent,
             controlStyle,
             checkboxInputStyle,
         );
@@ -117,18 +113,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-function updateMinReviewsValue(e) {
-    minReviewsValue = setStorageValueFromEvent(e, MIN_REVIEWS_STORAGE_KEY);
-}
-
-function updateMinRatingValue(e) {
-    minRatingValue = setStorageValueFromEvent(e, MIN_RATING_STORAGE_KEY);
-}
-
-function updateFilterEnabledValue(e) {
-    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
-}
-
 function cleanList() {
     const searchResultContainer = getFirstElement(SEARCH_RESULT_SELECTOR, document, true);
     const productCardsWrap = getFirstElement(':scope > div', searchResultContainer, true);
@@ -136,7 +120,7 @@ function cleanList() {
 
     productCards.forEach(
         (productCard) => {
-            if (!filterEnabledChecked) {
+            if (!filterEnabled.value) {
                 showElement(productCard);
 
                 return;
@@ -161,8 +145,8 @@ function cleanList() {
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
 
             const conditionToHide =
-                productCardReviewsNumber < minReviewsValue ||
-                productCardRatingNumber < minRatingValue;
+                productCardReviewsNumber < minReviewsFilter.value ||
+                productCardRatingNumber < minRatingFilter.value;
             showHideElement(productCard, conditionToHide, 'flex');
         },
     );
