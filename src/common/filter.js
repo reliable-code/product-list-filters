@@ -89,18 +89,17 @@ export function createMinDiscountFilterControl(
 }
 
 export function createMinVotesFilterControl(
-    inputValue,
-    inputOnChange,
+    storageValue,
     controlStyle = '',
     inputStyle = '',
 ) {
     return createFilterControlNumber(
         'Минимально голосов: ',
-        inputValue,
+        storageValue.value,
         '50',
         '0',
         '10000',
-        inputOnChange,
+        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
