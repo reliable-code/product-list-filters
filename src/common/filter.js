@@ -24,13 +24,14 @@ export function createFilterControlNumber(
 
 export function createFilterControlCheckbox(
     titleText,
-    isChecked,
-    inputOnChange,
+    storageValue,
     controlStyle = '',
     inputStyle = '',
 ) {
-    const filterControl = createDiv(titleText, controlStyle);
-    const input = createCheckboxInput(inputOnChange, inputStyle, isChecked);
+    const filterControl =
+        createDiv(titleText, controlStyle);
+    const input =
+        createCheckboxInput(storageValue.updateValueFromEvent, inputStyle, storageValue.value);
 
     filterControl.append(input);
 
@@ -112,8 +113,7 @@ export function createNoRatingFilterControl(
 ) {
     return createFilterControlCheckbox(
         'Без рейтинга: ',
-        storageValue.value,
-        storageValue.updateValueFromEvent,
+        storageValue,
         controlStyle,
         inputStyle,
     );
@@ -126,8 +126,7 @@ export function createEnabledFilterControl(
 ) {
     return createFilterControlCheckbox(
         'Вкл: ',
-        storageValue.value,
-        storageValue.updateValueFromEvent,
+        storageValue,
         controlStyle,
         inputStyle,
     );

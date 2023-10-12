@@ -62,19 +62,19 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 24px;';
 
     const minVotesDiv =
-        createMinVotesFilterControl(minVotesFilter, controlStyle, numberInputStyle);
+        createMinVotesFilterControl(
+            minVotesFilter, controlStyle, numberInputStyle,
+        );
 
     const showExpiredDiv =
         createFilterControlCheckbox(
-            'Завершённые: ',
-            showExpiredFilter.value,
-            showExpiredFilter.updateValueFromEvent,
-            controlStyle,
-            checkboxInputStyle,
+            'Завершённые: ', showExpiredFilter, controlStyle, checkboxInputStyle,
         );
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
+        createEnabledFilterControl(
+            filterEnabled, controlStyle, checkboxInputStyle,
+        );
 
     filtersContainer.append(minVotesDiv, showExpiredDiv, filterEnabledDiv);
 
