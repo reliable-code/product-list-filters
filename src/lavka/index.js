@@ -35,11 +35,9 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    const minDiscountDiv =
-        createMinDiscountFilterControl(minDiscountFilter);
+    const minDiscountDiv = createMinDiscountFilterControl(minDiscountFilter);
 
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled);
+    const filterEnabledDiv = createEnabledFilterControl(filterEnabled);
 
     filtersContainer.append(minDiscountDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);

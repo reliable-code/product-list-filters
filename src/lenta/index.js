@@ -54,26 +54,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 22px;';
 
     const minRatingDiv =
-        createMinRatingFilterControl(
-            minRatingFilter.value,
-            minRatingFilter.updateValueFromEvent,
-            controlStyle,
-            numberInputStyle,
-        );
+        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
     const noRatingDiv =
-        createNoRatingFilterControl(
-            noRatingFilter,
-            controlStyle,
-            checkboxInputStyle,
-        );
+        createNoRatingFilterControl(noRatingFilter, controlStyle, checkboxInputStyle);
 
     const filterEnabledDiv =
-        createEnabledFilterControl(
-            filterEnabled,
-            controlStyle,
-            checkboxInputStyle,
-        );
+        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
     filtersContainer.append(minRatingDiv, noRatingDiv, filterEnabledDiv);
 

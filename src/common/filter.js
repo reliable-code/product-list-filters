@@ -38,18 +38,17 @@ export function createFilterControlCheckbox(
 }
 
 export function createMinRatingFilterControl(
-    inputValue,
-    inputOnChange,
+    storageValue,
     controlStyle = '',
     inputStyle = '',
 ) {
     return createFilterControlNumber(
         'Минимальный рейтинг: ',
-        inputValue,
+        storageValue.value,
         '0.1',
         '3.0',
         '5.0',
-        inputOnChange,
+        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
