@@ -81,7 +81,7 @@ function appendFiltersContainer(filterControls, parentNode) {
 
     const filterEnabledDiv =
         createEnabledFilterControl(
-            filterEnabled.value, filterEnabled.updateValueFromEvent, controlStyle, checkboxInputStyle,
+            filterEnabled, controlStyle, checkboxInputStyle,
         );
 
     filterControls.append(minReviewsDiv, minRatingDiv, filterEnabledDiv);

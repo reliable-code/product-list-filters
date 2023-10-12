@@ -121,7 +121,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const filterEnabledDiv =
         createEnabledFilterControl(
-            filterEnabled.value, filterEnabled.updateValueFromEvent, controlStyle, checkboxInputStyle,
+            filterEnabled, controlStyle, checkboxInputStyle,
         );
 
     setInterval(() => checkMinPrice(minPriceDiv), 500);

@@ -39,9 +39,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinDiscountFilterControl(minDiscountFilter);
 
     const filterEnabledDiv =
-        createEnabledFilterControl(
-            filterEnabled.value, filterEnabled.updateValueFromEvent,
-        );
+        createEnabledFilterControl(filterEnabled);
 
     filtersContainer.append(minDiscountDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);

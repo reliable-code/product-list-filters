@@ -122,15 +122,14 @@ export function createNoRatingFilterControl(
 }
 
 export function createEnabledFilterControl(
-    isChecked,
-    inputOnChange,
+    storageValue,
     controlStyle = '',
     inputStyle = '',
 ) {
     return createFilterControlCheckbox(
         'Вкл: ',
-        isChecked,
-        inputOnChange,
+        storageValue.value,
+        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
