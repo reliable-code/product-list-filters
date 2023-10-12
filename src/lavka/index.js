@@ -6,7 +6,7 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, setStorageValueFromEvent } from '../common/storage';
+import { StorageValue } from '../common/storage';
 import { removeNonDigit } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
@@ -14,16 +14,11 @@ import {
     createMinDiscountFilterControl,
 } from '../common/filter';
 
-const MIN_DISCOUNT = 20;
-const MIN_DISCOUNT_STORAGE_KEY = 'minDiscountFilter';
-const FILTER_ENABLED = true;
-const FILTER_ENABLED_STORAGE_KEY = 'filter-enabled';
+const minDiscountFilter = new StorageValue('min-discount-filter', 20);
+const filterEnabled = new StorageValue('filter-enabled', true);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
-
-let minDiscountValue = getStorageValueOrDefault(MIN_DISCOUNT_STORAGE_KEY, MIN_DISCOUNT);
-let filterEnabledChecked = getStorageValueOrDefault(FILTER_ENABLED_STORAGE_KEY, FILTER_ENABLED);
 
 const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
 
@@ -41,25 +36,21 @@ function initListClean() {
 
 function appendFiltersContainer(filtersContainer, parentNode) {
     const minDiscountDiv =
-        createMinDiscountFilterControl(minDiscountValue, updateMinDiscountValue);
+        createMinDiscountFilterControl(
+            minDiscountFilter.value, minDiscountFilter.updateValueFromEvent,
+        );
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabledChecked, updateFilterEnabledValue);
+        createEnabledFilterControl(
+            filterEnabled.value, filterEnabled.updateValueFromEvent,
+        );
 
     filtersContainer.append(minDiscountDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
 }
 
-function updateMinDiscountValue(e) {
-    minDiscountValue = setStorageValueFromEvent(e, MIN_DISCOUNT_STORAGE_KEY);
-}
-
-function updateFilterEnabledValue(e) {
-    filterEnabledChecked = setStorageValueFromEvent(e, FILTER_ENABLED_STORAGE_KEY);
-}
-
 function cleanList(productCardLinks) {
-    if (minDiscountValue === 0) {
+    if (minDiscountFilter.value === 0) {
         return;
     }
 
@@ -68,7 +59,7 @@ function cleanList(productCardLinks) {
             const productCardLinksParent = productCardLink.parentNode;
             const productCard = productCardLinksParent.parentNode.parentNode;
 
-            if (!filterEnabledChecked) {
+            if (!filterEnabled.value) {
                 showElement(productCard);
 
                 return;
@@ -90,7 +81,7 @@ function cleanList(productCardLinks) {
 
             const discountValue = +removeNonDigit(promoLabelText);
 
-            showHideElement(productCard, discountValue < minDiscountValue);
+            showHideElement(productCard, discountValue < minDiscountFilter.value);
         },
     );
 }
