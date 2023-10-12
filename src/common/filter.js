@@ -74,18 +74,17 @@ export function createMinReviewsFilterControl(
 }
 
 export function createMinDiscountFilterControl(
-    inputValue,
-    inputOnChange,
+    storageValue,
     controlStyle = '',
     inputStyle = '',
 ) {
     return createFilterControlNumber(
         'Минимальная скидка: ',
-        inputValue,
+        storageValue.value,
         '1',
         '0',
         '100',
-        inputOnChange,
+        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
