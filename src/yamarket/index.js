@@ -71,7 +71,7 @@ function appendFiltersContainer(filterControls, parentNode) {
 
     const minReviewsDiv =
         createMinReviewsFilterControl(
-            minReviewsFilter.value, minReviewsFilter.updateValueFromEvent, controlStyle, numberInputStyle,
+            minReviewsFilter, controlStyle, numberInputStyle,
         );
 
     const minRatingDiv =

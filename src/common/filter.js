@@ -56,18 +56,17 @@ export function createMinRatingFilterControl(
 }
 
 export function createMinReviewsFilterControl(
-    inputValue,
-    inputOnChange,
+    storageValue,
     controlStyle = '',
     inputStyle = '',
 ) {
     return createFilterControlNumber(
         'Минимально отзывов: ',
-        inputValue,
+        storageValue.value,
         '1',
         '1',
         '999999',
-        inputOnChange,
+        storageValue.updateValueFromEvent,
         controlStyle,
         inputStyle,
     );
