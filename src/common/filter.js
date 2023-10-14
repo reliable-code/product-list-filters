@@ -106,6 +106,22 @@ export function createMinVotesFilterControl(
     );
 }
 
+export function createMinCashbackFilterControl(
+    storageValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createFilterControlNumber(
+        'Минимальный кешбек: ',
+        storageValue,
+        '5',
+        '0',
+        '100',
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createNoRatingFilterControl(
     storageValue,
     controlStyle = null,
