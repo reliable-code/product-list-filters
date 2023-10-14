@@ -141,3 +141,10 @@ export function waitForElement(parentNode, selector, timeout = null) {
         }
     });
 }
+
+export function addGlobalStyle(css) {
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.textContent = css;
+    document.head.appendChild(style);
+}
