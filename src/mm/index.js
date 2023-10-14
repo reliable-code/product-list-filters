@@ -16,14 +16,14 @@ import {
 const minCashbackFilter = new StorageValue('min-cashback-filter', 20);
 const filterEnabled = new StorageValue('filter-enabled', true);
 
-const PRODUCT_CARD_LIST_HEADER = '.catalog-listing-content';
+const PRODUCT_CARD_LIST_HEADER = '.catalog-listing-header';
 const PRODUCT_CARD_SELECTOR = '.catalog-item';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 
 setInterval(initListClean, 100);
 
 function initListClean() {
-    const productCardListHeader = getFirstElement('.catalog-listing-header');
+    const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_HEADER);
 
     if (productCardListHeader) {
         appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
@@ -72,7 +72,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
-                showElement(productCard);
+                showElement(productCard, 'flex');
 
                 return;
             }
@@ -88,8 +88,9 @@ function cleanList() {
 
             const productCardCashbackNumber = getElementInnerNumber(productCardCashback, true);
 
+            const conditionToHide = productCardCashbackNumber < minCashbackFilter.value;
             showHideElement(
-                productCard, productCardCashbackNumber < minCashbackFilter.value,
+                productCard, conditionToHide, 'flex',
             );
         },
     );
