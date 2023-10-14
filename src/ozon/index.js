@@ -1,5 +1,6 @@
 import { thumbsDownIcon } from './icons';
 import {
+    addGlobalStyle,
     createDiv,
     createLink,
     getAllElements,
@@ -67,6 +68,13 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
+    addGlobalStyle(
+        'input[type=number]::-webkit-inner-spin-button,' +
+        'input[type=number]::-webkit-outer-spin-button {' +
+        '    -webkit-appearance: auto;' +
+        '}',
+    );
+
     filtersContainer.style =
         'display: flex;' +
         'grid-gap: 15px;' +
