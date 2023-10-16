@@ -43,7 +43,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'margin-top: 0.5em;' +
         'padding: 11px 19px;' +
         'background-color: #fff;' +
-        'border-radius: 8px;';
+        'border-radius: 8px;' +
+        'position: sticky;' +
+        'top: 0px;' +
+        'z-index: 50;';
 
     const controlStyle =
         'display: flex;' +
