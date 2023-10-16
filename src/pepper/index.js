@@ -1,10 +1,10 @@
 import {
+    defineElementOpacity,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    hideElement,
-    showElement,
-    showHideElement,
+    resetElementOpacity,
+    setElementOpacity,
 } from '../common/dom';
 import { StorageValue } from '../common/storage';
 import {
@@ -85,7 +85,7 @@ function cleanList(productCards) {
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
-                showElement(productCard);
+                resetElementOpacity(productCard);
 
                 return;
             }
@@ -93,7 +93,7 @@ function cleanList(productCards) {
             const isExpired = productCard.classList.contains('thread--expired');
 
             if (isExpired && !showExpiredFilter.value) {
-                hideElement(productCard);
+                setElementOpacity(productCard);
 
                 return;
             }
@@ -102,7 +102,7 @@ function cleanList(productCards) {
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
-            showHideElement(
+            defineElementOpacity(
                 productCard, productCardRatingNumber < minVotesFilter.value,
             );
         },
