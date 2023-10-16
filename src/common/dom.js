@@ -40,6 +40,22 @@ function setElementDisplay(element, display) {
     element.style.display = display;
 }
 
+export function defineElementOpacity(element, conditionToDefine, opacity = 0.2) {
+    if (conditionToDefine) {
+        setElementOpacity(element, opacity);
+    } else {
+        resetElementOpacity(element);
+    }
+}
+
+export function resetElementOpacity(element) {
+    element.style.opacity = 1;
+}
+
+export function setElementOpacity(element, opacity = 0.2) {
+    element.style.opacity = opacity;
+}
+
 export function setElementBackground(element, background) {
     element.style.background = background;
 }
