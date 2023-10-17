@@ -5,6 +5,7 @@ import {
     getFirstElement,
     resetElementOpacity,
     setElementOpacity,
+    waitForElement,
 } from '../common/dom';
 import { StorageValue } from '../common/storage';
 import {
@@ -22,7 +23,10 @@ const PRODUCT_CARD_LIST_SELECTOR = '.listLayout-main';
 const PRODUCT_CARD_SELECTOR = '.thread--type-list:not(.js-telegram-widget)';
 const PRODUCT_CARD_RATING_SELECTOR = '.vote-box > span';
 
+const DISCUSSIONS_SELECTOR = ':scope > div:not(.js-vue2):not(.vue-portal-target)';
+
 setInterval(initListClean, 100);
+makeDiscussionsSticky();
 
 const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
 
@@ -110,4 +114,17 @@ function cleanList(productCards) {
             );
         },
     );
+}
+
+function makeDiscussionsSticky() {
+    const listLayoutSide = getFirstElement('.listLayout-side');
+    waitForElement(listLayoutSide, DISCUSSIONS_SELECTOR, 2000)
+        .then(
+            (discussions) => {
+                if (!discussions) return;
+
+                discussions.style.position = 'sticky';
+                discussions.style.top = '0';
+            },
+        );
 }
