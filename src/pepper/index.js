@@ -41,8 +41,12 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
+    const observerCallback = ([e]) => {
+        e.target.style.boxShadow = e.intersectionRatio < 1 ? '0px 0px 10px' : 'none';
+    };
+
     const observer = new IntersectionObserver(
-        ([e]) => e.target.classList.toggle('isPinned', e.intersectionRatio < 1),
+        observerCallback,
         { threshold: [1] },
     );
 
