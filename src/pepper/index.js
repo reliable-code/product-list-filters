@@ -41,6 +41,13 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
+    const observer = new IntersectionObserver(
+        ([e]) => e.target.classList.toggle('isPinned', e.intersectionRatio < 1),
+        { threshold: [1] },
+    );
+
+    observer.observe(filtersContainer);
+
     filtersContainer.style =
         'display: flex;' +
         'grid-gap: 15px;' +
@@ -49,8 +56,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'background-color: #fff;' +
         'border-radius: 8px;' +
         'position: sticky;' +
-        'top: 0px;' +
-        'z-index: 50;';
+        'z-index: 50;' +
+        'top: -1px;';
 
     const controlStyle =
         'display: flex;' +
