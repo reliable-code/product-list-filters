@@ -201,7 +201,8 @@ function appendRatingValue(productReviewsWrap) {
                     const ratingValueContainer =
                         ratingInfoContainer.children[0].children[0].children[1];
 
-                    const ratingValue = getRatingValue(ratingValueContainer);
+                    const ratingValueSpan = ratingValueContainer.children[0];
+                    const ratingValue = getRatingValue(ratingValueSpan);
 
                     if (!ratingValue) return;
 
@@ -215,12 +216,12 @@ function appendRatingValue(productReviewsWrap) {
         });
 }
 
-function getRatingValue(ratingValueContainer) {
+function getRatingValue(ratingValueSpan) {
     let ratingValue;
 
     try {
         [ratingValue] =
-            removeSpaces(ratingValueContainer.innerText)
+            removeSpaces(ratingValueSpan.innerHTML)
                 .split('/');
     } catch (e) {
         console.log(`Failed to get ratingValue: ${e.message}`);
