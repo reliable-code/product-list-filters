@@ -18,7 +18,9 @@ const filterEnabled = new StorageValue('filter-enabled', true);
 
 const PRODUCT_CARD_LIST_HEADER = '.catalog-listing-header';
 const PRODUCT_CARD_SELECTOR = '.catalog-item';
+const PRODUCT_CARD_PRICE_SELECTOR = '.item-price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
+const BALANCED_CASHBACK_PRICE_ADDED_CLASS = 'balancedCashbackPriceAdded';
 
 setInterval(initListClean, 100);
 
@@ -92,6 +94,43 @@ function cleanList() {
             showHideElement(
                 productCard, conditionToHide, 'flex',
             );
+
+            addBalancedCashbackPriceIfNeeded(productCard, productCardCashbackNumber);
         },
     );
+}
+
+function addBalancedCashbackPriceIfNeeded(productCard, productCardCashbackNumber) {
+    const productCardPrice = getFirstElement(PRODUCT_CARD_PRICE_SELECTOR, productCard);
+
+    if (productCardPrice.classList.contains(BALANCED_CASHBACK_PRICE_ADDED_CLASS)) return;
+
+    addBalancedCashbackPrice(productCardPrice, productCardCashbackNumber);
+}
+
+function addBalancedCashbackPrice(productCardPrice, productCardCashbackNumber) {
+    const productCardPriceNumber =
+        getElementInnerNumber(productCardPrice, true);
+
+    const balancedCashbackPrice =
+        getBalancedCashbackPrice(productCardPriceNumber, productCardCashbackNumber);
+
+    const productCardPriceSpan =
+        getFirstElement(':scope > span', productCardPrice);
+
+    const newProductCardPriceSpanText =
+        `${productCardPriceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
+    productCardPriceSpan.innerText = newProductCardPriceSpanText;
+
+    productCardPrice.classList.add(BALANCED_CASHBACK_PRICE_ADDED_CLASS);
+}
+
+function getBalancedCashbackPrice(price, cashback) {
+    const balancedCashbackUsage = getBalancedCashbackUsage(price, cashback);
+    return price - balancedCashbackUsage;
+}
+
+function getBalancedCashbackUsage(price, cashback) {
+    const cashbackCoeff = cashback / 100;
+    return ((price * cashbackCoeff) / (1 + cashbackCoeff)).toFixed(0);
 }
