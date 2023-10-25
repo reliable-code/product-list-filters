@@ -13,13 +13,28 @@ import {
     createNoRatingFilterControl,
 } from '../common/filter';
 
-const minRatingFilter = new StorageValue('min-rating-filter', 4.0);
-const noRatingFilter = new StorageValue('no-rating-filter', false);
-const filterEnabled = new StorageValue('filter-enabled', true);
+const CATEGORY_NAME = getCategoryName();
+
+const minRatingFilter =
+    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.0);
+const noRatingFilter =
+    new StorageValue(`${CATEGORY_NAME}-no-rating-filter`, false);
+const filterEnabled =
+    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
 
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
+
+function getCategoryName() {
+    const { pathname } = window.location;
+    const pathElements = pathname.split('/');
+    const lastPathElement = pathElements.pop();
+    const categoryName =
+        /^\d+$/.test(lastPathElement) ? lastPathElement : 'common';
+
+    return categoryName;
+}
 
 setInterval(initListClean, 500);
 
