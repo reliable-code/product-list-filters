@@ -22,8 +22,9 @@ const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 
-const DOCTOR_DETAILS_SELECTOR = '.b-doctor-details__toc';
-const DOCTOR_CONTACTS_SELECTOR = '.b-doctor-contacts__wp-block';
+const DOCTOR_CONTACTS_SELECTOR = '.b-doctor-contacts__wp-info';
+const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
+const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
 
 const minReviewsFilter = new StorageValue('min-reviews-filter', 10);
 const filterEnabled = new StorageValue('filter-enabled', true);
@@ -182,9 +183,25 @@ function scrollToParentAndClick(element) {
 }
 
 function appendDoctorContactLink() {
-    const doctorDetails = getFirstElement(DOCTOR_DETAILS_SELECTOR);
+    const doctorDetailsMain = getFirstElement(DOCTOR_DETAILS_MAIN_SELECTOR);
 
-    if (!doctorDetails) return;
+    if (!doctorDetailsMain) return;
+
+    const doctorContacts = getFirstElement(DOCTOR_CONTACTS_SELECTOR);
+
+    if (!doctorContacts) return;
+
+    const doctorContactsCopy = doctorContacts.cloneNode(true);
+    const doctorContactsCopyWrap = createDiv();
+    doctorContactsCopyWrap.classList.add(
+        'b-doctor-details__item', 'b-box', 'b-box_shadow', 'b-box_padding_small',
+    );
+    doctorContactsCopyWrap.append(doctorContactsCopy);
+    doctorDetailsMain.prepend(doctorContactsCopyWrap);
+
+    const doctorDetailsMenu = getFirstElement(DOCTOR_DETAILS_MENU_SELECTOR);
+
+    if (!doctorDetailsMenu) return;
 
     const doctorContactsLinkTitle = createDiv('Место работы');
     doctorContactsLinkTitle.classList.add('b-doctor-details__toc-title');
@@ -192,11 +209,8 @@ function appendDoctorContactLink() {
     doctorContactsLink.append(doctorContactsLinkTitle);
     doctorContactsLink.classList.add('b-doctor-details__toc-item');
 
-    const doctorContacts =
-        getFirstElement(DOCTOR_CONTACTS_SELECTOR);
-
-    const scrollToContacts = () => doctorContacts.scrollIntoView({ behavior: 'smooth' });
+    const scrollToContacts = () => doctorContactsCopyWrap.scrollIntoView({ behavior: 'smooth' });
     doctorContactsLink.addEventListener('click', scrollToContacts);
 
-    doctorDetails.insertBefore(doctorContactsLink, doctorDetails.firstChild);
+    doctorDetailsMenu.insertBefore(doctorContactsLink, doctorDetailsMenu.firstChild);
 }
