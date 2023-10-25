@@ -96,9 +96,9 @@ export function createDiv(textContent = null, style = null) {
     return div;
 }
 
-export function createLink(href, innerHTML = null, style = null) {
+export function createLink(href = null, innerHTML = null, style = null) {
     const link = document.createElement('a');
-    link.href = href;
+    if (href) link.href = href;
     if (innerHTML) link.innerHTML = innerHTML;
     if (style) link.style = style;
 

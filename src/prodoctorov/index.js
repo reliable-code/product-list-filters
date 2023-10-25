@@ -22,6 +22,9 @@ const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 
+const DOCTOR_DETAILS_SELECTOR = '.b-doctor-details__toc';
+const DOCTOR_CONTACTS_SELECTOR = '.b-doctor-contacts__wp-block';
+
 const minReviewsFilter = new StorageValue('min-reviews-filter', 10);
 const filterEnabled = new StorageValue('filter-enabled', true);
 
@@ -31,6 +34,7 @@ if (appointmentsPage) {
     setInterval(initListClean, 100);
 } else {
     appendReviewsInfoToHeader();
+    appendDoctorContactLink();
 }
 
 function initListClean() {
@@ -175,4 +179,24 @@ function scrollToParentAndClick(element) {
         element.parentNode.scrollIntoView({ behavior: 'smooth' });
         element.click();
     };
+}
+
+function appendDoctorContactLink() {
+    const doctorDetails = getFirstElement(DOCTOR_DETAILS_SELECTOR);
+
+    if (!doctorDetails) return;
+
+    const doctorContactsLinkTitle = createDiv('Место работы');
+    doctorContactsLinkTitle.classList.add('b-doctor-details__toc-title');
+    const doctorContactsLink = createLink();
+    doctorContactsLink.append(doctorContactsLinkTitle);
+    doctorContactsLink.classList.add('b-doctor-details__toc-item');
+
+    const doctorContacts =
+        getFirstElement(DOCTOR_CONTACTS_SELECTOR);
+
+    const scrollToContacts = () => doctorContacts.scrollIntoView({ behavior: 'smooth' });
+    doctorContactsLink.addEventListener('click', scrollToContacts);
+
+    doctorDetails.insertBefore(doctorContactsLink, doctorDetails.firstChild);
 }
