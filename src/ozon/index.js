@@ -104,6 +104,15 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     filtersContainer.append(minReviewsDiv, minRatingDiv, filterEnabledDiv);
 
     parentNode.append(filtersContainer);
+
+    parentNode.style =
+        'position: sticky;' +
+        'top: 62px;' +
+        'background-color: #fff;' +
+        'z-index: 1;' +
+        'padding-bottom: 11px;' +
+        'margin-bottom: 0;' +
+        'border-bottom: 1px solid rgba(204,214,228,.6);';
 }
 
 function cleanList() {
