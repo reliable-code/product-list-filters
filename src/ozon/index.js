@@ -140,7 +140,7 @@ function cleanList() {
                 getAllElements(':scope > span', productCardRatingWrap, true);
 
             const productCardReviewsNumber =
-                getArrayElementInnerNumber(productCardRatingWrapSpans, 1);
+                getArrayElementInnerNumber(productCardRatingWrapSpans, 1, true);
 
             const productCardRatingNumber =
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
