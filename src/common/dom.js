@@ -112,9 +112,10 @@ export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
     return elementNumber;
 }
 
-export function getElementInnerNumber(element, cleanText = false) {
+export function getElementInnerNumber(element, cleanText = false, replaceComma = false) {
     let elementText = element.innerText;
     if (cleanText) elementText = removeNonNumber(elementText);
+    if (replaceComma) elementText = elementText.replace(',', '.');
     const elementNumber = +elementText;
 
     return elementNumber;
