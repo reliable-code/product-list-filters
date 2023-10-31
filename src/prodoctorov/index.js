@@ -173,7 +173,12 @@ function appendReviewsInfoToHeader() {
     if (!nameSpan) return;
 
     const reviewsInfo = createDiv();
+    reviewsInfo.style.position = 'absolute';
     reviewsInfo.classList.add('v-application');
+    const reviewsInfoWrap = createDiv();
+    reviewsInfoWrap.style.position = 'relative';
+    reviewsInfoWrap.style.height = '45px';
+    reviewsInfoWrap.append(reviewsInfo);
 
     const reviewsFilterSpans = getAllElements(':scope > span', reviewsFilter, true);
 
@@ -186,7 +191,7 @@ function appendReviewsInfoToHeader() {
         reviewsInfo.append(reviewsFilterSpanCopy);
     }
 
-    nameSpan.append(reviewsInfo);
+    nameSpan.append(reviewsInfoWrap);
 }
 
 function scrollToParentAndClick(element) {
