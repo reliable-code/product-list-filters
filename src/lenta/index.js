@@ -9,6 +9,7 @@ import { StorageValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createFilterControlCheckbox,
     createMinRatingFilterControl,
     createNoRatingFilterControl,
 } from '../common/filter';
@@ -21,10 +22,15 @@ const noRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-no-rating-filter`, false);
 const filterEnabled =
     new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
+const discountEnabled =
+    new StorageValue('discount-enabled', true);
 
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
+
+const DISCOUNTED_PRICE_ADDED_CLASS = 'discountedPriceAdded';
+const CURRENT_DISCOUNT = 0.25;
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -77,13 +83,17 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minRatingDiv, noRatingDiv, filterEnabledDiv);
+    const discountEnabledDiv =
+        createFilterControlCheckbox('Скидка:', discountEnabled, controlStyle, checkboxInputStyle);
+
+    filtersContainer.append(minRatingDiv, noRatingDiv, filterEnabledDiv, discountEnabledDiv);
 
     parentNode.prepend(filtersContainer);
 }
 
 function expandProductCardName(productCard) {
     const productCardName = getFirstElement('.lu-product-card-name_new', productCard);
+    if (!productCardName) return;
     productCardName.style.display = 'inline-block';
     productCardName.style.height = '91px';
 }
@@ -94,6 +104,10 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             expandProductCardName(productCard);
+
+            if (discountEnabled.value) {
+                addDiscountedPriceIfNeeded(productCard);
+            }
 
             if (!filterEnabled.value) {
                 showElement(productCard);
@@ -114,4 +128,27 @@ function cleanList() {
             showHideElement(productCard, productCardRatingNumber < minRatingFilter.value);
         },
     );
+}
+
+function addDiscountedPriceIfNeeded(productCard) {
+    const productCardPrice = getFirstElement('.main-price:not(.__accent)', productCard);
+
+    if (!productCardPrice) return;
+
+    if (productCardPrice.classList.contains(DISCOUNTED_PRICE_ADDED_CLASS)) return;
+
+    addDiscountedPrice(productCardPrice);
+}
+
+function addDiscountedPrice(productCardPrice) {
+    const productCardPriceNumber =
+        getElementInnerNumber(productCardPrice, true, true);
+
+    const discountedPrice = productCardPriceNumber * (1 - CURRENT_DISCOUNT);
+
+    const newProductCardPriceText =
+        `${productCardPriceNumber.toFixed()} (${discountedPrice.toFixed()}) ₽`;
+    productCardPrice.innerText = newProductCardPriceText;
+
+    productCardPrice.classList.add(DISCOUNTED_PRICE_ADDED_CLASS);
 }
