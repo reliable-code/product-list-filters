@@ -111,26 +111,27 @@ function cleanList() {
                 doctorCard, reviewsLinkNumber < minReviewsFilter.value, 'flex',
             );
 
-            appendAdditionalLinks(doctorCard, profileCard);
+            const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
+            const doctorName = doctorCardName.innerText;
+
+            appendAdditionalLinks(doctorName, profileCard);
         },
     );
 }
 
-function appendAdditionalLinks(doctorCard, profileCard) {
-    if (profileCard.classList.contains(ADDITIONAL_LINKS_APPENDED_CLASS)) {
+function appendAdditionalLinks(doctorName, linksContainer) {
+    if (linksContainer.classList.contains(ADDITIONAL_LINKS_APPENDED_CLASS)) {
         return;
     }
 
-    appendAdditionalLink(doctorCard, profileCard, 'НаПоправку');
-    appendAdditionalLink(doctorCard, profileCard, 'DocDoc');
-    appendAdditionalLink(doctorCard, profileCard, 'Докту');
+    appendAdditionalLink(doctorName, linksContainer, 'НаПоправку');
+    appendAdditionalLink(doctorName, linksContainer, 'DocDoc');
+    appendAdditionalLink(doctorName, linksContainer, 'Докту');
 
-    profileCard.classList.add(ADDITIONAL_LINKS_APPENDED_CLASS);
+    linksContainer.classList.add(ADDITIONAL_LINKS_APPENDED_CLASS);
 }
 
-function appendAdditionalLink(doctorCard, profileCard, siteName) {
-    const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
-    const doctorName = doctorCardName.innerText;
+function appendAdditionalLink(doctorName, linksContainer, siteName) {
     const searchString = `${doctorName} ${siteName}`;
     const encodedSearchString = encodeURIComponent(searchString);
 
@@ -139,7 +140,7 @@ function appendAdditionalLink(doctorCard, profileCard, siteName) {
     const searchUrlLink =
         createLink(`https://www.google.com/search?q=${encodedSearchString}&btnI`, siteName);
 
-    profileCard.append(lineBreak, searchUrlLink);
+    linksContainer.append(lineBreak, searchUrlLink);
 }
 
 function appendReviewsInfoToHeader() {
