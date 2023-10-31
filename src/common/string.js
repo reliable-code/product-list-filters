@@ -3,7 +3,7 @@ export function removeNonDigit(stringValue) {
 }
 
 export function removeNonNumber(stringValue) {
-    return stringValue.replace(/[^\d.-]/g, '');
+    return stringValue.replace(/[^\d.,-]/g, '');
 }
 
 export function removeSpaces(stringValue) {
