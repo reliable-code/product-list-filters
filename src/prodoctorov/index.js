@@ -33,6 +33,7 @@ const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 if (appointmentsPage) {
     setInterval(initListClean, 100);
 } else {
+    appendDoctorPageAdditionalLinks();
     appendReviewsInfoToHeader();
     appendDoctorContactLink();
 }
@@ -141,6 +142,19 @@ function appendAdditionalLink(doctorName, linksContainer, siteName) {
         createLink(`https://www.google.com/search?q=${encodedSearchString}&btnI`, siteName);
 
     linksContainer.append(lineBreak, searchUrlLink);
+}
+
+function appendDoctorPageAdditionalLinks() {
+    const doctorCardName = getFirstElement('.b-doctor-intro__title-first-line [itemprop="name"]', document, true);
+    if (doctorCardName) {
+        const doctorName = doctorCardName.innerText.trim();
+        const linksContainer = createDiv();
+        linksContainer.style.textAlign = 'center';
+        const doctorIntroLeft = getFirstElement('.b-doctor-intro__left-side');
+        doctorIntroLeft.append(linksContainer);
+
+        appendAdditionalLinks(doctorName, linksContainer);
+    }
 }
 
 function appendReviewsInfoToHeader() {
