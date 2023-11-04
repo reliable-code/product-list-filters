@@ -26,18 +26,18 @@ const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
 const COMMENTS_SELECTOR = '#comments';
 
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
-const SEARCH_RESULT_SELECTOR = '.widget-search-result-container';
+const PRODUCT_CARDS_WRAP_SELECTOR = '.widget-search-result-container > div';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
 const CATEGORY_NAME = getCategoryName();
 
 const minReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, 50);
+    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, 50, cleanList);
 const minRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
+    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
 const filterEnabled =
-    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
+    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -63,7 +63,12 @@ function initListClean() {
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-            setInterval(cleanList, 100);
+            const productCardsWrap = getFirstElement(PRODUCT_CARDS_WRAP_SELECTOR, document, true);
+            const observer = new MutationObserver(cleanList);
+
+            observer.observe(productCardsWrap, {
+                childList: true,
+            });
         });
 }
 
@@ -115,8 +120,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const searchResultContainer = getFirstElement(SEARCH_RESULT_SELECTOR, document, true);
-    const productCardsWrap = getFirstElement(':scope > div', searchResultContainer, true);
+    const productCardsWrap = getFirstElement(PRODUCT_CARDS_WRAP_SELECTOR, document, true);
     const productCards = getAllElements(':scope > div', productCardsWrap);
 
     productCards.forEach(
