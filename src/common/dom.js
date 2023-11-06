@@ -105,6 +105,15 @@ export function createLink(href = null, innerHTML = null, style = null) {
     return link;
 }
 
+export function createButton(innerHTML = null, onClick = null, style = null) {
+    const button = document.createElement('button');
+    if (innerHTML) button.innerHTML = innerHTML;
+    if (onClick) button.onclick = onClick;
+    if (style) button.style = style;
+
+    return button;
+}
+
 export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
     const element = getFirstElement(selector, parentNode, true);
     const elementNumber = getElementInnerNumber(element, cleanText);
