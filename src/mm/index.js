@@ -10,17 +10,20 @@ import {
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createMaxPriceFilterControl,
     createMinCashbackFilterControl,
 } from '../common/filter';
 
 const minCashbackFilter = new StorageValue('min-cashback-filter', 20);
+const maxPriceFilter = new StorageValue('max-price-filter', '100000');
 const filterEnabled = new StorageValue('filter-enabled', true);
 
 const PRODUCT_CARD_LIST_HEADER = '.catalog-listing-header';
 const PRODUCT_CARD_SELECTOR = '.catalog-item';
 const PRODUCT_CARD_PRICE_SELECTOR = '.item-price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
-const BALANCED_CASHBACK_PRICE_ADDED_CLASS = 'balancedCashbackPriceAdded';
+const PRICE_ATTR = 'price';
+const BALANCED_CASHBACK_PRICE_ATTR = 'balanced-cashback-price';
 
 setInterval(initListClean, 100);
 
@@ -60,10 +63,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minCashbackDiv =
         createMinCashbackFilterControl(minCashbackFilter, controlStyle, numberInputStyle);
 
+    const maxPriceDiv =
+        createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle);
+
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minCashbackDiv, filterEnabledDiv);
+    filtersContainer.append(minCashbackDiv, maxPriceDiv, filterEnabledDiv);
 
     parentNode.append(filtersContainer);
 }
@@ -90,12 +96,19 @@ function cleanList() {
 
             const productCardCashbackNumber = getElementInnerNumber(productCardCashback, true);
 
-            const conditionToHide = productCardCashbackNumber < minCashbackFilter.value;
+            const productCardPrice =
+                addBalancedCashbackPriceIfNeeded(productCard, productCardCashbackNumber);
+            // const price =
+            //     +productCardPrice.getAttribute(PRICE_ATTR);
+            const balancedCashbackPrice =
+                +productCardPrice.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
+
+            const conditionToHide =
+                productCardCashbackNumber < minCashbackFilter.value
+                || balancedCashbackPrice > maxPriceFilter.value;
             showHideElement(
                 productCard, conditionToHide, 'flex',
             );
-
-            addBalancedCashbackPriceIfNeeded(productCard, productCardCashbackNumber);
         },
     );
 }
@@ -103,9 +116,11 @@ function cleanList() {
 function addBalancedCashbackPriceIfNeeded(productCard, productCardCashbackNumber) {
     const productCardPrice = getFirstElement(PRODUCT_CARD_PRICE_SELECTOR, productCard);
 
-    if (productCardPrice.classList.contains(BALANCED_CASHBACK_PRICE_ADDED_CLASS)) return;
+    if (!productCardPrice.hasAttribute(BALANCED_CASHBACK_PRICE_ATTR)) {
+        addBalancedCashbackPrice(productCardPrice, productCardCashbackNumber);
+    }
 
-    addBalancedCashbackPrice(productCardPrice, productCardCashbackNumber);
+    return productCardPrice;
 }
 
 function addBalancedCashbackPrice(productCardPrice, productCardCashbackNumber) {
@@ -122,7 +137,8 @@ function addBalancedCashbackPrice(productCardPrice, productCardCashbackNumber) {
         `${productCardPriceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
     productCardPriceSpan.innerText = newProductCardPriceSpanText;
 
-    productCardPrice.classList.add(BALANCED_CASHBACK_PRICE_ADDED_CLASS);
+    productCardPrice.setAttribute(PRICE_ATTR, productCardPriceNumber);
+    productCardPrice.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);
 }
 
 function getBalancedCashbackPrice(price, cashback) {
