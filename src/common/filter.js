@@ -122,6 +122,22 @@ export function createMinCashbackFilterControl(
     );
 }
 
+export function createMaxPriceFilterControl(
+    storageValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createFilterControlNumber(
+        'Максимальная цена: ',
+        storageValue,
+        '100',
+        '0',
+        '1000000',
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createNoRatingFilterControl(
     storageValue,
     controlStyle = null,
