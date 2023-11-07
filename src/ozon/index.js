@@ -158,7 +158,7 @@ function cleanList() {
 }
 
 function appendBadReviewsLinkAndRatingValue() {
-    waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR, 1500)
+    waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR)
         .then((productReviewsWrap) => {
             if (!productReviewsWrap) return;
 
@@ -208,7 +208,7 @@ function appendRatingValue(productReviewsWrap) {
         .then((createReviewButton) => {
             const reviewsInfoContainer = createReviewButton.parentNode;
 
-            waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]', 2000)
+            waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]')
                 .then((ratingInfoContainer) => {
                     const ratingValueContainer =
                         ratingInfoContainer.children[0].children[0].children[1];
