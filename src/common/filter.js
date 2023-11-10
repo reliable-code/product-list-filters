@@ -130,7 +130,7 @@ export function createMaxPriceFilterControl(
     return createFilterControlNumber(
         'Максимальная цена: ',
         storageValue,
-        '100',
+        '500',
         '0',
         '1000000',
         controlStyle,
