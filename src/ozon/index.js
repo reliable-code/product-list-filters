@@ -17,6 +17,7 @@ import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createMaxReviewsFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
 } from '../common/filter';
@@ -34,6 +35,8 @@ const CATEGORY_NAME = getCategoryName();
 
 const minReviewsFilter =
     new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, 50, cleanList);
+const maxReviewsFilter =
+    new StorageValue(`${CATEGORY_NAME}-max-reviews-filter`, 999999, cleanList);
 const minRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
 const filterEnabled =
@@ -100,13 +103,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
 
+    const maxReviewsDiv =
+        createMaxReviewsFilterControl(maxReviewsFilter, controlStyle, numberInputStyle);
+
     const minRatingDiv =
         createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minReviewsDiv, minRatingDiv, filterEnabledDiv);
+    filtersContainer.append(minReviewsDiv, maxReviewsDiv, minRatingDiv, filterEnabledDiv);
 
     parentNode.append(filtersContainer);
 
@@ -151,6 +157,7 @@ function cleanList() {
 
             const conditionToHide =
                 productCardReviewsNumber < minReviewsFilter.value ||
+                productCardReviewsNumber > maxReviewsFilter.value ||
                 productCardRatingNumber < minRatingFilter.value;
             showHideElement(productCard, conditionToHide, 'flex');
         },
