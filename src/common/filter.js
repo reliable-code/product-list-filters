@@ -63,8 +63,35 @@ export function createMinReviewsFilterControl(
     controlStyle = null,
     inputStyle = null,
 ) {
-    return createFilterControlNumber(
+    return createReviewsFilterControl(
         'Минимально отзывов: ',
+        storageValue,
+        controlStyle,
+        inputStyle,
+    );
+}
+
+export function createMaxReviewsFilterControl(
+    storageValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createReviewsFilterControl(
+        'Максимально отзывов: ',
+        storageValue,
+        controlStyle,
+        inputStyle,
+    );
+}
+
+export function createReviewsFilterControl(
+    titleText,
+    storageValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createFilterControlNumber(
+        titleText,
         storageValue,
         '1',
         '1',
