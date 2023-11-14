@@ -1,4 +1,4 @@
-import { getInputValueFromEvent, parseValue } from './dom';
+import { getInputValueFromEvent, InputValueBase, parseValue } from './dom';
 
 const storage = localStorage;
 
@@ -16,15 +16,14 @@ export function setStorageValueFromEvent(event, keyName) {
     return inputValue;
 }
 
-export class StorageValue {
+export class StorageValue extends InputValueBase {
     constructor(storageKey, defaultValue = null, onChange = null) {
-        this.value = getStorageValueOrDefault(storageKey, defaultValue);
+        super(getStorageValueOrDefault(storageKey, defaultValue), onChange);
         this.storageKey = storageKey;
-        this.onChange = onChange;
     }
 
     updateValueFromEvent = (event) => {
         this.value = setStorageValueFromEvent(event, this.storageKey);
-        if (this.onChange) this.onChange();
+        this.onChangeIfDefined();
     };
 }

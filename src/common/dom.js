@@ -193,15 +193,25 @@ export function getInputValueFromEvent(event) {
     return parseValue(inputValue);
 }
 
-export class InputValue {
-    constructor(defaultValue, onChange = null) {
-        this.value = defaultValue;
+export class InputValueBase {
+    constructor(value, onChange) {
+        this.value = value;
         this.onChange = onChange;
+    }
+
+    onChangeIfDefined = () => {
+        if (this.onChange) this.onChange();
+    };
+}
+
+export class InputValue extends InputValueBase {
+    constructor(defaultValue = null, onChange = null) {
+        super(defaultValue, onChange);
     }
 
     updateValueFromEvent = (event) => {
         this.value = getInputValueFromEvent(event);
-        if (this.onChange) this.onChange();
+        this.onChangeIfDefined();
     };
 }
 
