@@ -34,9 +34,9 @@ const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 const CATEGORY_NAME = getCategoryName();
 
 const minReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, 50, cleanList);
+    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
 const maxReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-max-reviews-filter`, 999999, cleanList);
+    new StorageValue(`${CATEGORY_NAME}-max-reviews-filter`, null, cleanList);
 const minRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
 const filterEnabled =
