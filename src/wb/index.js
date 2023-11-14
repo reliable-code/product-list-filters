@@ -12,6 +12,7 @@ import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
+    isLessThanFilter,
 } from '../common/filter';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
@@ -25,7 +26,7 @@ const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 const CATEGORY_NAME = getCategoryName();
 
 const minReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, 50);
+    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`);
 const minRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
 const filterEnabled =
@@ -152,8 +153,8 @@ function cleanList() {
                 getFirstElementInnerNumber(productCard, PRODUCT_CARD_PRICE_SELECTOR, true);
 
             const conditionToHide =
-                productCardReviewsNumber < minReviewsFilter.value ||
-                productCardRatingNumber < minRatingFilter.value ||
+                isLessThanFilter(productCardReviewsNumber, minReviewsFilter.value) ||
+                isLessThanFilter(productCardRatingNumber, minRatingFilter.value) ||
                 productCardPriceNumber < minPriceValue;
             showHideElement(productCard, conditionToHide);
         },
