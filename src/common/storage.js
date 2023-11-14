@@ -16,7 +16,7 @@ export function setStorageValueFromEvent(event, keyName) {
 }
 
 export class StorageValue {
-    constructor(storageKey, defaultValue, onChange = null) {
+    constructor(storageKey, defaultValue = null, onChange = null) {
         this.value = getStorageValueOrDefault(storageKey, defaultValue);
         this.storageKey = storageKey;
         this.onChange = onChange;
