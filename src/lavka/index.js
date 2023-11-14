@@ -12,9 +12,10 @@ import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createMinDiscountFilterControl,
+    isLessThanFilter,
 } from '../common/filter';
 
-const minDiscountFilter = new StorageValue('min-discount-filter', 20);
+const minDiscountFilter = new StorageValue('min-discount-filter');
 const filterEnabled = new StorageValue('filter-enabled', true);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
@@ -75,7 +76,8 @@ function cleanList(productCardLinks) {
 
             const discountValue = +removeNonDigit(promoLabelText);
 
-            showHideElement(productCard, discountValue < minDiscountFilter.value);
+            const conditionToHide = isLessThanFilter(discountValue, minDiscountFilter.value);
+            showHideElement(productCard, conditionToHide);
         },
     );
 }
