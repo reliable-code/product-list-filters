@@ -12,6 +12,7 @@ import {
     createFilterControlCheckbox,
     createMinRatingFilterControl,
     createNoRatingFilterControl,
+    isLessThanFilter,
 } from '../common/filter';
 
 const CATEGORY_NAME = getCategoryName();
@@ -125,7 +126,9 @@ function cleanList() {
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
-            defineElementOpacity(productCard, productCardRatingNumber < minRatingFilter.value);
+            const conditionToDefine =
+                isLessThanFilter(productCardRatingNumber, minRatingFilter.value);
+            defineElementOpacity(productCard, conditionToDefine);
         },
     );
 }
