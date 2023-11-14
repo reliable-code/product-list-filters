@@ -13,6 +13,7 @@ import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
+    isLessThanFilter,
 } from '../common/filter';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
@@ -23,7 +24,7 @@ const PRODUCT_CARD_PARENT_ATTRIBUTE = 'data-apiary-widget-name';
 const CATEGORY_NAME = getCategoryName();
 
 const minReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, 50);
+    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`);
 const minRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
 const filterEnabled =
@@ -125,8 +126,8 @@ function cleanList() {
             const productCardRatingNumber = getArrayElementInnerNumber(ratingInfoSpans, 0);
 
             const conditionToHide =
-                productCardReviewsNumber < minReviewsFilter.value ||
-                productCardRatingNumber < minRatingFilter.value;
+                isLessThanFilter(productCardReviewsNumber, minReviewsFilter.value) ||
+                isLessThanFilter(productCardRatingNumber, minRatingFilter.value);
             showHideElement(productCard, conditionToHide);
         },
     );
