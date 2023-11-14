@@ -13,6 +13,7 @@ import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createMinReviewsFilterControl,
+    isLessThanFilter,
 } from '../common/filter';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
@@ -108,9 +109,8 @@ function cleanList() {
 
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
-            showHideElement(
-                doctorCard, reviewsLinkNumber < minReviewsFilter.value, 'flex',
-            );
+            const conditionToHide = isLessThanFilter(reviewsLinkNumber, minReviewsFilter.value);
+            showHideElement(doctorCard, conditionToHide, 'flex');
 
             const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
             const doctorName = doctorCardName.innerText;
