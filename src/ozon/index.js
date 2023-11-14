@@ -20,6 +20,8 @@ import {
     createMaxReviewsFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
+    isGreaterThanFilter,
+    isLessThanFilter,
 } from '../common/filter';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
@@ -156,9 +158,9 @@ function cleanList() {
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
 
             const conditionToHide =
-                productCardReviewsNumber < minReviewsFilter.value ||
-                productCardReviewsNumber > maxReviewsFilter.value ||
-                productCardRatingNumber < minRatingFilter.value;
+                isLessThanFilter(productCardReviewsNumber, minReviewsFilter.value) ||
+                isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter.value) ||
+                isLessThanFilter(productCardRatingNumber, minRatingFilter.value);
             showHideElement(productCard, conditionToHide, 'flex');
         },
     );

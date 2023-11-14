@@ -207,3 +207,11 @@ export function appendFilterControlsIfNeeded(
 
     appendFiltersContainerFunc(filtersContainer, parentNode);
 }
+
+export function isLessThanFilter(parameterValue, filterValue) {
+    return filterValue && parameterValue < filterValue;
+}
+
+export function isGreaterThanFilter(parameterValue, filterValue) {
+    return filterValue && parameterValue > filterValue;
+}
