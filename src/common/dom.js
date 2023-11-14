@@ -192,6 +192,17 @@ export function getInputValueFromEvent(event) {
 
     return parseValue(inputValue);
 }
+
+export class InputValue {
+    constructor(defaultValue, onChange = null) {
+        this.value = defaultValue;
+        this.onChange = onChange;
+    }
+
+    updateValueFromEvent = (event) => {
+        this.value = getInputValueFromEvent(event);
+        if (this.onChange) this.onChange();
+    };
 }
 
 export function parseValue(value) {
