@@ -13,6 +13,7 @@ import {
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createMinVotesFilterControl,
+    isLessThanFilter,
 } from '../common/filter';
 
 const minVotesFilter = new StorageValue('min-votes-filter', 100);
@@ -120,9 +121,9 @@ function cleanList(productCards) {
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
-            defineElementOpacity(
-                productCard, productCardRatingNumber < minVotesFilter.value,
-            );
+            const conditionToDefine =
+                isLessThanFilter(productCardRatingNumber, minVotesFilter.value);
+            defineElementOpacity(productCard, conditionToDefine);
         },
     );
 }
