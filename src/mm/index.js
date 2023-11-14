@@ -4,6 +4,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
     hideElement,
+    InputValue,
     showElement,
     showHideElement,
 } from '../common/dom';
@@ -16,7 +17,7 @@ import {
 
 const minCashbackFilter = new StorageValue('min-cashback-filter', 20);
 const maxPriceFilter = new StorageValue('max-price-filter', '100000');
-const filterEnabled = new StorageValue('filter-enabled', true);
+const filterEnabled = new InputValue(false);
 
 const PRODUCT_CARD_LIST_HEADER = '.catalog-listing-header';
 const PRODUCT_CARD_SELECTOR = '.catalog-item';
