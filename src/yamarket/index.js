@@ -126,8 +126,8 @@ function cleanList() {
             const productCardRatingNumber = getArrayElementInnerNumber(ratingInfoSpans, 0);
 
             const conditionToHide =
-                isLessThanFilter(productCardReviewsNumber, minReviewsFilter.value) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter.value);
+                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+                isLessThanFilter(productCardRatingNumber, minRatingFilter);
             showHideElement(productCard, conditionToHide);
         },
     );

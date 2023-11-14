@@ -158,9 +158,9 @@ function cleanList() {
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
 
             const conditionToHide =
-                isLessThanFilter(productCardReviewsNumber, minReviewsFilter.value) ||
-                isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter.value) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter.value);
+                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+                isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
+                isLessThanFilter(productCardRatingNumber, minRatingFilter);
             showHideElement(productCard, conditionToHide, 'flex');
         },
     );

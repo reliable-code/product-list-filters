@@ -107,8 +107,8 @@ function cleanList() {
                 +productCardPrice.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
 
             const conditionToHide =
-                isLessThanFilter(productCardCashbackNumber, minCashbackFilter.value) ||
-                isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter.value);
+                isLessThanFilter(productCardCashbackNumber, minCashbackFilter) ||
+                isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter);
             showHideElement(productCard, conditionToHide, 'flex');
         },
     );

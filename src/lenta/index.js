@@ -127,7 +127,7 @@ function cleanList() {
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
             const conditionToDefine =
-                isLessThanFilter(productCardRatingNumber, minRatingFilter.value);
+                isLessThanFilter(productCardRatingNumber, minRatingFilter);
             defineElementOpacity(productCard, conditionToDefine);
         },
     );

@@ -153,8 +153,8 @@ function cleanList() {
                 getFirstElementInnerNumber(productCard, PRODUCT_CARD_PRICE_SELECTOR, true);
 
             const conditionToHide =
-                isLessThanFilter(productCardReviewsNumber, minReviewsFilter.value) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter.value) ||
+                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+                isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 productCardPriceNumber < minPriceValue;
             showHideElement(productCard, conditionToHide);
         },

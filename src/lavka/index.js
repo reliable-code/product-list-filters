@@ -76,7 +76,7 @@ function cleanList(productCardLinks) {
 
             const discountValue = +removeNonDigit(promoLabelText);
 
-            const conditionToHide = isLessThanFilter(discountValue, minDiscountFilter.value);
+            const conditionToHide = isLessThanFilter(discountValue, minDiscountFilter);
             showHideElement(productCard, conditionToHide);
         },
     );

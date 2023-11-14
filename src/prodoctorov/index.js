@@ -109,7 +109,7 @@ function cleanList() {
 
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
-            const conditionToHide = isLessThanFilter(reviewsLinkNumber, minReviewsFilter.value);
+            const conditionToHide = isLessThanFilter(reviewsLinkNumber, minReviewsFilter);
             showHideElement(doctorCard, conditionToHide, 'flex');
 
             const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
