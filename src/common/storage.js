@@ -1,10 +1,6 @@
-import { getInputValueFromEvent } from './dom';
+import { getInputValueFromEvent, parseValue } from './dom';
 
 const storage = localStorage;
-
-function parseValue(value) {
-    return value === '' ? null : JSON.parse(value);
-}
 
 export function getStorageValueOrDefault(key, defaultValue) {
     const localStorageItem = storage.getItem(key);

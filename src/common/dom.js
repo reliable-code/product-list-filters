@@ -192,3 +192,7 @@ export function getInputValueFromEvent(event) {
 
     return valueToSet;
 }
+
+export function parseValue(value) {
+    return value === '' ? null : JSON.parse(value);
+}
