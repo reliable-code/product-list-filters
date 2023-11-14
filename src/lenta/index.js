@@ -1,9 +1,9 @@
 import {
+    defineElementOpacity,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    showElement,
-    showHideElement,
+    resetElementOpacity,
 } from '../common/dom';
 import { StorageValue } from '../common/storage';
 import {
@@ -42,7 +42,7 @@ function getCategoryName() {
     return categoryName;
 }
 
-setInterval(initListClean, 500);
+setInterval(initListClean, 100);
 
 function initListClean() {
     const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
@@ -110,7 +110,7 @@ function cleanList() {
             }
 
             if (!filterEnabled.value) {
-                showElement(productCard);
+                resetElementOpacity(productCard);
 
                 return;
             }
@@ -118,14 +118,14 @@ function cleanList() {
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
             if (!productCardRating) {
-                showHideElement(productCard, !noRatingFilter.value);
+                defineElementOpacity(productCard, !noRatingFilter.value);
 
                 return;
             }
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
-            showHideElement(productCard, productCardRatingNumber < minRatingFilter.value);
+            defineElementOpacity(productCard, productCardRatingNumber < minRatingFilter.value);
         },
     );
 }
