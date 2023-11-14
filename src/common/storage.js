@@ -2,12 +2,14 @@ import { getInputValueFromEvent } from './dom';
 
 const storage = localStorage;
 
+function parseValue(value) {
+    return value === '' ? null : JSON.parse(value);
+}
+
 export function getStorageValueOrDefault(key, defaultValue) {
     const localStorageItem = storage.getItem(key);
 
-    if (localStorageItem === null) return defaultValue;
-
-    return localStorageItem === '' ? null : JSON.parse(localStorageItem);
+    return localStorageItem === null ? defaultValue : parseValue(localStorageItem);
 }
 
 export function setStorageValueFromEvent(event, keyName) {
