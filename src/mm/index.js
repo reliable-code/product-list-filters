@@ -13,10 +13,12 @@ import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
+    isGreaterThanFilter,
+    isLessThanFilter,
 } from '../common/filter';
 
-const minCashbackFilter = new StorageValue('min-cashback-filter', 20);
-const maxPriceFilter = new StorageValue('max-price-filter', '100000');
+const minCashbackFilter = new StorageValue('min-cashback-filter');
+const maxPriceFilter = new StorageValue('max-price-filter');
 const filterEnabled = new InputValue(false);
 
 const PRODUCT_CARD_LIST_HEADER = '.catalog-listing-header';
@@ -105,11 +107,9 @@ function cleanList() {
                 +productCardPrice.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
 
             const conditionToHide =
-                productCardCashbackNumber < minCashbackFilter.value
-                || balancedCashbackPrice > maxPriceFilter.value;
-            showHideElement(
-                productCard, conditionToHide, 'flex',
-            );
+                isLessThanFilter(productCardCashbackNumber, minCashbackFilter.value) ||
+                isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter.value);
+            showHideElement(productCard, conditionToHide, 'flex');
         },
     );
 }
