@@ -174,3 +174,21 @@ export function addGlobalStyle(css) {
     style.textContent = css;
     document.head.appendChild(style);
 }
+
+export function getInputValueFromEvent(event) {
+    const { target } = event;
+    const { type } = target;
+
+    let valueToSet;
+
+    if (type === 'number') {
+        valueToSet = target.value;
+    } else if (type === 'checkbox') {
+        valueToSet = target.checked;
+    } else {
+        console.log(`Unknown input type: ${type}`);
+        return null;
+    }
+
+    return valueToSet;
+}

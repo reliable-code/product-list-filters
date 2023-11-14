@@ -1,3 +1,4 @@
+import { getInputValueFromEvent } from './dom';
 const storage = localStorage;
 
 export function getStorageValueOrDefault(key, defaultValue) {
@@ -7,19 +8,7 @@ export function getStorageValueOrDefault(key, defaultValue) {
 }
 
 export function setStorageValueFromEvent(event, keyName) {
-    const { target } = event;
-    const { type } = target;
-
-    let valueToSet;
-
-    if (type === 'number') {
-        valueToSet = target.value;
-    } else if (type === 'checkbox') {
-        valueToSet = target.checked;
-    } else {
-        console.log(`Unknown input type: ${type}`);
-        return null;
-    }
+    const valueToSet = getInputValueFromEvent(event);
 
     storage.setItem(keyName, valueToSet);
 
