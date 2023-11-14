@@ -17,7 +17,7 @@ export function setStorageValueFromEvent(event, keyName) {
 
     storage.setItem(keyName, valueToSet);
 
-    return valueToSet;
+    return parseValue(valueToSet);
 }
 
 export class StorageValue {
