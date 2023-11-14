@@ -9,11 +9,11 @@ export function getStorageValueOrDefault(key, defaultValue) {
 }
 
 export function setStorageValueFromEvent(event, keyName) {
-    const valueToSet = getInputValueFromEvent(event);
+    const inputValue = getInputValueFromEvent(event);
 
-    storage.setItem(keyName, valueToSet);
+    storage.setItem(keyName, inputValue);
 
-    return parseValue(valueToSet);
+    return inputValue;
 }
 
 export class StorageValue {
