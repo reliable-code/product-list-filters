@@ -156,18 +156,16 @@ function addDiscountedPriceIfNeeded(productCard) {
 
     if (productCardPrice.classList.contains(DISCOUNTED_PRICE_ADDED_CLASS)) return;
 
-    addDiscountedPrice(productCardPrice);
+    addDiscountedPrice(productCard, productCardPrice);
 }
 
-function addDiscountedPrice(productCardPrice) {
-    const productCardPriceNumber =
-        getElementInnerNumber(productCardPrice, true, true);
+function addDiscountedPrice(productCard, productCardPrice) {
+    const productCardPriceNumber = productCard.getAttribute('price');
 
-    const discountedPrice = productCardPriceNumber * (1 - CURRENT_DISCOUNT);
+    const discountedPrice = (productCardPriceNumber * (1 - CURRENT_DISCOUNT)).toFixed();
+    productCard.setAttribute('price', discountedPrice);
 
-    const newProductCardPriceText =
-        `${productCardPriceNumber.toFixed()} (${discountedPrice.toFixed()}) ₽`;
-    productCardPrice.innerText = newProductCardPriceText;
+    productCardPrice.innerText = `${productCardPriceNumber} (${discountedPrice}) ₽`;
 
     productCardPrice.classList.add(DISCOUNTED_PRICE_ADDED_CLASS);
 }
