@@ -92,13 +92,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function expandProductCardName(productCard) {
-    const productCardName = getFirstElement('.lu-product-card-name_new', productCard);
-    if (!productCardName) return;
-    productCardName.style.display = 'inline-block';
-    productCardName.style.height = '91px';
-}
-
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
@@ -131,6 +124,15 @@ function cleanList() {
             defineElementOpacity(productCard, conditionToDefine);
         },
     );
+}
+
+function expandProductCardName(productCard) {
+    const productCardName = getFirstElement('.lu-product-card-name_new', productCard);
+
+    if (!productCardName) return;
+
+    productCardName.style.display = 'inline-block';
+    productCardName.style.height = '91px';
 }
 
 function addDiscountedPriceIfNeeded(productCard) {
