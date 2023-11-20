@@ -18,7 +18,7 @@ import {
 const CATEGORY_NAME = getCategoryName();
 
 const minRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`);
+    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.1);
 const noRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-no-rating-filter`, false);
 const filterEnabled =
