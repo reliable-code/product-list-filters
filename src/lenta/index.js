@@ -4,6 +4,8 @@ import {
     getElementInnerNumber,
     getFirstElement,
     resetElementOpacity,
+    resetElementOrder,
+    setElementOrder,
 } from '../common/dom';
 import { StorageValue } from '../common/storage';
 import {
@@ -103,10 +105,18 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             expandProductCardName(productCard);
+
             addPriceAttributeIfNeeded(productCard);
 
             if (discountEnabled.value) {
                 addDiscountedPriceIfNeeded(productCard);
+            }
+
+            if (sortEnabled.value) {
+                const productCardOrder = productCard.getAttribute('price');
+                setElementOrder(productCard, productCardOrder);
+            } else {
+                resetElementOrder(productCard);
             }
 
             if (!filterEnabled.value) {
