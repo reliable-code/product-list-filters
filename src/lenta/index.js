@@ -98,6 +98,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             expandProductCardName(productCard);
+            addPriceAttributeIfNeeded(productCard);
 
             if (discountEnabled.value) {
                 addDiscountedPriceIfNeeded(productCard);
@@ -133,6 +134,19 @@ function expandProductCardName(productCard) {
 
     productCardName.style.display = 'inline-block';
     productCardName.style.height = '91px';
+}
+
+function addPriceAttributeIfNeeded(productCard) {
+    if (productCard.hasAttribute('price')) return;
+
+    const productCardPrice = getFirstElement('.main-price', productCard);
+
+    if (!productCardPrice) return;
+
+    const productCardPriceNumber =
+        getElementInnerNumber(productCardPrice, true, true);
+
+    productCard.setAttribute('price', productCardPriceNumber.toFixed());
 }
 
 function addDiscountedPriceIfNeeded(productCard) {
