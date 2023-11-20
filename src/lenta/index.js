@@ -25,6 +25,8 @@ const filterEnabled =
     new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
 const discountEnabled =
     new StorageValue('discount-enabled', true);
+const sortEnabled =
+    new StorageValue('sort-enabled', true);
 
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
@@ -87,7 +89,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const discountEnabledDiv =
         createFilterControlCheckbox('Скидка:', discountEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minRatingDiv, noRatingDiv, filterEnabledDiv, discountEnabledDiv);
+    const sortEnabledDiv =
+        createFilterControlCheckbox('Сортировка:', sortEnabled, controlStyle, checkboxInputStyle);
+
+    filtersContainer.append(minRatingDiv, noRatingDiv, filterEnabledDiv, discountEnabledDiv, sortEnabledDiv);
 
     parentNode.prepend(filtersContainer);
 }
