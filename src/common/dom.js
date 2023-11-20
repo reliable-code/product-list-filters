@@ -49,11 +49,19 @@ export function defineElementOpacity(element, conditionToDefine, opacity = 0.2) 
 }
 
 export function resetElementOpacity(element) {
-    element.style.opacity = 1;
+    element.style.opacity = '';
 }
 
 export function setElementOpacity(element, opacity = 0.2) {
     element.style.opacity = opacity;
+}
+
+export function resetElementOrder(element) {
+    element.style.order = '';
+}
+
+export function setElementOrder(element, order) {
+    element.style.order = order;
 }
 
 export function setElementBackground(element, background) {
