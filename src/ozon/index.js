@@ -98,11 +98,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const controlStyle =
         'display: flex;' +
         'align-items: center;';
-    const textInputStyle =
+    const inputStyle =
         'margin-left: 5px;' +
         'border: 2px solid #b3bcc5;' +
         'border-radius: 6px;' +
-        'padding: 6px 10px;' +
+        'padding: 6px 10px;';
+    const textInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'width: 190px;';
+    const numberInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
         'width: 90px;';
     const checkboxInputStyle =
         'margin-left: 5px;' +
@@ -113,13 +118,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createNameFilterControl(nameFilter, controlStyle, textInputStyle);
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, controlStyle, textInputStyle);
+        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
 
     const maxReviewsDiv =
-        createMaxReviewsFilterControl(maxReviewsFilter, controlStyle, textInputStyle);
+        createMaxReviewsFilterControl(maxReviewsFilter, controlStyle, numberInputStyle);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, controlStyle, textInputStyle);
+        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
