@@ -64,6 +64,19 @@ export function createFilterControlCheckbox(
     return filterControl;
 }
 
+export function createNameFilterControl(
+    inputValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createFilterControlText(
+        'Содержит: ',
+        inputValue,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createMinRatingFilterControl(
     inputValue,
     controlStyle = null,
