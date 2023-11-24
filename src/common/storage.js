@@ -8,14 +8,6 @@ function getStorageValueOrDefault(key, defaultValue) {
     return localStorageItem === null ? defaultValue : parseValue(localStorageItem);
 }
 
-function setStorageValueFromEvent(event, keyName) {
-    const inputValue = getInputValueFromEvent(event);
-
-    storage.setItem(keyName, inputValue);
-
-    return parseValue(inputValue);
-}
-
 export class StorageValue extends InputValueBase {
     constructor(storageKey, defaultValue = null, onChange = null) {
         super(getStorageValueOrDefault(storageKey, defaultValue), onChange);
@@ -23,7 +15,14 @@ export class StorageValue extends InputValueBase {
     }
 
     updateValueFromEvent = (event) => {
-        this.value = setStorageValueFromEvent(event, this.storageKey);
+        const newValue = getInputValueFromEvent(event);
+        const newParsedValue = parseValue(newValue);
+
+        if (this.value === newParsedValue) return;
+
+        storage.setItem(this.storageKey, newValue);
+
+        this.value = newParsedValue;
         this.onChangeIfDefined();
     };
 }

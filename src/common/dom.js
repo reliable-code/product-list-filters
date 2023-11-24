@@ -194,10 +194,6 @@ export function addGlobalStyle(css) {
     document.head.appendChild(style);
 }
 
-function getParsedInputValueFromEvent(event) {
-    return parseValue(getInputValueFromEvent(event));
-}
-
 export function getInputValueFromEvent(event) {
     const { target } = event;
     const { type } = target;
@@ -232,7 +228,11 @@ export class InputValue extends InputValueBase {
     }
 
     updateValueFromEvent = (event) => {
-        this.value = getParsedInputValueFromEvent(event);
+        const newParsedValue = parseValue(getInputValueFromEvent(event));
+
+        if (this.value === newParsedValue) return;
+
+        this.value = newParsedValue;
         this.onChangeIfDefined();
     };
 }
