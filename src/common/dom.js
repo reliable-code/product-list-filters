@@ -68,15 +68,6 @@ export function setElementBackground(element, background) {
     element.style.background = background;
 }
 
-export function createInput(type = null, inputOnChange = null, style = null) {
-    const input = document.createElement('input');
-    if (type) input.type = type;
-    if (inputOnChange) input.addEventListener('change', inputOnChange);
-    if (style) input.style = style;
-
-    return input;
-}
-
 export function createNumberInput(
     inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
 ) {
@@ -92,6 +83,15 @@ export function createNumberInput(
 export function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
     const input = createInput('checkbox', inputOnChange, inputStyle);
     input.checked = isChecked;
+
+    return input;
+}
+
+export function createInput(type = null, inputOnChange = null, style = null) {
+    const input = document.createElement('input');
+    if (type) input.type = type;
+    if (inputOnChange) input.addEventListener('change', inputOnChange);
+    if (style) input.style = style;
 
     return input;
 }
