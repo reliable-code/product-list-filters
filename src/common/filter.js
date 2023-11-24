@@ -256,14 +256,15 @@ function isContainsFilter(parameterValue, filterValue) {
         .map((searchString) => searchString.trim());
 
     const {
-        include: includeSearchString,
-        notInclude: notIncludeSearchString,
+        include: includeSearchStrings,
+        notInclude: notIncludeSearchStrings,
     } =
         searchStrings.reduce((result, searchString) => {
             if (!searchString.startsWith('!')) {
                 result.include.push(searchString);
             } else {
-                result.notInclude.push(searchString.substring(1));
+                const notIncludeSearchString = searchString.substring(1);
+                if (notIncludeSearchString.length) result.notInclude.push(notIncludeSearchString);
             }
             return result;
         }, {
@@ -271,8 +272,8 @@ function isContainsFilter(parameterValue, filterValue) {
             notInclude: [],
         });
 
-    return includeSearchString.every((searchString) => comparedString.includes(searchString)) &&
-        notIncludeSearchString.every((searchString) => !comparedString.includes(searchString));
+    return includeSearchStrings.every((searchString) => comparedString.includes(searchString)) &&
+        notIncludeSearchStrings.every((searchString) => !comparedString.includes(searchString));
 }
 
 export function isLessThanFilter(parameterValue, filter) {
