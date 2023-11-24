@@ -255,7 +255,24 @@ function isContainsFilter(parameterValue, filterValue) {
         .split(',')
         .map((searchString) => searchString.trim());
 
-    return searchStrings.every((searchString) => comparedString.includes(searchString));
+    const {
+        include: includeSearchString,
+        notInclude: notIncludeSearchString,
+    } =
+        searchStrings.reduce((result, searchString) => {
+            if (!searchString.startsWith('!')) {
+                result.include.push(searchString);
+            } else {
+                result.notInclude.push(searchString.substring(1));
+            }
+            return result;
+        }, {
+            include: [],
+            notInclude: [],
+        });
+
+    return includeSearchString.every((searchString) => comparedString.includes(searchString)) &&
+        notIncludeSearchString.every((searchString) => !comparedString.includes(searchString));
 }
 
 export function isLessThanFilter(parameterValue, filter) {
