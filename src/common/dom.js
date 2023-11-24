@@ -190,26 +190,25 @@ export function addGlobalStyle(css) {
     document.head.appendChild(style);
 }
 
+function getParsedInputValueFromEvent(event) {
+    return parseValue(getInputValueFromEvent(event));
+}
+
 export function getInputValueFromEvent(event) {
     const { target } = event;
     const { type } = target;
 
-    let inputValue;
-
     switch (type) {
         case 'text':
+            return `"${target.value}"`;
         case 'number':
-            inputValue = target.value;
-            break;
+            return target.value;
         case 'checkbox':
-            inputValue = target.checked;
-            break;
+            return target.checked;
         default:
             console.log(`Unknown input type: ${type}`);
             return null;
     }
-
-    return parseValue(inputValue);
 }
 
 export class InputValueBase {
@@ -229,7 +228,7 @@ export class InputValue extends InputValueBase {
     }
 
     updateValueFromEvent = (event) => {
-        this.value = getInputValueFromEvent(event);
+        this.value = getParsedInputValueFromEvent(event);
         this.onChangeIfDefined();
     };
 }

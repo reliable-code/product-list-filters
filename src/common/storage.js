@@ -2,18 +2,18 @@ import { getInputValueFromEvent, InputValueBase, parseValue } from './dom';
 
 const storage = localStorage;
 
-export function getStorageValueOrDefault(key, defaultValue) {
+function getStorageValueOrDefault(key, defaultValue) {
     const localStorageItem = storage.getItem(key);
 
     return localStorageItem === null ? defaultValue : parseValue(localStorageItem);
 }
 
-export function setStorageValueFromEvent(event, keyName) {
+function setStorageValueFromEvent(event, keyName) {
     const inputValue = getInputValueFromEvent(event);
 
     storage.setItem(keyName, inputValue);
 
-    return inputValue;
+    return parseValue(inputValue);
 }
 
 export class StorageValue extends InputValueBase {
