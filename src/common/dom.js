@@ -97,7 +97,11 @@ export function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
 export function createInput(type = null, inputOnChange = null, style = null) {
     const input = document.createElement('input');
     if (type) input.type = type;
-    if (inputOnChange) input.addEventListener('change', inputOnChange);
+    if (inputOnChange) {
+        input.addEventListener('keyup', inputOnChange);
+        input.addEventListener('change', inputOnChange);
+    }
+
     if (style) input.style = style;
 
     return input;
