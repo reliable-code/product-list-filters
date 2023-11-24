@@ -68,6 +68,13 @@ export function setElementBackground(element, background) {
     element.style.background = background;
 }
 
+export function createTextInput(inputOnChange, inputStyle, inputValue) {
+    const input = createInput('text', inputOnChange, inputStyle);
+    input.value = inputValue;
+
+    return input;
+}
+
 export function createNumberInput(
     inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
 ) {
