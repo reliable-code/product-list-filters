@@ -243,6 +243,12 @@ export function appendFilterControlsIfNeeded(
     appendFiltersContainerFunc(filtersContainer, parentNode);
 }
 
+export function isNotContainsFilter(parameterValue, filter) {
+    return filter.value &&
+        !parameterValue.toLowerCase()
+            .includes(filter.value.toLowerCase());
+}
+
 export function isLessThanFilter(parameterValue, filter) {
     return filter.value && parameterValue < filter.value;
 }
