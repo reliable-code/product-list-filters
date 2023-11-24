@@ -1,6 +1,28 @@
 import {
- createCheckboxInput, createDiv, createNumberInput, getFirstElement,
+    createCheckboxInput,
+    createDiv,
+    createNumberInput,
+    createTextInput,
+    getFirstElement,
 } from './dom';
+
+export function createFilterControlText(
+    titleText,
+    inputValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    const filterControl = createDiv(titleText, controlStyle);
+    const input = createTextInput(
+        inputValue.updateValueFromEvent,
+        inputStyle,
+        inputValue.value,
+    );
+
+    filterControl.append(input);
+
+    return filterControl;
+}
 
 export function createFilterControlNumber(
     titleText,
