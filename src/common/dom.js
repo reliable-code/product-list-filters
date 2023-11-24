@@ -189,13 +189,17 @@ export function getInputValueFromEvent(event) {
 
     let inputValue;
 
-    if (type === 'text' || type === 'number') {
-        inputValue = target.value;
-    } else if (type === 'checkbox') {
-        inputValue = target.checked;
-    } else {
-        console.log(`Unknown input type: ${type}`);
-        return null;
+    switch (type) {
+        case 'text':
+        case 'number':
+            inputValue = target.value;
+            break;
+        case 'checkbox':
+            inputValue = target.checked;
+            break;
+        default:
+            console.log(`Unknown input type: ${type}`);
+            return null;
     }
 
     return parseValue(inputValue);
