@@ -189,7 +189,7 @@ export function getInputValueFromEvent(event) {
 
     let inputValue;
 
-    if (type === 'number') {
+    if (type === 'text' || type === 'number') {
         inputValue = target.value;
     } else if (type === 'checkbox') {
         inputValue = target.checked;
