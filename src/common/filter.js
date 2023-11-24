@@ -244,9 +244,18 @@ export function appendFilterControlsIfNeeded(
 }
 
 export function isNotContainsFilter(parameterValue, filter) {
-    return filter.value &&
-        !parameterValue.toLowerCase()
-            .includes(filter.value.toLowerCase());
+    if (!filter.value) return false;
+
+    return !isContainsFilter(parameterValue, filter.value);
+}
+
+function isContainsFilter(parameterValue, filterValue) {
+    const comparedString = parameterValue.toLowerCase();
+    const searchStrings = filterValue.toLowerCase()
+        .split(',')
+        .map((searchString) => searchString.trim());
+
+    return searchStrings.every((searchString) => comparedString.includes(searchString));
 }
 
 export function isLessThanFilter(parameterValue, filter) {
