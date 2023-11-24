@@ -20,8 +20,10 @@ import {
     createMaxReviewsFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
+    createNameFilterControl,
     isGreaterThanFilter,
     isLessThanFilter,
+    isNotContainsFilter,
 } from '../common/filter';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
@@ -30,11 +32,14 @@ const COMMENTS_SELECTOR = '#comments';
 
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 const PRODUCT_CARDS_WRAP_SELECTOR = '.widget-search-result-container > div';
+const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
 const CATEGORY_NAME = getCategoryName();
 
+const nameFilter =
+    new StorageValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
 const minReviewsFilter =
     new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
 const maxReviewsFilter =
@@ -88,33 +93,40 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     filtersContainer.style =
         'display: flex;' +
         'grid-gap: 15px;' +
-        'margin: 14px 0px 0px 15px;';
+        'margin-top: 14px;';
 
     const controlStyle =
         'display: flex;' +
         'align-items: center;';
-    const numberInputStyle =
+    const textInputStyle =
+        'margin-left: 5px;' +
         'border: 2px solid #b3bcc5;' +
         'border-radius: 6px;' +
         'padding: 6px 10px;' +
         'width: 90px;';
     const checkboxInputStyle =
+        'margin-left: 5px;' +
         'width: 25px;' +
         'height: 25px;';
 
+    const nameFilterDiv =
+        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
+        createMinReviewsFilterControl(minReviewsFilter, controlStyle, textInputStyle);
 
     const maxReviewsDiv =
-        createMaxReviewsFilterControl(maxReviewsFilter, controlStyle, numberInputStyle);
+        createMaxReviewsFilterControl(maxReviewsFilter, controlStyle, textInputStyle);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
+        createMinRatingFilterControl(minRatingFilter, controlStyle, textInputStyle);
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minReviewsDiv, maxReviewsDiv, minRatingDiv, filterEnabledDiv);
+    filtersContainer.append(
+        nameFilterDiv, minReviewsDiv, maxReviewsDiv, minRatingDiv, filterEnabledDiv,
+    );
 
     parentNode.append(filtersContainer);
 
@@ -139,14 +151,18 @@ function cleanList() {
                 return;
             }
 
+            const productCardNameWrap =
+                getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+
             const productCardRatingWrap =
                 getFirstElement(PRODUCT_CARD_RATING_WRAP_SELECTOR, productCard);
 
-            if (!productCardRatingWrap) {
+            if (!productCardNameWrap || !productCardRatingWrap) {
                 hideElement(productCard);
-
                 return;
             }
+
+            const productCardName = productCardNameWrap.innerText;
 
             const productCardRatingWrapSpans =
                 getAllElements(':scope > span', productCardRatingWrap, true);
@@ -158,6 +174,7 @@ function cleanList() {
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
 
             const conditionToHide =
+                isNotContainsFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
