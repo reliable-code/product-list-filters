@@ -124,7 +124,12 @@ function cleanList() {
 
     productCards.forEach(
         (productCard) => {
-            expandProductCardName(productCard);
+            const productCardNameWrap =
+                getFirstElement('.lu-product-card-name_new', productCard, true);
+
+            if (productCardNameWrap) {
+                expandProductCardNameWrap(productCardNameWrap);
+            }
 
             addPriceAttributeIfNeeded(productCard);
 
@@ -162,13 +167,9 @@ function cleanList() {
     );
 }
 
-function expandProductCardName(productCard) {
-    const productCardName = getFirstElement('.lu-product-card-name_new', productCard);
-
-    if (!productCardName) return;
-
-    productCardName.style.display = 'inline-block';
-    productCardName.style.height = '91px';
+function expandProductCardNameWrap(productCardNameWrap) {
+    productCardNameWrap.style.display = 'inline-block';
+    productCardNameWrap.style.height = '91px';
 }
 
 function addPriceAttributeIfNeeded(productCard) {
