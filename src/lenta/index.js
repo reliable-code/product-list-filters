@@ -16,6 +16,7 @@ import {
     createNameFilterControl,
     createNoRatingFilterControl,
     isLessThanFilter,
+    isNotMatchFilter,
 } from '../common/filter';
 
 const CATEGORY_NAME = getCategoryName();
@@ -126,9 +127,11 @@ function cleanList() {
         (productCard) => {
             const productCardNameWrap =
                 getFirstElement('.lu-product-card-name_new', productCard, true);
+            let productCardName = '';
 
             if (productCardNameWrap) {
                 expandProductCardNameWrap(productCardNameWrap);
+                productCardName = productCardNameWrap.innerText;
             }
 
             addPriceAttributeIfNeeded(productCard);
@@ -152,8 +155,9 @@ function cleanList() {
 
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
+            const isNotMatchNameFilter = isNotMatchFilter(productCardName, nameFilter);
             if (!productCardRating) {
-                defineElementOpacity(productCard, !noRatingFilter.value);
+                defineElementOpacity(productCard, isNotMatchNameFilter || !noRatingFilter.value);
 
                 return;
             }
@@ -161,6 +165,7 @@ function cleanList() {
             const productCardRatingNumber = getElementInnerNumber(productCardRating);
 
             const conditionToDefine =
+                isNotMatchNameFilter ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
             defineElementOpacity(productCard, conditionToDefine);
         },
