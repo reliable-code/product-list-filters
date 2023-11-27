@@ -60,6 +60,16 @@ function initListClean() {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
 
         cleanList();
+    } else {
+        const profileOrderPage = getFirstElement('lu-profile-order-page');
+
+        if (!profileOrderPage) return;
+
+        const profileOrderItems = getAllElements('lu-profile-order-item', profileOrderPage);
+        profileOrderItems.forEach((profileOrderItem) => {
+            const profileOrderItemWrap = profileOrderItem.parentNode;
+            profileOrderItemWrap.onclick = () => profileOrderItemWrap.remove();
+        });
     }
 }
 
