@@ -68,12 +68,19 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const controlStyle =
         'display: flex;' +
         'align-items: center;';
-    const numberInputStyle =
+    const inputStyle =
+        'margin-left: 5px;' +
         'border: 1px solid #C9C9C9;' +
         'border-radius: 8px;' +
         'height: 40px;' +
         'padding: 0 16px;';
+    const textInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'width: 170px;';
+    const numberInputStyle =
+        inputStyle; // eslint-disable-line prefer-template
     const checkboxInputStyle =
+        'margin-left: 5px;' +
         'border: 1px solid #C9C9C9;' +
         'border-radius: 4px;' +
         'width: 22px;' +
