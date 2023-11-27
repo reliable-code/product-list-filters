@@ -140,7 +140,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             const productCardNameWrap =
-                getFirstElement('.lu-product-card-name_new', productCard, true);
+                getFirstElement('.lu-product-card-name_new', productCard);
             let productCardName = '';
 
             if (productCardNameWrap) {
@@ -205,12 +205,13 @@ function addDiscountedPriceIfNeeded(productCard) {
 
     if (!productCardPrice) return;
 
-    if (productCardPrice.classList.contains(DISCOUNTED_PRICE_ADDED_CLASS)) return;
+    const productCardPurchase = productCardPrice.closest('.product-card-purchase');
+    if (productCardPurchase.classList.contains(DISCOUNTED_PRICE_ADDED_CLASS)) return;
 
-    addDiscountedPrice(productCard, productCardPrice);
+    addDiscountedPrice(productCard, productCardPrice, productCardPurchase);
 }
 
-function addDiscountedPrice(productCard, productCardPrice) {
+function addDiscountedPrice(productCard, productCardPrice, productCardPurchase) {
     const productCardPriceNumber = productCard.getAttribute('price');
 
     const discountedPrice = (productCardPriceNumber * (1 - CURRENT_DISCOUNT)).toFixed();
@@ -218,5 +219,5 @@ function addDiscountedPrice(productCard, productCardPrice) {
 
     productCardPrice.innerText = `${productCardPriceNumber} (${discountedPrice}) ₽`;
 
-    productCardPrice.classList.add(DISCOUNTED_PRICE_ADDED_CLASS);
+    productCardPurchase.classList.add(DISCOUNTED_PRICE_ADDED_CLASS);
 }
