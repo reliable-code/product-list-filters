@@ -61,16 +61,20 @@ function initListClean() {
 
         cleanList();
     } else {
-        const profileOrderPage = getFirstElement('lu-profile-order-page');
-
-        if (!profileOrderPage) return;
-
-        const profileOrderItems = getAllElements('lu-profile-order-item', profileOrderPage);
-        profileOrderItems.forEach((profileOrderItem) => {
-            const profileOrderItemWrap = profileOrderItem.parentNode;
-            profileOrderItemWrap.onclick = () => profileOrderItemWrap.remove();
-        });
+        attachOrderItemsRemoveFunctionIfNeeded();
     }
+}
+
+function attachOrderItemsRemoveFunctionIfNeeded() {
+    const orderPage = getFirstElement('lu-profile-order-page');
+
+    if (!orderPage) return;
+
+    const orderItems = getAllElements('lu-profile-order-item', orderPage);
+    orderItems.forEach((orderItem) => {
+        const orderItemWrap = orderItem.parentNode;
+        orderItemWrap.onclick = () => orderItemWrap.remove();
+    });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
