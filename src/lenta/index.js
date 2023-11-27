@@ -13,12 +13,15 @@ import {
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createMinRatingFilterControl,
+    createNameFilterControl,
     createNoRatingFilterControl,
     isLessThanFilter,
 } from '../common/filter';
 
 const CATEGORY_NAME = getCategoryName();
 
+const nameFilter =
+    new StorageValue(`${CATEGORY_NAME}-name-filter`, null);
 const minRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.1);
 const noRatingFilter =
@@ -86,6 +89,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'width: 22px;' +
         'height: 22px;';
 
+    const nameFilterDiv =
+        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+
     const minRatingDiv =
         createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
@@ -101,7 +107,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const sortEnabledDiv =
         createFilterControlCheckbox('Сортировка:', sortEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minRatingDiv, noRatingDiv, filterEnabledDiv, discountEnabledDiv, sortEnabledDiv);
+    filtersContainer.append(
+        nameFilterDiv,
+        minRatingDiv,
+        noRatingDiv,
+        filterEnabledDiv,
+        discountEnabledDiv,
+        sortEnabledDiv,
+    );
 
     parentNode.prepend(filtersContainer);
 }
