@@ -155,7 +155,9 @@ function cleanList() {
             }
 
             if (sortEnabled.value) {
-                const productCardOrder = productCard.getAttribute('price');
+                const productCardOrder =
+                    productCard.getAttribute('discounted-price') ||
+                    productCard.getAttribute('price');
                 setElementOrder(productCard, productCardOrder);
             } else {
                 resetElementOrder(productCard);
@@ -205,19 +207,24 @@ function addDiscountedPriceIfNeeded(productCard) {
 
     if (!productCardPrice) return;
 
-    const productCardPurchase = productCardPrice.closest('.product-card-purchase');
-    if (productCardPurchase.classList.contains(DISCOUNTED_PRICE_ADDED_CLASS)) return;
+    if (productCardPrice.classList.contains(DISCOUNTED_PRICE_ADDED_CLASS)) return;
 
-    addDiscountedPrice(productCard, productCardPrice, productCardPurchase);
+    addDiscountedPrice(productCard, productCardPrice);
 }
 
-function addDiscountedPrice(productCard, productCardPrice, productCardPurchase) {
-    const productCardPriceNumber = productCard.getAttribute('price');
+function addDiscountedPrice(productCard, productCardPrice) {
+    const discountedPriceValue = productCard.getAttribute('discounted-price');
 
-    const discountedPrice = (productCardPriceNumber * (1 - CURRENT_DISCOUNT)).toFixed();
-    productCard.setAttribute('price', discountedPrice);
+    const priceValue = productCard.getAttribute('price');
 
-    productCardPrice.innerText = `${productCardPriceNumber} (${discountedPrice}) ₽`;
+    let discountedPrice;
+    if (discountedPriceValue) {
+        discountedPrice = discountedPriceValue;
+    } else {
+        discountedPrice = (priceValue * (1 - CURRENT_DISCOUNT)).toFixed();
+        productCard.setAttribute('discounted-price', discountedPrice);
+    }
 
-    productCardPurchase.classList.add(DISCOUNTED_PRICE_ADDED_CLASS);
+    productCardPrice.innerText = `${priceValue} (${discountedPrice}) ₽`;
+    productCardPrice.classList.add(DISCOUNTED_PRICE_ADDED_CLASS);
 }
