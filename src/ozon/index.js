@@ -23,7 +23,7 @@ import {
     createNameFilterControl,
     isGreaterThanFilter,
     isLessThanFilter,
-    isNotContainsFilter,
+    isNotMatchFilter,
 } from '../common/filter';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
@@ -179,7 +179,7 @@ function cleanList() {
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
 
             const conditionToHide =
-                isNotContainsFilter(productCardName, nameFilter) ||
+                isNotMatchFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);

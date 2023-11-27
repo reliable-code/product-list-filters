@@ -243,15 +243,15 @@ export function appendFilterControlsIfNeeded(
     appendFiltersContainerFunc(filtersContainer, parentNode);
 }
 
-export function isNotContainsFilter(parameterValue, filter) {
-    if (!filter.value) return false;
-
-    return !isContainsFilter(parameterValue, filter.value);
+export function isNotMatchFilter(parameterValue, filter) {
+    return !isMatchFilter(parameterValue, filter);
 }
 
-function isContainsFilter(parameterValue, filterValue) {
+function isMatchFilter(parameterValue, filter) {
+    if (!filter.value) return true;
+
     const comparedString = parameterValue.toLowerCase();
-    const searchStrings = filterValue.toLowerCase()
+    const searchStrings = filter.value.toLowerCase()
         .split(',')
         .map((searchString) => searchString.trim());
 
