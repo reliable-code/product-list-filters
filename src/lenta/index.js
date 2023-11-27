@@ -16,7 +16,7 @@ import {
     createNameFilterControl,
     createNoRatingFilterControl,
     isLessThanFilter,
-    isNotMatchFilter,
+    isNotMatchTextFilter,
 } from '../common/filter';
 
 const CATEGORY_NAME = getCategoryName();
@@ -155,7 +155,7 @@ function cleanList() {
 
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
-            const isNotMatchNameFilter = isNotMatchFilter(productCardName, nameFilter);
+            const isNotMatchNameFilter = isNotMatchTextFilter(productCardName, nameFilter);
             if (!productCardRating) {
                 defineElementOpacity(productCard, isNotMatchNameFilter || !noRatingFilter.value);
 

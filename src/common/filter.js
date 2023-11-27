@@ -243,11 +243,11 @@ export function appendFilterControlsIfNeeded(
     appendFiltersContainerFunc(filtersContainer, parentNode);
 }
 
-export function isNotMatchFilter(parameterValue, filter) {
-    return !isMatchFilter(parameterValue, filter);
+export function isNotMatchTextFilter(parameterValue, filter) {
+    return !isMatchTextFilter(parameterValue, filter);
 }
 
-function isMatchFilter(parameterValue, filter) {
+function isMatchTextFilter(parameterValue, filter) {
     if (!filter.value) return true;
 
     const comparedString = parameterValue.toLowerCase();
