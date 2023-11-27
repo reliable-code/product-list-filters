@@ -155,18 +155,14 @@ function cleanList() {
 
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
-            const isNotMatchNameFilter = isNotMatchTextFilter(productCardName, nameFilter);
-            if (!productCardRating) {
-                defineElementOpacity(productCard, isNotMatchNameFilter || !noRatingFilter.value);
-
-                return;
-            }
-
-            const productCardRatingNumber = getElementInnerNumber(productCardRating);
+            const minRatingIsNotMatchFilter =
+                productCardRating ?
+                    isLessThanFilter(getElementInnerNumber(productCardRating), minRatingFilter) :
+                    !noRatingFilter.value;
 
             const conditionToDefine =
-                isNotMatchNameFilter ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter);
+                isNotMatchTextFilter(productCardName, nameFilter) ||
+                minRatingIsNotMatchFilter;
             defineElementOpacity(productCard, conditionToDefine);
         },
     );
