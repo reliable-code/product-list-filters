@@ -141,12 +141,8 @@ export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
 }
 
 export function getElementInnerNumber(element, cleanText = false, replaceComma = false) {
-    let elementText = element.innerText;
-    if (cleanText) elementText = removeNonNumber(elementText);
-    if (replaceComma) elementText = elementText.replace(',', '.');
-    const elementNumber = +elementText;
-
-    return elementNumber;
+    const elementText = element.innerText;
+    return parseNumber(elementText, cleanText, replaceComma);
 }
 
 export function getArrayElementInnerNumber(array, elementIndex, cleanText = false) {
@@ -154,6 +150,14 @@ export function getArrayElementInnerNumber(array, elementIndex, cleanText = fals
     const elementNumber = getElementInnerNumber(element, cleanText);
 
     return elementNumber;
+}
+
+function parseNumber(text, cleanText, replaceComma) {
+    if (cleanText) text = removeNonNumber(text);
+    if (replaceComma) text = text.replace(',', '.');
+    const number = +text;
+
+    return number;
 }
 
 export function waitForElement(parentNode, selector, timeout = null) {
