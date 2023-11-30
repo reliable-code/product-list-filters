@@ -229,12 +229,17 @@ export function createEnabledFilterControl(
 export function appendFilterControlsIfNeeded(
     parentNode,
     appendFiltersContainerFunc,
+    force = false,
     filtersContainerId = 'customFiltersContainer',
 ) {
     let filtersContainer = getFirstElement(`#${filtersContainerId}`, parentNode);
 
     if (filtersContainer) {
-        return;
+        if (force) {
+            filtersContainer.remove();
+        } else {
+            return;
+        }
     }
 
     filtersContainer = createDiv();
