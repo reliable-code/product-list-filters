@@ -48,7 +48,7 @@ function initListClean() {
             const promotional = getFirstElement('.promotional-shelf', notification);
             if (promotional) promotional.remove();
 
-            appendFilterControlsIfNeeded(notification, appendFiltersContainer);
+            appendFilterControlsIfNeeded(notification, appendFiltersContainer, true);
 
             const productCardsWrap = getFirstElement('#category-products', document, true);
             new MutationObserver(cleanList).observe(productCardsWrap, { childList: true });
