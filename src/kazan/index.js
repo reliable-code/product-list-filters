@@ -45,6 +45,9 @@ function getPathElements() {
 function initListClean() {
     waitForElement(document, '.notification')
         .then((notification) => {
+            const promotional = getFirstElement('.promotional-shelf', notification);
+            if (promotional) promotional.remove();
+
             appendFilterControlsIfNeeded(notification, appendFiltersContainer);
 
             const productCardsWrap = getFirstElement('#category-products', document, true);
