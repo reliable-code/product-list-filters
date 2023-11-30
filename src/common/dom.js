@@ -152,6 +152,11 @@ export function getArrayElementInnerNumber(array, elementIndex, cleanText = fals
     return elementNumber;
 }
 
+export function getNodeInnerNumber(node, cleanText = false, replaceComma = false) {
+    const nodeText = node.textContent;
+    return parseNumber(nodeText, cleanText, replaceComma);
+}
+
 function parseNumber(text, cleanText, replaceComma) {
     if (cleanText) text = removeNonNumber(text);
     if (replaceComma) text = text.replace(',', '.');
