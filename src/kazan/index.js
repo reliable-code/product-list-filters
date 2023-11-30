@@ -57,27 +57,31 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     filtersContainer.style =
         'display: flex;' +
-        'grid-gap: 15px;' +
-        'margin-top: 14px;';
+        'grid-gap: 11px;' +
+        'margin-bottom: 17px;';
 
     const controlStyle =
         'display: flex;' +
-        'align-items: center;';
+        'align-items: center;' +
+        'font-size: 15px;';
     const inputStyle =
         'margin-left: 5px;' +
-        'border: 2px solid #b3bcc5;' +
-        'border-radius: 6px;' +
-        'padding: 6px 10px;';
+        'border: 1px solid rgba(0,0,0,.12);' +
+        'border-radius: 4px;' +
+        'color: rgba(0,0,0,.87);' +
+        'font-family: Roboto,sans-serif;' +
+        'font-size: .875rem;' +
+        'padding: 8px 11px;';
     const textInputStyle =
         inputStyle + // eslint-disable-line prefer-template
-        'width: 190px;';
+        'width: 180px;';
     const numberInputStyle =
         inputStyle + // eslint-disable-line prefer-template
         'width: 90px;';
     const checkboxInputStyle =
         'margin-left: 5px;' +
-        'width: 25px;' +
-        'height: 25px;';
+        'width: 23px;' +
+        'height: 23px;';
 
     const nameFilterDiv =
         createNameFilterControl(nameFilter, controlStyle, textInputStyle);
