@@ -13,10 +13,13 @@ import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
+    createNameFilterControl,
     isGreaterThanFilter,
     isLessThanFilter,
+    isNotMatchTextFilter,
 } from '../common/filter';
 
+const nameFilter = new StorageValue('name-filter');
 const minCashbackFilter = new StorageValue('min-cashback-filter');
 const maxPriceFilter = new StorageValue('max-price-filter');
 const filterEnabled = new InputValue(false);
@@ -54,14 +57,20 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'border: 1px solid #e4ebf0;' +
         'font-size: 14px;' +
         'border-radius: 8px;' +
-        'margin-left: 7px;';
-    const numberInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
+        'margin-left: 7px;' +
         'padding: 8px 14px;';
-    const checkboxInputStyle =
+    const textInputStyle =
         inputStyle + // eslint-disable-line prefer-template
+        'width: 180px;';
+    const numberInputStyle =
+        inputStyle; // eslint-disable-line prefer-template
+    const checkboxInputStyle =
+        'margin-left: 7px;' +
         'width: 23px;' +
         'height: 23px;';
+
+    const nameFilterDiv =
+        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
 
     const minCashbackDiv =
         createMinCashbackFilterControl(minCashbackFilter, controlStyle, numberInputStyle);
@@ -72,7 +81,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minCashbackDiv, maxPriceDiv, filterEnabledDiv);
+    filtersContainer.append(nameFilterDiv, minCashbackDiv, maxPriceDiv, filterEnabledDiv);
 
     parentNode.append(filtersContainer);
 }
@@ -88,14 +97,19 @@ function cleanList() {
                 return;
             }
 
+            const productCardNameWrap =
+                getFirstElement('.item-title', productCard);
+
             const productCardCashback =
                 getFirstElement(PRODUCT_CARD_CASHBACK_SELECTOR, productCard);
 
-            if (!productCardCashback) {
+            if (!productCardNameWrap || !productCardCashback) {
                 hideElement(productCard);
 
                 return;
             }
+
+            const productCardName = productCardNameWrap.innerText;
 
             const productCardCashbackNumber = getElementInnerNumber(productCardCashback, true);
 
@@ -107,6 +121,7 @@ function cleanList() {
                 +productCardPrice.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
 
             const conditionToHide =
+                isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardCashbackNumber, minCashbackFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter);
             showHideElement(productCard, conditionToHide, 'flex');
