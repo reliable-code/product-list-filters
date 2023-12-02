@@ -12,11 +12,14 @@ import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
+    createNameFilterControl,
     isLessThanFilter,
+    isNotMatchTextFilter,
 } from '../common/filter';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_SELECTOR = '.product-card';
+const PRODUCT_CARD_NAME_SELECTOR = '.product-card__brand-wrap';
 const PRODUCT_CARD_REVIEWS_SELECTOR = '.product-card__count';
 const PRODUCT_CARD_RATING_SELECTOR = '.address-rate-mini';
 const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
@@ -25,6 +28,8 @@ const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
 const CATEGORY_NAME = getCategoryName();
 
+const nameFilter =
+    new StorageValue(`${CATEGORY_NAME}-name-filter`);
 const minReviewsFilter =
     new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`);
 const minRatingFilter =
@@ -96,7 +101,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         controlStyle + // eslint-disable-line prefer-template
         'margin-right: 37px;';
     const inputStyle =
-        'margin: 0px 4px;';
+        'margin-left: 4px;';
+    const textInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'width: 180px;';
     const numberInputStyle =
         inputStyle + // eslint-disable-line prefer-template
         'width: 55px;';
@@ -104,6 +112,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         inputStyle + // eslint-disable-line prefer-template
         'width: 22px;' +
         'height: 22px;';
+
+    const nameFilterDiv =
+        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
@@ -119,7 +130,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     setInterval(() => checkMinPrice(minPriceDiv), 500);
 
-    filtersContainer.append(minReviewsDiv, minRatingDiv, minPriceDiv, filterEnabledDiv);
+    filtersContainer.append(
+        nameFilterDiv, minReviewsDiv, minRatingDiv, minPriceDiv, filterEnabledDiv,
+    );
     parentNode.append(filtersContainer);
 }
 
@@ -143,6 +156,11 @@ function cleanList() {
                 return;
             }
 
+            const productCardNameWrap =
+                getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+
+            const productCardName = productCardNameWrap.innerText;
+
             const productCardReviewsNumber =
                 getFirstElementInnerNumber(productCard, PRODUCT_CARD_REVIEWS_SELECTOR, true);
 
@@ -153,6 +171,7 @@ function cleanList() {
                 getFirstElementInnerNumber(productCard, PRODUCT_CARD_PRICE_SELECTOR, true);
 
             const conditionToHide =
+                isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 productCardPriceNumber < minPriceValue;
