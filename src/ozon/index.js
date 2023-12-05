@@ -178,6 +178,12 @@ function cleanList() {
             const productCardRatingNumber =
                 getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
 
+            productCardNameWrap.title = productCardName;
+
+            productCardRatingWrap.title =
+                `Рейтинг: ${productCardRatingNumber}\n` +
+                `Отзывов: ${productCardReviewsNumber}\n`;
+
             const conditionToHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
