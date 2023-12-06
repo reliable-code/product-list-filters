@@ -36,9 +36,31 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    const minDiscountDiv = createMinDiscountFilterControl(minDiscountFilter);
+    filtersContainer.style =
+        'display: flex;' +
+        'grid-gap: 15px;';
 
-    const filterEnabledDiv = createEnabledFilterControl(filterEnabled);
+    const controlStyle =
+        'display: flex;' +
+        'align-items: center;';
+    const inputStyle =
+        'margin-left: 5px;' +
+        'border: 2px solid #b3bcc5;' +
+        'border-radius: 6px;' +
+        'padding: 6px 10px;';
+    const numberInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'width: 90px;';
+    const checkboxInputStyle =
+        'margin-left: 5px;' +
+        'width: 25px;' +
+        'height: 25px;';
+
+    const minDiscountDiv =
+        createMinDiscountFilterControl(minDiscountFilter, controlStyle, numberInputStyle);
+
+    const filterEnabledDiv =
+        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
     filtersContainer.append(minDiscountDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
