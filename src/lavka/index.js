@@ -15,8 +15,8 @@ import {
     isLessThanFilter,
 } from '../common/filter';
 
-const minDiscountFilter = new StorageValue('min-discount-filter');
-const filterEnabled = new StorageValue('filter-enabled', true);
+const minDiscountFilter = new StorageValue('min-discount-filter', null, initListClean);
+const filterEnabled = new StorageValue('filter-enabled', true, initListClean);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
