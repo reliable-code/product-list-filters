@@ -23,7 +23,12 @@ const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
 const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
 
-setInterval(initListClean, 500);
+const observer = new MutationObserver(initListClean);
+observer.observe(document.head, {
+    childList: true,
+});
+
+initListClean();
 
 function initListClean() {
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR);
