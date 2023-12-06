@@ -21,6 +21,6 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "webpack-monkey": "^0.2.0"
+    "webpack-monkey": "^0.2.1"
   }
 }
