@@ -67,7 +67,8 @@ function getMinPriceValueFromURL() {
 }
 
 setInterval(initListClean, 100);
-initPaginationObserver();
+
+// initPaginationObserver();
 
 function initListClean() {
     const filtersBlockWrap = getFirstElement(FILTERS_BLOCK_WRAP_SELECTOR);
