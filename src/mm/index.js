@@ -24,7 +24,7 @@ const minCashbackFilter = new StorageValue('min-cashback-filter');
 const maxPriceFilter = new StorageValue('max-price-filter');
 const filterEnabled = new InputValue(false);
 
-const PRODUCT_CARD_LIST_HEADER = '.catalog-listing-header';
+const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
 const PRODUCT_CARD_SELECTOR = '.catalog-item';
 const PRODUCT_CARD_PRICE_SELECTOR = '.item-price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
@@ -34,7 +34,7 @@ const BALANCED_CASHBACK_PRICE_ATTR = 'balanced-cashback-price';
 setInterval(initListClean, 100);
 
 function initListClean() {
-    const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_HEADER);
+    const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
 
     if (productCardListHeader) {
         appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
