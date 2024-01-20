@@ -77,6 +77,7 @@ function initListClean() {
 
             observer.observe(paginatorContent, {
                 childList: true,
+                subtree: true,
             });
         });
 }
