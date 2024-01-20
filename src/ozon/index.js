@@ -73,10 +73,9 @@ function initListClean() {
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-            const productCardsWrap = getFirstElement(PRODUCT_CARDS_WRAP_SELECTOR, document, true);
             const observer = new MutationObserver(cleanList);
 
-            observer.observe(productCardsWrap, {
+            observer.observe(paginatorContent, {
                 childList: true,
             });
         });
