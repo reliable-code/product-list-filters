@@ -31,7 +31,7 @@ const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
 const COMMENTS_SELECTOR = '#comments';
 
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
-const PRODUCT_CARDS_WRAP_SELECTOR = '.widget-search-result-container > div';
+const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
@@ -144,8 +144,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const productCardsWrap = getFirstElement(PRODUCT_CARDS_WRAP_SELECTOR, document, true);
-    const productCards = getAllElements(':scope > div', productCardsWrap);
+    const productCards = getAllElements(PRODUCT_CARDS_SELECTOR, paginatorContent);
 
     productCards.forEach(
         (productCard) => {
