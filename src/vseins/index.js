@@ -132,7 +132,7 @@ function cleanList() {
             const productCardName = productCardNameWrap.innerText;
 
             const productCardReviewsNumber =
-                getNodeInnerNumber(productCardRatingWrap.childNodes[1], true);
+                getNodeInnerNumber(productCardRatingWrap.childNodes[2], true);
 
             const productCardRating = getFirstElement('[name="rating"]', productCardRatingWrap);
             const productCardRatingNumber = +productCardRating.getAttribute('value');
