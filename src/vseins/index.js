@@ -1,4 +1,12 @@
-import { getFirstElement, waitForElement } from '../common/dom';
+import {
+    getAllElements,
+    getFirstElement,
+    getNodeInnerNumber,
+    hideElement,
+    showElement,
+    showHideElement,
+    waitForElement,
+} from '../common/dom';
 import { StorageValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
@@ -6,14 +14,18 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
+    isLessThanFilter,
+    isNotMatchTextFilter,
 } from '../common/filter';
+
+const PRODUCT_LIST_SELECTOR = '[data-qa="listing"]';
 
 const CATEGORY_NAME = getCategoryName();
 
 function getCategoryName() {
     const pathElements = getPathElements();
     const categoryName = pathElements[2] ?? 'common';
-    console.log(categoryName);
+
     return categoryName;
 }
 
@@ -35,8 +47,8 @@ initListClean();
 
 function initListClean() {
     waitForElement(document, '#product-listing-top')
-        .then((productListingTop) => {
-            const productList = getFirstElement('[data-qa="listing"]', productListingTop, true);
+        .then(() => {
+            const productList = getFirstElement(PRODUCT_LIST_SELECTOR, document, true);
 
             appendFilterControlsIfNeeded(productList, appendFiltersContainer, true);
 
@@ -51,7 +63,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     filtersContainer.style =
         'display: flex;' +
         'grid-gap: 11px;' +
-        'margin-bottom: 17px;';
+        'margin-bottom: 18px;';
 
     const controlStyle =
         'display: flex;' +
@@ -94,5 +106,41 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
+    const productList = getFirstElement(PRODUCT_LIST_SELECTOR, document, true);
+    const productCards = getAllElements(':scope > div:not(.products-controllers)', productList);
 
+    productCards.forEach(
+        (productCard) => {
+            if (!filterEnabled.value) {
+                showElement(productCard, 'flex');
+
+                return;
+            }
+
+            const productCardNameWrap =
+                getFirstElement('[data-qa="product-name"]', productCard);
+
+            const productCardRatingWrap =
+                getFirstElement('[data-qa="product-rating"]', productCard);
+
+            if (!productCardNameWrap || !productCardRatingWrap) {
+                hideElement(productCard);
+                return;
+            }
+
+            const productCardName = productCardNameWrap.innerText;
+
+            const productCardReviewsNumber =
+                getNodeInnerNumber(productCardRatingWrap.childNodes[1], true);
+
+            const productCardRating = getFirstElement('[name="rating"]', productCardRatingWrap);
+            const productCardRatingNumber = +productCardRating.getAttribute('value');
+
+            const conditionToHide =
+                isNotMatchTextFilter(productCardName, nameFilter) ||
+                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+                isLessThanFilter(productCardRatingNumber, minRatingFilter);
+            showHideElement(productCard, conditionToHide, 'flex');
+        },
+    );
 }
