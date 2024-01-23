@@ -106,13 +106,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const productList = getFirstElement(PRODUCT_LIST_SELECTOR, document, true);
-    const productCards = getAllElements(':scope > div:not(.products-controllers)', productList);
+    const productCards = getAllElements(`${PRODUCT_LIST_SELECTOR} > div`);
 
     productCards.forEach(
         (productCard) => {
+            const display = getProductCardDisplay(productCard);
+
             if (!filterEnabled.value) {
-                showElement(productCard, 'flex');
+                showElement(productCard, display);
 
                 return;
             }
@@ -140,7 +141,16 @@ function cleanList() {
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide, 'flex');
+            showHideElement(productCard, conditionToHide, display);
         },
     );
+}
+
+function getProductCardDisplay(productCard) {
+    if (!productCard.hasAttribute('display')) {
+        const { display } = getComputedStyle(productCard);
+        productCard.setAttribute('display', display);
+    }
+
+    return productCard.getAttribute('display');
 }
