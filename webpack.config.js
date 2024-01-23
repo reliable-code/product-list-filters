@@ -10,6 +10,7 @@ module.exports = monkey({
         ozon: './src/ozon/index.js',
         pepper: './src/pepper/index.js',
         prodoctorov: './src/prodoctorov/index.js',
+        vseins: './src/vseins/index.js',
         wb: './src/wb/index.js',
         yamarket: './src/yamarket/index.js',
     },
