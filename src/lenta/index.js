@@ -35,7 +35,7 @@ const sortEnabled =
     new StorageValue('sort-enabled', true);
 
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
-const PRODUCT_CARD_SELECTOR = '.catalog-grid_new__item';
+const PRODUCT_CARD_SELECTOR = '.catalog-grid__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
 const DISCOUNTED_PRICE_ADDED_CLASS = 'discountedPriceAdded';
@@ -140,7 +140,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             const productCardNameWrap =
-                getFirstElement('.lu-product-card-name_new', productCard);
+                getFirstElement('.lu-product-card-name', productCard);
             let productCardName = '';
 
             if (productCardNameWrap) {
