@@ -141,10 +141,37 @@ export function createMinDiscountFilterControl(
     controlStyle = null,
     inputStyle = null,
 ) {
-    return createFilterControlNumber(
+    return createDiscountFilterControlBase(
         'Минимальная скидка: ',
         inputValue,
-        '1',
+        controlStyle,
+        inputStyle,
+    );
+}
+
+export function createDiscountFilterControl(
+    inputValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createDiscountFilterControlBase(
+        'Скидка: ',
+        inputValue,
+        controlStyle,
+        inputStyle,
+    );
+}
+
+function createDiscountFilterControlBase(
+    titleText,
+    inputValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createFilterControlNumber(
+        titleText,
+        inputValue,
+        '5',
         '0',
         '100',
         controlStyle,
