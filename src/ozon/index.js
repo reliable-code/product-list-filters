@@ -141,7 +141,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'background-color: #fff;' +
         'z-index: 550;' +
         'padding-bottom: 11px;' +
-        'margin-bottom: 0;';
+        'margin-bottom: 0;' +
+        'gap: 15px;';
 }
 
 function cleanList() {
