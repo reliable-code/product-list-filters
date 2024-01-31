@@ -83,7 +83,7 @@ export function createMinRatingFilterControl(
     inputStyle = null,
 ) {
     return createFilterControlNumber(
-        'Минимальный рейтинг: ',
+        'Мин. рейтинг: ',
         inputValue,
         '0.1',
         '3.0',
@@ -99,7 +99,7 @@ export function createMinReviewsFilterControl(
     inputStyle = null,
 ) {
     return createReviewsFilterControl(
-        'Минимально отзывов: ',
+        'Мин. отзывов: ',
         inputValue,
         controlStyle,
         inputStyle,
@@ -112,7 +112,7 @@ export function createMaxReviewsFilterControl(
     inputStyle = null,
 ) {
     return createReviewsFilterControl(
-        'Максимально отзывов: ',
+        'Макс. отзывов: ',
         inputValue,
         controlStyle,
         inputStyle,
@@ -142,7 +142,7 @@ export function createMinDiscountFilterControl(
     inputStyle = null,
 ) {
     return createDiscountFilterControlBase(
-        'Минимальная скидка: ',
+        'Мин. скидка: ',
         inputValue,
         controlStyle,
         inputStyle,
@@ -217,7 +217,7 @@ export function createMaxPriceFilterControl(
     inputStyle = null,
 ) {
     return createFilterControlNumber(
-        'Максимальная цена: ',
+        'Макс. цена: ',
         inputValue,
         '500',
         '0',
