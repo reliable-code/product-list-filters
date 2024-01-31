@@ -10,6 +10,7 @@ import {
 import { StorageValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
+    createDiscountFilterControl,
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createMinRatingFilterControl,
@@ -25,12 +26,12 @@ const nameFilter =
     new StorageValue(`${CATEGORY_NAME}-name-filter`, null);
 const minRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.1);
+const discountAmount =
+    new StorageValue('discount-amount', 25);
 const noRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-no-rating-filter`, false);
 const filterEnabled =
     new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
-const discountEnabled =
-    new StorageValue('discount-enabled', true);
 const sortEnabled =
     new StorageValue('sort-enabled', true);
 
@@ -39,7 +40,6 @@ const PRODUCT_CARD_SELECTOR = '.catalog-grid__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
 const DISCOUNTED_PRICE_ADDED_CLASS = 'discountedPriceAdded';
-const CURRENT_DISCOUNT = 0.25;
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -110,14 +110,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minRatingDiv =
         createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
+    const discountAmountDiv =
+        createDiscountFilterControl(discountAmount, controlStyle, numberInputStyle);
+
     const noRatingDiv =
         createNoRatingFilterControl(noRatingFilter, controlStyle, checkboxInputStyle);
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
-
-    const discountEnabledDiv =
-        createFilterControlCheckbox('Скидка:', discountEnabled, controlStyle, checkboxInputStyle);
 
     const sortEnabledDiv =
         createFilterControlCheckbox('Сортировка:', sortEnabled, controlStyle, checkboxInputStyle);
@@ -125,9 +125,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     filtersContainer.append(
         nameFilterDiv,
         minRatingDiv,
+        discountAmountDiv,
         noRatingDiv,
         filterEnabledDiv,
-        discountEnabledDiv,
         sortEnabledDiv,
     );
 
@@ -150,7 +150,7 @@ function cleanList() {
 
             addPriceAttributeIfNeeded(productCard);
 
-            if (discountEnabled.value) {
+            if (discountAmount.value) {
                 addDiscountedPriceIfNeeded(productCard);
             }
 
@@ -221,7 +221,7 @@ function addDiscountedPrice(productCard, productCardPrice) {
     if (discountedPriceValue) {
         discountedPrice = discountedPriceValue;
     } else {
-        discountedPrice = (priceValue * (1 - CURRENT_DISCOUNT)).toFixed();
+        discountedPrice = (priceValue * ((100 - discountAmount.value) / 100)).toFixed();
         productCard.setAttribute('discounted-price', discountedPrice);
     }
 
