@@ -39,7 +39,7 @@ const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
-const DISCOUNTED_PRICE_ADDED_CLASS = 'discountedPriceAdded';
+const PRICE_ROUNDED_CLASS = 'priceRounded';
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -203,19 +203,25 @@ function addPriceAttributeIfNeeded(productCard) {
 }
 
 function addDiscountedPriceIfNeeded(productCard) {
-    const productCardPrice = getFirstElement('.main-price:not(.__accent)', productCard);
+    const productCardPrice = getFirstElement('.main-price', productCard);
 
     if (!productCardPrice) return;
 
-    if (productCardPrice.classList.contains(DISCOUNTED_PRICE_ADDED_CLASS)) return;
-
-    addDiscountedPrice(productCard, productCardPrice);
-}
-
-function addDiscountedPrice(productCard, productCardPrice) {
-    const discountedPriceValue = productCard.getAttribute('discounted-price');
+    if (productCardPrice.classList.contains(PRICE_ROUNDED_CLASS)) return;
 
     const priceValue = productCard.getAttribute('price');
+
+    if (productCardPrice.classList.contains('__accent')) {
+        productCardPrice.innerText = `${priceValue} ₽`;
+    } else {
+        addDiscountedPrice(productCard, priceValue, productCardPrice);
+    }
+
+    productCardPrice.classList.add(PRICE_ROUNDED_CLASS);
+}
+
+function addDiscountedPrice(productCard, priceValue, productCardPrice) {
+    const discountedPriceValue = productCard.getAttribute('discounted-price');
 
     let discountedPrice;
     if (discountedPriceValue) {
@@ -226,5 +232,4 @@ function addDiscountedPrice(productCard, productCardPrice) {
     }
 
     productCardPrice.innerText = `${priceValue} (${discountedPrice}) ₽`;
-    productCardPrice.classList.add(DISCOUNTED_PRICE_ADDED_CLASS);
 }
