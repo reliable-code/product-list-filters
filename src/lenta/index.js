@@ -155,7 +155,8 @@ function cleanList() {
 
             let discountedPriceValue;
             let discountAttributeChanged = false;
-            if (discountAmount.value) {
+
+            if (discountAmount.value !== null) {
                 discountAttributeChanged =
                     setDiscountAttributesIfNeeded(productCard, productCardPrice, priceValue);
                 discountedPriceValue =
@@ -225,8 +226,13 @@ function setDiscountAttributesIfNeeded(productCard, productCardPrice, priceValue
         if (lastDiscountValue === discountAmount.value) return false;
     }
 
-    setDiscountAttribute(productCard);
-    setDiscountedPriceAttribute(productCard, priceValue);
+    if (discountAmount.value === 0) {
+        productCard.removeAttribute('discount');
+        productCard.removeAttribute('discounted-price');
+    } else {
+        setDiscountAttribute(productCard);
+        setDiscountedPriceAttribute(productCard, priceValue);
+    }
 
     return true;
 }
