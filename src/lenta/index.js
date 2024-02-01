@@ -154,12 +154,17 @@ function cleanList() {
             const priceValue = getPriceValueAttribute(productCard, productCardPrice);
 
             let discountedPriceValue;
+            let discountAttributeChanged = false;
             if (discountAmount.value) {
+                discountAttributeChanged =
+                    setDiscountAttributesIfNeeded(productCard, productCardPrice, priceValue);
                 discountedPriceValue =
-                    getDiscountedPriceValueAttribute(productCard, productCardPrice, priceValue);
+                    productCard.getAttribute('discounted-price');
             }
 
-            setRoundedPriceIfNeeded(productCardPrice, priceValue, discountedPriceValue);
+            setRoundedPriceIfNeeded(
+                productCardPrice, priceValue, discountedPriceValue, discountAttributeChanged,
+            );
 
             if (sortEnabled.value) {
                 const productCardOrder =
@@ -211,23 +216,19 @@ function addPriceAttribute(productCard, productCardPrice) {
     productCard.setAttribute('price', priceValue.toFixed());
 }
 
-function getDiscountedPriceValueAttribute(productCard, productCardPrice, priceValue) {
-    setDiscountAttributes(productCard, productCardPrice, priceValue);
-
-    return productCard.getAttribute('discounted-price');
-}
-
-function setDiscountAttributes(productCard, productCardPrice, priceValue) {
-    if (productCardPrice.classList.contains('__accent')) return;
+function setDiscountAttributesIfNeeded(productCard, productCardPrice, priceValue) {
+    if (productCardPrice.classList.contains('__accent')) return false;
 
     if (productCard.hasAttribute('discount')) {
         const lastDiscountValue = +productCard.getAttribute('discount');
 
-        if (lastDiscountValue === discountAmount.value) return;
+        if (lastDiscountValue === discountAmount.value) return false;
     }
 
     setDiscountAttribute(productCard);
     setDiscountedPriceAttribute(productCard, priceValue);
+
+    return true;
 }
 
 function setDiscountAttribute(productCard) {
@@ -239,8 +240,12 @@ function setDiscountedPriceAttribute(productCard, priceValue) {
     productCard.setAttribute('discounted-price', discountedPrice);
 }
 
-function setRoundedPriceIfNeeded(productCardPrice, priceValue, discountedPriceValue) {
-    if (productCardPrice.classList.contains(PRICE_ROUNDED_CLASS)) return;
+function setRoundedPriceIfNeeded(
+    productCardPrice, priceValue, discountedPriceValue, discountAttributeChanged,
+) {
+    if (!discountAttributeChanged && productCardPrice.classList.contains(PRICE_ROUNDED_CLASS)) {
+        return;
+    }
 
     const priceText =
         discountedPriceValue ? `${priceValue} (${discountedPriceValue}) ₽` : `${priceValue} ₽`;
