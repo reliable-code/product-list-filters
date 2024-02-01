@@ -212,16 +212,29 @@ function addPriceAttribute(productCard, productCardPrice) {
 }
 
 function getDiscountedPriceValueAttribute(productCard, productCardPrice, priceValue) {
-    if (!productCard.hasAttribute('discounted-price')) {
-        addDiscountedPriceAttribute(productCard, productCardPrice, priceValue);
-    }
+    setDiscountAttributes(productCard, productCardPrice, priceValue);
 
     return productCard.getAttribute('discounted-price');
 }
 
-function addDiscountedPriceAttribute(productCard, productCardPrice, priceValue) {
+function setDiscountAttributes(productCard, productCardPrice, priceValue) {
     if (productCardPrice.classList.contains('__accent')) return;
 
+    if (productCard.hasAttribute('discount')) {
+        const lastDiscountValue = +productCard.getAttribute('discount');
+
+        if (lastDiscountValue === discountAmount.value) return;
+    }
+
+    setDiscountAttribute(productCard);
+    setDiscountedPriceAttribute(productCard, priceValue);
+}
+
+function setDiscountAttribute(productCard) {
+    productCard.setAttribute('discount', discountAmount.value);
+}
+
+function setDiscountedPriceAttribute(productCard, priceValue) {
     const discountedPrice = (priceValue * ((100 - discountAmount.value) / 100)).toFixed();
     productCard.setAttribute('discounted-price', discountedPrice);
 }
