@@ -255,7 +255,8 @@ function appendRatingValue(productReviewsWrap) {
 
                     if (!ratingValue) return;
 
-                    const starsContainer = productReviewsWrap.children[0].children[0].children[0];
+                    const starsContainer =
+                        productReviewsWrap.children[0].children[0].children[0].children[0];
 
                     const ratingValueDivStyle = 'margin: 0 4px; color: #005bff;';
                     const ratingValueDiv = createDiv(ratingValue, ratingValueDivStyle);
