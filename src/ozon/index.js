@@ -159,30 +159,42 @@ function cleanList() {
             const productCardNameWrap =
                 getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
 
-            const productCardRatingWrap =
-                getFirstElement(PRODUCT_CARD_RATING_WRAP_SELECTOR, productCard);
-
-            if (!productCardNameWrap || !productCardRatingWrap) {
+            if (!productCardNameWrap) {
                 hideElement(productCard);
                 return;
             }
 
+            const productCardRatingWrap =
+                getFirstElement(PRODUCT_CARD_RATING_WRAP_SELECTOR, productCard);
+
+            let productCardReviewsNumber;
+            let productCardRatingNumber;
+
+            if (!productCardRatingWrap) {
+                const anyRatingFilterHasValue =
+                    minReviewsFilter.value || maxReviewsFilter.value || minRatingFilter.value;
+
+                if (anyRatingFilterHasValue) {
+                    hideElement(productCard);
+                    return;
+                }
+            } else {
+                const productCardRatingWrapSpans =
+                    getAllElements(':scope > span', productCardRatingWrap, true);
+
+                productCardReviewsNumber =
+                    getArrayElementInnerNumber(productCardRatingWrapSpans, 1, true);
+                productCardRatingNumber =
+                    getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
+
+                productCardRatingWrap.title =
+                    `Рейтинг: ${productCardRatingNumber}\n` +
+                    `Отзывов: ${productCardReviewsNumber}\n`;
+            }
+
             const productCardName = productCardNameWrap.innerText;
 
-            const productCardRatingWrapSpans =
-                getAllElements(':scope > span', productCardRatingWrap, true);
-
-            const productCardReviewsNumber =
-                getArrayElementInnerNumber(productCardRatingWrapSpans, 1, true);
-
-            const productCardRatingNumber =
-                getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
-
             productCardNameWrap.title = productCardName;
-
-            productCardRatingWrap.title =
-                `Рейтинг: ${productCardRatingNumber}\n` +
-                `Отзывов: ${productCardReviewsNumber}\n`;
 
             const conditionToHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
