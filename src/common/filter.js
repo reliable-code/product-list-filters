@@ -81,13 +81,14 @@ export function createMinRatingFilterControl(
     inputValue,
     controlStyle = null,
     inputStyle = null,
+    inputStep = 0.1,
 ) {
     return createFilterControlNumber(
         'Мин. рейтинг: ',
         inputValue,
-        '0.1',
-        '3.0',
-        '5.0',
+        inputStep,
+        3.0,
+        5.0,
         controlStyle,
         inputStyle,
     );
