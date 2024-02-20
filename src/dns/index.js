@@ -108,7 +108,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function cleanList() {
     const productCards = getAllElements(`${PRODUCTS_PAGE_LIST_SELECTOR} .catalog-product`);
-    console.log(productCards.length);
 
     productCards.forEach(
         (productCard) => {
@@ -133,11 +132,7 @@ function cleanList() {
 
             const productCardName = productCardNameWrap.innerText;
 
-            const productCardReviewsText = productCardRatingWrap.textContent;
-            let productCardReviewsNumber = +removeNonNumber(productCardReviewsText);
-            if (productCardReviewsText.includes('k')) {
-                productCardReviewsNumber *= 1000;
-            }
+            const productCardReviewsNumber = getProductCardReviewsNumber(productCardRatingWrap);
 
             const productCardRatingNumber = +productCardRatingWrap.getAttribute('data-rating');
 
@@ -157,4 +152,15 @@ function getProductCardDisplay(productCard) {
     }
 
     return productCard.getAttribute('display');
+}
+
+function getProductCardReviewsNumber(productCardRatingWrap) {
+    const productCardReviewsText = productCardRatingWrap.textContent;
+    let productCardReviewsNumber = +removeNonNumber(productCardReviewsText);
+
+    if (productCardReviewsText.includes('k')) {
+        productCardReviewsNumber *= 1000;
+    }
+
+    return productCardReviewsNumber;
 }
