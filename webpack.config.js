@@ -3,6 +3,7 @@ const { monkey } = require('webpack-monkey');
 
 module.exports = monkey({
     entry: {
+        dns: './src/dns/index.js',
         kazan: './src/kazan/index.js',
         lavka: './src/lavka/index.js',
         lenta: './src/lenta/index.js',
