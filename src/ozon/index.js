@@ -21,6 +21,7 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
+    createNoRatingFilterControl,
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
@@ -46,6 +47,8 @@ const maxReviewsFilter =
     new StorageValue(`${CATEGORY_NAME}-max-reviews-filter`, null, cleanList);
 const minRatingFilter =
     new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
+const noRatingFilter =
+    new StorageValue(`${CATEGORY_NAME}-no-rating-filter`, false, cleanList);
 const filterEnabled =
     new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
@@ -126,11 +129,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minRatingDiv =
         createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
+    const noRatingDiv =
+        createNoRatingFilterControl(noRatingFilter, controlStyle, checkboxInputStyle);
+
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
     filtersContainer.append(
-        nameFilterDiv, minReviewsDiv, maxReviewsDiv, minRatingDiv, filterEnabledDiv,
+        nameFilterDiv, minReviewsDiv, maxReviewsDiv, minRatingDiv, noRatingDiv, filterEnabledDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -174,7 +180,7 @@ function cleanList() {
                 const anyRatingFilterHasValue =
                     minReviewsFilter.value || maxReviewsFilter.value || minRatingFilter.value;
 
-                if (anyRatingFilterHasValue) {
+                if (anyRatingFilterHasValue && !noRatingFilter.value) {
                     hideElement(productCard);
                     return;
                 }
