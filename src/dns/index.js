@@ -1,4 +1,10 @@
-import { getFirstElement } from '../common/dom';
+import {
+    getAllElements,
+    getFirstElement,
+    hideElement,
+    showElement,
+    showHideElement,
+} from '../common/dom';
 import { StorageValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
@@ -6,9 +12,12 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
+    isLessThanFilter,
+    isNotMatchTextFilter,
 } from '../common/filter';
+import { removeNonNumber } from '../common/string';
 
-const PRODUCT_LIST_SELECTOR = '[data-qa="listing"]';
+const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 
 const CATEGORY_NAME = getCategoryName();
 
@@ -33,7 +42,7 @@ const minRatingFilter =
 const filterEnabled =
     new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
-const productsPageList = getFirstElement('.products-page__list');
+const productsPageList = getFirstElement(PRODUCTS_PAGE_LIST_SELECTOR);
 
 if (productsPageList) {
     initListClean();
@@ -98,5 +107,54 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
+    const productCards = getAllElements(`${PRODUCTS_PAGE_LIST_SELECTOR} .catalog-product`);
+    console.log(productCards.length);
 
+    productCards.forEach(
+        (productCard) => {
+            const display = getProductCardDisplay(productCard);
+
+            if (!filterEnabled.value) {
+                showElement(productCard, display);
+
+                return;
+            }
+
+            const productCardNameWrap =
+                getFirstElement('.catalog-product__name', productCard);
+
+            const productCardRatingWrap =
+                getFirstElement('.catalog-product__rating', productCard);
+
+            if (!productCardNameWrap || !productCardRatingWrap) {
+                hideElement(productCard);
+                return;
+            }
+
+            const productCardName = productCardNameWrap.innerText;
+
+            const productCardReviewsText = productCardRatingWrap.textContent;
+            let productCardReviewsNumber = +removeNonNumber(productCardReviewsText);
+            if (productCardReviewsText.includes('k')) {
+                productCardReviewsNumber *= 1000;
+            }
+
+            const productCardRatingNumber = +productCardRatingWrap.getAttribute('data-rating');
+
+            const conditionToHide =
+                isNotMatchTextFilter(productCardName, nameFilter) ||
+                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+                isLessThanFilter(productCardRatingNumber, minRatingFilter);
+            showHideElement(productCard, conditionToHide, display);
+        },
+    );
+}
+
+function getProductCardDisplay(productCard) {
+    if (!productCard.hasAttribute('display')) {
+        const { display } = getComputedStyle(productCard);
+        productCard.setAttribute('display', display);
+    }
+
+    return productCard.getAttribute('display');
 }
