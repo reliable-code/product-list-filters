@@ -28,7 +28,7 @@ import {
 } from '../common/filter';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
-const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webReviewProductScore"]';
+const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 const COMMENTS_SELECTOR = '#comments';
 
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
@@ -274,12 +274,9 @@ function appendRatingValue(productReviewsWrap) {
                     if (!ratingValue) return;
 
                     const starsContainer =
-                        productReviewsWrap.children[0].children[0].children[0].children[0];
-
-                    const ratingValueDivStyle = 'margin: 0 4px; color: #005bff;';
-                    const ratingValueDiv = createDiv(ratingValue, ratingValueDivStyle);
-
-                    starsContainer.append(ratingValueDiv);
+                        productReviewsWrap.children[0].children[1];
+                    const reviewsCountText = starsContainer.textContent.split(' • ')[1];
+                    starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
                 });
         });
 }
