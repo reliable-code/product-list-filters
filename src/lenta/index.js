@@ -140,11 +140,11 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             const productCardNameWrap =
-                getFirstElement('.lu-product-card-name', productCard);
+                getFirstElement('.lu-product-card-name-wrapper', productCard);
             let productCardName = '';
 
             if (productCardNameWrap) {
-                expandProductCardNameWrap(productCardNameWrap);
+                expandProductCardName(productCardNameWrap);
                 productCardName = productCardNameWrap.innerText;
             }
 
@@ -197,9 +197,9 @@ function cleanList() {
     );
 }
 
-function expandProductCardNameWrap(productCardNameWrap) {
-    productCardNameWrap.style.display = 'inline-block';
-    productCardNameWrap.style.height = '91px';
+function expandProductCardName(productCardNameWrap) {
+    productCardNameWrap.style.height = '55px';
+    productCardNameWrap.firstChild.style.height = '55px';
 }
 
 function getPriceValueAttribute(productCard, productCardPrice) {
