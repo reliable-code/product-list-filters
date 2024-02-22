@@ -230,11 +230,14 @@ function appendBadReviewsLink(productReviewsWrap) {
 
         const productBadReviewsLinkWrap = createDiv();
 
+        const siblingClassList = productReviewsLink.children[1].classList;
+        productBadReviewsLinkWrap.classList = siblingClassList;
+
         const productBadReviewsLink =
             createLink(
                 `${productReviewsLink.href}?sort=score_asc`,
                 thumbsDownIcon,
-                'align-items: center; display: flex;',
+                'align-items: center; display: flex; color: rgba(0, 26, 52, 0.6);',
             );
 
         const productBadReviewsLinkSpan = document.createElement('span');
