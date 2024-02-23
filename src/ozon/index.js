@@ -145,7 +145,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'position: sticky;' +
         'top: 62px;' +
         'background-color: #fff;' +
-        'z-index: 550;' +
+        'z-index: 2;' +
         'padding-bottom: 11px;' +
         'margin-bottom: 0;' +
         'gap: 15px;';
