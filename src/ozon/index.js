@@ -279,8 +279,8 @@ function appendBadReviewsLink(productReviewsWrap) {
 function appendRatingValue(productReviewsWrap) {
     const starsContainer = productReviewsWrap.children[0].children[1];
 
-    const productArticle = getProductArticle();
-    const storedRatingValue = localStorage.getItem(`rate-${productArticle}`);
+    const productArticle = getProductArticleFromPathname();
+    const storedRatingValue = getStoredRatingValue(productArticle);
 
     if (storedRatingValue) {
         replaceRatingValue(starsContainer, storedRatingValue);
@@ -300,10 +300,18 @@ function appendRatingValue(productReviewsWrap) {
 
                     if (!ratingValue) return;
 
-                    localStorage.setItem(`rate-${productArticle}`, ratingValue);
+                    setStoredRatingValue(productArticle, ratingValue);
                     replaceRatingValue(starsContainer, ratingValue);
                 });
         });
+}
+
+function setStoredRatingValue(productArticle, ratingValue) {
+    localStorage.setItem(`rate-${productArticle}`, ratingValue);
+}
+
+function getStoredRatingValue(productArticle) {
+    return localStorage.getItem(`rate-${productArticle}`);
 }
 
 function getRatingValue(ratingValueSpan) {
