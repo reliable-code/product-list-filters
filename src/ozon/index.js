@@ -60,8 +60,12 @@ function getCategoryName() {
     return categoryName;
 }
 
-function getProductArticle() {
+function getProductArticleFromPathname() {
     const { pathname } = window.location;
+    return getProductArticleFromUrl(pathname);
+}
+
+function getProductArticleFromUrl(pathname) {
     const pathElements = pathname.split('/');
     const productLinkName = pathElements[2];
 
