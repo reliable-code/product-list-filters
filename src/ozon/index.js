@@ -293,8 +293,7 @@ function appendRatingValue(productReviewsWrap) {
 
                     const starsContainer =
                         productReviewsWrap.children[0].children[1];
-                    const reviewsCountText = starsContainer.textContent.split(' • ')[1];
-                    starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
+                    replaceRatingValue(starsContainer, ratingValue);
                 });
         });
 }
@@ -311,4 +310,9 @@ function getRatingValue(ratingValueSpan) {
     }
 
     return ratingValue;
+}
+
+function replaceRatingValue(starsContainer, ratingValue) {
+    const reviewsCountText = starsContainer.textContent.split(' • ')[1];
+    starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
 }
