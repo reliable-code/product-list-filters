@@ -277,6 +277,7 @@ function appendBadReviewsLink(productReviewsWrap) {
 }
 
 function appendRatingValue(productReviewsWrap) {
+    const starsContainer = productReviewsWrap.children[0].children[1];
     waitForElement(document, CREATE_REVIEW_BUTTON_SELECTOR)
         .then((createReviewButton) => {
             const reviewsInfoContainer = createReviewButton.parentNode;
@@ -291,8 +292,6 @@ function appendRatingValue(productReviewsWrap) {
 
                     if (!ratingValue) return;
 
-                    const starsContainer =
-                        productReviewsWrap.children[0].children[1];
                     replaceRatingValue(starsContainer, ratingValue);
                 });
         });
