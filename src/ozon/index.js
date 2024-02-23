@@ -60,6 +60,21 @@ function getCategoryName() {
     return categoryName;
 }
 
+function getProductArticle() {
+    const { pathname } = window.location;
+    const pathElements = pathname.split('/');
+    const productLinkName = pathElements[2];
+
+    if (!productLinkName) {
+        console.log('No product article in path');
+        return null;
+    }
+
+    const productArticle = productLinkName.split('-')
+        .at(-1);
+    return productArticle;
+}
+
 const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
 const comments = getFirstElement(COMMENTS_SELECTOR);
 
