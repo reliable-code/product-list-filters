@@ -181,6 +181,17 @@ function cleanList() {
                 return;
             }
 
+            const productCardLink =
+                getFirstElement('a', productCard);
+
+            if (!productCardLink) {
+                hideElement(productCard);
+                return;
+            }
+
+            const productCardLinkHref = productCardLink.getAttribute('href');
+            const productArticle = getProductArticleFromUrl(productCardLinkHref);
+
             const productCardNameWrap =
                 getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
 
@@ -209,8 +220,18 @@ function cleanList() {
 
                 productCardReviewsNumber =
                     getArrayElementInnerNumber(productCardRatingWrapSpans, 1, true);
-                productCardRatingNumber =
-                    getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
+
+                const storedRatingValue = getStoredRatingValue(productArticle);
+
+                if (!storedRatingValue) {
+                    productCardRatingNumber =
+                        getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
+                } else {
+                    productCardRatingNumber = storedRatingValue;
+
+                    productCardRatingWrapSpans[0].children[1].textContent =
+                        storedRatingValue.padEnd(5);
+                }
 
                 productCardRatingWrap.title =
                     `Рейтинг: ${productCardRatingNumber}\n` +
