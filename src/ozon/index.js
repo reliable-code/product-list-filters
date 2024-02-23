@@ -278,6 +278,14 @@ function appendBadReviewsLink(productReviewsWrap) {
 
 function appendRatingValue(productReviewsWrap) {
     const starsContainer = productReviewsWrap.children[0].children[1];
+
+    const productArticle = getProductArticle();
+    const storedRatingValue = localStorage.getItem(`rate-${productArticle}`);
+
+    if (storedRatingValue) {
+        replaceRatingValue(starsContainer, storedRatingValue);
+    }
+
     waitForElement(document, CREATE_REVIEW_BUTTON_SELECTOR)
         .then((createReviewButton) => {
             const reviewsInfoContainer = createReviewButton.parentNode;
@@ -292,6 +300,7 @@ function appendRatingValue(productReviewsWrap) {
 
                     if (!ratingValue) return;
 
+                    localStorage.setItem(`rate-${productArticle}`, ratingValue);
                     replaceRatingValue(starsContainer, ratingValue);
                 });
         });
