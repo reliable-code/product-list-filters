@@ -3,7 +3,7 @@
 // @description  Remove product cards by filter
 // @match        https://www.ozon.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.8.70842958
+// @version      1.0.70876176
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=ozon.ru
 // @author       reliable-code
 // ==/UserScript==
