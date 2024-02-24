@@ -304,7 +304,7 @@ function appendBadReviewsLink(productReviewsWrap) {
 }
 
 function appendRatingValue(productReviewsWrap) {
-    const starsContainer = productReviewsWrap.children[0].children[1];
+    const starsContainer = getStarsContainer(productReviewsWrap);
 
     const productArticle = getProductArticleFromPathname();
     const storedRatingValue = getStoredRatingValue(productArticle);
@@ -331,6 +331,10 @@ function appendRatingValue(productReviewsWrap) {
                     replaceRatingValue(starsContainer, ratingValue);
                 });
         });
+}
+
+function getStarsContainer(productReviewsWrap) {
+    return productReviewsWrap.children[0].children[1];
 }
 
 function setStoredRatingValue(productArticle, ratingValue) {
