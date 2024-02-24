@@ -273,8 +273,6 @@ function appendBadReviewsLink(productReviewsWrap) {
     const productReviewsLink = getFirstElement('a', productReviewsWrap);
 
     if (productReviewsLink) {
-        const productReviewsWrapParent = productReviewsWrap.parentNode;
-
         const productBadReviewsLinkWrap = createDiv();
         productBadReviewsLinkWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
 
@@ -293,16 +291,7 @@ function appendBadReviewsLink(productReviewsWrap) {
 
         productBadReviewsLinkWrap.append(productBadReviewsLink);
 
-        const isInStickyContainer =
-            productReviewsWrapParent.parentNode.matches('[data-widget="stickyContainer"]');
-
-        if (isInStickyContainer) {
-            productBadReviewsLinkWrap.style = 'margin-top: 10px;';
-
-            insertAfter(productReviewsWrapParent, productBadReviewsLinkWrap);
-        } else {
-            insertAfter(productReviewsWrap, productBadReviewsLinkWrap);
-        }
+        insertAfter(productReviewsWrap.parentNode, productBadReviewsLinkWrap);
     }
 }
 
