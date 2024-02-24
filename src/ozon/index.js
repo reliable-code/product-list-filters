@@ -87,7 +87,7 @@ if (paginatorContent) {
 } else if (comments) {
     comments.scrollIntoView();
 } else {
-    appendBadReviewsLinkAndRatingValue();
+    appendAdditionalProductPageControls();
 }
 
 function initListClean() {
@@ -254,7 +254,7 @@ function cleanList() {
     );
 }
 
-function appendBadReviewsLinkAndRatingValue() {
+function appendAdditionalProductPageControls() {
     waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR)
         .then((productReviewsWrap) => {
             if (!productReviewsWrap) return;
