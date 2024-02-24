@@ -265,6 +265,10 @@ function appendAdditionalProductPageControls() {
         });
 }
 
+
+function getProductReviewsInfoClassList(productReviewsWrap) {
+    return getFirstElement('.tsBodyControl500Medium', productReviewsWrap).classList;
+}
 function appendBadReviewsLink(productReviewsWrap) {
     const productReviewsLink = getFirstElement('a', productReviewsWrap);
 
@@ -272,9 +276,7 @@ function appendBadReviewsLink(productReviewsWrap) {
         const productReviewsWrapParent = productReviewsWrap.parentNode;
 
         const productBadReviewsLinkWrap = createDiv();
-
-        const siblingClassList = productReviewsLink.children[1].classList;
-        productBadReviewsLinkWrap.classList = siblingClassList;
+        productBadReviewsLinkWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
 
         const productBadReviewsLink =
             createLink(
