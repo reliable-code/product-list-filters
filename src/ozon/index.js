@@ -363,3 +363,11 @@ function replaceRatingValue(starsContainer, ratingValue) {
     const reviewsCountText = starsContainer.textContent.split(' • ')[1];
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
 }
+
+function dislikeProduct(productReviewsWrap) {
+    const productArticle = getProductArticleFromPathname();
+    const starsContainer = getStarsContainer(productReviewsWrap);
+
+    setStoredRatingValue(productArticle, '1.0');
+    replaceRatingValue(starsContainer, '1.0');
+}
