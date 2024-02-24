@@ -261,6 +261,7 @@ function appendAdditionalProductPageControls() {
 
             appendBadReviewsLink(productReviewsWrap);
             appendRatingValue(productReviewsWrap);
+            appendDislikeButton(productReviewsWrap);
         });
 }
 
@@ -362,6 +363,34 @@ function getRatingValue(ratingValueSpan) {
 function replaceRatingValue(starsContainer, ratingValue) {
     const reviewsCountText = starsContainer.textContent.split(' • ')[1];
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
+}
+
+function appendDislikeButton(productReviewsWrap) {
+    const productReviewsWrapParent = productReviewsWrap.parentNode;
+
+    const productDislikeButtonWrap = createDiv();
+
+    const siblingClassList = productReviewsWrapParent.children[1].classList;
+    productDislikeButtonWrap.classList = siblingClassList;
+
+    const productDislikeButton =
+        createLink(
+            null,
+            thumbsDownIcon,
+            'align-items: center; display: inline-flex; color: rgba(0, 26, 52, 0.6); cursor: pointer;',
+        );
+
+    productDislikeButton.onclick = () => dislikeProduct(productReviewsWrap);
+
+    const productDislikeButtonSpan = document.createElement('span');
+    productDislikeButtonSpan.style = 'padding-left: 8px;';
+    productDislikeButtonSpan.textContent = 'Дизлайк';
+
+    productDislikeButton.append(productDislikeButtonSpan);
+
+    productDislikeButtonWrap.append(productDislikeButton);
+
+    insertAfter(productReviewsWrapParent, productDislikeButtonWrap);
 }
 
 function dislikeProduct(productReviewsWrap) {
