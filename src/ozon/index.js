@@ -259,16 +259,49 @@ function appendAdditionalProductPageControls() {
         .then((productReviewsWrap) => {
             if (!productReviewsWrap) return;
 
+            appendDislikeButton(productReviewsWrap);
             appendBadReviewsLink(productReviewsWrap);
             appendRatingValue(productReviewsWrap);
-            appendDislikeButton(productReviewsWrap);
         });
 }
 
+function appendDislikeButton(productReviewsWrap) {
+    const productDislikeButtonWrap = createDiv();
+
+    productDislikeButtonWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
+
+    const productDislikeButton =
+        createLink(
+            null,
+            thumbsDownIcon,
+            'align-items: center; display: inline-flex; color: rgba(0, 26, 52, 0.6); cursor: pointer;',
+        );
+
+    productDislikeButton.onclick = () => dislikeProduct(productReviewsWrap);
+
+    const productDislikeButtonSpan = document.createElement('span');
+    productDislikeButtonSpan.style = 'padding-left: 8px;';
+    productDislikeButtonSpan.textContent = 'Дизлайк';
+
+    productDislikeButton.append(productDislikeButtonSpan);
+
+    productDislikeButtonWrap.append(productDislikeButton);
+
+    insertAfter(productReviewsWrap.parentNode, productDislikeButtonWrap);
+}
 
 function getProductReviewsInfoClassList(productReviewsWrap) {
     return getFirstElement('.tsBodyControl500Medium', productReviewsWrap).classList;
 }
+
+function dislikeProduct(productReviewsWrap) {
+    const productArticle = getProductArticleFromPathname();
+    const starsContainer = getStarsContainer(productReviewsWrap);
+
+    setStoredRatingValue(productArticle, '1.0');
+    replaceRatingValue(starsContainer, '1.0');
+}
+
 function appendBadReviewsLink(productReviewsWrap) {
     const productReviewsLink = getFirstElement('a', productReviewsWrap);
 
@@ -354,40 +387,4 @@ function getRatingValue(ratingValueSpan) {
 function replaceRatingValue(starsContainer, ratingValue) {
     const reviewsCountText = starsContainer.textContent.split(' • ')[1];
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
-}
-
-function appendDislikeButton(productReviewsWrap) {
-    const productReviewsWrapParent = productReviewsWrap.parentNode;
-
-    const productDislikeButtonWrap = createDiv();
-
-    const siblingClassList = productReviewsWrapParent.children[1].classList;
-    productDislikeButtonWrap.classList = siblingClassList;
-
-    const productDislikeButton =
-        createLink(
-            null,
-            thumbsDownIcon,
-            'align-items: center; display: inline-flex; color: rgba(0, 26, 52, 0.6); cursor: pointer;',
-        );
-
-    productDislikeButton.onclick = () => dislikeProduct(productReviewsWrap);
-
-    const productDislikeButtonSpan = document.createElement('span');
-    productDislikeButtonSpan.style = 'padding-left: 8px;';
-    productDislikeButtonSpan.textContent = 'Дизлайк';
-
-    productDislikeButton.append(productDislikeButtonSpan);
-
-    productDislikeButtonWrap.append(productDislikeButton);
-
-    insertAfter(productReviewsWrapParent, productDislikeButtonWrap);
-}
-
-function dislikeProduct(productReviewsWrap) {
-    const productArticle = getProductArticleFromPathname();
-    const starsContainer = getStarsContainer(productReviewsWrap);
-
-    setStoredRatingValue(productArticle, '1.0');
-    replaceRatingValue(starsContainer, '1.0');
 }
