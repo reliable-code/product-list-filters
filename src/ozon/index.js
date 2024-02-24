@@ -95,6 +95,8 @@ function initListClean() {
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
+            window.addEventListener('storage', cleanList);
+
             const observer = new MutationObserver(cleanList);
 
             observer.observe(paginatorContent, {
