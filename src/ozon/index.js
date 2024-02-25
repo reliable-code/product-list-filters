@@ -3,6 +3,7 @@ import {
     addGlobalStyle,
     createDiv,
     createLink,
+    createSpan,
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
@@ -282,9 +283,7 @@ function appendDislikeButton(productReviewsWrap) {
 
     productDislikeButton.onclick = () => dislikeProduct(productReviewsWrap);
 
-    const productDislikeButtonSpan = document.createElement('span');
-    productDislikeButtonSpan.style = 'padding-left: 8px;';
-    productDislikeButtonSpan.textContent = 'Дизлайк';
+    const productDislikeButtonSpan = createSpan('Дизлайк', 'padding-left: 8px;');
 
     productDislikeButton.append(productDislikeButtonSpan);
 
@@ -319,9 +318,7 @@ function appendBadReviewsLink(productReviewsWrap) {
                 'align-items: center; display: flex; color: rgba(0, 26, 52, 0.6);',
             );
 
-        const productBadReviewsLinkSpan = document.createElement('span');
-        productBadReviewsLinkSpan.style = 'padding-left: 8px;';
-        productBadReviewsLinkSpan.textContent = 'Плохие отзывы';
+        const productBadReviewsLinkSpan = createSpan('Плохие отзывы', 'padding-left: 8px;');
 
         productBadReviewsLink.append(productBadReviewsLinkSpan);
 
