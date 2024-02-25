@@ -2,6 +2,16 @@ import { getInputValueFromEvent, InputValueBase, parseValue } from './dom';
 
 const storage = localStorage;
 
+export function setStorageValue(key, value, prefix = null) {
+    if (prefix) key = `${prefix}-${key}`;
+    storage.setItem(key, value);
+}
+
+export function getStorageValue(key, prefix = null) {
+    if (prefix) key = `${prefix}-${key}`;
+    return storage.getItem(key);
+}
+
 function getStorageValueOrDefault(key, defaultValue) {
     const localStorageItem = storage.getItem(key);
 
