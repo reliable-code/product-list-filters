@@ -301,8 +301,8 @@ function dislikeProduct(productReviewsWrap) {
     const productArticle = getProductArticleFromPathname();
     const starsContainer = getStarsContainer(productReviewsWrap);
 
-    setStoredRatingValue(productArticle, '1.0');
-    replaceRatingValue(starsContainer, '1.0');
+    setStoredRatingValue(productArticle, '1');
+    replaceRatingValue(starsContainer, '1');
 }
 
 function appendBadReviewsLink(productReviewsWrap) {
@@ -409,7 +409,7 @@ function appendBestPrice() {
                 storedBestPriceValue = currentPrice;
             }
 
-            const divText = `Лучшая цена: ${(+storedBestPriceValue).toLocaleString()} ₽`;
+            const divText = `Лучшая цена: ${storedBestPriceValue.toLocaleString()} ₽`;
             const divStyle =
                 'font-size: 16px;' +
                 'padding: 9px 0 0px;';

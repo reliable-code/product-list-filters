@@ -9,10 +9,11 @@ export function setStorageValue(key, value, prefix = null) {
 
 export function getStorageValue(key, prefix = null) {
     if (prefix) key = `${prefix}-${key}`;
-    return storage.getItem(key);
+
+    return getStorageValueOrDefault(key);
 }
 
-function getStorageValueOrDefault(key, defaultValue) {
+function getStorageValueOrDefault(key, defaultValue = null) {
     const localStorageItem = storage.getItem(key);
 
     return localStorageItem === null ? defaultValue : parseValue(localStorageItem);
