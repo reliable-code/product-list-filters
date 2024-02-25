@@ -405,8 +405,8 @@ function appendPriceHistory() {
                 (storedPriceValue) => currentPrice < storedPriceValue,
                 currentPrice,
                 'Мин. цена:',
-                priceContainer,
                 '#d6f5b1',
+                priceContainer,
             );
 
             appendStoredPriceValue(
@@ -415,14 +415,14 @@ function appendPriceHistory() {
                 (storedPriceValue) => currentPrice > storedPriceValue,
                 currentPrice,
                 'Макс. цена',
-                priceContainer,
                 '#fed2ea',
+                priceContainer,
             );
         });
 }
 
 function appendStoredPriceValue(
-    productArticle, prefix, compareCondition, currentPrice, label, priceContainer, color,
+    productArticle, prefix, compareCondition, currentPrice, label, color, priceContainer,
 ) {
     let storedPriceValue = getStorageValue(productArticle, prefix);
 
