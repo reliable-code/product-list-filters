@@ -6,13 +6,14 @@ import {
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
+    getNodeInnerNumber,
     hideElement,
     insertAfter,
     showElement,
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { getStorageValue, setStorageValue, StorageValue } from '../common/storage';
 import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
@@ -263,6 +264,8 @@ function appendAdditionalProductPageControls() {
             appendBadReviewsLink(productReviewsWrap);
             appendRatingValue(productReviewsWrap);
         });
+
+    appendBestPrice();
 }
 
 function appendDislikeButton(productReviewsWrap) {
@@ -387,4 +390,30 @@ function getRatingValue(ratingValueSpan) {
 function replaceRatingValue(starsContainer, ratingValue) {
     const reviewsCountText = starsContainer.textContent.split(' • ')[1];
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
+}
+
+function appendBestPrice() {
+    waitForElement(document, '[data-widget="webPrice"]')
+        .then((priceContainer) => {
+            if (!priceContainer) return;
+
+            const priceSpan = getFirstElement('span', priceContainer);
+            const currentPrice = getNodeInnerNumber(priceSpan, true);
+
+            const productArticle = getProductArticleFromPathname();
+
+            let storedBestPriceValue = getStorageValue(productArticle, 'bp');
+
+            if (!storedBestPriceValue || currentPrice < storedBestPriceValue) {
+                setStorageValue(productArticle, currentPrice, 'bp');
+                storedBestPriceValue = currentPrice;
+            }
+
+            const divText = `Лучшая цена: ${(+storedBestPriceValue).toLocaleString()} ₽`;
+            const divStyle =
+                'font-size: 16px;' +
+                'padding: 9px 0 0px;';
+            const bestPriceContainer = createDiv(divText, divStyle);
+            priceContainer.append(bestPriceContainer);
+        });
 }
