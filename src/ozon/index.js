@@ -1,4 +1,4 @@
-import { thumbsDownIcon } from './icons';
+import { heartStrikeDislikeIcon, thumbsDownIcon } from './icons';
 import {
     addGlobalStyle,
     createDiv,
@@ -273,7 +273,7 @@ function appendDislikeButton(productReviewsWrap) {
     const productDislikeButton =
         createLink(
             null,
-            thumbsDownIcon,
+            heartStrikeDislikeIcon,
             'align-items: center; display: inline-flex; color: rgba(0, 26, 52, 0.6); cursor: pointer;',
         );
 
