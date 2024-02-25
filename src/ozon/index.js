@@ -404,7 +404,7 @@ function appendPriceHistory() {
                 'lp',
                 (storedPriceValue) => currentPrice < storedPriceValue,
                 currentPrice,
-                'Мин. цена:',
+                'Мин. цена',
                 '#d6f5b1',
                 priceContainer,
             );
