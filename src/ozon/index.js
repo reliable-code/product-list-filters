@@ -406,6 +406,7 @@ function appendPriceHistory() {
                 currentPrice,
                 'Мин. цена:',
                 priceContainer,
+                '#d6f5b1',
             );
 
             appendStoredPriceValue(
@@ -415,12 +416,13 @@ function appendPriceHistory() {
                 currentPrice,
                 'Макс. цена',
                 priceContainer,
+                '#fed2ea',
             );
         });
 }
 
 function appendStoredPriceValue(
-    productArticle, prefix, compareCondition, currentPrice, label, priceContainer,
+    productArticle, prefix, compareCondition, currentPrice, label, priceContainer, color,
 ) {
     let storedPriceValue = getStorageValue(productArticle, prefix);
 
@@ -428,10 +430,20 @@ function appendStoredPriceValue(
         setStorageValue(productArticle, currentPrice, prefix);
         storedPriceValue = currentPrice;
     }
-    const divText = `${label}: ${storedPriceValue.toLocaleString()} ₽`;
+    const divText = `${label}: `;
     const divStyle =
         'font-size: 16px;' +
-        'padding: 9px 0 0px;';
+        'padding: 17px 0px 7px;';
     const storedPriceContainer = createDiv(divText, divStyle);
+
+    const spanText = `${storedPriceValue.toLocaleString()} ₽`;
+    const spanStyle =
+        'font-weight: bold;' +
+        'padding: 6px 12px;' +
+        'border-radius: 8px;' +
+        `background: ${color};`;
+    const storedPriceSpan = createSpan(spanText, spanStyle);
+
+    storedPriceContainer.append(storedPriceSpan);
     priceContainer.append(storedPriceContainer);
 }
