@@ -407,7 +407,16 @@ function appendPriceHistory() {
                 'lp',
                 (storedPriceValue) => currentPrice < storedPriceValue,
                 currentPrice,
-                'Лучшая цена',
+                'Мин. цена:',
+                priceContainer,
+            );
+
+            appendStoredPriceValue(
+                productArticle,
+                'hp',
+                (storedPriceValue) => currentPrice > storedPriceValue,
+                currentPrice,
+                'Макс. цена',
                 priceContainer,
             );
         });
