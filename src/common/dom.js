@@ -115,6 +115,14 @@ export function createDiv(textContent = null, style = null) {
     return div;
 }
 
+export function createSpan(textContent = null, style = null) {
+    const span = document.createElement('span');
+    if (textContent) span.textContent = textContent;
+    if (style) span.style = style;
+
+    return span;
+}
+
 export function createLink(href = null, innerHTML = null, style = null) {
     const link = document.createElement('a');
     if (href) link.href = href;
