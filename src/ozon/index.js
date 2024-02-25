@@ -363,11 +363,11 @@ function getStarsContainer(productReviewsWrap) {
 }
 
 function setStoredRatingValue(productArticle, ratingValue) {
-    localStorage.setItem(`rate-${productArticle}`, ratingValue);
+    setStorageValue(productArticle, ratingValue, 'rate');
 }
 
 function getStoredRatingValue(productArticle) {
-    return localStorage.getItem(`rate-${productArticle}`);
+    return getStorageValue(productArticle, 'rate');
 }
 
 function getRatingValue(ratingValueSpan) {
