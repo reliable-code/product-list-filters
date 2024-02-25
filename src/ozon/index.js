@@ -265,7 +265,7 @@ function appendAdditionalProductPageControls() {
             appendRatingValue(productReviewsWrap);
         });
 
-    appendBestPrice();
+    appendPriceHistory();
 }
 
 function appendDislikeButton(productReviewsWrap) {
@@ -392,7 +392,7 @@ function replaceRatingValue(starsContainer, ratingValue) {
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
 }
 
-function appendBestPrice() {
+function appendPriceHistory() {
     waitForElement(document, '[data-widget="webPrice"]')
         .then((priceContainer) => {
             if (!priceContainer) return;
@@ -402,18 +402,30 @@ function appendBestPrice() {
 
             const productArticle = getProductArticleFromPathname();
 
-            let storedBestPriceValue = getStorageValue(productArticle, 'bp');
-
-            if (!storedBestPriceValue || currentPrice < storedBestPriceValue) {
-                setStorageValue(productArticle, currentPrice, 'bp');
-                storedBestPriceValue = currentPrice;
-            }
-
-            const divText = `Лучшая цена: ${storedBestPriceValue.toLocaleString()} ₽`;
-            const divStyle =
-                'font-size: 16px;' +
-                'padding: 9px 0 0px;';
-            const bestPriceContainer = createDiv(divText, divStyle);
-            priceContainer.append(bestPriceContainer);
+            appendStoredPriceValue(
+                productArticle,
+                'lp',
+                (storedPriceValue) => currentPrice < storedPriceValue,
+                currentPrice,
+                'Лучшая цена',
+                priceContainer,
+            );
         });
+}
+
+function appendStoredPriceValue(
+    productArticle, prefix, compareCondition, currentPrice, label, priceContainer,
+) {
+    let storedPriceValue = getStorageValue(productArticle, prefix);
+
+    if (!storedPriceValue || compareCondition(storedPriceValue)) {
+        setStorageValue(productArticle, currentPrice, prefix);
+        storedPriceValue = currentPrice;
+    }
+    const divText = `${label}: ${storedPriceValue.toLocaleString()} ₽`;
+    const divStyle =
+        'font-size: 16px;' +
+        'padding: 9px 0 0px;';
+    const storedPriceContainer = createDiv(divText, divStyle);
+    priceContainer.append(storedPriceContainer);
 }
