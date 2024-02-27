@@ -102,7 +102,7 @@ function initListClean() {
 
             window.addEventListener('storage', cleanList);
 
-            const observer = new MutationObserver(cleanList);
+            const observer = new MutationObserver(debounce(cleanList, 50));
 
             observer.observe(paginatorContent, {
                 childList: true,
