@@ -274,7 +274,7 @@ function appendAdditionalProductPageControls() {
             appendRatingValue(productReviewsWrap);
         });
 
-    appendPriceHistory();
+    initAppendPriceHistory();
 }
 
 function appendDislikeButton(productReviewsWrap) {
@@ -397,36 +397,39 @@ function replaceRatingValue(starsContainer, ratingValue) {
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
 }
 
-function appendPriceHistory() {
+function initAppendPriceHistory() {
     waitForElement(document, '[data-widget="webPrice"]')
         .then((priceContainer) => {
             if (!priceContainer) return;
 
-            const priceSpan = getFirstElement('span', priceContainer);
-            const currentPrice = getNodeInnerNumber(priceSpan, true);
-
             const productArticle = getProductArticleFromPathname();
-
-            appendStoredPriceValue(
-                productArticle,
-                'lp',
-                (storedPriceValue) => currentPrice < storedPriceValue,
-                currentPrice,
-                'Мин. цена',
-                '#d6f5b1',
-                priceContainer,
-            );
-
-            appendStoredPriceValue(
-                productArticle,
-                'hp',
-                (storedPriceValue) => currentPrice > storedPriceValue,
-                currentPrice,
-                'Макс. цена',
-                '#fed2ea',
-                priceContainer,
-            );
+            appendPriceHistory(priceContainer, productArticle);
         });
+}
+
+function appendPriceHistory(priceContainer, productArticle) {
+    const priceSpan = getFirstElement('span', priceContainer);
+    const currentPrice = getNodeInnerNumber(priceSpan, true);
+
+    appendStoredPriceValue(
+        productArticle,
+        'lp',
+        (storedPriceValue) => currentPrice < storedPriceValue,
+        currentPrice,
+        'Мин. цена',
+        '#d6f5b1',
+        priceContainer,
+    );
+
+    appendStoredPriceValue(
+        productArticle,
+        'hp',
+        (storedPriceValue) => currentPrice > storedPriceValue,
+        currentPrice,
+        'Макс. цена',
+        '#fed2ea',
+        priceContainer,
+    );
 }
 
 function appendStoredPriceValue(
