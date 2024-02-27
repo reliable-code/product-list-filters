@@ -508,7 +508,6 @@ function appendFavoritesStoredPriceValues() {
             priceContainer.parentNode.style.display = 'block';
 
             appendPriceHistory(priceContainer, productArticle);
-            console.log('append');
             productCard.setAttribute('appendStoredPriceValuesPassed', '');
         },
     );
