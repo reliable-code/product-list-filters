@@ -4,6 +4,7 @@ import {
     createDiv,
     createLink,
     createSpan,
+    debounce,
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
@@ -465,7 +466,8 @@ function appendStoredPriceValue(
 function initAppendFavoritesStoredPriceValues() {
     waitForElement(document, '[data-widget="paginator"]')
         .then((paginator) => {
-            const observer = new MutationObserver(appendFavoritesStoredPriceValues);
+            const observer = new MutationObserver(debounce(appendFavoritesStoredPriceValues));
+
             observer.observe(paginator, {
                 childList: true,
                 subtree: true,
@@ -488,6 +490,7 @@ function appendFavoritesStoredPriceValues() {
 
                 if (notInStock) {
                     productCard.setAttribute('appendStoredPriceValuesPassed', '');
+                    return;
                 }
             }
 
