@@ -440,6 +440,7 @@ function appendStoredPriceValue(
     }
     const divText = `${label}: `;
     const divStyle =
+        'color: #000;' +
         'font-size: 16px;' +
         'padding: 17px 0px 7px;';
     const storedPriceContainer = createDiv(divText, divStyle);
@@ -453,5 +454,5 @@ function appendStoredPriceValue(
     const storedPriceSpan = createSpan(spanText, spanStyle);
 
     storedPriceContainer.append(storedPriceSpan);
-    priceContainer.append(storedPriceContainer);
+    priceContainer.parentNode.append(storedPriceContainer);
 }
