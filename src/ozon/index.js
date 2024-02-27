@@ -259,6 +259,11 @@ function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
     return getProductArticleFromUrl(productCardLinkHref);
 }
+
+function isFavoritesPage() {
+    return window.location.pathname.includes('favorites');
+}
+
 function appendAdditionalProductPageControls() {
     waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR)
         .then((productReviewsWrap) => {
