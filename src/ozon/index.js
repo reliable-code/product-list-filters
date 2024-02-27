@@ -88,6 +88,8 @@ if (paginatorContent) {
     initListClean();
 } else if (comments) {
     comments.scrollIntoView();
+} else if (isFavoritesPage()) {
+    initAppendFavoritesStoredPriceValues();
 } else {
     appendAdditionalProductPageControls();
 }
@@ -458,4 +460,53 @@ function appendStoredPriceValue(
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
+}
+
+function initAppendFavoritesStoredPriceValues() {
+    waitForElement(document, '[data-widget="paginator"]')
+        .then((paginator) => {
+            const observer = new MutationObserver(appendFavoritesStoredPriceValues);
+            observer.observe(paginator, {
+                childList: true,
+                subtree: true,
+            });
+        });
+}
+
+function appendFavoritesStoredPriceValues() {
+    const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
+
+    productCards.forEach(
+        (productCard) => {
+            if (productCard.hasAttribute('appendStoredPriceValuesPassed')) {
+                return;
+            }
+
+            const additionalInfoDiv = getFirstElement('.tsBodyControl400Small', productCard);
+            if (additionalInfoDiv) {
+                const notInStock = additionalInfoDiv.innerText === 'Нет в наличии';
+
+                if (notInStock) {
+                    productCard.setAttribute('appendStoredPriceValuesPassed', '');
+                }
+            }
+
+            const productCardLink =
+                getFirstElement('a', productCard);
+
+            if (!productCardLink) {
+                hideElement(productCard);
+                return;
+            }
+
+            const productArticle = getProductArticleFromLink(productCardLink);
+
+            const priceContainer = productCard.children[0].children[1].children[0].children[0];
+            priceContainer.parentNode.style.display = 'block';
+
+            appendPriceHistory(priceContainer, productArticle);
+            console.log('append');
+            productCard.setAttribute('appendStoredPriceValuesPassed', '');
+        },
+    );
 }
