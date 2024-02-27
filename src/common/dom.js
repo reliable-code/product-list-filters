@@ -204,6 +204,14 @@ export function waitForElement(parentNode, selector, timeout = null) {
     });
 }
 
+export function debounce(func, wait = 250) {
+    let timeoutId;
+    return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func(...args), wait);
+    };
+}
+
 export function addGlobalStyle(css) {
     const style = document.createElement('style');
     style.type = 'text/css';
