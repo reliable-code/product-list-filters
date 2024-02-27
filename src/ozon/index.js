@@ -193,8 +193,7 @@ function cleanList() {
                 return;
             }
 
-            const productCardLinkHref = productCardLink.getAttribute('href');
-            const productArticle = getProductArticleFromUrl(productCardLinkHref);
+            const productArticle = getProductArticleFromLink(productCardLink);
 
             const productCardNameWrap =
                 getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
@@ -256,6 +255,10 @@ function cleanList() {
     );
 }
 
+function getProductArticleFromLink(productCardLink) {
+    const productCardLinkHref = productCardLink.getAttribute('href');
+    return getProductArticleFromUrl(productCardLinkHref);
+}
 function appendAdditionalProductPageControls() {
     waitForElement(document, PRODUCT_REVIEWS_WRAP_SELECTOR)
         .then((productReviewsWrap) => {
