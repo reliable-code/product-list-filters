@@ -236,7 +236,8 @@ function cleanList() {
                     productCardRatingNumber = storedRatingValue;
 
                     productCardRatingWrapSpans[0].children[1].textContent =
-                        storedRatingValue.padEnd(5);
+                        storedRatingValue.toString()
+                            .padEnd(5);
                 }
 
                 productCardRatingWrap.title =
