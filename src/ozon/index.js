@@ -279,6 +279,7 @@ function appendAdditionalProductPageControls() {
         });
 
     initAppendPriceHistory();
+    removeWebInstallmentPurchase();
 }
 
 function appendDislikeButton(productReviewsWrap) {
@@ -462,6 +463,13 @@ function appendStoredPriceValue(
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
+}
+
+function removeWebInstallmentPurchase() {
+    waitForElement(document, '[data-widget="webInstallmentPurchase"]')
+        .then((webInstallmentPurchase) => {
+            webInstallmentPurchase.remove();
+        });
 }
 
 function initAppendFavoritesStoredPriceValues() {
