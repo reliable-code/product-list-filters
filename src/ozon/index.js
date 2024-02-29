@@ -280,6 +280,7 @@ function appendAdditionalProductPageControls() {
 
     initAppendPriceHistory();
     removeWebInstallmentPurchase();
+    skipFirstGalleryVideo();
 }
 
 function appendDislikeButton(productReviewsWrap) {
@@ -469,6 +470,33 @@ function removeWebInstallmentPurchase() {
     waitForElement(document, '[data-widget="webInstallmentPurchase"]')
         .then((webInstallmentPurchase) => {
             webInstallmentPurchase.remove();
+        });
+}
+
+function skipFirstGalleryVideo() {
+    waitForElement(document, '[data-widget="webGallery"]')
+        .then((webGallery) => {
+            const firstGalleryItem = getFirstElement('[data-index="0"]', webGallery);
+            if (!firstGalleryItem) return;
+
+            const secondGalleryItem = getFirstElement('[data-index="1"]', webGallery);
+            if (!secondGalleryItem) return;
+
+            const firstGalleryItemIsImage =
+                [...secondGalleryItem.classList]
+                    .every((ic) => firstGalleryItem.classList.contains(ic));
+
+            if (firstGalleryItemIsImage) return;
+
+            const observer = new MutationObserver(() => {
+                observer.disconnect();
+                secondGalleryItem.click();
+            });
+
+            observer.observe(firstGalleryItem, {
+                childList: true,
+                subtree: true,
+            });
         });
 }
 
