@@ -98,8 +98,8 @@ export function createInput(type = null, inputOnChange = null, style = null) {
     const input = document.createElement('input');
     if (type) input.type = type;
     if (inputOnChange) {
-        input.addEventListener('keyup', inputOnChange);
-        input.addEventListener('change', inputOnChange);
+        input.addEventListener('keyup', debounce(inputOnChange, 200));
+        input.addEventListener('change', debounce(inputOnChange, 100));
     }
 
     if (style) input.style = style;
