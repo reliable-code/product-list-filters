@@ -102,18 +102,13 @@ function initListClean() {
 
             window.addEventListener('storage', cleanList);
 
-            const observer = new MutationObserver(debounce(disconnectObserverAndCleanList, 50));
+            const observer = new MutationObserver(debounce(cleanList, 50));
 
             observer.observe(paginatorContent, {
                 childList: true,
                 subtree: true,
             });
         });
-}
-
-function disconnectObserverAndCleanList(mutations, observer) {
-    observer.disconnect();
-    cleanList();
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
