@@ -245,9 +245,7 @@ function cleanList() {
                             .padEnd(5);
                 }
 
-                productCardRatingWrap.title =
-                    `Рейтинг: ${productCardRatingNumber}\n` +
-                    `Отзывов: ${productCardReviewsNumber}\n`;
+                appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle);
             }
 
             const productCardName = productCardNameWrap.innerText;
@@ -262,6 +260,24 @@ function cleanList() {
             showHideElement(productCard, conditionToHide, 'flex');
         },
     );
+}
+
+function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
+    const productCardRatingWrapParent = productCardRatingWrap.parentNode;
+
+    if (productCardRatingWrapParent.hasAttribute('dislikeButtonAdded')) {
+        return;
+    }
+
+    productCardRatingWrapParent.style = 'display: flex; width: 100%';
+
+    const dislikeButton =
+        createDislikeButton(
+            () => dislikeProductOnProductList(productArticle), false,
+        );
+
+    productCardRatingWrapParent.append(dislikeButton);
+    productCardRatingWrapParent.setAttribute('dislikeButtonAdded', '');
 }
 
 function dislikeProductOnProductList(productArticle) {
