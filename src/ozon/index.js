@@ -264,6 +264,10 @@ function cleanList() {
     );
 }
 
+function dislikeProductOnProductList(productArticle) {
+    setStoredRatingValue(productArticle, '1');
+    cleanList();
+}
 function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
     return getProductArticleFromUrl(productCardLinkHref);
