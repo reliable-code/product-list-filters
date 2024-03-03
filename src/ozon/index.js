@@ -319,7 +319,7 @@ function getProductReviewsInfoClassList(productReviewsWrap) {
     return getFirstElement('.tsBodyControl500Medium', productReviewsWrap).classList;
 }
 
-function dislikeProduct(productReviewsWrap) {
+function dislikeProductOnProductPage(productReviewsWrap) {
     const productArticle = getProductArticleFromPathname();
     const starsContainer = getStarsContainer(productReviewsWrap);
 
