@@ -7,7 +7,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -35,13 +35,13 @@ function getPathElements() {
 }
 
 const nameFilter =
-    new StorageValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
 const minReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
 const minRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
 const filterEnabled =
-    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
 initListClean();
 

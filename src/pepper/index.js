@@ -8,7 +8,7 @@ import {
     setElementOpacity,
     waitForElement,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -18,8 +18,8 @@ import {
 } from '../common/filter';
 
 const minVotesFilter = new InputValue(50);
-const showExpiredFilter = new StorageValue('show-expired-filter', false);
-const filterEnabled = new StorageValue('filter-enabled', true);
+const showExpiredFilter = new StoredInputValue('show-expired-filter', false);
+const filterEnabled = new StoredInputValue('filter-enabled', true);
 
 const PRODUCT_CARD_LIST_SELECTOR = '.listLayout-main';
 const PRODUCT_CARD_SELECTOR = '.thread--type-list:not(.js-telegram-widget)';

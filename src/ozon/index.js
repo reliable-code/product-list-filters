@@ -15,7 +15,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, StorageValue } from '../common/storage';
+import { getStorageValueOrDefault, StoredInputValue } from '../common/storage';
 import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
@@ -47,17 +47,17 @@ const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 const CATEGORY_NAME = getCategoryName();
 
 const nameFilter =
-    new StorageValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
 const minReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
 const maxReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-max-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, cleanList);
 const minRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
 const noRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-no-rating-filter`, false, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, cleanList);
 const filterEnabled =
-    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
 function getCategoryName() {
     const { pathname } = window.location;

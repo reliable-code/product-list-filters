@@ -6,7 +6,7 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import { removeNonDigit } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
@@ -15,8 +15,8 @@ import {
     isLessThanFilter,
 } from '../common/filter';
 
-const minDiscountFilter = new StorageValue('min-discount-filter', null, initListClean);
-const filterEnabled = new StorageValue('filter-enabled', true, initListClean);
+const minDiscountFilter = new StoredInputValue('min-discount-filter', null, initListClean);
+const filterEnabled = new StoredInputValue('filter-enabled', true, initListClean);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';

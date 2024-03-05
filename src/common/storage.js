@@ -8,7 +8,7 @@ export function getStorageValueOrDefault(key, defaultValue = null) {
     return localStorageItem === null ? defaultValue : parseValue(localStorageItem);
 }
 
-export class StorageValue extends InputValueBase {
+export class StoredInputValue extends InputValueBase {
     constructor(storageKey, defaultValue = null, onChange = null) {
         super(getStorageValueOrDefault(storageKey, defaultValue), onChange);
         this.storageKey = storageKey;

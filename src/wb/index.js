@@ -7,7 +7,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -30,13 +30,13 @@ const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 const CATEGORY_NAME = getCategoryName();
 
 const nameFilter =
-    new StorageValue(`${CATEGORY_NAME}-name-filter`);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`);
 const minReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`);
 const minRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
 const filterEnabled =
-    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true);
 
 let minPriceValue = getMinPriceValueFromURL();
 

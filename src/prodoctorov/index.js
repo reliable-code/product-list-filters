@@ -8,7 +8,7 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -26,8 +26,8 @@ const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
 const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
 
-const minReviewsFilter = new StorageValue('min-reviews-filter', 10);
-const filterEnabled = new StorageValue('filter-enabled', true);
+const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10);
+const filterEnabled = new StoredInputValue('filter-enabled', true);
 
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 

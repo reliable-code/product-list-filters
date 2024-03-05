@@ -1,4 +1,4 @@
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import {
     getAllElements,
     getElementInnerNumber,
@@ -19,9 +19,9 @@ import {
     isNotMatchTextFilter,
 } from '../common/filter';
 
-const nameFilter = new StorageValue('name-filter');
-const minCashbackFilter = new StorageValue('min-cashback-filter');
-const maxPriceFilter = new StorageValue('max-price-filter');
+const nameFilter = new StoredInputValue('name-filter');
+const minCashbackFilter = new StoredInputValue('min-cashback-filter');
+const maxPriceFilter = new StoredInputValue('max-price-filter');
 const filterEnabled = new InputValue(false);
 
 const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';

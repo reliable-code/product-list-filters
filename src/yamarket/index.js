@@ -7,7 +7,7 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -24,11 +24,11 @@ const PRODUCT_CARD_PARENT_ATTRIBUTE = 'data-apiary-widget-name';
 const CATEGORY_NAME = getCategoryName();
 
 const minReviewsFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-reviews-filter`);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`);
 const minRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
 const filterEnabled =
-    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true);
 
 function getCategoryName() {
     const { pathname } = window.location;

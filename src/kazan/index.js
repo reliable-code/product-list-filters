@@ -8,7 +8,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -109,13 +109,13 @@ function initFilters() {
     const categoryName = getCategoryName();
 
     nameFilter =
-        new StorageValue(`${categoryName}-name-filter`, null, cleanList);
+        new StoredInputValue(`${categoryName}-name-filter`, null, cleanList);
     minReviewsFilter =
-        new StorageValue(`${categoryName}-min-reviews-filter`, null, cleanList);
+        new StoredInputValue(`${categoryName}-min-reviews-filter`, null, cleanList);
     minRatingFilter =
-        new StorageValue(`${categoryName}-min-rating-filter`, 4.8, cleanList);
+        new StoredInputValue(`${categoryName}-min-rating-filter`, 4.8, cleanList);
     filterEnabled =
-        new StorageValue(`${categoryName}-filter-enabled`, true, cleanList);
+        new StoredInputValue(`${categoryName}-filter-enabled`, true, cleanList);
 }
 
 function getCategoryName() {

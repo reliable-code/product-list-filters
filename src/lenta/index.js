@@ -7,7 +7,7 @@ import {
     resetElementOrder,
     setElementOrder,
 } from '../common/dom';
-import { StorageValue } from '../common/storage';
+import { StoredInputValue } from '../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createDiscountFilterControl,
@@ -23,17 +23,17 @@ import {
 const CATEGORY_NAME = getCategoryName();
 
 const nameFilter =
-    new StorageValue(`${CATEGORY_NAME}-name-filter`, null);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null);
 const minRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-min-rating-filter`, 4.1);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.1);
 const discountAmount =
-    new StorageValue('discount-amount', 25);
+    new StoredInputValue('discount-amount', 25);
 const noRatingFilter =
-    new StorageValue(`${CATEGORY_NAME}-no-rating-filter`, false);
+    new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false);
 const filterEnabled =
-    new StorageValue(`${CATEGORY_NAME}-filter-enabled`, true);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true);
 const sortEnabled =
-    new StorageValue('sort-enabled', true);
+    new StoredInputValue('sort-enabled', true);
 
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.catalog-grid__item';
