@@ -15,7 +15,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { getStorageValue, setStorageValue, StorageValue } from '../common/storage';
+import { getStorageValue, StorageValue } from '../common/storage';
 import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
@@ -29,6 +29,9 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../common/filter';
+
+const setValue = window.GM_setValue;
+const getValue = window.GM_getValue;
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_OLD_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -277,7 +280,7 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
 }
 
 function dislikeProductOnProductList(productArticle) {
-    setStoredRatingValue(productArticle, '1');
+    setStoredRatingValue(productArticle, 1);
     cleanList();
 }
 
@@ -361,8 +364,8 @@ function getProductReviewsInfoClassList(productReviewsWrap) {
 function dislikeProductOnProductPage(starsContainer) {
     const productArticle = getProductArticleFromPathname();
 
-    setStoredRatingValue(productArticle, '1');
-    replaceRatingValue(starsContainer, '1');
+    setStoredRatingValue(productArticle, 1);
+    replaceRatingValue(starsContainer, 1);
 }
 
 function appendBadReviewsLink(productReviewsWrap, isOld = true) {
@@ -416,8 +419,9 @@ function appendRatingValue(starsContainer) {
 
                     if (!ratingValue) return;
 
-                    setStoredRatingValue(productArticle, ratingValue);
-                    replaceRatingValue(starsContainer, ratingValue);
+                    const ratingValueNumber = +ratingValue;
+                    setStoredRatingValue(productArticle, ratingValueNumber);
+                    replaceRatingValue(starsContainer, ratingValueNumber);
                 });
         });
 }
@@ -431,11 +435,27 @@ function getStarsContainer(productReviewsWrap) {
 }
 
 function setStoredRatingValue(productArticle, ratingValue) {
-    setStorageValue(productArticle, ratingValue, 'rate');
+    setValue(`${productArticle}-rate`, ratingValue);
 }
 
 function getStoredRatingValue(productArticle) {
-    return getStorageValue(productArticle, 'rate');
+    return getStoredValue(productArticle, 'rate');
+}
+
+function getStoredValue(productArticle, prefix) {
+    let storedValue = getValue(`${productArticle}-${prefix}`);
+
+    // search in old storage
+    if (!storedValue) {
+        storedValue = getStorageValue(productArticle, prefix);
+
+        if (storedValue) {
+            setValue(`${productArticle}-${prefix}`, storedValue);
+            localStorage.removeItem(`${prefix}-${productArticle}`);
+        }
+    }
+
+    return storedValue;
 }
 
 function getRatingValue(ratingValueSpan) {
@@ -497,10 +517,10 @@ function appendPriceHistory(priceContainer, productArticle) {
 function appendStoredPriceValue(
     productArticle, prefix, compareCondition, currentPrice, label, color, priceContainer,
 ) {
-    let storedPriceValue = getStorageValue(productArticle, prefix);
+    let storedPriceValue = getStoredValue(productArticle, prefix);
 
     if (!storedPriceValue || compareCondition(storedPriceValue)) {
-        setStorageValue(productArticle, currentPrice, prefix);
+        setValue(`${productArticle}-${prefix}`, currentPrice);
         storedPriceValue = currentPrice;
     }
     const divText = `${label}: `;
