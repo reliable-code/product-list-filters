@@ -442,9 +442,10 @@ function getRatingValue(ratingValueSpan) {
     let ratingValue;
 
     try {
-        [ratingValue] =
-            removeSpaces(ratingValueSpan.innerHTML)
-                .split('/');
+        const ratingValueSpanArray = removeSpaces(ratingValueSpan.innerHTML)
+            .split('/');
+
+        ratingValue = ratingValueSpanArray.length === 2 ? ratingValueSpanArray[0] : null;
     } catch (e) {
         console.log(`Failed to get ratingValue: ${e.message}`);
     }
