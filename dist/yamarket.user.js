@@ -3,7 +3,7 @@
 // @description  Remove product cards by filter
 // @match        https://market.yandex.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.5.70965433
+// @version      0.5.70965499
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=market.yandex.ru
 // @author       reliable-code
 // ==/UserScript==

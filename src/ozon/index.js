@@ -15,7 +15,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, StoredInputValue } from '../common/storage';
+import { getStorageValueOrDefault, StoredInputValue } from '../common/localstorage';
 import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,

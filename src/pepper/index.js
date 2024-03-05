@@ -8,7 +8,7 @@ import {
     setElementOpacity,
     waitForElement,
 } from '../common/dom';
-import { StoredInputValue } from '../common/storage';
+import { StoredInputValue } from '../common/localstorage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,

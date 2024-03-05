@@ -5,7 +5,7 @@ import {
     showElement,
     showHideElement,
 } from '../common/dom';
-import { StoredInputValue } from '../common/storage';
+import { StoredInputValue } from '../common/localstorage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
