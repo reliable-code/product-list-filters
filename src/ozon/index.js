@@ -62,7 +62,13 @@ const filterEnabled =
 function getCategoryName() {
     const { pathname } = window.location;
     const pathElements = pathname.split('/');
-    const categoryName = pathElements[2] ?? 'common';
+
+    const fullCategoryName = pathElements[2];
+
+    if (!fullCategoryName) return 'common';
+
+    const categoryName = fullCategoryName.split('-')
+        .at(-1);
 
     return categoryName;
 }
