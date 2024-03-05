@@ -15,7 +15,8 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { getStorageValueOrDefault, StoredInputValue } from '../common/localstorage';
+import { getStorageValueOrDefault } from '../common/localstorage';
+import { getStorageValue, setStorageValue, StoredInputValue } from '../common/storage';
 import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
@@ -29,9 +30,6 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../common/filter';
-
-const setValue = window.GM_setValue;
-const getValue = window.GM_getValue;
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_OLD_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -441,7 +439,7 @@ function getStarsContainer(productReviewsWrap) {
 }
 
 function setStoredRatingValue(productArticle, ratingValue) {
-    setValue(`${productArticle}-rate`, ratingValue);
+    setStorageValue(`${productArticle}-rate`, ratingValue);
 }
 
 function getStoredRatingValue(productArticle) {
@@ -449,14 +447,14 @@ function getStoredRatingValue(productArticle) {
 }
 
 function getStoredValue(productArticle, prefix) {
-    let storedValue = getValue(`${productArticle}-${prefix}`);
+    let storedValue = getStorageValue(`${productArticle}-${prefix}`);
 
     // search in old storage
     if (!storedValue) {
         storedValue = getStorageValueOrDefault(`${prefix}-${productArticle}`);
 
         if (storedValue) {
-            setValue(`${productArticle}-${prefix}`, storedValue);
+            setStorageValue(`${productArticle}-${prefix}`, storedValue);
             localStorage.removeItem(`${prefix}-${productArticle}`);
         }
     }
@@ -526,7 +524,7 @@ function appendStoredPriceValue(
     let storedPriceValue = getStoredValue(productArticle, prefix);
 
     if (!storedPriceValue || compareCondition(storedPriceValue)) {
-        setValue(`${productArticle}-${prefix}`, currentPrice);
+        setStorageValue(`${productArticle}-${prefix}`, currentPrice);
         storedPriceValue = currentPrice;
     }
     const divText = `${label}: `;
