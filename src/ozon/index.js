@@ -15,7 +15,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { getStorageValue, StorageValue } from '../common/storage';
+import { getStorageValueOrDefault, StorageValue } from '../common/storage';
 import { removeSpaces } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
@@ -447,7 +447,7 @@ function getStoredValue(productArticle, prefix) {
 
     // search in old storage
     if (!storedValue) {
-        storedValue = getStorageValue(productArticle, prefix);
+        storedValue = getStorageValueOrDefault(`${prefix}-${productArticle}`);
 
         if (storedValue) {
             setValue(`${productArticle}-${prefix}`, storedValue);
