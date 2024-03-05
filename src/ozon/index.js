@@ -372,7 +372,7 @@ function dislikeProductOnProductPage(starsContainer) {
     replaceRatingValue(starsContainer, 1);
 }
 
-function appendBadReviewsLink(productReviewsWrap, isOld = true) {
+function appendBadReviewsLink(productReviewsWrap, isOld = false) {
     const productReviewsLink = getFirstElement('a', productReviewsWrap);
 
     if (productReviewsLink) {
