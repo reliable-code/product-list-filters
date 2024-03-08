@@ -57,6 +57,12 @@ const noRatingFilter =
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
+class StoredPrice {
+    constructor(value, date) {
+        this.value = value;
+        this.date = date;
+    }
+}
 function getCategoryName() {
     const { pathname } = window.location;
     const pathElements = pathname.split('/');
