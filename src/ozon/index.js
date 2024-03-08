@@ -465,7 +465,7 @@ function setStoredRatingValue(productArticle, ratingValue) {
 }
 
 function getStoredRatingValue(productArticle) {
-    return getStoredValue(productArticle, 'rate');
+    return getStorageValue(`${productArticle}-rate`);
 }
 
 function getStoredValue(productArticle, prefix) {
