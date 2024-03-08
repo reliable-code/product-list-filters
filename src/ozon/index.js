@@ -79,6 +79,9 @@ function migrataDatabase() {
 
     setStorageValue('dbVersion', 2);
 }
+
+migrataDatabase();
+
 function getCategoryName() {
     const { pathname } = window.location;
     const pathElements = pathname.split('/');
@@ -476,7 +479,9 @@ function getStoredValue(productArticle, prefix) {
         storedValue = getStorageValueOrDefault(`${prefix}-${productArticle}`);
 
         if (storedValue) {
-            setStorageValue(`${productArticle}-${prefix}`, storedValue);
+            const date = new Date().toLocaleDateString();
+            const storedPrice = new StoredPrice(storedValue, date);
+            setStorageValue(`${productArticle}-${prefix}`, storedPrice);
             localStorage.removeItem(`${prefix}-${productArticle}`);
         }
     }
@@ -517,13 +522,13 @@ function initAppendPriceHistory() {
 
 function appendPriceHistory(priceContainer, productArticle) {
     const priceSpan = getFirstElement('span', priceContainer);
-    const currentPrice = getNodeInnerNumber(priceSpan, true);
+    const currentPriceValue = getNodeInnerNumber(priceSpan, true);
 
     appendStoredPriceValue(
         productArticle,
         'lp',
-        (storedPriceValue) => currentPrice < storedPriceValue,
-        currentPrice,
+        (storedPrice) => currentPriceValue <= storedPrice.value,
+        currentPriceValue,
         'Мин. цена',
         '#d6f5b1',
         priceContainer,
@@ -532,8 +537,8 @@ function appendPriceHistory(priceContainer, productArticle) {
     appendStoredPriceValue(
         productArticle,
         'hp',
-        (storedPriceValue) => currentPrice > storedPriceValue,
-        currentPrice,
+        (storedPrice) => currentPriceValue >= storedPrice.value,
+        currentPriceValue,
         'Макс. цена',
         '#fed2ea',
         priceContainer,
@@ -541,13 +546,15 @@ function appendPriceHistory(priceContainer, productArticle) {
 }
 
 function appendStoredPriceValue(
-    productArticle, prefix, compareCondition, currentPrice, label, color, priceContainer,
+    productArticle, prefix, compareCondition, currentPriceValue, label, color, priceContainer,
 ) {
-    let storedPriceValue = getStoredValue(productArticle, prefix);
+    let storedPrice = getStoredValue(productArticle, prefix);
 
-    if (!storedPriceValue || compareCondition(storedPriceValue)) {
+    if (!storedPrice || compareCondition(storedPrice)) {
+        const date = new Date().toLocaleDateString();
+        const currentPrice = new StoredPrice(currentPriceValue, date);
         setStorageValue(`${productArticle}-${prefix}`, currentPrice);
-        storedPriceValue = currentPrice;
+        storedPrice = currentPrice;
     }
     const divText = `${label}: `;
     const divStyle =
@@ -556,13 +563,14 @@ function appendStoredPriceValue(
         'padding: 17px 0px 7px;';
     const storedPriceContainer = createDiv(divText, divStyle);
 
-    const spanText = `${storedPriceValue.toLocaleString()} ₽`;
+    const spanText = `${storedPrice.value.toLocaleString()} ₽`;
     const spanStyle =
         'font-weight: bold;' +
         'padding: 6px 12px;' +
         'border-radius: 8px;' +
         `background: ${color};`;
     const storedPriceSpan = createSpan(spanText, spanStyle);
+    storedPriceSpan.title = storedPrice.date;
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
