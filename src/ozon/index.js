@@ -63,6 +63,22 @@ class StoredPrice {
         this.date = date;
     }
 }
+
+function migrataDatabase() {
+    const dbVersion = getStorageValue('dbVersion');
+    if (dbVersion === 2) return;
+
+    const priceKeys = window.GM_listValues()
+        .filter((key) => key.endsWith('lp') || key.endsWith('hp'));
+    priceKeys.forEach((key) => {
+        const value = getStorageValue(key);
+        const date = new Date().toLocaleDateString();
+        const obj = new StoredPrice(value, date);
+        setStorageValue(key, obj);
+    });
+
+    setStorageValue('dbVersion', 2);
+}
 function getCategoryName() {
     const { pathname } = window.location;
     const pathElements = pathname.split('/');
