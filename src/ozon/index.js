@@ -34,6 +34,9 @@ import {
     getProductArticleFromPathname,
     PRODUCT_CARDS_SELECTOR,
 } from './common';
+import {
+    initAppendStoredPriceValues as initAppendFavoritesStoredPriceValues,
+} from './favoritesPage';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_OLD_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -505,55 +508,4 @@ function skipFirstGalleryVideo() {
                 subtree: true,
             });
         });
-}
-
-function initAppendFavoritesStoredPriceValues() {
-    waitForElement(document, '[data-widget="paginator"]')
-        .then((paginator) => {
-            const observer = new MutationObserver(debounce(appendFavoritesStoredPriceValues));
-
-            observer.observe(paginator, {
-                childList: true,
-                subtree: true,
-            });
-        });
-}
-
-function appendFavoritesStoredPriceValues() {
-    const appendStoredPriceValuesPassedAttr = 'appendStoredPriceValuesPassed';
-    const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
-
-    productCards.forEach(
-        (productCard) => {
-            if (productCard.hasAttribute(appendStoredPriceValuesPassedAttr)) {
-                return;
-            }
-
-            const additionalInfoDiv = getFirstElement('.tsBodyControl400Small', productCard);
-            if (additionalInfoDiv) {
-                const notInStock = additionalInfoDiv.innerText === 'Нет в наличии';
-
-                if (notInStock) {
-                    productCard.setAttribute(appendStoredPriceValuesPassedAttr, '');
-                    return;
-                }
-            }
-
-            const productCardLink =
-                getFirstElement('a', productCard);
-
-            if (!productCardLink) {
-                hideElement(productCard);
-                return;
-            }
-
-            const productArticle = getProductArticleFromLink(productCardLink);
-
-            const priceContainer = productCard.children[0].children[1].children[0].children[0];
-            priceContainer.parentNode.style.display = 'block';
-
-            appendPriceHistory(priceContainer, productArticle);
-            productCard.setAttribute(appendStoredPriceValuesPassedAttr, '');
-        },
-    );
 }
