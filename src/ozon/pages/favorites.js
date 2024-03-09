@@ -4,8 +4,12 @@ import {
     getFirstElement,
     hideElement,
     waitForElement,
-} from '../common/dom';
-import { appendPriceHistory, getProductArticleFromLink, PRODUCT_CARDS_SELECTOR } from './common';
+} from '../../common/dom';
+import {
+    appendPriceHistory,
+    getProductArticleFromLink,
+    PRODUCT_CARDS_SELECTOR,
+} from './common/common';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';

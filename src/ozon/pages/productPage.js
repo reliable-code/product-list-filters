@@ -5,16 +5,16 @@ import {
     getFirstElement,
     insertAfter,
     waitForElement,
-} from '../common/dom';
+} from '../../common/dom';
 import {
     appendPriceHistory,
     createDislikeButton,
     getProductArticleFromPathname,
     getStoredRatingValue,
     setStoredRatingValue,
-} from './common';
-import { thumbsDownIcon } from './icons';
-import { removeSpaces } from '../common/string';
+} from './common/common';
+import { thumbsDownIcon } from './common/icons';
+import { removeSpaces } from '../../common/string';
 
 const PRODUCT_REVIEWS_WRAP_OLD_SELECTOR = '[data-widget="webReviewProductScore"]';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';

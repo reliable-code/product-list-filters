@@ -1,4 +1,4 @@
-import { StoredInputValue } from '../common/storage';
+import { StoredInputValue } from '../../common/storage';
 import {
     addGlobalStyle,
     debounce,
@@ -9,7 +9,7 @@ import {
     showElement,
     showHideElement,
     waitForElement,
-} from '../common/dom';
+} from '../../common/dom';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
@@ -21,14 +21,14 @@ import {
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../common/filter';
+} from '../../common/filter';
 import {
     createDislikeButton,
     getProductArticleFromLink,
     getStoredRatingValue,
     PRODUCT_CARDS_SELECTOR,
     setStoredRatingValue,
-} from './common';
+} from './common/common';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

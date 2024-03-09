@@ -4,9 +4,9 @@ import {
     createSpan,
     getFirstElement,
     getNodeInnerNumber,
-} from '../common/dom';
-import { getStorageValue, setStorageValue } from '../common/storage';
-import { DatedValue } from '../common/models/datedValue';
+} from '../../../common/dom';
+import { getStorageValue, setStorageValue } from '../../../common/storage';
+import { DatedValue } from '../../../common/models/datedValue';
 import { heartStrikeDislikeIcon } from './icons';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';

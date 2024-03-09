@@ -2,11 +2,11 @@ import { getFirstElement } from '../common/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import {
     initAppendStoredPriceValues as initAppendFavoritesStoredPriceValues,
-} from './favoritesList';
-import { initListClean, paginatorContent } from './productList';
+} from './pages/favorites';
+import { initListClean, paginatorContent } from './pages/productList';
 import {
     initAppendAdditionalControls as initAppendAdditionalProductPageControls,
-} from './productPage';
+} from './pages/productPage';
 
 const COMMENTS_SELECTOR = '#comments';
 
