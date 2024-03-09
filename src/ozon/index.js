@@ -30,6 +30,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../common/filter';
+import { DatedValue } from '../common/models/datedValue';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_OLD_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -56,13 +57,6 @@ const noRatingFilter =
     new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, cleanList);
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
-
-class DatedValue {
-    constructor(value, date) {
-        this.value = value;
-        this.date = date;
-    }
-}
 
 function migrateDatabase() {
     const newDBVersion = 2;
