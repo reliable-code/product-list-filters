@@ -578,11 +578,12 @@ function initAppendFavoritesStoredPriceValues() {
 }
 
 function appendFavoritesStoredPriceValues() {
+    const appendStoredPriceValuesPassedAttr = 'appendStoredPriceValuesPassed';
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
 
     productCards.forEach(
         (productCard) => {
-            if (productCard.hasAttribute('appendStoredPriceValuesPassed')) {
+            if (productCard.hasAttribute(appendStoredPriceValuesPassedAttr)) {
                 return;
             }
 
@@ -591,7 +592,7 @@ function appendFavoritesStoredPriceValues() {
                 const notInStock = additionalInfoDiv.innerText === 'Нет в наличии';
 
                 if (notInStock) {
-                    productCard.setAttribute('appendStoredPriceValuesPassed', '');
+                    productCard.setAttribute(appendStoredPriceValuesPassedAttr, '');
                     return;
                 }
             }
@@ -610,7 +611,7 @@ function appendFavoritesStoredPriceValues() {
             priceContainer.parentNode.style.display = 'block';
 
             appendPriceHistory(priceContainer, productArticle);
-            productCard.setAttribute('appendStoredPriceValuesPassed', '');
+            productCard.setAttribute(appendStoredPriceValuesPassedAttr, '');
         },
     );
 }
