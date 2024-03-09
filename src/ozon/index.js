@@ -4,7 +4,9 @@ import {
     initAppendStoredPriceValues as initAppendFavoritesStoredPriceValues,
 } from './favoritesList';
 import { initListClean, paginatorContent } from './productList';
-import { appendAdditionalProductPageControls } from './productPage';
+import {
+    initAppendAdditionalControls as initAppendAdditionalProductPageControls,
+} from './productPage';
 
 const COMMENTS_SELECTOR = '#comments';
 
@@ -34,7 +36,7 @@ if (paginatorContent) {
 } else if (isFavoritesPage()) {
     initAppendFavoritesStoredPriceValues();
 } else {
-    appendAdditionalProductPageControls();
+    initAppendAdditionalProductPageControls();
 }
 
 function isFavoritesPage() {
