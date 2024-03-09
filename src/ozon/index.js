@@ -15,7 +15,6 @@ import {
     showHideElement,
     waitForElement,
 } from '../common/dom';
-import { getStorageValueOrDefault } from '../common/localstorage';
 import { getStorageValue, setStorageValue, StoredInputValue } from '../common/storage';
 import { removeSpaces } from '../common/string';
 import {
@@ -465,21 +464,7 @@ function getStoredRatingValue(productArticle) {
 }
 
 function getStoredValue(productArticle, prefix) {
-    let storedValue = getStorageValue(`${productArticle}-${prefix}`);
-
-    // search in old storage
-    if (!storedValue) {
-        storedValue = getStorageValueOrDefault(`${prefix}-${productArticle}`);
-
-        if (storedValue) {
-            const date = new Date().toLocaleDateString();
-            const storedPrice = new DatedValue(storedValue, date);
-            setStorageValue(`${productArticle}-${prefix}`, storedPrice);
-            localStorage.removeItem(`${prefix}-${productArticle}`);
-        }
-    }
-
-    return storedValue;
+    return getStorageValue(`${productArticle}-${prefix}`);
 }
 
 function getRatingValue(ratingValueSpan) {
