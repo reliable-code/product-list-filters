@@ -1,4 +1,4 @@
-import { heartStrikeDislikeIcon, thumbsDownIcon } from './icons';
+import { thumbsDownIcon } from './icons';
 import {
     addGlobalStyle,
     createDiv,
@@ -30,6 +30,7 @@ import {
 } from '../common/filter';
 import {
     appendPriceHistory,
+    createDislikeButton,
     getProductArticleFromLink,
     getProductArticleFromPathname,
     PRODUCT_CARDS_SELECTOR,
@@ -290,28 +291,6 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
 function dislikeProductOnProductList(productArticle) {
     setStoredRatingValue(productArticle, 1);
     cleanList();
-}
-
-function createDislikeButton(onClick, needLabel = true) {
-    const productDislikeButton =
-        createLink(
-            null,
-            heartStrikeDislikeIcon,
-            'align-items: center; display: inline-flex; color: rgba(0, 26, 52, 0.6); cursor: pointer;',
-        );
-
-    productDislikeButton.onclick = () => {
-        if (window.confirm('Выставить низкий рейтинг?')) {
-            onClick();
-        }
-    };
-
-    if (needLabel) {
-        const productDislikeButtonSpan = createSpan('Дизлайк', 'padding-left: 8px;');
-        productDislikeButton.append(productDislikeButtonSpan);
-    }
-
-    return productDislikeButton;
 }
 
 function isFavoritesPage() {
