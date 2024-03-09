@@ -463,10 +463,6 @@ function getStoredRatingValue(productArticle) {
     return getStorageValue(`${productArticle}-rate`);
 }
 
-function getStoredValue(productArticle, prefix) {
-    return getStorageValue(`${productArticle}-${prefix}`);
-}
-
 function getRatingValue(ratingValueSpan) {
     let ratingValue;
 
@@ -524,14 +520,15 @@ function appendPriceHistory(priceContainer, productArticle) {
 }
 
 function appendStoredPriceValue(
-    productArticle, prefix, compareCondition, currentPriceValue, label, color, priceContainer,
+    productArticle, postfix, compareCondition, currentPriceValue, label, color, priceContainer,
 ) {
-    let storedPrice = getStoredValue(productArticle, prefix);
+    const storageKey = `${productArticle}-${postfix}`;
+    let storedPrice = getStorageValue(storageKey);
 
     if (!storedPrice || compareCondition(storedPrice)) {
         const date = new Date().toLocaleDateString();
         const currentPrice = new DatedValue(currentPriceValue, date);
-        setStorageValue(`${productArticle}-${prefix}`, currentPrice);
+        setStorageValue(storageKey, currentPrice);
         storedPrice = currentPrice;
     }
     const divText = `${label}: `;
