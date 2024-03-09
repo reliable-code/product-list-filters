@@ -30,7 +30,11 @@ import {
     isNotMatchTextFilter,
 } from '../common/filter';
 import { DatedValue } from '../common/models/datedValue';
-import { getProductArticleFromLink, getProductArticleFromPathname } from './common';
+import {
+    getProductArticleFromLink,
+    getProductArticleFromPathname,
+    PRODUCT_CARDS_SELECTOR,
+} from './common';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_OLD_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -38,7 +42,6 @@ const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 const COMMENTS_SELECTOR = '#comments';
 
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
-const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';

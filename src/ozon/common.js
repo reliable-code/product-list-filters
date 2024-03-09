@@ -1,3 +1,5 @@
+export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
+
 export function getProductArticleFromPathname() {
     const { pathname } = window.location;
     return getProductArticleFromUrl(pathname);
