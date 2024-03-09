@@ -8,6 +8,7 @@ import {
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { DatedValue } from '../../../common/models/datedValue';
 import { heartStrikeDislikeIcon } from './icons';
+import { PriceData } from '../../models/priceData';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 
@@ -39,7 +40,7 @@ export function appendPriceHistory(priceContainer, productArticle) {
     const priceSpan = getFirstElement('span', priceContainer);
     const currentPriceValue = getNodeInnerNumber(priceSpan, true);
 
-    appendStoredPriceValue(
+    const lowestPriceValue = appendStoredPriceValue(
         productArticle,
         'lp',
         (storedPrice) => currentPriceValue <= storedPrice.value,
@@ -49,7 +50,7 @@ export function appendPriceHistory(priceContainer, productArticle) {
         priceContainer,
     );
 
-    appendStoredPriceValue(
+    const highestPriceValue = appendStoredPriceValue(
         productArticle,
         'hp',
         (storedPrice) => currentPriceValue >= storedPrice.value,
@@ -58,6 +59,8 @@ export function appendPriceHistory(priceContainer, productArticle) {
         '#fed2ea',
         priceContainer,
     );
+
+    return new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue);
 }
 
 function appendStoredPriceValue(
@@ -72,6 +75,7 @@ function appendStoredPriceValue(
         setStorageValue(storageKey, currentPrice);
         storedPrice = currentPrice;
     }
+
     const divText = `${label}: `;
     const divStyle =
         'color: #000;' +
@@ -97,6 +101,8 @@ function appendStoredPriceValue(
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
+
+    return storedPrice.value;
 }
 
 export function createDislikeButton(onClick, needLabel = true) {
