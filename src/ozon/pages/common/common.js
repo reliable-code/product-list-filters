@@ -84,9 +84,16 @@ function appendStoredPriceValue(
         'font-weight: bold;' +
         'padding: 6px 12px;' +
         'border-radius: 8px;' +
+        'cursor: pointer;' +
         `background: ${color};`;
     const storedPriceSpan = createSpan(spanText, spanStyle);
-    storedPriceSpan.title = storedPrice.date;
+
+    storedPriceSpan.addEventListener('mouseover', () => {
+        storedPriceSpan.textContent = storedPrice.date;
+    });
+    storedPriceSpan.addEventListener('mouseleave', () => {
+        storedPriceSpan.textContent = spanText;
+    });
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
