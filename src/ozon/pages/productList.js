@@ -152,6 +152,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR, paginatorContent);
 
+    if (productCards.length < 32 && !window.location.search.includes('text')) {
+        alert(`Озон предоставил ${productCards.length} позиций из 32`);
+    }
+
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
