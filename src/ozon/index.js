@@ -57,7 +57,7 @@ const noRatingFilter =
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
-class StoredPrice {
+class DatedValue {
     constructor(value, date) {
         this.value = value;
         this.date = date;
@@ -479,7 +479,7 @@ function getStoredValue(productArticle, prefix) {
 
         if (storedValue) {
             const date = new Date().toLocaleDateString();
-            const storedPrice = new StoredPrice(storedValue, date);
+            const storedPrice = new DatedValue(storedValue, date);
             setStorageValue(`${productArticle}-${prefix}`, storedPrice);
             localStorage.removeItem(`${prefix}-${productArticle}`);
         }
@@ -551,7 +551,7 @@ function appendStoredPriceValue(
 
     if (!storedPrice || compareCondition(storedPrice)) {
         const date = new Date().toLocaleDateString();
-        const currentPrice = new StoredPrice(currentPriceValue, date);
+        const currentPrice = new DatedValue(currentPriceValue, date);
         setStorageValue(`${productArticle}-${prefix}`, currentPrice);
         storedPrice = currentPrice;
     }
