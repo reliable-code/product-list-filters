@@ -113,3 +113,11 @@ export function createDislikeButton(onClick, needLabel = true) {
 
     return productDislikeButton;
 }
+
+export function setStoredRatingValue(productArticle, ratingValue) {
+    setStorageValue(`${productArticle}-rate`, ratingValue);
+}
+
+export function getStoredRatingValue(productArticle) {
+    return getStorageValue(`${productArticle}-rate`);
+}

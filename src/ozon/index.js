@@ -33,7 +33,9 @@ import {
     createDislikeButton,
     getProductArticleFromLink,
     getProductArticleFromPathname,
+    getStoredRatingValue,
     PRODUCT_CARDS_SELECTOR,
+    setStoredRatingValue,
 } from './common';
 import {
     initAppendStoredPriceValues as initAppendFavoritesStoredPriceValues,
@@ -414,14 +416,6 @@ function getStarsContainerOld(productReviewsWrap) {
 
 function getStarsContainer(productReviewsWrap) {
     return productReviewsWrap.children[0].children[1];
-}
-
-function setStoredRatingValue(productArticle, ratingValue) {
-    setStorageValue(`${productArticle}-rate`, ratingValue);
-}
-
-function getStoredRatingValue(productArticle) {
-    return getStorageValue(`${productArticle}-rate`);
 }
 
 function getRatingValue(ratingValueSpan) {
