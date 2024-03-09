@@ -30,6 +30,7 @@ import {
     isNotMatchTextFilter,
 } from '../common/filter';
 import { DatedValue } from '../common/models/datedValue';
+import { getProductArticleFromLink, getProductArticleFromPathname } from './common';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 const PRODUCT_REVIEWS_WRAP_OLD_SELECTOR = '[data-widget="webReviewProductScore"]';
@@ -86,25 +87,6 @@ function getCategoryName() {
         .at(-1);
 
     return categoryName;
-}
-
-function getProductArticleFromPathname() {
-    const { pathname } = window.location;
-    return getProductArticleFromUrl(pathname);
-}
-
-function getProductArticleFromUrl(pathname) {
-    const pathElements = pathname.split('/');
-    const productLinkName = pathElements[2];
-
-    if (!productLinkName) {
-        console.log('No product article in path');
-        return null;
-    }
-
-    const productArticle = productLinkName.split('-')
-        .at(-1);
-    return productArticle;
 }
 
 const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
@@ -325,11 +307,6 @@ function createDislikeButton(onClick, needLabel = true) {
     }
 
     return productDislikeButton;
-}
-
-function getProductArticleFromLink(productCardLink) {
-    const productCardLinkHref = productCardLink.getAttribute('href');
-    return getProductArticleFromUrl(productCardLinkHref);
 }
 
 function isFavoritesPage() {
