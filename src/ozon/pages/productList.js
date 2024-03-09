@@ -36,6 +36,7 @@ export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
+const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 
 const CATEGORY_NAME = getCategoryName();
 
@@ -231,7 +232,7 @@ function cleanList() {
 function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
     const productCardRatingWrapParent = productCardRatingWrap.parentNode;
 
-    if (productCardRatingWrapParent.hasAttribute('dislikeButtonAdded')) {
+    if (productCardRatingWrapParent.hasAttribute(DISLIKE_BUTTON_ADDED_ATTR)) {
         return;
     }
 
@@ -243,7 +244,7 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
         );
 
     productCardRatingWrapParent.append(dislikeButton);
-    productCardRatingWrapParent.setAttribute('dislikeButtonAdded', '');
+    productCardRatingWrapParent.setAttribute(DISLIKE_BUTTON_ADDED_ATTR, '');
 }
 
 function dislikeProductOnProductList(productArticle) {
