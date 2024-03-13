@@ -1,10 +1,11 @@
 import {
+    debounce,
+    defineElementOpacity,
     getAllElements,
     getFirstElement,
-    hideElement,
     insertAfter,
-    showElement,
-    showHideElement,
+    resetElementOpacity,
+    setElementOpacity,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
@@ -15,34 +16,47 @@ import {
     isLessThanFilter,
 } from '../common/filter';
 
-const minDiscountFilter = new StoredInputValue('min-discount-filter', null, initListClean);
-const filterEnabled = new StoredInputValue('filter-enabled', true, initListClean);
+const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
+const filterEnabled = new StoredInputValue('filter-enabled', true, cleanList);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
-const mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
+let mainContent;
 
-const observer = new MutationObserver(initListClean);
-observer.observe(document.head, {
-    childList: true,
-});
+initMainContent();
+observeHead();
 
-initListClean();
+function observeHead() {
+    const observer = new MutationObserver(debounce(initMainContent));
+    observer.observe(document.head, {
+        childList: true,
+    });
+}
+
+function initMainContent() {
+    mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
+    const observer = new MutationObserver(debounce(initListClean, 50));
+    observer.observe(mainContent, {
+        childList: true,
+        subtree: true,
+    });
+}
 
 function initListClean() {
-    const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR);
+    const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
 
     if (productCardLinks.length) {
         appendFilterControlsIfNeeded(mainContent, appendFiltersContainer);
 
-        cleanList(productCardLinks);
+        cleanList();
     }
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
     filtersContainer.style =
         'display: flex;' +
+        'margin-top: 14px;' +
         'grid-gap: 15px;';
 
     const controlStyle =
@@ -71,8 +85,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     insertAfter(parentNode.firstChild, filtersContainer);
 }
 
-function cleanList(productCardLinks) {
-    if (minDiscountFilter.value === 0) {
+function cleanList() {
+    console.log('cleanList');
+
+    const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
+
+    console.log(productCardLinks.length);
+    if (!minDiscountFilter.value) {
         return;
     }
 
@@ -82,29 +101,28 @@ function cleanList(productCardLinks) {
             const productCard = productCardLinksParent.parentNode.parentNode;
 
             if (!filterEnabled.value) {
-                showElement(productCard);
-
+                resetElementOpacity(productCard);
                 return;
             }
 
             const promoLabel = getFirstElement('li', productCardLinksParent);
 
             if (!promoLabel) {
-                hideElement(productCard);
+                setElementOpacity(productCard, 0.1);
                 return;
             }
 
             const promoLabelText = promoLabel.innerText;
 
             if (!promoLabelText.includes('%')) {
-                hideElement(productCard);
+                setElementOpacity(productCard, 0.1);
                 return;
             }
 
             const discountValue = +removeNonDigit(promoLabelText);
 
             const conditionToHide = isLessThanFilter(discountValue, minDiscountFilter);
-            showHideElement(productCard, conditionToHide);
+            defineElementOpacity(productCard, conditionToHide, 0.1);
         },
     );
 }
