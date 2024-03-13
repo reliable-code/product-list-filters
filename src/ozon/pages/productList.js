@@ -152,13 +152,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR, paginatorContent);
 
-    warnIfListNotFull(productCards.length);
+    const productCardsLength = productCards.length;
+    warnIfListNotFull(productCardsLength);
+
+    let showCounter = 0;
 
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
                 showElement(productCard, 'flex');
-
+                showCounter += 1;
                 return;
             }
 
@@ -227,8 +230,13 @@ function cleanList() {
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
             showHideElement(productCard, conditionToHide, 'flex');
+
+            if (!conditionToHide) showCounter += 1;
         },
     );
+
+    console.log(`Отображено: ${showCounter} из ${productCardsLength}`);
+}
 
 function warnIfListNotFull(productCardsLength, defaultLength = 36) {
     if (productCardsLength === defaultLength || window.location.search.includes('text')) {
