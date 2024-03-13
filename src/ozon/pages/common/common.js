@@ -106,11 +106,18 @@ function appendStoredPriceValue(
 }
 
 export function createDislikeButton(onClick, needLabel = true) {
+    const style =
+        'display: inline-flex;' +
+        'align-items: center;' +
+        'margin-left: auto;' +
+        'color: rgba(0, 26, 52, 0.6);' +
+        'cursor: pointer;';
+
     const productDislikeButton =
         createLink(
             null,
             heartStrikeDislikeIcon,
-            'align-items: center; display: inline-flex; color: rgba(0, 26, 52, 0.6); cursor: pointer;',
+            style,
         );
 
     productDislikeButton.onclick = () => {
