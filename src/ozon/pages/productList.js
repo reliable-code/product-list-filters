@@ -234,21 +234,19 @@ function cleanList() {
 }
 
 function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
-    const productCardRatingWrapParent = productCardRatingWrap.parentNode;
-
-    if (productCardRatingWrapParent.hasAttribute(DISLIKE_BUTTON_ADDED_ATTR)) {
+    if (productCardRatingWrap.hasAttribute(DISLIKE_BUTTON_ADDED_ATTR)) {
         return;
     }
 
-    productCardRatingWrapParent.style = 'display: flex; width: 100%';
+    productCardRatingWrap.style = 'display: flex; width: 100%';
 
     const dislikeButton =
         createDislikeButton(
             () => dislikeProductOnProductList(productArticle), false,
         );
 
-    productCardRatingWrapParent.append(dislikeButton);
-    productCardRatingWrapParent.setAttribute(DISLIKE_BUTTON_ADDED_ATTR, '');
+    productCardRatingWrap.append(dislikeButton);
+    productCardRatingWrap.setAttribute(DISLIKE_BUTTON_ADDED_ATTR, '');
 }
 
 function dislikeProductOnProductList(productArticle) {
