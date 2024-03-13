@@ -56,9 +56,19 @@ function appendStoredPriceValues() {
             const productArticle = getProductArticleFromLink(productCardLink);
 
             const priceContainer = productCard.children[0].children[1].children[0].children[0];
-            priceContainer.parentNode.style.display = 'block';
 
-            appendPriceHistory(priceContainer, productArticle);
+            const priceData = appendPriceHistory(priceContainer, productArticle);
+
+            const priceContainerWrap = priceContainer.parentNode;
+            priceContainerWrap.style.display = 'block';
+            if (priceData.current === priceData.lowest) {
+                priceContainerWrap.style.border = '3px solid rgb(214, 245, 177)';
+                priceContainerWrap.style.borderRadius = '14px';
+                priceContainerWrap.style.padding = '4px 10px 6px';
+                priceContainerWrap.style.marginBottom = '5px';
+                priceContainerWrap.style.width = '-webkit-fill-available';
+            }
+
             productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
         },
     );
