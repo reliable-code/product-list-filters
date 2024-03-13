@@ -152,9 +152,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR, paginatorContent);
 
-    if (productCards.length < 32 && !window.location.search.includes('text')) {
-        alert(`Озон предоставил ${productCards.length} позиций из 32`);
-    }
+    warnIfListNotFull(productCards.length);
 
     productCards.forEach(
         (productCard) => {
@@ -231,6 +229,13 @@ function cleanList() {
             showHideElement(productCard, conditionToHide, 'flex');
         },
     );
+
+function warnIfListNotFull(productCardsLength, defaultLength = 36) {
+    if (productCardsLength === defaultLength || window.location.search.includes('text')) {
+        return;
+    }
+
+    console.warn(`Озон предоставил ${productCardsLength} позиций из ${defaultLength}`);
 }
 
 function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
