@@ -1,4 +1,5 @@
 import {
+    addGlobalStyle,
     createDiv,
     createLink,
     createSpan,
@@ -37,7 +38,7 @@ export function initAppendAdditionalControls() {
         });
 
     initAppendPriceHistory();
-    removeWebInstallmentPurchase();
+    hideWebInstallmentPurchase();
     skipFirstGalleryVideo();
 }
 
@@ -170,11 +171,12 @@ function initAppendPriceHistory() {
         });
 }
 
-function removeWebInstallmentPurchase() {
-    waitForElement(document, '[data-widget="webInstallmentPurchase"]')
-        .then((webInstallmentPurchase) => {
-            webInstallmentPurchase.remove();
-        });
+function hideWebInstallmentPurchase() {
+    addGlobalStyle(
+        '[data-widget="webInstallmentPurchase"] {' +
+        '   display: none;' +
+        '}',
+    );
 }
 
 function skipFirstGalleryVideo() {
