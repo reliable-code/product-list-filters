@@ -38,7 +38,7 @@ export function initAppendAdditionalControls() {
         });
 
     initAppendPriceHistory();
-    hideWebInstallmentPurchase();
+    hideUnwantedElements();
     skipFirstGalleryVideo();
 }
 
@@ -171,12 +171,14 @@ function initAppendPriceHistory() {
         });
 }
 
-function hideWebInstallmentPurchase() {
-    addGlobalStyle(
+function hideUnwantedElements() {
+    const css =
+        '[data-widget="blackFridayStatus"],' +
         '[data-widget="webInstallmentPurchase"] {' +
         '   display: none;' +
-        '}',
-    );
+        '}';
+
+    addGlobalStyle(css);
 }
 
 function skipFirstGalleryVideo() {
