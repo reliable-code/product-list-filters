@@ -1,11 +1,11 @@
 import {
     debounce,
-    defineElementOpacity,
     getAllElements,
     getFirstElement,
+    hideElement,
     insertAfter,
-    resetElementOpacity,
-    setElementOpacity,
+    showElement,
+    showHideElement,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
@@ -99,30 +99,32 @@ function cleanList() {
         (productCardLink) => {
             const productCardLinksParent = productCardLink.parentNode;
             const productCard = productCardLinksParent.parentNode.parentNode;
+            productCard.style.flex = 'none';
+            productCard.style.width = '25%';
 
             if (!filterEnabled.value) {
-                resetElementOpacity(productCard);
+                showElement(productCard);
                 return;
             }
 
             const promoLabel = getFirstElement('li', productCardLinksParent);
 
             if (!promoLabel) {
-                setElementOpacity(productCard, 0.1);
+                hideElement(productCard);
                 return;
             }
 
             const promoLabelText = promoLabel.innerText;
 
             if (!promoLabelText.includes('%')) {
-                setElementOpacity(productCard, 0.1);
+                hideElement(productCard);
                 return;
             }
 
             const discountValue = +removeNonDigit(promoLabelText);
 
             const conditionToHide = isLessThanFilter(discountValue, minDiscountFilter);
-            defineElementOpacity(productCard, conditionToHide, 0.1);
+            showHideElement(productCard, conditionToHide);
         },
     );
 }
