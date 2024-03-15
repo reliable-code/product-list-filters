@@ -174,8 +174,12 @@ function initAppendPriceHistory() {
 function hideUnwantedElements() {
     const css =
         '[data-widget="blackFridayStatus"],' +
-        '[data-widget="webInstallmentPurchase"] {' +
-        '   display: none;' +
+        '[data-widget="webInstallmentPurchase"],' +
+        '[data-widget="webOneClickButton"],' +
+        '[data-widget="tagList"],' +
+        '[data-widget="skuShelfGoods"],' +
+        '[data-widget="skuGrid"] {' +
+        '   display: none !important;' +
         '}';
 
     addGlobalStyle(css);
