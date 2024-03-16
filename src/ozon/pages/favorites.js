@@ -1,4 +1,5 @@
 import {
+    addGlobalStyle,
     debounce,
     getAllElements,
     getFirstElement,
@@ -24,6 +25,8 @@ export function initFavoritesMods() {
                 subtree: true,
             });
         });
+
+    hideUnwantedElements();
 }
 
 function appendStoredPriceValues() {
@@ -76,4 +79,13 @@ function appendStoredPriceValues() {
             productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
         },
     );
+}
+
+function hideUnwantedElements() {
+    const css =
+        '[data-widget="skuGrid"] {' +
+        '   display: none !important;' +
+        '}';
+
+    addGlobalStyle(css);
 }
