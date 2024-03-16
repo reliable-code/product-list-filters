@@ -26,6 +26,7 @@ module.exports = {
             functions: false,
             classes: false,
         }],
+        'import/prefer-default-export': 'off',
         'operator-linebreak': 'off',
         'function-paren-newline': ['error', 'consistent'],
         'no-param-reassign': 'off',
