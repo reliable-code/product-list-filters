@@ -61,7 +61,11 @@ function appendStoredPriceValues() {
 
             const priceContainerWrap = priceContainer.parentNode;
             priceContainerWrap.style.display = 'block';
-            if (priceData.current === priceData.lowest) {
+
+            const priceToleranceFactor = 1.03;
+            const goodPrice = priceData.lowest * priceToleranceFactor;
+
+            if (priceData.current <= goodPrice) {
                 priceContainerWrap.style.border = '3px solid rgb(214, 245, 177)';
                 priceContainerWrap.style.borderRadius = '14px';
                 priceContainerWrap.style.padding = '4px 10px 6px';
