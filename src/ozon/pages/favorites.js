@@ -14,7 +14,7 @@ import {
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';
 
-export function initAppendStoredPriceValues() {
+export function initFavoritesMods() {
     waitForElement(document, PAGINATOR_SELECTOR)
         .then((paginator) => {
             const observer = new MutationObserver(debounce(appendStoredPriceValues));

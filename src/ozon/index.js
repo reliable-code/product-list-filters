@@ -1,12 +1,8 @@
 import { getFirstElement } from '../common/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
-import {
-    initAppendStoredPriceValues as initAppendFavoritesStoredPriceValues,
-} from './pages/favorites';
-import { initListClean, paginatorContent } from './pages/productList';
-import {
-    initAppendAdditionalControls as initAppendAdditionalProductPageControls,
-} from './pages/productPage';
+import { initFavoritesMods } from './pages/favorites';
+import { initProductListMods, paginatorContent } from './pages/productList';
+import { initProductPageMods } from './pages/productPage';
 
 const COMMENTS_SELECTOR = '#comments';
 
@@ -30,13 +26,13 @@ function migrateDatabase() {
 const comments = getFirstElement(COMMENTS_SELECTOR);
 
 if (paginatorContent) {
-    initListClean();
+    initProductListMods();
 } else if (comments) {
     comments.scrollIntoView();
 } else if (isFavoritesPage()) {
-    initAppendFavoritesStoredPriceValues();
+    initFavoritesMods();
 } else {
-    initAppendAdditionalProductPageControls();
+    initProductPageMods();
 }
 
 function isFavoritesPage() {

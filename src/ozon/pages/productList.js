@@ -67,7 +67,7 @@ function getCategoryName() {
     return categoryName;
 }
 
-export function initListClean() {
+export function initProductListMods() {
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
