@@ -69,7 +69,9 @@ function appendStoredPriceValue(
     const storageKey = `${productArticle}-${postfix}`;
     let storedPrice = getStorageValue(storageKey);
 
-    if (!storedPrice || compareCondition(storedPrice)) {
+    if (!currentPriceValue) {
+        if (!storedPrice) return 0;
+    } else if (!storedPrice || compareCondition(storedPrice)) {
         const date = new Date().toLocaleDateString();
         const currentPrice = new DatedValue(currentPriceValue, date);
         setStorageValue(storageKey, currentPrice);
