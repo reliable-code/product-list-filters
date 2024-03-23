@@ -19,9 +19,11 @@ import {
     isNotMatchTextFilter,
 } from '../common/filter';
 
-const nameFilter = new StoredInputValue('name-filter');
-const minCashbackFilter = new StoredInputValue('min-cashback-filter');
-const maxPriceFilter = new StoredInputValue('max-price-filter');
+const CATEGORY_NAME = getCategoryName();
+
+const nameFilter = new StoredInputValue(`${CATEGORY_NAME}-name-filter`);
+const minCashbackFilter = new StoredInputValue(`${CATEGORY_NAME}-min-cashback-filter`);
+const maxPriceFilter = new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`);
 const filterEnabled = new InputValue(false);
 
 const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
@@ -30,6 +32,15 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.item-price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 const PRICE_ATTR = 'price';
 const BALANCED_CASHBACK_PRICE_ATTR = 'balanced-cashback-price';
+
+function getCategoryName() {
+    const { pathname } = window.location;
+    const pathElements = pathname.split('/');
+
+    const categoryName = pathElements[2] || 'common';
+
+    return categoryName;
+}
 
 setInterval(initListClean, 100);
 
