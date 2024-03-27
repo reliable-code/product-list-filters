@@ -7,21 +7,29 @@ import { initProductPageMods } from './pages/productPage';
 const COMMENTS_SELECTOR = '#comments';
 
 function migrateDatabase() {
-    const newDBVersion = 2;
-    const filterCondition = (key) => true;
+    const actualDBVersion = 3;
 
     const dbVersion = getStorageValue('dbVersion');
-    if (dbVersion === newDBVersion) return;
+    if (dbVersion === actualDBVersion) return;
+
+    const filterCondition = (key) => key.endsWith('-lp');
 
     const priceKeys = window.GM_listValues()
         .filter(filterCondition);
     priceKeys.forEach((key) => {
-        const value = getStorageValue(key);
-        console.log(value);
+        const object = getStorageValue(key);
+        const { value } = object;
+        if (value === 0) {
+            console.log(key);
+            console.log(value);
+            window.GM_deleteValue(key);
+        }
     });
 
-    setStorageValue('dbVersion', newDBVersion);
+    setStorageValue('dbVersion', actualDBVersion);
 }
+
+migrateDatabase();
 
 const comments = getFirstElement(COMMENTS_SELECTOR);
 
