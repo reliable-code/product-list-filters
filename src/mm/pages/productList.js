@@ -18,6 +18,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter';
+import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 
 const CATEGORY_NAME = getCategoryName();
 const nameFilter = new StoredInputValue(`${CATEGORY_NAME}-name-filter`);
@@ -28,8 +29,6 @@ const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
 const PRODUCT_CARD_SELECTOR = '.catalog-item';
 const PRODUCT_CARD_PRICE_SELECTOR = '.item-price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
-const PRICE_ATTR = 'price';
-const BALANCED_CASHBACK_PRICE_ATTR = 'balanced-cashback-price';
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -136,42 +135,4 @@ function cleanList() {
             showHideElement(productCard, conditionToHide, 'flex');
         },
     );
-}
-
-function addBalancedCashbackPriceIfNeeded(priceParent, cashbackNumber, priceSelector) {
-    const priceElement = getFirstElement(priceSelector, priceParent);
-
-    if (!priceElement.hasAttribute(BALANCED_CASHBACK_PRICE_ATTR)) {
-        addBalancedCashbackPrice(priceElement, cashbackNumber);
-    }
-
-    return priceElement;
-}
-
-function addBalancedCashbackPrice(priceElement, cashbackNumber) {
-    const priceNumber =
-        getElementInnerNumber(priceElement, true);
-
-    const balancedCashbackPrice =
-        getBalancedCashbackPrice(priceNumber, cashbackNumber);
-
-    const priceSpan =
-        getFirstElement(':scope > span', priceElement);
-
-    const newPriceSpanText =
-        `${priceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
-    priceSpan.innerText = newPriceSpanText;
-
-    priceElement.setAttribute(PRICE_ATTR, priceNumber);
-    priceElement.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);
-}
-
-function getBalancedCashbackPrice(price, cashback) {
-    const balancedCashbackUsage = getBalancedCashbackUsage(price, cashback);
-    return price - balancedCashbackUsage;
-}
-
-function getBalancedCashbackUsage(price, cashback) {
-    const cashbackCoeff = cashback / 100;
-    return ((price * cashbackCoeff) / (1 + cashbackCoeff)).toFixed(0);
 }
