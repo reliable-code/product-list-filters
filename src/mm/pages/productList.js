@@ -121,7 +121,9 @@ function cleanList() {
             const productCardCashbackNumber = getElementInnerNumber(productCardCashback, true);
 
             const productCardPrice =
-                addBalancedCashbackPriceIfNeeded(productCard, productCardCashbackNumber);
+                addBalancedCashbackPriceIfNeeded(
+                    productCard, productCardCashbackNumber, PRODUCT_CARD_PRICE_SELECTOR,
+                );
             // const price =
             //     +productCardPrice.getAttribute(PRICE_ATTR);
             const balancedCashbackPrice =
@@ -136,32 +138,32 @@ function cleanList() {
     );
 }
 
-function addBalancedCashbackPriceIfNeeded(productCard, productCardCashbackNumber) {
-    const productCardPrice = getFirstElement(PRODUCT_CARD_PRICE_SELECTOR, productCard);
+function addBalancedCashbackPriceIfNeeded(priceParent, cashbackNumber, priceSelector) {
+    const priceElement = getFirstElement(priceSelector, priceParent);
 
-    if (!productCardPrice.hasAttribute(BALANCED_CASHBACK_PRICE_ATTR)) {
-        addBalancedCashbackPrice(productCardPrice, productCardCashbackNumber);
+    if (!priceElement.hasAttribute(BALANCED_CASHBACK_PRICE_ATTR)) {
+        addBalancedCashbackPrice(priceElement, cashbackNumber);
     }
 
-    return productCardPrice;
+    return priceElement;
 }
 
-function addBalancedCashbackPrice(productCardPrice, productCardCashbackNumber) {
-    const productCardPriceNumber =
-        getElementInnerNumber(productCardPrice, true);
+function addBalancedCashbackPrice(priceElement, cashbackNumber) {
+    const priceNumber =
+        getElementInnerNumber(priceElement, true);
 
     const balancedCashbackPrice =
-        getBalancedCashbackPrice(productCardPriceNumber, productCardCashbackNumber);
+        getBalancedCashbackPrice(priceNumber, cashbackNumber);
 
-    const productCardPriceSpan =
-        getFirstElement(':scope > span', productCardPrice);
+    const priceSpan =
+        getFirstElement(':scope > span', priceElement);
 
-    const newProductCardPriceSpanText =
-        `${productCardPriceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
-    productCardPriceSpan.innerText = newProductCardPriceSpanText;
+    const newPriceSpanText =
+        `${priceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
+    priceSpan.innerText = newPriceSpanText;
 
-    productCardPrice.setAttribute(PRICE_ATTR, productCardPriceNumber);
-    productCardPrice.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);
+    priceElement.setAttribute(PRICE_ATTR, priceNumber);
+    priceElement.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);
 }
 
 function getBalancedCashbackPrice(price, cashback) {
