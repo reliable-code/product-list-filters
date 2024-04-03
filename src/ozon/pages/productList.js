@@ -5,6 +5,7 @@ import {
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
+    getURLPathElement,
     hideElement,
     showElement,
     showHideElement,
@@ -54,10 +55,7 @@ const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
 function getCategoryName() {
-    const { pathname } = window.location;
-    const pathElements = pathname.split('/');
-
-    const fullCategoryName = pathElements[2];
+    const fullCategoryName = getURLPathElement(2);
 
     if (!fullCategoryName) return 'common';
 

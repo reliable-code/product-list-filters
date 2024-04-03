@@ -266,7 +266,7 @@ export function parseValue(value) {
     return value === '' ? null : JSON.parse(value);
 }
 
-export function getURLPathElement(position, defaultValue = 'common') {
+export function getURLPathElement(position, defaultValue = null) {
     const pathElements = window.location.pathname.split('/');
 
     const pathElement = pathElements[position] || defaultValue;
