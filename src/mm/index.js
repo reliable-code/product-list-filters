@@ -1,8 +1,8 @@
 import { initListClean } from './pages/productList';
-import { initOffersClean } from './pages/productPage';
+import { initProductPageMods } from './pages/productPage';
 
 if (isProductPage()) {
-    setInterval(initOffersClean, 100);
+    initProductPageMods();
 } else {
     setInterval(initListClean, 100);
 }
