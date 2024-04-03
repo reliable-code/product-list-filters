@@ -36,9 +36,8 @@ const PRODUCT_CARD_SELECTOR = '.catalog-item';
 const PRODUCT_CARD_PRICE_SELECTOR = '.item-price > span';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 
-const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
-
 export function initProductListMods() {
+    const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
     const productCardListContainer = productCardListHeader.parentNode;
 
     const observer = new MutationObserver(debounce(initListClean, 50));
@@ -50,6 +49,8 @@ export function initProductListMods() {
 }
 
 function initListClean() {
+    const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
+
     appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
 
     cleanList();
