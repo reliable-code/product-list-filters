@@ -9,7 +9,7 @@ import {
     showElement,
     showHideElement,
 } from '../../common/dom';
-import { StoredInputValue } from '../../common/localstorage';
+import { StoredInputValue } from '../../common/storage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,

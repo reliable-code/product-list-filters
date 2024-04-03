@@ -18,7 +18,7 @@ import {
     isLessThanFilter,
 } from '../../common/filter';
 
-import { StoredInputValue } from '../../common/localstorage';
+import { StoredInputValue } from '../../common/storage';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 
 const PRODUCT_NAME = getURLPathElement(3, 'default');
