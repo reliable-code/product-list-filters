@@ -3,6 +3,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    getURLPathElement,
     hideElement,
     InputValue,
     showElement,
@@ -21,7 +22,7 @@ import {
 } from '../../common/filter';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 
-const CATEGORY_NAME = getCategoryName();
+const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
 const minCashbackFilter =
@@ -36,15 +37,6 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.item-price > span';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 
 const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
-
-function getCategoryName() {
-    const { pathname } = window.location;
-    const pathElements = pathname.split('/');
-
-    const categoryName = pathElements[2] || 'common';
-
-    return categoryName;
-}
 
 export function initProductListMods() {
     const productCardListContainer = productCardListHeader.parentNode;

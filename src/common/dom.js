@@ -265,3 +265,11 @@ export class InputValue extends InputValueBase {
 export function parseValue(value) {
     return value === '' ? null : JSON.parse(value);
 }
+
+export function getURLPathElement(position, defaultValue = 'common') {
+    const pathElements = window.location.pathname.split('/');
+
+    const pathElement = pathElements[position] || defaultValue;
+
+    return pathElement;
+}
