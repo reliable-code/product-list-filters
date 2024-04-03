@@ -1,4 +1,5 @@
 import {
+    debounce,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -21,14 +22,20 @@ import {
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 
 const CATEGORY_NAME = getCategoryName();
-const nameFilter = new StoredInputValue(`${CATEGORY_NAME}-name-filter`);
-const minCashbackFilter = new StoredInputValue(`${CATEGORY_NAME}-min-cashback-filter`);
-const maxPriceFilter = new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`);
-const filterEnabled = new InputValue(false);
+const nameFilter =
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
+const minCashbackFilter =
+    new StoredInputValue(`${CATEGORY_NAME}-min-cashback-filter`, null, cleanList);
+const maxPriceFilter =
+    new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, cleanList);
+const filterEnabled =
+    new InputValue(false, cleanList);
 const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
 const PRODUCT_CARD_SELECTOR = '.catalog-item';
 const PRODUCT_CARD_PRICE_SELECTOR = '.item-price > span';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
+
+const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -39,14 +46,21 @@ function getCategoryName() {
     return categoryName;
 }
 
-export function initListClean() {
-    const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
+export function initProductListMods() {
+    const productCardListContainer = productCardListHeader.parentNode;
 
-    if (productCardListHeader) {
-        appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
+    const observer = new MutationObserver(debounce(initListClean, 50));
 
-        cleanList();
-    }
+    observer.observe(productCardListContainer, {
+        childList: true,
+        subtree: true,
+    });
+}
+
+function initListClean() {
+    appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
+
+    cleanList();
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {

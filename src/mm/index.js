@@ -1,10 +1,10 @@
-import { initListClean } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
+import { initProductListMods } from './pages/productList';
 
 if (isProductPage()) {
     initProductPageMods();
 } else {
-    setInterval(initListClean, 100);
+    initProductListMods();
 }
 
 function isProductPage() {
