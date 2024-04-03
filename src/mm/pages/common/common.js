@@ -3,7 +3,7 @@ import { getElementInnerNumber, getFirstElement } from '../../../common/dom';
 const PRICE_ATTR = 'price';
 export const BALANCED_CASHBACK_PRICE_ATTR = 'balanced-cashback-price';
 
-export function addBalancedCashbackPriceIfNeeded(priceParent, cashbackNumber, priceSelector) {
+export function addBalancedCashbackPriceIfNeeded(priceParent, priceSelector, cashbackNumber) {
     const priceElement = getFirstElement(priceSelector, priceParent);
 
     if (!priceElement.hasAttribute(BALANCED_CASHBACK_PRICE_ATTR)) {
@@ -20,12 +20,9 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber) {
     const balancedCashbackPrice =
         getBalancedCashbackPrice(priceNumber, cashbackNumber);
 
-    const priceSpan =
-        getFirstElement(':scope > span', priceElement);
-
-    const newPriceSpanText =
+    const newPriceElementText =
         `${priceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
-    priceSpan.innerText = newPriceSpanText;
+    priceElement.innerText = newPriceElementText;
 
     priceElement.setAttribute(PRICE_ATTR, priceNumber);
     priceElement.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);

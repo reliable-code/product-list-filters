@@ -27,7 +27,7 @@ const maxPriceFilter = new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`)
 const filterEnabled = new InputValue(false);
 const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
 const PRODUCT_CARD_SELECTOR = '.catalog-item';
-const PRODUCT_CARD_PRICE_SELECTOR = '.item-price';
+const PRODUCT_CARD_PRICE_SELECTOR = '.item-price > span';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 
 function getCategoryName() {
@@ -119,14 +119,12 @@ function cleanList() {
 
             const productCardCashbackNumber = getElementInnerNumber(productCardCashback, true);
 
-            const productCardPrice =
-                addBalancedCashbackPriceIfNeeded(
-                    productCard, productCardCashbackNumber, PRODUCT_CARD_PRICE_SELECTOR,
-                );
+            const priceElement =
+                addBalancedCashbackPriceIfNeeded(productCard, PRODUCT_CARD_PRICE_SELECTOR, productCardCashbackNumber);
             // const price =
-            //     +productCardPrice.getAttribute(PRICE_ATTR);
+            //     +priceElement.getAttribute(PRICE_ATTR);
             const balancedCashbackPrice =
-                +productCardPrice.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
+                +priceElement.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
 
             const conditionToHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
