@@ -1,53 +1,12 @@
-import {
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-    hideElement,
-    showHideElement,
-} from '../common/dom';
 import { initListClean } from './pages/productList';
+import { initOffersClean } from './pages/productPage';
 
-if (isDetailsPage()) {
+if (isProductPage()) {
     setInterval(initOffersClean, 100);
 } else {
     setInterval(initListClean, 100);
 }
 
-function isDetailsPage() {
+function isProductPage() {
     return window.location.pathname.includes('details');
-}
-
-function initOffersClean() {
-    const offersSection = getFirstElement('.pdp-prices');
-
-    if (offersSection) {
-        cleanOffers();
-    }
-}
-
-function cleanOffers() {
-    const offers = getAllElements('.pdp-prices .product-offer');
-
-    offers.forEach(
-        (offer) => {
-            const priceWrap =
-                getFirstElement('.product-offer-price__amount', offer);
-
-            const cashbackWrap =
-                getFirstElement('.bonus-percent', offer);
-
-            if (!priceWrap || !cashbackWrap) {
-                hideElement(offer);
-
-                return;
-            }
-
-            const priceNumber = getElementInnerNumber(priceWrap, true);
-            const cashbackNumber = getElementInnerNumber(cashbackWrap, true);
-
-            const conditionToHide =
-                cashbackNumber < 10;
-            showHideElement(offer, conditionToHide, 'flex');
-        },
-    );
 }
