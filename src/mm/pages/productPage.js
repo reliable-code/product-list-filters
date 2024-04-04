@@ -30,7 +30,7 @@ const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
 
 function getProductArticle() {
-    const productName = getURLPathElement(3);
+    const productName = getURLPathElement(3, '');
 
     if (!productName) return 'default';
 

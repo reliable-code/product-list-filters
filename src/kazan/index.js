@@ -102,7 +102,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function initFilters() {
-    const categoryName = getURLPathElement(2, 'common');
+    const categoryName = getURLPathElement(2);
 
     nameFilter =
         new StoredInputValue(`${categoryName}-name-filter`, null, cleanList);

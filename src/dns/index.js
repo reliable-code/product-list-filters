@@ -20,7 +20,7 @@ import { removeNonNumber } from '../common/string';
 
 const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 
-const CATEGORY_NAME = getURLPathElement(3, 'common');
+const CATEGORY_NAME = getURLPathElement(3);
 
 const nameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);

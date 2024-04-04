@@ -22,7 +22,7 @@ import {
 } from '../../common/filter';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 
-const CATEGORY_NAME = getURLPathElement(2, 'common');
+const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
 const minCashbackFilter =
