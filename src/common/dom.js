@@ -282,7 +282,7 @@ function getPathnameElement(pathname, position, defaultValue, logResult) {
     return pathElement;
 }
 
-export function getURLPathElementEnding(position, defaultValue = 'default', logResult = false) {
+export function getURLPathElementEnding(position, defaultValue = 'common', logResult = false) {
     const pathElement = getURLPathElement(position, '', logResult);
 
     return getPathElementEnding(pathElement, defaultValue, logResult);
@@ -299,7 +299,7 @@ function getPathElementEnding(pathElement, defaultValue, logResult) {
     return pathElementEnding;
 }
 
-export function getPathnameElementEnding(pathname, position, defaultValue = 'default', logResult = false) {
+export function getPathnameElementEnding(pathname, position, defaultValue = 'common', logResult = false) {
     const pathElement = getPathnameElement(pathname, position, '', logResult);
 
     return getPathElementEnding(pathElement, defaultValue, logResult);
