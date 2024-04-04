@@ -266,37 +266,41 @@ export function parseValue(value) {
     return value === '' ? null : JSON.parse(value);
 }
 
-export function getURLPathElement(position, defaultValue = 'common') {
-    const pathName = window.location.pathname;
+export function getURLPathElement(position, defaultValue = 'common', logResult = false) {
+    const { pathname } = window.location;
 
-    return getPathNameElement(pathName, position, defaultValue);
+    return getPathnameElement(pathname, position, defaultValue, logResult);
 }
 
-function getPathNameElement(pathName, position, defaultValue) {
-    const pathElements = pathName.split('/');
+function getPathnameElement(pathname, position, defaultValue, logResult) {
+    const pathElements = pathname.split('/');
 
     const pathElement = pathElements[position] || defaultValue;
+
+    if (logResult) console.log(`Pathname element: ${pathElement}`);
 
     return pathElement;
 }
 
-export function getURLPathElementEnding(position, defaultValue = 'default') {
-    const pathElement = getURLPathElement(position, '');
+export function getURLPathElementEnding(position, defaultValue = 'default', logResult = false) {
+    const pathElement = getURLPathElement(position, '', logResult);
 
-    return getPathElementEnding(pathElement, defaultValue);
+    return getPathElementEnding(pathElement, defaultValue, logResult);
 }
 
-function getPathElementEnding(pathElement, defaultValue) {
+function getPathElementEnding(pathElement, defaultValue, logResult) {
     if (!pathElement) return defaultValue;
 
     const pathElementEnding = pathElement.split('-')
         .at(-1);
 
+    if (logResult) console.log(`Pathname element ending: ${pathElementEnding}`);
+
     return pathElementEnding;
 }
 
-export function getPathNameElementEnding(pathName, position, defaultValue = 'default') {
-    const pathElement = getPathNameElement(pathName, position, '');
+export function getPathnameElementEnding(pathname, position, defaultValue = 'default', logResult = false) {
+    const pathElement = getPathnameElement(pathname, position, '', logResult);
 
-    return getPathElementEnding(pathElement, defaultValue);
+    return getPathElementEnding(pathElement, defaultValue, logResult);
 }

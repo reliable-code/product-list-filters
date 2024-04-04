@@ -4,7 +4,7 @@ import {
     createSpan,
     getFirstElement,
     getNodeInnerNumber,
-    getPathNameElementEnding,
+    getPathnameElementEnding,
 } from '../../../common/dom';
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { DatedValue } from '../../../common/models/datedValue';
@@ -15,7 +15,7 @@ export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > d
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
-    return getPathNameElementEnding(productCardLinkHref, 2);
+    return getPathnameElementEnding(productCardLinkHref, 2);
 }
 
 export function appendPriceHistory(priceContainer, productArticle) {
