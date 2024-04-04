@@ -1,6 +1,7 @@
 import {
     getAllElements,
     getFirstElement,
+    getURLPathElement,
     hideElement,
     showElement,
     showHideElement,
@@ -19,19 +20,7 @@ import { removeNonNumber } from '../common/string';
 
 const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 
-const CATEGORY_NAME = getCategoryName();
-
-function getCategoryName() {
-    const pathElements = getPathElements();
-    const categoryName = pathElements[3] ?? 'common';
-
-    return categoryName;
-}
-
-function getPathElements() {
-    const { pathname } = window.location;
-    return pathname.split('/');
-}
+const CATEGORY_NAME = getURLPathElement(3, 'common');
 
 const nameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
