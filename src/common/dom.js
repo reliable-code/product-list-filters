@@ -294,3 +294,9 @@ function getPathElementEnding(pathElement, defaultValue) {
 
     return pathElementEnding;
 }
+
+export function getPathNameElementEnding(pathName, position, defaultValue = 'default') {
+    const pathElement = getPathNameElement(pathName, position, '');
+
+    return getPathElementEnding(pathElement, defaultValue);
+}
