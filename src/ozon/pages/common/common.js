@@ -4,6 +4,7 @@ import {
     createSpan,
     getFirstElement,
     getNodeInnerNumber,
+    getURLPathElementEnding,
 } from '../../../common/dom';
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { DatedValue } from '../../../common/models/datedValue';
@@ -13,8 +14,7 @@ import { PriceData } from '../../models/priceData';
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 
 export function getProductArticleFromPathname() {
-    const { pathname } = window.location;
-    return getProductArticleFromUrl(pathname);
+    return getURLPathElementEnding(2, 'unknown');
 }
 
 function getProductArticleFromUrl(pathname) {
