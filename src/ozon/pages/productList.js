@@ -5,7 +5,7 @@ import {
     getAllElements,
     getArrayElementInnerNumber,
     getFirstElement,
-    getURLPathElement,
+    getURLPathElementEnding,
     hideElement,
     showElement,
     showHideElement,
@@ -53,17 +53,6 @@ const noRatingFilter =
     new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, cleanList);
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
-
-function getURLPathElementEnding(position, defaultValue = 'common') {
-    const pathElement = getURLPathElement(position);
-
-    if (!pathElement) return defaultValue;
-
-    const pathElementEnding = pathElement.split('-')
-        .at(-1);
-
-    return pathElementEnding;
-}
 
 export function initProductListMods() {
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)

@@ -273,3 +273,14 @@ export function getURLPathElement(position, defaultValue = null) {
 
     return pathElement;
 }
+
+export function getURLPathElementEnding(position, defaultValue = 'common') {
+    const pathElement = getURLPathElement(position);
+
+    if (!pathElement) return defaultValue;
+
+    const pathElementEnding = pathElement.split('-')
+        .at(-1);
+
+    return pathElementEnding;
+}
