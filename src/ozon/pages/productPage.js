@@ -4,13 +4,13 @@ import {
     createLink,
     createSpan,
     getFirstElement,
+    getURLPathElementEnding,
     insertAfter,
     waitForElement,
 } from '../../common/dom';
 import {
     appendPriceHistory,
     createDislikeButton,
-    getProductArticleFromPathname,
     getStoredRatingValue,
     setStoredRatingValue,
 } from './common/common';
@@ -65,6 +65,10 @@ function appendDislikeButton(productReviewsWrap, isOld = false) {
 
 function getProductReviewsInfoClassList(productReviewsWrap) {
     return getFirstElement('.tsBodyControl500Medium', productReviewsWrap).classList;
+}
+
+function getProductArticleFromPathname() {
+    return getURLPathElementEnding(2, 'unknown');
 }
 
 function dislikeProduct(starsContainer) {
