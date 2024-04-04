@@ -21,7 +21,7 @@ import {
 import { StoredInputValue } from '../../common/storage';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 
-const PRODUCT_NAME = getURLPathElementEnding(3, 'default');
+const PRODUCT_NAME = getURLPathElementEnding(3);
 
 const minCashbackFilter =
     new StoredInputValue(`${PRODUCT_NAME}-min-cashback-filter`, null, cleanOffers);

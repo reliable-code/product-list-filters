@@ -280,7 +280,7 @@ function getPathNameElement(pathName, position, defaultValue) {
     return pathElement;
 }
 
-export function getURLPathElementEnding(position, defaultValue = 'common') {
+export function getURLPathElementEnding(position, defaultValue = 'default') {
     const pathElement = getURLPathElement(position, '');
 
     return getPathElementEnding(pathElement, defaultValue);
