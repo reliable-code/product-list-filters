@@ -283,6 +283,10 @@ function getPathNameElement(pathName, position, defaultValue) {
 export function getURLPathElementEnding(position, defaultValue = 'common') {
     const pathElement = getURLPathElement(position, '');
 
+    return getPathElementEnding(pathElement, defaultValue);
+}
+
+function getPathElementEnding(pathElement, defaultValue) {
     if (!pathElement) return defaultValue;
 
     const pathElementEnding = pathElement.split('-')
