@@ -3,6 +3,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
     getNodeInnerNumber,
+    getURLPathElement,
     hideElement,
     showElement,
     showHideElement,
@@ -28,19 +29,14 @@ const { documentElement } = document;
 new MutationObserver(() => {
     if (documentElement.classList.contains('nprogress-busy')) return;
 
-    const pathElements = getPathElements();
-    if (pathElements.includes('category') || pathElements.includes('search')) {
+    const pathName = window.location.pathname;
+    if (pathName.includes('category') || pathName.includes('search')) {
         initListClean();
     }
 }).observe(documentElement, {
     attributes: true,
     attributeFilter: ['class'],
 });
-
-function getPathElements() {
-    const { pathname } = window.location;
-    return pathname.split('/');
-}
 
 function initListClean() {
     waitForElement(document, '.notification')
@@ -106,7 +102,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function initFilters() {
-    const categoryName = getCategoryName();
+    const categoryName = getURLPathElement(2, 'common');
 
     nameFilter =
         new StoredInputValue(`${categoryName}-name-filter`, null, cleanList);
@@ -116,13 +112,6 @@ function initFilters() {
         new StoredInputValue(`${categoryName}-min-rating-filter`, 4.8, cleanList);
     filterEnabled =
         new StoredInputValue(`${categoryName}-filter-enabled`, true, cleanList);
-}
-
-function getCategoryName() {
-    const pathElements = getPathElements();
-    const categoryName = pathElements[2] ?? 'common';
-
-    return categoryName;
 }
 
 function cleanList() {
