@@ -4,6 +4,7 @@ import {
     createSpan,
     getFirstElement,
     getNodeInnerNumber,
+    getPathNameElementEnding,
 } from '../../../common/dom';
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { DatedValue } from '../../../common/models/datedValue';
@@ -12,23 +13,9 @@ import { PriceData } from '../../models/priceData';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 
-function getProductArticleFromUrl(pathname) {
-    const pathElements = pathname.split('/');
-    const productLinkName = pathElements[2];
-
-    if (!productLinkName) {
-        console.log('No product article in path');
-        return null;
-    }
-
-    const productArticle = productLinkName.split('-')
-        .at(-1);
-    return productArticle;
-}
-
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
-    return getProductArticleFromUrl(productCardLinkHref);
+    return getPathNameElementEnding(productCardLinkHref, 2);
 }
 
 export function appendPriceHistory(priceContainer, productArticle) {
