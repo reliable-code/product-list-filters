@@ -3,7 +3,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    getURLPathElement,
+    getURLPathElementEnding,
     hideElement,
     showElement,
     showHideElement,
@@ -21,24 +21,14 @@ import {
 import { StoredInputValue } from '../../common/storage';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 
-const PRODUCT_NAME = getProductArticle();
+const PRODUCT_NAME = getURLPathElementEnding(3, 'default');
+
 const minCashbackFilter =
     new StoredInputValue(`${PRODUCT_NAME}-min-cashback-filter`, null, cleanOffers);
 const maxPriceFilter =
     new StoredInputValue(`${PRODUCT_NAME}-max-price-filter`, null, cleanOffers);
 const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
-
-function getProductArticle() {
-    const productName = getURLPathElement(3, '');
-
-    if (!productName) return 'default';
-
-    const productArticle = productName.split('-')
-        .at(-1);
-
-    return productArticle;
-}
 
 export function initProductPageMods() {
     waitForElement(document, '.pdp-prices-filter')
