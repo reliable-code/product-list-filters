@@ -39,7 +39,7 @@ const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 
-const CATEGORY_NAME = getCategoryName();
+const CATEGORY_NAME = getURLPathElementEnding(2);
 
 const nameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
@@ -54,15 +54,15 @@ const noRatingFilter =
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
-function getCategoryName() {
-    const fullCategoryName = getURLPathElement(2);
+function getURLPathElementEnding(position, defaultValue = 'common') {
+    const pathElement = getURLPathElement(position);
 
-    if (!fullCategoryName) return 'common';
+    if (!pathElement) return defaultValue;
 
-    const categoryName = fullCategoryName.split('-')
+    const pathElementEnding = pathElement.split('-')
         .at(-1);
 
-    return categoryName;
+    return pathElementEnding;
 }
 
 export function initProductListMods() {
