@@ -267,7 +267,13 @@ export function parseValue(value) {
 }
 
 export function getURLPathElement(position, defaultValue = 'common') {
-    const pathElements = window.location.pathname.split('/');
+    const pathName = window.location.pathname;
+
+    return getPathNameElement(pathName, position, defaultValue);
+}
+
+function getPathNameElement(pathName, position, defaultValue) {
+    const pathElements = pathName.split('/');
 
     const pathElement = pathElements[position] || defaultValue;
 
