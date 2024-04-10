@@ -1,6 +1,7 @@
 import {
+    debounce,
     getAllElements,
-    getArrayElementInnerNumber,
+    getElementInnerNumber,
     getFirstElement,
     hideElement,
     insertAfter,
@@ -17,18 +18,15 @@ import {
 } from '../common/filter';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
-const VIRTUOSO_SCROLLER_SELECTOR = '[data-virtuoso-scroller="true"]';
-const PRODUCT_CARD_SNIPPET_SELECTOR = '[data-autotest-id="product-snippet"]';
-const PRODUCT_CARD_PARENT_ATTRIBUTE = 'data-apiary-widget-name';
 
 const CATEGORY_NAME = getCategoryName();
 
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -43,7 +41,19 @@ const searchControls = getFirstElement(SEARCH_CONTROLS_SELECTOR);
 if (searchControls) {
     appendFilterControlsIfNeeded(searchControls, appendFiltersContainer);
 
-    setInterval(cleanList, 100);
+    initProductListMods();
+}
+
+export function initProductListMods() {
+    cleanList();
+
+    const searchResults = getFirstElement('[data-zone-name="searchResults"]');
+    const observer = new MutationObserver(debounce(cleanList, 50));
+
+    observer.observe(searchResults, {
+        childList: true,
+        subtree: true,
+    });
 }
 
 function appendFiltersContainer(filterControls, parentNode) {
@@ -85,45 +95,27 @@ function appendFiltersContainer(filterControls, parentNode) {
 }
 
 function cleanList() {
-    const virtuosoScrollers = getAllElements(VIRTUOSO_SCROLLER_SELECTOR);
-    virtuosoScrollers.forEach((virtuosoScroller) => {
-        virtuosoScroller.style.minHeight = '0';
-    });
+    const productCards = getAllElements('[data-apiary-widget-name="@marketfront/SerpEntity"]');
 
-    const productCardSnippets = getAllElements(PRODUCT_CARD_SNIPPET_SELECTOR);
-
-    productCardSnippets.forEach(
-        (productCardSnippet) => {
-            const productCardSnippetParent = productCardSnippet.parentNode;
-
-            const isFirstLoad =
-                productCardSnippetParent.hasAttribute(PRODUCT_CARD_PARENT_ATTRIBUTE);
-
-            const productCard = isFirstLoad
-                ? productCardSnippetParent.parentNode.parentNode
-                : productCardSnippetParent;
-
+    productCards.forEach(
+        (productCard) => {
             if (!filterEnabled.value) {
                 showElement(productCard);
 
                 return;
             }
 
-            const ratingMeter = getFirstElement('[role="meter"]', productCardSnippet);
+            const productCardReviewsWrap = getFirstElement('[data-auto="reviews"]', productCard);
+            const productCardRatingWrap = getFirstElement('[data-auto="rating"]', productCard);
 
-            if (!ratingMeter) {
+            if (!productCardReviewsWrap || !productCardRatingWrap) {
                 hideElement(productCard);
 
                 return;
             }
 
-            const ratingInfoWrap = ratingMeter.parentNode;
-
-            const ratingInfoSpans = getAllElements(':scope > span', ratingInfoWrap);
-
-            const productCardReviewsNumber = getArrayElementInnerNumber(ratingInfoSpans, 1);
-
-            const productCardRatingNumber = getArrayElementInnerNumber(ratingInfoSpans, 0);
+            const productCardReviewsNumber = getElementInnerNumber(productCardReviewsWrap);
+            const productCardRatingNumber = getElementInnerNumber(productCardRatingWrap);
 
             const conditionToHide =
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
