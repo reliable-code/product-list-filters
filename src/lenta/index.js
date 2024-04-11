@@ -141,6 +141,7 @@ function cleanList() {
         (productCard) => {
             const productCardName = getAndExpandProductCardName(productCard);
 
+            appendProductCardNameLink(productCard);
 
             const productCardPrice = getFirstElement('.main-price', productCard, true);
             if (!productCardPrice) return;
@@ -206,6 +207,17 @@ function expandProductCardName(productCardNameWrap) {
     const newHeight = '72px';
     productCardNameWrap.style.height = newHeight;
     productCardNameWrap.firstChild.style.height = newHeight;
+}
+
+function appendProductCardNameLink(productCard) {
+    const productCardImageLink =
+        getFirstElement('.lu-product-card-image-link', productCard);
+
+    if (productCardImageLink) {
+        const productCardNameLink =
+            getFirstElement('.lu-product-card-name', productCard);
+        productCardNameLink.href = productCardImageLink.href;
+    }
 }
 
 function getPriceValueAttribute(productCard, productCardPrice) {
