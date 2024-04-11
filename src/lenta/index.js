@@ -139,14 +139,8 @@ function cleanList() {
 
     productCards.forEach(
         (productCard) => {
-            const productCardNameWrap =
-                getFirstElement('.lu-product-card-name-wrapper', productCard);
-            let productCardName = '';
+            const productCardName = getAndExpandProductCardName(productCard);
 
-            if (productCardNameWrap) {
-                expandProductCardName(productCardNameWrap);
-                productCardName = productCardNameWrap.innerText;
-            }
 
             const productCardPrice = getFirstElement('.main-price', productCard, true);
             if (!productCardPrice) return;
@@ -195,6 +189,17 @@ function cleanList() {
             defineElementOpacity(productCard, conditionToDefine);
         },
     );
+}
+
+function getAndExpandProductCardName(productCard) {
+    const productCardNameWrap =
+        getFirstElement('.lu-product-card-name-wrapper', productCard);
+
+    if (!productCardNameWrap) return '';
+
+    expandProductCardName(productCardNameWrap);
+
+    return productCardNameWrap.innerText;
 }
 
 function expandProductCardName(productCardNameWrap) {
