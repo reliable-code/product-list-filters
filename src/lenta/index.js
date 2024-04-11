@@ -19,6 +19,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../common/filter';
+import { removeNonDigit } from '../common/string';
 
 const CATEGORY_NAME = getCategoryName();
 
@@ -60,9 +61,23 @@ function initListClean() {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
 
         cleanList();
-    } else {
+    } else if (window.location.pathname.includes('order')) {
         attachOrderItemsRemoveFunctionIfNeeded();
+    } else if (window.location.pathname.includes('basket')) {
+        attachBasketProductNameLink();
     }
+}
+
+function attachBasketProductNameLink() {
+    const productCards = getAllElements('lu-cart-product-card');
+    productCards.forEach((productCard) => {
+        const favoriteButton = getFirstElement('.product-card-favorite-btn', productCard);
+        const productIdAttr = favoriteButton.getAttribute('id');
+        const productId = removeNonDigit(productIdAttr);
+        const productLink = `https://ekb.online.lenta.com/item/${productId}`;
+        const productCardName = getFirstElement('.lu-product-card-name', productCard);
+        productCardName.href = productLink;
+    });
 }
 
 function attachOrderItemsRemoveFunctionIfNeeded() {
