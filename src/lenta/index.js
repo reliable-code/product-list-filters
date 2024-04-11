@@ -198,8 +198,9 @@ function cleanList() {
 }
 
 function expandProductCardName(productCardNameWrap) {
-    productCardNameWrap.style.height = '55px';
-    productCardNameWrap.firstChild.style.height = '55px';
+    const newHeight = '72px';
+    productCardNameWrap.style.height = newHeight;
+    productCardNameWrap.firstChild.style.height = newHeight;
 }
 
 function getPriceValueAttribute(productCard, productCardPrice) {
