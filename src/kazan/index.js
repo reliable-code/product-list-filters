@@ -5,6 +5,7 @@ import {
     getNodeInnerNumber,
     getURLPathElementEnding,
     hideElement,
+    pathnameIncludes,
     showElement,
     showHideElement,
     waitForElement,
@@ -29,8 +30,7 @@ const { documentElement } = document;
 new MutationObserver(() => {
     if (documentElement.classList.contains('nprogress-busy')) return;
 
-    const pathName = window.location.pathname;
-    if (pathName.includes('category') || pathName.includes('search')) {
+    if (pathnameIncludes('category') || pathnameIncludes('search')) {
         initListClean();
     }
 }).observe(documentElement, {

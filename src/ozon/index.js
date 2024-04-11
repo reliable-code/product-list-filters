@@ -1,4 +1,4 @@
-import { getFirstElement } from '../common/dom';
+import { getFirstElement, pathnameIncludes } from '../common/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
@@ -37,12 +37,8 @@ if (paginatorContent) {
     initProductListMods();
 } else if (comments) {
     comments.scrollIntoView();
-} else if (isFavoritesPage()) {
+} else if (pathnameIncludes('favorites')) {
     initFavoritesMods();
 } else {
     initProductPageMods();
-}
-
-function isFavoritesPage() {
-    return window.location.pathname.includes('favorites');
 }

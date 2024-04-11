@@ -3,6 +3,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    pathnameIncludes,
     resetElementOpacity,
     resetElementOrder,
     setElementOrder,
@@ -61,9 +62,9 @@ function initListClean() {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
 
         cleanList();
-    } else if (window.location.pathname.includes('order')) {
+    } else if (pathnameIncludes('order')) {
         attachOrderItemsRemoveFunctionIfNeeded();
-    } else if (window.location.pathname.includes('basket')) {
+    } else if (pathnameIncludes('basket')) {
         attachBasketProductNameLink();
     }
 }

@@ -1,5 +1,6 @@
 import { initProductPageMods } from './pages/productPage';
 import { initProductListMods } from './pages/productList';
+import { pathnameIncludes } from '../common/dom';
 
 if (isProductPage()) {
     initProductPageMods();
@@ -8,5 +9,5 @@ if (isProductPage()) {
 }
 
 function isProductPage() {
-    return window.location.pathname.includes('details');
+    return pathnameIncludes('details');
 }
