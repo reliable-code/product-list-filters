@@ -304,3 +304,7 @@ export function getPathnameElementEnding(pathname, position, defaultValue = 'com
 
     return getPathElementEnding(pathElement, defaultValue, logResult);
 }
+
+export function pathnameIncludes(searchString) {
+    return window.location.pathname.includes(searchString);
+}
