@@ -234,6 +234,15 @@ export function createMaxPriceFilterControl(
     );
 }
 
+export function createMaxDiscountedPriceFilterControl(
+    inputValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createMaxPriceFilterControlBase(
+        'Макс. цена со скидкой: ', inputValue, controlStyle, inputStyle,
+    );
+}
 
 export function createNoRatingFilterControl(
     inputValue,
