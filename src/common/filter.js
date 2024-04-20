@@ -77,6 +77,19 @@ export function createNameFilterControl(
     );
 }
 
+export function createSellerNameFilterControl(
+    inputValue,
+    controlStyle = null,
+    inputStyle = null,
+) {
+    return createFilterControlText(
+        'Продавец: ',
+        inputValue,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createMinRatingFilterControl(
     inputValue,
     controlStyle = null,
