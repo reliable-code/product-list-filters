@@ -17,8 +17,9 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber) {
     const priceNumber =
         getElementInnerNumber(priceElement, true);
 
-    const balancedCashbackPrice =
-        getBalancedCashbackPrice(priceNumber, cashbackNumber);
+    const balancedCashbackUsage = getBalancedCashbackUsage(priceNumber, cashbackNumber);
+
+    const balancedCashbackPrice = priceNumber - balancedCashbackUsage;
 
     const newPriceElementText =
         `${priceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
@@ -26,11 +27,6 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber) {
 
     priceElement.setAttribute(PRICE_ATTR, priceNumber);
     priceElement.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);
-}
-
-function getBalancedCashbackPrice(price, cashback) {
-    const balancedCashbackUsage = getBalancedCashbackUsage(price, cashback);
-    return price - balancedCashbackUsage;
 }
 
 function getBalancedCashbackUsage(price, cashback) {
