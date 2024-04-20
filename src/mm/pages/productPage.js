@@ -15,6 +15,7 @@ import {
     createMaxDiscountedPriceFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
+    createMinRatingFilterControl,
     isGreaterThanFilter,
     isLessThanFilter,
 } from '../../common/filter';
@@ -34,6 +35,8 @@ const maxPriceFilter =
     new StoredInputValue(`${PRODUCT_NAME}-max-price-filter`, null, cleanOffers);
 const maxDiscountedPriceFilter =
     new StoredInputValue(`${PRODUCT_NAME}-max-discounted-price-filter`, null, cleanOffers);
+const minSellerRatingFilter =
+    new StoredInputValue('min-seller-rating-filter', null, cleanOffers);
 const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
 
@@ -91,12 +94,19 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             maxDiscountedPriceFilter, controlStyle, numberInputStyle,
         );
 
+    const minSellerRatingDiv =
+        createMinRatingFilterControl(
+            minSellerRatingFilter, controlStyle, numberInputStyle,
+        );
+
     const filterEnabledDiv =
         createEnabledFilterControl(
             filterEnabled, controlStyle, checkboxInputStyle,
         );
 
-    filtersContainer.append(minCashbackDiv, maxPriceDiv, filterEnabledDiv);
+    filtersContainer.append(
+        minCashbackDiv, maxPriceDiv, maxDiscountedPriceDiv, minSellerRatingDiv, filterEnabledDiv,
+    );
 
     parentNode.append(filtersContainer);
 }
@@ -131,13 +141,20 @@ function cleanOffers() {
 
             const price =
                 +priceElement.getAttribute(PRICE_ATTR);
+
             const balancedCashbackPrice =
                 +priceElement.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
+
+            const sellerRatingWrap =
+                getFirstElement('.pdp-merchant-rating-block__rating', offer);
+
+            const sellerRatingNumber = getElementInnerNumber(sellerRatingWrap, true);
 
             const conditionToHide =
                 isLessThanFilter(cashbackNumber, minCashbackFilter) ||
                 isGreaterThanFilter(price, maxPriceFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxDiscountedPriceFilter) ||
+                isLessThanFilter(sellerRatingNumber, minSellerRatingFilter);
             showHideElement(offer, conditionToHide, 'flex');
         },
     );
