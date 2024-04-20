@@ -12,6 +12,7 @@ import {
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createMaxDiscountedPriceFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     isGreaterThanFilter,
@@ -31,6 +32,8 @@ const minCashbackFilter =
     new StoredInputValue(`${PRODUCT_NAME}-min-cashback-filter`, null, cleanOffers);
 const maxPriceFilter =
     new StoredInputValue(`${PRODUCT_NAME}-max-price-filter`, null, cleanOffers);
+const maxDiscountedPriceFilter =
+    new StoredInputValue(`${PRODUCT_NAME}-max-discounted-price-filter`, null, cleanOffers);
 const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
 
@@ -74,13 +77,24 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 23px;';
 
     const minCashbackDiv =
-        createMinCashbackFilterControl(minCashbackFilter, controlStyle, numberInputStyle);
+        createMinCashbackFilterControl(
+            minCashbackFilter, controlStyle, numberInputStyle,
+        );
 
     const maxPriceDiv =
-        createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle);
+        createMaxPriceFilterControl(
+            maxPriceFilter, controlStyle, numberInputStyle,
+        );
+
+    const maxDiscountedPriceDiv =
+        createMaxDiscountedPriceFilterControl(
+            maxDiscountedPriceFilter, controlStyle, numberInputStyle,
+        );
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
+        createEnabledFilterControl(
+            filterEnabled, controlStyle, checkboxInputStyle,
+        );
 
     filtersContainer.append(minCashbackDiv, maxPriceDiv, filterEnabledDiv);
 
@@ -115,12 +129,15 @@ function cleanOffers() {
             const priceElement =
                 addBalancedCashbackPriceIfNeeded(offer, '.product-offer-price__amount', cashbackNumber);
 
+            const price =
+                +priceElement.getAttribute(PRICE_ATTR);
             const balancedCashbackPrice =
                 +priceElement.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
 
             const conditionToHide =
                 isLessThanFilter(cashbackNumber, minCashbackFilter) ||
-                isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter);
+                isGreaterThanFilter(price, maxPriceFilter) ||
+                isGreaterThanFilter(balancedCashbackPrice, maxDiscountedPriceFilter) ||
             showHideElement(offer, conditionToHide, 'flex');
         },
     );
