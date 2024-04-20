@@ -32,8 +32,8 @@ const maxPriceFilter =
 const filterEnabled =
     new InputValue(false, cleanList);
 const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
-const PRODUCT_CARD_SELECTOR = '.catalog-item';
-const PRODUCT_CARD_PRICE_SELECTOR = '.item-price > span';
+const PRODUCT_CARD_SELECTOR = '.catalog-item-desktop';
+const PRODUCT_CARD_PRICE_SELECTOR = '.catalog-item-regular-desktop__price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 
 export function initProductListMods() {
@@ -101,6 +101,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
+    console.log(productCards.length);
 
     productCards.forEach(
         (productCard) => {
@@ -111,7 +112,7 @@ function cleanList() {
             }
 
             const productCardNameWrap =
-                getFirstElement('.item-title', productCard);
+                getFirstElement('.catalog-item-regular-desktop__title-link', productCard);
 
             const productCardCashback =
                 getFirstElement(PRODUCT_CARD_CASHBACK_SELECTOR, productCard);
@@ -127,9 +128,10 @@ function cleanList() {
             const productCardCashbackNumber = getElementInnerNumber(productCardCashback, true);
 
             const priceElement =
-                addBalancedCashbackPriceIfNeeded(productCard, PRODUCT_CARD_PRICE_SELECTOR, productCardCashbackNumber);
-            // const price =
-            //     +priceElement.getAttribute(PRICE_ATTR);
+                addBalancedCashbackPriceIfNeeded(
+                    productCard, PRODUCT_CARD_PRICE_SELECTOR, productCardCashbackNumber,
+                );
+
             const balancedCashbackPrice =
                 +priceElement.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
 
