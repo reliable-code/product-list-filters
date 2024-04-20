@@ -24,6 +24,7 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber) {
     const newPriceElementText =
         `${priceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
     priceElement.innerText = newPriceElementText;
+    priceElement.title = `-${balancedCashbackUsage.toLocaleString()}`;
 
     priceElement.setAttribute(PRICE_ATTR, priceNumber);
     priceElement.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);
