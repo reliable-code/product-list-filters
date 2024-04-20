@@ -19,7 +19,11 @@ import {
 } from '../../common/filter';
 
 import { StoredInputValue } from '../../common/storage';
-import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
+import {
+    addBalancedCashbackPriceIfNeeded,
+    BALANCED_CASHBACK_PRICE_ATTR,
+    PRICE_ATTR,
+} from './common/common';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 

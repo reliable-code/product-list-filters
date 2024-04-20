@@ -1,6 +1,6 @@
 import { getElementInnerNumber, getFirstElement } from '../../../common/dom';
 
-const PRICE_ATTR = 'price';
+export const PRICE_ATTR = 'price';
 export const BALANCED_CASHBACK_PRICE_ATTR = 'balanced-cashback-price';
 
 export function addBalancedCashbackPriceIfNeeded(priceParent, priceSelector, cashbackNumber) {
