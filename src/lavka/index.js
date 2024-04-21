@@ -3,7 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    hideElement,
     insertAfter,
     showElement,
     showHideElement,
@@ -95,14 +94,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    console.log('cleanList');
-
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
-
-    console.log(productCardLinks.length);
-    if (!minDiscountFilter.value) {
-        return;
-    }
 
     productCardLinks.forEach(
         (productCardLink) => {
@@ -116,21 +108,7 @@ function cleanList() {
                 return;
             }
 
-            const promoLabel = getFirstElement('li', productCardLinksParent);
-
-            if (!promoLabel) {
-                hideElement(productCard);
-                return;
-            }
-
-            const promoLabelText = promoLabel.innerText;
-
-            if (!promoLabelText.includes('%')) {
-                hideElement(productCard);
-                return;
-            }
-
-            const discountValue = +removeNonDigit(promoLabelText);
+            const discountValue = getDiscountValue(productCardLinksParent);
 
             const priceWrap = getFirstElement('span [aria-hidden="true"]', productCard);
             const price = getElementInnerNumber(priceWrap, true);
@@ -141,4 +119,20 @@ function cleanList() {
             showHideElement(productCard, conditionToHide);
         },
     );
+}
+
+function getDiscountValue(productCardLinksParent) {
+    const promoLabel = getFirstElement('li', productCardLinksParent);
+
+    if (!promoLabel) {
+        return 0;
+    }
+
+    const promoLabelText = promoLabel.innerText;
+
+    if (!promoLabelText.includes('%')) {
+        return 0;
+    }
+
+    return +removeNonDigit(promoLabelText);
 }
