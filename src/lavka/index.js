@@ -1,6 +1,7 @@
 import {
     debounce,
     getAllElements,
+    getElementInnerNumber,
     getFirstElement,
     hideElement,
     insertAfter,
@@ -13,11 +14,14 @@ import { removeNonDigit } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createMaxPriceFilterControl,
     createMinDiscountFilterControl,
+    isGreaterThanFilter,
     isLessThanFilter,
 } from '../common/filter';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
+const maxPricaFilter = new StoredInputValue('max-price-filter', null, cleanList);
 const filterEnabled = new StoredInputValue('filter-enabled', true, cleanList);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
@@ -84,10 +88,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minDiscountDiv =
         createMinDiscountFilterControl(minDiscountFilter, controlStyle, numberInputStyle);
 
+    const maxPriceDiv =
+        createMaxPriceFilterControl(maxPricaFilter, controlStyle, numberInputStyle, 25);
+
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minDiscountDiv, filterEnabledDiv);
+    filtersContainer.append(minDiscountDiv, maxPriceDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
 }
 
@@ -129,7 +136,12 @@ function cleanList() {
 
             const discountValue = +removeNonDigit(promoLabelText);
 
-            const conditionToHide = isLessThanFilter(discountValue, minDiscountFilter);
+            const priceWrap = getFirstElement('span [aria-hidden="true"]', productCard);
+            const price = getElementInnerNumber(priceWrap, true);
+
+            const conditionToHide =
+                isLessThanFilter(discountValue, minDiscountFilter) ||
+                isGreaterThanFilter(price, maxPricaFilter);
             showHideElement(productCard, conditionToHide);
         },
     );
