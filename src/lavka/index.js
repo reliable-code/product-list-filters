@@ -7,7 +7,6 @@ import {
     insertAfter,
     showElement,
     showHideElement,
-    waitForElement,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
@@ -40,17 +39,14 @@ function observeHead() {
 }
 
 function initMainContent() {
-    waitForElement(document, MAIN_CONTENT_SELECTOR, 1000)
-        .then((result) => {
-            if (!result) return;
+    mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
+    if (!mainContent) return;
 
-            mainContent = result;
-            const observer = new MutationObserver(debounce(initListClean, 50));
-            observer.observe(mainContent, {
-                childList: true,
-                subtree: true,
-            });
-        });
+    const observer = new MutationObserver(debounce(initListClean, 50));
+    observer.observe(mainContent, {
+        childList: true,
+        subtree: true,
+    });
 }
 
 function initListClean() {
