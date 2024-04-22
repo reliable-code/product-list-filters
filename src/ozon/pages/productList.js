@@ -142,6 +142,9 @@ function cleanList() {
     const productCardsLength = productCards.length;
     warnIfListNotFull(productCardsLength);
 
+    const firstProductCardsWrap =
+        getFirstElement('.widget-search-result-container', paginatorContent).firstChild;
+
     let showCounter = 0;
 
     productCards.forEach(
@@ -150,6 +153,10 @@ function cleanList() {
                 showElement(productCard, 'flex');
                 showCounter += 1;
                 return;
+            }
+
+            if (productCard.parentNode !== firstProductCardsWrap) {
+                firstProductCardsWrap.appendChild(productCard);
             }
 
             const productCardLink =
