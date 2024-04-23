@@ -40,6 +40,7 @@ export function initProductPageMods() {
     initAppendPriceHistory();
     hideUnwantedElements();
     skipFirstGalleryVideo();
+    extendProductNameMaxHeight();
 }
 
 function appendDislikeButton(productReviewsWrap, isOld = false) {
@@ -213,5 +214,14 @@ function skipFirstGalleryVideo() {
                 childList: true,
                 subtree: true,
             });
+        });
+}
+
+function extendProductNameMaxHeight() {
+    waitForElement(document, '[data-widget="webProductHeading"]')
+        .then((webProductHeading) => {
+            const productName = getFirstElement('h1', webProductHeading);
+
+            productName.style.maxHeight = '90px';
         });
 }
