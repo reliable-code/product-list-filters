@@ -8,6 +8,7 @@ import {
     InputValue,
     showElement,
     showHideElement,
+    waitForElement,
 } from '../../common/dom';
 import { StoredInputValue } from '../../common/storage';
 import {
@@ -40,15 +41,17 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.catalog-item-regular-desktop__price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 
 export function initProductListMods() {
-    const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
-    const productCardListContainer = productCardListHeader.parentNode;
+    waitForElement(document, PRODUCT_CARD_LIST_CONTROLS)
+        .then((productCardListHeader) => {
+            const productCardListContainer = productCardListHeader.parentNode;
 
-    const observer = new MutationObserver(debounce(initListClean, 50));
+            const observer = new MutationObserver(debounce(initListClean, 50));
 
-    observer.observe(productCardListContainer, {
-        childList: true,
-        subtree: true,
-    });
+            observer.observe(productCardListContainer, {
+                childList: true,
+                subtree: true,
+            });
+        });
 }
 
 function initListClean() {
