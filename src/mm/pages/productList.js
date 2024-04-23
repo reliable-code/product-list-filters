@@ -112,7 +112,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
-    console.log(productCards.length);
 
     productCards.forEach(
         (productCard) => {
@@ -149,13 +148,16 @@ function cleanList() {
             const sellerNameWrap =
                 getFirstElement('.merchant-info__name', productCard);
 
-            const sellerName = sellerNameWrap.innerText;
+            const sellerNameIsNotMatchFilter =
+                sellerNameWrap ?
+                    isNotMatchTextFilter(sellerNameWrap.innerText, sellerNameFilter) :
+                    false;
 
             const conditionToHide =
                 isNotMatchTextFilter(name, nameFilter) ||
                 isLessThanFilter(cashbackNumber, minCashbackFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter) ||
-                isNotMatchTextFilter(sellerName, sellerNameFilter);
+                sellerNameIsNotMatchFilter;
             showHideElement(productCard, conditionToHide, 'flex');
         },
     );
