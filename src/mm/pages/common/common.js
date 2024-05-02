@@ -30,6 +30,14 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber) {
     priceElement.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);
 }
 
+function getPriceNumber(priceElement) {
+    if (priceElement.hasAttribute(PRICE_ATTR)) {
+        return +priceElement.getAttribute(PRICE_ATTR);
+    }
+
+    return getElementInnerNumber(priceElement, true);
+}
+
 function getBalancedCashbackUsage(price, cashback) {
     const cashbackCoeff = cashback / 100;
     return ((price * cashbackCoeff) / (1 + cashbackCoeff)).toFixed(0);
