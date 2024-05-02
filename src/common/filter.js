@@ -237,6 +237,18 @@ function createPriceFilterControlBase(titleText, inputValue, controlStyle, input
     );
 }
 
+export function createCouponValueControl(inputValue, controlStyle, inputStyle) {
+    return createFilterControlNumber(
+        'Купон: ',
+        inputValue,
+        '500',
+        '0',
+        '100000',
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createMaxPriceFilterControl(
     inputValue,
     controlStyle = null,
