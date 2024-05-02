@@ -38,6 +38,15 @@ function getPriceNumber(priceElement) {
     return getElementInnerNumber(priceElement, true);
 }
 
+function checkCouponValueChanged(priceElement, couponValue) {
+    if (priceElement.hasAttribute(COUPON_ATTR)) {
+        const oldCouponValue = +priceElement.getAttribute(COUPON_ATTR);
+        return couponValue !== oldCouponValue;
+    }
+
+    return !!couponValue;
+}
+
 function getBalancedCashbackUsage(price, cashback) {
     const cashbackCoeff = cashback / 100;
     return ((price * cashbackCoeff) / (1 + cashbackCoeff)).toFixed(0);
