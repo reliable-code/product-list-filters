@@ -5,12 +5,14 @@ import {
     getFirstElement,
     getURLPathElementEnding,
     hideElement,
+    InputValue,
     showElement,
     showHideElement,
     waitForElement,
 } from '../../common/dom';
 import {
     appendFilterControlsIfNeeded,
+    createCouponValueControl,
     createEnabledFilterControl,
     createMaxDiscountedPriceFilterControl,
     createMaxPriceFilterControl,
@@ -37,6 +39,8 @@ const maxDiscountedPriceFilter =
     new StoredInputValue(`${PRODUCT_NAME}-max-discounted-price-filter`, null, cleanOffers);
 const minSellerRatingFilter =
     new StoredInputValue('min-seller-rating-filter', null, cleanOffers);
+const couponValue =
+    new InputValue(null, cleanOffers);
 const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
 
@@ -99,13 +103,23 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             minSellerRatingFilter, controlStyle, numberInputStyle,
         );
 
+    const couponValueDiv =
+        createCouponValueControl(
+            couponValue, controlStyle, numberInputStyle,
+        );
+
     const filterEnabledDiv =
         createEnabledFilterControl(
             filterEnabled, controlStyle, checkboxInputStyle,
         );
 
     filtersContainer.append(
-        minCashbackDiv, maxPriceDiv, maxDiscountedPriceDiv, minSellerRatingDiv, filterEnabledDiv,
+        minCashbackDiv,
+        maxPriceDiv,
+        maxDiscountedPriceDiv,
+        minSellerRatingDiv,
+        couponValueDiv,
+        filterEnabledDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -137,7 +151,9 @@ function cleanOffers() {
             const cashbackNumber = getElementInnerNumber(cashbackWrap, true);
 
             const priceElement =
-                addBalancedCashbackPriceIfNeeded(offer, '.product-offer-price__amount', cashbackNumber);
+                addBalancedCashbackPriceIfNeeded(
+                    offer, '.product-offer-price__amount', cashbackNumber, couponValue.value,
+                );
 
             const price =
                 +priceElement.getAttribute(PRICE_ATTR);
