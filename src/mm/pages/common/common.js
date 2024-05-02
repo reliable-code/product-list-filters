@@ -17,6 +17,15 @@ export function addBalancedCashbackPriceIfNeeded(
     return priceElement;
 }
 
+function checkCouponValueChanged(priceElement, couponValue) {
+    if (priceElement.hasAttribute(COUPON_ATTR)) {
+        const oldCouponValue = +priceElement.getAttribute(COUPON_ATTR);
+        return couponValue !== oldCouponValue;
+    }
+
+    return !!couponValue;
+}
+
 function addBalancedCashbackPrice(priceElement, cashbackNumber, couponValue) {
     let priceNumber = getPriceNumber(priceElement);
     priceElement.setAttribute(PRICE_ATTR, priceNumber);
@@ -45,15 +54,6 @@ function getPriceNumber(priceElement) {
     }
 
     return getElementInnerNumber(priceElement, true);
-}
-
-function checkCouponValueChanged(priceElement, couponValue) {
-    if (priceElement.hasAttribute(COUPON_ATTR)) {
-        const oldCouponValue = +priceElement.getAttribute(COUPON_ATTR);
-        return couponValue !== oldCouponValue;
-    }
-
-    return !!couponValue;
 }
 
 function getBalancedCashbackUsage(price, cashback) {
