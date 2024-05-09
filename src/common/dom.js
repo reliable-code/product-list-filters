@@ -29,7 +29,7 @@ export function showElement(element, display) {
     setElementDisplay(element, display);
 }
 
-export function showHideElement(element, conditionToHide, display = 'block') {
+export function showHideElement(element, conditionToHide, display) {
     if (conditionToHide) {
         hideElement(element);
     } else {

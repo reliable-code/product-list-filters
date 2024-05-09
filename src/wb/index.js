@@ -211,7 +211,7 @@ function cleanList() {
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 productCardPriceNumber < minPriceValue;
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, conditionToHide, 'block');
         },
     );
 }

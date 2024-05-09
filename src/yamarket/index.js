@@ -120,7 +120,7 @@ function cleanList() {
             const conditionToHide =
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, conditionToHide, 'block');
         },
     );
 }
