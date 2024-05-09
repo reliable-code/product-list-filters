@@ -25,6 +25,7 @@ export function hideElement(element) {
 }
 
 export function showElement(element, display = 'block') {
+    display = display || getElementDisplay(element);
     setElementDisplay(element, display);
 }
 
@@ -32,6 +33,7 @@ export function showHideElement(element, conditionToHide, display = 'block') {
     if (conditionToHide) {
         hideElement(element);
     } else {
+        display = display || getElementDisplay(element);
         showElement(element, display);
     }
 }
