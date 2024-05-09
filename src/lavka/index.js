@@ -4,6 +4,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
     insertAfter,
+    pathnameIncludes,
     showElement,
     showHideElement,
 } from '../common/dom';
@@ -39,7 +40,7 @@ function observeHead() {
 
 function initMainContent() {
     mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
-    if (!mainContent) return;
+    if (!mainContent || !pathnameIncludes('category')) return;
 
     const observer = new MutationObserver(debounce(initListClean, 50));
     observer.observe(mainContent, {
