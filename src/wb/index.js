@@ -186,7 +186,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
-                showElement(productCard);
+                showElement(productCard, 'block');
 
                 return;
             }
