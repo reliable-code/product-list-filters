@@ -40,6 +40,15 @@ function setElementDisplay(element, display) {
     element.style.display = display;
 }
 
+function getElementDisplay(element) {
+    if (!element.hasAttribute('display')) {
+        const { display } = getComputedStyle(element);
+        element.setAttribute('display', display);
+    }
+
+    return element.getAttribute('display');
+}
+
 export function defineElementOpacity(element, conditionToDefine, opacity = 0.2) {
     if (conditionToDefine) {
         setElementOpacity(element, opacity);
