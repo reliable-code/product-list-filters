@@ -100,10 +100,8 @@ function cleanList() {
 
     productCards.forEach(
         (productCard) => {
-            const display = getProductCardDisplay(productCard);
-
             if (!filterEnabled.value) {
-                showElement(productCard, display);
+                showElement(productCard);
 
                 return;
             }
@@ -129,18 +127,9 @@ function cleanList() {
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide, display);
+            showHideElement(productCard, conditionToHide);
         },
     );
-}
-
-function getProductCardDisplay(productCard) {
-    if (!productCard.hasAttribute('display')) {
-        const { display } = getComputedStyle(productCard);
-        productCard.setAttribute('display', display);
-    }
-
-    return productCard.getAttribute('display');
 }
 
 function getProductCardReviewsNumber(productCardRatingWrap) {
