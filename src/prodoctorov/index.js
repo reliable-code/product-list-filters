@@ -92,7 +92,7 @@ function cleanList() {
     doctorCards.forEach(
         (doctorCard) => {
             if (!filterEnabled.value) {
-                showElement(doctorCard, 'flex');
+                showElement(doctorCard);
 
                 return;
             }
@@ -110,7 +110,7 @@ function cleanList() {
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
             const conditionToHide = isLessThanFilter(reviewsLinkNumber, minReviewsFilter);
-            showHideElement(doctorCard, conditionToHide, 'flex');
+            showHideElement(doctorCard, conditionToHide);
 
             const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
             const doctorName = doctorCardName.innerText;
