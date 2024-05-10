@@ -186,7 +186,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
-                showElement(productCard, 'block');
+                showElement(productCard);
 
                 return;
             }
@@ -211,7 +211,7 @@ function cleanList() {
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 productCardPriceNumber < minPriceValue;
-            showHideElement(productCard, conditionToHide, 'block');
+            showHideElement(productCard, conditionToHide);
         },
     );
 }
