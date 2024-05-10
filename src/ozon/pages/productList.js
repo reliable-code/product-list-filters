@@ -150,7 +150,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
-                showElement(productCard, 'flex');
+                showElement(productCard);
                 showCounter += 1;
                 return;
             }
@@ -223,7 +223,7 @@ function cleanList() {
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide, 'flex');
+            showHideElement(productCard, conditionToHide);
 
             if (!conditionToHide) showCounter += 1;
         },
