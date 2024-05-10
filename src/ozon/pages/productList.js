@@ -14,6 +14,7 @@ import {
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createFilterControlNumber,
     createMaxReviewsFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
@@ -53,6 +54,8 @@ const noRatingFilter =
     new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, cleanList);
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
+const nameLinesNumber =
+    new StoredInputValue('name-lines-number', 2, cleanList);
 
 export function initProductListMods() {
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
@@ -80,8 +83,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     filtersContainer.style =
         'display: flex;' +
-        'grid-gap: 15px;' +
-        'margin-top: 14px;';
+        'flex-flow: wrap;' +
+        'grid-gap: 15px;';
 
     const controlStyle =
         'display: flex;' +
@@ -120,8 +123,25 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
+    const nameLinesNumberDiv =
+        createFilterControlNumber(
+            'Строк: ',
+            nameLinesNumber,
+            1,
+            1,
+            10,
+            controlStyle,
+            numberInputStyle,
+        );
+
     filtersContainer.append(
-        nameFilterDiv, minReviewsDiv, maxReviewsDiv, minRatingDiv, noRatingDiv, filterEnabledDiv,
+        nameFilterDiv,
+        minReviewsDiv,
+        maxReviewsDiv,
+        minRatingDiv,
+        noRatingDiv,
+        filterEnabledDiv,
+        nameLinesNumberDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -176,6 +196,8 @@ function cleanList() {
                 hideElement(productCard);
                 return;
             }
+
+            productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
 
             const productCardRatingWrap =
                 getFirstElement(PRODUCT_CARD_RATING_WRAP_SELECTOR, productCard);
