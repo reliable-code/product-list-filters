@@ -100,7 +100,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
-                showElement(productCard, 'block');
+                showElement(productCard);
 
                 return;
             }
@@ -120,7 +120,7 @@ function cleanList() {
             const conditionToHide =
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide, 'block');
+            showHideElement(productCard, conditionToHide);
         },
     );
 }
