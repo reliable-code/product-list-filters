@@ -131,7 +131,7 @@ function cleanOffers() {
     offers.forEach(
         (offer) => {
             if (!filterEnabled.value) {
-                showElement(offer, 'flex');
+                showElement(offer);
 
                 return;
             }
@@ -171,7 +171,7 @@ function cleanOffers() {
                 isGreaterThanFilter(price, maxPriceFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxDiscountedPriceFilter) ||
                 isLessThanFilter(sellerRatingNumber, minSellerRatingFilter);
-            showHideElement(offer, conditionToHide, 'flex');
+            showHideElement(offer, conditionToHide);
         },
     );
 }

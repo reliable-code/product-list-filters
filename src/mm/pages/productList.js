@@ -116,7 +116,7 @@ function cleanList() {
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
-                showElement(productCard, 'flex');
+                showElement(productCard);
 
                 return;
             }
@@ -158,7 +158,7 @@ function cleanList() {
                 isLessThanFilter(cashbackNumber, minCashbackFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter) ||
                 sellerNameIsNotMatchFilter;
-            showHideElement(productCard, conditionToHide, 'flex');
+            showHideElement(productCard, conditionToHide);
         },
     );
 }
