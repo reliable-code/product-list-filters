@@ -283,7 +283,7 @@ export function getURLPathElement(position, defaultValue = 'common', logResult =
     return getPathnameElement(pathname, position, defaultValue, logResult);
 }
 
-function getPathnameElement(pathname, position, defaultValue, logResult) {
+export function getPathnameElement(pathname, position, defaultValue, logResult = false) {
     const pathElements = pathname.split('/');
 
     const pathElement = pathElements[position] || defaultValue;
