@@ -3,6 +3,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    getPathnameElement,
     pathnameIncludes,
     resetElementOpacity,
     resetElementOrder,
@@ -161,7 +162,7 @@ function cleanList() {
         (productCard) => {
             const productCardName = getAndExpandProductCardName(productCard);
 
-            appendProductCardNameLink(productCard);
+            appendProductCardLinks(productCard);
 
             const productCardPrice = getFirstElement('.main-price', productCard, true);
             if (!productCardPrice) return;
@@ -229,15 +230,23 @@ function expandProductCardName(productCardNameWrap) {
     productCardNameWrap.firstChild.style.height = newHeight;
 }
 
-function appendProductCardNameLink(productCard) {
+function appendProductCardLinks(productCard) {
     const productCardImageLink =
         getFirstElement('.lu-product-card-image-link', productCard);
 
-    if (productCardImageLink) {
-        const productCardNameLink =
-            getFirstElement('.lu-product-card-name', productCard);
-        productCardNameLink.href = productCardImageLink.href;
-    }
+    if (!productCardImageLink) return;
+
+    const productCardImage =
+        getFirstElement('.lu-product-card-image', productCardImageLink);
+
+    if (!productCardImage) return;
+
+    const productId = getPathnameElement(productCardImage.src, 7, '');
+    const productCardNameLink = getFirstElement('.lu-product-card-name', productCard);
+    const productLink = createProductLink(productId);
+
+    productCardImageLink.href = productLink;
+    productCardNameLink.href = productLink;
 }
 
 function getPriceValueAttribute(productCard, productCardPrice) {
