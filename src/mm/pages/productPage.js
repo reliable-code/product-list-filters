@@ -142,7 +142,10 @@ function cleanOffers() {
             const cashbackWrap =
                 getFirstElement('.bonus-percent', offer);
 
-            if (!priceWrap || !cashbackWrap) {
+            const sellerRatingWrap =
+                getFirstElement('.pdp-merchant-rating-block__rating', offer);
+
+            if (!priceWrap || !cashbackWrap || !sellerRatingWrap) {
                 hideElement(offer);
 
                 return;
@@ -160,9 +163,6 @@ function cleanOffers() {
 
             const balancedCashbackPrice =
                 +priceElement.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
-
-            const sellerRatingWrap =
-                getFirstElement('.pdp-merchant-rating-block__rating', offer);
 
             const sellerRatingNumber = getElementInnerNumber(sellerRatingWrap, true);
 
