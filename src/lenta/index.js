@@ -75,10 +75,14 @@ function attachBasketProductNameLink() {
         const favoriteButton = getFirstElement('.product-card-favorite-btn', productCard);
         const productIdAttr = favoriteButton.getAttribute('id');
         const productId = removeNonDigit(productIdAttr);
-        const productLink = `https://ekb.online.lenta.com/item/${productId}`;
+        const productLink = createProductLink(productId);
         const productCardName = getFirstElement('.lu-product-card-name', productCard);
         productCardName.href = productLink;
     });
+}
+
+function createProductLink(productId) {
+    return `https://ekb.online.lenta.com/item/${productId}`;
 }
 
 function attachOrderItemsRemoveFunctionIfNeeded() {
