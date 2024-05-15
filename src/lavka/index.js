@@ -20,7 +20,7 @@ import {
 } from '../common/filter';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
-const maxPricaFilter = new StoredInputValue('max-price-filter', null, cleanList);
+const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);
 const filterEnabled = new StoredInputValue('filter-enabled', true, cleanList);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
@@ -85,7 +85,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinDiscountFilterControl(minDiscountFilter, controlStyle, numberInputStyle);
 
     const maxPriceDiv =
-        createMaxPriceFilterControl(maxPricaFilter, controlStyle, numberInputStyle, 25);
+        createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle, 25);
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
@@ -116,7 +116,7 @@ function cleanList() {
 
             const conditionToHide =
                 isLessThanFilter(discountValue, minDiscountFilter) ||
-                isGreaterThanFilter(price, maxPricaFilter);
+                isGreaterThanFilter(price, maxPriceFilter);
             showHideElement(productCard, conditionToHide);
         },
     );
