@@ -178,6 +178,7 @@ function initAppendPriceHistory() {
 
 function hideUnwantedElements() {
     const css =
+        '[data-widget="bigPromoPDP"],' +
         '[data-widget="blackFridayStatus"],' +
         '[data-widget="webInstallmentPurchase"],' +
         '[data-widget="webOneClickButton"],' +
