@@ -4,6 +4,7 @@ import {
     debounce,
     getAllElements,
     getArrayElementInnerNumber,
+    getElementInnerNumber,
     getFirstElement,
     getURLPathElementEnding,
     hideElement,
@@ -15,6 +16,7 @@ import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createFilterControlNumber,
+    createMaxPriceFilterControl,
     createMaxReviewsFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
@@ -37,6 +39,7 @@ export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
 
 const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
+const PRODUCT_CARD_PRICE_SELECTOR = '.tsHeadline500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 
@@ -52,6 +55,8 @@ const minRatingFilter =
     new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
 const noRatingFilter =
     new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, cleanList);
+const maxPriceFilter =
+    new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, cleanList);
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 const nameLinesNumber =
@@ -120,6 +125,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const noRatingDiv =
         createNoRatingFilterControl(noRatingFilter, controlStyle, checkboxInputStyle);
 
+    const maxPriceDiv =
+        createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle, '25');
+
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
@@ -140,6 +148,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         maxReviewsDiv,
         minRatingDiv,
         noRatingDiv,
+        maxPriceDiv,
         filterEnabledDiv,
         nameLinesNumberDiv,
     );
@@ -192,12 +201,18 @@ function cleanList() {
             const productCardNameWrap =
                 getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
 
-            if (!productCardNameWrap) {
+            const productCardPriceWrap =
+                getFirstElement(PRODUCT_CARD_PRICE_SELECTOR, productCard);
+
+            if (!productCardNameWrap || !productCardPriceWrap) {
                 hideElement(productCard);
                 return;
             }
 
             productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
+
+            const productCardPriceNumber =
+                getElementInnerNumber(productCardPriceWrap, true);
 
             const productCardRatingWrap =
                 getFirstElement(PRODUCT_CARD_RATING_WRAP_SELECTOR, productCard);
@@ -244,7 +259,8 @@ function cleanList() {
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter);
+                isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
+                isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
             showHideElement(productCard, conditionToHide);
 
             if (!conditionToHide) showCounter += 1;
