@@ -1,4 +1,4 @@
-import { getFirstElement, pathnameIncludes } from '../common/dom';
+import { getFirstElement, pathnameIncludes, waitForElement } from '../common/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
@@ -30,6 +30,15 @@ function migrateDatabase() {
 }
 
 migrateDatabase();
+
+function replaceFavoritesLink() {
+    waitForElement(document, '[data-widget="favoriteCounter"]')
+        .then((favoritesLink) => {
+            favoritesLink.href += '?avail=inStock';
+        });
+}
+
+replaceFavoritesLink();
 
 const comments = getFirstElement(COMMENTS_SELECTOR);
 
