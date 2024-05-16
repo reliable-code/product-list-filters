@@ -21,6 +21,7 @@ export function insertAfter(existingNode, newNode) {
 }
 
 export function hideElement(element) {
+    setElementDisplayAttributeIfNeeded(element);
     setElementDisplay(element, 'none');
 }
 
