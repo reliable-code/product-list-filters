@@ -33,7 +33,7 @@ import {
     getProductArticleFromLink,
     getStoredRatingValue,
     PRODUCT_CARDS_SELECTOR,
-    setFiltersContainerStyle,
+    setCommonFiltersContainerStyles,
     setStoredRatingValue,
 } from './common/common';
 
@@ -82,8 +82,7 @@ export function initProductListMods() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    addInputSpinnerButtons();
-    setFiltersContainerStyle(filtersContainer);
+    setCommonFiltersContainerStyles(filtersContainer, parentNode);
 
     const inputStyle =
         'margin-left: 5px;' +
@@ -141,15 +140,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
-
-    parentNode.style =
-        'position: sticky;' +
-        'top: 2px;' +
-        'background-color: #fff;' +
-        'z-index: 2;' +
-        'padding-bottom: 11px;' +
-        'margin-bottom: 0;' +
-        'gap: 15px;';
 }
 
 function cleanList() {

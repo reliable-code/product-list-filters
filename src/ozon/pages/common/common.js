@@ -136,18 +136,29 @@ export function getStoredRatingValue(productArticle) {
     return getStorageValue(`${productArticle}-rate`);
 }
 
-export function addInputSpinnerButtons() {
+export function setCommonFiltersContainerStyles(filtersContainer, parentNode) {
+    addInputSpinnerButtons();
+
+    filtersContainer.style =
+        'display: flex;' +
+        'flex-flow: wrap;' +
+        'grid-gap: 15px;';
+
+    parentNode.style =
+        'position: sticky;' +
+        'top: 2px;' +
+        'background-color: #fff;' +
+        'z-index: 2;' +
+        'padding-bottom: 11px;' +
+        'margin-bottom: 0;' +
+        'gap: 15px;';
+}
+
+function addInputSpinnerButtons() {
     addGlobalStyle(
         'input[type=number]::-webkit-inner-spin-button,' +
         'input[type=number]::-webkit-outer-spin-button {' +
         '    -webkit-appearance: auto;' +
         '}',
     );
-}
-
-export function setFiltersContainerStyle(filtersContainer) {
-    filtersContainer.style =
-        'display: flex;' +
-        'flex-flow: wrap;' +
-        'grid-gap: 15px;';
 }
