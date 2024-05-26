@@ -144,3 +144,10 @@ export function addInputSpinnerButtons() {
         '}',
     );
 }
+
+export function setFiltersContainerStyle(filtersContainer) {
+    filtersContainer.style =
+        'display: flex;' +
+        'flex-flow: wrap;' +
+        'grid-gap: 15px;';
+}

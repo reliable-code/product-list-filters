@@ -33,6 +33,7 @@ import {
     getProductArticleFromLink,
     getStoredRatingValue,
     PRODUCT_CARDS_SELECTOR,
+    setFiltersContainerStyle,
     setStoredRatingValue,
 } from './common/common';
 
@@ -78,13 +79,6 @@ export function initProductListMods() {
                 subtree: true,
             });
         });
-}
-
-function setFiltersContainerStyle(filtersContainer) {
-    filtersContainer.style =
-        'display: flex;' +
-        'flex-flow: wrap;' +
-        'grid-gap: 15px;';
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
