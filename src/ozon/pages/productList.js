@@ -33,11 +33,14 @@ import {
     getFirstProductCardsWrap,
     getProductArticleFromLink,
     getStoredRatingValue,
+    INPUT_STYLE,
     moveProductCardToFirstWrapIfNeeded,
+    NUMBER_INPUT_STYLE,
     PRODUCT_CARDS_SELECTOR,
     SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
     setStoredRatingValue,
+    TEXT_INPUT_STYLE,
 } from './common/common';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
@@ -86,35 +89,23 @@ export function initProductListMods() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     setCommonFiltersContainerStyles(filtersContainer, parentNode);
 
-    const inputStyle =
-        'margin-left: 5px;' +
-        'border: 2px solid #b3bcc5;' +
-        'border-radius: 6px;' +
-        'padding: 6px 10px;';
-    const textInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 190px;';
-    const numberInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 90px;';
-
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, CONTROL_STYLE, textInputStyle);
+        createNameFilterControl(nameFilter, CONTROL_STYLE, TEXT_INPUT_STYLE);
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, CONTROL_STYLE, numberInputStyle);
+        createMinReviewsFilterControl(minReviewsFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const maxReviewsDiv =
-        createMaxReviewsFilterControl(maxReviewsFilter, CONTROL_STYLE, numberInputStyle);
+        createMaxReviewsFilterControl(maxReviewsFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, CONTROL_STYLE, numberInputStyle);
+        createMinRatingFilterControl(minRatingFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const noRatingDiv =
         createNoRatingFilterControl(noRatingFilter, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
 
     const maxPriceDiv =
-        createMaxPriceFilterControl(maxPriceFilter, CONTROL_STYLE, numberInputStyle, '25');
+        createMaxPriceFilterControl(maxPriceFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE, '25');
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
@@ -127,7 +118,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             1,
             10,
             CONTROL_STYLE,
-            numberInputStyle,
+            NUMBER_INPUT_STYLE,
         );
 
     filtersContainer.append(

@@ -15,10 +15,20 @@ import { PriceData } from '../../models/priceData';
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 export const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 
+const INPUT_STYLE =
+    'margin-left: 5px;' +
+    'border: 2px solid #b3bcc5;' +
+    'border-radius: 6px;' +
+    'padding: 6px 10px;';
+export const NUMBER_INPUT_STYLE =
+    INPUT_STYLE + // eslint-disable-line prefer-template
+    'width: 90px;';
+export const TEXT_INPUT_STYLE =
+    INPUT_STYLE + // eslint-disable-line prefer-template
+    'width: 190px;';
 export const CONTROL_STYLE =
     'display: flex;' +
     'align-items: center;';
-
 export const CHECKBOX_INPUT_STYLE =
     'margin-left: 5px;' +
     'width: 25px;' +
