@@ -80,13 +80,16 @@ export function initProductListMods() {
         });
 }
 
-function appendFiltersContainer(filtersContainer, parentNode) {
-    addInputSpinnerButtons();
-
+function setFiltersContainerStyle(filtersContainer) {
     filtersContainer.style =
         'display: flex;' +
         'flex-flow: wrap;' +
         'grid-gap: 15px;';
+}
+
+function appendFiltersContainer(filtersContainer, parentNode) {
+    addInputSpinnerButtons();
+    setFiltersContainerStyle(filtersContainer);
 
     const inputStyle =
         'margin-left: 5px;' +
