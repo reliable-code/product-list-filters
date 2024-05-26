@@ -14,6 +14,7 @@ import { PriceData } from '../../models/priceData';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 export const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
+export const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
 
 const INPUT_STYLE =
     'margin-left: 5px;' +

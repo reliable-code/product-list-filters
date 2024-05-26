@@ -26,16 +26,15 @@ import {
     isNotMatchTextFilter,
 } from '../../common/filter';
 import {
-    addInputSpinnerButtons,
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
     createDislikeButton,
     getFirstProductCardsWrap,
     getProductArticleFromLink,
     getStoredRatingValue,
-    INPUT_STYLE,
     moveProductCardToFirstWrapIfNeeded,
     NUMBER_INPUT_STYLE,
+    PRODUCT_CARD_NAME_SELECTOR,
     PRODUCT_CARDS_SELECTOR,
     SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
@@ -46,7 +45,6 @@ import {
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
 
-const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
 const PRODUCT_CARD_PRICE_SELECTOR = '.tsHeadline500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
