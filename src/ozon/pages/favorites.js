@@ -18,7 +18,7 @@ const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';
 export function initFavoritesMods() {
     waitForElement(document, PAGINATOR_SELECTOR)
         .then((paginator) => {
-            const observer = new MutationObserver(debounce(appendStoredPriceValues));
+            const observer = new MutationObserver(debounce(processList));
 
             observer.observe(paginator, {
                 childList: true,
@@ -29,7 +29,7 @@ export function initFavoritesMods() {
     hideUnwantedElements();
 }
 
-function appendStoredPriceValues() {
+function processList() {
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
 
     productCards.forEach(
