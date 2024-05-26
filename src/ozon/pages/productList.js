@@ -30,6 +30,7 @@ import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
     createDislikeButton,
+    getFirstProductCardsWrap,
     getProductArticleFromLink,
     getStoredRatingValue,
     moveProductCardToFirstWrapIfNeeded,
@@ -149,8 +150,7 @@ function cleanList() {
     const productCardsLength = productCards.length;
     warnIfListNotFull(productCardsLength);
 
-    const firstProductCardsWrap =
-        getFirstElement('.widget-search-result-container', paginatorContent).firstChild;
+    const firstProductCardsWrap = getFirstProductCardsWrap();
 
     let showCounter = 0;
 

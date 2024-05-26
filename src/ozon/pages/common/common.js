@@ -164,6 +164,10 @@ function addInputSpinnerButtons() {
     );
 }
 
+export function getFirstProductCardsWrap() {
+    return getFirstElement('.widget-search-result-container').firstChild;
+}
+
 export function moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap) {
     if (productCard.parentNode === firstProductCardsWrap) return;
 
