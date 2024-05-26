@@ -4,6 +4,7 @@ import {
     getAllElements,
     getFirstElement,
     hideElement,
+    showElement,
     showHideElement,
     waitForElement,
 } from '../../common/dom';
@@ -23,6 +24,7 @@ import {
 import { StoredInputValue } from '../../common/storage';
 import {
     appendFilterControlsIfNeeded,
+    createEnabledFilterControl,
     createFilterControlCheckbox,
     createNameFilterControl,
     isNotMatchTextFilter,
@@ -36,6 +38,8 @@ const nameFilter =
     new StoredInputValue('favorites-name-filter', null, processList);
 const bestPriceFilter =
     new StoredInputValue('best-price-filter', false, processList);
+const filterEnabled =
+    new StoredInputValue('favorites-filter-enabled', true, processList);
 
 export function initFavoritesMods() {
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
@@ -66,8 +70,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createFilterControlCheckbox(
             'Лучшая цена: ', bestPriceFilter, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
         );
+    const filterEnabledDiv =
+        createEnabledFilterControl(
+            filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+        );
 
-    filtersContainer.append(nameFilterDiv, bestPriceDiv);
+    filtersContainer.append(nameFilterDiv, bestPriceDiv, filterEnabledDiv);
 
     parentNode.append(filtersContainer);
 }
@@ -79,6 +87,11 @@ function processList() {
 
     productCards.forEach(
         (productCard) => {
+            if (!filterEnabled.value) {
+                showElement(productCard);
+                return;
+            }
+
             moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap);
 
             appendStoredPriceValues(productCard);
