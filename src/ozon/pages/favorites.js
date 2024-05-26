@@ -3,7 +3,7 @@ import {
     debounce,
     getAllElements,
     getFirstElement,
-    hideElement,
+    showHideElement,
     waitForElement,
 } from '../../common/dom';
 import {
@@ -12,6 +12,7 @@ import {
     CONTROL_STYLE,
     getProductArticleFromLink,
     PRODUCT_CARDS_SELECTOR,
+    SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
 } from './common/common';
 import { StoredInputValue } from '../../common/storage';
@@ -23,9 +24,14 @@ const GOOD_PRICE_ATTR = 'goodPrice';
 
 const bestPriceFilter =
     new StoredInputValue('best-price-filter', false, processList);
+
 export function initFavoritesMods() {
-    waitForElement(document, PAGINATOR_SELECTOR)
-        .then((paginator) => {
+    waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
+        .then((searchResultsSort) => {
+            appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
+
+            const paginator = getFirstElement(PAGINATOR_SELECTOR);
+
             const observer = new MutationObserver(debounce(processList));
 
             observer.observe(paginator, {
@@ -56,6 +62,10 @@ function processList() {
     productCards.forEach(
         (productCard) => {
             appendStoredPriceValues(productCard);
+
+            const conditionToHide =
+                bestPriceFilter.value ? !productCard.hasAttribute(GOOD_PRICE_ATTR) : false;
+            showHideElement(productCard, conditionToHide);
         },
     );
 }
@@ -75,13 +85,9 @@ function appendStoredPriceValues(productCard) {
         }
     }
 
-    const productCardLink =
-        getFirstElement('a', productCard);
+    const productCardLink = getFirstElement('a', productCard);
 
-    if (!productCardLink) {
-        hideElement(productCard);
-        return;
-    }
+    if (!productCardLink) return;
 
     const productArticle = getProductArticleFromLink(productCardLink);
 
