@@ -48,56 +48,61 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     parentNode.append(filtersContainer);
 }
+
 function processList() {
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
 
     productCards.forEach(
         (productCard) => {
-            if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) {
-                return;
-            }
-
-            const additionalInfoDiv = getFirstElement('.tsBodyControl400Small', productCard);
-            if (additionalInfoDiv) {
-                const notInStock = additionalInfoDiv.innerText === 'Нет в наличии';
-
-                if (notInStock) {
-                    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
-                    return;
-                }
-            }
-
-            const productCardLink =
-                getFirstElement('a', productCard);
-
-            if (!productCardLink) {
-                hideElement(productCard);
-                return;
-            }
-
-            const productArticle = getProductArticleFromLink(productCardLink);
-
-            const priceContainer = productCard.children[0].children[1].children[0].children[0];
-
-            const priceData = appendPriceHistory(priceContainer, productArticle);
-
-            const priceContainerWrap = priceContainer.parentNode;
-            priceContainerWrap.style.display = 'block';
-
-            const priceToleranceFactor = 1.03;
-            const goodPrice = priceData.lowest * priceToleranceFactor;
-
-            if (priceData.current <= goodPrice) {
-                priceContainerWrap.style.border = '3px solid rgb(214, 245, 177)';
-                priceContainerWrap.style.borderRadius = '14px';
-                priceContainerWrap.style.padding = '4px 10px 6px';
-                priceContainerWrap.style.marginBottom = '5px';
-                priceContainerWrap.style.width = '-webkit-fill-available';
-            }
-
-            productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+            appendStoredPriceValues(productCard);
         },
     );
+}
+
+function appendStoredPriceValues(productCard) {
+    if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) {
+        return;
+    }
+
+    const additionalInfoDiv = getFirstElement('.tsBodyControl400Small', productCard);
+    if (additionalInfoDiv) {
+        const notInStock = additionalInfoDiv.innerText === 'Нет в наличии';
+
+        if (notInStock) {
+            productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+            return;
+        }
+    }
+
+    const productCardLink =
+        getFirstElement('a', productCard);
+
+    if (!productCardLink) {
+        hideElement(productCard);
+        return;
+    }
+
+    const productArticle = getProductArticleFromLink(productCardLink);
+
+    const priceContainer = productCard.children[0].children[1].children[0].children[0];
+
+    const priceData = appendPriceHistory(priceContainer, productArticle);
+
+    const priceContainerWrap = priceContainer.parentNode;
+    priceContainerWrap.style.display = 'block';
+
+    const priceToleranceFactor = 1.03;
+    const goodPrice = priceData.lowest * priceToleranceFactor;
+
+    if (priceData.current <= goodPrice) {
+        priceContainerWrap.style.border = '3px solid rgb(214, 245, 177)';
+        priceContainerWrap.style.borderRadius = '14px';
+        priceContainerWrap.style.padding = '4px 10px 6px';
+        priceContainerWrap.style.marginBottom = '5px';
+        priceContainerWrap.style.width = '-webkit-fill-available';
+    }
+
+    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
 }
 
 function hideUnwantedElements() {
