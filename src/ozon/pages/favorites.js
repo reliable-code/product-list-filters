@@ -10,7 +10,9 @@ import {
     appendPriceHistory,
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
+    getFirstProductCardsWrap,
     getProductArticleFromLink,
+    moveProductCardToFirstWrapIfNeeded,
     PRODUCT_CARDS_SELECTOR,
     SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
@@ -59,8 +61,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function processList() {
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
 
+    const firstProductCardsWrap = getFirstProductCardsWrap();
+
     productCards.forEach(
         (productCard) => {
+            moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap);
+
             appendStoredPriceValues(productCard);
 
             const conditionToHide =
