@@ -28,6 +28,7 @@ import {
 import {
     addInputSpinnerButtons,
     CHECKBOX_INPUT_STYLE,
+    CONTROL_STYLE,
     createDislikeButton,
     getProductArticleFromLink,
     getStoredRatingValue,
@@ -87,9 +88,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'flex-flow: wrap;' +
         'grid-gap: 15px;';
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;';
     const inputStyle =
         'margin-left: 5px;' +
         'border: 2px solid #b3bcc5;' +
@@ -103,25 +101,25 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'width: 90px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+        createNameFilterControl(nameFilter, CONTROL_STYLE, textInputStyle);
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
+        createMinReviewsFilterControl(minReviewsFilter, CONTROL_STYLE, numberInputStyle);
 
     const maxReviewsDiv =
-        createMaxReviewsFilterControl(maxReviewsFilter, controlStyle, numberInputStyle);
+        createMaxReviewsFilterControl(maxReviewsFilter, CONTROL_STYLE, numberInputStyle);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
+        createMinRatingFilterControl(minRatingFilter, CONTROL_STYLE, numberInputStyle);
 
     const noRatingDiv =
-        createNoRatingFilterControl(noRatingFilter, controlStyle, CHECKBOX_INPUT_STYLE);
+        createNoRatingFilterControl(noRatingFilter, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
 
     const maxPriceDiv =
-        createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle, '25');
+        createMaxPriceFilterControl(maxPriceFilter, CONTROL_STYLE, numberInputStyle, '25');
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, controlStyle, CHECKBOX_INPUT_STYLE);
+        createEnabledFilterControl(filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
 
     const nameLinesNumberDiv =
         createFilterControlNumber(
@@ -130,7 +128,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             1,
             1,
             10,
-            controlStyle,
+            CONTROL_STYLE,
             numberInputStyle,
         );
 

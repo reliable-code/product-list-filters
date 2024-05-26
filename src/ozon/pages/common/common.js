@@ -14,6 +14,10 @@ import { PriceData } from '../../models/priceData';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 
+export const CONTROL_STYLE =
+    'display: flex;' +
+    'align-items: center;';
+
 export const CHECKBOX_INPUT_STYLE =
     'margin-left: 5px;' +
     'width: 25px;' +
