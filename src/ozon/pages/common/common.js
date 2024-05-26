@@ -163,3 +163,9 @@ function addInputSpinnerButtons() {
         '}',
     );
 }
+
+export function moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap) {
+    if (productCard.parentNode === firstProductCardsWrap) return;
+
+    firstProductCardsWrap.appendChild(productCard);
+}

@@ -32,6 +32,7 @@ import {
     createDislikeButton,
     getProductArticleFromLink,
     getStoredRatingValue,
+    moveProductCardToFirstWrapIfNeeded,
     PRODUCT_CARDS_SELECTOR,
     SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
@@ -161,9 +162,7 @@ function cleanList() {
                 return;
             }
 
-            if (productCard.parentNode !== firstProductCardsWrap) {
-                firstProductCardsWrap.appendChild(productCard);
-            }
+            moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap);
 
             const productCardLink =
                 getFirstElement('a', productCard);
