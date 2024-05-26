@@ -3,6 +3,7 @@ import {
     debounce,
     getAllElements,
     getFirstElement,
+    hideElement,
     showHideElement,
     waitForElement,
 } from '../../common/dom';
@@ -13,17 +14,26 @@ import {
     getFirstProductCardsWrap,
     getProductArticleFromLink,
     moveProductCardToFirstWrapIfNeeded,
+    PRODUCT_CARD_NAME_SELECTOR,
     PRODUCT_CARDS_SELECTOR,
     SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
+    TEXT_INPUT_STYLE,
 } from './common/common';
 import { StoredInputValue } from '../../common/storage';
-import { appendFilterControlsIfNeeded, createFilterControlCheckbox } from '../../common/filter';
+import {
+    appendFilterControlsIfNeeded,
+    createFilterControlCheckbox,
+    createNameFilterControl,
+    isNotMatchTextFilter,
+} from '../../common/filter';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';
 const GOOD_PRICE_ATTR = 'goodPrice';
 
+const nameFilter =
+    new StoredInputValue('favorites-name-filter', null, processList);
 const bestPriceFilter =
     new StoredInputValue('best-price-filter', false, processList);
 
@@ -48,12 +58,16 @@ export function initFavoritesMods() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     setCommonFiltersContainerStyles(filtersContainer, parentNode);
 
+    const nameFilterDiv =
+        createNameFilterControl(
+            nameFilter, CONTROL_STYLE, TEXT_INPUT_STYLE,
+        );
     const bestPriceDiv =
         createFilterControlCheckbox(
             'Лучшая цена: ', bestPriceFilter, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
         );
 
-    filtersContainer.append(bestPriceDiv);
+    filtersContainer.append(nameFilterDiv, bestPriceDiv);
 
     parentNode.append(filtersContainer);
 }
@@ -69,8 +83,23 @@ function processList() {
 
             appendStoredPriceValues(productCard);
 
-            const conditionToHide =
+            const productCardNameWrap =
+                getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+
+            if (!productCardNameWrap) {
+                hideElement(productCard);
+                return;
+            }
+
+            const productCardName = productCardNameWrap.innerText;
+
+            productCardNameWrap.title = productCardName;
+
+            const isNotMatchBestPriceFilter =
                 bestPriceFilter.value ? !productCard.hasAttribute(GOOD_PRICE_ATTR) : false;
+            const conditionToHide =
+                isNotMatchTextFilter(productCardName, nameFilter) ||
+                isNotMatchBestPriceFilter;
             showHideElement(productCard, conditionToHide);
         },
     );
