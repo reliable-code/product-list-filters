@@ -13,6 +13,7 @@ import { heartStrikeDislikeIcon } from './icons';
 import { PriceData } from '../../models/priceData';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
+export const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 
 export const CONTROL_STYLE =
     'display: flex;' +

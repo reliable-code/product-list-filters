@@ -33,6 +33,7 @@ import {
     getProductArticleFromLink,
     getStoredRatingValue,
     PRODUCT_CARDS_SELECTOR,
+    SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
     setStoredRatingValue,
 } from './common/common';
@@ -40,7 +41,6 @@ import {
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
 
-const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
 const PRODUCT_CARD_NAME_SELECTOR = '.tsBody500Medium';
 const PRODUCT_CARD_PRICE_SELECTOR = '.tsHeadline500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
