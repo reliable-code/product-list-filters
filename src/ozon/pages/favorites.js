@@ -8,13 +8,20 @@ import {
 } from '../../common/dom';
 import {
     appendPriceHistory,
+    CHECKBOX_INPUT_STYLE,
+    CONTROL_STYLE,
     getProductArticleFromLink,
     PRODUCT_CARDS_SELECTOR,
+    setCommonFiltersContainerStyles,
 } from './common/common';
+import { StoredInputValue } from '../../common/storage';
+import { appendFilterControlsIfNeeded, createFilterControlCheckbox } from '../../common/filter';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';
 
+const bestPriceFilter =
+    new StoredInputValue('best-price-filter', false, processList);
 export function initFavoritesMods() {
     waitForElement(document, PAGINATOR_SELECTOR)
         .then((paginator) => {
@@ -29,6 +36,18 @@ export function initFavoritesMods() {
     hideUnwantedElements();
 }
 
+function appendFiltersContainer(filtersContainer, parentNode) {
+    setCommonFiltersContainerStyles(filtersContainer, parentNode);
+
+    const bestPriceDiv =
+        createFilterControlCheckbox(
+            'Лучшая цена: ', bestPriceFilter, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+        );
+
+    filtersContainer.append(bestPriceDiv);
+
+    parentNode.append(filtersContainer);
+}
 function processList() {
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
 
