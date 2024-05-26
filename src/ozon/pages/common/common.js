@@ -14,6 +14,11 @@ import { PriceData } from '../../models/priceData';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div';
 
+export const CHECKBOX_INPUT_STYLE =
+    'margin-left: 5px;' +
+    'width: 25px;' +
+    'height: 25px;';
+
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
     return getPathnameElementEnding(productCardLinkHref, 2);

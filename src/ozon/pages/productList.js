@@ -27,6 +27,7 @@ import {
 } from '../../common/filter';
 import {
     addInputSpinnerButtons,
+    CHECKBOX_INPUT_STYLE,
     createDislikeButton,
     getProductArticleFromLink,
     getStoredRatingValue,
@@ -100,10 +101,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const numberInputStyle =
         inputStyle + // eslint-disable-line prefer-template
         'width: 90px;';
-    const checkboxInputStyle =
-        'margin-left: 5px;' +
-        'width: 25px;' +
-        'height: 25px;';
 
     const nameFilterDiv =
         createNameFilterControl(nameFilter, controlStyle, textInputStyle);
@@ -118,13 +115,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
     const noRatingDiv =
-        createNoRatingFilterControl(noRatingFilter, controlStyle, checkboxInputStyle);
+        createNoRatingFilterControl(noRatingFilter, controlStyle, CHECKBOX_INPUT_STYLE);
 
     const maxPriceDiv =
         createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle, '25');
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
+        createEnabledFilterControl(filterEnabled, controlStyle, CHECKBOX_INPUT_STYLE);
 
     const nameLinesNumberDiv =
         createFilterControlNumber(
