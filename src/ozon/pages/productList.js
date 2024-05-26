@@ -1,6 +1,5 @@
 import { StoredInputValue } from '../../common/storage';
 import {
-    addGlobalStyle,
     debounce,
     getAllElements,
     getArrayElementInnerNumber,
@@ -27,6 +26,7 @@ import {
     isNotMatchTextFilter,
 } from '../../common/filter';
 import {
+    addInputSpinnerButtons,
     createDislikeButton,
     getProductArticleFromLink,
     getStoredRatingValue,
@@ -79,12 +79,7 @@ export function initProductListMods() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    addGlobalStyle(
-        'input[type=number]::-webkit-inner-spin-button,' +
-        'input[type=number]::-webkit-outer-spin-button {' +
-        '    -webkit-appearance: auto;' +
-        '}',
-    );
+    addInputSpinnerButtons();
 
     filtersContainer.style =
         'display: flex;' +

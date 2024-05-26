@@ -1,4 +1,5 @@
 import {
+    addGlobalStyle,
     createDiv,
     createLink,
     createSpan,
@@ -124,4 +125,13 @@ export function setStoredRatingValue(productArticle, ratingValue) {
 
 export function getStoredRatingValue(productArticle) {
     return getStorageValue(`${productArticle}-rate`);
+}
+
+export function addInputSpinnerButtons() {
+    addGlobalStyle(
+        'input[type=number]::-webkit-inner-spin-button,' +
+        'input[type=number]::-webkit-outer-spin-button {' +
+        '    -webkit-appearance: auto;' +
+        '}',
+    );
 }
