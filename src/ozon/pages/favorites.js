@@ -19,6 +19,7 @@ import { appendFilterControlsIfNeeded, createFilterControlCheckbox } from '../..
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';
+const GOOD_PRICE_ATTR = 'goodPrice';
 
 const bestPriceFilter =
     new StoredInputValue('best-price-filter', false, processList);
@@ -100,6 +101,8 @@ function appendStoredPriceValues(productCard) {
         priceContainerWrap.style.padding = '4px 10px 6px';
         priceContainerWrap.style.marginBottom = '5px';
         priceContainerWrap.style.width = '-webkit-fill-available';
+
+        productCard.setAttribute(GOOD_PRICE_ATTR, '');
     }
 
     productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
