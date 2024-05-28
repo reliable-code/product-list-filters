@@ -45,11 +45,19 @@ const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
 
 export function initProductPageMods() {
+    const main = getFirstElement('.app__main');
 
-    executeProductPageMods();
+    const observer = new MutationObserver(debounce(() => executeProductPageMods(observer)));
+
+    observer.observe(main, {
+        childList: true,
+        subtree: true,
+    });
 }
 
-function executeProductPageMods() {
+function executeProductPageMods(mainObserver) {
+    mainObserver.disconnect();
+
     waitForElement(document, '.pdp-prices-filter')
         .then((offersFilter) => {
             appendFilterControlsIfNeeded(offersFilter, appendFiltersContainer);
