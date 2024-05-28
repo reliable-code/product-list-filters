@@ -45,6 +45,11 @@ const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
 
 export function initProductPageMods() {
+
+    executeProductPageMods();
+}
+
+function executeProductPageMods() {
     waitForElement(document, '.pdp-prices-filter')
         .then((offersFilter) => {
             appendFilterControlsIfNeeded(offersFilter, appendFiltersContainer);
