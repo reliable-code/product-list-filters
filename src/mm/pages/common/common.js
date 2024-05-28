@@ -31,7 +31,11 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber, couponValue) {
     priceElement.setAttribute(PRICE_ATTR, priceNumber);
 
     if (couponValue) {
-        priceNumber -= couponValue;
+        if (couponValue < 1) {
+            priceNumber *= 1 - couponValue;
+        } else {
+            priceNumber -= couponValue;
+        }
         priceElement.setAttribute(COUPON_ATTR, couponValue);
     } else {
         priceElement.removeAttribute(COUPON_ATTR);
