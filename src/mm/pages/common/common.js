@@ -32,7 +32,7 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber, couponValue) {
 
     if (couponValue) {
         if (couponValue < 1) {
-            priceNumber *= 1 - couponValue;
+            priceNumber = (priceNumber * (1 - couponValue)).toFixed();
         } else {
             priceNumber -= couponValue;
         }
