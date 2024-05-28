@@ -39,7 +39,7 @@ const sortEnabled =
     new StoredInputValue('sort-enabled', true);
 
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
-const PRODUCT_CARD_SELECTOR = '.catalog-grid__item';
+const PRODUCT_CARD_SELECTOR = '.lu-grid__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
 const PRICE_ROUNDED_CLASS = 'priceRounded';
@@ -156,6 +156,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
+    const pagination = getFirstElement('lu-pagination');
+
+    if (pagination) setElementOrder(pagination, 99999);
+
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(
