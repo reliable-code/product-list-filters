@@ -215,7 +215,7 @@ export function createMinCashbackFilterControl(
     inputStyle = null,
 ) {
     return createFilterControlNumber(
-        'Минимальный кешбек: ',
+        'Мин. кешбек: ',
         inputValue,
         '5',
         '0',
