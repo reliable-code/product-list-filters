@@ -61,15 +61,7 @@ function executeProductPageMods(mainObserver) {
     waitForElement(document, '.pdp-prices-filter')
         .then((offersFilter) => {
             appendFilterControlsIfNeeded(offersFilter, appendFiltersContainer);
-
-            const observer = new MutationObserver(debounce(cleanOffers, 50));
-
-            const offersContainer = getFirstElement('.pdp-prices');
-
-            observer.observe(offersContainer, {
-                childList: true,
-                subtree: true,
-            });
+            cleanOffers();
         });
 }
 
