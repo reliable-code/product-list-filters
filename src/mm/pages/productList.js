@@ -16,6 +16,7 @@ import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
+    createMinDiscountFilterControl,
     createNameFilterControl,
     createSellerNameFilterControl,
     isGreaterThanFilter,
@@ -23,6 +24,7 @@ import {
     isNotMatchTextFilter,
 } from '../../common/filter';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
+import { removeNonDigit } from '../../common/string';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =
@@ -31,6 +33,8 @@ const minCashbackFilter =
     new StoredInputValue(`${CATEGORY_NAME}-min-cashback-filter`, null, cleanList);
 const maxPriceFilter =
     new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, cleanList);
+const minDiscountFilter =
+    new StoredInputValue(`${CATEGORY_NAME}-min-discount-filter`, null, cleanList);
 const sellerNameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-seller-name-filter`, null, cleanList);
 const filterEnabled =
@@ -97,6 +101,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const maxPriceDiv =
         createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle);
 
+    const minDiscountDiv =
+        createMinDiscountFilterControl(minDiscountFilter, controlStyle, numberInputStyle);
+
     const sellerNameFilterDiv =
         createSellerNameFilterControl(sellerNameFilter, controlStyle, textInputStyle);
 
@@ -104,7 +111,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
     filtersContainer.append(
-        nameFilterDiv, minCashbackDiv, maxPriceDiv, sellerNameFilterDiv, filterEnabledDiv,
+        nameFilterDiv,
+        minCashbackDiv,
+        maxPriceDiv,
+        minDiscountDiv,
+        sellerNameFilterDiv,
+        filterEnabledDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -127,6 +139,9 @@ function cleanList() {
             const cashback =
                 getFirstElement(PRODUCT_CARD_CASHBACK_SELECTOR, productCard);
 
+            const discountWrap =
+                getFirstElement('.discount-percentage__value', productCard);
+
             if (!nameWrap || !cashback) {
                 hideElement(productCard);
 
@@ -136,6 +151,8 @@ function cleanList() {
             const name = nameWrap.innerText;
 
             const cashbackNumber = getElementInnerNumber(cashback, true);
+
+            const discountValue = discountWrap ? +removeNonDigit(discountWrap.innerText) : 0;
 
             const priceElement =
                 addBalancedCashbackPriceIfNeeded(
@@ -157,6 +174,7 @@ function cleanList() {
                 isNotMatchTextFilter(name, nameFilter) ||
                 isLessThanFilter(cashbackNumber, minCashbackFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter) ||
+                isLessThanFilter(discountValue, minDiscountFilter) ||
                 sellerNameIsNotMatchFilter;
             showHideElement(productCard, conditionToHide);
         },
