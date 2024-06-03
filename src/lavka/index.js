@@ -59,6 +59,16 @@ function showSectionNotification(sectionName, sectionLength) {
         silent: true,
     });
 }
+
+function checkSectionExistsByName(sectionName) {
+    const headers = getAllElements('h2', mainContent);
+    const isSectionExists =
+        [...headers].some((header) => header.innerText.includes(sectionName));
+
+    if (!isSectionExists) return;
+
+    showSectionNotification(sectionName);
+}
 function initListClean() {
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
 
