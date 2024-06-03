@@ -27,6 +27,7 @@ const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
 let mainContent;
+let firstRun = true;
 
 initMainContent();
 observeHead();
@@ -85,6 +86,11 @@ function initListClean() {
 
     if (!productCardLinks.length) return;
 
+    if (firstRun) {
+        firstRun = false;
+        checkSectionExistsBySelector(
+            '[data-id="promo-expiring-products"]', 'Последний день',
+        );
     }
 
     appendFilterControlsIfNeeded(mainContent, appendFiltersContainer);
