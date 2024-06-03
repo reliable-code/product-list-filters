@@ -32,7 +32,7 @@ initMainContent();
 observeHead();
 
 function observeHead() {
-    const observer = new MutationObserver(debounce(initMainContent));
+    const observer = new MutationObserver(debounce(initMainContent, 750));
     observer.observe(document.head, {
         childList: true,
     });
@@ -42,7 +42,7 @@ function initMainContent() {
     mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
     if (!mainContent || !pathnameIncludes('category')) return;
 
-    const observer = new MutationObserver(debounce(initListClean, 50));
+    const observer = new MutationObserver(debounce(initListClean, 100));
     observer.observe(mainContent, {
         childList: true,
         subtree: true,
