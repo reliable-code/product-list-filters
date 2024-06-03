@@ -72,11 +72,12 @@ function checkSectionExistsByName(sectionName) {
 function initListClean() {
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
 
-    if (productCardLinks.length) {
-        appendFilterControlsIfNeeded(mainContent, appendFiltersContainer);
+    if (!productCardLinks.length) return;
 
-        cleanList();
     }
+
+    appendFilterControlsIfNeeded(mainContent, appendFiltersContainer);
+    cleanList();
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
