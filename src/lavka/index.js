@@ -69,6 +69,17 @@ function checkSectionExistsByName(sectionName) {
 
     showSectionNotification(sectionName);
 }
+
+function checkSectionExistsBySelector(sectionSelector, sectionName) {
+    const section = getFirstElement(sectionSelector);
+
+    if (!section) return;
+
+    const sectionLength = getAllElements(PRODUCT_CARD_LINK_SELECTOR, section).length;
+
+    showSectionNotification(sectionName, sectionLength);
+}
+
 function initListClean() {
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
 
