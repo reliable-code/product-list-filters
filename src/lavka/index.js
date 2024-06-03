@@ -49,6 +49,16 @@ function initMainContent() {
     });
 }
 
+function showSectionNotification(sectionName, sectionLength) {
+    const sectionLengthInfo = sectionLength ? `\n(${sectionLength} товаров)` : '';
+
+    window.GM_notification({
+        text: `Появился раздел "${sectionName}"${sectionLengthInfo}`,
+        tag: 'section-appear',
+        highlight: true,
+        silent: true,
+    });
+}
 function initListClean() {
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
 
