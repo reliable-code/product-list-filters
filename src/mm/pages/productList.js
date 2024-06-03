@@ -24,7 +24,6 @@ import {
     isNotMatchTextFilter,
 } from '../../common/filter';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
-import { removeNonDigit } from '../../common/string';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =
@@ -136,13 +135,13 @@ function cleanList() {
             const nameWrap =
                 getFirstElement('.catalog-item-regular-desktop__title-link', productCard);
 
-            const cashback =
+            const cashbackWrap =
                 getFirstElement(PRODUCT_CARD_CASHBACK_SELECTOR, productCard);
 
             const discountWrap =
                 getFirstElement('.discount-percentage__value', productCard);
 
-            if (!nameWrap || !cashback) {
+            if (!nameWrap) {
                 hideElement(productCard);
 
                 return;
@@ -150,9 +149,13 @@ function cleanList() {
 
             const name = nameWrap.innerText;
 
-            const cashbackNumber = getElementInnerNumber(cashback, true);
+            const cashbackNumber =
+                getElementInnerNumber(cashbackWrap, true, false, 0);
 
-            const discountValue = discountWrap ? +removeNonDigit(discountWrap.innerText) : 0;
+            const discountValue =
+                Math.abs(
+                    getElementInnerNumber(discountWrap, true, false, 0),
+                );
 
             const priceElement =
                 addBalancedCashbackPriceIfNeeded(
