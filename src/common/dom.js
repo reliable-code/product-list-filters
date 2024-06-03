@@ -164,8 +164,19 @@ export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
     return elementNumber;
 }
 
-export function getElementInnerNumber(element, cleanText = false, replaceComma = false) {
+export function getElementInnerNumber(
+    element, cleanText = false, replaceComma = false, defaultValue = null,
+) {
+    if (!element) {
+        if (defaultValue === null) {
+            console.log('No element found');
+        } else {
+            return defaultValue;
+        }
+    }
+
     const elementText = element.innerText;
+
     return parseNumber(elementText, cleanText, replaceComma);
 }
 
