@@ -22,6 +22,10 @@ const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
 export function initProductPageMods() {
+    executeProductPageMods();
+}
+
+function executeProductPageMods() {
     waitForElement(document, `${PRODUCT_REVIEWS_WRAP_OLD_SELECTOR}, ${PRODUCT_REVIEWS_WRAP_SELECTOR}`)
         .then((productReviewsWrap) => {
             if (!productReviewsWrap) return;
