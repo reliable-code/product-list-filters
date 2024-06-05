@@ -195,6 +195,8 @@ function cleanList() {
                 getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
 
             const productCardName = productCardNameWrap.innerText;
+            productCardNameWrap.title = productCardName;
+            productCardNameWrap.style.whiteSpace = 'normal';
 
             const productCardReviewsNumber =
                 getFirstElementInnerNumber(productCard, PRODUCT_CARD_REVIEWS_SELECTOR, true);
