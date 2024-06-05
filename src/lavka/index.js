@@ -78,7 +78,9 @@ function checkSectionExistsBySelector(sectionSelector, sectionName) {
 
     const sectionLength = getAllElements(PRODUCT_CARD_LINK_SELECTOR, section).length;
 
-    showSectionNotification(sectionName, sectionLength);
+    const header = getFirstElement('h2');
+    header.innerText += ` (${sectionLength})`;
+    if (sectionLength > 12) showSectionNotification(sectionName, sectionLength);
 }
 
 function initListClean() {
