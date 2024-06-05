@@ -28,7 +28,7 @@ export function initProductPageMods() {
             if (!webPdpGrid) return;
 
             const observer =
-                new MutationObserver(debounce(() => executeProductPageMods(observer), 500));
+                new MutationObserver(debounce(() => executeProductPageMods(observer)));
 
             observer.observe(webPdpGrid, {
                 childList: true,
