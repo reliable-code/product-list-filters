@@ -33,15 +33,6 @@ function migrateDatabase() {
 
 migrateDatabase();
 
-function replaceFavoritesLink() {
-    waitForElement(document, '[data-widget="favoriteCounter"]')
-        .then((favoritesLink) => {
-            favoritesLink.href += '?avail=inStock';
-        });
-}
-
-replaceFavoritesLink();
-
 const comments = getFirstElement(COMMENTS_SELECTOR);
 
 waitForElement(document, '#layoutPage')
@@ -61,6 +52,8 @@ waitForElement(document, '#layoutPage')
     });
 
 function initMods() {
+    replaceFavoritesLink();
+
     if (paginatorContent) {
         initProductListMods();
     } else if (comments) {
@@ -70,4 +63,11 @@ function initMods() {
     } else {
         initProductPageMods();
     }
+}
+
+function replaceFavoritesLink() {
+    waitForElement(document, '[data-widget="favoriteCounter"]')
+        .then((favoritesLink) => {
+            favoritesLink.href += '?avail=inStock';
+        });
 }
