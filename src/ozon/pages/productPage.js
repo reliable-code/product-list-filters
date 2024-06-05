@@ -206,15 +206,7 @@ function skipFirstGalleryVideo() {
 
             if (firstGalleryItemIsImage) return;
 
-            const observer = new MutationObserver(() => {
-                observer.disconnect();
-                secondGalleryItem.click();
-            });
-
-            observer.observe(firstGalleryItem, {
-                childList: true,
-                subtree: true,
-            });
+            secondGalleryItem.click();
         });
 }
 
