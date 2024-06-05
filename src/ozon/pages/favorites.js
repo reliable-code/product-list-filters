@@ -48,6 +48,7 @@ export function initFavoritesMods() {
 
             const paginator = getFirstElement(PAGINATOR_SELECTOR);
 
+            processList();
             const observer = new MutationObserver(debounce(processList));
 
             observer.observe(paginator, {

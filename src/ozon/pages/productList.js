@@ -77,6 +77,7 @@ export function initProductListMods() {
 
             window.addEventListener('storage', cleanList);
 
+            cleanList();
             const observer = new MutationObserver(debounce(cleanList, 50));
 
             observer.observe(paginatorContent, {
