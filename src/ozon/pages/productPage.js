@@ -3,6 +3,7 @@ import {
     createDiv,
     createLink,
     createSpan,
+    debounce,
     getFirstElement,
     getURLPathElementEnding,
     insertAfter,
@@ -22,10 +23,23 @@ const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
 export function initProductPageMods() {
-    executeProductPageMods();
+    waitForElement(document, '[data-widget="webPdpGrid"]')
+        .then((webPdpGrid) => {
+            if (!webPdpGrid) return;
+
+            const observer =
+                new MutationObserver(debounce(() => executeProductPageMods(observer), 500));
+
+            observer.observe(webPdpGrid, {
+                childList: true,
+                subtree: true,
+            });
+        });
 }
 
-function executeProductPageMods() {
+function executeProductPageMods(observer) {
+    observer.disconnect();
+
     waitForElement(document, `${PRODUCT_REVIEWS_WRAP_OLD_SELECTOR}, ${PRODUCT_REVIEWS_WRAP_SELECTOR}`)
         .then((productReviewsWrap) => {
             if (!productReviewsWrap) return;
