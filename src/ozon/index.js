@@ -1,4 +1,6 @@
-import { getFirstElement, pathnameIncludes, waitForElement } from '../common/dom';
+import {
+ debounce, getFirstElement, pathnameIncludes, waitForElement,
+} from '../common/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
@@ -42,12 +44,27 @@ replaceFavoritesLink();
 
 const comments = getFirstElement(COMMENTS_SELECTOR);
 
-if (paginatorContent) {
-    initProductListMods();
-} else if (comments) {
-    comments.scrollIntoView();
-} else if (pathnameIncludes('favorites')) {
-    initFavoritesMods();
-} else {
-    initProductPageMods();
+waitForElement(document, '#layoutPage')
+    .then((layout) => {
+        if (!layout) return;
+
+        const observer =
+            new MutationObserver(debounce(() => initMods(observer), 750));
+
+        observer.observe(layout, {
+            childList: true,
+            subtree: true,
+        });
+    });
+
+function initMods(layoutObserver) {
+    if (paginatorContent) {
+        initProductListMods(layoutObserver);
+    } else if (comments) {
+        comments.scrollIntoView();
+    } else if (pathnameIncludes('favorites')) {
+        initFavoritesMods(layoutObserver);
+    } else {
+        initProductPageMods(layoutObserver);
+    }
 }

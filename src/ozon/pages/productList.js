@@ -67,8 +67,12 @@ const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 const nameLinesNumber =
     new StoredInputValue('name-lines-number', 2, cleanList);
+// const rowCardsNumber =
+//     new StoredInputValue('row-cards-number', 4, cleanList);
 
-export function initProductListMods() {
+export function initProductListMods(layoutObserver) {
+    layoutObserver.disconnect();
+
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);

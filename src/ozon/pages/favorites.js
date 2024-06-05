@@ -41,7 +41,9 @@ const bestPriceFilter =
 const filterEnabled =
     new StoredInputValue('favorites-filter-enabled', true, processList);
 
-export function initFavoritesMods() {
+export function initFavoritesMods(layoutObserver) {
+    layoutObserver.disconnect();
+
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
