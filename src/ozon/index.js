@@ -49,7 +49,10 @@ waitForElement(document, '#layoutPage')
         if (!layout) return;
 
         const observer =
-            new MutationObserver(debounce(() => initMods(observer), 750));
+            new MutationObserver(debounce(() => {
+                observer.disconnect();
+                initMods();
+            }, 750));
 
         observer.observe(layout, {
             childList: true,
@@ -57,14 +60,14 @@ waitForElement(document, '#layoutPage')
         });
     });
 
-function initMods(layoutObserver) {
+function initMods() {
     if (paginatorContent) {
-        initProductListMods(layoutObserver);
+        initProductListMods();
     } else if (comments) {
         comments.scrollIntoView();
     } else if (pathnameIncludes('favorites')) {
-        initFavoritesMods(layoutObserver);
+        initFavoritesMods();
     } else {
-        initProductPageMods(layoutObserver);
+        initProductPageMods();
     }
 }

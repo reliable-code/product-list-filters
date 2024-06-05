@@ -70,9 +70,7 @@ const nameLinesNumber =
 // const rowCardsNumber =
 //     new StoredInputValue('row-cards-number', 4, cleanList);
 
-export function initProductListMods(layoutObserver) {
-    layoutObserver.disconnect();
-
+export function initProductListMods() {
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
