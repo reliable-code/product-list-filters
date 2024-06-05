@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Kazan List Clean
 // @description  Remove product cards by filter
-// @match        https://kazanexpress.ru/*
+// @match        https://mm.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.1.71284356
+// @version      0.1.71760702
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kazanexpress.ru
 // @author       reliable-code
 // ==/UserScript==
