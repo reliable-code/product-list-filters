@@ -1,5 +1,4 @@
 import {
-    addGlobalStyle,
     createDiv,
     createLink,
     createSpan,
@@ -31,7 +30,6 @@ export function initProductPageMods() {
         });
 
     initAppendPriceHistory();
-    hideUnwantedElements();
     skipFirstGalleryVideo();
     extendProductNameMaxHeight();
 }
@@ -152,21 +150,6 @@ function initAppendPriceHistory() {
             const productArticle = getProductArticleFromPathname();
             appendPriceHistory(priceContainer, productArticle);
         });
-}
-
-function hideUnwantedElements() {
-    const css =
-        '[data-widget="bigPromoPDP"],' +
-        '[data-widget="blackFridayStatus"],' +
-        '[data-widget="webInstallmentPurchase"],' +
-        '[data-widget="webOneClickButton"],' +
-        '[data-widget="tagList"],' +
-        '[data-widget="skuShelfGoods"],' +
-        '[data-widget="skuGrid"] {' +
-        '   display: none !important;' +
-        '}';
-
-    addGlobalStyle(css);
 }
 
 function skipFirstGalleryVideo() {

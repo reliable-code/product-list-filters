@@ -1,5 +1,4 @@
 import {
-    addGlobalStyle,
     debounce,
     getAllElements,
     getFirstElement,
@@ -56,8 +55,6 @@ export function initFavoritesMods() {
                 subtree: true,
             });
         });
-
-    hideUnwantedElements();
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
@@ -161,13 +158,4 @@ function appendStoredPriceValues(productCard) {
     }
 
     productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
-}
-
-function hideUnwantedElements() {
-    const css =
-        '[data-widget="skuGrid"] {' +
-        '   display: none !important;' +
-        '}';
-
-    addGlobalStyle(css);
 }

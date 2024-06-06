@@ -1,4 +1,9 @@
-import { getFirstElement, pathnameIncludes, waitForElement } from '../common/dom';
+import {
+    addGlobalStyle,
+    getFirstElement,
+    somePathElementEquals,
+    waitForElement,
+} from '../common/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
@@ -7,6 +12,7 @@ import { initProductPageMods } from './pages/productPage';
 const COMMENTS_SELECTOR = '#comments';
 
 migrateDatabase();
+
 function migrateDatabase() {
     const actualDBVersion = 3;
 
@@ -30,7 +36,22 @@ function migrateDatabase() {
     setStorageValue('dbVersion', actualDBVersion);
 }
 
+hideUnwantedElements();
 
+function hideUnwantedElements() {
+    const css =
+        '[data-widget="bigPromoPDP"],' +
+        '[data-widget="blackFridayStatus"],' +
+        '[data-widget="webInstallmentPurchase"],' +
+        '[data-widget="webOneClickButton"],' +
+        '[data-widget="tagList"],' +
+        '[data-widget="skuShelfGoods"],' +
+        '[data-widget="skuGrid"] {' +
+        '   display: none !important;' +
+        '}';
+
+    addGlobalStyle(css);
+}
 
 waitForElement(document, '.vsc-initialized')
     .then((initializedBody) => {
