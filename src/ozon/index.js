@@ -6,6 +6,7 @@ import { initProductPageMods } from './pages/productPage';
 
 const COMMENTS_SELECTOR = '#comments';
 
+migrateDatabase();
 function migrateDatabase() {
     const actualDBVersion = 3;
 
@@ -29,9 +30,7 @@ function migrateDatabase() {
     setStorageValue('dbVersion', actualDBVersion);
 }
 
-migrateDatabase();
 
-const comments = getFirstElement(COMMENTS_SELECTOR);
 
 waitForElement(document, '.vsc-initialized')
     .then((initializedBody) => {
@@ -45,12 +44,13 @@ function initMods() {
 
     if (paginatorContent) {
         initProductListMods();
-    } else if (comments) {
-        comments.scrollIntoView();
-    } else if (pathnameIncludes('favorites')) {
-        initFavoritesMods();
-    } else {
+    } else if (somePathElementEquals('reviews')) {
+        const comments = getFirstElement(COMMENTS_SELECTOR);
+        if (comments) comments.scrollIntoView();
+    } else if (somePathElementEquals('product')) {
         initProductPageMods();
+    } else if (somePathElementEquals('favorites')) {
+        initFavoritesMods();
     }
 }
 
