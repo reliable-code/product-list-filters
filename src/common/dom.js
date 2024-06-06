@@ -335,3 +335,9 @@ export function getPathnameElementEnding(pathname, position, defaultValue = 'com
 export function pathnameIncludes(searchString) {
     return window.location.pathname.includes(searchString);
 }
+
+export function somePathElementEquals(searchString) {
+    const pathElements = window.location.pathname.split('/');
+
+    return pathElements.some((pathElement) => pathElement === searchString);
+}
