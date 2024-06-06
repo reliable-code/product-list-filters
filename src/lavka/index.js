@@ -25,8 +25,12 @@ const minDiscountFilter = new StoredInputValue('min-discount-filter', null, clea
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);
 const filterEnabled = new StoredInputValue('filter-enabled', true, cleanList);
 
-const minObserverSectionLength = new StoredInputValue('min-observer-section-length', true);
-const observerEnabled = new StoredInputValue('observer-enabled', true);
+const observerReloadInterval =
+    new StoredInputValue('observer-reload-interval', 3.5, runReloadTimerIfNeeded);
+const minObserverSectionLength =
+    new StoredInputValue('min-observer-section-length', 10);
+const observerEnabled =
+    new StoredInputValue('observer-enabled', true, runReloadTimerIfNeeded);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
@@ -53,6 +57,7 @@ const CHECKBOX_INPUT_STYLE =
 
 let mainContent;
 let firstRun = true;
+let observerTimeoutId;
 
 initMainContent();
 observeHead();
@@ -110,6 +115,15 @@ function checkSectionExistsBySelector(sectionSelector, sectionName) {
     }
 }
 
+function runReloadTimerIfNeeded() {
+    if (observerTimeoutId) clearTimeout(observerTimeoutId);
+
+    if (!observerEnabled.value || !observerReloadInterval.value) return;
+
+    const timeoutMs = observerReloadInterval.value * 1000 * 60;
+    observerTimeoutId = setTimeout(() => window.location.reload(), timeoutMs);
+}
+
 function initListClean() {
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
 
@@ -117,6 +131,8 @@ function initListClean() {
 
     if (firstRun) {
         firstRun = false;
+        runReloadTimerIfNeeded();
+
         checkSectionExistsBySelector(
             '[data-id="promo-expiring-products"]', 'Последний день',
         );
@@ -155,6 +171,15 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function appendObserverControlsContainer(observerControlsContainer, parentNode) {
     observerControlsContainer.style = CONTAINER_STYLE;
 
+    const observerReloadIntervalDiv =
+        createFilterControlNumber('Обновление, мин.: ',
+            observerReloadInterval,
+            0.5,
+            1,
+            60,
+            CONTROL_STYLE,
+            NUMBER_INPUT_STYLE);
+
     const minObserverSectionLengthDiv =
         createFilterControlNumber('Мин. в секции: ',
             minObserverSectionLength,
@@ -167,7 +192,10 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
     const observerEnabledDiv =
         createEnabledFilterControl(observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
 
-    observerControlsContainer.append(minObserverSectionLengthDiv, observerEnabledDiv);
+    observerControlsContainer.append(
+        observerReloadIntervalDiv, minObserverSectionLengthDiv, observerEnabledDiv,
+    );
+
     insertAfter(parentNode.firstChild, observerControlsContainer);
 }
 
