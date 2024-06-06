@@ -17,24 +17,17 @@ import {
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
 
-const PRODUCT_REVIEWS_WRAP_OLD_SELECTOR = '[data-widget="webReviewProductScore"]';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
 export function initProductPageMods() {
-    waitForElement(document, `${PRODUCT_REVIEWS_WRAP_OLD_SELECTOR}, ${PRODUCT_REVIEWS_WRAP_SELECTOR}`)
+    waitForElement(document, `${PRODUCT_REVIEWS_WRAP_SELECTOR}`)
         .then((productReviewsWrap) => {
             if (!productReviewsWrap) return;
 
-            if (productReviewsWrap.matches(PRODUCT_REVIEWS_WRAP_OLD_SELECTOR)) {
-                appendDislikeButton(productReviewsWrap, true);
-                appendBadReviewsLink(productReviewsWrap, true);
-                appendRatingValue(getStarsContainerOld(productReviewsWrap));
-            } else {
-                appendDislikeButton(productReviewsWrap);
-                appendBadReviewsLink(productReviewsWrap);
-                appendRatingValue(getStarsContainer(productReviewsWrap));
-            }
+            appendDislikeButton(productReviewsWrap);
+            appendBadReviewsLink(productReviewsWrap);
+            appendRatingValue(getStarsContainer(productReviewsWrap));
         });
 
     initAppendPriceHistory();
@@ -43,19 +36,12 @@ export function initProductPageMods() {
     extendProductNameMaxHeight();
 }
 
-function appendDislikeButton(productReviewsWrap, isOld = false) {
+function appendDislikeButton(productReviewsWrap) {
     const productDislikeButtonWrap = createDiv();
 
-    let starsContainer;
+    productDislikeButtonWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
 
-    if (isOld) {
-        productDislikeButtonWrap.classList = 'tsBodyControl400Small';
-        starsContainer = getStarsContainerOld(productReviewsWrap);
-    } else {
-        productDislikeButtonWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
-        starsContainer = getStarsContainer(productReviewsWrap);
-    }
-
+    const starsContainer = getStarsContainer(productReviewsWrap);
     const productDislikeButton =
         createDislikeButton(() => dislikeProduct(starsContainer));
 
@@ -79,17 +65,13 @@ function dislikeProduct(starsContainer) {
     replaceRatingValue(starsContainer, 1);
 }
 
-function appendBadReviewsLink(productReviewsWrap, isOld = false) {
+function appendBadReviewsLink(productReviewsWrap) {
     const productReviewsLink = getFirstElement('a', productReviewsWrap);
 
     if (productReviewsLink) {
         const productBadReviewsLinkWrap = createDiv();
-        if (isOld) {
-            productBadReviewsLinkWrap.classList = 'tsBodyControl400Small';
-        } else {
-            productBadReviewsLinkWrap.classList =
-                getProductReviewsInfoClassList(productReviewsWrap);
-        }
+        productBadReviewsLinkWrap.classList =
+            getProductReviewsInfoClassList(productReviewsWrap);
 
         const productBadReviewsLink =
             createLink(
@@ -135,10 +117,6 @@ function appendRatingValue(starsContainer) {
                     replaceRatingValue(starsContainer, ratingValueNumber);
                 });
         });
-}
-
-function getStarsContainerOld(productReviewsWrap) {
-    return productReviewsWrap.children[0].children[0].children[1].children[0];
 }
 
 function getStarsContainer(productReviewsWrap) {
