@@ -14,6 +14,7 @@ import { removeNonDigit } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createFilterControlNumber,
     createMaxPriceFilterControl,
     createMinDiscountFilterControl,
     isGreaterThanFilter,
@@ -23,6 +24,9 @@ import {
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);
 const filterEnabled = new StoredInputValue('filter-enabled', true, cleanList);
+
+const minObserverSectionLength = new StoredInputValue('min-observer-section-length', true);
+const observerEnabled = new StoredInputValue('observer-enabled', true);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
@@ -101,7 +105,9 @@ function checkSectionExistsBySelector(sectionSelector, sectionName) {
 
     const header = getFirstElement('h2');
     header.innerText += ` (${sectionLength})`;
-    if (sectionLength > 12) showSectionNotification(sectionName, sectionLength);
+    if (observerEnabled.value && sectionLength >= minObserverSectionLength.value) {
+        showSectionNotification(sectionName, sectionLength);
+    }
 }
 
 function initListClean() {
@@ -149,6 +155,19 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function appendObserverControlsContainer(observerControlsContainer, parentNode) {
     observerControlsContainer.style = CONTAINER_STYLE;
 
+    const minObserverSectionLengthDiv =
+        createFilterControlNumber('Мин. в секции: ',
+            minObserverSectionLength,
+            1,
+            1,
+            50,
+            CONTROL_STYLE,
+            NUMBER_INPUT_STYLE);
+
+    const observerEnabledDiv =
+        createEnabledFilterControl(observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
+
+    observerControlsContainer.append(minObserverSectionLengthDiv, observerEnabledDiv);
     insertAfter(parentNode.firstChild, observerControlsContainer);
 }
 
