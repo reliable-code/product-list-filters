@@ -26,6 +26,26 @@ const filterEnabled = new StoredInputValue('filter-enabled', true, cleanList);
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
+const CONTAINER_STYLE =
+    'display: flex;' +
+    'margin-top: 14px;' +
+    'grid-gap: 15px;';
+const CONTROL_STYLE =
+    'display: flex;' +
+    'align-items: center;';
+const INPUT_STYLE =
+    'margin-left: 5px;' +
+    'border: 2px solid #b3bcc5;' +
+    'border-radius: 6px;' +
+    'padding: 6px 10px;';
+const NUMBER_INPUT_STYLE =
+    INPUT_STYLE + // eslint-disable-line prefer-template
+    'width: 90px;';
+const CHECKBOX_INPUT_STYLE =
+    'margin-left: 5px;' +
+    'width: 25px;' +
+    'height: 25px;';
+
 let mainContent;
 let firstRun = true;
 
@@ -100,35 +120,16 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style =
-        'display: flex;' +
-        'margin-top: 14px;' +
-        'grid-gap: 15px;';
-
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;';
-    const inputStyle =
-        'margin-left: 5px;' +
-        'border: 2px solid #b3bcc5;' +
-        'border-radius: 6px;' +
-        'padding: 6px 10px;';
-    const numberInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 90px;';
-    const checkboxInputStyle =
-        'margin-left: 5px;' +
-        'width: 25px;' +
-        'height: 25px;';
+    filtersContainer.style = CONTAINER_STYLE;
 
     const minDiscountDiv =
-        createMinDiscountFilterControl(minDiscountFilter, controlStyle, numberInputStyle);
+        createMinDiscountFilterControl(minDiscountFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const maxPriceDiv =
-        createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle, '25');
+        createMaxPriceFilterControl(maxPriceFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE, '25');
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
+        createEnabledFilterControl(filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
 
     filtersContainer.append(minDiscountDiv, maxPriceDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
