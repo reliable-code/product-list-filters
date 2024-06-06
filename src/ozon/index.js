@@ -1,6 +1,4 @@
-import {
- debounce, getFirstElement, pathnameIncludes, waitForElement,
-} from '../common/dom';
+import { getFirstElement, pathnameIncludes, waitForElement } from '../common/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
@@ -35,20 +33,11 @@ migrateDatabase();
 
 const comments = getFirstElement(COMMENTS_SELECTOR);
 
-waitForElement(document, '#layoutPage')
-    .then((layout) => {
-        if (!layout) return;
+waitForElement(document, '.vsc-initialized')
+    .then((initializedBody) => {
+        if (!initializedBody) return;
 
-        const observer =
-            new MutationObserver(debounce(() => {
-                observer.disconnect();
-                initMods();
-            }, 750));
-
-        observer.observe(layout, {
-            childList: true,
-            subtree: true,
-        });
+        initMods();
     });
 
 function initMods() {
