@@ -7,6 +7,7 @@ import {
     pathnameIncludes,
     showElement,
     showHideElement,
+    somePathElementEquals,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
@@ -115,7 +116,17 @@ function initListClean() {
         );
     }
 
+    if (somePathElementEquals('promo_and_cashback')) {
+        appendFilterControlsIfNeeded(
+            mainContent,
+            appendObserverControlsContainer,
+            false,
+            'observerControlsContainer',
+        );
+    }
+
     appendFilterControlsIfNeeded(mainContent, appendFiltersContainer);
+
     cleanList();
 }
 
@@ -133,6 +144,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     filtersContainer.append(minDiscountDiv, maxPriceDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
+}
+
+function appendObserverControlsContainer(observerControlsContainer, parentNode) {
+    observerControlsContainer.style = CONTAINER_STYLE;
+
+    insertAfter(parentNode.firstChild, observerControlsContainer);
 }
 
 function cleanList() {
