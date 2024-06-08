@@ -23,10 +23,10 @@ const INPUT_STYLE =
     'padding: 6px 10px;';
 export const NUMBER_INPUT_STYLE =
     INPUT_STYLE + // eslint-disable-line prefer-template
-    'width: 90px;';
+    'width: 75px;';
 export const TEXT_INPUT_STYLE =
     INPUT_STYLE + // eslint-disable-line prefer-template
-    'width: 190px;';
+    'width: 180px;';
 export const CONTROL_STYLE =
     'display: flex;' +
     'align-items: center;';
@@ -154,7 +154,8 @@ export function setCommonFiltersContainerStyles(filtersContainer, parentNode) {
     filtersContainer.style =
         'display: flex;' +
         'flex-flow: wrap;' +
-        'grid-gap: 15px;';
+        'grid-gap: 15px;' +
+        'min-width: 1250px;';
 
     parentNode.style =
         'position: sticky;' +
