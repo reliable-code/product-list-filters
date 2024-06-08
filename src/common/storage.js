@@ -2,6 +2,7 @@ import { getInputValueFromEvent, InputValueBase, parseValue } from './dom';
 
 export const setStorageValue = window.GM_setValue;
 export const getStorageValue = window.GM_getValue;
+export const addStorageValueListener = window.GM_addValueChangeListener;
 
 export class StoredInputValue extends InputValueBase {
     constructor(storageKey, defaultValue = null, onChange = null) {
