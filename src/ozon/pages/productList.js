@@ -1,4 +1,4 @@
-import { StoredInputValue } from '../../common/storage';
+import { addStorageValueListener, StoredInputValue } from '../../common/storage';
 import {
     debounce,
     getAllElements,
@@ -74,8 +74,7 @@ export function initProductListMods() {
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
-
-            window.addEventListener('storage', cleanList);
+            addStorageValueListener('last-rate-update', cleanList);
 
             cleanList();
             const observer = new MutationObserver(debounce(cleanList, 50));

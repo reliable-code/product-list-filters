@@ -141,8 +141,8 @@ export function createDislikeButton(onClick, needLabel = true) {
 }
 
 export function setStoredRatingValue(productArticle, ratingValue) {
-    setStorageValue('last-rate-update', Date.now());
     setStorageValue(`${productArticle}-rate`, ratingValue);
+    setStorageValue('last-rate-update', Date.now());
 }
 
 export function getStoredRatingValue(productArticle) {
