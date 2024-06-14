@@ -108,7 +108,7 @@ function checkSectionExistsBySelector(sectionSelector, sectionName) {
 
     const sectionLength = getAllElements(PRODUCT_CARD_LINK_SELECTOR, section).length;
 
-    const header = getFirstElement('h2');
+    const header = getFirstElement('h2', section);
     header.innerText += ` (${sectionLength})`;
     if (observerEnabled.value && sectionLength >= minObserverSectionLength.value) {
         showSectionNotification(sectionName, sectionLength);
