@@ -1,4 +1,5 @@
 import {
+    createDiv,
     debounce,
     getAllElements,
     getElementInnerNumber,
@@ -59,6 +60,7 @@ let mainContent;
 let firstRun = true;
 let checkReloadTimerIntervalId;
 let reloadTimerSecondsLeft = null;
+let reloadTimerDiv;
 
 initMainContent();
 observeHead();
@@ -119,6 +121,7 @@ function checkSectionExistsBySelector(sectionSelector, sectionName) {
 function runReloadTimerIfNeeded() {
     if (reloadTimerSecondsLeft) reloadTimerSecondsLeft = null;
     if (checkReloadTimerIntervalId) clearInterval(checkReloadTimerIntervalId);
+    reloadTimerDiv.textContent = null;
 
     if (!observerEnabled.value || !observerReloadInterval.value) return;
 
@@ -128,6 +131,8 @@ function runReloadTimerIfNeeded() {
 }
 
 function checkReloadTimer() {
+    reloadTimerDiv.textContent = `До обновления: ${reloadTimerSecondsLeft} c.`;
+
     if (reloadTimerSecondsLeft > 0) {
         reloadTimerSecondsLeft -= 1;
         return;
@@ -182,6 +187,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function appendObserverControlsContainer(observerControlsContainer, parentNode) {
     observerControlsContainer.style = CONTAINER_STYLE;
+    const reloadTimerControlStyle =
+        CONTROL_STYLE + // eslint-disable-line prefer-template
+        'margin-left: auto;' +
+        'width: 170px;';
 
     const observerReloadIntervalDiv =
         createFilterControlNumber('Обновление, мин.: ',
@@ -204,8 +213,11 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
     const observerEnabledDiv =
         createEnabledFilterControl(observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
 
+    reloadTimerDiv =
+        createDiv(reloadTimerSecondsLeft, reloadTimerControlStyle);
+
     observerControlsContainer.append(
-        observerReloadIntervalDiv, minObserverSectionLengthDiv, observerEnabledDiv,
+        observerReloadIntervalDiv, minObserverSectionLengthDiv, observerEnabledDiv, reloadTimerDiv,
     );
 
     insertAfter(parentNode.firstChild, observerControlsContainer);
