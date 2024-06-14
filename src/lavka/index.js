@@ -129,15 +129,6 @@ function initListClean() {
 
     if (!productCardLinks.length) return;
 
-    if (firstRun) {
-        firstRun = false;
-        runReloadTimerIfNeeded();
-
-        checkSectionExistsBySelector(
-            '[data-id="promo-expiring-products"]', 'Последний день',
-        );
-    }
-
     if (somePathElementEquals('promo_and_cashback')) {
         appendFilterControlsIfNeeded(
             mainContent,
@@ -148,6 +139,15 @@ function initListClean() {
     }
 
     appendFilterControlsIfNeeded(mainContent, appendFiltersContainer);
+
+    if (firstRun) {
+        firstRun = false;
+        runReloadTimerIfNeeded();
+
+        checkSectionExistsBySelector(
+            '[data-id="promo-expiring-products"]', 'Последний день',
+        );
+    }
 
     cleanList();
 }
