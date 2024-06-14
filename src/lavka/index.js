@@ -57,7 +57,7 @@ const CHECKBOX_INPUT_STYLE =
 
 let mainContent;
 let firstRun = true;
-let observerTimeoutId;
+let checkReloadTimerIntervalId;
 let reloadTimerSecondsLeft = null;
 
 initMainContent();
@@ -117,15 +117,17 @@ function checkSectionExistsBySelector(sectionSelector, sectionName) {
 }
 
 function runReloadTimerIfNeeded() {
-    if (observerTimeoutId) clearTimeout(observerTimeoutId);
+    if (reloadTimerSecondsLeft) reloadTimerSecondsLeft = null;
+    if (checkReloadTimerIntervalId) clearInterval(checkReloadTimerIntervalId);
 
     if (!observerEnabled.value || !observerReloadInterval.value) return;
 
-    const timeoutMs = observerReloadInterval.value * 1000 * 60;
-    observerTimeoutId = setTimeout(() => window.location.reload(), timeoutMs);
+    reloadTimerSecondsLeft = observerReloadInterval.value * 60;
+    checkReloadTimer();
+    checkReloadTimerIntervalId = setInterval(checkReloadTimer, 1000);
+}
 
 function checkReloadTimer() {
-
     if (reloadTimerSecondsLeft > 0) {
         reloadTimerSecondsLeft -= 1;
         return;
