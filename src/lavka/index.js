@@ -58,6 +58,7 @@ const CHECKBOX_INPUT_STYLE =
 let mainContent;
 let firstRun = true;
 let observerTimeoutId;
+let reloadTimerSecondsLeft = null;
 
 initMainContent();
 observeHead();
@@ -122,6 +123,15 @@ function runReloadTimerIfNeeded() {
 
     const timeoutMs = observerReloadInterval.value * 1000 * 60;
     observerTimeoutId = setTimeout(() => window.location.reload(), timeoutMs);
+
+function checkReloadTimer() {
+
+    if (reloadTimerSecondsLeft > 0) {
+        reloadTimerSecondsLeft -= 1;
+        return;
+    }
+
+    window.location.reload();
 }
 
 function initListClean() {
