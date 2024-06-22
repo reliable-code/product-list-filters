@@ -2,6 +2,7 @@ import {
     createDiv,
     createLink,
     createSpan,
+    getAllElements,
     getFirstElement,
     getURLPathElementEnding,
     insertAfter,
@@ -17,7 +18,6 @@ import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
 
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
-const CREATE_REVIEW_BUTTON_SELECTOR = '[data-widget="createReviewButton"]';
 
 export function initProductPageMods() {
     waitForElement(document, `${PRODUCT_REVIEWS_WRAP_SELECTOR}`)
@@ -96,10 +96,10 @@ function appendRatingValue(starsContainer) {
         replaceRatingValue(starsContainer, storedRatingValue);
     }
 
-    waitForElement(document, CREATE_REVIEW_BUTTON_SELECTOR)
-        .then((createReviewButton) => {
-            const reviewsInfoContainer = createReviewButton.parentNode;
-
+    waitForElement(document, '[data-widget="webReviewTabs"]')
+        .then((reviewsContainer) => {
+            const reviewsContainerColumns = getAllElements('[data-widget="column"]', reviewsContainer);
+            const reviewsInfoContainer = reviewsContainerColumns[2];
             waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]')
                 .then((ratingInfoContainer) => {
                     const ratingValueContainer =
