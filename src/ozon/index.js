@@ -42,11 +42,12 @@ function hideUnwantedElements() {
     const css =
         '[data-widget="bigPromoPDP"],' +
         '[data-widget="blackFridayStatus"],' +
-        '[data-widget="webInstallmentPurchase"],' +
-        '[data-widget="webOneClickButton"],' +
-        '[data-widget="tagList"],' +
+        '[data-widget="cellList"],' +
+        '[data-widget="skuGrid"],' +
         '[data-widget="skuShelfGoods"],' +
-        '[data-widget="skuGrid"] {' +
+        '[data-widget="tagList"],' +
+        '[data-widget="webInstallmentPurchase"],' +
+        '[data-widget="webOneClickButton"] {' +
         '   display: none !important;' +
         '}';
 
