@@ -12,6 +12,7 @@ import { StoredInputValue } from '../common/localstorage';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createFilterControlNumber,
     createMinReviewsFilterControl,
     isLessThanFilter,
 } from '../common/filter';
@@ -27,6 +28,7 @@ const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
 const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
 
 const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10);
+const minExperienceFilter = new StoredInputValue('min-experience-filter', 5);
 const filterEnabled = new StoredInputValue('filter-enabled', true);
 
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
@@ -71,10 +73,21 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
 
+    const minExperienceDiv =
+        createFilterControlNumber(
+            'Мин. опыт: ',
+            minExperienceFilter,
+            '1',
+            '0',
+            '100',
+            controlStyle,
+            numberInputStyle,
+        );
+
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minReviewsDiv, filterEnabledDiv);
+    filtersContainer.append(minReviewsDiv, minExperienceDiv, filterEnabledDiv);
     parentNode.prepend(filtersContainer);
 }
 
@@ -97,11 +110,16 @@ function cleanList() {
                 return;
             }
 
-            const profileCard = getFirstElement('.b-profile-card', doctorCard, true);
+            const profileCard =
+                getFirstElement('.b-profile-card', doctorCard, true);
 
-            const reviewsLink = getFirstElement(':scope > a', profileCard);
+            const reviewsLink =
+                getFirstElement(':scope > a', profileCard);
 
-            if (!reviewsLink) {
+            const experienceWrap =
+                getFirstElement('.b-doctor-card__experience-years', doctorCard, true);
+
+            if (!reviewsLink || !experienceWrap) {
                 hideElement(doctorCard);
 
                 return;
@@ -109,7 +127,11 @@ function cleanList() {
 
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
-            const conditionToHide = isLessThanFilter(reviewsLinkNumber, minReviewsFilter);
+            const experienceNumber = getElementInnerNumber(experienceWrap, true);
+
+            const conditionToHide =
+                isLessThanFilter(reviewsLinkNumber, minReviewsFilter) ||
+                isLessThanFilter(experienceNumber, minExperienceFilter);
             showHideElement(doctorCard, conditionToHide);
 
             const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
