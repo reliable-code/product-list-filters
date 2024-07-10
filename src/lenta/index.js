@@ -4,6 +4,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
     getPathnameElement,
+    getURLPathElementEnding,
     pathnameIncludes,
     resetElementOpacity,
     resetElementOrder,
@@ -23,7 +24,7 @@ import {
 } from '../common/filter';
 import { removeNonDigit } from '../common/string';
 
-const CATEGORY_NAME = getCategoryName();
+const CATEGORY_NAME = getURLPathElementEnding(2);
 
 const nameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null);
@@ -43,16 +44,6 @@ const PRODUCT_CARD_SELECTOR = '.lu-grid__item';
 const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
 const PRICE_ROUNDED_CLASS = 'priceRounded';
-
-function getCategoryName() {
-    const { pathname } = window.location;
-    const pathElements = pathname.split('/');
-    const lastPathElement = pathElements.pop();
-    const categoryName =
-        /^\d+$/.test(lastPathElement) ? lastPathElement : 'common';
-
-    return categoryName;
-}
 
 setInterval(initListClean, 100);
 
