@@ -3,6 +3,7 @@ import {
     createLink,
     createSpan,
     getAllElements,
+    getElementInnerNumber,
     getFirstElement,
     getURLPathElementEnding,
     insertAfter,
@@ -106,14 +107,16 @@ function appendRatingValue(starsContainer) {
 
                     if (!ratingValue) return;
 
-                    const ratingValueNumber = +ratingValue;
-                    setStoredRatingValue(productArticle, ratingValueNumber);
-                    replaceRatingValue(starsContainer, ratingValueNumber);
+                    const ratingValueRounded =
+                        Math.round((ratingValue + Number.EPSILON) * 1000) / 1000;
+
+                    setStoredRatingValue(productArticle, ratingValueRounded);
+                    replaceRatingValue(starsContainer, ratingValueRounded);
                 });
         });
 }
 
-function getRatingValueFromRatingInfoContainer(ratingInfoContainer) {
+function getCountedRatingValueFromRatingInfoContainer(ratingInfoContainer) {
     const ratingValueContainer =
         ratingInfoContainer.children[0].children[0].children[1];
 
@@ -121,6 +124,33 @@ function getRatingValueFromRatingInfoContainer(ratingInfoContainer) {
     const ratingValue = getRatingValue(ratingValueSpan);
 
     return ratingValue;
+}
+
+function getRatingValueFromRatingInfoContainer(ratingInfoContainer) {
+    const ratingCounters =
+        ratingInfoContainer.children[0].children[2].children;
+
+    if (!ratingCounters) return null;
+
+    let reviewCounterSum = 0;
+    let ratingWeightSum = 0;
+
+    [...ratingCounters].forEach((ratingCounter) => {
+        const ratingWrap = ratingCounter.children[0];
+        const rating = getElementInnerNumber(ratingWrap, true);
+
+        const reviewCounterWrap = ratingCounter.children[2];
+        const reviewCounter = getElementInnerNumber(reviewCounterWrap);
+
+        const ratingWeight = rating * reviewCounter;
+
+        reviewCounterSum += reviewCounter;
+        ratingWeightSum += ratingWeight;
+    });
+
+    if (!reviewCounterSum) return null;
+
+    return ratingWeightSum / reviewCounterSum;
 }
 
 function getStarsContainer(productReviewsWrap) {

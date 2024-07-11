@@ -80,5 +80,9 @@ function replaceFavoritesLink() {
     waitForElement(document, '[data-widget="favoriteCounter"]')
         .then((favoritesLink) => {
             favoritesLink.href += '?avail=inStock';
+            // favoritesLink.addEventListener('click', (e) => {
+            //     alert(e.button);
+            //     alert('https://www.ozon.ru/my/favorites?avail=inStock');
+            // });
         });
 }
