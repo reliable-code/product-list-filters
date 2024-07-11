@@ -107,11 +107,10 @@ function appendRatingValue(starsContainer) {
 
                     if (!ratingValue) return;
 
-                    const ratingValueRounded =
-                        Math.round((ratingValue + Number.EPSILON) * 1000) / 1000;
+                    if (!ratingValue) return;
 
-                    setStoredRatingValue(productArticle, ratingValueRounded);
-                    replaceRatingValue(starsContainer, ratingValueRounded);
+                    setStoredRatingValue(productArticle, ratingValue);
+                    replaceRatingValue(starsContainer, ratingValue);
                 });
         });
 }
@@ -150,7 +149,11 @@ function getRatingValueFromRatingInfoContainer(ratingInfoContainer) {
 
     if (!reviewCounterSum) return null;
 
-    return ratingWeightSum / reviewCounterSum;
+    const ratingValue = ratingWeightSum / reviewCounterSum;
+
+    const ratingValueRounded = Math.round((ratingValue + Number.EPSILON) * 1000) / 1000;
+
+    return ratingValueRounded;
 }
 
 function getStarsContainer(productReviewsWrap) {
