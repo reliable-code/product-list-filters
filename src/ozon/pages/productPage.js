@@ -103,9 +103,11 @@ function appendRatingValue(starsContainer) {
             const reviewsInfoContainer = reviewsContainerColumns[2];
             waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget])')
                 .then((ratingInfoContainer) => {
-                    const ratingValue = getRatingValueFromRatingInfoContainer(ratingInfoContainer);
+                    const ratingInfo = ratingInfoContainer.children[0];
 
-                    if (!ratingValue) return;
+                    if (!ratingInfo) return;
+
+                    const ratingValue = getRatingValueFromRatingInfo(ratingInfo);
 
                     if (!ratingValue) return;
 
@@ -115,9 +117,8 @@ function appendRatingValue(starsContainer) {
         });
 }
 
-function getCountedRatingValueFromRatingInfoContainer(ratingInfoContainer) {
-    const ratingValueContainer =
-        ratingInfoContainer.children[0].children[0].children[1];
+function getCountedRatingValueFromRatingInfoContainer(ratingInfo) {
+    const ratingValueContainer = ratingInfo.children[0].children[1];
 
     const ratingValueSpan = ratingValueContainer.children[0];
     const ratingValue = getRatingValue(ratingValueSpan);
@@ -125,9 +126,8 @@ function getCountedRatingValueFromRatingInfoContainer(ratingInfoContainer) {
     return ratingValue;
 }
 
-function getRatingValueFromRatingInfoContainer(ratingInfoContainer) {
-    const ratingCounters =
-        ratingInfoContainer.children[0].children[2].children;
+function getRatingValueFromRatingInfo(ratingInfo) {
+    const ratingCounters = ratingInfo.children[2].children;
 
     if (!ratingCounters) return null;
 
