@@ -102,11 +102,7 @@ function appendRatingValue(starsContainer) {
             const reviewsInfoContainer = reviewsContainerColumns[2];
             waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]')
                 .then((ratingInfoContainer) => {
-                    const ratingValueContainer =
-                        ratingInfoContainer.children[0].children[0].children[1];
-
-                    const ratingValueSpan = ratingValueContainer.children[0];
-                    const ratingValue = getRatingValue(ratingValueSpan);
+                    const ratingValue = getRatingValueFromRatingInfoContainer(ratingInfoContainer);
 
                     if (!ratingValue) return;
 
@@ -115,6 +111,16 @@ function appendRatingValue(starsContainer) {
                     replaceRatingValue(starsContainer, ratingValueNumber);
                 });
         });
+}
+
+function getRatingValueFromRatingInfoContainer(ratingInfoContainer) {
+    const ratingValueContainer =
+        ratingInfoContainer.children[0].children[0].children[1];
+
+    const ratingValueSpan = ratingValueContainer.children[0];
+    const ratingValue = getRatingValue(ratingValueSpan);
+
+    return ratingValue;
 }
 
 function getStarsContainer(productReviewsWrap) {
