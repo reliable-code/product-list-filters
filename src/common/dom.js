@@ -202,6 +202,13 @@ function parseNumber(text, cleanText, replaceComma) {
 
 export function waitForElement(parentNode, selector, timeout = null) {
     return new Promise((resolve) => {
+        const existingElement = parentNode.querySelector(selector);
+
+        if (existingElement) {
+            resolve(existingElement);
+            return;
+        }
+
         const observer = new MutationObserver(mutationCallback);
 
         observer.observe(parentNode, {

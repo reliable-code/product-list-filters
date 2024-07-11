@@ -101,7 +101,7 @@ function appendRatingValue(starsContainer) {
         .then((reviewsContainer) => {
             const reviewsContainerColumns = getAllElements('[data-widget="column"]', reviewsContainer);
             const reviewsInfoContainer = reviewsContainerColumns[2];
-            waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget]')
+            waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget])')
                 .then((ratingInfoContainer) => {
                     const ratingValue = getRatingValueFromRatingInfoContainer(ratingInfoContainer);
 
