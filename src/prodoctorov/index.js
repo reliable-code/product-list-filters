@@ -39,6 +39,7 @@ if (appointmentsPage) {
     appendDoctorPageAdditionalLinks();
     appendReviewsInfoToHeader();
     appendDoctorContactLink();
+    clickMoreReviewsButtonWhileExists();
 }
 
 function initListClean() {
@@ -260,4 +261,14 @@ function appendDoctorContactLink() {
     doctorContactsLink.classList.add('b-doctor-details__toc-item');
 
     doctorDetailsMenu.insertBefore(doctorContactsLink, doctorDetailsMenu.firstChild);
+}
+
+function clickMoreReviewsButtonWhileExists() {
+    const moreReviewsButton = getFirstElement('[data-qa="show_more_list_items"]');
+
+    if (moreReviewsButton && !moreReviewsButton.classList.contains('d-none')) {
+        moreReviewsButton.click();
+    }
+
+    setTimeout(clickMoreReviewsButtonWhileExists, 250);
 }
