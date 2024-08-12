@@ -15,6 +15,7 @@ import { removeNonDigit } from '../common/string';
 import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
+    createFilterControlCheckbox,
     createFilterControlNumber,
     createMaxPriceFilterControl,
     createMinDiscountFilterControl,
@@ -30,6 +31,8 @@ const observerReloadInterval =
     new StoredInputValue('observer-reload-interval', 3.5, runReloadTimerIfNeeded);
 const minObserverSectionLength =
     new StoredInputValue('min-observer-section-length', 10);
+const showObserverNotification =
+    new StoredInputValue('show-observer-notification', true);
 const observerEnabled =
     new StoredInputValue('observer-enabled', true, runReloadTimerIfNeeded);
 
@@ -113,7 +116,10 @@ function checkSectionExistsBySelector(sectionSelector, sectionName) {
 
     const header = getFirstElement('h2', section);
     header.innerText += ` (${sectionLength})`;
-    if (observerEnabled.value && sectionLength >= minObserverSectionLength.value) {
+
+    if (observerEnabled.value
+        && showObserverNotification.value
+        && sectionLength >= minObserverSectionLength.value) {
         showSectionNotification(sectionName, sectionLength);
     }
 }
@@ -210,14 +216,25 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
             CONTROL_STYLE,
             NUMBER_INPUT_STYLE);
 
+    const showObserverNotificationDiv =
+        createFilterControlCheckbox(
+            'Оповещение: ', showObserverNotification, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+        );
+
     const observerEnabledDiv =
-        createEnabledFilterControl(observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
+        createEnabledFilterControl(
+            observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+        );
 
     reloadTimerDiv =
         createDiv(reloadTimerSecondsLeft, reloadTimerControlStyle);
 
     observerControlsContainer.append(
-        observerReloadIntervalDiv, minObserverSectionLengthDiv, observerEnabledDiv, reloadTimerDiv,
+        observerReloadIntervalDiv,
+        minObserverSectionLengthDiv,
+        showObserverNotificationDiv,
+        observerEnabledDiv,
+        reloadTimerDiv,
     );
 
     insertAfter(parentNode.firstChild, observerControlsContainer);
