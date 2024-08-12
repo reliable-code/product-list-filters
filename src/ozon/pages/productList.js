@@ -77,7 +77,7 @@ export function initProductListMods() {
             addStorageValueListener('last-rate-update', cleanList);
 
             cleanList();
-            const observer = new MutationObserver(debounce(cleanList, 50));
+            const observer = new MutationObserver(debounce(cleanList, 150));
 
             observer.observe(paginatorContent, {
                 childList: true,
