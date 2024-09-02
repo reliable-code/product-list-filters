@@ -118,7 +118,7 @@ function cleanList() {
                 getFirstElement(':scope > a', profileCard);
 
             const experienceWrap =
-                getFirstElement('.b-doctor-card__experience-years', doctorCard, true);
+                getFirstElement('.b-doctor-card__experience .mr-2 .ui-text', doctorCard, true);
 
             if (!reviewsLink || !experienceWrap) {
                 hideElement(doctorCard);
