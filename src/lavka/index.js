@@ -246,7 +246,7 @@ function cleanList() {
     productCardLinks.forEach(
         (productCardLink) => {
             const productCardLinksParent = productCardLink.parentNode;
-            const productCard = productCardLinksParent.parentNode.parentNode;
+            const productCard = productCardLinksParent.parentNode.parentNode.parentNode;
             productCard.style.flex = 'none';
             productCard.style.width = '25%';
 
