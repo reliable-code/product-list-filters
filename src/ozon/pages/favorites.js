@@ -205,6 +205,12 @@ function checkIfGoodPrice(priceContainerWrap, productCard) {
 
         productCard.setAttribute(GOOD_PRICE_ATTR, '');
     } else {
+        const stylePropertiesToRemove =
+            ['border', 'borderRadius', 'padding', 'marginBottom', 'width'];
+        stylePropertiesToRemove.forEach(
+            (property) => priceContainerWrap.style.removeProperty(property),
+        );
+
         productCard.removeAttribute(GOOD_PRICE_ATTR);
     }
 }
