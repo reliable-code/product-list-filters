@@ -162,6 +162,8 @@ function appendStoredPriceValuesIfNeeded(productCard) {
     const priceContainer = productCard.children[0].children[1].children[0].children[0];
 
     const priceData = appendPriceHistory(priceContainer, productArticle);
+    productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
+    productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
 
     const priceContainerWrap = priceContainer.parentNode;
     priceContainerWrap.style.display = 'block';
