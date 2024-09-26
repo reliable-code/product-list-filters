@@ -33,6 +33,8 @@ import {
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';
+const CURRENT_PRICE_ATTR = 'currentPrice';
+const LOWEST_PRICE_ATTR = 'lowestPrice';
 const GOOD_PRICE_ATTR = 'goodPrice';
 
 const nameFilter =
