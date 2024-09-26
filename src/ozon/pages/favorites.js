@@ -114,7 +114,7 @@ function processList(priceTolerancePercentChanged = false) {
 
             moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap);
 
-            appendStoredPriceValues(productCard);
+            appendStoredPriceValuesIfNeeded(productCard);
 
             const productCardNameWrap =
                 getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
@@ -138,10 +138,8 @@ function processList(priceTolerancePercentChanged = false) {
     );
 }
 
-function appendStoredPriceValues(productCard) {
-    if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) {
-        return;
-    }
+function appendStoredPriceValuesIfNeeded(productCard) {
+    if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) return;
 
     const additionalInfoDiv = getFirstElement('.tsBodyControl400Small', productCard);
     if (additionalInfoDiv) {
