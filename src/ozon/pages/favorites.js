@@ -14,6 +14,7 @@ import {
     getFirstProductCardsWrap,
     getProductArticleFromLink,
     moveProductCardToFirstWrapIfNeeded,
+    NUMBER_INPUT_STYLE,
     PRODUCT_CARD_NAME_SELECTOR,
     PRODUCT_CARDS_SELECTOR,
     SEARCH_RESULTS_SORT_SELECTOR,
@@ -25,6 +26,7 @@ import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createFilterControlCheckbox,
+    createFilterControlNumber,
     createNameFilterControl,
     isNotMatchTextFilter,
 } from '../../common/filter';
@@ -37,6 +39,8 @@ const nameFilter =
     new StoredInputValue('favorites-name-filter', null, processList);
 const bestPriceFilter =
     new StoredInputValue('best-price-filter', false, processList);
+const priceTolerancePercent =
+    new StoredInputValue('price-tolerance-percent', 3, processList);
 const filterEnabled =
     new StoredInputValue('favorites-filter-enabled', true, processList);
 
@@ -66,14 +70,31 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         );
     const bestPriceDiv =
         createFilterControlCheckbox(
-            'Лучшая цена: ', bestPriceFilter, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+            'Лучшая цена: ',
+            bestPriceFilter,
+            CONTROL_STYLE,
+            CHECKBOX_INPUT_STYLE,
+        );
+    const priceTolerancePercentDiv =
+        createFilterControlNumber(
+            'Допуск цены, %: ',
+            priceTolerancePercent,
+            1,
+            0,
+            100,
+            CONTROL_STYLE,
+            NUMBER_INPUT_STYLE,
         );
     const filterEnabledDiv =
         createEnabledFilterControl(
-            filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+            filterEnabled,
+            CONTROL_STYLE,
+            CHECKBOX_INPUT_STYLE,
         );
 
-    filtersContainer.append(nameFilterDiv, bestPriceDiv, filterEnabledDiv);
+    filtersContainer.append(
+        nameFilterDiv, bestPriceDiv, priceTolerancePercentDiv, filterEnabledDiv,
+    );
 
     parentNode.append(filtersContainer);
 }
@@ -144,7 +165,7 @@ function appendStoredPriceValues(productCard) {
     const priceContainerWrap = priceContainer.parentNode;
     priceContainerWrap.style.display = 'block';
 
-    const priceToleranceFactor = 1.03;
+    const priceToleranceFactor = 1 + (priceTolerancePercent.value / 100);
     const goodPrice = priceData.lowest * priceToleranceFactor;
 
     if (priceData.current <= goodPrice) {
