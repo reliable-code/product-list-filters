@@ -118,6 +118,14 @@ function processList(priceTolerancePercentChanged = false) {
 
             appendStoredPriceValuesIfNeeded(productCard);
 
+            if (priceTolerancePercentChanged &&
+                productCard.hasAttribute(CURRENT_PRICE_ATTR) &&
+                productCard.hasAttribute(LOWEST_PRICE_ATTR)) {
+                const priceContainerWrap = getPriceContainer(productCard).parentNode;
+
+                checkIfGoodPrice(priceContainerWrap, productCard);
+            }
+
             const productCardNameWrap =
                 getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
 
@@ -153,25 +161,42 @@ function appendStoredPriceValuesIfNeeded(productCard) {
         }
     }
 
+    const priceContainer = getPriceContainer(productCard);
+    const priceContainerWrap = priceContainer.parentNode;
+
+    appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
+
+    checkIfGoodPrice(priceContainerWrap, productCard);
+}
+
+function getPriceContainer(productCard) {
+    return productCard.children[0].children[1].children[0].children[0];
+}
+
+function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap) {
     const productCardLink = getFirstElement('a', productCard);
 
     if (!productCardLink) return;
 
     const productArticle = getProductArticleFromLink(productCardLink);
 
-    const priceContainer = productCard.children[0].children[1].children[0].children[0];
-
     const priceData = appendPriceHistory(priceContainer, productArticle);
     productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
     productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
 
-    const priceContainerWrap = priceContainer.parentNode;
     priceContainerWrap.style.display = 'block';
 
-    const priceToleranceFactor = 1 + (priceTolerancePercent.value / 100);
-    const goodPrice = priceData.lowest * priceToleranceFactor;
+    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+}
 
-    if (priceData.current <= goodPrice) {
+function checkIfGoodPrice(priceContainerWrap, productCard) {
+    const currentPrice = productCard.getAttribute(CURRENT_PRICE_ATTR);
+    const lowestPrice = productCard.getAttribute(LOWEST_PRICE_ATTR);
+
+    const priceToleranceFactor = 1 + (priceTolerancePercent.value / 100);
+    const goodPrice = lowestPrice * priceToleranceFactor;
+
+    if (currentPrice <= goodPrice) {
         priceContainerWrap.style.border = '3px solid rgb(214, 245, 177)';
         priceContainerWrap.style.borderRadius = '14px';
         priceContainerWrap.style.padding = '4px 10px 6px';
@@ -179,7 +204,7 @@ function appendStoredPriceValuesIfNeeded(productCard) {
         priceContainerWrap.style.width = '-webkit-fill-available';
 
         productCard.setAttribute(GOOD_PRICE_ATTR, '');
+    } else {
+        productCard.removeAttribute(GOOD_PRICE_ATTR);
     }
-
-    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
 }
