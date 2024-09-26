@@ -39,8 +39,9 @@ const nameFilter =
     new StoredInputValue('favorites-name-filter', null, processList);
 const bestPriceFilter =
     new StoredInputValue('best-price-filter', false, processList);
+const onPriceTolerancePercentChange = () => processList(true);
 const priceTolerancePercent =
-    new StoredInputValue('price-tolerance-percent', 3, processList);
+    new StoredInputValue('price-tolerance-percent', 3, onPriceTolerancePercentChange);
 const filterEnabled =
     new StoredInputValue('favorites-filter-enabled', true, processList);
 
@@ -99,7 +100,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-function processList() {
+function processList(priceTolerancePercentChanged = false) {
     const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
 
     const firstProductCardsWrap = getFirstProductCardsWrap();
