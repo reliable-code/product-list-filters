@@ -15,7 +15,9 @@ import {
     createEnabledFilterControl,
     createFilterControlNumber,
     createMinReviewsFilterControl,
+    createNameFilterControl,
     isLessThanFilter,
+    isNotMatchTextFilter,
 } from '../common/filter';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
@@ -29,6 +31,9 @@ const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
 const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
 
 const CATEGORY_NAME = getURLPathElement(2);
+
+const textFilter =
+    new StoredInputValue(`${CATEGORY_NAME}-text-filter`, null, cleanList);
 const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10);
 const minExperienceFilter = new StoredInputValue('min-experience-filter', 5);
 const filterEnabled = new StoredInputValue('filter-enabled', true);
@@ -65,6 +70,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const inputStyle =
         'margin: 0px 4px;';
+    const textInputStyle =
+        inputStyle + // eslint-disable-line prefer-template
+        'width: 180px;';
     const numberInputStyle =
         inputStyle + // eslint-disable-line prefer-template
         'width: 45px;';
@@ -72,6 +80,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         inputStyle + // eslint-disable-line prefer-template
         'width: 20px;' +
         'height: 20px;';
+
+    const textFilterDiv =
+        createNameFilterControl(textFilter, controlStyle, textInputStyle);
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
@@ -90,7 +101,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(minReviewsDiv, minExperienceDiv, filterEnabledDiv);
+    filtersContainer.append(textFilterDiv, minReviewsDiv, minExperienceDiv, filterEnabledDiv);
     parentNode.prepend(filtersContainer);
 }
 
@@ -128,11 +139,19 @@ function cleanList() {
                 return;
             }
 
+            const lpuContainer =
+                getFirstElement('div.b-doctor-card__lpu-select', doctorCard, true);
+
+            const lpuWrap =
+                getFirstElement('.b-select__trigger-main-text', lpuContainer, true);
+            const lpuName = lpuWrap.innerText.trim();
+
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
             const experienceNumber = getElementInnerNumber(experienceWrap, true);
 
             const conditionToHide =
+                isNotMatchTextFilter(lpuName, textFilter) ||
                 isLessThanFilter(reviewsLinkNumber, minReviewsFilter) ||
                 isLessThanFilter(experienceNumber, minExperienceFilter);
             showHideElement(doctorCard, conditionToHide);
