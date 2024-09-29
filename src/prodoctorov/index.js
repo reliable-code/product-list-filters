@@ -14,8 +14,8 @@ import {
     appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createFilterControlNumber,
+    createFilterControlText,
     createMinReviewsFilterControl,
-    createNameFilterControl,
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../common/filter';
@@ -32,8 +32,7 @@ const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
 
 const CATEGORY_NAME = getURLPathElement(2);
 
-const textFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-text-filter`, null, cleanList);
+const clinicFilter = new StoredInputValue(`${CATEGORY_NAME}-clinic-filter`, null);
 const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10);
 const minExperienceFilter = new StoredInputValue('min-experience-filter', 5);
 const filterEnabled = new StoredInputValue('filter-enabled', true);
@@ -81,8 +80,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'width: 20px;' +
         'height: 20px;';
 
-    const textFilterDiv =
-        createNameFilterControl(textFilter, controlStyle, textInputStyle);
+    const clinicFilterDiv =
+        createFilterControlText('Клиника:', clinicFilter, controlStyle, textInputStyle);
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
@@ -101,7 +100,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(textFilterDiv, minReviewsDiv, minExperienceDiv, filterEnabledDiv);
+    filtersContainer.append(clinicFilterDiv, minReviewsDiv, minExperienceDiv, filterEnabledDiv);
     parentNode.prepend(filtersContainer);
 }
 
@@ -139,19 +138,19 @@ function cleanList() {
                 return;
             }
 
-            const lpuContainer =
+            const clinicContainer =
                 getFirstElement('div.b-doctor-card__lpu-select', doctorCard, true);
 
-            const lpuWrap =
-                getFirstElement('.b-select__trigger-main-text', lpuContainer, true);
-            const lpuName = lpuWrap.innerText.trim();
+            const clinicWrap =
+                getFirstElement('.b-select__trigger-main-text', clinicContainer, true);
+            const clinicName = clinicWrap.innerText.trim();
 
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
 
             const experienceNumber = getElementInnerNumber(experienceWrap, true);
 
             const conditionToHide =
-                isNotMatchTextFilter(lpuName, textFilter) ||
+                isNotMatchTextFilter(clinicName, clinicFilter) ||
                 isLessThanFilter(reviewsLinkNumber, minReviewsFilter) ||
                 isLessThanFilter(experienceNumber, minExperienceFilter);
             showHideElement(doctorCard, conditionToHide);
