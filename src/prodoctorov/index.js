@@ -259,27 +259,9 @@ function scrollToParentAndClick(element) {
 }
 
 function appendDoctorContactLink() {
-    const doctorDetailsMain = getFirstElement(DOCTOR_DETAILS_MAIN_SELECTOR);
-
-    if (!doctorDetailsMain) return;
-
-    const doctorContacts = getFirstElement('.b-doctor-contacts');
+    const doctorContacts = getFirstElement('#doctor-contacts');
 
     if (!doctorContacts) return;
-
-    const doctorContactsTitle = getFirstElement('.b-doctor-contacts__title', doctorContacts);
-    doctorContactsTitle.remove();
-
-    const doctorContactsBody = getFirstElement('.b-doctor-contacts__body', doctorContacts);
-    doctorContactsBody.style.margin = 0;
-
-    const doctorContactsCopyWrap = createDiv();
-    doctorContactsCopyWrap.classList.add(
-        'b-doctor-details__item', 'b-box', 'b-box_shadow',
-    );
-
-    doctorContactsCopyWrap.append(doctorContacts);
-    doctorDetailsMain.prepend(doctorContactsCopyWrap);
 
     const doctorDetailsMenu = getFirstElement(DOCTOR_DETAILS_MENU_SELECTOR);
 
