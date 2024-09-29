@@ -32,6 +32,7 @@ const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
 
 const CATEGORY_NAME = getURLPathElement(2);
 
+const specFilter = new StoredInputValue(`${CATEGORY_NAME}-spec-filter`, null);
 const clinicFilter = new StoredInputValue(`${CATEGORY_NAME}-clinic-filter`, null);
 const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10);
 const minExperienceFilter = new StoredInputValue('min-experience-filter', 5);
@@ -80,6 +81,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'width: 20px;' +
         'height: 20px;';
 
+    const specFilterDiv =
+        createFilterControlText('Специализация:', specFilter, controlStyle, textInputStyle);
+
     const clinicFilterDiv =
         createFilterControlText('Клиника:', clinicFilter, controlStyle, textInputStyle);
 
@@ -100,7 +104,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
-    filtersContainer.append(clinicFilterDiv, minReviewsDiv, minExperienceDiv, filterEnabledDiv);
+    filtersContainer.append(
+        specFilterDiv, clinicFilterDiv, minReviewsDiv, minExperienceDiv, filterEnabledDiv,
+    );
+
     parentNode.prepend(filtersContainer);
 }
 
@@ -138,11 +145,17 @@ function cleanList() {
                 return;
             }
 
+            const specWrap =
+                getFirstElement('.b-doctor-card__spec', doctorCard, true);
+
+            const specInfo = specWrap.innerText.trim();
+
             const clinicContainer =
                 getFirstElement('div.b-doctor-card__lpu-select', doctorCard, true);
 
             const clinicWrap =
                 getFirstElement('.b-select__trigger-main-text', clinicContainer, true);
+
             const clinicName = clinicWrap.innerText.trim();
 
             const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
@@ -150,6 +163,7 @@ function cleanList() {
             const experienceNumber = getElementInnerNumber(experienceWrap, true);
 
             const conditionToHide =
+                isNotMatchTextFilter(specInfo, specFilter) ||
                 isNotMatchTextFilter(clinicName, clinicFilter) ||
                 isLessThanFilter(reviewsLinkNumber, minReviewsFilter) ||
                 isLessThanFilter(experienceNumber, minExperienceFilter);
