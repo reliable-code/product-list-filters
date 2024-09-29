@@ -4,6 +4,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    getURLPathElement,
     hideElement,
     showElement,
     showHideElement,
@@ -27,6 +28,7 @@ const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
 const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
 
+const CATEGORY_NAME = getURLPathElement(2);
 const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10);
 const minExperienceFilter = new StoredInputValue('min-experience-filter', 5);
 const filterEnabled = new StoredInputValue('filter-enabled', true);
