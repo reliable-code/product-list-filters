@@ -61,6 +61,12 @@ waitForElement(document, '.vsc-initialized')
         initMods();
     });
 
+function isAutoCheckout() {
+    const autoCheckout = getAutoCheckout();
+
+    return autoCheckout === '1';
+}
+
 function getAutoCheckout() {
     let autoCheckout = localStorage.getItem('autoCheckout');
 
