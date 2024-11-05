@@ -112,9 +112,8 @@ function checkGoodCheckoutPrice() {
 }
 
 function autoBuyIfGoodPrice() {
-
-    const checkoutButton = getFirstElement('button', totalWidgetDesktop);
     const totalWidgetDesktop = getTotalWidgetDesktop();
+    const checkoutButton = getCheckoutButton(totalWidgetDesktop);
 
     const priceContainer = totalWidgetDesktop.children[1].lastElementChild.children[1];
     const price = getElementInnerNumber(priceContainer, true);
@@ -144,6 +143,11 @@ function getTotalWidgetDesktop() {
 
     return totalWidget.children[0];
 }
+
+function getCheckoutButton(totalWidgetDesktop) {
+    return getFirstElement('button', totalWidgetDesktop);
+}
+
 function initMods() {
     replaceFavoritesLink();
 
