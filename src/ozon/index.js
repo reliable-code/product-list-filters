@@ -1,5 +1,6 @@
 import {
     addGlobalStyle,
+    getElementInnerNumber,
     getFirstElement,
     somePathElementEquals,
     waitForElement,
@@ -58,7 +59,13 @@ waitForElement(document, '.vsc-initialized')
     .then((initializedBody) => {
         if (!initializedBody) return;
 
-        initMods();
+        if (somePathElementEquals('gocheckout')) {
+            if (isAutoCheckout()) autoBuyIfGoodPrice();
+        } else if (somePathElementEquals('cart')) {
+            if (isAutoCheckout()) checkGoodCheckoutPrice();
+        } else {
+            initMods();
+        }
     });
 
 function isAutoCheckout() {
