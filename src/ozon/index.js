@@ -74,6 +74,11 @@ function isAutoCheckout() {
     return autoCheckout === '1';
 }
 
+function isAutoSkipCart() {
+    const autoSkipCart = getBoolStorageOption('autoSkipCart');
+
+    return autoSkipCart === '1';
+}
 function getBoolStorageOption(key) {
     let autoCheckout = localStorage.getItem(key);
 
