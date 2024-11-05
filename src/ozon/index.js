@@ -150,6 +150,9 @@ function autoBuyIfGoodPrice() {
         console.log('goodCheckoutPrice: ', goodCheckoutPriceNumber);
         console.log('price: ', price);
         console.log('Дорого!');
+        if (isAutoReloadCheckout()) {
+            setTimeout(() => window.location.reload(), 1500);
+        }
     }
 }
 
