@@ -62,7 +62,11 @@ waitForElement(document, '.vsc-initialized')
         if (somePathElementEquals('gocheckout')) {
             if (isAutoCheckout()) autoBuyIfGoodPrice();
         } else if (somePathElementEquals('cart')) {
-            if (isAutoCheckout()) checkGoodCheckoutPrice();
+            if (isAutoSkipCart()) {
+                autoSkipCartOrReload();
+            } else if (isAutoCheckout()) {
+                checkGoodCheckoutPrice();
+            }
         } else {
             initMods();
         }
@@ -95,6 +99,17 @@ function getBoolStorageOption(key) {
     }
 
     return autoCheckout;
+}
+
+function autoSkipCartOrReload() {
+    const totalWidgetDesktop = getTotalWidgetDesktop();
+    const checkoutButton = getCheckoutButton(totalWidgetDesktop);
+
+    if (checkoutButton.hasAttribute('disabled')) {
+        setTimeout(() => window.location.reload(), 1500);
+    } else {
+        checkoutButton.click();
+    }
 }
 
 function checkGoodCheckoutPrice() {
