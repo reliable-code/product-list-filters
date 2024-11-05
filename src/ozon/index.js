@@ -79,6 +79,13 @@ function isAutoSkipCart() {
 
     return autoSkipCart === '1';
 }
+
+function isAutoReloadCheckout() {
+    const autoReloadCheckout = getBoolStorageOption('autoReloadCheckout');
+
+    return autoReloadCheckout === '1';
+}
+
 function getBoolStorageOption(key) {
     let autoCheckout = localStorage.getItem(key);
 
