@@ -91,14 +91,14 @@ function isAutoReloadCheckout() {
 }
 
 function getBoolStorageOption(key) {
-    let autoCheckout = localStorage.getItem(key);
+    let boolStorageOption = localStorage.getItem(key);
 
-    if (autoCheckout === null) {
-        autoCheckout = '0';
-        localStorage.setItem(key, autoCheckout);
+    if (boolStorageOption === null) {
+        boolStorageOption = '0';
+        localStorage.setItem(key, boolStorageOption);
     }
 
-    return autoCheckout;
+    return boolStorageOption;
 }
 
 function autoSkipCartOrReload() {
