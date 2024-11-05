@@ -78,6 +78,20 @@ function getAutoCheckout() {
     return autoCheckout;
 }
 
+function checkGoodCheckoutPrice() {
+    const storedGoodCheckoutPrice = localStorage.getItem('goodCheckoutPrice');
+
+    if (storedGoodCheckoutPrice !== null) {
+        console.log('goodCheckoutPrice: ', storedGoodCheckoutPrice);
+        return;
+    }
+
+    if (confirm('Установить цену для автопокупки?')) {
+        const goodCheckoutPrice = prompt('Введите допустимую цену:');
+        localStorage.setItem('goodCheckoutPrice', goodCheckoutPrice);
+    }
+}
+
 function autoBuyIfGoodPrice() {
     const stickyContainer =
         getFirstElement('[data-widget="stickyContainer"]');
