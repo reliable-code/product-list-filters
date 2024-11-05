@@ -109,8 +109,8 @@ function autoBuyIfGoodPrice() {
 
     const payButton = getFirstElement('button', totalChildren0);
 
-    const totalChildren0141 = totalChildren0.children[1].children[4].children[1];
-    const price = getElementInnerNumber(totalChildren0141, true);
+    const totalChildren01last1 = totalChildren0.children[1].lastElementChild.children[1];
+    const price = getElementInnerNumber(totalChildren01last1, true);
     const goodCheckoutPrice = localStorage.getItem('goodCheckoutPrice');
 
     if (goodCheckoutPrice === null) {
@@ -120,7 +120,7 @@ function autoBuyIfGoodPrice() {
 
     const goodCheckoutPriceNumber = +goodCheckoutPrice;
 
-    if (price < goodCheckoutPriceNumber) {
+    if (price <= goodCheckoutPriceNumber) {
         payButton.click();
         console.log('goodCheckoutPrice: ', goodCheckoutPriceNumber);
         console.log('price: ', price);
