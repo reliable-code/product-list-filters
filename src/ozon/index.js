@@ -100,17 +100,15 @@ function checkGoodCheckoutPrice() {
 }
 
 function autoBuyIfGoodPrice() {
-    const stickyContainer =
-        getFirstElement('[data-widget="stickyContainer"]');
-    const totalBlock =
-        getFirstElement('[data-widget="total"]', stickyContainer);
+    const totalWidget =
+        getFirstElement('[data-widget="total"]');
 
-    const totalChildren0 = totalBlock.children[0];
+    const totalWidgetDesktop = totalWidget.children[0];
 
-    const payButton = getFirstElement('button', totalChildren0);
+    const checkoutButton = getFirstElement('button', totalWidgetDesktop);
 
-    const totalChildren01last1 = totalChildren0.children[1].lastElementChild.children[1];
-    const price = getElementInnerNumber(totalChildren01last1, true);
+    const priceContainer = totalWidgetDesktop.children[1].lastElementChild.children[1];
+    const price = getElementInnerNumber(priceContainer, true);
     const goodCheckoutPrice = localStorage.getItem('goodCheckoutPrice');
 
     if (goodCheckoutPrice === null) {
