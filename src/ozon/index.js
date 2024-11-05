@@ -112,12 +112,9 @@ function checkGoodCheckoutPrice() {
 }
 
 function autoBuyIfGoodPrice() {
-    const totalWidget =
-        getFirstElement('[data-widget="total"]');
-
-    const totalWidgetDesktop = totalWidget.children[0];
 
     const checkoutButton = getFirstElement('button', totalWidgetDesktop);
+    const totalWidgetDesktop = getTotalWidgetDesktop();
 
     const priceContainer = totalWidgetDesktop.children[1].lastElementChild.children[1];
     const price = getElementInnerNumber(priceContainer, true);
@@ -142,6 +139,11 @@ function autoBuyIfGoodPrice() {
     }
 }
 
+function getTotalWidgetDesktop() {
+    const totalWidget = getFirstElement('[data-widget="total"]');
+
+    return totalWidget.children[0];
+}
 function initMods() {
     replaceFavoritesLink();
 
