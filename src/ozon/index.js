@@ -61,6 +61,16 @@ waitForElement(document, '.vsc-initialized')
         initMods();
     });
 
+function getAutoCheckout() {
+    let autoCheckout = localStorage.getItem('autoCheckout');
+
+    if (autoCheckout === null) {
+        autoCheckout = '0';
+        localStorage.setItem('autoCheckout', autoCheckout);
+    }
+
+    return autoCheckout;
+}
 function initMods() {
     replaceFavoritesLink();
 
