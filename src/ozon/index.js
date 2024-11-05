@@ -77,6 +77,40 @@ function getAutoCheckout() {
 
     return autoCheckout;
 }
+
+function autoBuyIfGoodPrice() {
+    const stickyContainer =
+        getFirstElement('[data-widget="stickyContainer"]');
+    const totalBlock =
+        getFirstElement('[data-widget="total"]', stickyContainer);
+
+    const totalChildren0 = totalBlock.children[0];
+
+    const payButton = getFirstElement('button', totalChildren0);
+
+    const totalChildren0141 = totalChildren0.children[1].children[4].children[1];
+    const price = getElementInnerNumber(totalChildren0141, true);
+    const goodCheckoutPrice = localStorage.getItem('goodCheckoutPrice');
+
+    if (goodCheckoutPrice === null) {
+        console.log('No goodCheckoutPrice in localStorage');
+        return;
+    }
+
+    const goodCheckoutPriceNumber = +goodCheckoutPrice;
+
+    if (price < goodCheckoutPriceNumber) {
+        payButton.click();
+        console.log('goodCheckoutPrice: ', goodCheckoutPriceNumber);
+        console.log('price: ', price);
+        console.log('Покупаем!');
+    } else {
+        console.log('goodCheckoutPrice: ', goodCheckoutPriceNumber);
+        console.log('price: ', price);
+        console.log('Дорого!');
+    }
+}
+
 function initMods() {
     replaceFavoritesLink();
 
