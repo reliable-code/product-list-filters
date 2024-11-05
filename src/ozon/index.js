@@ -69,17 +69,17 @@ waitForElement(document, '.vsc-initialized')
     });
 
 function isAutoCheckout() {
-    const autoCheckout = getAutoCheckout();
+    const autoCheckout = getBoolStorageOption('autoCheckout');
 
     return autoCheckout === '1';
 }
 
-function getAutoCheckout() {
-    let autoCheckout = localStorage.getItem('autoCheckout');
+function getBoolStorageOption(key) {
+    let autoCheckout = localStorage.getItem(key);
 
     if (autoCheckout === null) {
         autoCheckout = '0';
-        localStorage.setItem('autoCheckout', autoCheckout);
+        localStorage.setItem(key, autoCheckout);
     }
 
     return autoCheckout;
