@@ -146,10 +146,15 @@ function autoBuyIfGoodPrice() {
     const autoCheckoutGoodPriceNumber = +autoCheckoutGoodPrice;
 
     if (price <= autoCheckoutGoodPriceNumber) {
-        // checkoutButton.click();
+        if (isAutoCheckoutProd()) {
+            checkoutButton.click();
+            console.log('Реальная покупка');
+        } else {
+            console.log('Тестовая покупка');
+        }
+
         console.log('autoCheckoutGoodPrice: ', autoCheckoutGoodPriceNumber);
         console.log('price: ', price);
-        console.log('Покупаем!');
     } else {
         console.log('autoCheckoutGoodPrice: ', autoCheckoutGoodPriceNumber);
         console.log('price: ', price);
