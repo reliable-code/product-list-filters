@@ -73,21 +73,21 @@ waitForElement(document, '.vsc-initialized')
     });
 
 function isAutoCheckout() {
-    const autoCheckout = getBoolStorageOption('autoCheckout');
-
-    return autoCheckout === '1';
+    return isBoolStorageOption('autoCheckout');
 }
 
 function isAutoSkipCart() {
-    const autoSkipCart = getBoolStorageOption('autoSkipCart');
-
-    return autoSkipCart === '1';
+    return isBoolStorageOption('autoSkipCart');
 }
 
 function isAutoReloadCheckout() {
-    const autoReloadCheckout = getBoolStorageOption('autoReloadCheckout');
+    return isBoolStorageOption('autoReloadCheckout');
+}
 
-    return autoReloadCheckout === '1';
+function isBoolStorageOption(key) {
+    const boolStorageOption = getBoolStorageOption(key);
+
+    return boolStorageOption === '1';
 }
 
 function getBoolStorageOption(key) {
