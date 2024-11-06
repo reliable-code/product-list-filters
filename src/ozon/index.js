@@ -65,7 +65,7 @@ waitForElement(document, '.vsc-initialized')
             if (isAutoSkipCart()) {
                 autoSkipCartOrReload();
             } else if (isAutoCheckout()) {
-                checkGoodCheckoutPrice();
+                checkCheckoutGoodPrice();
             }
         } else {
             initMods();
@@ -112,17 +112,17 @@ function autoSkipCartOrReload() {
     }
 }
 
-function checkGoodCheckoutPrice() {
-    const storedGoodCheckoutPrice = localStorage.getItem('goodCheckoutPrice');
+function checkCheckoutGoodPrice() {
+    const storedCheckoutGoodPrice = localStorage.getItem('autoCheckoutGoodPrice');
 
-    if (storedGoodCheckoutPrice !== null) {
-        console.log('goodCheckoutPrice: ', storedGoodCheckoutPrice);
+    if (storedCheckoutGoodPrice !== null) {
+        console.log('autoCheckoutGoodPrice: ', storedCheckoutGoodPrice);
         return;
     }
 
     if (confirm('Установить цену для автопокупки?')) {
-        const goodCheckoutPrice = prompt('Введите допустимую цену:');
-        localStorage.setItem('goodCheckoutPrice', goodCheckoutPrice);
+        const autoCheckoutGoodPrice = prompt('Введите допустимую цену:');
+        localStorage.setItem('autoCheckoutGoodPrice', autoCheckoutGoodPrice);
     }
 }
 
@@ -132,22 +132,22 @@ function autoBuyIfGoodPrice() {
 
     const priceContainer = totalWidgetDesktop.children[1].lastElementChild.children[1];
     const price = getElementInnerNumber(priceContainer, true);
-    const goodCheckoutPrice = localStorage.getItem('goodCheckoutPrice');
+    const autoCheckoutGoodPrice = localStorage.getItem('autoCheckoutGoodPrice');
 
-    if (goodCheckoutPrice === null) {
-        console.log('No goodCheckoutPrice in localStorage');
+    if (autoCheckoutGoodPrice === null) {
+        console.log('No autoCheckoutGoodPrice in localStorage');
         return;
     }
 
-    const goodCheckoutPriceNumber = +goodCheckoutPrice;
+    const autoCheckoutGoodPriceNumber = +autoCheckoutGoodPrice;
 
-    if (price <= goodCheckoutPriceNumber) {
-        payButton.click();
-        console.log('goodCheckoutPrice: ', goodCheckoutPriceNumber);
+    if (price <= autoCheckoutGoodPriceNumber) {
+        // checkoutButton.click();
+        console.log('autoCheckoutGoodPrice: ', autoCheckoutGoodPriceNumber);
         console.log('price: ', price);
         console.log('Покупаем!');
     } else {
-        console.log('goodCheckoutPrice: ', goodCheckoutPriceNumber);
+        console.log('autoCheckoutGoodPrice: ', autoCheckoutGoodPriceNumber);
         console.log('price: ', price);
         console.log('Дорого!');
         if (isAutoReloadCheckout()) {
