@@ -84,6 +84,10 @@ function isAutoReloadCheckout() {
     return isBoolStorageOption('autoReloadCheckout');
 }
 
+function isAutoCheckoutProd() {
+    return isBoolStorageOption('autoCheckoutProd');
+}
+
 function isBoolStorageOption(key) {
     const boolStorageOption = getBoolStorageOption(key);
 
