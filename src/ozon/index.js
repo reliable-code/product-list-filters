@@ -59,17 +59,7 @@ waitForElement(document, '.vsc-initialized')
     .then((initializedBody) => {
         if (!initializedBody) return;
 
-        if (somePathElementEquals('gocheckout')) {
-            if (isAutoCheckout()) autoBuyIfGoodPrice();
-        } else if (somePathElementEquals('cart')) {
-            if (isAutoSkipCart()) {
-                autoSkipCartOrReload();
-            } else if (isAutoCheckout()) {
-                checkCheckoutGoodPrice();
-            }
-        } else {
-            initMods();
-        }
+        initMods();
     });
 
 function isAutoCheckout() {
@@ -183,17 +173,27 @@ function getCheckoutButton(totalWidgetDesktop) {
 }
 
 function initMods() {
-    replaceFavoritesLink();
+    if (somePathElementEquals('gocheckout')) {
+        if (isAutoCheckout()) autoBuyIfGoodPrice();
+    } else if (somePathElementEquals('cart')) {
+        if (isAutoSkipCart()) {
+            autoSkipCartOrReload();
+        } else if (isAutoCheckout()) {
+            checkCheckoutGoodPrice();
+        }
+    } else {
+        replaceFavoritesLink();
 
-    if (paginatorContent) {
-        initProductListMods();
-    } else if (somePathElementEquals('reviews')) {
-        const comments = getFirstElement(COMMENTS_SELECTOR);
-        if (comments) comments.scrollIntoView();
-    } else if (somePathElementEquals('product')) {
-        initProductPageMods();
-    } else if (somePathElementEquals('favorites')) {
-        initFavoritesMods();
+        if (paginatorContent) {
+            initProductListMods();
+        } else if (somePathElementEquals('reviews')) {
+            const comments = getFirstElement(COMMENTS_SELECTOR);
+            if (comments) comments.scrollIntoView();
+        } else if (somePathElementEquals('product')) {
+            initProductPageMods();
+        } else if (somePathElementEquals('favorites')) {
+            initFavoritesMods();
+        }
     }
 }
 
