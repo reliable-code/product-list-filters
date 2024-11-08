@@ -134,6 +134,13 @@ function autoBuyIfGoodPrice() {
     const totalWidgetDesktop = getTotalWidgetDesktop();
     const checkoutButton = getCheckoutButton(totalWidgetDesktop);
 
+    if (checkoutButton.hasAttribute('disabled')) {
+        if (isAutoReloadCheckout()) {
+            setTimeout(() => window.location.reload(), 1500);
+            return;
+        }
+    }
+
     const priceContainer = totalWidgetDesktop.children[1].lastElementChild.children[1];
     const price = getElementInnerNumber(priceContainer, true);
     const autoCheckoutGoodPrice = localStorage.getItem('autoCheckoutGoodPrice');
