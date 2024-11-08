@@ -62,6 +62,10 @@ waitForElement(document, '.vsc-initialized')
         initMods();
     });
 
+function isBodyInitialized() {
+    return body.classList.contains('vsc-initialized');
+}
+
 function initMods() {
     if (somePathElementEquals('gocheckout')) {
         if (isAutoCheckout()) autoBuyIfGoodPrice();
