@@ -55,12 +55,23 @@ function hideUnwantedElements() {
     addGlobalStyle(css);
 }
 
-waitForElement(document, '.vsc-initialized')
-    .then((initializedBody) => {
-        if (!initializedBody) return;
+const { body } = document;
 
-        initMods();
+if (isBodyInitialized()) {
+    initMods();
+} else {
+    const observer = new MutationObserver(() => {
+        if (isBodyInitialized()) {
+            observer.disconnect();
+            initMods();
+        }
     });
+
+    observer.observe(body, {
+        attributes: true,
+        attributeFilter: ['class'],
+    });
+}
 
 function isBodyInitialized() {
     return body.classList.contains('vsc-initialized');
