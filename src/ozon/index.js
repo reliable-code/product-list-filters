@@ -62,6 +62,31 @@ waitForElement(document, '.vsc-initialized')
         initMods();
     });
 
+function initMods() {
+    if (somePathElementEquals('gocheckout')) {
+        if (isAutoCheckout()) autoBuyIfGoodPrice();
+    } else if (somePathElementEquals('cart')) {
+        if (isAutoSkipCart()) {
+            autoSkipCartOrReload();
+        } else if (isAutoCheckout()) {
+            checkCheckoutGoodPrice();
+        }
+    } else {
+        replaceFavoritesLink();
+
+        if (paginatorContent) {
+            initProductListMods();
+        } else if (somePathElementEquals('reviews')) {
+            const comments = getFirstElement(COMMENTS_SELECTOR);
+            if (comments) comments.scrollIntoView();
+        } else if (somePathElementEquals('product')) {
+            initProductPageMods();
+        } else if (somePathElementEquals('favorites')) {
+            initFavoritesMods();
+        }
+    }
+}
+
 function isAutoCheckout() {
     return isBoolStorageOption('autoCheckout');
 }
@@ -170,31 +195,6 @@ function getTotalWidgetDesktop() {
 
 function getCheckoutButton(totalWidgetDesktop) {
     return getFirstElement('button', totalWidgetDesktop);
-}
-
-function initMods() {
-    if (somePathElementEquals('gocheckout')) {
-        if (isAutoCheckout()) autoBuyIfGoodPrice();
-    } else if (somePathElementEquals('cart')) {
-        if (isAutoSkipCart()) {
-            autoSkipCartOrReload();
-        } else if (isAutoCheckout()) {
-            checkCheckoutGoodPrice();
-        }
-    } else {
-        replaceFavoritesLink();
-
-        if (paginatorContent) {
-            initProductListMods();
-        } else if (somePathElementEquals('reviews')) {
-            const comments = getFirstElement(COMMENTS_SELECTOR);
-            if (comments) comments.scrollIntoView();
-        } else if (somePathElementEquals('product')) {
-            initProductPageMods();
-        } else if (somePathElementEquals('favorites')) {
-            initFavoritesMods();
-        }
-    }
 }
 
 function replaceFavoritesLink() {
