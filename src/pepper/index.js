@@ -21,16 +21,16 @@ const minVotesFilter = new InputValue(50);
 const showExpiredFilter = new StoredInputValue('show-expired-filter', false);
 const filterEnabled = new StoredInputValue('filter-enabled', true);
 
-const PRODUCT_CARD_LIST_SELECTOR = '.listLayout-main';
-const PRODUCT_CARD_SELECTOR = '.thread--type-list:not(.js-telegram-widget)';
-const PRODUCT_CARD_RATING_SELECTOR = '.vote-box > span';
+const PRODUCT_CARD_CONTAINER_SELECTOR = '#deals-container';
+const PRODUCT_CARD_SELECTOR = '.deal-card';
+const PRODUCT_CARD_RATING_SELECTOR = '.common-box span';
 
 const DISCUSSIONS_SELECTOR = ':scope > div:not(.js-vue2):not(.vue-portal-target)';
 
 setInterval(initListClean, 100);
-makeDiscussionsSticky();
+// makeDiscussionsSticky();
 
-const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
+const productCardList = getFirstElement(PRODUCT_CARD_CONTAINER_SELECTOR);
 
 function initListClean() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
@@ -43,26 +43,17 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    const observerCallback = ([e]) => {
-        e.target.style.boxShadow = e.intersectionRatio < 1 ? '0px 0px 10px' : 'none';
-    };
-
-    const observer = new IntersectionObserver(
-        observerCallback,
-        { threshold: [1] },
-    );
-
-    observer.observe(filtersContainer);
-
     filtersContainer.style =
         'display: flex;' +
         'grid-gap: 15px;' +
-        'margin-top: 0.5em;' +
         'padding: 11px 19px;' +
+        'margin-bottom: .5rem;' +
         'background-color: #fff;' +
-        'border-radius: 8px;' +
+        'border-width: 1px;' +
+        'border-color: rgb(229 229 229);' +
+        'border-radius: 10px;' +
         'position: sticky;' +
-        'z-index: 50;' +
+        'z-index: 11;' +
         'top: -1px;';
 
     const controlStyle =
@@ -110,7 +101,7 @@ function cleanList(productCards) {
                 return;
             }
 
-            const isExpired = productCard.classList.contains('thread--expired');
+            const isExpired = productCard.classList.contains('expired-view');
 
             if (isExpired && !showExpiredFilter.value) {
                 setElementOpacity(productCard);
@@ -120,7 +111,7 @@ function cleanList(productCards) {
 
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
-            if (productCardRating.innerText.includes('Новое')) return;
+            if (productCardRating.innerText.includes('New')) return;
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
