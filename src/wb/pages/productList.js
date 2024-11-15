@@ -34,15 +34,15 @@ const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 const CATEGORY_NAME = getCategoryName();
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
 const maxReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`);
+    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, cleanList);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
 let minPriceValue = getMinPriceValueFromURL();
 const minPriceDivTextContent = () => `Минимальная цена: ${minPriceValue}`;
