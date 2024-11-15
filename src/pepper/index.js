@@ -111,7 +111,7 @@ function cleanList(productCards) {
 
             const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
 
-            if (productCardRating.innerText.includes('New')) return;
+            if (productCardRating.innerText.includes('Новое')) return;
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
