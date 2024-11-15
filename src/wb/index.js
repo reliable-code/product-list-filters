@@ -3,6 +3,7 @@ import {
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
+    getURLPathElement,
     showElement,
     showHideElement,
     waitForElement,
@@ -47,10 +48,15 @@ let minPriceValue = getMinPriceValueFromURL();
 const minPriceDivTextContent = () => `Минимальная цена: ${minPriceValue}`;
 
 function getCategoryName() {
-    const { pathname } = window.location;
-    const pathElements = pathname.split('/');
-    const lastPathElement = pathElements.pop();
-    const categoryName = lastPathElement || 'common';
+    const categoryNameElement = getURLPathElement(3);
+
+    let categoryName;
+
+    if (categoryNameElement && categoryNameElement !== 'search.aspx') {
+        categoryName = categoryNameElement;
+    } else {
+        categoryName = 'common';
+    }
 
     return categoryName;
 }
