@@ -76,11 +76,11 @@ function getMinPriceValueFromURL() {
     return minPriceFilterValue;
 }
 
-setInterval(initListClean, 100);
+setInterval(initProductListMods, 100);
 
 // initPaginationObserver();
 
-function initListClean() {
+function initProductListMods() {
     const filtersBlockWrap = getFirstElement(FILTERS_BLOCK_WRAP_SELECTOR);
 
     if (filtersBlockWrap) {
