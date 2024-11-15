@@ -4,8 +4,10 @@ import {
     getFirstElement,
     getFirstElementInnerNumber,
     getURLPathElement,
+    pathnameIncludes,
     showElement,
     showHideElement,
+    somePathElementEquals,
     waitForElement,
 } from '../common/dom';
 import { StoredInputValue } from '../common/storage';
@@ -22,6 +24,15 @@ import {
 } from '../common/filter';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
+
+if (somePathElementEquals('catalog')) {
+    if (pathnameIncludes('detail')) {
+        console.log('product page');
+    } else {
+        console.log('product list');
+    }
+}
+
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';
 const PRODUCT_CARD_SELECTOR = '.product-card';
 const PRODUCT_CARD_NAME_SELECTOR = '.product-card__brand-wrap';
