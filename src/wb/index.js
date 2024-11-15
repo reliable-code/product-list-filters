@@ -1,5 +1,6 @@
 import {
     createDiv,
+    debounce,
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
@@ -88,8 +89,6 @@ function getMinPriceValueFromURL() {
     return minPriceFilterValue;
 }
 
-setInterval(initProductListMods, 100);
-
 // initPaginationObserver();
 
 function initProductListMods() {
@@ -100,6 +99,14 @@ function initProductListMods() {
             appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
 
             cleanList();
+
+            const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
+
+            const observer = new MutationObserver(debounce(cleanList, 150));
+
+            observer.observe(productCardList, {
+                childList: true,
+            });
         });
 }
 
