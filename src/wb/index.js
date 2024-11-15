@@ -199,13 +199,19 @@ function cleanList() {
             productCardNameWrap.style.whiteSpace = 'normal';
 
             const productCardReviewsNumber =
-                getFirstElementInnerNumber(productCard, PRODUCT_CARD_REVIEWS_SELECTOR, true);
+                getFirstElementInnerNumber(
+                    productCard, PRODUCT_CARD_REVIEWS_SELECTOR, true,
+                );
 
             const productCardRatingNumber =
-                getFirstElementInnerNumber(productCard, PRODUCT_CARD_RATING_SELECTOR);
+                getFirstElementInnerNumber(
+                    productCard, PRODUCT_CARD_RATING_SELECTOR, true, true,
+                );
 
             const productCardPriceNumber =
-                getFirstElementInnerNumber(productCard, PRODUCT_CARD_PRICE_SELECTOR, true);
+                getFirstElementInnerNumber(
+                    productCard, PRODUCT_CARD_PRICE_SELECTOR, true,
+                );
 
             const conditionToHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
