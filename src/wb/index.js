@@ -29,7 +29,7 @@ if (somePathElementEquals('catalog')) {
     if (pathnameIncludes('detail')) {
         console.log('product page');
     } else {
-        console.log('product list');
+        initProductListMods();
     }
 }
 
@@ -93,15 +93,14 @@ setInterval(initProductListMods, 100);
 // initPaginationObserver();
 
 function initProductListMods() {
-    const filtersBlockWrap = getFirstElement(FILTERS_BLOCK_WRAP_SELECTOR);
+    waitForElement(document, FILTERS_BLOCK_WRAP_SELECTOR)
+        .then((filtersBlockWrap) => {
+            removeRecentItemsBlock();
 
-    if (filtersBlockWrap) {
-        removeRecentItemsBlock();
+            appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
 
-        appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
-
-        cleanList();
-    }
+            cleanList();
+        });
 }
 
 function removeRecentItemsBlock() {
