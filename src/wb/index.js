@@ -22,6 +22,7 @@ import {
 } from '../common/filter';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
+const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';
 const PRODUCT_CARD_SELECTOR = '.product-card';
 const PRODUCT_CARD_NAME_SELECTOR = '.product-card__brand-wrap';
 const PRODUCT_CARD_REVIEWS_SELECTOR = '.product-card__count';
