@@ -157,9 +157,11 @@ export function createButton(innerHTML = null, onClick = null, style = null) {
     return button;
 }
 
-export function getFirstElementInnerNumber(parentNode, selector, cleanText) {
+export function getFirstElementInnerNumber(
+    parentNode, selector, cleanText = false, replaceComma = false,
+) {
     const element = getFirstElement(selector, parentNode, true);
-    const elementNumber = getElementInnerNumber(element, cleanText);
+    const elementNumber = getElementInnerNumber(element, cleanText, replaceComma);
 
     return elementNumber;
 }
