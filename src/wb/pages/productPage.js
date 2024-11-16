@@ -4,6 +4,10 @@ const PRICE_BLOCK_SELECTOR = '.price-block';
 const PRICE_SELECTOR = '.price-block__wallet-price';
 
 export function initProductPageMods() {
+    initAppendPriceHistory();
+}
+
+function initAppendPriceHistory() {
     waitForElement(document, `${PRICE_BLOCK_SELECTOR}`)
         .then((priceBlock) => {
             if (!priceBlock) return;
