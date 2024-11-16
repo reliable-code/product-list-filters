@@ -21,6 +21,7 @@ import {
     isNotMatchTextFilter,
 } from '../../common/filter';
 import { StoredInputValue } from '../../common/storage';
+import { fnv1aHash32 } from '../../common/crypto';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';
@@ -53,7 +54,7 @@ function getCategoryName() {
     let categoryName;
 
     if (categoryNameElement && categoryNameElement !== 'search.aspx') {
-        categoryName = categoryNameElement;
+        categoryName = fnv1aHash32(categoryNameElement);
     } else {
         categoryName = 'common';
     }
