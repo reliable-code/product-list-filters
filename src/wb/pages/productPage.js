@@ -4,7 +4,7 @@ import {
     waitForElement,
 } from '../../common/dom';
 
-const PRICE_BLOCK_SELECTOR = '.price-block';
+const PRICE_CONTAINER_SELECTOR = '.price-block__content';
 const PRICE_SELECTOR = '.price-block__wallet-price';
 
 export function initProductPageMods() {
@@ -12,12 +12,12 @@ export function initProductPageMods() {
 }
 
 function initAppendPriceHistory() {
-    waitForElement(document, `${PRICE_BLOCK_SELECTOR}`)
-        .then((priceBlock) => {
-            if (!priceBlock) return;
+    waitForElement(document, `${PRICE_CONTAINER_SELECTOR}`)
+        .then((priceContainer) => {
+            if (!priceContainer) return;
 
             const productArticle = getProductArticleFromPathname();
-            appendPriceHistory(priceBlock, productArticle);
+            appendPriceHistory(priceContainer, PRICE_SELECTOR, productArticle);
         });
 }
 
