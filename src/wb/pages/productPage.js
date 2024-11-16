@@ -1,8 +1,5 @@
-import {
-    getFirstElementInnerNumber,
-    getURLPathElementEnding,
-    waitForElement,
-} from '../../common/dom';
+import { getURLPathElementEnding, waitForElement } from '../../common/dom';
+import { appendPriceHistory } from './common/common';
 
 const PRICE_CONTAINER_SELECTOR = '.price-block__content';
 const PRICE_SELECTOR = '.price-block__wallet-price';
@@ -23,11 +20,4 @@ function initAppendPriceHistory() {
 
 function getProductArticleFromPathname() {
     return getURLPathElementEnding(2, 'unknown');
-}
-
-function appendPriceHistory(priceBlock, productArticle) {
-    const price = getFirstElementInnerNumber(priceBlock, PRICE_SELECTOR, true);
-
-    console.log(price);
-    console.log(productArticle);
 }
