@@ -1,0 +1,15 @@
+import { getFirstElementInnerNumber, waitForElement } from '../../common/dom';
+
+const PRICE_BLOCK_SELECTOR = '.price-block';
+const PRICE_SELECTOR = '.price-block__wallet-price';
+
+export function initProductPageMods() {
+    waitForElement(document, `${PRICE_BLOCK_SELECTOR}`)
+        .then((priceBlock) => {
+            if (!priceBlock) return;
+
+            const price = getFirstElementInnerNumber(priceBlock, PRICE_SELECTOR, true);
+
+            console.log(price);
+        });
+}
