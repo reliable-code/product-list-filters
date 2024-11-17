@@ -44,7 +44,7 @@ export function appendPriceHistory(priceContainer, productArticle) {
     const priceSpan = getFirstElement('span', priceContainer);
     const currentPriceValue = getNodeInnerNumber(priceSpan, true);
 
-    const lowestPriceValue = appendStoredPriceValue(
+    const lowestPriceValue = updateAndAppendStoredPriceValue(
         productArticle,
         'lp',
         (storedPrice) => currentPriceValue <= storedPrice.value,
@@ -54,7 +54,7 @@ export function appendPriceHistory(priceContainer, productArticle) {
         priceContainer,
     );
 
-    const highestPriceValue = appendStoredPriceValue(
+    const highestPriceValue = updateAndAppendStoredPriceValue(
         productArticle,
         'hp',
         (storedPrice) => currentPriceValue >= storedPrice.value,
@@ -67,7 +67,7 @@ export function appendPriceHistory(priceContainer, productArticle) {
     return new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue);
 }
 
-function appendStoredPriceValue(
+function updateAndAppendStoredPriceValue(
     productArticle, postfix, compareCondition, currentPriceValue, label, color, priceContainer,
 ) {
     const storageKey = `${productArticle}-${postfix}`;
