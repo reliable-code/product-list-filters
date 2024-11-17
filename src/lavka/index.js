@@ -1,5 +1,5 @@
 import { debounce } from '../common/dom/utils';
-import { StoredInputValue } from '../common/localstorage';
+import { StoredInputValue } from '../common/storage/localstorage';
 import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';

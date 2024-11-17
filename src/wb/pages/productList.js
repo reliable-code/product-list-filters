@@ -1,6 +1,6 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { StoredInputValue } from '../../common/storage';
+import { StoredInputValue } from '../../common/storage/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getURLPathElement } from '../../common/url';
 import { createDiv } from '../../common/dom/elementsFactory';

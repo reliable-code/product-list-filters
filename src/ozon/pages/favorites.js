@@ -13,7 +13,7 @@ import {
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
 } from './common/common';
-import { StoredInputValue } from '../../common/storage';
+import { StoredInputValue } from '../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../common/filter/compare';
 import {

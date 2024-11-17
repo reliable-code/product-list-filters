@@ -1,4 +1,4 @@
-import { getStorageValue, setStorageValue } from '../../../common/storage';
+import { getStorageValue, setStorageValue } from '../../../common/storage/storage';
 import { DatedValue } from '../../../common/models/datedValue';
 import { heartStrikeDislikeIcon } from './icons';
 import { PriceData } from '../../../common/models/priceData';

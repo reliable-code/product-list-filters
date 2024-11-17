@@ -1,5 +1,5 @@
 import { waitForElement } from '../common/dom/utils';
-import { getStorageValue, setStorageValue } from '../common/storage';
+import { getStorageValue, setStorageValue } from '../common/storage/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';

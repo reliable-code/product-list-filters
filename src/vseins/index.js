@@ -1,5 +1,5 @@
 import { waitForElement } from '../common/dom/utils';
-import { StoredInputValue } from '../common/localstorage';
+import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {

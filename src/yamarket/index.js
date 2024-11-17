@@ -1,5 +1,5 @@
 import { debounce } from '../common/dom/utils';
-import { StoredInputValue } from '../common/localstorage';
+import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter } from '../common/filter/compare';
 import {

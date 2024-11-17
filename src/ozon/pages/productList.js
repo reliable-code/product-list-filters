@@ -1,4 +1,4 @@
-import { addStorageValueListener, StoredInputValue } from '../../common/storage';
+import { addStorageValueListener, StoredInputValue } from '../../common/storage/storage';
 import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import {

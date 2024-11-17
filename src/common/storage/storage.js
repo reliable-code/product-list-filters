@@ -1,5 +1,5 @@
-import { InputValueBase } from './models/inputValueBase';
-import { getInputValueFromEvent, parseValue } from './dom/helpers';
+import { InputValueBase } from '../models/inputValueBase';
+import { getInputValueFromEvent, parseValue } from '../dom/helpers';
 
 export const setStorageValue = window.GM_setValue;
 export const getStorageValue = window.GM_getValue;

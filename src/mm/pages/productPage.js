@@ -1,7 +1,7 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 
-import { StoredInputValue } from '../../common/storage';
+import { StoredInputValue } from '../../common/storage/storage';
 import {
     addBalancedCashbackPriceIfNeeded,
     BALANCED_CASHBACK_PRICE_ATTR,

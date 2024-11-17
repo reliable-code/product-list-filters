@@ -1,4 +1,4 @@
-import { StoredInputValue } from '../common/localstorage';
+import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonNumber } from '../common/string';
 import { getURLPathElement } from '../common/url';
