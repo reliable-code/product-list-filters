@@ -1,4 +1,4 @@
-import { debounce } from './dom';
+import { debounce } from './utils';
 
 export function createTextInput(inputOnChange, inputStyle, inputValue) {
     const input = createInput('text', inputOnChange, inputStyle);

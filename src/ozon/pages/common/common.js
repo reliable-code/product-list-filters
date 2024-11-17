@@ -1,4 +1,4 @@
-import { addGlobalStyle, getFirstElement, getNodeInnerNumber } from '../../../common/dom/dom';
+import { addGlobalStyle, getFirstElement, getNodeInnerNumber } from '../../../common/dom/utils';
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { DatedValue } from '../../../common/models/datedValue';
 import { heartStrikeDislikeIcon } from './icons';

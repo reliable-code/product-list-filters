@@ -1,4 +1,4 @@
-import { getFirstElement, waitForElement } from '../../common/dom/dom';
+import { getFirstElement, waitForElement } from '../../common/dom/utils';
 import { appendPriceHistory } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
 

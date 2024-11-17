@@ -6,7 +6,7 @@ import {
     showElement,
     showHideElement,
     waitForElement,
-} from '../../common/dom/dom';
+} from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';

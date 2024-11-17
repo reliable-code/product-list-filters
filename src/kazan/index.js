@@ -7,7 +7,7 @@ import {
     showElement,
     showHideElement,
     waitForElement,
-} from '../common/dom/dom';
+} from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElementEnding, pathnameIncludes } from '../common/url';

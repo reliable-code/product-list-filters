@@ -4,7 +4,7 @@ import {
     getFirstElement,
     insertAfter,
     waitForElement,
-} from '../../common/dom/dom';
+} from '../../common/dom/utils';
 import {
     appendPriceHistory,
     createDislikeButton,

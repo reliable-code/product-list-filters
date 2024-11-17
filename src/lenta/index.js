@@ -6,7 +6,7 @@ import {
     resetElementOpacity,
     resetElementOrder,
     setElementOrder,
-} from '../common/dom/dom';
+} from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonDigit } from '../common/string';

@@ -6,7 +6,7 @@ import {
     showElement,
     showHideElement,
     waitForElement,
-} from '../../common/dom/dom';
+} from '../../common/dom/utils';
 import {
     appendPriceHistory,
     CHECKBOX_INPUT_STYLE,

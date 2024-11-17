@@ -7,7 +7,7 @@ import {
     showElement,
     showHideElement,
     waitForElement,
-} from '../../common/dom/dom';
+} from '../../common/dom/utils';
 import { StoredInputValue } from '../../common/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';

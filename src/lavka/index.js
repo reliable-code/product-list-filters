@@ -6,7 +6,7 @@ import {
     insertAfter,
     showElement,
     showHideElement,
-} from '../common/dom/dom';
+} from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
