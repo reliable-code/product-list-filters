@@ -72,32 +72,3 @@ export function createButton(innerHTML = null, onClick = null, style = null) {
 
     return button;
 }
-
-// todo: move to common history functions
-export function appendStoredPriceValue(label, storedPrice, color, priceContainer) {
-    const divText = `${label}: `;
-    const divStyle =
-        'color: #000;' +
-        'font-size: 16px;' +
-        'padding: 17px 0px 7px;';
-    const storedPriceContainer = createDiv(divText, divStyle);
-
-    const spanText = `${storedPrice.value.toLocaleString()} ₽`;
-    const spanStyle =
-        'font-weight: bold;' +
-        'padding: 6px 12px;' +
-        'border-radius: 8px;' +
-        'cursor: pointer;' +
-        `background: ${color};`;
-    const storedPriceSpan = createSpan(spanText, spanStyle);
-
-    storedPriceSpan.addEventListener('mouseover', () => {
-        storedPriceSpan.textContent = storedPrice.date;
-    });
-    storedPriceSpan.addEventListener('mouseleave', () => {
-        storedPriceSpan.textContent = spanText;
-    });
-
-    storedPriceContainer.append(storedPriceSpan);
-    priceContainer.parentNode.append(storedPriceContainer);
-}

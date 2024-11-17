@@ -1,4 +1,33 @@
+import { createDiv, createSpan } from '../dom/elementsFactory';
 import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './constants';
+
+export function appendStoredPriceValue(label, storedPrice, color, priceContainer) {
+    const divText = `${label}: `;
+    const divStyle =
+        'color: #000;' +
+        'font-size: 16px;' +
+        'padding: 17px 0px 7px;';
+    const storedPriceContainer = createDiv(divText, divStyle);
+
+    const spanText = `${storedPrice.value.toLocaleString()} ₽`;
+    const spanStyle =
+        'font-weight: bold;' +
+        'padding: 6px 12px;' +
+        'border-radius: 8px;' +
+        'cursor: pointer;' +
+        `background: ${color};`;
+    const storedPriceSpan = createSpan(spanText, spanStyle);
+
+    storedPriceSpan.addEventListener('mouseover', () => {
+        storedPriceSpan.textContent = storedPrice.date;
+    });
+    storedPriceSpan.addEventListener('mouseleave', () => {
+        storedPriceSpan.textContent = spanText;
+    });
+
+    storedPriceContainer.append(storedPriceSpan);
+    priceContainer.parentNode.append(storedPriceContainer);
+}
 
 export function checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercentValue) {
     const currentPrice = productCard.getAttribute(CURRENT_PRICE_ATTR);

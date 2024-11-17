@@ -2,9 +2,9 @@ import { getStorageValue, setStorageValue } from '../../../common/storage/storag
 import { ProductData } from '../../../common/models/productData';
 import { DatedValue } from '../../../common/models/datedValue';
 import { PriceData } from '../../../common/models/priceData';
-import { appendStoredPriceValue } from '../../../common/dom/elementsFactory';
 import { getElementInnerNumber } from '../../../common/dom/helpers';
 import { getPathnameElement } from '../../../common/url';
+import { appendStoredPriceValue } from '../../../common/priceHistory/manipulation';
 
 export const PRODUCT_CARD_NAME_SELECTOR = '.favorites-card__brand-wrap';
 
