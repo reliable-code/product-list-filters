@@ -40,6 +40,8 @@ const bestPriceFilter =
 const onPriceTolerancePercentChange = () => processList(true);
 const priceTolerancePercent =
     new StoredInputValue('price-tolerance-percent', 3, onPriceTolerancePercentChange);
+const inStockOnlyFilter =
+    new StoredInputValue('in-stock-only-filter', true, processList);
 const filterEnabled =
     new StoredInputValue('favorites-filter-enabled', true, processList);
 
@@ -84,6 +86,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             CONTROL_STYLE,
             NUMBER_INPUT_STYLE,
         );
+    const inStockOnlyFilterDiv =
+        createFilterControlCheckbox(
+            'В наличии: ',
+            inStockOnlyFilter,
+            CONTROL_STYLE,
+            CHECKBOX_INPUT_STYLE,
+        );
     const filterEnabledDiv =
         createEnabledFilterControl(
             filterEnabled,
@@ -92,7 +101,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         );
 
     filtersContainer.append(
-        nameFilterDiv, bestPriceDiv, priceTolerancePercentDiv, filterEnabledDiv,
+        nameFilterDiv,
+        bestPriceDiv,
+        priceTolerancePercentDiv,
+        inStockOnlyFilterDiv,
+        filterEnabledDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -111,7 +124,7 @@ function processList(priceTolerancePercentChanged = false) {
             const priceContainer = getFirstElement('.goods-card__price', productCard);
 
             if (!priceContainer) {
-                hideElement(productCard);
+                showHideElement(productCard, inStockOnlyFilter.value);
                 return;
             }
 
