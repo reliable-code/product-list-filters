@@ -13,9 +13,9 @@ import {
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createMinVotesFilterControl,
-    isLessThanFilter,
 } from '../common/filter/filter';
 import { InputValue } from '../common/models/inputValue';
+import { isLessThanFilter } from '../common/filter/compare';
 
 const minVotesFilter = new InputValue(50);
 const showExpiredFilter = new StoredInputValue('show-expired-filter', false);

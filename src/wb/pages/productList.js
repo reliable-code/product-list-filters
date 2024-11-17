@@ -14,14 +14,16 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
-    isGreaterThanFilter,
-    isLessThanFilter,
-    isNotMatchTextFilter,
 } from '../../common/filter/filter';
 import { StoredInputValue } from '../../common/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getURLPathElement } from '../../common/url';
 import { createDiv } from '../../common/elementsFactory';
+import {
+    isGreaterThanFilter,
+    isLessThanFilter,
+    isNotMatchTextFilter,
+} from '../../common/filter/compare';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';

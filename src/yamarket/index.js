@@ -14,8 +14,8 @@ import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
-    isLessThanFilter,
 } from '../common/filter/filter';
+import { isLessThanFilter } from '../common/filter/compare';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
 

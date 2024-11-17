@@ -16,11 +16,10 @@ import {
     createFilterControlNumber,
     createMaxPriceFilterControl,
     createMinDiscountFilterControl,
-    isGreaterThanFilter,
-    isLessThanFilter,
 } from '../common/filter/filter';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { createDiv } from '../common/elementsFactory';
+import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);

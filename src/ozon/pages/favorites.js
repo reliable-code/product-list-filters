@@ -28,8 +28,8 @@ import {
     createFilterControlCheckbox,
     createFilterControlNumber,
     createNameFilterControl,
-    isNotMatchTextFilter,
 } from '../../common/filter/filter';
+import { isNotMatchTextFilter } from '../../common/filter/compare';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';

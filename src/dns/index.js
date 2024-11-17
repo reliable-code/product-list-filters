@@ -12,11 +12,10 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
-    isLessThanFilter,
-    isNotMatchTextFilter,
 } from '../common/filter/filter';
 import { removeNonNumber } from '../common/string';
 import { getURLPathElement } from '../common/url';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 
 const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 

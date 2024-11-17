@@ -16,11 +16,10 @@ import {
     createMinRatingFilterControl,
     createNameFilterControl,
     createNoRatingFilterControl,
-    isLessThanFilter,
-    isNotMatchTextFilter,
 } from '../common/filter/filter';
 import { removeNonDigit } from '../common/string';
 import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 
 const CATEGORY_NAME = getURLPathElementEnding(2);
 

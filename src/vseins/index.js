@@ -14,9 +14,8 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
-    isLessThanFilter,
-    isNotMatchTextFilter,
 } from '../common/filter/filter';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 
 const PRODUCT_LIST_SELECTOR = '[data-qa="listing"]';
 

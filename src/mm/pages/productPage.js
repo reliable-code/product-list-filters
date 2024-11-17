@@ -16,8 +16,6 @@ import {
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinRatingFilterControl,
-    isGreaterThanFilter,
-    isLessThanFilter,
 } from '../../common/filter/filter';
 
 import { StoredInputValue } from '../../common/storage';
@@ -28,6 +26,7 @@ import {
 } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
 import { InputValue } from '../../common/models/inputValue';
+import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 

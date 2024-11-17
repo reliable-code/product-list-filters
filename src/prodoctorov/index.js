@@ -13,11 +13,10 @@ import {
     createFilterControlNumber,
     createFilterControlText,
     createMinReviewsFilterControl,
-    isLessThanFilter,
-    isNotMatchTextFilter,
 } from '../common/filter/filter';
 import { getURLPathElement } from '../common/url';
 import { createDiv, createLink } from '../common/elementsFactory';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';

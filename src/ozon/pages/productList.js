@@ -20,9 +20,6 @@ import {
     createMinReviewsFilterControl,
     createNameFilterControl,
     createNoRatingFilterControl,
-    isGreaterThanFilter,
-    isLessThanFilter,
-    isNotMatchTextFilter,
 } from '../../common/filter/filter';
 import {
     CHECKBOX_INPUT_STYLE,
@@ -41,6 +38,11 @@ import {
     TEXT_INPUT_STYLE,
 } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
+import {
+    isGreaterThanFilter,
+    isLessThanFilter,
+    isNotMatchTextFilter,
+} from '../../common/filter/compare';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

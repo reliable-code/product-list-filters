@@ -15,10 +15,9 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
-    isLessThanFilter,
-    isNotMatchTextFilter,
 } from '../common/filter/filter';
 import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 
 let nameFilter;
 let minReviewsFilter;
