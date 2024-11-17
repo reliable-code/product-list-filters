@@ -24,12 +24,14 @@ import {
 } from '../../common/filter/controlsFactory';
 import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../../common/dom/helpers';
+import {
+    APPEND_STORED_PRICE_VALUES_PASSED_ATTR,
+    CURRENT_PRICE_ATTR,
+    GOOD_PRICE_ATTR,
+    LOWEST_PRICE_ATTR,
+} from '../../common/priceHistory/constants';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
-const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';
-const CURRENT_PRICE_ATTR = 'currentPrice';
-const LOWEST_PRICE_ATTR = 'lowestPrice';
-const GOOD_PRICE_ATTR = 'goodPrice';
 
 const nameFilter =
     new StoredInputValue('favorites-name-filter', null, processList);
