@@ -2,8 +2,17 @@ import { initProductListMods } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
 import { initFavoritesMods } from './pages/favorites';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
+import { debounce } from '../common/dom/utils';
 
-initMods();
+const headObserver = new MutationObserver(debounce(initMods));
+
+const { head } = document;
+
+if (head) {
+    headObserver.observe(head, {
+        childList: true,
+    });
+}
 
 function initMods() {
     if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
