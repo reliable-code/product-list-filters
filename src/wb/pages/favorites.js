@@ -110,6 +110,8 @@ function processList(priceTolerancePercentChanged = false) {
 
             const priceContainer = getFirstElement('.goods-card__price', productCard);
 
+            if (!priceContainer) return;
+
             appendStoredPriceValuesIfNeeded(productCard, priceContainer);
 
             if (priceTolerancePercentChanged &&
