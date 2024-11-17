@@ -38,6 +38,8 @@ export function appendPriceHistory(priceContainer, priceSelector, productArticle
         priceContainer,
     );
 
+    currentProduct.updateLastCheckDate();
+
     setStorageValue(productStorageKey, currentProduct);
 
     const priceData =
