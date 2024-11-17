@@ -10,11 +10,10 @@ export function appendPriceHistory(priceContainer, priceSelector, productArticle
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
 
     const productStorageKey = `product-${productArticle}`;
-    let currentProduct = getStorageValue(productStorageKey);
+    const storedProduct = getStorageValue(productStorageKey);
 
-    if (!currentProduct) {
-        currentProduct = new ProductData();
-    }
+    let currentProduct =
+        storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
 
     const lowestPriceKey = 'lowestPrice';
     const highestPriceKey = 'highestPrice';
