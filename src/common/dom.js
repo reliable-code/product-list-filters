@@ -1,4 +1,5 @@
 import { removeNonNumber } from './string';
+import { InputValueBase } from './models/inputValueBase';
 
 export function getFirstElement(selector, parentNode = document, logNotFound = false) {
     const element = parentNode.querySelector(selector);
@@ -197,17 +198,6 @@ export function getInputValueFromEvent(event) {
             console.log(`Unknown input type: ${type}`);
             return null;
     }
-}
-
-export class InputValueBase {
-    constructor(value, onChange) {
-        this.value = value;
-        this.onChange = onChange;
-    }
-
-    onChangeIfDefined = () => {
-        if (this.onChange) this.onChange();
-    };
 }
 
 export class InputValue extends InputValueBase {
