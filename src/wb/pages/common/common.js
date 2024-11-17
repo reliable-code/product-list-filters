@@ -65,14 +65,12 @@ export function appendPriceHistory(priceContainer, priceSelector, productArticle
 
     setStorageValue(productStorageKey, currentProduct);
 
-    const priceData =
-        new PriceData(
-            currentPriceValue,
-            currentProduct.lowestPrice,
-            currentProduct.highestPrice,
-        );
+    const {
+        lowestPriceValue,
+        highestPriceValue,
+    } = currentProduct;
 
-    return priceData;
+    return new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue);
 }
 
 function updateAndAppendStoredPriceValue(
