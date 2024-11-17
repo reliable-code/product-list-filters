@@ -2,6 +2,7 @@ import { waitForElement } from '../../common/dom/utils';
 import { appendPriceHistory } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
 import { getFirstElement } from '../../common/dom/helpers';
+import { APPEND_PRICE_HISTORY_PASSED_ATTR } from '../../common/priceHistory/constants';
 
 const SIDE_CONTAINER_SELECTOR = '.product-page__aside-container';
 const PRICE_CONTAINER_SELECTOR = '.price-block__content';
@@ -24,8 +25,18 @@ function initAppendPriceHistory() {
 
             const priceSpan = getFirstElement(PRICE_SELECTOR, priceContainer);
 
-            appendPriceHistory(priceContainer, priceSpan, productArticle);
+            appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle);
         });
+}
+
+function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle) {
+    const priceContainerWrap = priceContainer.parentNode;
+
+    if (priceContainerWrap.hasAttribute(APPEND_PRICE_HISTORY_PASSED_ATTR)) return;
+
+    appendPriceHistory(priceContainer, priceSpan, productArticle);
+
+    priceContainerWrap.setAttribute(APPEND_PRICE_HISTORY_PASSED_ATTR, '');
 }
 
 function getProductArticleFromPathname() {
