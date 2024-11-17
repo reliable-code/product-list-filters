@@ -5,6 +5,22 @@ import { PriceData } from '../../../common/models/priceData';
 import { appendStoredPriceValue } from '../../../common/dom/elementsFactory';
 import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
 
+const INPUT_STYLE =
+    'margin-left: 4px;';
+export const NUMBER_INPUT_STYLE =
+    INPUT_STYLE + // eslint-disable-line prefer-template
+    'width: 60px;';
+export const TEXT_INPUT_STYLE =
+    INPUT_STYLE + // eslint-disable-line prefer-template
+    'width: 180px;';
+export const CONTROL_STYLE =
+    'display: flex;' +
+    'align-items: center;';
+export const CHECKBOX_INPUT_STYLE =
+    'margin-left: 5px;' +
+    'width: 25px;' +
+    'height: 25px;';
+
 export function appendPriceHistory(priceContainer, priceSelector, productArticle) {
     const priceSpan = getFirstElement(priceSelector, priceContainer);
     const currentPriceValue = getElementInnerNumber(priceSpan, true);

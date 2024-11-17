@@ -22,6 +22,12 @@ import {
     getFirstElement,
     getFirstElementInnerNumber,
 } from '../../common/dom/helpers';
+import {
+    CHECKBOX_INPUT_STYLE,
+    CONTROL_STYLE,
+    NUMBER_INPUT_STYLE,
+    TEXT_INPUT_STYLE,
+} from './common/common';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';
@@ -112,42 +118,27 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'grid-gap: 15px;' +
         'margin-top: 14px;';
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;';
     const priceControlStyle =
-        controlStyle + // eslint-disable-line prefer-template
+        CONTROL_STYLE + // eslint-disable-line prefer-template
         'margin-right: 37px;';
-    const inputStyle =
-        'margin-left: 4px;';
-    const textInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 180px;';
-    const numberInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 60px;';
-    const checkboxInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 22px;' +
-        'height: 22px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+        createNameFilterControl(nameFilter, CONTROL_STYLE, TEXT_INPUT_STYLE);
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
+        createMinReviewsFilterControl(minReviewsFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const maxReviewsDiv =
-        createMaxReviewsFilterControl(maxReviewsFilter, controlStyle, numberInputStyle);
+        createMaxReviewsFilterControl(maxReviewsFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
+        createMinRatingFilterControl(minRatingFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const minPriceDiv =
         createDiv(minPriceDivTextContent(), priceControlStyle);
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
+        createEnabledFilterControl(filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
 
     setInterval(() => checkMinPrice(minPriceDiv), 500);
 
