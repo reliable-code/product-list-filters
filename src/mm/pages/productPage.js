@@ -8,15 +8,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../../common/dom';
-import {
-    appendFilterControlsIfNeeded,
-    createCouponValueControl,
-    createEnabledFilterControl,
-    createMaxDiscountedPriceFilterControl,
-    createMaxPriceFilterControl,
-    createMinCashbackFilterControl,
-    createMinRatingFilterControl,
-} from '../../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../../common/filter/filter';
 
 import { StoredInputValue } from '../../common/storage';
 import {
@@ -27,6 +19,14 @@ import {
 import { getURLPathElementEnding } from '../../common/url';
 import { InputValue } from '../../common/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
+import {
+    createCouponValueControl,
+    createEnabledFilterControl,
+    createMaxDiscountedPriceFilterControl,
+    createMaxPriceFilterControl,
+    createMinCashbackFilterControl,
+    createMinRatingFilterControl,
+} from '../../common/filter/controlsFactory';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 

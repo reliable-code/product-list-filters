@@ -8,18 +8,18 @@ import {
     setElementOrder,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
+import { appendFilterControlsIfNeeded } from '../common/filter/filter';
+import { removeNonDigit } from '../common/string';
+import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
-    appendFilterControlsIfNeeded,
     createDiscountFilterControl,
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createMinRatingFilterControl,
     createNameFilterControl,
     createNoRatingFilterControl,
-} from '../common/filter/filter';
-import { removeNonDigit } from '../common/string';
-import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
-import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
+} from '../common/filter/controlsFactory';
 
 const CATEGORY_NAME = getURLPathElementEnding(2);
 

@@ -9,17 +9,17 @@ import {
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
+import { appendFilterControlsIfNeeded } from '../common/filter/filter';
+import { pathnameIncludes, somePathElementEquals } from '../common/url';
+import { createDiv } from '../common/elementsFactory';
+import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
 import {
-    appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createFilterControlNumber,
     createMaxPriceFilterControl,
     createMinDiscountFilterControl,
-} from '../common/filter/filter';
-import { pathnameIncludes, somePathElementEquals } from '../common/url';
-import { createDiv } from '../common/elementsFactory';
-import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
+} from '../common/filter/controlsFactory';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);

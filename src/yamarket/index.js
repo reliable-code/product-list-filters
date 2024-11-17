@@ -9,13 +9,13 @@ import {
     showHideElement,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
+import { appendFilterControlsIfNeeded } from '../common/filter/filter';
+import { isLessThanFilter } from '../common/filter/compare';
 import {
-    appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
-} from '../common/filter/filter';
-import { isLessThanFilter } from '../common/filter/compare';
+} from '../common/filter/controlsFactory';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
 

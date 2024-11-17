@@ -10,17 +10,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../../common/dom';
-import {
-    appendFilterControlsIfNeeded,
-    createEnabledFilterControl,
-    createFilterControlNumber,
-    createMaxPriceFilterControl,
-    createMaxReviewsFilterControl,
-    createMinRatingFilterControl,
-    createMinReviewsFilterControl,
-    createNameFilterControl,
-    createNoRatingFilterControl,
-} from '../../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../../common/filter/filter';
 import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
@@ -43,6 +33,16 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter/compare';
+import {
+    createEnabledFilterControl,
+    createFilterControlNumber,
+    createMaxPriceFilterControl,
+    createMaxReviewsFilterControl,
+    createMinRatingFilterControl,
+    createMinReviewsFilterControl,
+    createNameFilterControl,
+    createNoRatingFilterControl,
+} from '../../common/filter/controlsFactory';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

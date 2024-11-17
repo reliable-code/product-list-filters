@@ -9,15 +9,15 @@ import {
     waitForElement,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
+import { appendFilterControlsIfNeeded } from '../common/filter/filter';
+import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
-    appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
-} from '../common/filter/filter';
-import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
-import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
+} from '../common/filter/controlsFactory';
 
 let nameFilter;
 let minReviewsFilter;

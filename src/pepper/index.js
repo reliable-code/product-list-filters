@@ -8,14 +8,14 @@ import {
     waitForElement,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
+import { appendFilterControlsIfNeeded } from '../common/filter/filter';
+import { InputValue } from '../common/models/inputValue';
+import { isLessThanFilter } from '../common/filter/compare';
 import {
-    appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createMinVotesFilterControl,
-} from '../common/filter/filter';
-import { InputValue } from '../common/models/inputValue';
-import { isLessThanFilter } from '../common/filter/compare';
+} from '../common/filter/controlsFactory';
 
 const minVotesFilter = new InputValue(50);
 const showExpiredFilter = new StoredInputValue('show-expired-filter', false);

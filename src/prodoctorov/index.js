@@ -7,16 +7,16 @@ import {
     showHideElement,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
+import { appendFilterControlsIfNeeded } from '../common/filter/filter';
+import { getURLPathElement } from '../common/url';
+import { createDiv, createLink } from '../common/elementsFactory';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
-    appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createFilterControlNumber,
     createFilterControlText,
     createMinReviewsFilterControl,
-} from '../common/filter/filter';
-import { getURLPathElement } from '../common/url';
-import { createDiv, createLink } from '../common/elementsFactory';
-import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
+} from '../common/filter/controlsFactory';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';

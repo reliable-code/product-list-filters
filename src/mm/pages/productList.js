@@ -9,15 +9,7 @@ import {
     waitForElement,
 } from '../../common/dom';
 import { StoredInputValue } from '../../common/storage';
-import {
-    appendFilterControlsIfNeeded,
-    createEnabledFilterControl,
-    createMaxPriceFilterControl,
-    createMinCashbackFilterControl,
-    createMinDiscountFilterControl,
-    createNameFilterControl,
-    createSellerNameFilterControl,
-} from '../../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../../common/filter/filter';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 import { getURLPathElement } from '../../common/url';
 import { InputValue } from '../../common/models/inputValue';
@@ -26,6 +18,14 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter/compare';
+import {
+    createEnabledFilterControl,
+    createMaxPriceFilterControl,
+    createMinCashbackFilterControl,
+    createMinDiscountFilterControl,
+    createNameFilterControl,
+    createSellerNameFilterControl,
+} from '../../common/filter/controlsFactory';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =

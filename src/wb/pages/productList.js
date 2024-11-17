@@ -7,14 +7,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../../common/dom';
-import {
-    appendFilterControlsIfNeeded,
-    createEnabledFilterControl,
-    createMaxReviewsFilterControl,
-    createMinRatingFilterControl,
-    createMinReviewsFilterControl,
-    createNameFilterControl,
-} from '../../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../../common/filter/filter';
 import { StoredInputValue } from '../../common/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getURLPathElement } from '../../common/url';
@@ -24,6 +17,13 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter/compare';
+import {
+    createEnabledFilterControl,
+    createMaxReviewsFilterControl,
+    createMinRatingFilterControl,
+    createMinReviewsFilterControl,
+    createNameFilterControl,
+} from '../../common/filter/controlsFactory';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';

@@ -22,14 +22,14 @@ import {
     TEXT_INPUT_STYLE,
 } from './common/common';
 import { StoredInputValue } from '../../common/storage';
+import { appendFilterControlsIfNeeded } from '../../common/filter/filter';
+import { isNotMatchTextFilter } from '../../common/filter/compare';
 import {
-    appendFilterControlsIfNeeded,
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createFilterControlNumber,
     createNameFilterControl,
-} from '../../common/filter/filter';
-import { isNotMatchTextFilter } from '../../common/filter/compare';
+} from '../../common/filter/controlsFactory';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';
