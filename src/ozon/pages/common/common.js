@@ -3,7 +3,11 @@ import { DatedValue } from '../../../common/models/datedValue';
 import { heartStrikeDislikeIcon } from './icons';
 import { PriceData } from '../../../common/models/priceData';
 import { getPathnameElementEnding } from '../../../common/url';
-import { createDiv, createLink, createSpan } from '../../../common/dom/elementsFactory';
+import {
+    appendStoredPriceValue,
+    createLink,
+    createSpan,
+} from '../../../common/dom/elementsFactory';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
 import { getFirstElement, getNodeInnerNumber } from '../../../common/dom/helpers';
 
@@ -79,34 +83,6 @@ function updateAndAppendStoredPriceValue(
     appendStoredPriceValue(label, storedPrice, color, priceContainer);
 
     return storedPrice.value;
-}
-
-function appendStoredPriceValue(label, storedPrice, color, priceContainer) {
-    const divText = `${label}: `;
-    const divStyle =
-        'color: #000;' +
-        'font-size: 16px;' +
-        'padding: 17px 0px 7px;';
-    const storedPriceContainer = createDiv(divText, divStyle);
-
-    const spanText = `${storedPrice.value.toLocaleString()} ₽`;
-    const spanStyle =
-        'font-weight: bold;' +
-        'padding: 6px 12px;' +
-        'border-radius: 8px;' +
-        'cursor: pointer;' +
-        `background: ${color};`;
-    const storedPriceSpan = createSpan(spanText, spanStyle);
-
-    storedPriceSpan.addEventListener('mouseover', () => {
-        storedPriceSpan.textContent = storedPrice.date;
-    });
-    storedPriceSpan.addEventListener('mouseleave', () => {
-        storedPriceSpan.textContent = spanText;
-    });
-
-    storedPriceContainer.append(storedPriceSpan);
-    priceContainer.parentNode.append(storedPriceContainer);
 }
 
 export function createDislikeButton(onClick, needLabel = true) {
