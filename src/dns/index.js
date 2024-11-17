@@ -4,7 +4,7 @@ import {
     hideElement,
     showElement,
     showHideElement,
-} from '../common/dom';
+} from '../common/dom/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonNumber } from '../common/string';

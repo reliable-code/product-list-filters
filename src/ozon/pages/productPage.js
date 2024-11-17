@@ -4,7 +4,7 @@ import {
     getFirstElement,
     insertAfter,
     waitForElement,
-} from '../../common/dom';
+} from '../../common/dom/dom';
 import {
     appendPriceHistory,
     createDislikeButton,
@@ -14,7 +14,7 @@ import {
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
 import { getURLPathElementEnding } from '../../common/url';
-import { createDiv, createLink, createSpan } from '../../common/elementsFactory';
+import { createDiv, createLink, createSpan } from '../../common/dom/elementsFactory';
 
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 

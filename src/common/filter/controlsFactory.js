@@ -3,7 +3,7 @@ import {
     createDiv,
     createNumberInput,
     createTextInput,
-} from '../elementsFactory';
+} from '../dom/elementsFactory';
 
 export function createFilterControlText(
     titleText,

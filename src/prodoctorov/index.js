@@ -5,11 +5,11 @@ import {
     hideElement,
     showElement,
     showHideElement,
-} from '../common/dom';
+} from '../common/dom/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElement } from '../common/url';
-import { createDiv, createLink } from '../common/elementsFactory';
+import { createDiv, createLink } from '../common/dom/elementsFactory';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
     createEnabledFilterControl,

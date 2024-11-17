@@ -6,12 +6,12 @@ import {
     insertAfter,
     showElement,
     showHideElement,
-} from '../common/dom';
+} from '../common/dom/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
-import { createDiv } from '../common/elementsFactory';
+import { createDiv } from '../common/dom/elementsFactory';
 import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
 import {
     createEnabledFilterControl,

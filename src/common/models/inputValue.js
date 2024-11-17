@@ -1,5 +1,5 @@
 import { InputValueBase } from './inputValueBase';
-import { getInputValueFromEvent, parseValue } from '../dom';
+import { getInputValueFromEvent, parseValue } from '../dom/dom';
 
 export class InputValue extends InputValueBase {
     constructor(defaultValue = null, onChange = null) {

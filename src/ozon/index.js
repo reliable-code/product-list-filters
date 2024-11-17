@@ -3,7 +3,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
     waitForElement,
-} from '../common/dom';
+} from '../common/dom/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';

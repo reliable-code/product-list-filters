@@ -1,4 +1,4 @@
-import { getElementInnerNumber, getFirstElement } from '../../../common/dom';
+import { getElementInnerNumber, getFirstElement } from '../../../common/dom/dom';
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { ProductData } from '../../../common/models/productData';
 

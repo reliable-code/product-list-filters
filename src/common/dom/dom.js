@@ -1,4 +1,4 @@
-import { removeNonNumber } from './string';
+import { removeNonNumber } from '../string';
 
 export function getFirstElement(selector, parentNode = document, logNotFound = false) {
     const element = parentNode.querySelector(selector);

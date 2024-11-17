@@ -9,7 +9,7 @@ import {
     showElement,
     showHideElement,
     waitForElement,
-} from '../../common/dom';
+} from '../../common/dom/dom';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import {
     CHECKBOX_INPUT_STYLE,
