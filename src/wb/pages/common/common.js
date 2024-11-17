@@ -21,6 +21,13 @@ export const CHECKBOX_INPUT_STYLE =
     'width: 25px;' +
     'height: 25px;';
 
+export function setCommonFiltersContainerStyles(filtersContainer) {
+    filtersContainer.style =
+        'display: flex;' +
+        'grid-gap: 15px;' +
+        'margin-top: 14px;';
+}
+
 export function appendPriceHistory(priceContainer, priceSelector, productArticle) {
     const priceSpan = getFirstElement(priceSelector, priceContainer);
     const currentPriceValue = getElementInnerNumber(priceSpan, true);

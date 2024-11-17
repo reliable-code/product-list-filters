@@ -26,6 +26,7 @@ import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
     NUMBER_INPUT_STYLE,
+    setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
 } from './common/common';
 
@@ -113,10 +114,7 @@ function removeRecentItemsBlock() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style =
-        'display: flex;' +
-        'grid-gap: 15px;' +
-        'margin-top: 14px;';
+    setCommonFiltersContainerStyles(filtersContainer);
 
     const priceControlStyle =
         CONTROL_STYLE + // eslint-disable-line prefer-template
