@@ -4,6 +4,7 @@ import { DatedValue } from '../../../common/models/datedValue';
 import { PriceData } from '../../../common/models/priceData';
 import { appendStoredPriceValue } from '../../../common/dom/elementsFactory';
 import { getElementInnerNumber } from '../../../common/dom/helpers';
+import { getPathnameElement } from '../../../common/url';
 
 const INPUT_STYLE =
     'margin-left: 4px;';
@@ -26,6 +27,12 @@ export function setCommonFiltersContainerStyles(filtersContainer) {
         'display: flex;' +
         'grid-gap: 15px;' +
         'margin-top: 14px;';
+}
+
+export function getProductArticleFromLink(productCardLink) {
+    const productCardLinkHref = productCardLink.getAttribute('href');
+
+    return getPathnameElement(productCardLinkHref, 4, '');
 }
 
 export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
