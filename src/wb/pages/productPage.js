@@ -1,6 +1,7 @@
-import { getURLPathElementEnding, waitForElement } from '../../common/dom';
+import { getFirstElement, getURLPathElementEnding, waitForElement } from '../../common/dom';
 import { appendPriceHistory } from './common/common';
 
+const SIDE_CONTAINER_SELECTOR = '.product-page__aside-container';
 const PRICE_CONTAINER_SELECTOR = '.price-block__content';
 const PRICE_SELECTOR = '.price-block__wallet-price';
 
@@ -9,11 +10,14 @@ export function initProductPageMods() {
 }
 
 function initAppendPriceHistory() {
-    waitForElement(document, `${PRICE_CONTAINER_SELECTOR}`)
-        .then((priceContainer) => {
-            if (!priceContainer) return;
+    waitForElement(document, `${SIDE_CONTAINER_SELECTOR}`)
+        .then((sideContainer) => {
+            if (!sideContainer) return;
 
             const productArticle = getProductArticleFromPathname();
+            const priceContainer =
+                getFirstElement(`${PRICE_CONTAINER_SELECTOR}`, sideContainer);
+
             appendPriceHistory(priceContainer, PRICE_SELECTOR, productArticle);
         });
 }
