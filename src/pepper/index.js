@@ -3,7 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    InputValue,
     resetElementOpacity,
     setElementOpacity,
     waitForElement,
@@ -16,6 +15,7 @@ import {
     createMinVotesFilterControl,
     isLessThanFilter,
 } from '../common/filter';
+import { InputValue } from '../common/models/inputValue';
 
 const minVotesFilter = new InputValue(50);
 const showExpiredFilter = new StoredInputValue('show-expired-filter', false);

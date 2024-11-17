@@ -4,7 +4,6 @@ import {
     getElementInnerNumber,
     getFirstElement,
     hideElement,
-    InputValue,
     showElement,
     showHideElement,
     waitForElement,
@@ -24,6 +23,7 @@ import {
 } from '../../common/filter';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 import { getURLPathElement } from '../../common/url';
+import { InputValue } from '../../common/models/inputValue';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =

@@ -4,7 +4,6 @@ import {
     getElementInnerNumber,
     getFirstElement,
     hideElement,
-    InputValue,
     showElement,
     showHideElement,
     waitForElement,
@@ -28,6 +27,7 @@ import {
     PRICE_ATTR,
 } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
+import { InputValue } from '../../common/models/inputValue';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 
