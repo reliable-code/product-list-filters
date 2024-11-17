@@ -2,14 +2,21 @@ import { getCurrentDate } from '../dateUtils';
 
 export class ProductData {
     constructor(
-        lastCheckDate = getCurrentDate(), lowestPrice = 0, highestPrice = 0,
+        lastCheckDate = getCurrentDate(), lowestPrice = null, highestPrice = null,
     ) {
         this.lastCheckDate = lastCheckDate;
         this.lowestPrice = lowestPrice;
         this.highestPrice = highestPrice;
     }
 
-    // todo: extract new date to utils
+    get lowestPriceValue() {
+        return this.lowestPrice ? this.lowestPrice.value : 0;
+    }
+
+    get highestPriceValue() {
+        return this.highestPrice ? this.highestPrice.value : 0;
+    }
+
     updateLastCheckDate = () => {
         this.lastCheckDate = getCurrentDate();
     };
