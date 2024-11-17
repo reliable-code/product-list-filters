@@ -76,8 +76,7 @@ function appendStoredPriceValue(
     if (!currentPriceValue) {
         if (!storedPrice) return 0;
     } else if (!storedPrice || compareCondition(storedPrice)) {
-        const date = new Date().toLocaleDateString();
-        const currentPrice = new DatedValue(currentPriceValue, date);
+        const currentPrice = new DatedValue(currentPriceValue);
         setStorageValue(storageKey, currentPrice);
         storedPrice = currentPrice;
     }
