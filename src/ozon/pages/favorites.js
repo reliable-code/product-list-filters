@@ -1,11 +1,5 @@
 import {
-    debounce,
-    getAllElements,
-    getFirstElement,
-    hideElement,
-    showElement,
-    showHideElement,
-    waitForElement,
+ debounce, getAllElements, getFirstElement, waitForElement,
 } from '../../common/dom/utils';
 import {
     appendPriceHistory,
@@ -30,6 +24,7 @@ import {
     createFilterControlNumber,
     createNameFilterControl,
 } from '../../common/filter/controlsFactory';
+import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';

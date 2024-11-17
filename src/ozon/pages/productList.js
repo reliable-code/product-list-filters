@@ -5,9 +5,6 @@ import {
     getArrayElementInnerNumber,
     getElementInnerNumber,
     getFirstElement,
-    hideElement,
-    showElement,
-    showHideElement,
     waitForElement,
 } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
@@ -43,6 +40,7 @@ import {
     createNameFilterControl,
     createNoRatingFilterControl,
 } from '../../common/filter/controlsFactory';
+import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

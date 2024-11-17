@@ -3,9 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    insertAfter,
-    showElement,
-    showHideElement,
 } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
@@ -20,6 +17,7 @@ import {
     createMaxPriceFilterControl,
     createMinDiscountFilterControl,
 } from '../common/filter/controlsFactory';
+import { insertAfter, showElement, showHideElement } from '../common/dom/manipulation';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);

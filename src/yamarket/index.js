@@ -3,10 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    hideElement,
-    insertAfter,
-    showElement,
-    showHideElement,
 } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
@@ -16,6 +12,9 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
 } from '../common/filter/controlsFactory';
+import {
+ hideElement, insertAfter, showElement, showHideElement,
+} from '../common/dom/manipulation';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
 

@@ -3,9 +3,6 @@ import {
     getElementInnerNumber,
     getFirstElement,
     getNodeInnerNumber,
-    hideElement,
-    showElement,
-    showHideElement,
     waitForElement,
 } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
@@ -18,6 +15,7 @@ import {
     createMinReviewsFilterControl,
     createNameFilterControl,
 } from '../common/filter/controlsFactory';
+import { hideElement, showElement, showHideElement } from '../common/dom/manipulation';
 
 let nameFilter;
 let minReviewsFilter;

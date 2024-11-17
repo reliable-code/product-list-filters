@@ -3,9 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    hideElement,
-    showElement,
-    showHideElement,
     waitForElement,
 } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
@@ -27,6 +24,7 @@ import {
     createMinCashbackFilterControl,
     createMinRatingFilterControl,
 } from '../../common/filter/controlsFactory';
+import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 

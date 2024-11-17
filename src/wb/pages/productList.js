@@ -3,8 +3,6 @@ import {
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
-    showElement,
-    showHideElement,
     waitForElement,
 } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
@@ -24,6 +22,7 @@ import {
     createMinReviewsFilterControl,
     createNameFilterControl,
 } from '../../common/filter/controlsFactory';
+import { showElement, showHideElement } from '../../common/dom/manipulation';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';

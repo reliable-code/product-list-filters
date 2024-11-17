@@ -1,11 +1,4 @@
-import {
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-    hideElement,
-    showElement,
-    showHideElement,
-} from '../common/dom/utils';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElement } from '../common/url';
@@ -17,6 +10,7 @@ import {
     createFilterControlText,
     createMinReviewsFilterControl,
 } from '../common/filter/controlsFactory';
+import { hideElement, showElement, showHideElement } from '../common/dom/manipulation';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';

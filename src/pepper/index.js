@@ -1,10 +1,7 @@
 import {
-    defineElementOpacity,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    resetElementOpacity,
-    setElementOpacity,
     waitForElement,
 } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
@@ -16,6 +13,11 @@ import {
     createFilterControlCheckbox,
     createMinVotesFilterControl,
 } from '../common/filter/controlsFactory';
+import {
+    defineElementOpacity,
+    resetElementOpacity,
+    setElementOpacity,
+} from '../common/dom/manipulation';
 
 const minVotesFilter = new InputValue(50);
 const showExpiredFilter = new StoredInputValue('show-expired-filter', false);

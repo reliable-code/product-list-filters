@@ -1,12 +1,4 @@
-import {
-    defineElementOpacity,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-    resetElementOpacity,
-    resetElementOrder,
-    setElementOrder,
-} from '../common/dom/utils';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonDigit } from '../common/string';
@@ -20,6 +12,12 @@ import {
     createNameFilterControl,
     createNoRatingFilterControl,
 } from '../common/filter/controlsFactory';
+import {
+    defineElementOpacity,
+    resetElementOpacity,
+    resetElementOrder,
+    setElementOrder,
+} from '../common/dom/manipulation';
 
 const CATEGORY_NAME = getURLPathElementEnding(2);
 

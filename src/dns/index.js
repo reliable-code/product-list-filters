@@ -1,10 +1,4 @@
-import {
-    getAllElements,
-    getFirstElement,
-    hideElement,
-    showElement,
-    showHideElement,
-} from '../common/dom/utils';
+import { getAllElements, getFirstElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonNumber } from '../common/string';
@@ -16,6 +10,7 @@ import {
     createMinReviewsFilterControl,
     createNameFilterControl,
 } from '../common/filter/controlsFactory';
+import { hideElement, showElement, showHideElement } from '../common/dom/manipulation';
 
 const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 

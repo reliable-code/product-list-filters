@@ -3,9 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    hideElement,
-    showElement,
-    showHideElement,
     waitForElement,
 } from '../../common/dom/utils';
 import { StoredInputValue } from '../../common/storage';
@@ -26,6 +23,7 @@ import {
     createNameFilterControl,
     createSellerNameFilterControl,
 } from '../../common/filter/controlsFactory';
+import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =
