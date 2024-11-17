@@ -6,4 +6,9 @@ export class ProductData {
         this.lowestPrice = lowestPrice;
         this.highestPrice = highestPrice;
     }
+
+    // todo: extract new date to utils
+    updateLastCheckDate = () => {
+        this.lastCheckDate = new Date().toLocaleDateString();
+    };
 }
