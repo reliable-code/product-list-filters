@@ -2,7 +2,7 @@ import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
-import { getURLPathElement } from '../../common/url';
+import { getURLPathElement, somePathElementEquals } from '../../common/url';
 import { createDiv } from '../../common/dom/elementsFactory';
 import {
     isGreaterThanFilter,
@@ -49,7 +49,8 @@ let minPriceValue = getMinPriceValueFromURL();
 const minPriceDivTextContent = () => `Минимальная цена: ${minPriceValue}`;
 
 function getCategoryName() {
-    const categoryNameElement = getURLPathElement(3);
+    const categoryNamePosition = somePathElementEquals('brands') ? 2 : 3;
+    const categoryNameElement = getURLPathElement(categoryNamePosition);
 
     let categoryName;
 
