@@ -6,6 +6,8 @@ import { appendStoredPriceValue } from '../../../common/dom/elementsFactory';
 import { getElementInnerNumber } from '../../../common/dom/helpers';
 import { getPathnameElement } from '../../../common/url';
 
+export const PRODUCT_CARD_NAME_SELECTOR = '.favorites-card__brand-wrap';
+
 const INPUT_STYLE =
     'margin-left: 4px;';
 export const NUMBER_INPUT_STYLE =
