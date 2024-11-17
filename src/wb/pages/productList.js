@@ -1,10 +1,4 @@
-import {
-    debounce,
-    getAllElements,
-    getFirstElement,
-    getFirstElementInnerNumber,
-    waitForElement,
-} from '../../common/dom/utils';
+import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
@@ -23,6 +17,11 @@ import {
     createNameFilterControl,
 } from '../../common/filter/controlsFactory';
 import { showElement, showHideElement } from '../../common/dom/manipulation';
+import {
+    getAllElements,
+    getFirstElement,
+    getFirstElementInnerNumber,
+} from '../../common/dom/helpers';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';

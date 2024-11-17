@@ -1,4 +1,3 @@
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonDigit } from '../common/string';
@@ -18,6 +17,7 @@ import {
     resetElementOrder,
     setElementOrder,
 } from '../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
 const CATEGORY_NAME = getURLPathElementEnding(2);
 

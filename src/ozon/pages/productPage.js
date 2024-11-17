@@ -1,9 +1,4 @@
-import {
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-    waitForElement,
-} from '../../common/dom/utils';
+import { waitForElement } from '../../common/dom/utils';
 import {
     appendPriceHistory,
     createDislikeButton,
@@ -15,6 +10,7 @@ import { removeSpaces } from '../../common/string';
 import { getURLPathElementEnding } from '../../common/url';
 import { createDiv, createLink, createSpan } from '../../common/dom/elementsFactory';
 import { insertAfter } from '../../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 

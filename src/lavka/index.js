@@ -1,9 +1,4 @@
-import {
-    debounce,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-} from '../common/dom/utils';
+import { debounce } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
@@ -18,6 +13,7 @@ import {
     createMinDiscountFilterControl,
 } from '../common/filter/controlsFactory';
 import { insertAfter, showElement, showHideElement } from '../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);

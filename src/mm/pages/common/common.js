@@ -1,4 +1,4 @@
-import { getElementInnerNumber, getFirstElement } from '../../../common/dom/utils';
+import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
 
 export const PRICE_ATTR = 'price';
 export const BALANCED_CASHBACK_PRICE_ATTR = 'balanced-cashback-price';

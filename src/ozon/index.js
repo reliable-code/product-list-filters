@@ -1,10 +1,11 @@
-import { getElementInnerNumber, getFirstElement, waitForElement } from '../common/dom/utils';
+import { waitForElement } from '../common/dom/utils';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
 import { somePathElementEquals } from '../common/url';
 import { addGlobalStyle } from '../common/dom/manipulation';
+import { getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
 const COMMENTS_SELECTOR = '#comments';
 

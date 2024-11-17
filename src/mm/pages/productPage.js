@@ -1,10 +1,4 @@
-import {
-    debounce,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-    waitForElement,
-} from '../../common/dom/utils';
+import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 
 import { StoredInputValue } from '../../common/storage';
@@ -25,6 +19,7 @@ import {
     createMinRatingFilterControl,
 } from '../../common/filter/controlsFactory';
 import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 

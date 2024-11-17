@@ -1,5 +1,5 @@
-import { getFirstElement } from '../dom/utils';
 import { createDiv } from '../dom/elementsFactory';
+import { getFirstElement } from '../dom/helpers';
 
 export function appendFilterControlsIfNeeded(
     parentNode,

@@ -1,6 +1,7 @@
-import { getFirstElement, waitForElement } from '../../common/dom/utils';
+import { waitForElement } from '../../common/dom/utils';
 import { appendPriceHistory } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
+import { getFirstElement } from '../../common/dom/helpers';
 
 const SIDE_CONTAINER_SELECTOR = '.product-page__aside-container';
 const PRICE_CONTAINER_SELECTOR = '.price-block__content';

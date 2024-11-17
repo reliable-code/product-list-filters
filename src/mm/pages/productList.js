@@ -1,10 +1,4 @@
-import {
-    debounce,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-    waitForElement,
-} from '../../common/dom/utils';
+import { debounce, waitForElement } from '../../common/dom/utils';
 import { StoredInputValue } from '../../common/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
@@ -24,6 +18,7 @@ import {
     createSellerNameFilterControl,
 } from '../../common/filter/controlsFactory';
 import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =

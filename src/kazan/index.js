@@ -1,10 +1,4 @@
-import {
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-    getNodeInnerNumber,
-    waitForElement,
-} from '../common/dom/utils';
+import { waitForElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
@@ -16,6 +10,12 @@ import {
     createNameFilterControl,
 } from '../common/filter/controlsFactory';
 import { hideElement, showElement, showHideElement } from '../common/dom/manipulation';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    getNodeInnerNumber,
+} from '../common/dom/helpers';
 
 let nameFilter;
 let minReviewsFilter;

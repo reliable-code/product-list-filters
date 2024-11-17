@@ -1,9 +1,4 @@
-import {
-    getAllElements,
-    getFirstElement,
-    getNodeInnerNumber,
-    waitForElement,
-} from '../common/dom/utils';
+import { waitForElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
@@ -14,6 +9,7 @@ import {
     createNameFilterControl,
 } from '../common/filter/controlsFactory';
 import { hideElement, showElement, showHideElement } from '../common/dom/manipulation';
+import { getAllElements, getFirstElement, getNodeInnerNumber } from '../common/dom/helpers';
 
 const PRODUCT_LIST_SELECTOR = '[data-qa="listing"]';
 

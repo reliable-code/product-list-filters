@@ -1,6 +1,6 @@
-import { getElementInnerNumber, getFirstElement } from '../../../common/dom/utils';
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { ProductData } from '../../../common/models/productData';
+import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
 
 export function appendPriceHistory(priceContainer, priceSelector, productArticle) {
     const priceSpan = getFirstElement(priceSelector, priceContainer);

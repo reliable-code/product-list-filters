@@ -1,9 +1,4 @@
-import {
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-    waitForElement,
-} from '../common/dom/utils';
+import { waitForElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { InputValue } from '../common/models/inputValue';
@@ -18,6 +13,7 @@ import {
     resetElementOpacity,
     setElementOpacity,
 } from '../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
 const minVotesFilter = new InputValue(50);
 const showExpiredFilter = new StoredInputValue('show-expired-filter', false);

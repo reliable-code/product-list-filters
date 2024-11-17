@@ -1,9 +1,4 @@
-import {
-    debounce,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-} from '../common/dom/utils';
+import { debounce } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter } from '../common/filter/compare';
@@ -13,8 +8,12 @@ import {
     createMinReviewsFilterControl,
 } from '../common/filter/controlsFactory';
 import {
- hideElement, insertAfter, showElement, showHideElement,
+    hideElement,
+    insertAfter,
+    showElement,
+    showHideElement,
 } from '../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
 

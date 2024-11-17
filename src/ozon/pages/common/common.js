@@ -1,4 +1,3 @@
-import { getFirstElement, getNodeInnerNumber } from '../../../common/dom/utils';
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { DatedValue } from '../../../common/models/datedValue';
 import { heartStrikeDislikeIcon } from './icons';
@@ -6,6 +5,7 @@ import { PriceData } from '../../../common/models/priceData';
 import { getPathnameElementEnding } from '../../../common/url';
 import { createDiv, createLink, createSpan } from '../../../common/dom/elementsFactory';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
+import { getFirstElement, getNodeInnerNumber } from '../../../common/dom/helpers';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div.tile-root';
 export const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';

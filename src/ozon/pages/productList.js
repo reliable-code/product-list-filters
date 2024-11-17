@@ -1,12 +1,5 @@
 import { addStorageValueListener, StoredInputValue } from '../../common/storage';
-import {
-    debounce,
-    getAllElements,
-    getArrayElementInnerNumber,
-    getElementInnerNumber,
-    getFirstElement,
-    waitForElement,
-} from '../../common/dom/utils';
+import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import {
     CHECKBOX_INPUT_STYLE,
@@ -41,6 +34,12 @@ import {
     createNoRatingFilterControl,
 } from '../../common/filter/controlsFactory';
 import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
+import {
+    getAllElements,
+    getArrayElementInnerNumber,
+    getElementInnerNumber,
+    getFirstElement,
+} from '../../common/dom/helpers';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

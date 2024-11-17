@@ -1,6 +1,4 @@
-import {
- debounce, getAllElements, getFirstElement, waitForElement,
-} from '../../common/dom/utils';
+import { debounce, waitForElement } from '../../common/dom/utils';
 import {
     appendPriceHistory,
     CHECKBOX_INPUT_STYLE,
@@ -25,6 +23,7 @@ import {
     createNameFilterControl,
 } from '../../common/filter/controlsFactory';
 import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
+import { getAllElements, getFirstElement } from '../../common/dom/helpers';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';

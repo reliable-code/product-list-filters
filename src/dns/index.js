@@ -1,4 +1,3 @@
-import { getAllElements, getFirstElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonNumber } from '../common/string';
@@ -11,6 +10,7 @@ import {
     createNameFilterControl,
 } from '../common/filter/controlsFactory';
 import { hideElement, showElement, showHideElement } from '../common/dom/manipulation';
+import { getAllElements, getFirstElement } from '../common/dom/helpers';
 
 const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 
