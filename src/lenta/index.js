@@ -8,7 +8,7 @@ import {
     setElementOrder,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
-import { appendFilterControlsIfNeeded } from '../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonDigit } from '../common/string';
 import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';

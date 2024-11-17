@@ -9,7 +9,7 @@ import {
     waitForElement,
 } from '../../common/dom';
 import { StoredInputValue } from '../../common/storage';
-import { appendFilterControlsIfNeeded } from '../../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 import { getURLPathElement } from '../../common/url';
 import { InputValue } from '../../common/models/inputValue';

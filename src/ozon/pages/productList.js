@@ -10,7 +10,7 @@ import {
     showHideElement,
     waitForElement,
 } from '../../common/dom';
-import { appendFilterControlsIfNeeded } from '../../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,

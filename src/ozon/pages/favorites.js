@@ -22,7 +22,7 @@ import {
     TEXT_INPUT_STYLE,
 } from './common/common';
 import { StoredInputValue } from '../../common/storage';
-import { appendFilterControlsIfNeeded } from '../../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../common/filter/compare';
 import {
     createEnabledFilterControl,

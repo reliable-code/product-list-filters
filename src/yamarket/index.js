@@ -9,7 +9,7 @@ import {
     showHideElement,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
-import { appendFilterControlsIfNeeded } from '../common/filter/filter';
+import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter } from '../common/filter/compare';
 import {
     createEnabledFilterControl,
