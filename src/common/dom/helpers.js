@@ -78,6 +78,7 @@ export function getInputValueFromEvent(event) {
     }
 }
 
+// todo: move to storage utils
 export function parseValue(value) {
     return value === '' ? null : JSON.parse(value);
 }
