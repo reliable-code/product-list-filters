@@ -117,7 +117,7 @@ function processList(priceTolerancePercentChanged = false) {
                 productCard.hasAttribute(LOWEST_PRICE_ATTR)) {
                 const priceContainerWrap = getPriceContainer(productCard).parentNode;
 
-                checkIfGoodPrice(priceContainerWrap, productCard);
+                checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
             }
 
             const productCardNameWrap =
@@ -160,7 +160,7 @@ function appendStoredPriceValuesIfNeeded(productCard) {
 
     appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
 
-    checkIfGoodPrice(priceContainerWrap, productCard);
+    checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
 }
 
 function getPriceContainer(productCard) {
@@ -183,11 +183,11 @@ function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap
     productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
 }
 
-function checkIfGoodPrice(priceContainerWrap, productCard) {
+function checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercentValue) {
     const currentPrice = productCard.getAttribute(CURRENT_PRICE_ATTR);
     const lowestPrice = productCard.getAttribute(LOWEST_PRICE_ATTR);
 
-    const priceToleranceFactor = 1 + (priceTolerancePercent.value / 100);
+    const priceToleranceFactor = 1 + (priceTolerancePercentValue / 100);
     const goodPrice = lowestPrice * priceToleranceFactor;
 
     if (currentPrice <= goodPrice) {
