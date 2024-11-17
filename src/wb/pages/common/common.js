@@ -3,7 +3,7 @@ import { ProductData } from '../../../common/models/productData';
 import { DatedValue } from '../../../common/models/datedValue';
 import { PriceData } from '../../../common/models/priceData';
 import { appendStoredPriceValue } from '../../../common/dom/elementsFactory';
-import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
+import { getElementInnerNumber } from '../../../common/dom/helpers';
 
 const INPUT_STYLE =
     'margin-left: 4px;';
@@ -28,8 +28,7 @@ export function setCommonFiltersContainerStyles(filtersContainer) {
         'margin-top: 14px;';
 }
 
-export function appendPriceHistory(priceContainer, priceSelector, productArticle) {
-    const priceSpan = getFirstElement(priceSelector, priceContainer);
+export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
 
     const productStorageKey = `product-${productArticle}`;

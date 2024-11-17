@@ -18,9 +18,10 @@ function initAppendPriceHistory() {
 
             const productArticle = getProductArticleFromPathname();
             const priceContainer =
-                getFirstElement(`${PRICE_CONTAINER_SELECTOR}`, sideContainer);
+                getFirstElement(PRICE_CONTAINER_SELECTOR, sideContainer);
 
-            appendPriceHistory(priceContainer, PRICE_SELECTOR, productArticle);
+            const priceSpan = getFirstElement(PRICE_SELECTOR, priceContainer);
+            appendPriceHistory(priceContainer, priceSpan, productArticle);
         });
 }
 
