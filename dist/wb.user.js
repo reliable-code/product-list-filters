@@ -6,7 +6,7 @@
 // @grant        GM_getValue
 // @match        https://www.wildberries.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.7.73185483
+// @version      0.7.73185648
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=wildberries.ru
 // @author       reliable-code
 // ==/UserScript==
@@ -67,12 +67,15 @@ const FILTERS_BLOCK_WRAP_SELECTOR=".filters-block__wrap";const PRODUCT_CARD_LIST
 "width: 22px;"+"height: 22px;";const nameFilterDiv=createNameFilterControl(nameFilter,controlStyle,textInputStyle);const minReviewsDiv=createMinReviewsFilterControl(minReviewsFilter,controlStyle,numberInputStyle);const maxReviewsDiv=createMaxReviewsFilterControl(maxReviewsFilter,controlStyle,numberInputStyle);const minRatingDiv=createMinRatingFilterControl(minRatingFilter,controlStyle,numberInputStyle);const minPriceDiv=createDiv(minPriceDivTextContent(),priceControlStyle);const filterEnabledDiv=createEnabledFilterControl(filterEnabled,controlStyle,checkboxInputStyle);setInterval((()=>checkMinPrice(minPriceDiv)),500);filtersContainer.append(nameFilterDiv,minReviewsDiv,maxReviewsDiv,minRatingDiv,minPriceDiv,filterEnabledDiv);parentNode.append(filtersContainer)}function checkMinPrice(minPriceDiv){const currentMinPriceValue=getMinPriceValueFromURL();if(minPriceValue!==currentMinPriceValue){minPriceValue=currentMinPriceValue;minPriceDiv.textContent=minPriceDivTextContent()}}function cleanList(){const productCards=getAllElements(PRODUCT_CARD_SELECTOR);productCards.forEach((productCard=>{if(!filterEnabled.value){showElement(productCard);return}const productCardNameWrap=helpers_getFirstElement(PRODUCT_CARD_NAME_SELECTOR,productCard);const productCardName=productCardNameWrap.innerText;productCardNameWrap.title=productCardName;productCardNameWrap.style.whiteSpace="normal";const productCardReviewsNumber=getFirstElementInnerNumber(productCard,PRODUCT_CARD_REVIEWS_SELECTOR,true);const productCardRatingNumber=getFirstElementInnerNumber(productCard,PRODUCT_CARD_RATING_SELECTOR,true,true);const productCardPriceNumber=getFirstElementInnerNumber(productCard,PRODUCT_CARD_PRICE_SELECTOR,true);const conditionToHide=isNotMatchTextFilter(productCardName,nameFilter)||isLessThanFilter(productCardReviewsNumber,minReviewsFilter)||isGreaterThanFilter(productCardReviewsNumber,maxReviewsFilter)||isLessThanFilter(productCardRatingNumber,minRatingFilter)||productCardPriceNumber<minPriceValue;showHideElement(productCard,conditionToHide)}))}
 
 
-class ProductData{constructor(lastCheckDate=(new Date).toLocaleDateString(),lowestPrice=0,highestPrice=0){this.lastCheckDate=lastCheckDate;this.lowestPrice=lowestPrice;this.highestPrice=highestPrice}
+function getCurrentDate(){return(new Date).toLocaleDateString()}
+
+
+class ProductData{constructor(lastCheckDate=getCurrentDate(),lowestPrice=0,highestPrice=0){this.lastCheckDate=lastCheckDate;this.lowestPrice=lowestPrice;this.highestPrice=highestPrice}
 // todo: extract new date to utils
-updateLastCheckDate=()=>{this.lastCheckDate=(new Date).toLocaleDateString()};static fromObject(obj){const{lastCheckDate,lowestPrice,highestPrice}=obj;return new ProductData(lastCheckDate,lowestPrice,highestPrice)}}
+updateLastCheckDate=()=>{this.lastCheckDate=getCurrentDate()};static fromObject(obj){const{lastCheckDate,lowestPrice,highestPrice}=obj;return new ProductData(lastCheckDate,lowestPrice,highestPrice)}}
 
 
-class DatedValue{constructor(value,date=(new Date).toLocaleDateString()){this.value=value;this.date=date}}
+class DatedValue{constructor(value,date=getCurrentDate()){this.value=value;this.date=date}}
 
 
 class PriceData{constructor(current,lowest,highest){this.current=current;this.lowest=lowest;this.highest=highest}}
