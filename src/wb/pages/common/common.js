@@ -1,5 +1,7 @@
 import { getStorageValue, setStorageValue } from '../../../common/storage/storage';
 import { ProductData } from '../../../common/models/productData';
+import { DatedValue } from '../../../common/models/datedValue';
+import { appendStoredPriceValue } from '../../../common/dom/elementsFactory';
 import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
 
 export function appendPriceHistory(priceContainer, priceSelector, productArticle) {
@@ -16,3 +18,20 @@ export function appendPriceHistory(priceContainer, priceSelector, productArticle
     setStorageValue(productStorageKey, currentProduct);
 }
 
+function updateAndAppendStoredPriceValue(
+    product, priceKey, compareCondition, currentPriceValue, label, color, priceContainer,
+) {
+    let storedPrice = product[priceKey];
+
+    if (!currentPriceValue) {
+        if (!storedPrice) return product;
+    } else if (!storedPrice || compareCondition(storedPrice)) {
+        const currentPrice = new DatedValue(currentPriceValue);
+        product[priceKey] = currentPrice;
+        storedPrice = currentPrice;
+    }
+
+    appendStoredPriceValue(label, storedPrice, color, priceContainer);
+
+    return product;
+}
