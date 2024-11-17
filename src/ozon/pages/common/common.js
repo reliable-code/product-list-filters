@@ -81,6 +81,12 @@ function updateAndAppendStoredPriceValue(
         storedPrice = currentPrice;
     }
 
+    appendStoredPriceValue(label, storedPrice, color, priceContainer);
+
+    return storedPrice.value;
+}
+
+function appendStoredPriceValue(label, storedPrice, color, priceContainer) {
     const divText = `${label}: `;
     const divStyle =
         'color: #000;' +
@@ -106,8 +112,6 @@ function updateAndAppendStoredPriceValue(
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
-
-    return storedPrice.value;
 }
 
 export function createDislikeButton(onClick, needLabel = true) {
