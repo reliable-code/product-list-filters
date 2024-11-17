@@ -11,4 +11,14 @@ export class ProductData {
     updateLastCheckDate = () => {
         this.lastCheckDate = new Date().toLocaleDateString();
     };
+
+    static fromObject(obj) {
+        const {
+            lastCheckDate,
+            lowestPrice,
+            highestPrice,
+        } = obj;
+
+        return new ProductData(lastCheckDate, lowestPrice, highestPrice);
+    }
 }
