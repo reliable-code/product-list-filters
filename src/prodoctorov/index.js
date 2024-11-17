@@ -1,6 +1,4 @@
 import {
-    createDiv,
-    createLink,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -19,6 +17,7 @@ import {
     isNotMatchTextFilter,
 } from '../common/filter';
 import { getURLPathElement } from '../common/url';
+import { createDiv, createLink } from '../common/elementsFactory';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';

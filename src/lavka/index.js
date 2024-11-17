@@ -1,5 +1,4 @@
 import {
-    createDiv,
     debounce,
     getAllElements,
     getElementInnerNumber,
@@ -21,6 +20,7 @@ import {
     isLessThanFilter,
 } from '../common/filter';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
+import { createDiv } from '../common/elementsFactory';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);

@@ -1,7 +1,4 @@
 import {
-    createDiv,
-    createLink,
-    createSpan,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -17,6 +14,7 @@ import {
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
 import { getURLPathElementEnding } from '../../common/url';
+import { createDiv, createLink, createSpan } from '../../common/elementsFactory';
 
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 
