@@ -60,8 +60,3 @@ function parseNumber(text, cleanText, replaceComma) {
 
     return number;
 }
-
-// todo: move to storage utils
-export function parseValue(value) {
-    return value === '' ? null : JSON.parse(value);
-}

@@ -1,6 +1,6 @@
 import { InputValueBase } from './inputValueBase';
-import { parseValue } from '../../dom/helpers';
 import { getInputValueFromEvent } from '../helpers';
+import { parseValue } from '../utils';
 
 export class InputValue extends InputValueBase {
     constructor(defaultValue = null, onChange = null) {

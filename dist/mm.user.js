@@ -6,7 +6,7 @@
 // @grant        GM_getValue
 // @match        https://megamarket.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.1.73185097
+// @version      0.1.73185483
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=megamarket.ru
 // @author       reliable-code
 // ==/UserScript==
@@ -20,13 +20,19 @@ function waitForElement(parentNode,selector,timeout=null){return new Promise((re
 function createTextInput(inputOnChange,inputStyle,inputValue){const input=createInput("text",inputOnChange,inputStyle);input.value=inputValue;return input}function createNumberInput(inputOnChange,inputStyle,inputValue,inputStep,inputMinValue,inputMaxValue){const input=createInput("number",inputOnChange,inputStyle);input.value=inputValue;input.step=inputStep;input.min=inputMinValue;input.max=inputMaxValue;return input}function createCheckboxInput(inputOnChange,inputStyle,isChecked){const input=createInput("checkbox",inputOnChange,inputStyle);input.checked=isChecked;return input}function createInput(type=null,inputOnChange=null,style=null){const input=document.createElement("input");type&&(input.type=type);if(inputOnChange){input.addEventListener("keyup",debounce(inputOnChange,200));input.addEventListener("change",debounce(inputOnChange,100))}style&&(input.style=style);return input}function createDiv(textContent=null,style=null){const div=document.createElement("div");textContent&&(div.textContent=textContent);style&&(div.style=style);return div}function removeNonNumber(stringValue){return stringValue.replace(/[^\d.,-]/g,"")}
 
 
-function getFirstElement(selector,parentNode=document,logNotFound=false){const element=parentNode.querySelector(selector);logNotFound&&!element&&console.log(`No element found for selector: ${selector}`);return element}function getAllElements(selector,parentNode=document,logNotFound=false){const elements=parentNode.querySelectorAll(selector);logNotFound&&!elements.length&&console.log(`No elements found for selector: ${selector}`);return elements}function getElementInnerNumber(element,cleanText=false,replaceComma=false,defaultValue=null){if(!element){if(defaultValue!==null)return defaultValue;console.log("No element found")}const elementText=element.innerText;return parseNumber(elementText,cleanText,replaceComma)}function parseNumber(text,cleanText,replaceComma){cleanText&&(text=removeNonNumber(text));replaceComma&&(text=text.replace(",","."));const number=+text;return number}function getInputValueFromEvent(event){const{target}=event;const{type}=target;switch(type){case"text":return`"${target.value}"`;case"number":return target.value;case"checkbox":return target.checked;default:console.log(`Unknown input type: ${type}`);return null}}function parseValue(value){return value===""?null:JSON.parse(value)}
+function getFirstElement(selector,parentNode=document,logNotFound=false){const element=parentNode.querySelector(selector);logNotFound&&!element&&console.log(`No element found for selector: ${selector}`);return element}function getAllElements(selector,parentNode=document,logNotFound=false){const elements=parentNode.querySelectorAll(selector);logNotFound&&!elements.length&&console.log(`No elements found for selector: ${selector}`);return elements}function getElementInnerNumber(element,cleanText=false,replaceComma=false,defaultValue=null){if(!element){if(defaultValue!==null)return defaultValue;console.log("No element found")}const elementText=element.innerText;return parseNumber(elementText,cleanText,replaceComma)}function parseNumber(text,cleanText,replaceComma){cleanText&&(text=removeNonNumber(text));replaceComma&&(text=text.replace(",","."));const number=+text;return number}
 
 
 function appendFilterControlsIfNeeded(parentNode,appendFiltersContainerFunc,force=false,filtersContainerId="customFiltersContainer"){let filtersContainer=getFirstElement(`#${filtersContainerId}`,parentNode);if(filtersContainer){if(!force)return;filtersContainer.remove()}filtersContainer=createDiv();filtersContainer.id=filtersContainerId;appendFiltersContainerFunc(filtersContainer,parentNode)}
 
 
 class InputValueBase{constructor(value,onChange){this.value=value;this.onChange=onChange}onChangeIfDefined=()=>{this.onChange&&this.onChange()}}
+
+
+function getInputValueFromEvent(event){const{target}=event;const{type}=target;switch(type){case"text":return`"${target.value}"`;case"number":return target.value;case"checkbox":return target.checked;default:console.log(`Unknown input type: ${type}`);return null}}
+
+
+function parseValue(value){return value===""?null:JSON.parse(value)}
 
 
 const setStorageValue=window.GM_setValue;const getStorageValue=window.GM_getValue;window.GM_addValueChangeListener;class StoredInputValue extends InputValueBase{constructor(storageKey,defaultValue=null,onChange=null){super(getStorageValue(storageKey,defaultValue),onChange);this.storageKey=storageKey}updateValueFromEvent=event=>{const newValue=getInputValueFromEvent(event);const newParsedValue=parseValue(newValue);if(this.value===newParsedValue)return;setStorageValue(this.storageKey,newParsedValue);this.value=newParsedValue;this.onChangeIfDefined()}}

@@ -1,6 +1,6 @@
 import { InputValueBase } from './models/inputValueBase';
-import { parseValue } from '../dom/helpers';
 import { getInputValueFromEvent } from './helpers';
+import { parseValue } from './utils';
 
 const storage = localStorage;
 

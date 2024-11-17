@@ -3,7 +3,7 @@
 // @description  Remove product cards by filter
 // @match        https://www.dns-shop.ru/catalog/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.1.73185097
+// @version      0.1.73185483
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=dns-shop.ru
 // @author       reliable-code
 // ==/UserScript==
@@ -14,13 +14,19 @@
 class InputValueBase{constructor(value,onChange){this.value=value;this.onChange=onChange}onChangeIfDefined=()=>{this.onChange&&this.onChange()}}
 
 
-function getFirstElement(selector,parentNode=document,logNotFound=false){const element=parentNode.querySelector(selector);logNotFound&&!element&&console.log(`No element found for selector: ${selector}`);return element}function getAllElements(selector,parentNode=document,logNotFound=false){const elements=parentNode.querySelectorAll(selector);logNotFound&&!elements.length&&console.log(`No elements found for selector: ${selector}`);return elements}function getInputValueFromEvent(event){const{target}=event;const{type}=target;switch(type){case"text":return`"${target.value}"`;case"number":return target.value;case"checkbox":return target.checked;default:console.log(`Unknown input type: ${type}`);return null}}function parseValue(value){return value===""?null:JSON.parse(value)}
+function getInputValueFromEvent(event){const{target}=event;const{type}=target;switch(type){case"text":return`"${target.value}"`;case"number":return target.value;case"checkbox":return target.checked;default:console.log(`Unknown input type: ${type}`);return null}}
+
+
+function parseValue(value){return value===""?null:JSON.parse(value)}
 
 
 const storage=localStorage;function getStorageValueOrDefault(key,defaultValue=null){const localStorageItem=storage.getItem(key);return localStorageItem===null?defaultValue:parseValue(localStorageItem)}class StoredInputValue extends InputValueBase{constructor(storageKey,defaultValue=null,onChange=null){super(getStorageValueOrDefault(storageKey,defaultValue),onChange);this.storageKey=storageKey}updateValueFromEvent=event=>{const newValue=getInputValueFromEvent(event);const newParsedValue=parseValue(newValue);if(this.value===newParsedValue)return;storage.setItem(this.storageKey,newValue);this.value=newParsedValue;this.onChangeIfDefined()}}function debounce(func,wait=250){let timeoutId;return(...args)=>{clearTimeout(timeoutId);timeoutId=setTimeout((()=>func(...args)),wait)}}
 
 
 function createTextInput(inputOnChange,inputStyle,inputValue){const input=createInput("text",inputOnChange,inputStyle);input.value=inputValue;return input}function createNumberInput(inputOnChange,inputStyle,inputValue,inputStep,inputMinValue,inputMaxValue){const input=createInput("number",inputOnChange,inputStyle);input.value=inputValue;input.step=inputStep;input.min=inputMinValue;input.max=inputMaxValue;return input}function createCheckboxInput(inputOnChange,inputStyle,isChecked){const input=createInput("checkbox",inputOnChange,inputStyle);input.checked=isChecked;return input}function createInput(type=null,inputOnChange=null,style=null){const input=document.createElement("input");type&&(input.type=type);if(inputOnChange){input.addEventListener("keyup",debounce(inputOnChange,200));input.addEventListener("change",debounce(inputOnChange,100))}style&&(input.style=style);return input}function createDiv(textContent=null,style=null){const div=document.createElement("div");textContent&&(div.textContent=textContent);style&&(div.style=style);return div}
+
+
+function getFirstElement(selector,parentNode=document,logNotFound=false){const element=parentNode.querySelector(selector);logNotFound&&!element&&console.log(`No element found for selector: ${selector}`);return element}function getAllElements(selector,parentNode=document,logNotFound=false){const elements=parentNode.querySelectorAll(selector);logNotFound&&!elements.length&&console.log(`No elements found for selector: ${selector}`);return elements}
 
 
 function appendFilterControlsIfNeeded(parentNode,appendFiltersContainerFunc,force=false,filtersContainerId="customFiltersContainer"){let filtersContainer=getFirstElement(`#${filtersContainerId}`,parentNode);if(filtersContainer){if(!force)return;filtersContainer.remove()}filtersContainer=createDiv();filtersContainer.id=filtersContainerId;appendFiltersContainerFunc(filtersContainer,parentNode)}function string_removeNonNumber(stringValue){return stringValue.replace(/[^\d.,-]/g,"")}
