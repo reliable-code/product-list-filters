@@ -20,7 +20,10 @@ function initAppendPriceHistory() {
             const priceContainer =
                 getFirstElement(PRICE_CONTAINER_SELECTOR, sideContainer);
 
+            if (!priceContainer) return;
+
             const priceSpan = getFirstElement(PRICE_SELECTOR, priceContainer);
+
             appendPriceHistory(priceContainer, priceSpan, productArticle);
         });
 }
