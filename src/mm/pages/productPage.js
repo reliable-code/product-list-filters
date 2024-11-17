@@ -8,7 +8,7 @@ import {
     PRICE_ATTR,
 } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
-import { InputValue } from '../../common/models/inputValue';
+import { InputValue } from '../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
 import {
     createCouponValueControl,

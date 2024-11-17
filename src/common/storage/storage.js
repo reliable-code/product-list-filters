@@ -1,4 +1,4 @@
-import { InputValueBase } from '../models/inputValueBase';
+import { InputValueBase } from './models/inputValueBase';
 import { getInputValueFromEvent, parseValue } from '../dom/helpers';
 
 export const setStorageValue = window.GM_setValue;

@@ -1,7 +1,7 @@
 import { waitForElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
-import { InputValue } from '../common/models/inputValue';
+import { InputValue } from '../common/storage/models/inputValue';
 import { isLessThanFilter } from '../common/filter/compare';
 import {
     createEnabledFilterControl,
