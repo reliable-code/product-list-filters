@@ -29,7 +29,7 @@ import {
     createFilterControlNumber,
     createNameFilterControl,
     isNotMatchTextFilter,
-} from '../../common/filter';
+} from '../../common/filter/filter';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 const APPEND_STORED_PRICE_VALUES_PASSED_ATTR = 'appendStoredPriceValuesPassed';

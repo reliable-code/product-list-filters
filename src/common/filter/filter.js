@@ -1,10 +1,10 @@
-import { getFirstElement } from './dom';
+import { getFirstElement } from '../dom';
 import {
     createCheckboxInput,
     createDiv,
     createNumberInput,
     createTextInput,
-} from './elementsFactory';
+} from '../elementsFactory';
 
 export function createFilterControlText(
     titleText,

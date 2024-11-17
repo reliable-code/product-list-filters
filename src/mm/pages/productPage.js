@@ -18,7 +18,7 @@ import {
     createMinRatingFilterControl,
     isGreaterThanFilter,
     isLessThanFilter,
-} from '../../common/filter';
+} from '../../common/filter/filter';
 
 import { StoredInputValue } from '../../common/storage';
 import {

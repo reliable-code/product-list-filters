@@ -17,7 +17,7 @@ import {
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../../common/filter';
+} from '../../common/filter/filter';
 import { StoredInputValue } from '../../common/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getURLPathElement } from '../../common/url';

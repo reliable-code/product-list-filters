@@ -14,7 +14,7 @@ import {
     createFilterControlCheckbox,
     createMinVotesFilterControl,
     isLessThanFilter,
-} from '../common/filter';
+} from '../common/filter/filter';
 import { InputValue } from '../common/models/inputValue';
 
 const minVotesFilter = new InputValue(50);

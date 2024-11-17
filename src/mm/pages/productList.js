@@ -20,7 +20,7 @@ import {
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../../common/filter';
+} from '../../common/filter/filter';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
 import { getURLPathElement } from '../../common/url';
 import { InputValue } from '../../common/models/inputValue';

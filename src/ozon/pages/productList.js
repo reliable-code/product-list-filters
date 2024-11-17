@@ -23,7 +23,7 @@ import {
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../../common/filter';
+} from '../../common/filter/filter';
 import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,

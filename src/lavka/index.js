@@ -18,7 +18,7 @@ import {
     createMinDiscountFilterControl,
     isGreaterThanFilter,
     isLessThanFilter,
-} from '../common/filter';
+} from '../common/filter/filter';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { createDiv } from '../common/elementsFactory';
 

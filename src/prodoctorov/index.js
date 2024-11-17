@@ -15,7 +15,7 @@ import {
     createMinReviewsFilterControl,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../common/filter';
+} from '../common/filter/filter';
 import { getURLPathElement } from '../common/url';
 import { createDiv, createLink } from '../common/elementsFactory';
 

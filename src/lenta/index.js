@@ -18,7 +18,7 @@ import {
     createNoRatingFilterControl,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../common/filter';
+} from '../common/filter/filter';
 import { removeNonDigit } from '../common/string';
 import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
 

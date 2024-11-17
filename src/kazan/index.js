@@ -17,7 +17,7 @@ import {
     createNameFilterControl,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../common/filter';
+} from '../common/filter/filter';
 import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
 
 let nameFilter;

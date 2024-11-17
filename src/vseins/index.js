@@ -16,7 +16,7 @@ import {
     createNameFilterControl,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../common/filter';
+} from '../common/filter/filter';
 
 const PRODUCT_LIST_SELECTOR = '[data-qa="listing"]';
 
