@@ -29,8 +29,8 @@ import {
 import { checkIfGoodPrice } from '../../common/priceHistory/manipulation';
 
 const FILTER_CONTAINER_SELECTOR = '.favorites-goods__head';
-const PRODUCT_LIST_SELECTOR = '.favorites-goods__list';
 const PRODUCT_CARDS_SELECTOR = '.goods-card';
+const PRODUCT_LIST_CONTAINER_SELECTOR = '.favorites-goods';
 const PRICE_SELECTOR = '.wallet-price';
 
 const nameFilter =
@@ -48,12 +48,12 @@ export function initFavoritesMods() {
         .then((filterContainer) => {
             appendFilterControlsIfNeeded(filterContainer, appendFiltersContainer);
 
-            const productList = getFirstElement(PRODUCT_LIST_SELECTOR);
+            const productListContainer = getFirstElement(PRODUCT_LIST_CONTAINER_SELECTOR);
 
             processList();
             const observer = new MutationObserver(debounce(processList));
 
-            observer.observe(productList, {
+            observer.observe(productListContainer, {
                 childList: true,
                 subtree: true,
             });
