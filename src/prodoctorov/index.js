@@ -4,7 +4,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    getURLPathElement,
     hideElement,
     showElement,
     showHideElement,
@@ -19,6 +18,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../common/filter';
+import { getURLPathElement } from '../common/url';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';

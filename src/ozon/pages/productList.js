@@ -5,7 +5,6 @@ import {
     getArrayElementInnerNumber,
     getElementInnerNumber,
     getFirstElement,
-    getURLPathElementEnding,
     hideElement,
     showElement,
     showHideElement,
@@ -41,6 +40,7 @@ import {
     setStoredRatingValue,
     TEXT_INPUT_STYLE,
 } from './common/common';
+import { getURLPathElementEnding } from '../../common/url';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

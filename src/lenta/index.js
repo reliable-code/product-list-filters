@@ -3,9 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    getPathnameElement,
-    getURLPathElementEnding,
-    pathnameIncludes,
     resetElementOpacity,
     resetElementOrder,
     setElementOrder,
@@ -23,6 +20,7 @@ import {
     isNotMatchTextFilter,
 } from '../common/filter';
 import { removeNonDigit } from '../common/string';
+import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
 
 const CATEGORY_NAME = getURLPathElementEnding(2);
 

@@ -2,13 +2,13 @@ import {
     addGlobalStyle,
     getElementInnerNumber,
     getFirstElement,
-    somePathElementEquals,
     waitForElement,
 } from '../common/dom';
 import { getStorageValue, setStorageValue } from '../common/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
+import { somePathElementEquals } from '../common/url';
 
 const COMMENTS_SELECTOR = '#comments';
 

@@ -3,9 +3,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
     getNodeInnerNumber,
-    getURLPathElementEnding,
     hideElement,
-    pathnameIncludes,
     showElement,
     showHideElement,
     waitForElement,
@@ -20,6 +18,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../common/filter';
+import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
 
 let nameFilter;
 let minReviewsFilter;

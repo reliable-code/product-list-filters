@@ -1,6 +1,6 @@
 import { initProductPageMods } from './pages/productPage';
 import { initProductListMods } from './pages/productList';
-import { pathnameIncludes } from '../common/dom';
+import { pathnameIncludes } from '../common/url';
 
 if (isProductPage()) {
     initProductPageMods();

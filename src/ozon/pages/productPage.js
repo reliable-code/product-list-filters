@@ -5,7 +5,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    getURLPathElementEnding,
     insertAfter,
     waitForElement,
 } from '../../common/dom';
@@ -17,6 +16,7 @@ import {
 } from './common/common';
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
+import { getURLPathElementEnding } from '../../common/url';
 
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 

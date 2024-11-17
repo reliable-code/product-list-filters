@@ -5,12 +5,12 @@ import {
     createSpan,
     getFirstElement,
     getNodeInnerNumber,
-    getPathnameElementEnding,
 } from '../../../common/dom';
 import { getStorageValue, setStorageValue } from '../../../common/storage';
 import { DatedValue } from '../../../common/models/datedValue';
 import { heartStrikeDislikeIcon } from './icons';
 import { PriceData } from '../../../common/models/priceData';
+import { getPathnameElementEnding } from '../../../common/url';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div.tile-root';
 export const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';

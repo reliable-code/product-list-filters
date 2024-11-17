@@ -1,7 +1,6 @@
 import {
     getAllElements,
     getFirstElement,
-    getURLPathElement,
     hideElement,
     showElement,
     showHideElement,
@@ -17,6 +16,7 @@ import {
     isNotMatchTextFilter,
 } from '../common/filter';
 import { removeNonNumber } from '../common/string';
+import { getURLPathElement } from '../common/url';
 
 const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 

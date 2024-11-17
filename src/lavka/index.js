@@ -5,10 +5,8 @@ import {
     getElementInnerNumber,
     getFirstElement,
     insertAfter,
-    pathnameIncludes,
     showElement,
     showHideElement,
-    somePathElementEquals,
 } from '../common/dom';
 import { StoredInputValue } from '../common/localstorage';
 import { removeNonDigit } from '../common/string';
@@ -22,6 +20,7 @@ import {
     isGreaterThanFilter,
     isLessThanFilter,
 } from '../common/filter';
+import { pathnameIncludes, somePathElementEquals } from '../common/url';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);

@@ -3,7 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    getURLPathElement,
     hideElement,
     InputValue,
     showElement,
@@ -24,6 +23,7 @@ import {
     isNotMatchTextFilter,
 } from '../../common/filter';
 import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
+import { getURLPathElement } from '../../common/url';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =

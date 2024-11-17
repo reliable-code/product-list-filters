@@ -3,7 +3,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    getURLPathElementEnding,
     hideElement,
     InputValue,
     showElement,
@@ -28,6 +27,7 @@ import {
     BALANCED_CASHBACK_PRICE_ATTR,
     PRICE_ATTR,
 } from './common/common';
+import { getURLPathElementEnding } from '../../common/url';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 
