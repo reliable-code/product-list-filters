@@ -1,6 +1,7 @@
 import { getStorageValue, setStorageValue } from '../../../common/storage/storage';
 import { ProductData } from '../../../common/models/productData';
 import { DatedValue } from '../../../common/models/datedValue';
+import { PriceData } from '../../../common/models/priceData';
 import { appendStoredPriceValue } from '../../../common/dom/elementsFactory';
 import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
 
@@ -15,7 +16,39 @@ export function appendPriceHistory(priceContainer, priceSelector, productArticle
         currentProduct = new ProductData();
     }
 
+    const lowestPriceKey = 'lowestPrice';
+    const highestPriceKey = 'highestPrice';
+
+    currentProduct = updateAndAppendStoredPriceValue(
+        currentProduct,
+        lowestPriceKey,
+        (storedPrice) => currentPriceValue <= storedPrice.value,
+        currentPriceValue,
+        'Мин. цена',
+        '#d6f5b1',
+        priceContainer,
+    );
+
+    currentProduct = updateAndAppendStoredPriceValue(
+        currentProduct,
+        highestPriceKey,
+        (storedPrice) => currentPriceValue >= storedPrice.value,
+        currentPriceValue,
+        'Макс. цена',
+        '#fed2ea',
+        priceContainer,
+    );
+
     setStorageValue(productStorageKey, currentProduct);
+
+    const priceData =
+        new PriceData(
+            currentPriceValue,
+            currentProduct.lowestPrice,
+            currentProduct.highestPrice,
+        );
+
+    return priceData;
 }
 
 function updateAndAppendStoredPriceValue(
