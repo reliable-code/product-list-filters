@@ -37,31 +37,37 @@ const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
 
 export function initProductPageMods() {
-    const main = getFirstElement('.app__main');
+    executeProductPageMods();
 
-    const observer = new MutationObserver(debounce(() => executeProductPageMods(observer)));
+    waitForElement(document, '#app')
+        .then((app) => {
+            const observer = new MutationObserver(debounce(executeProductPageMods));
 
-    observer.observe(main, {
-        childList: true,
-        subtree: true,
-    });
+            observer.observe(app, {
+                childList: true,
+            });
+        });
 }
 
-function executeProductPageMods(mainObserver) {
-    mainObserver.disconnect();
-
+function executeProductPageMods() {
     waitForElement(document, '.pdp-prices-filter')
         .then((offersFilter) => {
             appendFilterControlsIfNeeded(offersFilter, appendFiltersContainer);
+
             cleanOffers();
-            const observer = new MutationObserver(debounce(cleanOffers, 50));
 
             const offersContainer = getFirstElement('.pdp-prices');
+
+            if (offersContainer.hasAttribute('observed')) return;
+
+            const observer = new MutationObserver(debounce(cleanOffers, 50));
 
             observer.observe(offersContainer, {
                 childList: true,
                 subtree: true,
             });
+
+            offersContainer.setAttribute('observed', '');
         });
 }
 
