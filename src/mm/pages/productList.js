@@ -39,25 +39,37 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.catalog-item-regular-desktop__price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 
 export function initProductListMods() {
-    waitForElement(document, PRODUCT_CARD_LIST_CONTROLS)
-        .then((productCardListHeader) => {
-            const productCardListContainer = productCardListHeader.parentNode;
+    executeProductListMods();
 
-            const observer = new MutationObserver(debounce(initListClean, 50));
+    waitForElement(document, '#app')
+        .then((app) => {
+            const observer = new MutationObserver(debounce(executeProductListMods));
 
-            observer.observe(productCardListContainer, {
+            observer.observe(app, {
                 childList: true,
                 subtree: true,
             });
         });
 }
 
-function initListClean() {
-    const productCardListHeader = getFirstElement(PRODUCT_CARD_LIST_CONTROLS);
+function executeProductListMods() {
+    waitForElement(document, PRODUCT_CARD_LIST_CONTROLS)
+        .then((productCardListHeader) => {
+            appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
 
-    appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
+            const productCardListContainer = productCardListHeader.parentNode;
 
-    cleanList();
+            if (productCardListContainer.hasAttribute('observed')) return;
+
+            const observer = new MutationObserver(debounce(cleanList, 50));
+
+            observer.observe(productCardListContainer, {
+                childList: true,
+                subtree: true,
+            });
+
+            productCardListContainer.setAttribute('observed', '');
+        });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
