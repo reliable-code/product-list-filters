@@ -1,6 +1,6 @@
 import { getStorageValue, setStorageValue } from '../../common/storage/storage';
 
-export function migrateDatabase() {
+export function migrate() {
     const actualDBVersion = 4;
 
     const dbVersion = getStorageValue('dbVersion');
