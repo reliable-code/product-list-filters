@@ -82,11 +82,7 @@ function getCategoryName() {
     } else {
         const categoryNameElement = getURLPathElement(2, '');
 
-        if (categoryNameElement) {
-            categoryName = getHash(categoryNameElement);
-        } else {
-            categoryName = 'common';
-        }
+        categoryName = categoryNameElement ? getHash(categoryNameElement) : 'common';
     }
 
     return categoryName;
