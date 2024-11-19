@@ -76,14 +76,18 @@ function getCategoryName() {
 
     if (somePathElementEquals('search')) {
         const textParam = getURLQueryStringParam('text');
-        categoryName = getHash(textParam);
+        categoryName = getHashOrDefault(textParam);
     } else {
         const categoryNameElement = getURLPathElement(2, '');
 
-        categoryName = categoryNameElement ? getHash(categoryNameElement) : 'common';
+        categoryName = getHashOrDefault(categoryNameElement);
     }
 
     return categoryName;
+}
+
+function getHashOrDefault(value, defaultValue = 'common') {
+    return value ? getHash(value) : defaultValue;
 }
 
 export function initProductListMods() {
