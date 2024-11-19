@@ -5,11 +5,11 @@ import { initProductPageMods } from './pages/productPage';
 import { somePathElementEquals } from '../common/url';
 import { addGlobalStyle } from '../common/dom/manipulation';
 import { getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
-import { migrate } from './db/db';
+import { migrate as migrateDb } from './db/db';
 
 const COMMENTS_SELECTOR = '#comments';
 
-migrate();
+migrateDb();
 
 hideUnwantedElements();
 
