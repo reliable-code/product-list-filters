@@ -1,36 +1,15 @@
 import { waitForElement } from '../common/dom/utils';
-import { getStorageValue, setStorageValue } from '../common/storage/storage';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
 import { somePathElementEquals } from '../common/url';
 import { addGlobalStyle } from '../common/dom/manipulation';
 import { getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import { migrateDatabase } from './db/db';
 
 const COMMENTS_SELECTOR = '#comments';
 
 migrateDatabase();
-
-function migrateDatabase() {
-    const actualDBVersion = 4;
-
-    const dbVersion = getStorageValue('dbVersion');
-    if (dbVersion === actualDBVersion) return;
-
-    const filterCondition = (key) => key.includes('filter');
-
-    const priceKeys = window.GM_listValues()
-        .filter(filterCondition);
-    priceKeys.forEach((key) => {
-        const object = getStorageValue(key);
-
-        console.log(`${key}: ${object}`);
-
-        window.GM_deleteValue(key);
-    });
-
-    setStorageValue('dbVersion', actualDBVersion);
-}
 
 hideUnwantedElements();
 
