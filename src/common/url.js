@@ -37,6 +37,14 @@ export function getPathnameElementEnding(pathname, position, defaultValue = 'com
     return getPathElementEnding(pathElement, defaultValue, logResult);
 }
 
+export function getURLQueryStringParam(paramName) {
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const param = params.get(paramName);
+
+    return param;
+}
+
 export function pathnameIncludes(searchString) {
     return window.location.pathname.includes(searchString);
 }

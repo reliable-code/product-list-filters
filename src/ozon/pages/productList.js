@@ -17,7 +17,7 @@ import {
     setStoredRatingValue,
     TEXT_INPUT_STYLE,
 } from './common/common';
-import { getURLPathElement, somePathElementEquals } from '../../common/url';
+import { getURLPathElement, getURLQueryStringParam, somePathElementEquals } from '../../common/url';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
@@ -75,9 +75,7 @@ function getCategoryName() {
     let categoryName;
 
     if (somePathElementEquals('search')) {
-        const queryString = window.location.search;
-        const params = new URLSearchParams(queryString);
-        const textParam = params.get('text');
+        const textParam = getURLQueryStringParam('text');
         categoryName = getHash(textParam);
     } else {
         const categoryNameElement = getURLPathElement(2, '');
