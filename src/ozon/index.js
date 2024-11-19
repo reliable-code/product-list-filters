@@ -5,7 +5,7 @@ import { initProductPageMods } from './pages/productPage';
 import { somePathElementEquals } from '../common/url';
 import { addGlobalStyle } from '../common/dom/manipulation';
 import { getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
-import { migrate as migrateDb } from './db/db';
+import { runMigration as migrateDb } from './db/db';
 
 const COMMENTS_SELECTOR = '#comments';
 
