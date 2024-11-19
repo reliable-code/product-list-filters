@@ -57,7 +57,7 @@ const minPriceDivTextContent = () => `Минимальная цена: ${minPric
 
 function getCategoryName() {
     const categoryNamePosition = somePathElementEquals('brands') ? 2 : 3;
-    const categoryNameElement = getURLPathElement(categoryNamePosition);
+    const categoryNameElement = getURLPathElement(categoryNamePosition, '');
 
     let categoryName;
 
