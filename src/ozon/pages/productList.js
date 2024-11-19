@@ -17,7 +17,7 @@ import {
     setStoredRatingValue,
     TEXT_INPUT_STYLE,
 } from './common/common';
-import { getURLPathElementEnding } from '../../common/url';
+import { getURLPathElement, somePathElementEquals } from '../../common/url';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
@@ -40,6 +40,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
 } from '../../common/dom/helpers';
+import { fnv1aHash32 as getHash } from '../../common/crypto';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
@@ -48,7 +49,8 @@ const PRODUCT_CARD_PRICE_SELECTOR = '.tsHeadline500Medium';
 const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
 const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 
-const CATEGORY_NAME = getURLPathElementEnding(2);
+// todo: wrap into init func
+const CATEGORY_NAME = getCategoryName();
 
 const nameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
@@ -68,6 +70,27 @@ const nameLinesNumber =
     new StoredInputValue('name-lines-number', 2, cleanList);
 // const rowCardsNumber =
 //     new StoredInputValue('row-cards-number', 4, cleanList);
+
+function getCategoryName() {
+    let categoryName;
+
+    if (somePathElementEquals('search')) {
+        const queryString = window.location.search;
+        const params = new URLSearchParams(queryString);
+        const textParam = params.get('text');
+        categoryName = getHash(textParam);
+    } else {
+        const categoryNameElement = getURLPathElement(2, '');
+
+        if (categoryNameElement) {
+            categoryName = getHash(categoryNameElement);
+        } else {
+            categoryName = 'common';
+        }
+    }
+
+    return categoryName;
+}
 
 export function initProductListMods() {
     waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
