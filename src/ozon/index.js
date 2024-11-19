@@ -12,23 +12,21 @@ const COMMENTS_SELECTOR = '#comments';
 migrateDatabase();
 
 function migrateDatabase() {
-    const actualDBVersion = 3;
+    const actualDBVersion = 4;
 
     const dbVersion = getStorageValue('dbVersion');
     if (dbVersion === actualDBVersion) return;
 
-    const filterCondition = (key) => key.endsWith('-lp');
+    const filterCondition = (key) => key.includes('filter');
 
     const priceKeys = window.GM_listValues()
         .filter(filterCondition);
     priceKeys.forEach((key) => {
         const object = getStorageValue(key);
-        const { value } = object;
-        if (value === 0) {
-            console.log(key);
-            console.log(value);
-            window.GM_deleteValue(key);
-        }
+
+        console.log(`${key}: ${object}`);
+
+        window.GM_deleteValue(key);
     });
 
     setStorageValue('dbVersion', actualDBVersion);
