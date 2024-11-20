@@ -3,6 +3,9 @@ import { initProductPageMods } from './pages/productPage';
 import { initFavoritesMods } from './pages/favorites';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { debounce } from '../common/dom/utils';
+import { runMigration } from './db/db';
+
+runMigration();
 
 const headObserver = new MutationObserver(debounce(initMods));
 
