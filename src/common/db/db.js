@@ -25,5 +25,5 @@ export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log 
         processedCount += 1;
     });
 
-    return processedCount;
+    if (log) console.log(`Total entries processed: ${processedCount}`);
 }

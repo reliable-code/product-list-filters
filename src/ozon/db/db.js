@@ -12,8 +12,5 @@ function migrationTask() {
         window.GM_deleteValue(key);
     };
 
-    const processedCount =
-        processEntriesByKeyFilter(keyFilterCondition, processEntry);
-
-    console.log(`Total entries processed: ${processedCount}`);
+    processEntriesByKeyFilter(keyFilterCondition, processEntry);
 }
