@@ -1,7 +1,5 @@
-import { getCurrentDate } from '../dateUtils';
-
 export class DatedValue {
-    constructor(value, date = getCurrentDate()) {
+    constructor(value, date = Date.now()) {
         this.value = value;
         this.date = date;
     }

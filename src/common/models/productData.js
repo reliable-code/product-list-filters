@@ -1,8 +1,6 @@
-import { getCurrentDate } from '../dateUtils';
-
 export class ProductData {
     constructor(
-        lastCheckDate = getCurrentDate(), lowestPrice = null, highestPrice = null,
+        lastCheckDate = Date.now(), lowestPrice = null, highestPrice = null,
     ) {
         this.lastCheckDate = lastCheckDate;
         this.lowestPrice = lowestPrice;
@@ -18,7 +16,7 @@ export class ProductData {
     }
 
     updateLastCheckDate = () => {
-        this.lastCheckDate = getCurrentDate();
+        this.lastCheckDate = Date.now();
     };
 
     static fromObject(obj) {

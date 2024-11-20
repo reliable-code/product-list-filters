@@ -5,6 +5,7 @@ import { getStorageValue, setStorageValue } from '../storage/storage';
 import { ProductData } from '../models/productData';
 import { PriceData } from '../models/priceData';
 import { DatedValue } from '../models/datedValue';
+import { getLocalDateFromTimestamp } from '../dateUtils';
 
 export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -86,7 +87,7 @@ export function appendStoredPriceValue(label, storedPrice, color, priceContainer
     const storedPriceSpan = createSpan(spanText, spanStyle);
 
     storedPriceSpan.addEventListener('mouseover', () => {
-        storedPriceSpan.textContent = storedPrice.date;
+        storedPriceSpan.textContent = getLocalDateFromTimestamp(storedPrice.date);
     });
     storedPriceSpan.addEventListener('mouseleave', () => {
         storedPriceSpan.textContent = spanText;
