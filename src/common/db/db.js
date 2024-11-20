@@ -13,9 +13,13 @@ export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log 
     const allKeys = window.GM_listValues();
     const filteredKeys = allKeys.filter(keyFilterCondition);
 
+    processEntriesByKeys(filteredKeys, log, processEntry);
+}
+
+function processEntriesByKeys(keys, log, processEntry) {
     let processedCount = 0;
 
-    filteredKeys.forEach((key) => {
+    keys.forEach((key) => {
         const value = getStorageValue(key);
 
         if (log) console.log(`${key}: ${value}`);
