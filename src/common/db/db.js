@@ -15,10 +15,10 @@ export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log 
     const allKeys = getAllKeys();
     const filteredKeys = allKeys.filter(keyFilterCondition);
 
-    processEntriesByKeys(filteredKeys, log, processEntry);
+    processEntriesByKeys(filteredKeys, processEntry, log);
 }
 
-function processEntriesByKeys(keys, log, processEntry) {
+function processEntriesByKeys(keys, processEntry, log) {
     let processedCount = 0;
 
     keys.forEach((key) => {
