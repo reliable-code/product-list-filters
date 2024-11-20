@@ -8,17 +8,17 @@ export function runMigration() {
 }
 
 function migrationTask() {
-    const filterCondition = (key) => key.includes('filter');
+    const keyFilterCondition = (key) => key.includes('filter');
     const processEntry = (key, value) => {
         window.GM_deleteValue(key);
     };
 
-    processEntriesByFilter(filterCondition, processEntry);
+    processEntriesByKeyFilter(keyFilterCondition, processEntry);
 }
 
-export function processEntriesByFilter(filterCondition, processEntry, log = true) {
+export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log = true) {
     const allKeys = window.GM_listValues();
-    const filteredKeys = allKeys.filter(filterCondition);
+    const filteredKeys = allKeys.filter(keyFilterCondition);
 
     filteredKeys.forEach((key) => {
         const value = getStorageValue(key);
