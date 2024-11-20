@@ -27,3 +27,12 @@ export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log 
 
     if (log) console.log(`Total entries processed: ${processedCount}`);
 }
+
+export function deleteMigrationTask(keyFilterCondition, test = false) {
+    const processEntry = (key) => {
+        if (test) return;
+        window.GM_deleteValue(key);
+    };
+
+    processEntriesByKeyFilter(keyFilterCondition, processEntry);
+}
