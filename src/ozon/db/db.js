@@ -40,3 +40,25 @@ function updateProduct(entryKey, productPropKey, value) {
 
     window.GM_deleteValue(entryKey);
 }
+
+export function setStoredRatingValue(productArticle, ratingValue) {
+    const productStorageKey = `product-${productArticle}`;
+    const storedProduct = getStorageValue(productStorageKey);
+
+    const currentProduct =
+        storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
+    currentProduct.rating = ratingValue;
+
+    setStorageValue(productStorageKey, currentProduct);
+    setStorageValue('last-rate-update', Date.now());
+}
+
+export function getStoredRatingValue(productArticle) {
+    const storedProduct = getStoredProductValue(productArticle);
+    return storedProduct?.rating ?? null;
+}
+
+export function getStoredProductValue(productArticle) {
+    const productStorageKey = `product-${productArticle}`;
+    return getStorageValue(productStorageKey);
+}

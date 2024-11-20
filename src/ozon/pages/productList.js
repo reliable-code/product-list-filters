@@ -7,14 +7,12 @@ import {
     createDislikeButton,
     getFirstProductCardsWrap,
     getProductArticleFromLink,
-    getStoredRatingValue,
     moveProductCardToFirstWrapIfNeeded,
     NUMBER_INPUT_STYLE,
     PRODUCT_CARD_NAME_SELECTOR,
     PRODUCT_CARDS_SELECTOR,
     SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
-    setStoredRatingValue,
     TEXT_INPUT_STYLE,
 } from './common/common';
 import { getURLPathElement, getURLQueryStringParam, somePathElementEquals } from '../../common/url';
@@ -41,6 +39,7 @@ import {
     getFirstElement,
 } from '../../common/dom/helpers';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
+import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

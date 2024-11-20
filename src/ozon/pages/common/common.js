@@ -7,7 +7,6 @@ import { createLink, createSpan } from '../../../common/dom/elementsFactory';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
 import { getFirstElement, getNodeInnerNumber } from '../../../common/dom/helpers';
 import { appendStoredPriceValue } from '../../../common/priceHistory/manipulation';
-import { RatedProductData as ProductData } from '../../../common/models/ratedProductData';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div.tile-root';
 export const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
@@ -110,28 +109,6 @@ export function createDislikeButton(onClick, needLabel = true) {
     }
 
     return productDislikeButton;
-}
-
-export function setStoredRatingValue(productArticle, ratingValue) {
-    const productStorageKey = `product-${productArticle}`;
-    const storedProduct = getStorageValue(productStorageKey);
-
-    const currentProduct =
-        storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
-    currentProduct.rating = ratingValue;
-
-    setStorageValue(productStorageKey, currentProduct);
-    setStorageValue('last-rate-update', Date.now());
-}
-
-export function getStoredRatingValue(productArticle) {
-    const storedProduct = getStoredProductValue(productArticle);
-    return storedProduct?.rating ?? null;
-}
-
-export function getStoredProductValue(productArticle) {
-    const productStorageKey = `product-${productArticle}`;
-    return getStorageValue(productStorageKey);
 }
 
 export function setCommonFiltersContainerStyles(filtersContainer, parentNode) {

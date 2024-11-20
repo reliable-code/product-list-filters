@@ -1,16 +1,12 @@
 import { waitForElement } from '../../common/dom/utils';
-import {
-    appendPriceHistory,
-    createDislikeButton,
-    getStoredRatingValue,
-    setStoredRatingValue,
-} from './common/common';
+import { appendPriceHistory, createDislikeButton } from './common/common';
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
 import { getURLPathElementEnding } from '../../common/url';
 import { createDiv, createLink, createSpan } from '../../common/dom/elementsFactory';
 import { insertAfter } from '../../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
+import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
 
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 
