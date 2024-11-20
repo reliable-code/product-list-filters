@@ -2,12 +2,13 @@ import { getStorageValue, setStorageValue } from '../storage/storage';
 
 export const getAllKeys = window.GM_listValues;
 
-export function runMigrationTaskIfNeeded(migrationTask, actualDbVersion) {
+export function runMigrationTaskIfNeeded(migrationTask, actualDbVersion, test = false) {
     const dbVersion = getStorageValue('dbVersion');
     if (dbVersion === actualDbVersion) return;
 
     migrationTask();
 
+    if (test) return;
     setStorageValue('dbVersion', actualDbVersion);
 }
 
