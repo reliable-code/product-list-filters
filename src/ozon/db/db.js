@@ -1,44 +1,52 @@
-import { processAllEntries, runMigrationTaskIfNeeded } from '../../common/db/db';
+import { processEntriesByKeyFilter, runMigrationTaskIfNeeded } from '../../common/db/db';
 import { getStorageValue, setStorageValue } from '../../common/storage/storage';
 import { RatedProductData as ProductData } from '../../common/models/ratedProductData';
 
-const ACTUAL_DB_VERSION = 5;
+const ACTUAL_DB_VERSION = 6;
 
 export function runMigration() {
     runMigrationTaskIfNeeded(migrationTask, ACTUAL_DB_VERSION, false);
 }
 
 function migrationTask() {
-    // const keyFilterCondition = (key) => key.includes('filter');
+    const keyFilterCondition = (key) => key.startsWith('product-');
     const processEntry = (key, value) => {
-        if (key.endsWith('-lp')) {
-            updateProduct(key, 'lowestPrice', value);
-        }
-        if (key.endsWith('-hp')) {
-            updateProduct(key, 'highestPrice', value);
-        }
-        if (key.endsWith('-rate')) {
-            updateProduct(key, 'rating', value);
-        }
+        updateProductLastCheckDate(key, 'lastCheckDate', value);
+        updateProductPriceDate(key, 'lowestPrice', value);
+        updateProductPriceDate(key, 'highestPrice', value);
     };
 
-    processAllEntries(processEntry, true);
+    processEntriesByKeyFilter(keyFilterCondition, processEntry, true);
 }
 
-function updateProduct(entryKey, productPropKey, value) {
-    const [productId] = entryKey.split('-');
+function updateProductLastCheckDate(entryKey, productPropKey, value) {
+    const lastCheckDate = value[productPropKey];
 
-    const productStorageKey = `product-${productId}`;
-    const storedProduct = getStorageValue(productStorageKey);
+    if (lastCheckDate) {
+        const [day, month, year] = lastCheckDate.split('.')
+            .map(Number);
+        const dateObject = new Date(year, month - 1, day);
+        const timestamp = dateObject.getTime();
+        value[productPropKey] = timestamp;
 
-    const currentProduct =
-        storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
+        setStorageValue(entryKey, value);
+    }
+}
 
-    currentProduct[productPropKey] = value;
+function updateProductPriceDate(entryKey, productPropKey, value) {
+    const datedPrice = value[productPropKey];
 
-    setStorageValue(productStorageKey, currentProduct);
+    if (datedPrice) {
+        const dateString = datedPrice.date;
+        const [day, month, year] = dateString.split('.')
+            .map(Number);
+        const dateObject = new Date(year, month - 1, day);
+        const timestamp = dateObject.getTime();
+        datedPrice.date = timestamp;
 
-    window.GM_deleteValue(entryKey);
+        value[productPropKey] = datedPrice;
+        setStorageValue(entryKey, value);
+    }
 }
 
 export function setStoredRatingValue(productArticle, ratingValue) {
