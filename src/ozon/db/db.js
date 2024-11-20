@@ -42,7 +42,7 @@ function updateProduct(entryKey, productPropKey, value) {
 }
 
 export function setStoredRatingValue(productArticle, ratingValue) {
-    const productStorageKey = `product-${productArticle}`;
+    const productStorageKey = getProductStorageKey(productArticle);
     const storedProduct = getStorageValue(productStorageKey);
 
     const currentProduct =
@@ -58,7 +58,11 @@ export function getStoredRatingValue(productArticle) {
     return storedProduct?.rating ?? null;
 }
 
-export function getStoredProductValue(productArticle) {
-    const productStorageKey = `product-${productArticle}`;
+function getStoredProductValue(productArticle) {
+    const productStorageKey = getProductStorageKey(productArticle);
     return getStorageValue(productStorageKey);
+}
+
+function getProductStorageKey(productArticle) {
+    return `product-${productArticle}`;
 }
