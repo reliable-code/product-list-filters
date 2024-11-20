@@ -11,6 +11,12 @@ export function runMigrationTaskIfNeeded(migrationTask, actualDbVersion) {
     setStorageValue('dbVersion', actualDbVersion);
 }
 
+export function processAllEntries(processEntry, log = true) {
+    const allKeys = getAllKeys();
+
+    processEntriesByKeys(allKeys, processEntry, log);
+}
+
 export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log = true) {
     const allKeys = getAllKeys();
     const filteredKeys = allKeys.filter(keyFilterCondition);
