@@ -9,15 +9,22 @@ export function runMigration() {
 
 function migrationTask() {
     const filterCondition = (key) => key.includes('filter');
-    const allKeys = window.GM_listValues();
+    const processEntry = (key, value) => {
+        window.GM_deleteValue(key);
+    };
 
+    processEntriesByFilter(filterCondition, processEntry);
+}
+
+export function processEntriesByFilter(filterCondition, processEntry, log = true) {
+    const allKeys = window.GM_listValues();
     const filteredKeys = allKeys.filter(filterCondition);
 
     filteredKeys.forEach((key) => {
-        const object = getStorageValue(key);
+        const value = getStorageValue(key);
 
-        console.log(`${key}: ${object}`);
+        if (log) console.log(`${key}: ${value}`);
 
-        window.GM_deleteValue(key);
+        processEntry(key, value);
     });
 }
