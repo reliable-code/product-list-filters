@@ -8,3 +8,22 @@ export function runMigrationTaskIfNeeded(migrationTask, actualDbVersion) {
 
     setStorageValue('dbVersion', actualDbVersion);
 }
+
+export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log = true) {
+    const allKeys = window.GM_listValues();
+    const filteredKeys = allKeys.filter(keyFilterCondition);
+
+    let processedCount = 0;
+
+    filteredKeys.forEach((key) => {
+        const value = getStorageValue(key);
+
+        if (log) console.log(`${key}: ${value}`);
+
+        processEntry(key, value);
+
+        processedCount += 1;
+    });
+
+    return processedCount;
+}
