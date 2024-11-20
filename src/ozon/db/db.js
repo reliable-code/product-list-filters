@@ -47,7 +47,9 @@ export function setStoredRatingValue(productArticle, ratingValue) {
 
     const currentProduct =
         storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
+
     currentProduct.rating = ratingValue;
+    currentProduct.updateLastCheckDate();
 
     setStorageValue(productStorageKey, currentProduct);
     setStorageValue('last-rate-update', Date.now());
