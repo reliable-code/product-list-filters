@@ -3,7 +3,7 @@
 // @description  Remove product cards by filter
 // @match        https://*.online.lenta.com/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.3.73187003
+// @version      0.3.73211430
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=lenta.com
 // @author       reliable-code
 // ==/UserScript==

@@ -1,12 +1,8 @@
-import { getStorageValue, setStorageValue } from '../../../common/storage/storage';
-import { DatedValue } from '../../../common/models/datedValue';
 import { heartStrikeDislikeIcon } from './icons';
-import { PriceData } from '../../../common/models/priceData';
 import { getPathnameElementEnding } from '../../../common/url';
 import { createLink, createSpan } from '../../../common/dom/elementsFactory';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
-import { getFirstElement, getNodeInnerNumber } from '../../../common/dom/helpers';
-import { appendStoredPriceValue } from '../../../common/priceHistory/manipulation';
+import { getFirstElement } from '../../../common/dom/helpers';
 
 export const PRODUCT_CARDS_SELECTOR = '.widget-search-result-container > div > div.tile-root';
 export const SEARCH_RESULTS_SORT_SELECTOR = '[data-widget="searchResultsSort"]';
@@ -34,52 +30,6 @@ export const CHECKBOX_INPUT_STYLE =
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
     return getPathnameElementEnding(productCardLinkHref, 2);
-}
-
-export function appendPriceHistory(priceContainer, productArticle) {
-    const priceSpan = getFirstElement('span', priceContainer);
-    const currentPriceValue = getNodeInnerNumber(priceSpan, true);
-
-    const lowestPriceValue = updateAndAppendStoredPriceValue(
-        productArticle,
-        'lp',
-        (storedPrice) => currentPriceValue <= storedPrice.value,
-        currentPriceValue,
-        'Мин. цена',
-        '#d6f5b1',
-        priceContainer,
-    );
-
-    const highestPriceValue = updateAndAppendStoredPriceValue(
-        productArticle,
-        'hp',
-        (storedPrice) => currentPriceValue >= storedPrice.value,
-        currentPriceValue,
-        'Макс. цена',
-        '#fed2ea',
-        priceContainer,
-    );
-
-    return new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue);
-}
-
-function updateAndAppendStoredPriceValue(
-    productArticle, postfix, compareCondition, currentPriceValue, label, color, priceContainer,
-) {
-    const storageKey = `${productArticle}-${postfix}`;
-    let storedPrice = getStorageValue(storageKey);
-
-    if (!currentPriceValue) {
-        if (!storedPrice) return 0;
-    } else if (!storedPrice || compareCondition(storedPrice)) {
-        const currentPrice = new DatedValue(currentPriceValue);
-        setStorageValue(storageKey, currentPrice);
-        storedPrice = currentPrice;
-    }
-
-    appendStoredPriceValue(label, storedPrice, color, priceContainer);
-
-    return storedPrice.value;
 }
 
 export function createDislikeButton(onClick, needLabel = true) {

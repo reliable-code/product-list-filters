@@ -1,6 +1,5 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
 import {
-    appendPriceHistory,
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
     getFirstProductCardsWrap,
@@ -30,7 +29,7 @@ import {
     GOOD_PRICE_ATTR,
     LOWEST_PRICE_ATTR,
 } from '../../common/priceHistory/constants';
-import { checkIfGoodPrice } from '../../common/priceHistory/manipulation';
+import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 
@@ -176,8 +175,9 @@ function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap
     if (!productCardLink) return;
 
     const productArticle = getProductArticleFromLink(productCardLink);
+    const priceSpan = getFirstElement('span', priceContainer);
 
-    const priceData = appendPriceHistory(priceContainer, productArticle);
+    const priceData = appendPriceHistory(priceContainer, priceSpan, productArticle);
     productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
     productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
 
