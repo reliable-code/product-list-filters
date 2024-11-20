@@ -13,12 +13,15 @@ function migrationTask() {
         window.GM_deleteValue(key);
     };
 
-    processEntriesByKeyFilter(keyFilterCondition, processEntry);
+    const processedCount = processEntriesByKeyFilter(keyFilterCondition, processEntry);
+    console.log(`Total entries processed: ${processedCount}`);
 }
 
 export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log = true) {
     const allKeys = window.GM_listValues();
     const filteredKeys = allKeys.filter(keyFilterCondition);
+
+    let processedCount = 0;
 
     filteredKeys.forEach((key) => {
         const value = getStorageValue(key);
@@ -26,5 +29,8 @@ export function processEntriesByKeyFilter(keyFilterCondition, processEntry, log 
         if (log) console.log(`${key}: ${value}`);
 
         processEntry(key, value);
+        processedCount += 1;
     });
+
+    return processedCount;
 }
