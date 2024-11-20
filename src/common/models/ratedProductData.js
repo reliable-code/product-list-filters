@@ -11,4 +11,15 @@ export class RatedProductData extends ProductData {
         super(lastCheckDate, lowestPrice, highestPrice);
         this.rating = rating;
     }
+
+    static fromObject(obj) {
+        const {
+            lastCheckDate,
+            lowestPrice,
+            highestPrice,
+            rating,
+        } = obj;
+
+        return new RatedProductData(lastCheckDate, lowestPrice, highestPrice, rating);
+    }
 }
