@@ -1,6 +1,5 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
 import {
-    appendPriceHistory,
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
     getProductArticleFromLink,
@@ -26,7 +25,7 @@ import {
     GOOD_PRICE_ATTR,
     LOWEST_PRICE_ATTR,
 } from '../../common/priceHistory/constants';
-import { checkIfGoodPrice } from '../../common/priceHistory/manipulation';
+import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
 
 const FILTER_CONTAINER_SELECTOR = '.favorites-goods__head';
 const PRODUCT_LIST_CONTAINER_SELECTOR = '.favorites-goods';

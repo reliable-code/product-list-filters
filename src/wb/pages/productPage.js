@@ -1,8 +1,8 @@
 import { waitForElement } from '../../common/dom/utils';
-import { appendPriceHistory } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
 import { getFirstElement } from '../../common/dom/helpers';
 import { APPEND_PRICE_HISTORY_PASSED_ATTR } from '../../common/priceHistory/constants';
+import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 
 const SIDE_CONTAINER_SELECTOR = '.product-page__aside-container';
 const PRICE_CONTAINER_SELECTOR = '.price-block__content';
