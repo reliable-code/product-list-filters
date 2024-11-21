@@ -97,6 +97,16 @@ export function appendStoredPriceValue(label, storedPrice, color, priceContainer
         storedPriceSpan.textContent = spanText;
     });
 
+    storedPriceSpan.addEventListener('click', () => {
+        Object.entries(priceHistory)
+            .forEach(([timestamp, {
+                lowest,
+                highest,
+            }]) => {
+                console.log(`Date: ${getLocalDateFromTimestamp(+timestamp)} | Min Price: ${lowest} | Max Price: ${highest}`);
+            });
+    });
+
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
 }
