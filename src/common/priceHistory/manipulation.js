@@ -9,6 +9,7 @@ import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
 
 export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
+    if (!currentPriceValue) return null;
 
     const productStorageKey = `product-${productArticle}`;
     const storedProduct = getStorageValue(productStorageKey);
@@ -100,8 +101,6 @@ export function appendStoredPriceValue(label, storedPrice, color, priceContainer
 }
 
 function updatePriceHistory(currentProduct, currentPriceValue) {
-    if (!currentPriceValue) return currentProduct;
-
     const { priceHistory } = currentProduct;
     const currentDate = getDateTimestamp();
     const currentDatePriceHistory = priceHistory[currentDate] || {};

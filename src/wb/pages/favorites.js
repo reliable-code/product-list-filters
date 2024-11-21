@@ -172,7 +172,10 @@ function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
 
     appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
 
-    checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
+    if (productCard.hasAttribute(CURRENT_PRICE_ATTR) &&
+        productCard.hasAttribute(LOWEST_PRICE_ATTR)) {
+        checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
+    }
 }
 
 function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap) {
@@ -184,12 +187,15 @@ function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap
     const productArticle = getProductArticleFromLink(productCardLink);
 
     const priceData = appendPriceHistory(priceContainer, priceSpan, productArticle);
-    productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
-    productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
+
+    if (priceData) {
+        productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
+        productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
+        priceContainerWrap.style.display = 'block';
+    }
 
     getFirstElement('.goods-card__similar', priceContainerWrap)
         .remove();
-    priceContainerWrap.style.display = 'block';
 
     productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
 }
