@@ -5,7 +5,7 @@ import { getStorageValue, setStorageValue } from '../storage/storage';
 import { ProductData } from '../models/productData';
 import { PriceData } from '../models/priceData';
 import { DatedValue } from '../models/datedValue';
-import { getLocalDateFromTimestamp } from '../dateUtils';
+import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
 
 export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -38,6 +38,8 @@ export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
         '#fed2ea',
         priceContainer,
     );
+
+    currentProduct = updatePriceHistory(currentProduct, currentPriceValue);
 
     currentProduct.updateLastCheckDate();
 
@@ -95,6 +97,26 @@ export function appendStoredPriceValue(label, storedPrice, color, priceContainer
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
+}
+
+function updatePriceHistory(currentProduct, currentPriceValue) {
+    if (!currentPriceValue) return currentProduct;
+
+    const { priceHistory } = currentProduct;
+    const currentDate = getDateTimestamp();
+    const currentDatePriceHistory = priceHistory[currentDate] || {};
+
+    const lowestPrice =
+        Math.min(currentDatePriceHistory.lowest ?? currentPriceValue, currentPriceValue);
+    const highestPrice =
+        Math.max(currentDatePriceHistory.highest ?? currentPriceValue, currentPriceValue);
+
+    currentProduct.priceHistory[currentDate] = {
+        lowest: lowestPrice,
+        highest: highestPrice,
+    };
+
+    return currentProduct;
 }
 
 export function checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercentValue) {
