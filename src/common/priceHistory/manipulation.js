@@ -67,12 +67,13 @@ function updateAndAppendStoredPriceValue(
         storedPrice = currentPrice;
     }
 
-    appendStoredPriceValue(label, storedPrice, color, priceContainer);
+    const { priceHistory } = product;
+    appendStoredPriceValue(label, storedPrice, color, priceContainer, priceHistory);
 
     return product;
 }
 
-export function appendStoredPriceValue(label, storedPrice, color, priceContainer) {
+export function appendStoredPriceValue(label, storedPrice, color, priceContainer, priceHistory) {
     const divText = `${label}: `;
     const divStyle =
         'color: #000;' +
