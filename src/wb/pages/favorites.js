@@ -30,7 +30,7 @@ import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/
 const FILTER_CONTAINER_SELECTOR = '.favorites-goods__head';
 const PRODUCT_LIST_CONTAINER_SELECTOR = '.favorites-goods';
 const PRODUCT_CARDS_SELECTOR = '.favorites-goods__list > .goods-card';
-const PRICE_SELECTOR = '.wallet-price';
+const PRICE_SELECTOR = '.goods-card__price-now';
 
 const nameFilter =
     new StoredInputValue('favorites-name-filter', null, processList);

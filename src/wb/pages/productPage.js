@@ -6,7 +6,7 @@ import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 
 const SIDE_CONTAINER_SELECTOR = '.product-page__aside-container';
 const PRICE_CONTAINER_SELECTOR = '.price-block__content';
-const PRICE_SELECTOR = '.price-block__wallet-price';
+const PRICE_SELECTOR = '.price-block__price';
 
 export function initProductPageMods() {
     initAppendPriceHistory();
