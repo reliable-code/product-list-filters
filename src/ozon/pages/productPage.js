@@ -109,7 +109,7 @@ function appendRatingValue(starsContainer) {
 
                     if (!ratingValue) return;
 
-                    // setStoredRatingValue(productArticle, ratingValue);
+                    setStoredRatingValue(productArticle, ratingValue);
                     replaceRatingValue(starsContainer, ratingValue);
                 });
         });

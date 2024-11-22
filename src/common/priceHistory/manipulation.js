@@ -1,7 +1,7 @@
 import { createDiv, createSpan } from '../dom/elementsFactory';
 import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './constants';
 import { getElementInnerNumber } from '../dom/helpers';
-import { getStorageValue, setStorageValue } from '../storage/storage';
+import { getStorageValue, setStorageValueAsync } from '../storage/storage';
 import { ProductData } from '../models/productData';
 import { PriceData } from '../models/priceData';
 import { DatedValue } from '../models/datedValue';
@@ -12,7 +12,7 @@ import { getDeviationColor } from './helpers';
 
 export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
-    if (!currentPriceValue) return null;
+    if (!currentPriceValue) return Promise.resolve(null);
 
     const productStorageKey = `product-${productArticle}`;
     const storedProduct = getStorageValue(productStorageKey);
@@ -47,14 +47,13 @@ export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
 
     currentProduct.updateLastCheckDate();
 
-    setStorageValue(productStorageKey, currentProduct);
-
     const {
         lowestPriceValue,
         highestPriceValue,
     } = currentProduct;
 
-    return new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue);
+    return setStorageValueAsync(productStorageKey, currentProduct)
+        .then(() => new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue));
 }
 
 function updateAndAppendStoredPriceValue(

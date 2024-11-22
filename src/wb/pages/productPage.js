@@ -34,9 +34,10 @@ function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle) {
 
     if (priceContainerWrap.hasAttribute(APPEND_PRICE_HISTORY_PASSED_ATTR)) return;
 
-    appendPriceHistory(priceContainer, priceSpan, productArticle);
-
-    priceContainerWrap.setAttribute(APPEND_PRICE_HISTORY_PASSED_ATTR, '');
+    appendPriceHistory(priceContainer, priceSpan, productArticle)
+        .then(() => {
+            priceContainerWrap.setAttribute(APPEND_PRICE_HISTORY_PASSED_ATTR, '');
+        });
 }
 
 function getProductArticleFromPathname() {

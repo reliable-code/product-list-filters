@@ -180,14 +180,15 @@ function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap
     const productArticle = getProductArticleFromLink(productCardLink);
     const priceSpan = getFirstElement('span', priceContainer);
 
-    const priceData = appendPriceHistory(priceContainer, priceSpan, productArticle);
+    appendPriceHistory(priceContainer, priceSpan, productArticle)
+        .then((priceData) => {
+            if (priceData) {
+                productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
+                productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
 
-    if (priceData) {
-        productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
-        productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
+                priceContainerWrap.style.display = 'block';
+            }
 
-        priceContainerWrap.style.display = 'block';
-    }
-
-    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+            productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+        });
 }

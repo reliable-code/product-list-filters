@@ -186,16 +186,17 @@ function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap
 
     const productArticle = getProductArticleFromLink(productCardLink);
 
-    const priceData = appendPriceHistory(priceContainer, priceSpan, productArticle);
+    appendPriceHistory(priceContainer, priceSpan, productArticle)
+        .then((priceData) => {
+            if (priceData) {
+                productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
+                productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
+                priceContainerWrap.style.display = 'block';
+            }
 
-    if (priceData) {
-        productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
-        productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
-        priceContainerWrap.style.display = 'block';
-    }
+            getFirstElement('.goods-card__similar', priceContainerWrap)
+                ?.remove();
 
-    getFirstElement('.goods-card__similar', priceContainerWrap)
-        .remove();
-
-    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+            productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+        });
 }
