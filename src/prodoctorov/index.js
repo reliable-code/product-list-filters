@@ -255,7 +255,7 @@ function appendDoctorContactLink() {
 
     if (!doctorContacts) return;
 
-    const doctorDetailsMenu = getFirstElement(DOCTOR_DETAILS_MENU_SELECTOR);
+    const doctorDetailsMenu = [...getAllElements(DOCTOR_DETAILS_MENU_SELECTOR)].pop();
 
     if (!doctorDetailsMenu) return;
 
