@@ -107,6 +107,7 @@ function appendStoredPriceValue(
 
     storedPriceSpan.addEventListener('click', (event) => {
         event.stopPropagation();
+        event.preventDefault();
 
         showPriceHistoryInModal(priceHistory, currentPrice);
     });
