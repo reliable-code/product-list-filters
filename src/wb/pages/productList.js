@@ -53,7 +53,7 @@ const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
 
 let minPriceValue = getMinPriceValueFromURL();
-const minPriceDivTextContent = () => `Минимальная цена: ${minPriceValue}`;
+const minPriceDivContent = () => `Минимальная цена: ${minPriceValue}`;
 
 function getCategoryName() {
     const categoryNamePosition = somePathElementEquals('brands') ? 2 : 3;
@@ -133,7 +133,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinRatingFilterControl(minRatingFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const minPriceDiv =
-        createDivObsolete(minPriceDivTextContent(), priceControlStyle);
+        createDivObsolete(minPriceDivContent(), priceControlStyle);
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
@@ -151,7 +151,7 @@ function checkMinPrice(minPriceDiv) {
 
     if (minPriceValue !== currentMinPriceValue) {
         minPriceValue = currentMinPriceValue;
-        minPriceDiv.textContent = minPriceDivTextContent();
+        minPriceDiv.textContent = minPriceDivContent();
     }
 }
 
