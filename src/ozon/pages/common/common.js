@@ -33,19 +33,15 @@ export function getProductArticleFromLink(productCardLink) {
 }
 
 export function createDislikeButton(onClick, needLabel = true) {
-    const style =
-        'display: inline-flex;' +
-        'align-items: center;' +
-        'margin-left: auto;' +
-        'color: rgba(0, 26, 52, 0.6);' +
-        'cursor: pointer;';
+    const style = {
+        display: 'inline-flex',
+        alignItems: 'center',
+        marginLeft: 'auto',
+        color: 'rgba(0, 26, 52, 0.6)',
+        cursor: 'pointer',
+    };
 
-    const productDislikeButton =
-        createLink(
-            null,
-            heartStrikeDislikeIcon,
-            style,
-        );
+    const productDislikeButton = createLink(style, heartStrikeDislikeIcon);
 
     productDislikeButton.onclick = () => {
         if (window.confirm('Выставить низкий рейтинг?')) {

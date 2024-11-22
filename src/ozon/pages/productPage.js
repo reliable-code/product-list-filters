@@ -63,11 +63,17 @@ function appendBadReviewsLink(productReviewsWrap) {
         productBadReviewsLinkWrap.classList =
             getProductReviewsInfoClassList(productReviewsWrap);
 
+        const style = {
+            alignItems: 'center',
+            display: 'flex',
+            color: 'rgba(0, 26, 52, 0.6)',
+        };
+
         const productBadReviewsLink =
             createLink(
-                `${productReviewsLink.href}?sort=score_asc`,
+                style,
                 thumbsDownIcon,
-                'align-items: center; display: flex; color: rgba(0, 26, 52, 0.6);',
+                `${productReviewsLink.href}?sort=score_asc`,
             );
 
         const productBadReviewsLinkSpan =

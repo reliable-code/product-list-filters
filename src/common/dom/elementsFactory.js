@@ -44,11 +44,9 @@ export function createSpan(styles = {}, innerHTML = null) {
     return createElement('span', styles, innerHTML);
 }
 
-export function createLink(href = null, innerHTML = null, style = null) {
-    const link = document.createElement('a');
+export function createLink(styles = {}, innerHTML = null, href = null) {
+    const link = createElement('a', styles, innerHTML);
     if (href) link.href = href;
-    if (innerHTML) link.innerHTML = innerHTML;
-    if (style) link.style = style;
 
     return link;
 }

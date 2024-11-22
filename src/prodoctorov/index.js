@@ -187,8 +187,8 @@ function appendAdditionalLink(doctorName, linksContainer, siteName) {
 
     const lineBreak = document.createElement('br');
 
-    const searchUrlLink =
-        createLink(`https://www.google.com/search?q=${encodedSearchString}&btnI`, siteName);
+    const href = `https://www.google.com/search?q=${encodedSearchString}&btnI`;
+    const searchUrlLink = createLink({}, siteName, href);
 
     linksContainer.append(lineBreak, searchUrlLink);
 }
@@ -262,9 +262,9 @@ function appendDoctorContactLink() {
     doctorDetailsMenu.style.position = 'sticky';
     doctorDetailsMenu.style.top = '16px';
 
-    const doctorContactsLinkTitle = createDiv(null, 'Место работы');
+    const doctorContactsLinkTitle = createDiv({}, 'Место работы');
     doctorContactsLinkTitle.classList.add('b-doctor-details__toc-title');
-    const doctorContactsLink = createLink('#doctor-contacts');
+    const doctorContactsLink = createLink({}, null, '#doctor-contacts');
     doctorContactsLink.append(doctorContactsLinkTitle);
     doctorContactsLink.classList.add('b-doctor-details__toc-item');
 
