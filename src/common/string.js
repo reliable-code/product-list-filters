@@ -9,3 +9,8 @@ export function removeNonNumber(stringValue) {
 export function removeSpaces(stringValue) {
     return stringValue.replace(/\s/g, '');
 }
+
+export function capitalize(stringValue) {
+    return stringValue.charAt(0)
+        .toUpperCase() + stringValue.slice(1);
+}
