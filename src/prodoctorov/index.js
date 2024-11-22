@@ -262,7 +262,7 @@ function appendDoctorContactLink() {
     doctorDetailsMenu.style.position = 'sticky';
     doctorDetailsMenu.style.top = '16px';
 
-    const doctorContactsLinkTitle = createDiv('Место работы');
+    const doctorContactsLinkTitle = createDiv(null, 'Место работы');
     doctorContactsLinkTitle.classList.add('b-doctor-details__toc-title');
     const doctorContactsLink = createLink('#doctor-contacts');
     doctorContactsLink.append(doctorContactsLinkTitle);

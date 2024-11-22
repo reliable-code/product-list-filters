@@ -3,7 +3,7 @@ import { StoredInputValue } from '../common/storage/localstorage';
 import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
-import { createDiv } from '../common/dom/elementsFactory';
+import { createDivObsolete } from '../common/dom/elementsFactory';
 import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
 import {
     createEnabledFilterControl,
@@ -219,7 +219,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
         );
 
     reloadTimerDiv =
-        createDiv(reloadTimerSecondsLeft, reloadTimerControlStyle);
+        createDivObsolete(reloadTimerSecondsLeft, reloadTimerControlStyle);
 
     observerControlsContainer.append(
         observerReloadIntervalDiv,

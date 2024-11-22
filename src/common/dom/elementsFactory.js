@@ -40,14 +40,6 @@ export function createInput(type = null, inputOnChange = null, style = null) {
     return input;
 }
 
-export function createDiv(textContent = null, style = null) {
-    const div = document.createElement('div');
-    if (textContent) div.textContent = textContent;
-    if (style) div.style = style;
-
-    return div;
-}
-
 export function createSpan(textContent = null, style = null) {
     const span = document.createElement('span');
     if (textContent) span.textContent = textContent;
@@ -72,6 +64,19 @@ export function createButton(innerHTML = null, onClick = null, style = null) {
     if (style) button.style = style;
 
     return button;
+}
+
+// todo: replace usages with createDiv()
+export function createDivObsolete(textContent = null, style = null) {
+    const div = document.createElement('div');
+    if (textContent) div.textContent = textContent;
+    if (style) div.style = style;
+
+    return div;
+}
+
+export function createDiv(styles = {}, innerHTML = null) {
+    return createElement('div', styles, innerHTML);
 }
 
 export function createElement(tagName, styles, innerHTML = null) {

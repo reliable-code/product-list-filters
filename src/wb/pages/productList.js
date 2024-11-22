@@ -3,7 +3,7 @@ import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getURLPathElement, somePathElementEquals } from '../../common/url';
-import { createDiv } from '../../common/dom/elementsFactory';
+import { createDivObsolete } from '../../common/dom/elementsFactory';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
@@ -133,7 +133,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinRatingFilterControl(minRatingFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const minPriceDiv =
-        createDiv(minPriceDivTextContent(), priceControlStyle);
+        createDivObsolete(minPriceDivTextContent(), priceControlStyle);
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);

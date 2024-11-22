@@ -1,4 +1,4 @@
-import { createDiv, createSpan } from '../dom/elementsFactory';
+import { createDiv, createDivObsolete, createSpan } from '../dom/elementsFactory';
 import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './constants';
 import { getElementInnerNumber } from '../dom/helpers';
 import { getStorageValue, setStorageValue } from '../storage/storage';
@@ -79,7 +79,7 @@ export function appendStoredPriceValue(label, storedPrice, color, priceContainer
         'color: #000;' +
         'font-size: 16px;' +
         'padding: 17px 0px 7px;';
-    const storedPriceContainer = createDiv(divText, divStyle);
+    const storedPriceContainer = createDivObsolete(divText, divStyle);
 
     const spanText = `${storedPrice.value.toLocaleString()} ₽`;
     const spanStyle =
