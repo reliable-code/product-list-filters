@@ -74,12 +74,14 @@ export function createButton(innerHTML = null, onClick = null, style = null) {
     return button;
 }
 
-export function createStyledElement(tagName, styles) {
+export function createStyledElement(tagName, styles, innerHTML = null) {
     const element = document.createElement(tagName);
 
     if (Object.keys(styles).length > 0) {
         applyStyles(element, styles);
     }
+
+    if (innerHTML) element.innerHTML = innerHTML;
 
     return element;
 }
