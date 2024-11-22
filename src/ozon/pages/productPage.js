@@ -12,7 +12,11 @@ import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 
 export function initProductPageMods() {
-    waitForElement(document, `${PRODUCT_REVIEWS_WRAP_SELECTOR}`)
+    skipFirstGalleryVideo();
+    extendProductNameMaxHeight();
+
+    initAppendPriceHistory()
+        .then(() => waitForElement(document, `${PRODUCT_REVIEWS_WRAP_SELECTOR}`))
         .then((productReviewsWrap) => {
             if (!productReviewsWrap) return;
 
@@ -20,10 +24,6 @@ export function initProductPageMods() {
             appendBadReviewsLink(productReviewsWrap);
             appendRatingValue(getStarsContainer(productReviewsWrap));
         });
-
-    initAppendPriceHistory();
-    skipFirstGalleryVideo();
-    extendProductNameMaxHeight();
 }
 
 function appendDislikeButton(productReviewsWrap) {
@@ -109,7 +109,7 @@ function appendRatingValue(starsContainer) {
 
                     if (!ratingValue) return;
 
-                    setStoredRatingValue(productArticle, ratingValue);
+                    // setStoredRatingValue(productArticle, ratingValue);
                     replaceRatingValue(starsContainer, ratingValue);
                 });
         });
@@ -180,7 +180,7 @@ function replaceRatingValue(starsContainer, ratingValue) {
 }
 
 function initAppendPriceHistory() {
-    waitForElement(document, '[data-widget="webPrice"]')
+    return waitForElement(document, '[data-widget="webPrice"]')
         .then((priceContainer) => {
             if (!priceContainer) return;
 
