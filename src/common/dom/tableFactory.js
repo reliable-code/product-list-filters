@@ -11,3 +11,7 @@ export function createTr(styles = {}, innerHTML = null) {
 export function createTh(styles = {}, innerHTML = null) {
     return createElement('th', styles, innerHTML);
 }
+
+export function createTd(styles = {}, innerHTML = null) {
+    return createElement('td', styles, innerHTML);
+}
