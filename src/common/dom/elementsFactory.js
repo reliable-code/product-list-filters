@@ -74,7 +74,7 @@ export function createButton(innerHTML = null, onClick = null, style = null) {
     return button;
 }
 
-export function createStyledElement(tagName, styles, innerHTML = null) {
+export function createElement(tagName, styles, innerHTML = null) {
     const element = document.createElement(tagName);
 
     if (Object.keys(styles).length > 0) {

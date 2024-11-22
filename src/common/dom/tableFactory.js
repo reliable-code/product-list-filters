@@ -1,9 +1,13 @@
-import { createStyledElement } from './elementsFactory';
+import { createElement } from './elementsFactory';
 
-export function createTable(styles = {}) {
-    return createStyledElement('table', styles);
+export function createTable(styles = {}, innerHTML = null) {
+    return createElement('table', styles, innerHTML);
 }
 
-export function createRow(styles = {}) {
-    return createStyledElement('tr', styles);
+export function createTr(styles = {}, innerHTML = null) {
+    return createElement('tr', styles, innerHTML);
+}
+
+export function createTh(styles = {}, innerHTML = null) {
+    return createElement('th', styles, innerHTML);
 }
