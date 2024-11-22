@@ -70,12 +70,16 @@ function updateAndAppendStoredPriceValue(
     }
 
     const { priceHistory } = product;
-    appendStoredPriceValue(label, storedPrice, color, priceContainer, priceHistory);
+    appendStoredPriceValue(
+        label, storedPrice, color, priceContainer, priceHistory, currentPriceValue,
+    );
 
     return product;
 }
 
-export function appendStoredPriceValue(label, storedPrice, color, priceContainer, priceHistory) {
+function appendStoredPriceValue(
+    label, storedPrice, color, priceContainer, priceHistory, currentPrice,
+) {
     const divContent = `${label}: `;
     const divStyle = {
         color: '#000',
@@ -103,14 +107,15 @@ export function appendStoredPriceValue(label, storedPrice, color, priceContainer
 
     storedPriceSpan.addEventListener('click', (event) => {
         event.stopPropagation();
-        showPriceHistoryInModal(priceHistory);
+
+        showPriceHistoryInModal(priceHistory, currentPrice);
     });
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
 }
 
-function showPriceHistoryInModal(priceHistory) {
+function showPriceHistoryInModal(priceHistory, currentPrice) {
     const modal = createModal();
 
     const tableStyles = {
