@@ -1,17 +1,16 @@
 import { createElement } from './elementsFactory';
+import { capitalize } from '../string';
 
-export function createTable(styles = {}, innerHTML = null) {
-    return createElement('table', styles, innerHTML);
-}
+const elementTagNames = ['table', 'tr', 'th', 'td'];
 
-export function createTr(styles = {}, innerHTML = null) {
-    return createElement('tr', styles, innerHTML);
-}
-
-export function createTh(styles = {}, innerHTML = null) {
-    return createElement('th', styles, innerHTML);
-}
-
-export function createTd(styles = {}, innerHTML = null) {
-    return createElement('td', styles, innerHTML);
-}
+export const {
+    createTable,
+    createTr,
+    createTh,
+    createTd,
+} = Object.fromEntries(
+    elementTagNames.map((tagName) => [
+        `create${capitalize(tagName)}`,
+        (styles = {}, innerHTML = null) => createElement(tagName, styles, innerHTML),
+    ]),
+);
