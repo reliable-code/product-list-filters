@@ -1,8 +1,5 @@
-import { applyStyles } from './helpers';
+import { createStyledElement } from './elementsFactory';
 
 export function createTable(styles = {}) {
-    const table = document.createElement('table');
-    if (styles) applyStyles(table, styles);
-
-    return table;
+    return createStyledElement('table', styles);
 }

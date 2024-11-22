@@ -1,4 +1,5 @@
 import { debounce } from './utils';
+import { applyStyles } from './helpers';
 
 export function createTextInput(inputOnChange, inputStyle, inputValue) {
     const input = createInput('text', inputOnChange, inputStyle);
@@ -71,4 +72,14 @@ export function createButton(innerHTML = null, onClick = null, style = null) {
     if (style) button.style = style;
 
     return button;
+}
+
+export function createStyledElement(tagName, styles) {
+    const element = document.createElement(tagName);
+
+    if (Object.keys(styles).length > 0) {
+        applyStyles(element, styles);
+    }
+
+    return element;
 }
