@@ -8,6 +8,7 @@ import { DatedValue } from '../models/datedValue';
 import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
 import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory';
 import { createModal } from '../dom/modalFactory';
+import { getDeviationColor } from './helpers';
 
 export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -147,6 +148,10 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
 
             rowContent.forEach((content, index) => {
                 const cell = createTd(cellStyles, content);
+
+                if (index !== 0) {
+                    cell.style.background = getDeviationColor(content, currentPrice);
+                }
 
                 row.appendChild(cell);
             });
