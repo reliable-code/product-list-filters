@@ -60,3 +60,10 @@ function parseNumber(text, cleanText, replaceComma) {
 
     return number;
 }
+
+export function applyStyles(element, styles) {
+    Object.entries(styles)
+        .forEach(([key, value]) => {
+            element.style[key] = value;
+        });
+}
