@@ -1,6 +1,6 @@
 import { heartStrikeDislikeIcon } from './icons';
 import { getPathnameElementEnding } from '../../../common/url';
-import { createLink, createSpan } from '../../../common/dom/elementsFactory';
+import { createLink, createSpanObsolete } from '../../../common/dom/elementsFactory';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
 import { getFirstElement } from '../../../common/dom/helpers';
 
@@ -54,7 +54,7 @@ export function createDislikeButton(onClick, needLabel = true) {
     };
 
     if (needLabel) {
-        const productDislikeButtonSpan = createSpan('Дизлайк', 'padding-left: 8px;');
+        const productDislikeButtonSpan = createSpanObsolete('Дизлайк', 'padding-left: 8px;');
         productDislikeButton.append(productDislikeButtonSpan);
     }
 

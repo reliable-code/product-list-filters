@@ -3,7 +3,7 @@ import { createDislikeButton } from './common/common';
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
 import { getURLPathElementEnding } from '../../common/url';
-import { createDiv, createLink, createSpan } from '../../common/dom/elementsFactory';
+import { createDiv, createLink, createSpanObsolete } from '../../common/dom/elementsFactory';
 import { insertAfter } from '../../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
@@ -70,7 +70,7 @@ function appendBadReviewsLink(productReviewsWrap) {
                 'align-items: center; display: flex; color: rgba(0, 26, 52, 0.6);',
             );
 
-        const productBadReviewsLinkSpan = createSpan('Плохие отзывы', 'padding-left: 8px;');
+        const productBadReviewsLinkSpan = createSpanObsolete('Плохие отзывы', 'padding-left: 8px;');
 
         productBadReviewsLink.append(productBadReviewsLinkSpan);
 

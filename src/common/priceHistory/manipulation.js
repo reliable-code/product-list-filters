@@ -1,4 +1,4 @@
-import { createDiv, createSpan } from '../dom/elementsFactory';
+import { createDiv, createSpanObsolete } from '../dom/elementsFactory';
 import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './constants';
 import { getElementInnerNumber } from '../dom/helpers';
 import { getStorageValue, setStorageValue } from '../storage/storage';
@@ -89,7 +89,7 @@ export function appendStoredPriceValue(label, storedPrice, color, priceContainer
         'border-radius: 8px;' +
         'cursor: pointer;' +
         `background: ${color};`;
-    const storedPriceSpan = createSpan(spanText, spanStyle);
+    const storedPriceSpan = createSpanObsolete(spanText, spanStyle);
 
     storedPriceSpan.addEventListener('mouseover', () => {
         storedPriceSpan.textContent = getLocalDateFromTimestamp(storedPrice.date);
