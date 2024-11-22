@@ -40,14 +40,6 @@ export function createInput(type = null, inputOnChange = null, style = null) {
     return input;
 }
 
-export function createSpanObsolete(textContent = null, style = null) {
-    const span = document.createElement('span');
-    if (textContent) span.textContent = textContent;
-    if (style) span.style = style;
-
-    return span;
-}
-
 export function createSpan(styles = {}, innerHTML = null) {
     return createElement('span', styles, innerHTML);
 }
