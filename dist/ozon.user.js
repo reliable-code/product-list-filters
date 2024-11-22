@@ -7,7 +7,7 @@
 // @grant        GM_getValue
 // @match        https://www.ozon.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      1.3.73229955
+// @version      1.3.73230234
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=ozon.ru
 // @author       reliable-code
 // ==/UserScript==
@@ -67,7 +67,8 @@ class ProductData{constructor(lastCheckDate=Date.now(),lowestPrice=null,highestP
 class PriceData{constructor(current,lowest,highest){this.current=current;this.lowest=lowest;this.highest=highest}}
 
 
-function getDateTimestamp(){const timestamp=Date.now();const msInDay=864e5;return timestamp-timestamp%msInDay}function getLocalDateFromTimestamp(timestamp){return new Date(timestamp).toLocaleDateString()}
+function getDateTimestamp(){const now=new Date;now.setHours(0,0,0,0);// Set to start of the day
+return now.getTime()}function getLocalDateFromTimestamp(timestamp){return new Date(timestamp).toLocaleDateString()}
 
 
 class DatedValue{constructor(value,date=getDateTimestamp()){this.value=value;this.date=date}}

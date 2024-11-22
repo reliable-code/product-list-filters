@@ -1,7 +1,7 @@
 export function getDateTimestamp() {
-    const timestamp = Date.now();
-    const msInDay = 86400000;
-    return timestamp - (timestamp % msInDay);
+    const now = new Date();
+    now.setHours(0, 0, 0, 0); // Set to start of the day
+    return now.getTime();
 }
 
 export function getLocalDateFromTimestamp(timestamp) {
