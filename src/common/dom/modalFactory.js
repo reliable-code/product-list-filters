@@ -30,6 +30,12 @@ export function createModal(styles = DEFAULT_MODAL_STYLES) {
 
     modal.appendChild(closeButton);
 
+    document.addEventListener('click', (event) => handleClickOutside(event, modal));
+
+    modal.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
     return modal;
 }
 
