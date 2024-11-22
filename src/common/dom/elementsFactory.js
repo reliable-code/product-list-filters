@@ -53,11 +53,9 @@ export function createLink(href = null, innerHTML = null, style = null) {
     return link;
 }
 
-export function createButton(innerHTML = null, onClick = null, style = null) {
-    const button = document.createElement('button');
-    if (innerHTML) button.innerHTML = innerHTML;
+export function createButton(styles = {}, innerHTML = null, onClick = null) {
+    const button = createElement('button', styles, innerHTML);
     if (onClick) button.onclick = onClick;
-    if (style) button.style = style;
 
     return button;
 }
