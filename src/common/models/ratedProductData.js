@@ -5,9 +5,10 @@ export class RatedProductData extends ProductData {
         lastCheckDate = Date.now(),
         lowestPrice = null,
         highestPrice = null,
+        priceHistory = {},
         rating = null,
     ) {
-        super(lastCheckDate, lowestPrice, highestPrice);
+        super(lastCheckDate, lowestPrice, highestPrice, priceHistory);
         this.rating = rating;
     }
 
@@ -16,9 +17,10 @@ export class RatedProductData extends ProductData {
             lastCheckDate,
             lowestPrice,
             highestPrice,
+            priceHistory,
             rating,
         } = obj;
 
-        return new RatedProductData(lastCheckDate, lowestPrice, highestPrice, rating);
+        return new RatedProductData(lastCheckDate, lowestPrice, highestPrice, priceHistory, rating);
     }
 }
