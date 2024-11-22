@@ -6,6 +6,8 @@ import { ProductData } from '../models/productData';
 import { PriceData } from '../models/priceData';
 import { DatedValue } from '../models/datedValue';
 import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
+import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory';
+import { createModal } from '../dom/modalFactory';
 
 export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -99,18 +101,56 @@ export function appendStoredPriceValue(label, storedPrice, color, priceContainer
         storedPriceSpan.textContent = spanText;
     });
 
-    storedPriceSpan.addEventListener('click', () => {
-        Object.entries(priceHistory)
-            .forEach(([timestamp, {
-                lowest,
-                highest,
-            }]) => {
-                console.log(`Date: ${getLocalDateFromTimestamp(+timestamp)} | Min Price: ${lowest} | Max Price: ${highest}`);
-            });
+    storedPriceSpan.addEventListener('click', (event) => {
+        event.stopPropagation();
+        showPriceHistoryInModal(priceHistory);
     });
 
     storedPriceContainer.append(storedPriceSpan);
     priceContainer.parentNode.append(storedPriceContainer);
+}
+
+function showPriceHistoryInModal(priceHistory) {
+    const modal = createModal();
+
+    const tableStyles = {
+        width: '100%',
+        borderCollapse: 'collapse',
+        marginTop: '16px',
+    };
+    const headerRowStyles = { borderTop: '1px solid #ccc' };
+    const headerCellStyles = {
+        padding: '8px',
+        textAlign: 'left',
+    };
+    const rowStyles = { borderTop: '1px solid #ccc' };
+    const cellStyles = { padding: '8px' };
+
+    const headers = ['Дата', 'Мин. цена', 'Макс. цена'];
+
+    const table = createTableWithHeaders(tableStyles, headerRowStyles, headerCellStyles, headers);
+
+    Object.entries(priceHistory)
+        .forEach(([timestamp, {
+            lowest,
+            highest,
+        }]) => {
+            const rowContent = [getLocalDateFromTimestamp(+timestamp), lowest, highest];
+
+            const row = createTr(rowStyles);
+
+            rowContent.forEach((content, index) => {
+                const cell = createTd(cellStyles, content);
+
+                row.appendChild(cell);
+            });
+
+            table.appendChild(row);
+        });
+
+    modal.appendChild(table);
+
+    document.body.appendChild(modal);
 }
 
 function updatePriceHistory(currentProduct, currentPriceValue) {
