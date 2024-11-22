@@ -3,6 +3,7 @@ import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './consta
 import { getElementInnerNumber } from '../dom/helpers';
 import { getStorageValue, setStorageValueAsync } from '../storage/storage';
 import { ProductData } from '../models/productData';
+import { RatedProductData } from '../models/ratedProductData';
 import { PriceData } from '../models/priceData';
 import { DatedValue } from '../models/datedValue';
 import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
@@ -16,9 +17,7 @@ export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
 
     const productStorageKey = `product-${productArticle}`;
     const storedProduct = getStorageValue(productStorageKey);
-
-    let currentProduct =
-        storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
+    let currentProduct = getCurrentProduct(storedProduct);
 
     const lowestPriceKey = 'lowestPrice';
     const highestPriceKey = 'highestPrice';
@@ -54,6 +53,14 @@ export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
 
     return setStorageValueAsync(productStorageKey, currentProduct)
         .then(() => new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue));
+}
+
+function getCurrentProduct(storedProduct) {
+    if (!storedProduct) return new ProductData();
+
+    return storedProduct.rating
+        ? RatedProductData.fromObject(storedProduct)
+        : ProductData.fromObject(storedProduct);
 }
 
 function updateAndAppendStoredPriceValue(
