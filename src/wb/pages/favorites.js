@@ -2,6 +2,7 @@ import { debounce, waitForElement } from '../../common/dom/utils';
 import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
+    getPriceSpan,
     getProductArticleFromLink,
     NUMBER_INPUT_STYLE,
     PRODUCT_CARD_NAME_SELECTOR,
@@ -178,25 +179,23 @@ function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
     }
 }
 
-function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap) {
-    const priceSpan = getFirstElement(PRICE_SELECTOR, productCard);
+async function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap) {
+    const priceSpan = getPriceSpan(productCard, SELECTORS);
     const productCardLink = getFirstElement('a', productCard);
 
     if (!priceSpan || !productCardLink) return;
 
     const productArticle = getProductArticleFromLink(productCardLink);
+    const priceData = await appendPriceHistory(priceContainer, priceSpan, productArticle);
 
-    appendPriceHistory(priceContainer, priceSpan, productArticle)
-        .then((priceData) => {
-            if (priceData) {
-                productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
-                productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
-                priceContainerWrap.style.display = 'block';
-            }
+    if (priceData) {
+        productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
+        productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
+        priceContainerWrap.style.display = 'block';
+    }
 
-            getFirstElement('.goods-card__similar', priceContainerWrap)
-                ?.remove();
+    getFirstElement('.goods-card__similar', priceContainerWrap)
+        ?.remove();
 
-            productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
-        });
+    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
 }
