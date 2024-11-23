@@ -138,21 +138,24 @@ async function appendRatingValue(starsContainer) {
         replaceRatingValue(starsContainer, storedRatingValue);
     }
 
-    const reviewsContainer = await waitForElement(document, '[data-widget="webReviewTabs"]');
-    const reviewsContainerColumns = getAllElements('[data-widget="column"]', reviewsContainer);
-    const reviewsInfoContainer = reviewsContainerColumns[2];
+    try {
+        const reviewsContainer = await waitForElement(document, '[data-widget="webReviewTabs"]');
+        const reviewsContainerColumns = getAllElements('[data-widget="column"]', reviewsContainer);
+        const reviewsInfoContainer = reviewsContainerColumns[2];
+        const ratingInfoContainer = await waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget])');
 
-    const ratingInfoContainer = await waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget])');
-    const ratingInfo = ratingInfoContainer.children[0];
+        const ratingInfo = ratingInfoContainer?.children[0];
+        if (!ratingInfo) return;
 
-    if (!ratingInfo) return;
+        const ratingValue = getRatingValueFromRatingInfo(ratingInfo);
 
-    const ratingValue = getRatingValueFromRatingInfo(ratingInfo);
+        if (!ratingValue) return;
 
-    if (!ratingValue) return;
-
-    setStoredRatingValue(productArticle, ratingValue);
-    replaceRatingValue(starsContainer, ratingValue);
+        setStoredRatingValue(productArticle, ratingValue);
+        replaceRatingValue(starsContainer, ratingValue);
+    } catch (error) {
+        console.error('Error while appending rating value:', error);
+    }
 }
 
 function getCountedRatingValueFromRatingInfoContainer(ratingInfo) {
