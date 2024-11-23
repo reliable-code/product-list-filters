@@ -35,6 +35,13 @@ const DEFAULT_CLOSE_BUTTON_STYLES = {
 
 let currentModal = null;
 
+export function createAndShowModal(
+    content = null, styles = DEFAULT_MODAL_STYLES, contentStyles = DEFAULT_CONTENT_STYLES,
+) {
+    const modal = createModal(content, styles, contentStyles);
+    showModal(modal);
+}
+
 export function showModal(modal) {
     if (currentModal) closeModal(currentModal);
 
@@ -66,7 +73,7 @@ export function createModal(
     return modal;
 }
 
-export function createCloseButton(modal, styles = DEFAULT_CLOSE_BUTTON_STYLES) {
+function createCloseButton(modal, styles = DEFAULT_CLOSE_BUTTON_STYLES) {
     const closeButton = createButton(styles, '×');
 
     closeButton.addEventListener('click', () => {
@@ -76,13 +83,13 @@ export function createCloseButton(modal, styles = DEFAULT_CLOSE_BUTTON_STYLES) {
     return closeButton;
 }
 
-export function closeModal(modal) {
+function closeModal(modal) {
     modal.remove();
     document.removeEventListener('click', (event) => handleClickOutside(event, modal));
     currentModal = null;
 }
 
-export function handleClickOutside(event, modal) {
+function handleClickOutside(event, modal) {
     if (!modal.contains(event.target)) {
         closeModal(modal);
     }
