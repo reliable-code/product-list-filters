@@ -4,42 +4,44 @@ import { getFirstElement } from '../../common/dom/helpers';
 import { APPEND_PRICE_HISTORY_PASSED_ATTR } from '../../common/priceHistory/constants';
 import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 
-const SIDE_CONTAINER_SELECTOR = '.product-page__aside-container';
-const PRICE_CONTAINER_SELECTOR = '.price-block__content';
-const WALLET_PRICE_SELECTOR = '.price-block__wallet-price';
-const PRICE_SELECTOR = '.price-block__price';
+const SELECTORS = {
+    SIDE_CONTAINER: '.product-page__aside-container',
+    PRICE_CONTAINER: '.price-block__content',
+    WALLET_PRICE: '.price-block__wallet-price',
+    PRICE: '.price-block__price',
+};
 
 export async function initProductPageMods() {
     await initAppendPriceHistory();
 }
 
 async function initAppendPriceHistory() {
-    const sideContainer = await waitForElement(document, `${SIDE_CONTAINER_SELECTOR}`);
+    const sideContainer = await waitForElement(document, SELECTORS.SIDE_CONTAINER);
     if (!sideContainer) return;
 
-    const productArticle = getProductArticleFromPathname();
-    const priceContainer = getFirstElement(PRICE_CONTAINER_SELECTOR, sideContainer);
-
+    const priceContainer = getFirstElement(SELECTORS.PRICE_CONTAINER, sideContainer);
     if (!priceContainer) return;
-    const priceSpan = getPriceSpan(priceContainer);
 
+    const priceSpan = getPriceSpan(priceContainer);
     if (!priceSpan) return;
 
+    const productArticle = getProductArticleFromPathname();
     await appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle);
 }
 
 function getPriceSpan(priceContainer) {
-    const walletPriceSpan = getFirstElement(WALLET_PRICE_SELECTOR, priceContainer);
-    return walletPriceSpan || getFirstElement(PRICE_SELECTOR, priceContainer);
+    return getFirstElement(SELECTORS.WALLET_PRICE, priceContainer) ||
+        getFirstElement(SELECTORS.PRICE, priceContainer);
 }
 
 async function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle) {
     const priceContainerWrap = priceContainer.parentNode;
 
     if (priceContainerWrap.hasAttribute(APPEND_PRICE_HISTORY_PASSED_ATTR)) return;
-    priceContainerWrap.setAttribute(APPEND_PRICE_HISTORY_PASSED_ATTR, '');
 
     await appendPriceHistory(priceContainer, priceSpan, productArticle);
+
+    priceContainerWrap.setAttribute(APPEND_PRICE_HISTORY_PASSED_ATTR, '');
 }
 
 function getProductArticleFromPathname() {
