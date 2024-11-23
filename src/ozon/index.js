@@ -61,25 +61,38 @@ function isBodyInitialized() {
 function initMods() {
     if (somePathElementEquals('gocheckout')) {
         if (isAutoCheckout()) autoBuyIfGoodPrice();
-    } else if (somePathElementEquals('cart')) {
+        return;
+    }
+
+    if (somePathElementEquals('cart')) {
         if (isAutoSkipCart()) {
             autoSkipCartOrReload();
         } else if (isAutoCheckout()) {
             checkCheckoutGoodPrice();
         }
-    } else {
-        replaceFavoritesLink();
+        return;
+    }
 
-        if (paginatorContent) {
-            initProductListMods();
-        } else if (somePathElementEquals('reviews')) {
-            const comments = getFirstElement(COMMENTS_SELECTOR);
-            if (comments) comments.scrollIntoView();
-        } else if (somePathElementEquals('product')) {
-            initProductPageMods();
-        } else if (somePathElementEquals('favorites')) {
-            initFavoritesMods();
-        }
+    replaceFavoritesLink();
+
+    if (paginatorContent) {
+        initProductListMods();
+        return;
+    }
+
+    if (somePathElementEquals('reviews')) {
+        const comments = getFirstElement(COMMENTS_SELECTOR);
+        if (comments) comments.scrollIntoView();
+        return;
+    }
+
+    if (somePathElementEquals('product')) {
+        initProductPageMods();
+        return;
+    }
+
+    if (somePathElementEquals('favorites')) {
+        initFavoritesMods();
     }
 }
 
