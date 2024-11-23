@@ -169,7 +169,7 @@ function appendStoredPriceValuesIfNeeded(productCard) {
 }
 
 function getPriceContainer(productCard) {
-    return productCard.children[0].children[1].children[0].children[0];
+    return productCard?.children[0]?.children[1]?.children[0]?.children[0] || null;
 }
 
 async function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap) {
