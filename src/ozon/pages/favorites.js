@@ -144,23 +144,19 @@ function processList(priceTolerancePercentChanged = false) {
     );
 }
 
-function appendStoredPriceValuesIfNeeded(productCard) {
+async function appendStoredPriceValuesIfNeeded(productCard) {
     if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) return;
 
     const additionalInfoDiv = getFirstElement('.tsBodyControl400Small', productCard);
-    if (additionalInfoDiv) {
-        const notInStock = additionalInfoDiv.innerText === 'Нет в наличии';
-
-        if (notInStock) {
-            productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
-            return;
-        }
+    if (additionalInfoDiv?.innerText === 'Нет в наличии') {
+        productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+        return;
     }
 
     const priceContainer = getPriceContainer(productCard);
     const priceContainerWrap = priceContainer.parentNode;
 
-    appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
+    await appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
 
     if (productCard.hasAttribute(CURRENT_PRICE_ATTR) &&
         productCard.hasAttribute(LOWEST_PRICE_ATTR)) {
