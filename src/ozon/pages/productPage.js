@@ -11,19 +11,18 @@ import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 
-export function initProductPageMods() {
+export async function initProductPageMods() {
     skipFirstGalleryVideo();
     extendProductNameMaxHeight();
+    await initAppendPriceHistory();
 
-    initAppendPriceHistory()
-        .then(() => waitForElement(document, `${PRODUCT_REVIEWS_WRAP_SELECTOR}`))
-        .then((productReviewsWrap) => {
-            if (!productReviewsWrap) return;
+    const productReviewsWrap =
+        await waitForElement(document, `${PRODUCT_REVIEWS_WRAP_SELECTOR}`);
+    if (!productReviewsWrap) return;
 
-            appendDislikeButton(productReviewsWrap);
-            appendBadReviewsLink(productReviewsWrap);
-            appendRatingValue(getStarsContainer(productReviewsWrap));
-        });
+    appendDislikeButton(productReviewsWrap);
+    appendBadReviewsLink(productReviewsWrap);
+    appendRatingValue(getStarsContainer(productReviewsWrap));
 }
 
 function appendDislikeButton(productReviewsWrap) {

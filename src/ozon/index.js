@@ -71,7 +71,7 @@ async function initMods() {
     }
 
     if (somePathElementEquals('product')) {
-        initProductPageMods();
+        await initProductPageMods();
         return;
     }
 
