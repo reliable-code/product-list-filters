@@ -51,11 +51,17 @@ export function showModal(modal) {
     return modal;
 }
 
-export function createModal(styles = DEFAULT_MODAL_STYLES) {
+export function createModal(
+    content = null, styles = DEFAULT_MODAL_STYLES, contentStyles = DEFAULT_CONTENT_STYLES,
+) {
     const modal = createDiv(styles);
     const closeButton = createCloseButton(modal);
 
     modal.appendChild(closeButton);
+
+    const contentContainer = createDiv(contentStyles);
+    if (content) contentContainer.appendChild(content);
+    modal.appendChild(contentContainer);
 
     return modal;
 }
