@@ -10,7 +10,7 @@ runMigration();
 (function observeHead() {
     const { head } = document;
 
-    const headObserver = new MutationObserver(debounce(initMods, 750));
+    const headObserver = new MutationObserver(debounce(addInitModsToQueue, 750));
     headObserver.observe(head, {
         childList: true,
     });
@@ -18,13 +18,11 @@ runMigration();
 
 let initModsQueue = Promise.resolve();
 
-async function initMods() {
-    initModsQueue = initModsQueue.then(() => executeInitMods());
+async function addInitModsToQueue() {
+    initModsQueue = initModsQueue.then(() => initMods());
 }
 
-async function executeInitMods() {
-    console.log('initMods start');
-
+async function initMods() {
     try {
         if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
             if (pathnameIncludes('detail')) {
