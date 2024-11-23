@@ -28,11 +28,7 @@ let currentModal = null;
 
 export function showModal(styles = DEFAULT_MODAL_STYLES) {
     if (currentModal) closeModal(currentModal);
-
-    const modal = createDiv(styles);
-    const closeButton = createCloseButton(modal);
-
-    modal.appendChild(closeButton);
+    const modal = createModal(styles);
 
     currentModal = modal;
 
@@ -41,6 +37,15 @@ export function showModal(styles = DEFAULT_MODAL_STYLES) {
     modal.addEventListener('click', (event) => {
         event.stopPropagation();
     });
+
+    return modal;
+}
+
+function createModal(styles) {
+    const modal = createDiv(styles);
+    const closeButton = createCloseButton(modal);
+
+    modal.appendChild(closeButton);
 
     return modal;
 }
