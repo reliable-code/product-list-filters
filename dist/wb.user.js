@@ -7,7 +7,7 @@
 // @grant        GM_getValue
 // @match        https://www.wildberries.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.7.73235841
+// @version      0.7.73237080
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=wildberries.ru
 // @author       reliable-code
 // ==/UserScript==
@@ -129,4 +129,4 @@ const getAllKeys=window.GM_listValues;function runMigrationTaskIfNeeded(migratio
 const ACTUAL_DB_VERSION=1;function runMigration(){runMigrationTaskIfNeeded(migrationTask,ACTUAL_DB_VERSION,false)}function migrationTask(){const keyFilterCondition=key=>key.startsWith("product-");const processEntry=(key,value)=>{updateProductLastCheckDate(key,"lastCheckDate",value);updateProductPriceDate(key,"lowestPrice",value);updateProductPriceDate(key,"highestPrice",value)};processEntriesByKeyFilter(keyFilterCondition,processEntry,true)}function updateProductLastCheckDate(entryKey,productPropKey,value){const lastCheckDate=value[productPropKey];if(lastCheckDate){const[day,month,year]=lastCheckDate.split(".").map(Number);const dateObject=new Date(year,month-1,day);const timestamp=dateObject.getTime();value[productPropKey]=timestamp;setStorageValue(entryKey,value)}}function updateProductPriceDate(entryKey,productPropKey,value){const datedPrice=value[productPropKey];if(datedPrice){const dateString=datedPrice.date;const[day,month,year]=dateString.split(".").map(Number);const dateObject=new Date(year,month-1,day);const timestamp=dateObject.getTime();datedPrice.date=timestamp;value[productPropKey]=datedPrice;setStorageValue(entryKey,value)}}
 
 
-runMigration();(function(){const{head}=document;const headObserver=new MutationObserver(debounce(initMods,750));headObserver.observe(head,{childList:true})})();let initModsQueue=Promise.resolve();async function initMods(){initModsQueue=initModsQueue.then((()=>executeInitMods()))}async function executeInitMods(){console.log("initMods start");try{somePathElementEquals("catalog")||somePathElementEquals("brands")?pathnameIncludes("detail")?await initProductPageMods():initProductListMods():somePathElementEquals("favorites")&&await initFavoritesMods()}catch(error){console.error("Error in initMods:",error)}}})();
+runMigration();(function(){const{head}=document;const headObserver=new MutationObserver(debounce(addInitModsToQueue,750));headObserver.observe(head,{childList:true})})();let initModsQueue=Promise.resolve();async function addInitModsToQueue(){initModsQueue=initModsQueue.then(initMods)}async function initMods(){try{somePathElementEquals("catalog")||somePathElementEquals("brands")?pathnameIncludes("detail")?await initProductPageMods():initProductListMods():somePathElementEquals("favorites")&&await initFavoritesMods()}catch(error){console.error("Error in initMods:",error)}}})();

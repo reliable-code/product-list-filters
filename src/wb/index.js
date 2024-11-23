@@ -19,7 +19,7 @@ runMigration();
 let initModsQueue = Promise.resolve();
 
 async function addInitModsToQueue() {
-    initModsQueue = initModsQueue.then(() => initMods());
+    initModsQueue = initModsQueue.then(initMods);
 }
 
 async function initMods() {
