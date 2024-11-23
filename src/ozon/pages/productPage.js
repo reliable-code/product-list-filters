@@ -1,4 +1,4 @@
-import { waitForElement } from '../../common/dom/utils';
+import { debounce, waitForElement } from '../../common/dom/utils';
 import { createDislikeButton } from './common/common';
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
@@ -23,6 +23,48 @@ export async function initProductPageMods() {
     appendDislikeButton(productReviewsWrap);
     appendBadReviewsLink(productReviewsWrap);
     appendRatingValue(getStarsContainer(productReviewsWrap));
+}
+
+async function initAppendPriceHistory() {
+    const priceContainer = await waitForElement(document, '[data-widget="webPrice"]');
+    if (!priceContainer) return;
+
+    const productArticle = getProductArticleFromPathname();
+    const priceSpan = getFirstElement('span', priceContainer);
+
+    await appendPriceHistory(priceContainer, priceSpan, productArticle);
+}
+
+async function initSkipFirstGalleryVideo() {
+    const webGallery = await waitForElement(document, '[data-widget="webGallery"]');
+    if (!webGallery) return;
+
+    const observer = new MutationObserver(debounce(() => {
+        skipFirstGalleryVideo(webGallery);
+        observer.disconnect();
+    }));
+
+    observer.observe(webGallery, {
+        childList: true,
+        subtree: true,
+    });
+}
+
+function skipFirstGalleryVideo(webGallery) {
+    webGallery = getFirstElement('[data-widget="webGallery"]');
+
+    const firstGalleryItem = getFirstElement('[data-index="0"]', webGallery);
+    if (!firstGalleryItem) return;
+
+    const secondGalleryItem = getFirstElement('[data-index="1"]', webGallery);
+    if (!secondGalleryItem) return;
+
+    const firstGalleryItemIsImage =
+        [...secondGalleryItem.classList]
+            .every((ic) => firstGalleryItem.classList.contains(ic));
+
+    if (firstGalleryItemIsImage) return;
+    secondGalleryItem.click();
 }
 
 function appendDislikeButton(productReviewsWrap) {
@@ -176,35 +218,6 @@ function replaceRatingValue(starsContainer, ratingValue) {
     const starsContainerTextArray = starsContainer.textContent.split(' • ');
     const reviewsCountText = starsContainerTextArray[1] ?? starsContainerTextArray[0];
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
-}
-
-async function initAppendPriceHistory() {
-    const priceContainer = await waitForElement(document, '[data-widget="webPrice"]');
-    if (!priceContainer) return;
-
-    const productArticle = getProductArticleFromPathname();
-    const priceSpan = getFirstElement('span', priceContainer);
-
-    await appendPriceHistory(priceContainer, priceSpan, productArticle);
-}
-
-async function skipFirstGalleryVideo() {
-    const webGallery = await waitForElement(document, '[data-widget="webGallery"]');
-    if (!webGallery) return;
-
-    const firstGalleryItem = getFirstElement('[data-index="0"]', webGallery);
-    if (!firstGalleryItem) return;
-
-    const secondGalleryItem = getFirstElement('[data-index="1"]', webGallery);
-    if (!secondGalleryItem) return;
-
-    const firstGalleryItemIsImage =
-        [...secondGalleryItem.classList]
-            .every((ic) => firstGalleryItem.classList.contains(ic));
-
-    if (firstGalleryItemIsImage) return;
-
-    secondGalleryItem.click();
 }
 
 async function extendProductNameMaxHeight() {
