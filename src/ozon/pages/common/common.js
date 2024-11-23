@@ -90,6 +90,12 @@ export function getFirstProductCardsWrap() {
     return getFirstElement('.widget-search-result-container').firstChild;
 }
 
+export function moveProductCardsToFirstWrap(productCards, firstProductCardsWrap) {
+    productCards.forEach((productCard) => {
+        moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap);
+    });
+}
+
 export function moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap) {
     if (productCard.parentNode === firstProductCardsWrap) return;
 
