@@ -37,29 +37,28 @@ const SELECTORS = {
 };
 
 const nameFilter =
-    new StoredInputValue('favorites-name-filter', null, processList);
+    new StoredInputValue('favorites-name-filter', null, addProcessListToQueue);
 const bestPriceFilter =
-    new StoredInputValue('best-price-filter', false, processList);
-const onPriceTolerancePercentChange = () => processList(true);
+    new StoredInputValue('best-price-filter', false, addProcessListToQueue);
+const onPriceTolerancePercentChange = () => addProcessListToQueue(true);
 const priceTolerancePercent =
     new StoredInputValue('price-tolerance-percent', 3, onPriceTolerancePercentChange);
 const inStockOnlyFilter =
-    new StoredInputValue('in-stock-only-filter', true, processList);
+    new StoredInputValue('in-stock-only-filter', true, addProcessListToQueue);
 const filterEnabled =
-    new StoredInputValue('favorites-filter-enabled', true, processList);
+    new StoredInputValue('favorites-filter-enabled', true, addProcessListToQueue);
+
+let processListQueue = Promise.resolve();
 
 export async function initFavoritesMods() {
     const filterContainer = await waitForElement(document, SELECTORS.FILTER_CONTAINER);
 
-    if (filterContainer) {
-        appendFilterControlsIfNeeded(filterContainer, appendFiltersContainer);
-    }
+    appendFilterControlsIfNeeded(filterContainer, appendFiltersContainer);
+
+    await addProcessListToQueue();
+    const observer = new MutationObserver(debounce(addProcessListToQueue));
 
     const productListContainer = getFirstElement(SELECTORS.PRODUCT_LIST_CONTAINER);
-
-    await processList();
-
-    const observer = new MutationObserver(debounce(processList));
 
     observer.observe(productListContainer, {
         childList: true,
@@ -114,6 +113,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
+}
+
+async function addProcessListToQueue(priceTolerancePercentChanged = false) {
+    processListQueue = processListQueue.then(() => processList(priceTolerancePercentChanged));
 }
 
 async function processList(priceTolerancePercentChanged = false) {
