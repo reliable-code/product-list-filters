@@ -16,14 +16,26 @@ runMigration();
     });
 }());
 
+let initModsQueue = Promise.resolve();
+
 async function initMods() {
-    if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
-        if (pathnameIncludes('detail')) {
-            await initProductPageMods();
-        } else {
-            initProductListMods();
+    initModsQueue = initModsQueue.then(() => executeInitMods());
+}
+
+async function executeInitMods() {
+    console.log('initMods start');
+
+    try {
+        if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
+            if (pathnameIncludes('detail')) {
+                await initProductPageMods();
+            } else {
+                initProductListMods();
+            }
+        } else if (somePathElementEquals('favorites')) {
+            initFavoritesMods();
         }
-    } else if (somePathElementEquals('favorites')) {
-        initFavoritesMods();
+    } catch (error) {
+        console.error('Error in initMods:', error);
     }
 }
