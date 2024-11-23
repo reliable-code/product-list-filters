@@ -206,3 +206,7 @@ async function appendStoredPriceValues(priceContainer, productCard, priceContain
 
     productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
 }
+
+function isNotMatchBestPriceFilter(productCard) {
+    return bestPriceFilter.value ? !productCard.hasAttribute(GOOD_PRICE_ATTR) : false;
+}
