@@ -1,36 +1,39 @@
 import { getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 
-export function isAutoCheckout() {
-    return isBoolStorageOption('autoCheckout');
-}
+const STORAGE_KEYS = {
+    AUTO_CHECKOUT: 'autoCheckout',
+    AUTO_SKIP_CART: 'autoSkipCart',
+    AUTO_RELOAD_CHECKOUT: 'autoReloadCheckout',
+    AUTO_CHECKOUT_PROD: 'autoCheckoutProd',
+    AUTO_CHECKOUT_GOOD_PRICE: 'autoCheckoutGoodPrice',
+};
 
-export function isAutoSkipCart() {
-    return isBoolStorageOption('autoSkipCart');
-}
+function getBoolStorageOption(key, defaultValue = '0') {
+    const value = localStorage.getItem(key);
+    if (value !== null) return value;
 
-function isAutoReloadCheckout() {
-    return isBoolStorageOption('autoReloadCheckout');
-}
-
-function isAutoCheckoutProd() {
-    return isBoolStorageOption('autoCheckoutProd');
+    localStorage.setItem(key, defaultValue);
+    return defaultValue;
 }
 
 function isBoolStorageOption(key) {
-    const boolStorageOption = getBoolStorageOption(key);
-
-    return boolStorageOption === '1';
+    return getBoolStorageOption(key) === '1';
 }
 
-function getBoolStorageOption(key) {
-    let boolStorageOption = localStorage.getItem(key);
+export function isAutoCheckout() {
+    return isBoolStorageOption(STORAGE_KEYS.AUTO_CHECKOUT);
+}
 
-    if (boolStorageOption === null) {
-        boolStorageOption = '0';
-        localStorage.setItem(key, boolStorageOption);
-    }
+export function isAutoSkipCart() {
+    return isBoolStorageOption(STORAGE_KEYS.AUTO_SKIP_CART);
+}
 
-    return boolStorageOption;
+function isAutoReloadCheckout() {
+    return isBoolStorageOption(STORAGE_KEYS.AUTO_RELOAD_CHECKOUT);
+}
+
+function isAutoCheckoutProd() {
+    return isBoolStorageOption(STORAGE_KEYS.AUTO_CHECKOUT_PROD);
 }
 
 export function autoSkipCartOrReload() {
@@ -45,16 +48,16 @@ export function autoSkipCartOrReload() {
 }
 
 export function checkCheckoutGoodPrice() {
-    const storedCheckoutGoodPrice = localStorage.getItem('autoCheckoutGoodPrice');
+    const storedPrice = localStorage.getItem(STORAGE_KEYS.AUTO_CHECKOUT_GOOD_PRICE);
 
-    if (storedCheckoutGoodPrice !== null) {
-        console.log('autoCheckoutGoodPrice: ', storedCheckoutGoodPrice);
+    if (storedPrice !== null) {
+        console.log('autoCheckoutGoodPrice: ', storedPrice);
         return;
     }
 
     if (confirm('Установить цену для автопокупки?')) {
         const autoCheckoutGoodPrice = prompt('Введите допустимую цену:');
-        localStorage.setItem('autoCheckoutGoodPrice', autoCheckoutGoodPrice);
+        localStorage.setItem(STORAGE_KEYS.AUTO_CHECKOUT_GOOD_PRICE, autoCheckoutGoodPrice);
     }
 }
 
@@ -62,16 +65,14 @@ export function autoBuyIfGoodPrice() {
     const totalWidgetDesktop = getTotalWidgetDesktop();
     const checkoutButton = getCheckoutButton(totalWidgetDesktop);
 
-    if (checkoutButton.hasAttribute('disabled')) {
-        if (isAutoReloadCheckout()) {
-            setTimeout(() => window.location.reload(), 1500);
-            return;
-        }
+    if (checkoutButton.hasAttribute('disabled') && isAutoReloadCheckout()) {
+        setTimeout(() => window.location.reload(), 1500);
+        return;
     }
 
     const priceContainer = totalWidgetDesktop.children[1].lastElementChild.children[1];
     const price = getElementInnerNumber(priceContainer, true);
-    const autoCheckoutGoodPrice = localStorage.getItem('autoCheckoutGoodPrice');
+    const autoCheckoutGoodPrice = localStorage.getItem(STORAGE_KEYS.AUTO_CHECKOUT_GOOD_PRICE);
 
     if (autoCheckoutGoodPrice === null) {
         console.log('No autoCheckoutGoodPrice in localStorage');
@@ -87,7 +88,6 @@ export function autoBuyIfGoodPrice() {
         } else {
             console.log('Тестовая покупка');
         }
-
         console.log('autoCheckoutGoodPrice: ', autoCheckoutGoodPriceNumber);
         console.log('price: ', price);
     } else {
@@ -102,7 +102,6 @@ export function autoBuyIfGoodPrice() {
 
 function getTotalWidgetDesktop() {
     const totalWidget = getFirstElement('[data-widget="total"]');
-
     return totalWidget.children[0];
 }
 
