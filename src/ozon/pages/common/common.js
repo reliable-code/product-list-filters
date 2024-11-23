@@ -101,3 +101,19 @@ export function moveProductCardToFirstWrapIfNeeded(productCard, firstProductCard
 
     firstProductCardsWrap.appendChild(productCard);
 }
+
+export function hideUnwantedElements() {
+    const css =
+        '[data-widget="bigPromoPDP"],' +
+        '[data-widget="blackFridayStatus"],' +
+        '[data-widget="cellList"],' +
+        '[data-widget="skuGrid"],' +
+        '[data-widget="skuShelfGoods"],' +
+        '[data-widget="tagList"],' +
+        '[data-widget="webInstallmentPurchase"],' +
+        '[data-widget="webOneClickButton"] {' +
+        '   display: none !important;' +
+        '}';
+
+    addGlobalStyle(css);
+}

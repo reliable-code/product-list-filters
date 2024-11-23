@@ -13,6 +13,7 @@ import {
     isAutoCheckout,
     isAutoSkipCart,
 } from './pages/checkoutPage';
+import { hideUnwantedElements } from './pages/common/common';
 
 const COMMENTS_SELECTOR = '#comments';
 
