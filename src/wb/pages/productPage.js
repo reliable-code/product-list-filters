@@ -3,6 +3,7 @@ import { getURLPathElementEnding } from '../../common/url';
 import { getFirstElement } from '../../common/dom/helpers';
 import { APPEND_PRICE_HISTORY_PASSED_ATTR } from '../../common/priceHistory/constants';
 import { appendPriceHistory } from '../../common/priceHistory/manipulation';
+import { getPriceSpan } from './common/common';
 
 const SELECTORS = {
     SIDE_CONTAINER: '.product-page__aside-container',
@@ -27,11 +28,6 @@ async function initAppendPriceHistory() {
 
     const productArticle = getProductArticleFromPathname();
     await appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle);
-}
-
-function getPriceSpan(priceContainer, selectors) {
-    return getFirstElement(selectors.WALLET_PRICE, priceContainer) ||
-        getFirstElement(selectors.PRICE, priceContainer);
 }
 
 async function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle) {
