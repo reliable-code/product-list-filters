@@ -24,7 +24,7 @@ export async function initProductPageMods() {
 
     appendDislikeButton(productReviewsWrap);
     appendBadReviewsLink(productReviewsWrap);
-    appendRatingValue(getStarsContainer(productReviewsWrap));
+    await appendRatingValue(getStarsContainer(productReviewsWrap));
 }
 
 async function initAppendPriceHistory() {
@@ -130,7 +130,7 @@ function appendBadReviewsLink(productReviewsWrap) {
     }
 }
 
-function appendRatingValue(starsContainer) {
+async function appendRatingValue(starsContainer) {
     const productArticle = getProductArticleFromPathname();
     const storedRatingValue = getStoredRatingValue(productArticle);
 
@@ -138,24 +138,21 @@ function appendRatingValue(starsContainer) {
         replaceRatingValue(starsContainer, storedRatingValue);
     }
 
-    waitForElement(document, '[data-widget="webReviewTabs"]')
-        .then((reviewsContainer) => {
-            const reviewsContainerColumns = getAllElements('[data-widget="column"]', reviewsContainer);
-            const reviewsInfoContainer = reviewsContainerColumns[2];
-            waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget])')
-                .then((ratingInfoContainer) => {
-                    const ratingInfo = ratingInfoContainer.children[0];
+    const reviewsContainer = await waitForElement(document, '[data-widget="webReviewTabs"]');
+    const reviewsContainerColumns = getAllElements('[data-widget="column"]', reviewsContainer);
+    const reviewsInfoContainer = reviewsContainerColumns[2];
 
-                    if (!ratingInfo) return;
+    const ratingInfoContainer = await waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget])');
+    const ratingInfo = ratingInfoContainer.children[0];
 
-                    const ratingValue = getRatingValueFromRatingInfo(ratingInfo);
+    if (!ratingInfo) return;
 
-                    if (!ratingValue) return;
+    const ratingValue = getRatingValueFromRatingInfo(ratingInfo);
 
-                    setStoredRatingValue(productArticle, ratingValue);
-                    replaceRatingValue(starsContainer, ratingValue);
-                });
-        });
+    if (!ratingValue) return;
+
+    setStoredRatingValue(productArticle, ratingValue);
+    replaceRatingValue(starsContainer, ratingValue);
 }
 
 function getCountedRatingValueFromRatingInfoContainer(ratingInfo) {
