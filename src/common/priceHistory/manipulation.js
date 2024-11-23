@@ -9,7 +9,7 @@ import { DatedValue } from '../models/datedValue';
 import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
 import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory';
 import { getDeviationColor } from './helpers';
-import { createModal, showModal } from '../dom/modalFactory';
+import { createAndShowModal } from '../dom/modalFactory';
 
 export async function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -165,9 +165,7 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
             table.appendChild(row);
         });
 
-    modal.appendChild(table);
-
-    showModal(modal);
+    createAndShowModal(table);
 }
 
 function updatePriceHistory(currentProduct, currentPriceValue) {
