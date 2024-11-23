@@ -26,7 +26,7 @@ const DEFAULT_CLOSE_BUTTON_STYLES = {
 
 let currentModal = null;
 
-export function createModal(styles = DEFAULT_MODAL_STYLES) {
+export function showModal(styles = DEFAULT_MODAL_STYLES) {
     if (currentModal) closeModal(currentModal);
 
     const modal = createDiv(styles);

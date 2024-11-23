@@ -8,7 +8,7 @@ import { PriceData } from '../models/priceData';
 import { DatedValue } from '../models/datedValue';
 import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
 import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory';
-import { createModal } from '../dom/modalFactory';
+import { showModal } from '../dom/modalFactory';
 import { getDeviationColor } from './helpers';
 
 export async function appendPriceHistory(priceContainer, priceSpan, productArticle) {
@@ -125,7 +125,7 @@ function appendStoredPriceValue(
 }
 
 function showPriceHistoryInModal(priceHistory, currentPrice) {
-    const modal = createModal();
+    const modal = showModal();
 
     const tableStyles = {
         width: '100%',
