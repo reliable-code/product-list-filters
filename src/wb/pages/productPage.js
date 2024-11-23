@@ -22,16 +22,16 @@ async function initAppendPriceHistory() {
     const priceContainer = getFirstElement(SELECTORS.PRICE_CONTAINER, sideContainer);
     if (!priceContainer) return;
 
-    const priceSpan = getPriceSpan(priceContainer);
+    const priceSpan = getPriceSpan(priceContainer, SELECTORS);
     if (!priceSpan) return;
 
     const productArticle = getProductArticleFromPathname();
     await appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle);
 }
 
-function getPriceSpan(priceContainer) {
-    return getFirstElement(SELECTORS.WALLET_PRICE, priceContainer) ||
-        getFirstElement(SELECTORS.PRICE, priceContainer);
+function getPriceSpan(priceContainer, selectors) {
+    return getFirstElement(selectors.WALLET_PRICE, priceContainer) ||
+        getFirstElement(selectors.PRICE, priceContainer);
 }
 
 async function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle) {
