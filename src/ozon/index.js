@@ -36,14 +36,14 @@ const { body } = document;
 if (isBodyInitialized()) {
     initMods();
 } else {
-    waitForBodyInitialization();
+    initModsAfterBodyInitialization();
 }
 
 function isBodyInitialized() {
     return body.classList.contains('vsc-initialized');
 }
 
-function waitForBodyInitialization() {
+function initModsAfterBodyInitialization() {
     const observer = new MutationObserver(async () => {
         if (isBodyInitialized()) {
             observer.disconnect();
