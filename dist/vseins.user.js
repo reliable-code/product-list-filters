@@ -4,7 +4,7 @@
 // @match        https://www.vseinstrumenti.ru/tag-page/*
 // @match        https://www.vseinstrumenti.ru/category/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.1.73238532
+// @version      0.1.73240117
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=vseinstrumenti.ru
 // @author       reliable-code
 // ==/UserScript==
