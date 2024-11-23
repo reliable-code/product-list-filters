@@ -1,5 +1,6 @@
 const path = require('path');
 const { monkey } = require('webpack-monkey');
+const { EsbuildPlugin } = require('esbuild-loader');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -38,7 +39,14 @@ module.exports = monkey({
         ],
     },
     optimization: {
-        minimize: false, // Минификация
-        usedExports: true, // Включение tree shaking
+        minimize: isProduction,
+        minimizer: [
+            new EsbuildPlugin({
+                target: 'es2020',
+                minify: true,
+                legalComments: 'none',
+            }),
+        ],
+        usedExports: true,
     },
 });
