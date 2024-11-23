@@ -167,7 +167,7 @@ function processList(priceTolerancePercentChanged = false) {
     );
 }
 
-function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
+async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
     if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) return;
 
     const outOfStock = getFirstElement('.goods-card__out-stock', productCard);
@@ -178,7 +178,7 @@ function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
 
     const priceContainerWrap = priceContainer.parentNode;
 
-    appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
+    await appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
 
     if (productCard.hasAttribute(CURRENT_PRICE_ATTR) &&
         productCard.hasAttribute(LOWEST_PRICE_ATTR)) {
