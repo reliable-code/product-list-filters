@@ -12,8 +12,8 @@ import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 
 export async function initProductPageMods() {
-    skipFirstGalleryVideo();
     await extendProductNameMaxHeight();
+    await skipFirstGalleryVideo();
     await initAppendPriceHistory();
 
     const productReviewsWrap =
@@ -188,23 +188,23 @@ async function initAppendPriceHistory() {
     await appendPriceHistory(priceContainer, priceSpan, productArticle);
 }
 
-function skipFirstGalleryVideo() {
-    waitForElement(document, '[data-widget="webGallery"]')
-        .then((webGallery) => {
-            const firstGalleryItem = getFirstElement('[data-index="0"]', webGallery);
-            if (!firstGalleryItem) return;
+async function skipFirstGalleryVideo() {
+    const webGallery = await waitForElement(document, '[data-widget="webGallery"]');
+    if (!webGallery) return;
 
-            const secondGalleryItem = getFirstElement('[data-index="1"]', webGallery);
-            if (!secondGalleryItem) return;
+    const firstGalleryItem = getFirstElement('[data-index="0"]', webGallery);
+    if (!firstGalleryItem) return;
 
-            const firstGalleryItemIsImage =
-                [...secondGalleryItem.classList]
-                    .every((ic) => firstGalleryItem.classList.contains(ic));
+    const secondGalleryItem = getFirstElement('[data-index="1"]', webGallery);
+    if (!secondGalleryItem) return;
 
-            if (firstGalleryItemIsImage) return;
+    const firstGalleryItemIsImage =
+        [...secondGalleryItem.classList]
+            .every((ic) => firstGalleryItem.classList.contains(ic));
 
-            secondGalleryItem.click();
-        });
+    if (firstGalleryItemIsImage) return;
+
+    secondGalleryItem.click();
 }
 
 async function extendProductNameMaxHeight() {
