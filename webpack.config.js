@@ -1,6 +1,8 @@
 const path = require('path');
 const { monkey } = require('webpack-monkey');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = monkey({
     entry: {
         dns: './src/dns/index.js',
@@ -17,5 +19,26 @@ module.exports = monkey({
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
+    },
+    mode: isProduction ? 'production' : 'development',
+    devtool: isProduction ? false : 'eval-source-map',
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        plugins: ['@babel/plugin-transform-runtime'],
+                    },
+                },
+            },
+        ],
+    },
+    optimization: {
+        minimize: false, // Минификация
+        usedExports: true, // Включение tree shaking
     },
 });
