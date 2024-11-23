@@ -172,7 +172,7 @@ function getPriceContainer(productCard) {
     return productCard.children[0].children[1].children[0].children[0];
 }
 
-function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap) {
+async function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap) {
     const productCardLink = getFirstElement('a', productCard);
 
     if (!productCardLink) return;
@@ -180,15 +180,14 @@ function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap
     const productArticle = getProductArticleFromLink(productCardLink);
     const priceSpan = getFirstElement('span', priceContainer);
 
-    appendPriceHistory(priceContainer, priceSpan, productArticle)
-        .then((priceData) => {
-            if (priceData) {
-                productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
-                productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
+    const priceData = await appendPriceHistory(priceContainer, priceSpan, productArticle);
 
-                priceContainerWrap.style.display = 'block';
-            }
+    if (priceData) {
+        productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
+        productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
 
-            productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
-        });
+        priceContainerWrap.style.display = 'block';
+    }
+
+    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
 }
