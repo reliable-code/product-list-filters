@@ -7,7 +7,7 @@ import { runMigration } from './db/db';
 
 runMigration();
 
-const headObserver = new MutationObserver(debounce(initMods));
+const headObserver = new MutationObserver(debounce(initMods, 1000));
 
 const { head } = document;
 
@@ -17,10 +17,10 @@ if (head) {
     });
 }
 
-function initMods() {
+async function initMods() {
     if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
         if (pathnameIncludes('detail')) {
-            initProductPageMods();
+            await initProductPageMods();
         } else {
             initProductListMods();
         }
