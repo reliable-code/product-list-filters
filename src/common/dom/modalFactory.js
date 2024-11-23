@@ -6,22 +6,31 @@ const DEFAULT_MODAL_STYLES = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'white',
-    padding: '20px',
     border: '1px solid #ccc',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     maxWidth: '80%',
     maxHeight: '70%',
-    overflowY: 'auto',
     zIndex: '1000',
+};
+
+const DEFAULT_CONTENT_STYLES = {
+    margin: '40px 0 30px',
+    padding: '5px 25px 0',
+    overflowY: 'auto',
+    maxHeight: 'calc(70vh - 75px)',
 };
 
 const DEFAULT_CLOSE_BUTTON_STYLES = {
     position: 'absolute',
+    padding: '0',
     top: '0px',
-    right: '8px',
+    right: '11px',
+    fontFamily: 'system-ui',
     fontSize: '24px',
     cursor: 'pointer',
     color: '#000',
+    border: 'none',
+    background: 'none',
 };
 
 let currentModal = null;

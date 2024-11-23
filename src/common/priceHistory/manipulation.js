@@ -130,7 +130,6 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     const tableStyles = {
         width: '100%',
         borderCollapse: 'collapse',
-        marginTop: '16px',
     };
     const headerRowStyles = { borderTop: '1px solid #ccc' };
     const headerCellStyles = {
