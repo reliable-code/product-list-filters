@@ -21,13 +21,16 @@ async function initAppendPriceHistory() {
     const priceContainer = getFirstElement(PRICE_CONTAINER_SELECTOR, sideContainer);
 
     if (!priceContainer) return;
-
-    const walletPriceSpan = getFirstElement(WALLET_PRICE_SELECTOR, priceContainer);
-    const priceSpan = walletPriceSpan || getFirstElement(PRICE_SELECTOR, priceContainer);
+    const priceSpan = getPriceSpan(priceContainer);
 
     if (!priceSpan) return;
 
     await appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle);
+}
+
+function getPriceSpan(priceContainer) {
+    const walletPriceSpan = getFirstElement(WALLET_PRICE_SELECTOR, priceContainer);
+    return walletPriceSpan || getFirstElement(PRICE_SELECTOR, priceContainer);
 }
 
 async function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle) {
