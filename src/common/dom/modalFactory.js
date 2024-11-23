@@ -26,9 +26,8 @@ const DEFAULT_CLOSE_BUTTON_STYLES = {
 
 let currentModal = null;
 
-export function showModal(styles = DEFAULT_MODAL_STYLES) {
+export function showModal(modal) {
     if (currentModal) closeModal(currentModal);
-    const modal = createModal(styles);
 
     currentModal = modal;
 
@@ -38,10 +37,12 @@ export function showModal(styles = DEFAULT_MODAL_STYLES) {
         event.stopPropagation();
     });
 
+    document.body.appendChild(modal);
+
     return modal;
 }
 
-function createModal(styles) {
+export function createModal(styles = DEFAULT_MODAL_STYLES) {
     const modal = createDiv(styles);
     const closeButton = createCloseButton(modal);
 
