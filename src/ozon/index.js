@@ -6,13 +6,7 @@ import { somePathElementEquals } from '../common/url';
 import { addGlobalStyle } from '../common/dom/manipulation';
 import { getFirstElement } from '../common/dom/helpers';
 import { runMigration as migrateDb } from './db/db';
-import {
-    autoBuyIfGoodPrice,
-    autoSkipCartOrReload,
-    checkCheckoutGoodPrice,
-    isAutoCheckout,
-    isAutoSkipCart,
-} from './pages/checkoutPage';
+import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
 import { hideUnwantedElements } from './pages/common/common';
 
 const COMMENTS_SELECTOR = '#comments';
@@ -61,16 +55,12 @@ function isBodyInitialized() {
 
 function initMods() {
     if (somePathElementEquals('gocheckout')) {
-        if (isAutoCheckout()) autoBuyIfGoodPrice();
+        initCheckoutMods();
         return;
     }
 
     if (somePathElementEquals('cart')) {
-        if (isAutoSkipCart()) {
-            autoSkipCartOrReload();
-        } else if (isAutoCheckout()) {
-            checkCheckoutGoodPrice();
-        }
+        initCartMods();
         return;
     }
 

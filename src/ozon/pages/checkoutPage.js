@@ -8,6 +8,23 @@ const STORAGE_KEYS = {
     AUTO_CHECKOUT_GOOD_PRICE: 'autoCheckoutGoodPrice',
 };
 
+export function initCheckoutMods() {
+    if (isAutoCheckout()) {
+        autoBuyIfGoodPrice();
+    }
+}
+
+export function initCartMods() {
+    if (isAutoSkipCart()) {
+        autoSkipCartOrReload();
+        return;
+    }
+
+    if (isAutoCheckout()) {
+        checkCheckoutGoodPrice();
+    }
+}
+
 function getBoolStorageOption(key, defaultValue = '0') {
     const value = localStorage.getItem(key);
     if (value !== null) return value;
@@ -20,11 +37,11 @@ function isBoolStorageOption(key) {
     return getBoolStorageOption(key) === '1';
 }
 
-export function isAutoCheckout() {
+function isAutoCheckout() {
     return isBoolStorageOption(STORAGE_KEYS.AUTO_CHECKOUT);
 }
 
-export function isAutoSkipCart() {
+function isAutoSkipCart() {
     return isBoolStorageOption(STORAGE_KEYS.AUTO_SKIP_CART);
 }
 
@@ -36,7 +53,7 @@ function isAutoCheckoutProd() {
     return isBoolStorageOption(STORAGE_KEYS.AUTO_CHECKOUT_PROD);
 }
 
-export function autoSkipCartOrReload() {
+function autoSkipCartOrReload() {
     const totalWidgetDesktop = getTotalWidgetDesktop();
     const checkoutButton = getCheckoutButton(totalWidgetDesktop);
 
@@ -47,7 +64,7 @@ export function autoSkipCartOrReload() {
     }
 }
 
-export function checkCheckoutGoodPrice() {
+function checkCheckoutGoodPrice() {
     const storedPrice = localStorage.getItem(STORAGE_KEYS.AUTO_CHECKOUT_GOOD_PRICE);
 
     if (storedPrice !== null) {
@@ -61,7 +78,7 @@ export function checkCheckoutGoodPrice() {
     }
 }
 
-export function autoBuyIfGoodPrice() {
+function autoBuyIfGoodPrice() {
     const totalWidgetDesktop = getTotalWidgetDesktop();
     const checkoutButton = getCheckoutButton(totalWidgetDesktop);
 
