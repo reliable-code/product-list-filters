@@ -179,16 +179,14 @@ function replaceRatingValue(starsContainer, ratingValue) {
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
 }
 
-function initAppendPriceHistory() {
-    return waitForElement(document, '[data-widget="webPrice"]')
-        .then((priceContainer) => {
-            if (!priceContainer) return;
+async function initAppendPriceHistory() {
+    const priceContainer = await waitForElement(document, '[data-widget="webPrice"]');
+    if (!priceContainer) return;
 
-            const productArticle = getProductArticleFromPathname();
-            const priceSpan = getFirstElement('span', priceContainer);
+    const productArticle = getProductArticleFromPathname();
+    const priceSpan = getFirstElement('span', priceContainer);
 
-            appendPriceHistory(priceContainer, priceSpan, productArticle);
-        });
+    await appendPriceHistory(priceContainer, priceSpan, productArticle);
 }
 
 function skipFirstGalleryVideo() {
