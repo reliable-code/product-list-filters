@@ -11,9 +11,9 @@ import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory'
 import { createModal } from '../dom/modalFactory';
 import { getDeviationColor } from './helpers';
 
-export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
+export async function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
-    if (!currentPriceValue) return Promise.resolve(null);
+    if (!currentPriceValue) return null;
 
     const productStorageKey = `product-${productArticle}`;
     const storedProduct = getStorageValue(productStorageKey);
@@ -51,8 +51,9 @@ export function appendPriceHistory(priceContainer, priceSpan, productArticle) {
         highestPriceValue,
     } = currentProduct;
 
-    return setStorageValueAsync(productStorageKey, currentProduct)
-        .then(() => new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue));
+    await setStorageValueAsync(productStorageKey, currentProduct);
+
+    return new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue);
 }
 
 function getCurrentProduct(storedProduct) {
