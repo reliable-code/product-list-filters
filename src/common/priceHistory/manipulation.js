@@ -125,8 +125,6 @@ function appendStoredPriceValue(
 }
 
 function showPriceHistoryInModal(priceHistory, currentPrice) {
-    const modal = createModal();
-
     const tableStyles = {
         width: '100%',
         borderCollapse: 'collapse',
@@ -144,6 +142,7 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     const table = createTableWithHeaders(tableStyles, headerRowStyles, headerCellStyles, headers);
 
     Object.entries(priceHistory)
+        .reverse()
         .forEach(([timestamp, {
             lowest,
             highest,
