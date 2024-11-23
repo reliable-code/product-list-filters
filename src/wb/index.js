@@ -33,7 +33,7 @@ async function executeInitMods() {
                 initProductListMods();
             }
         } else if (somePathElementEquals('favorites')) {
-            initFavoritesMods();
+            await initFavoritesMods();
         }
     } catch (error) {
         console.error('Error in initMods:', error);

@@ -52,21 +52,23 @@ const inStockOnlyFilter =
 const filterEnabled =
     new StoredInputValue('favorites-filter-enabled', true, processList);
 
-export function initFavoritesMods() {
-    waitForElement(document, FILTER_CONTAINER_SELECTOR)
-        .then((filterContainer) => {
-            appendFilterControlsIfNeeded(filterContainer, appendFiltersContainer);
+export async function initFavoritesMods() {
+    const filterContainer = await waitForElement(document, SELECTORS.FILTER_CONTAINER);
 
-            const productListContainer = getFirstElement(PRODUCT_LIST_CONTAINER_SELECTOR);
+    if (filterContainer) {
+        appendFilterControlsIfNeeded(filterContainer, appendFiltersContainer);
+    }
 
-            processList();
-            const observer = new MutationObserver(debounce(processList));
+    const productListContainer = getFirstElement(SELECTORS.PRODUCT_LIST_CONTAINER);
 
-            observer.observe(productListContainer, {
-                childList: true,
-                subtree: true,
-            });
-        });
+    await processList();
+
+    const observer = new MutationObserver(debounce(processList));
+
+    observer.observe(productListContainer, {
+        childList: true,
+        subtree: true,
+    });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
