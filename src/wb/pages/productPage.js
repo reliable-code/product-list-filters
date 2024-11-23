@@ -6,6 +6,7 @@ import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 
 const SIDE_CONTAINER_SELECTOR = '.product-page__aside-container';
 const PRICE_CONTAINER_SELECTOR = '.price-block__content';
+const WALLET_PRICE_SELECTOR = '.price-block__wallet-price';
 const PRICE_SELECTOR = '.price-block__price';
 
 export async function initProductPageMods() {
@@ -21,7 +22,8 @@ async function initAppendPriceHistory() {
 
     if (!priceContainer) return;
 
-    const priceSpan = getFirstElement(PRICE_SELECTOR, priceContainer);
+    const walletPriceSpan = getFirstElement(WALLET_PRICE_SELECTOR, priceContainer);
+    const priceSpan = walletPriceSpan || getFirstElement(PRICE_SELECTOR, priceContainer);
 
     if (!priceSpan) return;
 
