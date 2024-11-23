@@ -32,6 +32,13 @@ const FILTER_CONTAINER_SELECTOR = '.favorites-goods__head';
 const PRODUCT_LIST_CONTAINER_SELECTOR = '.favorites-goods';
 const PRODUCT_CARDS_SELECTOR = '.favorites-goods__list > .goods-card';
 const PRICE_SELECTOR = '.goods-card__price-now';
+const SELECTORS = {
+    FILTER_CONTAINER: '.favorites-goods__head',
+    PRODUCT_LIST_CONTAINER: '.favorites-goods',
+    PRODUCT_CARDS: '.favorites-goods__list > .goods-card',
+    WALLET_PRICE: '.wallet-price',
+    PRICE: '.goods-card__price-now',
+};
 
 const nameFilter =
     new StoredInputValue('favorites-name-filter', null, processList);
