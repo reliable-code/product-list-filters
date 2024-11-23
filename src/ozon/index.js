@@ -36,7 +36,15 @@ const { body } = document;
 if (isBodyInitialized()) {
     initMods();
 } else {
-    const observer = new MutationObserver(() => {
+    waitForBodyInitialization();
+}
+
+function isBodyInitialized() {
+    return body.classList.contains('vsc-initialized');
+}
+
+function waitForBodyInitialization() {
+    const observer = new MutationObserver(async () => {
         if (isBodyInitialized()) {
             observer.disconnect();
             initMods();
@@ -49,9 +57,6 @@ if (isBodyInitialized()) {
     });
 }
 
-function isBodyInitialized() {
-    return body.classList.contains('vsc-initialized');
-}
 async function initMods() {
     if (somePathElementEquals('gocheckout')) {
         initCheckoutMods();
