@@ -24,11 +24,17 @@ const DEFAULT_CLOSE_BUTTON_STYLES = {
     color: '#000',
 };
 
+let currentModal = null;
+
 export function createModal(styles = DEFAULT_MODAL_STYLES) {
+    if (currentModal) closeModal(currentModal);
+
     const modal = createDiv(styles);
     const closeButton = createCloseButton(modal);
 
     modal.appendChild(closeButton);
+
+    currentModal = modal;
 
     document.addEventListener('click', (event) => handleClickOutside(event, modal));
 
@@ -52,6 +58,7 @@ export function createCloseButton(modal, styles = DEFAULT_CLOSE_BUTTON_STYLES) {
 export function closeModal(modal) {
     modal.remove();
     document.removeEventListener('click', (event) => handleClickOutside(event, modal));
+    currentModal = null;
 }
 
 export function handleClickOutside(event, modal) {
