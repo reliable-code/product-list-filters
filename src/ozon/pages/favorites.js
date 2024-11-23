@@ -43,21 +43,19 @@ const priceTolerancePercent =
 const filterEnabled =
     new StoredInputValue('favorites-filter-enabled', true, processList);
 
-export function initFavoritesMods() {
-    waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
-        .then((searchResultsSort) => {
-            appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
+export async function initFavoritesMods() {
+    const searchResultsSort = await waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR);
+    appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-            const paginator = getFirstElement(PAGINATOR_SELECTOR);
+    await processList();
 
-            processList();
-            const observer = new MutationObserver(debounce(processList));
+    const observer = new MutationObserver(debounce(processList));
 
-            observer.observe(paginator, {
-                childList: true,
-                subtree: true,
-            });
-        });
+    const paginator = getFirstElement(PAGINATOR_SELECTOR);
+    observer.observe(paginator, {
+        childList: true,
+        subtree: true,
+    });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
