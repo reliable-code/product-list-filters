@@ -118,53 +118,37 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-function processList(priceTolerancePercentChanged = false) {
-    const productCards = getAllElements(PRODUCT_CARDS_SELECTOR);
+async function processList(priceTolerancePercentChanged = false) {
+    const productCards = [...getAllElements(SELECTORS.PRODUCT_CARDS)];
 
-    productCards.forEach(
-        (productCard) => {
-            if (!filterEnabled.value) {
-                showElement(productCard);
-                return;
-            }
+    await Promise.all(productCards.map(async (productCard) => {
+        if (!filterEnabled.value) {
+            showElement(productCard);
+            return;
+        }
 
-            const priceContainer = getFirstElement('.goods-card__price', productCard);
+        const priceContainer = getFirstElement('.goods-card__price', productCard);
+        if (!priceContainer) {
+            showHideElement(productCard, inStockOnlyFilter.value);
+            return;
+        }
 
-            if (!priceContainer) {
-                showHideElement(productCard, inStockOnlyFilter.value);
-                return;
-            }
+        await handlePriceData(productCard, priceContainer, priceTolerancePercentChanged);
 
-            appendStoredPriceValuesIfNeeded(productCard, priceContainer);
+        const productCardNameWrap = getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+        if (!productCardNameWrap) {
+            hideElement(productCard);
+            return;
+        }
 
-            if (priceTolerancePercentChanged &&
-                productCard.hasAttribute(CURRENT_PRICE_ATTR) &&
-                productCard.hasAttribute(LOWEST_PRICE_ATTR)) {
-                const priceContainerWrap = priceContainer.parentNode;
+        const productCardName = productCardNameWrap.innerText;
+        productCardNameWrap.title = productCardName;
 
-                checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
-            }
-
-            const productCardNameWrap =
-                getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
-
-            if (!productCardNameWrap) {
-                hideElement(productCard);
-                return;
-            }
-
-            const productCardName = productCardNameWrap.innerText;
-
-            productCardNameWrap.title = productCardName;
-
-            const isNotMatchBestPriceFilter =
-                bestPriceFilter.value ? !productCard.hasAttribute(GOOD_PRICE_ATTR) : false;
-            const conditionToHide =
-                isNotMatchTextFilter(productCardName, nameFilter) ||
-                isNotMatchBestPriceFilter;
-            showHideElement(productCard, conditionToHide);
-        },
-    );
+        const conditionToHide =
+            isNotMatchTextFilter(productCardName, nameFilter) ||
+            isNotMatchBestPriceFilter(productCard);
+        showHideElement(productCard, conditionToHide);
+    }));
 }
 
 async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
