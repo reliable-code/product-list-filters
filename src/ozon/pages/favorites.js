@@ -34,22 +34,24 @@ import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 
 const nameFilter =
-    new StoredInputValue('favorites-name-filter', null, processList);
+    new StoredInputValue('favorites-name-filter', null, addProcessListToQueue);
 const bestPriceFilter =
-    new StoredInputValue('best-price-filter', false, processList);
-const onPriceTolerancePercentChange = () => processList(true);
+    new StoredInputValue('best-price-filter', false, addProcessListToQueue);
+const onPriceTolerancePercentChange = () => addProcessListToQueue(true);
 const priceTolerancePercent =
     new StoredInputValue('price-tolerance-percent', 3, onPriceTolerancePercentChange);
 const filterEnabled =
-    new StoredInputValue('favorites-filter-enabled', true, processList);
+    new StoredInputValue('favorites-filter-enabled', true, addProcessListToQueue);
+
+let processListQueue = Promise.resolve();
 
 export async function initFavoritesMods() {
     const searchResultsSort = await waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-    await processList();
+    await addProcessListToQueue();
 
-    const observer = new MutationObserver(debounce(processList));
+    const observer = new MutationObserver(debounce(addProcessListToQueue));
 
     const paginator = getFirstElement(PAGINATOR_SELECTOR);
     observer.observe(paginator, {
@@ -94,6 +96,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
+}
+
+async function addProcessListToQueue(priceTolerancePercentChanged = false) {
+    processListQueue = processListQueue.then(() => processList(priceTolerancePercentChanged));
 }
 
 async function processList(priceTolerancePercentChanged = false) {
