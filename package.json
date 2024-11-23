@@ -8,15 +8,16 @@
   },
   "author": "reliable-code",
   "scripts": {
-    "dev": "webpack serve --mode development",
-    "watch": "webpack --watch",
-    "build": "webpack --mode production"
+    "dev": "cross-env NODE_ENV=development webpack serve --mode development",
+    "watch": "cross-env NODE_ENV=development webpack --watch",
+    "build": "cross-env NODE_ENV=production webpack --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/plugin-transform-runtime": "^7.25.9",
     "@babel/preset-env": "^7.26.0",
     "babel-loader": "^9.2.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.50.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.28.1",
