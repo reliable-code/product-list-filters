@@ -207,6 +207,21 @@ async function appendStoredPriceValues(priceContainer, productCard, priceContain
     productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
 }
 
+async function handlePriceData(productCard, priceContainer, priceTolerancePercentChanged) {
+    await appendStoredPriceValuesIfNeeded(productCard, priceContainer);
+
+    if (
+        !priceTolerancePercentChanged ||
+        !productCard.hasAttribute(CURRENT_PRICE_ATTR) ||
+        !productCard.hasAttribute(LOWEST_PRICE_ATTR)
+    ) {
+        return;
+    }
+
+    const priceWrapper = priceContainer.parentNode;
+    checkIfGoodPrice(priceWrapper, productCard, priceTolerancePercent.value);
+}
+
 function isNotMatchBestPriceFilter(productCard) {
     return bestPriceFilter.value ? !productCard.hasAttribute(GOOD_PRICE_ATTR) : false;
 }
