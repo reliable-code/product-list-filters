@@ -1,5 +1,6 @@
 const path = require('path');
 const { monkey } = require('webpack-monkey');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { EsbuildPlugin } = require('esbuild-loader');
 
 const isProduction = process.env.NODE_ENV === 'production';
