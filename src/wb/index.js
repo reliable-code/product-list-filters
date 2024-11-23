@@ -7,15 +7,14 @@ import { runMigration } from './db/db';
 
 runMigration();
 
-const headObserver = new MutationObserver(debounce(initMods, 1000));
+(function observeHead() {
+    const { head } = document;
 
-const { head } = document;
-
-if (head) {
+    const headObserver = new MutationObserver(debounce(initMods, 750));
     headObserver.observe(head, {
         childList: true,
     });
-}
+}());
 
 async function initMods() {
     if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
