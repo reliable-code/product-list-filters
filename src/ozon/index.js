@@ -52,8 +52,7 @@ if (isBodyInitialized()) {
 function isBodyInitialized() {
     return body.classList.contains('vsc-initialized');
 }
-
-function initMods() {
+async function initMods() {
     if (somePathElementEquals('gocheckout')) {
         initCheckoutMods();
         return;
@@ -64,7 +63,7 @@ function initMods() {
         return;
     }
 
-    replaceFavoritesLink();
+    await replaceFavoritesLink();
 
     if (paginatorContent) {
         initProductListMods();
@@ -83,7 +82,7 @@ function initMods() {
     }
 
     if (somePathElementEquals('favorites')) {
-        initFavoritesMods();
+        await initFavoritesMods();
     }
 }
 
