@@ -12,9 +12,11 @@ import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 
 export async function initProductPageMods() {
-    await extendProductNameMaxHeight();
-    await skipFirstGalleryVideo();
-    await initAppendPriceHistory();
+    await Promise.all([
+        initAppendPriceHistory(),
+        initSkipFirstGalleryVideo(),
+        extendProductNameMaxHeight(),
+    ]);
 
     const productReviewsWrap =
         await waitForElement(document, `${PRODUCT_REVIEWS_WRAP_SELECTOR}`);
