@@ -42,7 +42,7 @@ module.exports = monkey({
         minimize: isProduction,
         minimizer: [
             new EsbuildPlugin({
-                target: 'es2020',
+                target: 'es2022',
                 minify: true,
                 legalComments: 'none',
             }),
