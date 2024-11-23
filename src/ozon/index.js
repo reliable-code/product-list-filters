@@ -83,9 +83,7 @@ function initMods() {
     }
 }
 
-function replaceFavoritesLink() {
-    waitForElement(document, '[data-widget="favoriteCounter"]')
-        .then((favoritesLink) => {
-            favoritesLink.href += '?avail=inStock';
-        });
+async function replaceFavoritesLink() {
+    const favoritesLink = await waitForElement(document, '[data-widget="favoriteCounter"]');
+    if (favoritesLink) favoritesLink.href += '?avail=inStock';
 }
