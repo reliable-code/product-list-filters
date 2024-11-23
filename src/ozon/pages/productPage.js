@@ -13,7 +13,7 @@ const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 
 export async function initProductPageMods() {
     skipFirstGalleryVideo();
-    extendProductNameMaxHeight();
+    await extendProductNameMaxHeight();
     await initAppendPriceHistory();
 
     const productReviewsWrap =
@@ -207,11 +207,13 @@ function skipFirstGalleryVideo() {
         });
 }
 
-function extendProductNameMaxHeight() {
-    waitForElement(document, '[data-widget="webProductHeading"]')
-        .then((webProductHeading) => {
-            const productName = getFirstElement('h1', webProductHeading);
+async function extendProductNameMaxHeight() {
+    const webProductHeading =
+        await waitForElement(document, '[data-widget="webProductHeading"]');
+    if (!webProductHeading) return;
 
-            productName.style.maxHeight = '90px';
-        });
+    const productName = getFirstElement('h1', webProductHeading);
+    if (productName) {
+        productName.style.maxHeight = '90px';
+    }
 }
