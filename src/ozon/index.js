@@ -3,7 +3,6 @@ import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods, paginatorContent } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
 import { somePathElementEquals } from '../common/url';
-import { addGlobalStyle } from '../common/dom/manipulation';
 import { getFirstElement } from '../common/dom/helpers';
 import { runMigration as migrateDb } from './db/db';
 import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
@@ -15,26 +14,16 @@ migrateDb();
 
 hideUnwantedElements();
 
-function hideUnwantedElements() {
-    const css =
-        '[data-widget="bigPromoPDP"],' +
-        '[data-widget="blackFridayStatus"],' +
-        '[data-widget="cellList"],' +
-        '[data-widget="skuGrid"],' +
-        '[data-widget="skuShelfGoods"],' +
-        '[data-widget="tagList"],' +
-        '[data-widget="webInstallmentPurchase"],' +
-        '[data-widget="webOneClickButton"] {' +
-        '   display: none !important;' +
-        '}';
+let initModsQueue = Promise.resolve();
 
-    addGlobalStyle(css);
+async function addInitModsToQueue() {
+    initModsQueue = initModsQueue.then(initMods);
 }
 
 const { body } = document;
 
 if (isBodyInitialized()) {
-    initMods();
+    await addInitModsToQueue();
 } else {
     initModsAfterBodyInitialization();
 }
@@ -47,7 +36,7 @@ function initModsAfterBodyInitialization() {
     const observer = new MutationObserver(async () => {
         if (isBodyInitialized()) {
             observer.disconnect();
-            initMods();
+            await addInitModsToQueue();
         }
     });
 
