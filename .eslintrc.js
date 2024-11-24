@@ -30,5 +30,6 @@ module.exports = {
         'operator-linebreak': 'off',
         'function-paren-newline': ['error', 'consistent'],
         'no-param-reassign': 'off',
+        'import/no-extraneous-dependencies': 'off',
     },
 };
