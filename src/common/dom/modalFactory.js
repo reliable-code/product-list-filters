@@ -8,8 +8,8 @@ const DEFAULT_MODAL_STYLES = {
     backgroundColor: 'white',
     border: '1px solid #ccc',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    maxWidth: '55%',
-    maxHeight: '70%',
+    maxWidth: '60%',
+    maxHeight: '75%',
     zIndex: '1000',
 };
 
@@ -17,7 +17,7 @@ const DEFAULT_CONTENT_STYLES = {
     margin: '40px 0 30px',
     padding: '5px 25px 0',
     overflowY: 'auto',
-    maxHeight: 'calc(70vh - 75px)',
+    maxHeight: 'calc(75vh - 75px)',
 };
 
 const DEFAULT_CLOSE_BUTTON_STYLES = {

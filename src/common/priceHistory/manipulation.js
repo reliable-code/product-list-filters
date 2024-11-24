@@ -228,7 +228,10 @@ function createPriceChart(labels, lowestPrices, highestPrices) {
         },
     };
 
-    const containerStyles = { width: '1000px' };
+    const containerStyles = {
+        width: 'calc(60vw - 60px)',
+        marginBottom: '30px',
+    };
     const chartContainer = createChart(type, chartData, chartOptions, containerStyles);
 
     return chartContainer;
