@@ -9,3 +9,7 @@ export function getMedian(values) {
 
     return (sortedValues[midIndex - 1] + sortedValues[midIndex]) / 2;
 }
+
+export function getRandomFloat(min, max) {
+    return Math.random() * (max - min) + min;
+}
