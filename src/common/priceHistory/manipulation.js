@@ -11,6 +11,7 @@ import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory'
 import { getDeviationColor } from './helpers';
 import { createAndShowModal } from '../dom/modalFactory';
 import { getMedian } from '../mathUtils';
+import { getFormattedPriceInRUB as getFormattedPrice } from '../priceUtils';
 
 export async function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -97,7 +98,7 @@ function appendStoredPriceValue(
     };
     const storedPriceContainer = createDiv(divStyle, divContent);
 
-    const spanText = `${storedPrice.value.toLocaleString()} ₽`;
+    const spanText = getFormattedPrice(storedPrice.value);
     const spanStyle = {
         fontWeight: 'bold',
         padding: '6px 12px',
