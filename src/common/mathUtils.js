@@ -1,4 +1,4 @@
-function getMedian(values) {
+export function getMedian(values) {
     const sortedValues = values.slice()
         .sort((a, b) => a - b);
     const midIndex = Math.floor(sortedValues.length / 2);

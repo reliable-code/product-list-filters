@@ -10,6 +10,7 @@ import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
 import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory';
 import { getDeviationColor } from './helpers';
 import { createAndShowModal } from '../dom/modalFactory';
+import { getMedian } from '../mathUtils';
 
 export async function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -141,12 +142,15 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
 
     const table = createTableWithHeaders(tableStyles, headerRowStyles, headerCellStyles, headers);
 
+    const priceValues = [];
     Object.entries(priceHistory)
         .reverse()
         .forEach(([timestamp, {
             lowest,
             highest,
         }]) => {
+            priceValues.push(lowest, highest);
+
             const rowContent = [getLocalDateFromTimestamp(+timestamp), lowest, highest];
 
             const row = createTr(rowStyles);
@@ -163,6 +167,9 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
 
             table.appendChild(row);
         });
+
+    const medianPrice = getMedian(priceValues);
+    console.log('Median price:', medianPrice);
 
     createAndShowModal(table);
 }
