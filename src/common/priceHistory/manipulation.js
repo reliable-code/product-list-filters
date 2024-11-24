@@ -139,10 +139,6 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     };
     const rowStyles = { borderTop: '1px solid #ccc' };
     const cellStyles = { padding: '8px' };
-    const medianStyles = {
-        padding: '0px 8px 12px',
-        fontSize: '20px',
-    };
 
     const headers = ['Дата', 'Мин. цена', 'Макс. цена'];
 
@@ -190,16 +186,39 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     const modalContent = createDiv();
 
     const medianPrice = getMedian(priceValues);
-    const medianText = `Медиана за 6 мес: ${getFormattedPrice(medianPrice)}`;
-    const medianDiv = createDiv(medianStyles, medianText);
+    const headerDiv = createHeader(currentPrice, medianPrice);
 
     const chartContainer = createPriceChart(labels, lowestPrices, highestPrices, currentPrice);
 
-    modalContent.appendChild(medianDiv);
+    modalContent.appendChild(headerDiv);
     modalContent.appendChild(chartContainer);
     modalContent.appendChild(table);
 
     createAndShowModal(modalContent);
+}
+
+function createHeader(currentPrice, medianPrice) {
+    const headerStyles = {
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '70px',
+        marginBottom: '10px',
+        fontSize: '20px',
+    };
+
+    const currentPriceSpan =
+        createSpan(
+            {}, `Текущая цена: <b>${getFormattedPrice(currentPrice)}</b>`,
+        );
+    const medianPriceSpan =
+        createSpan(
+            {}, `Медиана за 6 мес: <b>${getFormattedPrice(medianPrice)}</b>`,
+        );
+
+    const headerDiv = createDiv(headerStyles);
+    headerDiv.append(currentPriceSpan, medianPriceSpan);
+
+    return headerDiv;
 }
 
 function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
