@@ -28,6 +28,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "chart.js": "^4.4.6",
     "webpack-monkey": "^0.2.1"
   }
 }
