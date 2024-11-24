@@ -6,7 +6,7 @@ import { ProductData } from '../models/productData';
 import { RatedProductData } from '../models/ratedProductData';
 import { PriceData } from '../models/priceData';
 import { DatedValue } from '../models/datedValue';
-import { getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
+import { getDateMonthsAgo, getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
 import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory';
 import { getDeviationColor } from './helpers';
 import { createAndShowModal } from '../dom/modalFactory';
@@ -143,15 +143,21 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     const table = createTableWithHeaders(tableStyles, headerRowStyles, headerCellStyles, headers);
 
     const priceValues = [];
+    const sixMonthsAgo = getDateMonthsAgo(6);
+
     Object.entries(priceHistory)
         .reverse()
         .forEach(([timestamp, {
             lowest,
             highest,
         }]) => {
-            priceValues.push(lowest, highest);
+            const date = new Date(+timestamp);
 
-            const localDate = new Date(+timestamp).toLocaleDateString();
+            if (date >= sixMonthsAgo) {
+                priceValues.push(lowest, highest);
+            }
+
+            const localDate = date.toLocaleDateString();
             const rowContent = [localDate, lowest, highest];
 
             const row = createTr(rowStyles);
