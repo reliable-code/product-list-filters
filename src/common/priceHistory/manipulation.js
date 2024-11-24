@@ -12,6 +12,7 @@ import { getDeviationColor } from './helpers';
 import { createAndShowModal } from '../dom/modalFactory';
 import { getMedian } from '../mathUtils';
 import { getFormattedPriceInRUB as getFormattedPrice } from '../priceUtils';
+import { createChart } from '../dom/chartFactory';
 
 export async function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -189,6 +190,48 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     modalContent.appendChild(table);
 
     createAndShowModal(modalContent);
+}
+
+function createPriceChart(labels, lowestPrices, highestPrices) {
+    const type = 'line';
+
+    const chartData = {
+        labels,
+        datasets: [
+            {
+                label: 'Мин. цена',
+                data: lowestPrices,
+                borderColor: 'hsl(90, 100%, 35%)',
+                fill: false,
+            },
+            {
+                label: 'Макс. цена',
+                data: highestPrices,
+                borderColor: 'hsl(0, 100%, 35%)',
+                fill: false,
+            },
+        ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    boxHeight: 1,
+                    font: {
+                        size: 15,
+                    },
+                },
+            },
+        },
+    };
+
+    const containerStyles = { width: '1000px' };
+    const chartContainer = createChart(type, chartData, chartOptions, containerStyles);
+
+    return chartContainer;
 }
 
 function updatePriceHistory(currentProduct, currentPriceValue) {
