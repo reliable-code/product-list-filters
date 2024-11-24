@@ -1,5 +1,8 @@
 import Chart from 'chart.js/auto';
+import annotationPlugin from 'chartjs-plugin-annotation';
 import { createDiv } from './elementsFactory';
+
+Chart.register(annotationPlugin);
 
 export function createChart(type, chartData, chartOptions, containerStyles = {}) {
     const chartContainer = createDiv(containerStyles);
