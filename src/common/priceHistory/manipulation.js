@@ -147,6 +147,7 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     const headers = ['Дата', 'Мин. цена', 'Макс. цена'];
 
     const table = createTableWithHeaders(tableStyles, headerRowStyles, headerCellStyles, headers);
+    const tbody = table.tBodies[0];
 
     const priceValues = [];
     const labels = []; // Для хранения меток времени
@@ -183,7 +184,7 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
                 row.appendChild(cell);
             });
 
-            table.appendChild(row);
+            tbody.insertBefore(row, tbody.firstChild);
         });
 
     const modalContent = createDiv();
