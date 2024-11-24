@@ -151,7 +151,8 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
         }]) => {
             priceValues.push(lowest, highest);
 
-            const rowContent = [getLocalDateFromTimestamp(+timestamp), lowest, highest];
+            const localDate = new Date(+timestamp).toLocaleDateString();
+            const rowContent = [localDate, lowest, highest];
 
             const row = createTr(rowStyles);
 
