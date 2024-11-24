@@ -193,7 +193,7 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     const medianText = `Медиана за 6 мес: ${getFormattedPrice(medianPrice)}`;
     const medianDiv = createDiv(medianStyles, medianText);
 
-    const chartContainer = createPriceChart(labels, lowestPrices, highestPrices);
+    const chartContainer = createPriceChart(labels, lowestPrices, highestPrices, currentPrice);
 
     modalContent.appendChild(medianDiv);
     modalContent.appendChild(chartContainer);
@@ -202,7 +202,7 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     createAndShowModal(modalContent);
 }
 
-function createPriceChart(labels, lowestPrices, highestPrices) {
+function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
     const type = 'line';
 
     const chartData = {
@@ -232,6 +232,23 @@ function createPriceChart(labels, lowestPrices, highestPrices) {
                     boxHeight: 1,
                     font: {
                         size: 15,
+                    },
+                },
+            },
+            annotation: {
+                annotations: {
+                    baseLine: {
+                        type: 'line',
+                        scaleID: 'y',
+                        value: currentPrice,
+                        borderColor: '#7F7F7F', // Цвет линии
+                        borderWidth: 3, // Толщина линии
+                        // label: {
+                        //     backgroundColor: '#7F7F7F',
+                        //     content: currentPrice,
+                        //     position: 'start',
+                        //     display: true,
+                        // },
                     },
                 },
             },
