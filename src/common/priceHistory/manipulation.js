@@ -138,6 +138,10 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     };
     const rowStyles = { borderTop: '1px solid #ccc' };
     const cellStyles = { padding: '8px' };
+    const medianStyles = {
+        padding: '0px 8px 12px',
+        fontSize: '20px',
+    };
 
     const headers = ['Дата', 'Мин. цена', 'Макс. цена'];
 
@@ -177,9 +181,14 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
         });
 
     const medianPrice = getMedian(priceValues);
-    console.log('Median price:', medianPrice);
+    console.log(medianPrice);
+    const modalContent = createDiv();
+    const medianText = `Медиана за 6 мес: ${getFormattedPrice(medianPrice)}`;
+    const medianDiv = createDiv(medianStyles, medianText);
+    modalContent.appendChild(medianDiv);
+    modalContent.appendChild(table);
 
-    createAndShowModal(table);
+    createAndShowModal(modalContent);
 }
 
 function updatePriceHistory(currentProduct, currentPriceValue) {
