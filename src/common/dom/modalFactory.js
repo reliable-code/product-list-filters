@@ -8,7 +8,7 @@ const DEFAULT_MODAL_STYLES = {
     backgroundColor: 'white',
     border: '1px solid #ccc',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    maxWidth: '80%',
+    maxWidth: '55%',
     maxHeight: '70%',
     zIndex: '1000',
 };
