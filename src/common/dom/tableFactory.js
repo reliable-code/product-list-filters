@@ -1,10 +1,12 @@
 import { createElement } from './elementsFactory';
 import { capitalize } from '../string';
 
-const elementTagNames = ['table', 'tr', 'th', 'td'];
+const elementTagNames = ['table', 'thead', 'tbody', 'tr', 'th', 'td'];
 
 export const {
     createTable,
+    createThead,
+    createTbody,
     createTr,
     createTh,
     createTd,
@@ -19,7 +21,8 @@ export function createTableWithHeaders(
     tableStyles = {}, trStyles = {}, thStyles = {}, headers = {},
 ) {
     const table = createTable(tableStyles);
-
+    const thead = createThead(tableStyles);
+    const tbody = createTbody(tableStyles);
     const tr = createTr(trStyles);
 
     headers.forEach((header) => {
@@ -27,7 +30,9 @@ export function createTableWithHeaders(
         tr.appendChild(th);
     });
 
-    table.appendChild(tr);
+    thead.appendChild(tr);
+    table.appendChild(thead);
+    table.appendChild(tbody);
 
     return table;
 }
