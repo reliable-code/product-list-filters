@@ -2,7 +2,7 @@
 import Chart from 'chart.js/auto';
 import { createDiv } from './elementsFactory';
 
-export function createChart(containerStyles, type, chartData, chartOptions) {
+export function createChart(type, chartData, chartOptions, containerStyles = {}) {
     const chartContainer = createDiv(containerStyles);
 
     const ctx = document.createElement('canvas');
