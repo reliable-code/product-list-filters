@@ -7,3 +7,9 @@ export function getDateTimestamp() {
 export function getLocalDateFromTimestamp(timestamp) {
     return new Date(timestamp).toLocaleDateString();
 }
+
+export function getDateMonthsAgo(months) {
+    const date = new Date();
+    date.setMonth(date.getMonth() - months);
+    return date;
+}
