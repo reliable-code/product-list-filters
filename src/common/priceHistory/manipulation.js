@@ -149,21 +149,26 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     const table = createTableWithHeaders(tableStyles, headerRowStyles, headerCellStyles, headers);
 
     const priceValues = [];
+    const labels = []; // Для хранения меток времени
+    const lowestPrices = [];
+    const highestPrices = [];
     const sixMonthsAgo = getDateMonthsAgo(6);
 
     Object.entries(priceHistory)
-        .reverse()
         .forEach(([timestamp, {
             lowest,
             highest,
         }]) => {
             const date = new Date(+timestamp);
+            const localDate = date.toLocaleDateString();
 
             if (date >= sixMonthsAgo) {
                 priceValues.push(lowest, highest);
+                labels.push(localDate); // Добавляем метку времени
+                lowestPrices.push(lowest); // Добавляем цену lowest
+                highestPrices.push(highest); // Добавляем цену highest
             }
 
-            const localDate = date.toLocaleDateString();
             const rowContent = [localDate, lowest, highest];
 
             const row = createTr(rowStyles);
@@ -181,12 +186,16 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
             table.appendChild(row);
         });
 
-    const medianPrice = getMedian(priceValues);
-    console.log(medianPrice);
     const modalContent = createDiv();
+
+    const medianPrice = getMedian(priceValues);
     const medianText = `Медиана за 6 мес: ${getFormattedPrice(medianPrice)}`;
     const medianDiv = createDiv(medianStyles, medianText);
+
+    const chartContainer = createPriceChart(labels, lowestPrices, highestPrices);
+
     modalContent.appendChild(medianDiv);
+    modalContent.appendChild(chartContainer);
     modalContent.appendChild(table);
 
     createAndShowModal(modalContent);
