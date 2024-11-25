@@ -245,6 +245,7 @@ function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
     const chartOptions = {
         animation: false,
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'top',
@@ -277,6 +278,7 @@ function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
 
     const containerStyles = {
         width: 'calc(60vw - 60px)',
+        height: '45vh',
         marginBottom: '30px',
     };
     const chartContainer = createChart(type, chartData, chartOptions, containerStyles);
