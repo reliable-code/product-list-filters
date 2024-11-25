@@ -243,6 +243,7 @@ function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
     };
 
     const chartOptions = {
+        animation: false,
         responsive: true,
         plugins: {
             legend: {
