@@ -1,32 +1,25 @@
 import { debounce } from './utils';
-import { styleStringToObject } from './helpers';
 
-// todo: change text styles to object
-export function createTextInput(inputOnChange, inputStyle, inputValue) {
-    const style = styleStringToObject(inputStyle);
-    const input = createInput(style, 'text', inputOnChange);
-    input.value = inputValue;
+export function createTextInput(style, onChange, value) {
+    const input = createInput(style, 'text', onChange);
+    input.value = value;
 
     return input;
 }
 
-export function createNumberInput(
-    inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
-) {
-    const style = styleStringToObject(inputStyle);
-    const input = createInput(style, 'number', inputOnChange);
-    input.value = inputValue;
-    input.step = inputStep;
-    input.min = inputMinValue;
-    input.max = inputMaxValue;
+export function createNumberInput(style, onChange, value, step, min, max) {
+    const input = createInput(style, 'number', onChange);
+    input.value = value;
+    input.step = step;
+    input.min = min;
+    input.max = max;
 
     return input;
 }
 
-export function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
-    const style = styleStringToObject(inputStyle);
-    const input = createInput(style, 'checkbox', inputOnChange);
-    input.checked = isChecked;
+export function createCheckboxInput(style, onChange, checked) {
+    const input = createInput(style, 'checkbox', onChange);
+    input.checked = checked;
 
     return input;
 }

@@ -13,10 +13,11 @@ export function createFilterControlText(
     inputStyle = null,
 ) {
     const controlStyleObj = styleStringToObject(controlStyle);
+    const inputStyleObj = styleStringToObject(inputStyle);
     const filterControl = createDiv(controlStyleObj, titleText);
     const input = createTextInput(
+        inputStyleObj,
         inputValue.updateValueFromEvent,
-        inputStyle,
         inputValue.value,
     );
 
@@ -35,10 +36,11 @@ export function createFilterControlNumber(
     inputStyle = null,
 ) {
     const controlStyleObj = styleStringToObject(controlStyle);
+    const inputStyleObj = styleStringToObject(inputStyle);
     const filterControl = createDiv(controlStyleObj, titleText);
     const input = createNumberInput(
+        inputStyleObj,
         inputValue.updateValueFromEvent,
-        inputStyle,
         inputValue.value,
         inputStep,
         inputMinValue,
@@ -57,9 +59,11 @@ export function createFilterControlCheckbox(
     inputStyle = null,
 ) {
     const controlStyleObj = styleStringToObject(controlStyle);
+    const inputStyleObj = styleStringToObject(inputStyle);
     const filterControl = createDiv(controlStyleObj, titleText);
-    const input =
-        createCheckboxInput(inputValue.updateValueFromEvent, inputStyle, inputValue.value);
+    const input = createCheckboxInput(
+        inputStyleObj, inputValue.updateValueFromEvent, inputValue.value,
+    );
 
     filterControl.append(input);
 
