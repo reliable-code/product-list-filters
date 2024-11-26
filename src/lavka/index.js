@@ -252,10 +252,10 @@ function cleanList() {
             const priceWrap = getFirstElement('span [aria-hidden="true"]', productCard);
             const price = getElementInnerNumber(priceWrap, true);
 
-            const conditionToHide =
+            const shouldHide =
                 isLessThanFilter(discountValue, minDiscountFilter) ||
                 isGreaterThanFilter(price, maxPriceFilter);
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, shouldHide);
         },
     );
 }

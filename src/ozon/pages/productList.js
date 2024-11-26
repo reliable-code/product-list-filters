@@ -241,15 +241,15 @@ function cleanList() {
 
             productCardNameWrap.title = productCardName;
 
-            const conditionToHide =
+            const shouldHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, shouldHide);
 
-            if (!conditionToHide) showCounter += 1;
+            if (!shouldHide) showCounter += 1;
         },
     );
 

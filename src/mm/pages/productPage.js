@@ -177,12 +177,12 @@ function cleanOffers() {
 
             const sellerRatingNumber = getElementInnerNumber(sellerRatingWrap, true);
 
-            const conditionToHide =
+            const shouldHide =
                 isLessThanFilter(cashbackNumber, minCashbackFilter) ||
                 isGreaterThanFilter(price, maxPriceFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxDiscountedPriceFilter) ||
                 isLessThanFilter(sellerRatingNumber, minSellerRatingFilter);
-            showHideElement(offer, conditionToHide);
+            showHideElement(offer, shouldHide);
         },
     );
 }

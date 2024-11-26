@@ -136,9 +136,9 @@ async function processList(priceTolerancePercentChanged = false) {
 
         const isNotMatchBestPriceFilter =
             bestPriceFilter.value ? !productCard.hasAttribute(GOOD_PRICE_ATTR) : false;
-        const conditionToHide =
+        const shouldHide =
             isNotMatchTextFilter(productCardName, nameFilter) || isNotMatchBestPriceFilter;
-        showHideElement(productCard, conditionToHide);
+        showHideElement(productCard, shouldHide);
     }));
 }
 

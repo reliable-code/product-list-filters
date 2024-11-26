@@ -115,10 +115,10 @@ function cleanList() {
             const productCardReviewsNumber = getElementInnerNumber(productCardReviewsWrap);
             const productCardRatingNumber = getElementInnerNumber(productCardRatingWrap);
 
-            const conditionToHide =
+            const shouldHide =
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, shouldHide);
         },
     );
 }

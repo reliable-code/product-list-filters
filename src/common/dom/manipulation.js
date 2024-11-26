@@ -12,8 +12,8 @@ export function showElement(element, display) {
     setElementDisplay(element, resolvedDisplay);
 }
 
-export function showHideElement(element, conditionToHide, display) {
-    if (conditionToHide) {
+export function showHideElement(element, shouldHide, display) {
+    if (shouldHide) {
         hideElement(element);
     } else {
         showElement(element, display);

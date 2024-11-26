@@ -117,11 +117,11 @@ function cleanList() {
 
             const productCardRatingNumber = +productCardRatingWrap.getAttribute('data-rating');
 
-            const conditionToHide =
+            const shouldHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, shouldHide);
         },
     );
 }

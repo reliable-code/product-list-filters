@@ -213,13 +213,13 @@ function cleanList() {
                     productCard, PRODUCT_CARD_PRICE_SELECTOR, true,
                 );
 
-            const conditionToHide =
+            const shouldHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 productCardPriceNumber < minPriceValue;
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, shouldHide);
         },
     );
 }

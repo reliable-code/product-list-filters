@@ -128,11 +128,11 @@ function cleanList() {
             const productCardRating = getFirstElement('[name="rating"]', productCardRatingWrap);
             const productCardRatingNumber = +productCardRating.getAttribute('value');
 
-            const conditionToHide =
+            const shouldHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, shouldHide);
         },
     );
 }

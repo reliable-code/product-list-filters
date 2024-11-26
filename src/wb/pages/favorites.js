@@ -145,10 +145,10 @@ async function processList(priceTolerancePercentChanged = false) {
         const productCardName = productCardNameWrap.innerText;
         productCardNameWrap.title = productCardName;
 
-        const conditionToHide =
+        const shouldHide =
             isNotMatchTextFilter(productCardName, nameFilter) ||
             isNotMatchBestPriceFilter(productCard);
-        showHideElement(productCard, conditionToHide);
+        showHideElement(productCard, shouldHide);
     }));
 }
 

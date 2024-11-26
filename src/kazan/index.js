@@ -142,11 +142,11 @@ function cleanList() {
             const productCardRatingNumber =
                 getElementInnerNumber(productCardRating, true);
 
-            const conditionToHide =
+            const shouldHide =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, shouldHide);
         },
     );
 }

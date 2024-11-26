@@ -154,12 +154,12 @@ function cleanList() {
 
             const experienceNumber = getElementInnerNumber(experienceWrap, true);
 
-            const conditionToHide =
+            const shouldHide =
                 isNotMatchTextFilter(specInfo, specFilter) ||
                 isNotMatchTextFilter(clinicName, clinicFilter) ||
                 isLessThanFilter(reviewsLinkNumber, minReviewsFilter) ||
                 isLessThanFilter(experienceNumber, minExperienceFilter);
-            showHideElement(doctorCard, conditionToHide);
+            showHideElement(doctorCard, shouldHide);
 
             const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
             const doctorName = doctorCardName.innerText;

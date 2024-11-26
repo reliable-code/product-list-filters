@@ -180,13 +180,13 @@ function cleanList() {
                     isNotMatchTextFilter(sellerNameWrap.innerText, sellerNameFilter) :
                     false;
 
-            const conditionToHide =
+            const shouldHide =
                 isNotMatchTextFilter(name, nameFilter) ||
                 isLessThanFilter(cashbackNumber, minCashbackFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter) ||
                 isLessThanFilter(discountValue, minDiscountFilter) ||
                 sellerNameIsNotMatchFilter;
-            showHideElement(productCard, conditionToHide);
+            showHideElement(productCard, shouldHide);
         },
     );
 }
