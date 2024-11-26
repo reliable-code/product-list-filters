@@ -1,6 +1,7 @@
 import { debounce } from './utils';
 import { applyStyles } from './helpers';
 
+// todo: change text styles to object
 export function createTextInput(inputOnChange, inputStyle, inputValue) {
     const input = createInput('text', inputOnChange, inputStyle);
     input.value = inputValue;
