@@ -74,3 +74,16 @@ export function styleObjectToString(styleObject) {
             .toLowerCase()}: ${value};`)
         .join(' ');
 }
+
+export function styleStringToObject(styleString) {
+    return styleString
+        .split(';')
+        .filter((rule) => rule.trim() !== '')
+        .reduce((styleObject, rule) => {
+            const [key, value] = rule.split(':')
+                .map((item) => item.trim());
+            const camelCaseKey = key.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
+            styleObject[camelCaseKey] = value;
+            return styleObject;
+        }, {});
+}
