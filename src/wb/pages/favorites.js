@@ -18,7 +18,7 @@ import {
     createFilterControlNumber,
     createNameFilterControl,
 } from '../../common/filter/controlsFactory';
-import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
+import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../../common/dom/helpers';
 import {
     APPEND_STORED_PRICE_VALUES_PASSED_ATTR,
@@ -130,7 +130,7 @@ async function processList(priceTolerancePercentChanged = false) {
 
         const priceContainer = getFirstElement('.goods-card__price', productCard);
         if (!priceContainer) {
-            showHideElement(productCard, inStockOnlyFilter.value);
+            updateElementDisplay(productCard, inStockOnlyFilter.value);
             return;
         }
 
@@ -148,7 +148,7 @@ async function processList(priceTolerancePercentChanged = false) {
         const shouldHide =
             isNotMatchTextFilter(productCardName, nameFilter) ||
             isNotMatchBestPriceFilter(productCard);
-        showHideElement(productCard, shouldHide);
+        updateElementDisplay(productCard, shouldHide);
     }));
 }
 

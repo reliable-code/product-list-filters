@@ -16,7 +16,7 @@ import {
     createMinReviewsFilterControl,
     createNameFilterControl,
 } from '../../common/filter/controlsFactory';
-import { showElement, showHideElement } from '../../common/dom/manipulation';
+import { showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,
     getFirstElement,
@@ -219,7 +219,7 @@ function cleanList() {
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 productCardPriceNumber < minPriceValue;
-            showHideElement(productCard, shouldHide);
+            updateElementDisplay(productCard, shouldHide);
         },
     );
 }

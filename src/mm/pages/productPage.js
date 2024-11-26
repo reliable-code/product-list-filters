@@ -18,7 +18,7 @@ import {
     createMinCashbackFilterControl,
     createMinRatingFilterControl,
 } from '../../common/filter/controlsFactory';
-import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
+import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
@@ -182,7 +182,7 @@ function cleanOffers() {
                 isGreaterThanFilter(price, maxPriceFilter) ||
                 isGreaterThanFilter(balancedCashbackPrice, maxDiscountedPriceFilter) ||
                 isLessThanFilter(sellerRatingNumber, minSellerRatingFilter);
-            showHideElement(offer, shouldHide);
+            updateElementDisplay(offer, shouldHide);
         },
     );
 }

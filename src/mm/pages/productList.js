@@ -17,7 +17,7 @@ import {
     createNameFilterControl,
     createSellerNameFilterControl,
 } from '../../common/filter/controlsFactory';
-import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
+import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 
 const CATEGORY_NAME = getURLPathElement(2);
@@ -186,7 +186,7 @@ function cleanList() {
                 isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter) ||
                 isLessThanFilter(discountValue, minDiscountFilter) ||
                 sellerNameIsNotMatchFilter;
-            showHideElement(productCard, shouldHide);
+            updateElementDisplay(productCard, shouldHide);
         },
     );
 }

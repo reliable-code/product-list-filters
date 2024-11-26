@@ -11,7 +11,7 @@ import {
     hideElement,
     insertAfter,
     showElement,
-    showHideElement,
+    updateElementDisplay,
 } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
@@ -118,7 +118,7 @@ function cleanList() {
             const shouldHide =
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, shouldHide);
+            updateElementDisplay(productCard, shouldHide);
         },
     );
 }

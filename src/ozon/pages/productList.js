@@ -31,7 +31,7 @@ import {
     createNameFilterControl,
     createNoRatingFilterControl,
 } from '../../common/filter/controlsFactory';
-import { hideElement, showElement, showHideElement } from '../../common/dom/manipulation';
+import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,
     getArrayElementInnerNumber,
@@ -247,7 +247,7 @@ function cleanList() {
                 isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
-            showHideElement(productCard, shouldHide);
+            updateElementDisplay(productCard, shouldHide);
 
             if (!shouldHide) showCounter += 1;
         },

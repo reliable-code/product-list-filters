@@ -9,7 +9,7 @@ import {
     createFilterControlText,
     createMinReviewsFilterControl,
 } from '../common/filter/controlsFactory';
-import { hideElement, showElement, showHideElement } from '../common/dom/manipulation';
+import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
@@ -159,7 +159,7 @@ function cleanList() {
                 isNotMatchTextFilter(clinicName, clinicFilter) ||
                 isLessThanFilter(reviewsLinkNumber, minReviewsFilter) ||
                 isLessThanFilter(experienceNumber, minExperienceFilter);
-            showHideElement(doctorCard, shouldHide);
+            updateElementDisplay(doctorCard, shouldHide);
 
             const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
             const doctorName = doctorCardName.innerText;

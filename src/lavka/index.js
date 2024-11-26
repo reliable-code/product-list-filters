@@ -12,7 +12,7 @@ import {
     createMaxPriceFilterControl,
     createMinDiscountFilterControl,
 } from '../common/filter/controlsFactory';
-import { insertAfter, showElement, showHideElement } from '../common/dom/manipulation';
+import { insertAfter, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
@@ -255,7 +255,7 @@ function cleanList() {
             const shouldHide =
                 isLessThanFilter(discountValue, minDiscountFilter) ||
                 isGreaterThanFilter(price, maxPriceFilter);
-            showHideElement(productCard, shouldHide);
+            updateElementDisplay(productCard, shouldHide);
         },
     );
 }

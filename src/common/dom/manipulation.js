@@ -12,7 +12,7 @@ export function showElement(element, display) {
     setElementDisplay(element, resolvedDisplay);
 }
 
-export function showHideElement(element, shouldHide, display) {
+export function updateElementDisplay(element, shouldHide, display) {
     if (shouldHide) {
         hideElement(element);
     } else {

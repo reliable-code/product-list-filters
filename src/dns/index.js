@@ -9,7 +9,7 @@ import {
     createMinReviewsFilterControl,
     createNameFilterControl,
 } from '../common/filter/controlsFactory';
-import { hideElement, showElement, showHideElement } from '../common/dom/manipulation';
+import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../common/dom/helpers';
 
 const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
@@ -121,7 +121,7 @@ function cleanList() {
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
                 isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            showHideElement(productCard, shouldHide);
+            updateElementDisplay(productCard, shouldHide);
         },
     );
 }
