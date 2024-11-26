@@ -2,7 +2,7 @@ import { debounce } from './utils';
 
 // todo: change text styles to object
 export function createTextInput(inputOnChange, inputStyle, inputValue) {
-    const input = createInput('text', inputOnChange, inputStyle);
+    const input = createInput(inputStyle, 'text', inputOnChange);
     input.value = inputValue;
 
     return input;
@@ -11,7 +11,7 @@ export function createTextInput(inputOnChange, inputStyle, inputValue) {
 export function createNumberInput(
     inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
 ) {
-    const input = createInput('number', inputOnChange, inputStyle);
+    const input = createInput(inputStyle, 'number', inputOnChange);
     input.value = inputValue;
     input.step = inputStep;
     input.min = inputMinValue;
@@ -21,13 +21,13 @@ export function createNumberInput(
 }
 
 export function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
-    const input = createInput('checkbox', inputOnChange, inputStyle);
+    const input = createInput(inputStyle, 'checkbox', inputOnChange);
     input.checked = isChecked;
 
     return input;
 }
 
-export function createInput(type = null, inputOnChange = null, style = null) {
+export function createInput(style = null, type = null, inputOnChange = null) {
     const input = document.createElement('input');
     if (type) input.type = type;
     if (inputOnChange) {
