@@ -8,15 +8,14 @@ export function hideElement(element) {
 }
 
 export function showElement(element, display) {
-    display = display || getElementDisplay(element);
-    setElementDisplay(element, display);
+    const resolvedDisplay = display || getElementDisplay(element);
+    setElementDisplay(element, resolvedDisplay);
 }
 
 export function showHideElement(element, conditionToHide, display) {
     if (conditionToHide) {
         hideElement(element);
     } else {
-        display = display || getElementDisplay(element);
         showElement(element, display);
     }
 }
