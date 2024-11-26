@@ -31,6 +31,11 @@ const DEFAULT_CLOSE_BUTTON_STYLES = {
     color: '#000',
     border: 'none',
     background: 'none',
+    opacity: '1',
+};
+
+const CLOSE_BUTTON_HOVER_STYLES = {
+    opacity: '0.6',
 };
 
 let currentModal = null;
@@ -79,6 +84,16 @@ function createCloseButton(modal, styles = DEFAULT_CLOSE_BUTTON_STYLES) {
     closeButton.addEventListener('click', () => {
         closeModal(modal);
     });
+
+    const handleHover = (isHover) => {
+        Object.assign(
+            closeButton.style,
+            isHover ? CLOSE_BUTTON_HOVER_STYLES : DEFAULT_CLOSE_BUTTON_STYLES,
+        );
+    };
+
+    closeButton.addEventListener('mouseenter', () => handleHover(true));
+    closeButton.addEventListener('mouseleave', () => handleHover(false));
 
     return closeButton;
 }
