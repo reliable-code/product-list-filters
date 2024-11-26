@@ -25,25 +25,27 @@ export async function appendPriceHistory(priceContainer, priceSpan, productArtic
     const lowestPriceKey = 'lowestPrice';
     const highestPriceKey = 'highestPrice';
 
-    currentProduct = updateAndAppendStoredPriceValue(
-        currentProduct,
-        lowestPriceKey,
-        (storedPrice) => currentPriceValue <= storedPrice.value,
-        currentPriceValue,
-        'Мин. цена',
-        '#d6f5b1',
-        priceContainer,
-    );
+    currentProduct =
+        updateAndAppendStoredPriceValue(
+            currentProduct,
+            lowestPriceKey,
+            currentPriceValue,
+            (storedPrice) => currentPriceValue <= storedPrice.value,
+            'Мин. цена',
+            '#d6f5b1',
+            priceContainer,
+        );
 
-    currentProduct = updateAndAppendStoredPriceValue(
-        currentProduct,
-        highestPriceKey,
-        (storedPrice) => currentPriceValue >= storedPrice.value,
-        currentPriceValue,
-        'Макс. цена',
-        '#fed2ea',
-        priceContainer,
-    );
+    currentProduct =
+        updateAndAppendStoredPriceValue(
+            currentProduct,
+            highestPriceKey,
+            currentPriceValue,
+            (storedPrice) => currentPriceValue >= storedPrice.value,
+            'Макс. цена',
+            '#fed2ea',
+            priceContainer,
+        );
 
     currentProduct = updatePriceHistory(currentProduct, currentPriceValue);
 
@@ -68,7 +70,7 @@ function getCurrentProduct(storedProduct) {
 }
 
 function updateAndAppendStoredPriceValue(
-    product, priceKey, compareCondition, currentPriceValue, label, color, priceContainer,
+    product, priceKey, currentPriceValue, compareCondition, label, color, priceContainer,
 ) {
     let storedPrice = product[priceKey];
 
@@ -82,14 +84,14 @@ function updateAndAppendStoredPriceValue(
 
     const { priceHistory } = product;
     appendStoredPriceValue(
-        label, storedPrice, color, priceContainer, priceHistory, currentPriceValue,
+        label, storedPrice, color, priceHistory, currentPriceValue, priceContainer,
     );
 
     return product;
 }
 
 function appendStoredPriceValue(
-    label, storedPrice, color, priceContainer, priceHistory, currentPrice,
+    label, storedPrice, color, priceHistory, currentPrice, priceContainer,
 ) {
     const divContent = `${label}: `;
     const divStyle = {
@@ -146,7 +148,7 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
     const tbody = table.tBodies[0];
 
     const priceValues = [];
-    const labels = []; // Для хранения меток времени
+    const labels = [];
     const lowestPrices = [];
     const highestPrices = [];
     const sixMonthsAgo = getDateMonthsAgo(6);
@@ -161,9 +163,9 @@ function showPriceHistoryInModal(priceHistory, currentPrice) {
 
             if (date >= sixMonthsAgo) {
                 priceValues.push(lowest, highest);
-                labels.push(localDate); // Добавляем метку времени
-                lowestPrices.push(lowest); // Добавляем цену lowest
-                highestPrices.push(highest); // Добавляем цену highest
+                labels.push(localDate);
+                lowestPrices.push(lowest);
+                highestPrices.push(highest);
             }
 
             const rowContent = [localDate, lowest, highest];
@@ -263,14 +265,8 @@ function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
                         type: 'line',
                         scaleID: 'y',
                         value: currentPrice,
-                        borderColor: '#4872D8', // Цвет линии
-                        borderWidth: 3, // Толщина линии
-                        // label: {
-                        //     backgroundColor: '#7F7F7F',
-                        //     content: currentPrice,
-                        //     position: 'start',
-                        //     display: true,
-                        // },
+                        borderColor: '#4872D8',
+                        borderWidth: 3,
                     },
                 },
             },
