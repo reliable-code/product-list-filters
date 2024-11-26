@@ -238,6 +238,7 @@ function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
                 data: highestPrices,
                 borderColor: 'hsl(0, 100%, 35%)',
                 fill: false,
+                hidden: true,
             },
         ],
     };
