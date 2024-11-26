@@ -10,22 +10,17 @@ function isMatchTextFilter(parameterValue, filter) {
         .split(',')
         .map((searchString) => searchString.trim());
 
-    const {
-        include: includeSearchStrings,
-        notInclude: notIncludeSearchStrings,
-    } =
-        searchStrings.reduce((result, searchString) => {
-            if (!searchString.startsWith('!')) {
-                result.include.push(searchString);
-            } else {
-                const notIncludeSearchString = searchString.substring(1);
-                if (notIncludeSearchString.length) result.notInclude.push(notIncludeSearchString);
-            }
-            return result;
-        }, {
-            include: [],
-            notInclude: [],
-        });
+    const includeSearchStrings = [];
+    const notIncludeSearchStrings = [];
+
+    searchStrings.forEach((searchString) => {
+        if (searchString.startsWith('!')) {
+            const notIncludeSearchString = searchString.substring(1);
+            if (notIncludeSearchString) notIncludeSearchStrings.push(notIncludeSearchString);
+        } else {
+            includeSearchStrings.push(searchString);
+        }
+    });
 
     return includeSearchStrings.every((searchString) => comparedString.includes(searchString)) &&
         notIncludeSearchStrings.every((searchString) => !comparedString.includes(searchString));
