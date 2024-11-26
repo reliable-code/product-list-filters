@@ -73,6 +73,10 @@ export function createDiv(styles = {}, innerHTML = null) {
 }
 
 export function createElement(tagName, styles, innerHTML = null) {
+    if (typeof styles !== 'object' || styles === null) {
+        throw new TypeError('styles should be an object');
+    }
+
     const element = document.createElement(tagName);
 
     if (Object.keys(styles).length > 0) {
