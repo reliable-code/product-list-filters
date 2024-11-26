@@ -1,12 +1,8 @@
-export function waitForElement(parentNode, selector, timeout = null) {
+export async function waitForElement(parentNode, selector, timeout = null) {
+    const existingElement = parentNode.querySelector(selector);
+    if (existingElement) return existingElement;
+
     return new Promise((resolve) => {
-        const existingElement = parentNode.querySelector(selector);
-
-        if (existingElement) {
-            resolve(existingElement);
-            return;
-        }
-
         const observer = new MutationObserver(mutationCallback);
 
         observer.observe(parentNode, {
@@ -16,23 +12,20 @@ export function waitForElement(parentNode, selector, timeout = null) {
 
         let timeoutId = null;
         if (timeout) {
-            timeoutId = setTimeout(
-                () => {
-                    observer.disconnect();
-                    console.log(`No element found for selector: ${selector}`);
-                    resolve(null);
-                },
-                timeout,
-            );
+            timeoutId = setTimeout(() => {
+                observer.disconnect();
+                console.log(`No element found for selector: ${selector}`);
+                resolve(null);
+            }, timeout);
         }
 
         function mutationCallback() {
             const element = parentNode.querySelector(selector);
-            if (element) {
-                if (timeoutId) clearTimeout(timeoutId);
-                observer.disconnect();
-                resolve(element);
-            }
+            if (!element) return;
+
+            if (timeoutId) clearTimeout(timeoutId);
+            observer.disconnect();
+            resolve(element);
         }
     });
 }
