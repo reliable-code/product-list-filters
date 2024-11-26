@@ -12,11 +12,9 @@ export function createFilterControlText(
     controlStyle = null,
     inputStyle = null,
 ) {
-    const controlStyleObj = styleStringToObject(controlStyle);
-    const inputStyleObj = styleStringToObject(inputStyle);
-    const filterControl = createDiv(controlStyleObj, titleText);
+    const filterControl = createDiv(controlStyle, titleText);
     const input = createTextInput(
-        inputStyleObj,
+        inputStyle,
         inputValue.updateValueFromEvent,
         inputValue.value,
     );
@@ -78,21 +76,8 @@ export function createNameFilterControl(
     return createFilterControlText(
         'Содержит: ',
         inputValue,
-        controlStyle,
-        inputStyle,
-    );
-}
-
-export function createSellerNameFilterControl(
-    inputValue,
-    controlStyle = null,
-    inputStyle = null,
-) {
-    return createFilterControlText(
-        'Продавец: ',
-        inputValue,
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 

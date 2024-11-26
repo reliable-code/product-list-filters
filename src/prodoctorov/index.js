@@ -10,7 +10,12 @@ import {
     createMinReviewsFilterControl,
 } from '../common/filter/controlsFactory';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    styleStringToObject,
+} from '../common/dom/helpers';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
@@ -59,12 +64,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const controlStyle =
         'display: flex;' +
         'align-items: center;';
+    const controlStyleObj = styleStringToObject(controlStyle);
 
     const inputStyle =
         'margin: 0px 4px;';
     const textInputStyle =
         inputStyle + // eslint-disable-line prefer-template
         'width: 180px;';
+    const textInputStyleObj = styleStringToObject(textInputStyle);
     const numberInputStyle =
         inputStyle + // eslint-disable-line prefer-template
         'width: 45px;';
@@ -74,10 +81,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 20px;';
 
     const specFilterDiv =
-        createFilterControlText('Специализация:', specFilter, controlStyle, textInputStyle);
+        createFilterControlText('Специализация:', specFilter, controlStyleObj, textInputStyleObj);
 
     const clinicFilterDiv =
-        createFilterControlText('Клиника:', clinicFilter, controlStyle, textInputStyle);
+        createFilterControlText('Клиника:', clinicFilter, controlStyleObj, textInputStyleObj);
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);

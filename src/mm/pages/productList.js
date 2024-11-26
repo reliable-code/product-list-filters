@@ -11,14 +11,19 @@ import {
 } from '../../common/filter/compare';
 import {
     createEnabledFilterControl,
+    createFilterControlText,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinDiscountFilterControl,
     createNameFilterControl,
-    createSellerNameFilterControl,
 } from '../../common/filter/controlsFactory';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    styleStringToObject,
+} from '../../common/dom/helpers';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =
@@ -111,7 +116,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinDiscountFilterControl(minDiscountFilter, controlStyle, numberInputStyle);
 
     const sellerNameFilterDiv =
-        createSellerNameFilterControl(sellerNameFilter, controlStyle, textInputStyle);
+        createFilterControlText(
+            'Продавец: ',
+            sellerNameFilter,
+            styleStringToObject(controlStyle),
+            styleStringToObject(textInputStyle),
+        );
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
