@@ -1,4 +1,5 @@
 import { debounce } from './utils';
+import { styleStringToObject } from './helpers';
 
 // todo: change text styles to object
 export function createTextInput(inputOnChange, inputStyle, inputValue) {
@@ -28,14 +29,13 @@ export function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
 }
 
 export function createInput(style = null, type = null, inputOnChange = null) {
-    const input = document.createElement('input');
+    const styleObj = style ? styleStringToObject(style) : {};
+    const input = createElement('input', styleObj);
     if (type) input.type = type;
     if (inputOnChange) {
         input.addEventListener('keyup', debounce(inputOnChange, 200));
         input.addEventListener('change', debounce(inputOnChange, 100));
     }
-
-    if (style) input.style = style;
 
     return input;
 }
