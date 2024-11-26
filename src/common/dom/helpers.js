@@ -67,3 +67,10 @@ export function applyStyles(element, styles) {
             element.style[key] = value;
         });
 }
+
+export function styleObjectToString(styleObject) {
+    return Object.entries(styleObject)
+        .map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1')
+            .toLowerCase()}: ${value};`)
+        .join(' ');
+}
