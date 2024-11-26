@@ -27,10 +27,11 @@ export function waitForElement(parentNode, selector, timeout = null) {
         }
 
         function mutationCallback() {
-            if (parentNode.querySelector(selector)) {
+            const element = parentNode.querySelector(selector);
+            if (element) {
                 if (timeoutId) clearTimeout(timeoutId);
                 observer.disconnect();
-                resolve(parentNode.querySelector(selector));
+                resolve(element);
             }
         }
     });
