@@ -195,10 +195,10 @@ function cleanList() {
                     isLessThanFilter(getElementInnerNumber(productCardRating), minRatingFilter) :
                     !noRatingFilter.value;
 
-            const conditionToDefine =
+            const shouldSetOpacity =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 minRatingIsNotMatchFilter;
-            defineElementOpacity(productCard, conditionToDefine);
+            defineElementOpacity(productCard, shouldSetOpacity);
         },
     );
 }

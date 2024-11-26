@@ -113,9 +113,9 @@ function cleanList(productCards) {
 
             const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
-            const conditionToDefine =
+            const shouldSetOpacity =
                 isLessThanFilter(productCardRatingNumber, minVotesFilter);
-            defineElementOpacity(productCard, conditionToDefine);
+            defineElementOpacity(productCard, shouldSetOpacity);
         },
     );
 }
