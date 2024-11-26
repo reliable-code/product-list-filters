@@ -76,6 +76,8 @@ export function styleObjectToString(styleObject) {
 }
 
 export function styleStringToObject(styleString) {
+    if (!styleString) return {};
+
     return styleString
         .split(';')
         .filter((rule) => rule.trim() !== '')

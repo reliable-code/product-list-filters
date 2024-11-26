@@ -3,7 +3,7 @@ import { styleStringToObject } from './helpers';
 
 // todo: change text styles to object
 export function createTextInput(inputOnChange, inputStyle, inputValue) {
-    const style = inputStyle ? styleStringToObject(inputStyle) : {};
+    const style = styleStringToObject(inputStyle);
     const input = createInput(style, 'text', inputOnChange);
     input.value = inputValue;
 
@@ -13,7 +13,7 @@ export function createTextInput(inputOnChange, inputStyle, inputValue) {
 export function createNumberInput(
     inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
 ) {
-    const style = inputStyle ? styleStringToObject(inputStyle) : {};
+    const style = styleStringToObject(inputStyle);
     const input = createInput(style, 'number', inputOnChange);
     input.value = inputValue;
     input.step = inputStep;
@@ -24,7 +24,7 @@ export function createNumberInput(
 }
 
 export function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
-    const style = inputStyle ? styleStringToObject(inputStyle) : {};
+    const style = styleStringToObject(inputStyle);
     const input = createInput(style, 'checkbox', inputOnChange);
     input.checked = isChecked;
 
