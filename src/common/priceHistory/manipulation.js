@@ -262,7 +262,7 @@ function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
                         type: 'line',
                         scaleID: 'y',
                         value: currentPrice,
-                        borderColor: '#7F7F7F', // Цвет линии
+                        borderColor: '#4872D8', // Цвет линии
                         borderWidth: 3, // Толщина линии
                         // label: {
                         //     backgroundColor: '#7F7F7F',
