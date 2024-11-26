@@ -65,9 +65,15 @@ export function setElementBackground(element, background) {
     element.style.background = background;
 }
 
-export function addGlobalStyle(css) {
-    const style = document.createElement('style');
-    style.type = 'text/css';
+export function addGlobalStyle(css, id = 'custom-global-style') {
+    let style = document.getElementById(id);
+
+    if (!style) {
+        style = document.createElement('style');
+        style.id = id;
+        style.type = 'text/css';
+        document.head.appendChild(style);
+    }
+
     style.textContent = css;
-    document.head.appendChild(style);
 }
