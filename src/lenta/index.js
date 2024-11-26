@@ -12,10 +12,10 @@ import {
     createNoRatingFilterControl,
 } from '../common/filter/controlsFactory';
 import {
-    defineElementOpacity,
     resetElementOpacity,
     resetElementOrder,
     setElementOrder,
+    updateElementOpacity,
 } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
@@ -198,7 +198,7 @@ function cleanList() {
             const shouldSetOpacity =
                 isNotMatchTextFilter(productCardName, nameFilter) ||
                 minRatingIsNotMatchFilter;
-            defineElementOpacity(productCard, shouldSetOpacity);
+            updateElementOpacity(productCard, shouldSetOpacity);
         },
     );
 }

@@ -9,9 +9,9 @@ import {
     createMinVotesFilterControl,
 } from '../common/filter/controlsFactory';
 import {
-    defineElementOpacity,
     resetElementOpacity,
     setElementOpacity,
+    updateElementOpacity,
 } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 
@@ -115,7 +115,7 @@ function cleanList(productCards) {
 
             const shouldSetOpacity =
                 isLessThanFilter(productCardRatingNumber, minVotesFilter);
-            defineElementOpacity(productCard, shouldSetOpacity);
+            updateElementOpacity(productCard, shouldSetOpacity);
         },
     );
 }

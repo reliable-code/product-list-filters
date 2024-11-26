@@ -37,7 +37,7 @@ function setElementDisplayAttributeIfNeeded(element) {
     element.setAttribute('display', display);
 }
 
-export function defineElementOpacity(element, shouldSetOpacity, opacity = 0.2) {
+export function updateElementOpacity(element, shouldSetOpacity, opacity = 0.2) {
     if (shouldSetOpacity) {
         setElementOpacity(element, opacity);
     } else {
