@@ -1,5 +1,4 @@
 import { debounce } from './utils';
-import { applyStyles } from './helpers';
 
 // todo: change text styles to object
 export function createTextInput(inputOnChange, inputStyle, inputValue) {
@@ -79,9 +78,7 @@ export function createElement(tagName, styles, innerHTML = null) {
 
     const element = document.createElement(tagName);
 
-    if (Object.keys(styles).length > 0) {
-        applyStyles(element, styles);
-    }
+    Object.assign(element.style, styles);
 
     if (innerHTML) element.innerHTML = innerHTML;
 
