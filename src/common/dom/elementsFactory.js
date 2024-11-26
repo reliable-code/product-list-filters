@@ -3,7 +3,8 @@ import { styleStringToObject } from './helpers';
 
 // todo: change text styles to object
 export function createTextInput(inputOnChange, inputStyle, inputValue) {
-    const input = createInput(inputStyle, 'text', inputOnChange);
+    const style = inputStyle ? styleStringToObject(inputStyle) : {};
+    const input = createInput(style, 'text', inputOnChange);
     input.value = inputValue;
 
     return input;
@@ -12,7 +13,8 @@ export function createTextInput(inputOnChange, inputStyle, inputValue) {
 export function createNumberInput(
     inputOnChange, inputStyle, inputValue, inputStep, inputMinValue, inputMaxValue,
 ) {
-    const input = createInput(inputStyle, 'number', inputOnChange);
+    const style = inputStyle ? styleStringToObject(inputStyle) : {};
+    const input = createInput(style, 'number', inputOnChange);
     input.value = inputValue;
     input.step = inputStep;
     input.min = inputMinValue;
@@ -22,15 +24,15 @@ export function createNumberInput(
 }
 
 export function createCheckboxInput(inputOnChange, inputStyle, isChecked) {
-    const input = createInput(inputStyle, 'checkbox', inputOnChange);
+    const style = inputStyle ? styleStringToObject(inputStyle) : {};
+    const input = createInput(style, 'checkbox', inputOnChange);
     input.checked = isChecked;
 
     return input;
 }
 
-export function createInput(style = null, type = null, inputOnChange = null) {
-    const styleObj = style ? styleStringToObject(style) : {};
-    const input = createElement('input', styleObj);
+export function createInput(style = {}, type = null, inputOnChange = null) {
+    const input = createElement('input', style);
     if (type) input.type = type;
     if (inputOnChange) {
         input.addEventListener('keyup', debounce(inputOnChange, 200));
