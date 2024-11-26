@@ -58,15 +58,6 @@ export function createButton(styles = {}, innerHTML = null, onClick = null) {
     return button;
 }
 
-// todo: replace usages with createDiv()
-export function createDivObsolete(textContent = null, style = null) {
-    const div = document.createElement('div');
-    if (textContent) div.textContent = textContent;
-    if (style) div.style = style;
-
-    return div;
-}
-
 export function createDiv(styles = {}, innerHTML = null) {
     return createElement('div', styles, innerHTML);
 }

@@ -3,7 +3,7 @@ import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getURLPathElement, somePathElementEquals } from '../../common/url';
-import { createDivObsolete } from '../../common/dom/elementsFactory';
+import { createDiv } from '../../common/dom/elementsFactory';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
@@ -21,6 +21,7 @@ import {
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
+    styleStringToObject,
 } from '../../common/dom/helpers';
 import {
     CHECKBOX_INPUT_STYLE,
@@ -120,6 +121,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         CONTROL_STYLE + // eslint-disable-line prefer-template
         'margin-right: 37px;';
 
+    const priceControlStyleObj = styleStringToObject(priceControlStyle);
+
     const nameFilterDiv =
         createNameFilterControl(nameFilter, CONTROL_STYLE, TEXT_INPUT_STYLE);
 
@@ -133,7 +136,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinRatingFilterControl(minRatingFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const minPriceDiv =
-        createDivObsolete(minPriceDivContent(), priceControlStyle);
+        createDiv(priceControlStyleObj, minPriceDivContent());
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);

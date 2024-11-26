@@ -3,7 +3,7 @@ import { StoredInputValue } from '../common/storage/localstorage';
 import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
-import { createDivObsolete } from '../common/dom/elementsFactory';
+import { createDiv } from '../common/dom/elementsFactory';
 import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
 import {
     createEnabledFilterControl,
@@ -13,7 +13,12 @@ import {
     createMinDiscountFilterControl,
 } from '../common/filter/controlsFactory';
 import { insertAfter, showElement, updateElementDisplay } from '../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    styleStringToObject,
+} from '../common/dom/helpers';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);
@@ -190,6 +195,8 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
         'margin-left: auto;' +
         'width: 170px;';
 
+    const reloadTimerControlStyleObj = styleStringToObject(reloadTimerControlStyle);
+
     const observerReloadIntervalDiv =
         createFilterControlNumber('Обновление, мин.: ',
             observerReloadInterval,
@@ -218,8 +225,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
             observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
         );
 
-    reloadTimerDiv =
-        createDivObsolete(reloadTimerSecondsLeft, reloadTimerControlStyle);
+    reloadTimerDiv = createDiv(reloadTimerControlStyleObj, reloadTimerSecondsLeft);
 
     observerControlsContainer.append(
         observerReloadIntervalDiv,

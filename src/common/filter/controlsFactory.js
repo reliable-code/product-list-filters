@@ -1,9 +1,10 @@
 import {
     createCheckboxInput,
-    createDivObsolete,
+    createDiv,
     createNumberInput,
     createTextInput,
 } from '../dom/elementsFactory';
+import { styleStringToObject } from '../dom/helpers';
 
 export function createFilterControlText(
     titleText,
@@ -11,7 +12,8 @@ export function createFilterControlText(
     controlStyle = null,
     inputStyle = null,
 ) {
-    const filterControl = createDivObsolete(titleText, controlStyle);
+    const controlStyleObj = styleStringToObject(controlStyle);
+    const filterControl = createDiv(controlStyleObj, titleText);
     const input = createTextInput(
         inputValue.updateValueFromEvent,
         inputStyle,
@@ -32,7 +34,8 @@ export function createFilterControlNumber(
     controlStyle = null,
     inputStyle = null,
 ) {
-    const filterControl = createDivObsolete(titleText, controlStyle);
+    const controlStyleObj = styleStringToObject(controlStyle);
+    const filterControl = createDiv(controlStyleObj, titleText);
     const input = createNumberInput(
         inputValue.updateValueFromEvent,
         inputStyle,
@@ -53,8 +56,8 @@ export function createFilterControlCheckbox(
     controlStyle = null,
     inputStyle = null,
 ) {
-    const filterControl =
-        createDivObsolete(titleText, controlStyle);
+    const controlStyleObj = styleStringToObject(controlStyle);
+    const filterControl = createDiv(controlStyleObj, titleText);
     const input =
         createCheckboxInput(inputValue.updateValueFromEvent, inputStyle, inputValue.value);
 
