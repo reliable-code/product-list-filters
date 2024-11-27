@@ -18,13 +18,13 @@ import {
     styleStringToObject,
 } from '../../common/dom/helpers';
 import {
-    createCouponValueControl,
     createEnabledFilterControl,
     createMaxDiscountedPriceFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinRatingFilterControl,
 } from '../../common/filter/factories/specificControls';
+import { createFilterControlNumber } from '../../common/filter/factories/genericControls';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 
@@ -120,8 +120,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         );
 
     const couponValueDiv =
-        createCouponValueControl(
-            couponValue, controlStyle, numberInputStyle,
+        createFilterControlNumber(
+            'Купон: ',
+            couponValue,
+            '500',
+            '0',
+            '100000',
+            styleStringToObject(controlStyle),
+            styleStringToObject(numberInputStyle),
         );
 
     const filterEnabledDiv =
