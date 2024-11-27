@@ -165,16 +165,6 @@ export function createMaxPriceFilterControl(
     );
 }
 
-export function createMaxDiscountedPriceFilterControl(
-    inputValue,
-    controlStyle = {},
-    inputStyle = {},
-) {
-    return createPriceFilterControl(
-        'Макс. цена со скидкой: ', inputValue, controlStyle, inputStyle,
-    );
-}
-
 export function createNoRatingFilterControl(
     inputValue,
     controlStyle = {},

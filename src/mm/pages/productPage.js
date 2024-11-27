@@ -19,10 +19,10 @@ import {
 } from '../../common/dom/helpers';
 import {
     createEnabledFilterControl,
-    createMaxDiscountedPriceFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinRatingFilterControl,
+    createPriceFilterControl,
 } from '../../common/filter/factories/specificControls';
 import { createFilterControlNumber } from '../../common/filter/factories/genericControls';
 
@@ -110,8 +110,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         );
 
     const maxDiscountedPriceDiv =
-        createMaxDiscountedPriceFilterControl(
-            maxDiscountedPriceFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
+        createPriceFilterControl(
+            'Макс. цена со скидкой: ', maxDiscountedPriceFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
         );
 
     const minSellerRatingDiv =
