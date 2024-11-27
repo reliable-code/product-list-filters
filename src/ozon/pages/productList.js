@@ -110,7 +110,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     setCommonFiltersContainerStyles(filtersContainer, parentNode);
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, CONTROL_STYLE, TEXT_INPUT_STYLE);
+        createNameFilterControl(nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE));
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);

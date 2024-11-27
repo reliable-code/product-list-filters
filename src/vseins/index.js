@@ -3,7 +3,12 @@ import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
-import { getAllElements, getFirstElement, getNodeInnerNumber } from '../common/dom/helpers';
+import {
+    getAllElements,
+    getFirstElement,
+    getNodeInnerNumber,
+    styleStringToObject,
+} from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
@@ -80,7 +85,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 22px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+        createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);

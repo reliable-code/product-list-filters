@@ -67,7 +67,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const nameFilterDiv =
         createNameFilterControl(
-            nameFilter, CONTROL_STYLE, TEXT_INPUT_STYLE,
+            nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE),
         );
     const bestPriceDiv =
         createFilterControlCheckbox(

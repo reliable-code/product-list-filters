@@ -4,7 +4,12 @@ import { removeNonNumber } from '../common/string';
 import { getURLPathElement } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
-import { applyStyles, getAllElements, getFirstElement } from '../common/dom/helpers';
+import {
+    applyStyles,
+    getAllElements,
+    getFirstElement,
+    styleStringToObject,
+} from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
@@ -72,7 +77,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 21px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+        createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);

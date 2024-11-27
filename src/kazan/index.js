@@ -9,6 +9,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
     getNodeInnerNumber,
+    styleStringToObject,
 } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -79,7 +80,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 23px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+        createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);

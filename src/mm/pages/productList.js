@@ -104,7 +104,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 23px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+        createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minCashbackDiv =
         createMinCashbackFilterControl(minCashbackFilter, controlStyle, numberInputStyle);

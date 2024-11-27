@@ -117,7 +117,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 22px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, controlStyle, textInputStyle);
+        createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minRatingDiv =
         createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
