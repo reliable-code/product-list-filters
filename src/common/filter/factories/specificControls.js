@@ -200,14 +200,14 @@ export function createMaxDiscountedPriceFilterControl(
 
 export function createNoRatingFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createFilterControlCheckbox(
         'Без рейтинга: ',
         inputValue,
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
     );
 }
 

@@ -126,7 +126,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createDiscountFilterControl(discountAmount, controlStyle, numberInputStyle);
 
     const noRatingDiv =
-        createNoRatingFilterControl(noRatingFilter, controlStyle, checkboxInputStyle);
+        createNoRatingFilterControl(noRatingFilter, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
