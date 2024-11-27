@@ -65,7 +65,7 @@ export function createElement(tagName, styles, innerHTML = null) {
 
     const element = document.createElement(tagName);
 
-    applyStyles(element.style, styles);
+    applyStyles(element, styles);
 
     if (innerHTML) element.innerHTML = innerHTML;
 
