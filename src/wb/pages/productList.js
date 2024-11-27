@@ -133,7 +133,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMaxReviewsFilterControl(maxReviewsFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE);
+        createMinRatingFilterControl(minRatingFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));
 
     const minPriceDiv =
         createDiv(priceControlStyleObj, minPriceDivContent());

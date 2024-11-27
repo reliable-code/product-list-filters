@@ -20,8 +20,8 @@ export function createNameFilterControl(
 
 export function createMinRatingFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
     inputStep = 0.1,
 ) {
     return createFilterControlNumber(
@@ -30,8 +30,8 @@ export function createMinRatingFilterControl(
         inputStep,
         3.0,
         5.0,
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
     );
 }
 

@@ -11,7 +11,12 @@ import { getURLPathElementEnding } from '../../common/url';
 import { InputValue } from '../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    styleStringToObject,
+} from '../../common/dom/helpers';
 import {
     createCouponValueControl,
     createEnabledFilterControl,
@@ -111,7 +116,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const minSellerRatingDiv =
         createMinRatingFilterControl(
-            minSellerRatingFilter, controlStyle, numberInputStyle,
+            minSellerRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
         );
 
     const couponValueDiv =

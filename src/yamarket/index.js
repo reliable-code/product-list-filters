@@ -8,7 +8,12 @@ import {
     showElement,
     updateElementDisplay,
 } from '../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    styleStringToObject,
+} from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
@@ -82,7 +87,7 @@ function appendFiltersContainer(filterControls, parentNode) {
         createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
+        createMinRatingFilterControl(minRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
