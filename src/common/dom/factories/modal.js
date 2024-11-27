@@ -1,4 +1,4 @@
-import { createButton, createDiv } from './elementsFactory';
+import { createButton, createDiv } from './elements';
 
 const DEFAULT_MODAL_STYLES = {
     position: 'fixed',

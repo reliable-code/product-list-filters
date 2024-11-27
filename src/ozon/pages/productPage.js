@@ -3,7 +3,7 @@ import { createDislikeButton } from './common/common';
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
 import { getURLPathElementEnding } from '../../common/url';
-import { createDiv, createLink, createSpan } from '../../common/dom/elementsFactory';
+import { createDiv, createLink, createSpan } from '../../common/dom/factories/elements';
 import { insertAfter } from '../../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 import { getStoredRatingValue, setStoredRatingValue } from '../db/db';

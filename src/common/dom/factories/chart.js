@@ -1,6 +1,6 @@
 import Chart from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import { createDiv } from './elementsFactory';
+import { createDiv } from './elements';
 
 Chart.register(annotationPlugin);
 

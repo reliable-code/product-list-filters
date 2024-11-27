@@ -1,7 +1,7 @@
 import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElement } from '../common/url';
-import { createDiv, createLink } from '../common/dom/elementsFactory';
+import { createDiv, createLink } from '../common/dom/factories/elements';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
     createEnabledFilterControl,

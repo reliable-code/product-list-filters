@@ -1,4 +1,4 @@
-import { createDiv } from '../dom/elementsFactory';
+import { createDiv } from '../dom/factories/elements';
 import { getFirstElement } from '../dom/helpers';
 
 export function appendFilterControlsIfNeeded(

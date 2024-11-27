@@ -3,7 +3,7 @@ import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage/storage';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getURLPathElement, somePathElementEquals } from '../../common/url';
-import { createDiv } from '../../common/dom/elementsFactory';
+import { createDiv } from '../../common/dom/factories/elements';
 import {
     isGreaterThanFilter,
     isLessThanFilter,

@@ -1,6 +1,6 @@
 import { heartStrikeDislikeIcon } from './icons';
 import { getPathnameElementEnding } from '../../../common/url';
-import { createLink, createSpan } from '../../../common/dom/elementsFactory';
+import { createLink, createSpan } from '../../../common/dom/factories/elements';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
 import { getFirstElement } from '../../../common/dom/helpers';
 

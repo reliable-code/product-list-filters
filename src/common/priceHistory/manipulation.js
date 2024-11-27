@@ -1,4 +1,4 @@
-import { createDiv, createSpan } from '../dom/elementsFactory';
+import { createDiv, createSpan } from '../dom/factories/elements';
 import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './constants';
 import { getElementInnerNumber } from '../dom/helpers';
 import { getStorageValue, setStorageValueAsync } from '../storage/storage';
@@ -7,12 +7,12 @@ import { RatedProductData } from '../models/ratedProductData';
 import { PriceData } from '../models/priceData';
 import { DatedValue } from '../models/datedValue';
 import { getDateMonthsAgo, getDateTimestamp, getLocalDateFromTimestamp } from '../dateUtils';
-import { createTableWithHeaders, createTd, createTr } from '../dom/tableFactory';
+import { createTableWithHeaders, createTd, createTr } from '../dom/factories/table';
 import { getDeviationColor } from './helpers';
-import { createAndShowModal } from '../dom/modalFactory';
+import { createAndShowModal } from '../dom/factories/modal';
 import { getMedian } from '../mathUtils';
 import { getFormattedPriceInRUB as getFormattedPrice } from '../priceUtils';
-import { createChart } from '../dom/chartFactory';
+import { createChart } from '../dom/factories/chart';
 
 export async function appendPriceHistory(priceContainer, priceSpan, productArticle) {
     const currentPriceValue = getElementInnerNumber(priceSpan, true);
@@ -121,7 +121,7 @@ function appendStoredPriceValue(
     storedPriceSpan.addEventListener('click', (event) => {
         event.stopPropagation();
         event.preventDefault();
-
+        // priceHistory = generateTestData(100, currentPrice);
         showPriceHistoryInModal(priceHistory, currentPrice);
     });
 

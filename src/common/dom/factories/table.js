@@ -1,5 +1,5 @@
-import { createElement } from './elementsFactory';
-import { capitalize } from '../string';
+import { createElement } from './elements';
+import { capitalize } from '../../string';
 
 const elementTagNames = ['table', 'thead', 'tbody', 'tr', 'th', 'td'];
 
