@@ -17,7 +17,7 @@ import {
     createFilterControlNumber,
 } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
-import { getAllElements, getFirstElement } from '../../common/dom/helpers';
+import { getAllElements, getFirstElement, styleStringToObject } from '../../common/dom/helpers';
 import {
     APPEND_STORED_PRICE_VALUES_PASSED_ATTR,
     CURRENT_PRICE_ATTR,
@@ -79,8 +79,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createFilterControlCheckbox(
             'Лучшая цена: ',
             bestPriceFilter,
-            CONTROL_STYLE,
-            CHECKBOX_INPUT_STYLE,
+            styleStringToObject(CONTROL_STYLE),
+            styleStringToObject(CHECKBOX_INPUT_STYLE),
         );
     const priceTolerancePercentDiv =
         createFilterControlNumber(
@@ -96,8 +96,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createFilterControlCheckbox(
             'В наличии: ',
             inStockOnlyFilter,
-            CONTROL_STYLE,
-            CHECKBOX_INPUT_STYLE,
+            styleStringToObject(CONTROL_STYLE),
+            styleStringToObject(CHECKBOX_INPUT_STYLE),
         );
     const filterEnabledDiv =
         createEnabledFilterControl(

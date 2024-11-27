@@ -219,7 +219,10 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
 
     const showObserverNotificationDiv =
         createFilterControlCheckbox(
-            'Оповещение: ', showObserverNotification, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+            'Оповещение: ',
+            showObserverNotification,
+            styleStringToObject(CONTROL_STYLE),
+            styleStringToObject(CHECKBOX_INPUT_STYLE),
         );
 
     const observerEnabledDiv =

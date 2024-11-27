@@ -53,14 +53,12 @@ export function createFilterControlNumber(
 export function createFilterControlCheckbox(
     labelText,
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
-    const controlStyleObj = styleStringToObject(controlStyle);
-    const inputStyleObj = styleStringToObject(inputStyle);
-    const filterControl = createDiv(controlStyleObj, labelText);
+    const filterControl = createDiv(controlStyle, labelText);
     const input = createCheckboxInput(
-        inputStyleObj, inputValue.updateValueFromEvent, inputValue.value,
+        inputStyle, inputValue.updateValueFromEvent, inputValue.value,
     );
 
     filterControl.append(input);

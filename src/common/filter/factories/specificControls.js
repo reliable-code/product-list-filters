@@ -206,8 +206,8 @@ export function createNoRatingFilterControl(
     return createFilterControlCheckbox(
         'Без рейтинга: ',
         inputValue,
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 
@@ -219,7 +219,7 @@ export function createEnabledFilterControl(
     return createFilterControlCheckbox(
         'Вкл: ',
         inputValue,
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }

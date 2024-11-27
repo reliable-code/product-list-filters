@@ -10,7 +10,12 @@ import {
     setElementOrder,
     updateElementOpacity,
 } from '../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    styleStringToObject,
+} from '../common/dom/helpers';
 import {
     createDiscountFilterControl,
     createEnabledFilterControl,
@@ -127,7 +132,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
 
     const sortEnabledDiv =
-        createFilterControlCheckbox('Сортировка:', sortEnabled, controlStyle, checkboxInputStyle);
+        createFilterControlCheckbox(
+            'Сортировка:', sortEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle),
+        );
 
     filtersContainer.append(
         nameFilterDiv,

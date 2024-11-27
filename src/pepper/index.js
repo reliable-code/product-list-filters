@@ -9,7 +9,12 @@ import {
     setElementOpacity,
     updateElementOpacity,
 } from '../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    styleStringToObject,
+} from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinVotesFilterControl,
@@ -77,7 +82,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const showExpiredDiv =
         createFilterControlCheckbox(
-            'Завершённые: ', showExpiredFilter, controlStyle, checkboxInputStyle,
+            'Завершённые: ', showExpiredFilter, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle),
         );
 
     const filterEnabledDiv =
