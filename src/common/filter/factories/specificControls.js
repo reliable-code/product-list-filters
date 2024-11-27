@@ -64,8 +64,8 @@ export function createMaxReviewsFilterControl(
 export function createReviewsFilterControl(
     labelText,
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createFilterControlNumber(
         labelText,
@@ -73,8 +73,8 @@ export function createReviewsFilterControl(
         '1',
         '1',
         '999999',
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
     );
 }
 
