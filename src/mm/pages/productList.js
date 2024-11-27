@@ -113,7 +113,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle);
 
     const minDiscountDiv =
-        createMinDiscountFilterControl(minDiscountFilter, controlStyle, numberInputStyle);
+        createMinDiscountFilterControl(minDiscountFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const sellerNameFilterDiv =
         createFilterControlText(
