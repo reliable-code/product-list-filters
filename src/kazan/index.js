@@ -3,12 +3,6 @@ import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
-import {
-    createEnabledFilterControl,
-    createMinRatingFilterControl,
-    createMinReviewsFilterControl,
-    createNameFilterControl,
-} from '../common/filter/factories/controls';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
     getAllElements,
@@ -16,6 +10,12 @@ import {
     getFirstElement,
     getNodeInnerNumber,
 } from '../common/dom/helpers';
+import {
+    createEnabledFilterControl,
+    createMinRatingFilterControl,
+    createMinReviewsFilterControl,
+    createNameFilterControl,
+} from '../common/filter/factories/specificControls';
 
 let nameFilter;
 let minReviewsFilter;

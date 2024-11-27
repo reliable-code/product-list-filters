@@ -3,17 +3,17 @@ import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter } from '../common/filter/compare';
 import {
-    createEnabledFilterControl,
-    createMinRatingFilterControl,
-    createMinReviewsFilterControl,
-} from '../common/filter/factories/controls';
-import {
     hideElement,
     insertAfter,
     showElement,
     updateElementDisplay,
 } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    createEnabledFilterControl,
+    createMinRatingFilterControl,
+    createMinReviewsFilterControl,
+} from '../common/filter/factories/specificControls';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
 

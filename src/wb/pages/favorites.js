@@ -13,11 +13,9 @@ import { StoredInputValue } from '../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../common/filter/compare';
 import {
-    createEnabledFilterControl,
     createFilterControlCheckbox,
     createFilterControlNumber,
-    createNameFilterControl,
-} from '../../common/filter/factories/controls';
+} from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../../common/dom/helpers';
 import {
@@ -27,6 +25,10 @@ import {
     LOWEST_PRICE_ATTR,
 } from '../../common/priceHistory/constants';
 import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
+import {
+    createEnabledFilterControl,
+    createNameFilterControl,
+} from '../../common/filter/factories/specificControls';
 
 const SELECTORS = {
     FILTER_CONTAINER: '.favorites-goods__head',

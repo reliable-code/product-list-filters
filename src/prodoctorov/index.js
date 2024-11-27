@@ -4,11 +4,9 @@ import { getURLPathElement } from '../common/url';
 import { createDiv, createLink } from '../common/dom/factories/elements';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
-    createEnabledFilterControl,
     createFilterControlNumber,
     createFilterControlText,
-    createMinReviewsFilterControl,
-} from '../common/filter/factories/controls';
+} from '../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
     getAllElements,
@@ -16,6 +14,10 @@ import {
     getFirstElement,
     styleStringToObject,
 } from '../common/dom/helpers';
+import {
+    createEnabledFilterControl,
+    createMinReviewsFilterControl,
+} from '../common/filter/factories/specificControls';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';

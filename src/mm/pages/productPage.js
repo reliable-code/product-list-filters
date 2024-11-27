@@ -10,6 +10,8 @@ import {
 import { getURLPathElementEnding } from '../../common/url';
 import { InputValue } from '../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
+import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 import {
     createCouponValueControl,
     createEnabledFilterControl,
@@ -17,9 +19,7 @@ import {
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinRatingFilterControl,
-} from '../../common/filter/factories/controls';
-import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
+} from '../../common/filter/factories/specificControls';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 

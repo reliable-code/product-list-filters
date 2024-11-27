@@ -21,16 +21,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter/compare';
-import {
-    createEnabledFilterControl,
-    createFilterControlNumber,
-    createMaxPriceFilterControl,
-    createMaxReviewsFilterControl,
-    createMinRatingFilterControl,
-    createMinReviewsFilterControl,
-    createNameFilterControl,
-    createNoRatingFilterControl,
-} from '../../common/filter/factories/controls';
+import { createFilterControlNumber } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,
@@ -40,6 +31,15 @@ import {
 } from '../../common/dom/helpers';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
+import {
+    createEnabledFilterControl,
+    createMaxPriceFilterControl,
+    createMaxReviewsFilterControl,
+    createMinRatingFilterControl,
+    createMinReviewsFilterControl,
+    createNameFilterControl,
+    createNoRatingFilterControl,
+} from '../../common/filter/factories/specificControls';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

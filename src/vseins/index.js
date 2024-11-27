@@ -2,14 +2,14 @@ import { waitForElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
+import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
+import { getAllElements, getFirstElement, getNodeInnerNumber } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
-} from '../common/filter/factories/controls';
-import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
-import { getAllElements, getFirstElement, getNodeInnerNumber } from '../common/dom/helpers';
+} from '../common/filter/factories/specificControls';
 
 const PRODUCT_LIST_SELECTOR = '[data-qa="listing"]';
 

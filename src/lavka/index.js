@@ -6,12 +6,9 @@ import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { createDiv } from '../common/dom/factories/elements';
 import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
 import {
-    createEnabledFilterControl,
     createFilterControlCheckbox,
     createFilterControlNumber,
-    createMaxPriceFilterControl,
-    createMinDiscountFilterControl,
-} from '../common/filter/factories/controls';
+} from '../common/filter/factories/genericControls';
 import { insertAfter, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
     getAllElements,
@@ -19,6 +16,11 @@ import {
     getFirstElement,
     styleStringToObject,
 } from '../common/dom/helpers';
+import {
+    createEnabledFilterControl,
+    createMaxPriceFilterControl,
+    createMinDiscountFilterControl,
+} from '../common/filter/factories/specificControls';
 
 const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
 const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);

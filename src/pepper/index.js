@@ -3,17 +3,17 @@ import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { InputValue } from '../common/storage/models/inputValue';
 import { isLessThanFilter } from '../common/filter/compare';
-import {
-    createEnabledFilterControl,
-    createFilterControlCheckbox,
-    createMinVotesFilterControl,
-} from '../common/filter/factories/controls';
+import { createFilterControlCheckbox } from '../common/filter/factories/genericControls';
 import {
     resetElementOpacity,
     setElementOpacity,
     updateElementOpacity,
 } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    createEnabledFilterControl,
+    createMinVotesFilterControl,
+} from '../common/filter/factories/specificControls';
 
 const minVotesFilter = new InputValue(50);
 const showExpiredFilter = new StoredInputValue('show-expired-filter', false);

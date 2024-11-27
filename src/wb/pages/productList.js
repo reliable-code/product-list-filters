@@ -9,13 +9,6 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter/compare';
-import {
-    createEnabledFilterControl,
-    createMaxReviewsFilterControl,
-    createMinRatingFilterControl,
-    createMinReviewsFilterControl,
-    createNameFilterControl,
-} from '../../common/filter/factories/controls';
 import { showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,
@@ -30,6 +23,13 @@ import {
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
 } from './common/common';
+import {
+    createEnabledFilterControl,
+    createMaxReviewsFilterControl,
+    createMinRatingFilterControl,
+    createMinReviewsFilterControl,
+    createNameFilterControl,
+} from '../../common/filter/factories/specificControls';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';

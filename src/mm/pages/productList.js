@@ -9,14 +9,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter/compare';
-import {
-    createEnabledFilterControl,
-    createFilterControlText,
-    createMaxPriceFilterControl,
-    createMinCashbackFilterControl,
-    createMinDiscountFilterControl,
-    createNameFilterControl,
-} from '../../common/filter/factories/controls';
+import { createFilterControlText } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,
@@ -24,6 +17,13 @@ import {
     getFirstElement,
     styleStringToObject,
 } from '../../common/dom/helpers';
+import {
+    createEnabledFilterControl,
+    createMaxPriceFilterControl,
+    createMinCashbackFilterControl,
+    createMinDiscountFilterControl,
+    createNameFilterControl,
+} from '../../common/filter/factories/specificControls';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =

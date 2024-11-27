@@ -3,14 +3,7 @@ import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonDigit } from '../common/string';
 import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
-import {
-    createDiscountFilterControl,
-    createEnabledFilterControl,
-    createFilterControlCheckbox,
-    createMinRatingFilterControl,
-    createNameFilterControl,
-    createNoRatingFilterControl,
-} from '../common/filter/factories/controls';
+import { createFilterControlCheckbox } from '../common/filter/factories/genericControls';
 import {
     resetElementOpacity,
     resetElementOrder,
@@ -18,6 +11,13 @@ import {
     updateElementOpacity,
 } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    createDiscountFilterControl,
+    createEnabledFilterControl,
+    createMinRatingFilterControl,
+    createNameFilterControl,
+    createNoRatingFilterControl,
+} from '../common/filter/factories/specificControls';
 
 const CATEGORY_NAME = getURLPathElementEnding(2);
 
