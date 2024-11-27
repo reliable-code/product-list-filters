@@ -111,7 +111,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const maxDiscountedPriceDiv =
         createMaxDiscountedPriceFilterControl(
-            maxDiscountedPriceFilter, controlStyle, numberInputStyle,
+            maxDiscountedPriceFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
         );
 
     const minSellerRatingDiv =

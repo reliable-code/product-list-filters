@@ -1,4 +1,3 @@
-import { styleStringToObject } from '../../dom/helpers';
 import {
     createFilterControlCheckbox,
     createFilterControlNumber,
@@ -168,14 +167,14 @@ export function createMaxPriceFilterControl(
 
 export function createMaxDiscountedPriceFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createPriceFilterControlBase(
         'Макс. цена со скидкой: ',
         inputValue,
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
         '250',
     );
 }
