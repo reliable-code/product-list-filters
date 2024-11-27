@@ -83,8 +83,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             1,
             0,
             100,
-            CONTROL_STYLE,
-            NUMBER_INPUT_STYLE,
+            styleStringToObject(CONTROL_STYLE),
+            styleStringToObject(NUMBER_INPUT_STYLE),
         );
     const filterEnabledDiv =
         createEnabledFilterControl(

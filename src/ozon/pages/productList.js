@@ -28,6 +28,7 @@ import {
     getArrayElementInnerNumber,
     getElementInnerNumber,
     getFirstElement,
+    styleStringToObject,
 } from '../../common/dom/helpers';
 import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
@@ -136,8 +137,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             1,
             1,
             10,
-            CONTROL_STYLE,
-            NUMBER_INPUT_STYLE,
+            styleStringToObject(CONTROL_STYLE),
+            styleStringToObject(NUMBER_INPUT_STYLE),
         );
 
     filtersContainer.append(

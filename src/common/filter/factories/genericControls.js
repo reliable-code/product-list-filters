@@ -4,7 +4,6 @@ import {
     createNumberInput,
     createTextInput,
 } from '../../dom/factories/elements';
-import { styleStringToObject } from '../../dom/helpers';
 
 export function createFilterControlText(
     labelText,
@@ -28,21 +27,19 @@ export function createFilterControlNumber(
     labelText,
     inputValue,
     inputStep,
-    inputMinValue,
-    inputMaxValue,
-    controlStyle = null,
-    inputStyle = null,
+    inputMin,
+    inputMax,
+    controlStyle = {},
+    inputStyle = {},
 ) {
-    const controlStyleObj = styleStringToObject(controlStyle);
-    const inputStyleObj = styleStringToObject(inputStyle);
-    const filterControl = createDiv(controlStyleObj, labelText);
+    const filterControl = createDiv(controlStyle, labelText);
     const input = createNumberInput(
-        inputStyleObj,
+        inputStyle,
         inputValue.updateValueFromEvent,
         inputValue.value,
         inputStep,
-        inputMinValue,
-        inputMaxValue,
+        inputMin,
+        inputMax,
     );
 
     filterControl.append(input);

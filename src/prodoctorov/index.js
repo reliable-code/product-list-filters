@@ -98,8 +98,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             '1',
             '0',
             '100',
-            controlStyle,
-            numberInputStyle,
+            styleStringToObject(controlStyle),
+            styleStringToObject(numberInputStyle),
         );
 
     const filterEnabledDiv =

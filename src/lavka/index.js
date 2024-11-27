@@ -205,8 +205,8 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
             0.5,
             1,
             60,
-            CONTROL_STYLE,
-            NUMBER_INPUT_STYLE);
+            styleStringToObject(CONTROL_STYLE),
+            styleStringToObject(NUMBER_INPUT_STYLE));
 
     const minObserverSectionLengthDiv =
         createFilterControlNumber('Мин. в секции: ',
@@ -214,8 +214,8 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
             1,
             1,
             50,
-            CONTROL_STYLE,
-            NUMBER_INPUT_STYLE);
+            styleStringToObject(CONTROL_STYLE),
+            styleStringToObject(NUMBER_INPUT_STYLE));
 
     const showObserverNotificationDiv =
         createFilterControlCheckbox(

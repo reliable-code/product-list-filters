@@ -30,8 +30,8 @@ export function createMinRatingFilterControl(
         inputStep,
         3.0,
         5.0,
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 
@@ -73,8 +73,8 @@ export function createReviewsFilterControl(
         '1',
         '1',
         '999999',
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 
@@ -116,8 +116,8 @@ function createDiscountFilterControlBase(
         '5',
         '0',
         '100',
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 
@@ -132,8 +132,8 @@ export function createMinVotesFilterControl(
         '50',
         '0',
         '10000',
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 
@@ -148,8 +148,8 @@ export function createMinCashbackFilterControl(
         '5',
         '0',
         '100',
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 
@@ -160,8 +160,8 @@ function createPriceFilterControlBase(labelText, inputValue, controlStyle, input
         inputStep,
         '0',
         '1000000',
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 
@@ -172,8 +172,8 @@ export function createCouponValueControl(inputValue, controlStyle, inputStyle) {
         '500',
         '0',
         '100000',
-        controlStyle,
-        inputStyle,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
     );
 }
 
