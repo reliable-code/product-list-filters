@@ -107,8 +107,8 @@ export function createDiscountFilterControl(
 function createDiscountFilterControlBase(
     labelText,
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createFilterControlNumber(
         labelText,
@@ -116,8 +116,8 @@ function createDiscountFilterControlBase(
         '5',
         '0',
         '100',
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
     );
 }
 
