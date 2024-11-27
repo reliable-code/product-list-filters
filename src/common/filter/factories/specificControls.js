@@ -37,8 +37,8 @@ export function createMinRatingFilterControl(
 
 export function createMinReviewsFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createReviewsFilterControl(
         'Мин. отзывов: ',

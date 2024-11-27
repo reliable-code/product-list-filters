@@ -88,7 +88,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
+        createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const minRatingDiv =
         createMinRatingFilterControl(minRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));

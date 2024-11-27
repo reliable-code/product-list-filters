@@ -89,7 +89,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createFilterControlText('Клиника:', clinicFilter, controlStyleObj, textInputStyleObj);
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
+        createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const minExperienceDiv =
         createFilterControlNumber(
