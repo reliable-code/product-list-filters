@@ -7,12 +7,12 @@ import {
 import { styleStringToObject } from '../../dom/helpers';
 
 export function createFilterControlText(
-    titleText,
+    labelText,
     inputValue,
     controlStyle = null,
     inputStyle = null,
 ) {
-    const filterControl = createDiv(controlStyle, titleText);
+    const filterControl = createDiv(controlStyle, labelText);
     const input = createTextInput(
         inputStyle,
         inputValue.updateValueFromEvent,
@@ -25,7 +25,7 @@ export function createFilterControlText(
 }
 
 export function createFilterControlNumber(
-    titleText,
+    labelText,
     inputValue,
     inputStep,
     inputMinValue,
@@ -35,7 +35,7 @@ export function createFilterControlNumber(
 ) {
     const controlStyleObj = styleStringToObject(controlStyle);
     const inputStyleObj = styleStringToObject(inputStyle);
-    const filterControl = createDiv(controlStyleObj, titleText);
+    const filterControl = createDiv(controlStyleObj, labelText);
     const input = createNumberInput(
         inputStyleObj,
         inputValue.updateValueFromEvent,
@@ -51,14 +51,14 @@ export function createFilterControlNumber(
 }
 
 export function createFilterControlCheckbox(
-    titleText,
+    labelText,
     inputValue,
     controlStyle = null,
     inputStyle = null,
 ) {
     const controlStyleObj = styleStringToObject(controlStyle);
     const inputStyleObj = styleStringToObject(inputStyle);
-    const filterControl = createDiv(controlStyleObj, titleText);
+    const filterControl = createDiv(controlStyleObj, labelText);
     const input = createCheckboxInput(
         inputStyleObj, inputValue.updateValueFromEvent, inputValue.value,
     );

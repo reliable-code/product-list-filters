@@ -62,13 +62,13 @@ export function createMaxReviewsFilterControl(
 }
 
 export function createReviewsFilterControl(
-    titleText,
+    labelText,
     inputValue,
     controlStyle = null,
     inputStyle = null,
 ) {
     return createFilterControlNumber(
-        titleText,
+        labelText,
         inputValue,
         '1',
         '1',
@@ -105,13 +105,13 @@ export function createDiscountFilterControl(
 }
 
 function createDiscountFilterControlBase(
-    titleText,
+    labelText,
     inputValue,
     controlStyle = null,
     inputStyle = null,
 ) {
     return createFilterControlNumber(
-        titleText,
+        labelText,
         inputValue,
         '5',
         '0',
@@ -153,9 +153,9 @@ export function createMinCashbackFilterControl(
     );
 }
 
-function createPriceFilterControlBase(titleText, inputValue, controlStyle, inputStyle, inputStep) {
+function createPriceFilterControlBase(labelText, inputValue, controlStyle, inputStyle, inputStep) {
     return createFilterControlNumber(
-        titleText,
+        labelText,
         inputValue,
         inputStep,
         '0',
