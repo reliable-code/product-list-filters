@@ -6,7 +6,7 @@ import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
-} from '../common/filter/controlsFactory';
+} from '../common/filter/factories/controls';
 import {
     hideElement,
     insertAfter,

@@ -15,7 +15,7 @@ import {
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createNameFilterControl,
-} from '../../common/filter/controlsFactory';
+} from '../../common/filter/factories/controls';
 import { showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,

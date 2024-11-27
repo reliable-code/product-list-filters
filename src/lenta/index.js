@@ -10,7 +10,7 @@ import {
     createMinRatingFilterControl,
     createNameFilterControl,
     createNoRatingFilterControl,
-} from '../common/filter/controlsFactory';
+} from '../common/filter/factories/controls';
 import {
     resetElementOpacity,
     resetElementOrder,

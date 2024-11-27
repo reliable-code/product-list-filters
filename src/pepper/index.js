@@ -7,7 +7,7 @@ import {
     createEnabledFilterControl,
     createFilterControlCheckbox,
     createMinVotesFilterControl,
-} from '../common/filter/controlsFactory';
+} from '../common/filter/factories/controls';
 import {
     resetElementOpacity,
     setElementOpacity,

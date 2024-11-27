@@ -3,8 +3,8 @@ import {
     createDiv,
     createNumberInput,
     createTextInput,
-} from '../dom/factories/elements';
-import { styleStringToObject } from '../dom/helpers';
+} from '../../dom/factories/elements';
+import { styleStringToObject } from '../../dom/helpers';
 
 export function createFilterControlText(
     titleText,

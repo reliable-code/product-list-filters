@@ -16,7 +16,7 @@ import {
     createMinCashbackFilterControl,
     createMinDiscountFilterControl,
     createNameFilterControl,
-} from '../../common/filter/controlsFactory';
+} from '../../common/filter/factories/controls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,

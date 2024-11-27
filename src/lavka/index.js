@@ -11,7 +11,7 @@ import {
     createFilterControlNumber,
     createMaxPriceFilterControl,
     createMinDiscountFilterControl,
-} from '../common/filter/controlsFactory';
+} from '../common/filter/factories/controls';
 import { insertAfter, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
     getAllElements,

@@ -17,7 +17,7 @@ import {
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinRatingFilterControl,
-} from '../../common/filter/controlsFactory';
+} from '../../common/filter/factories/controls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
 
