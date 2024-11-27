@@ -123,8 +123,8 @@ function createDiscountFilterControlBase(
 
 export function createMinCashbackFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createFilterControlNumber(
         'Мин. кешбек: ',
@@ -132,8 +132,8 @@ export function createMinCashbackFilterControl(
         '5',
         '0',
         '100',
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
     );
 }
 

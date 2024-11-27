@@ -107,7 +107,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minCashbackDiv =
-        createMinCashbackFilterControl(minCashbackFilter, controlStyle, numberInputStyle);
+        createMinCashbackFilterControl(minCashbackFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const maxPriceDiv =
         createMaxPriceFilterControl(maxPriceFilter, controlStyle, numberInputStyle);
