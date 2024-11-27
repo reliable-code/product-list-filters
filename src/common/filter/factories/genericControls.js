@@ -9,8 +9,8 @@ import { styleStringToObject } from '../../dom/helpers';
 export function createFilterControlText(
     labelText,
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     const filterControl = createDiv(controlStyle, labelText);
     const input = createTextInput(
