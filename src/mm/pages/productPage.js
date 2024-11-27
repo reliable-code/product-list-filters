@@ -24,7 +24,7 @@ import {
     createMinRatingFilterControl,
     createPriceFilterControl,
 } from '../../common/filter/factories/specificControls';
-import { createFilterControlNumber } from '../../common/filter/factories/genericControls';
+import { createNumberFilterControl } from '../../common/filter/factories/genericControls';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 
@@ -120,7 +120,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         );
 
     const couponValueDiv =
-        createFilterControlNumber(
+        createNumberFilterControl(
             'Купон: ',
             couponValue,
             '500',

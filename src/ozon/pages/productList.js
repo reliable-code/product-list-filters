@@ -21,7 +21,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter/compare';
-import { createFilterControlNumber } from '../../common/filter/factories/genericControls';
+import { createNumberFilterControl } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,
@@ -131,7 +131,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createEnabledFilterControl(filterEnabled, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE));
 
     const nameLinesNumberDiv =
-        createFilterControlNumber(
+        createNumberFilterControl(
             'Строк: ',
             nameLinesNumber,
             1,

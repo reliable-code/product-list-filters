@@ -1,7 +1,7 @@
 import {
-    createFilterControlCheckbox,
-    createFilterControlNumber,
-    createFilterControlText,
+    createCheckboxFilterControl,
+    createNumberFilterControl,
+    createTextFilterControl,
 } from './genericControls';
 
 export function createNameFilterControl(
@@ -9,7 +9,7 @@ export function createNameFilterControl(
     controlStyle = {},
     inputStyle = {},
 ) {
-    return createFilterControlText(
+    return createTextFilterControl(
         'Содержит: ',
         inputValue,
         controlStyle,
@@ -23,7 +23,7 @@ export function createMinRatingFilterControl(
     inputStyle = {},
     inputStep = 0.1,
 ) {
-    return createFilterControlNumber(
+    return createNumberFilterControl(
         'Мин. рейтинг: ',
         inputValue,
         inputStep,
@@ -66,7 +66,7 @@ export function createReviewsFilterControl(
     controlStyle = {},
     inputStyle = {},
 ) {
-    return createFilterControlNumber(
+    return createNumberFilterControl(
         labelText,
         inputValue,
         '1',
@@ -109,7 +109,7 @@ function createDiscountFilterControlBase(
     controlStyle = {},
     inputStyle = {},
 ) {
-    return createFilterControlNumber(
+    return createNumberFilterControl(
         labelText,
         inputValue,
         '5',
@@ -125,7 +125,7 @@ export function createMinCashbackFilterControl(
     controlStyle = {},
     inputStyle = {},
 ) {
-    return createFilterControlNumber(
+    return createNumberFilterControl(
         'Мин. кешбек: ',
         inputValue,
         '5',
@@ -143,7 +143,7 @@ export function createPriceFilterControl(
     inputStyle = {},
     inputStep = '250',
 ) {
-    return createFilterControlNumber(
+    return createNumberFilterControl(
         labelText,
         inputValue,
         inputStep,
@@ -170,7 +170,7 @@ export function createNoRatingFilterControl(
     controlStyle = {},
     inputStyle = {},
 ) {
-    return createFilterControlCheckbox(
+    return createCheckboxFilterControl(
         'Без рейтинга: ',
         inputValue,
         controlStyle,
@@ -183,7 +183,7 @@ export function createEnabledFilterControl(
     controlStyle = {},
     inputStyle = {},
 ) {
-    return createFilterControlCheckbox(
+    return createCheckboxFilterControl(
         'Вкл: ',
         inputValue,
         controlStyle,

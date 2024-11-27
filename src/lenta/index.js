@@ -3,7 +3,7 @@ import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonDigit } from '../common/string';
 import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
-import { createFilterControlCheckbox } from '../common/filter/factories/genericControls';
+import { createCheckboxFilterControl } from '../common/filter/factories/genericControls';
 import {
     resetElementOpacity,
     resetElementOrder,
@@ -132,7 +132,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createEnabledFilterControl(filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
 
     const sortEnabledDiv =
-        createFilterControlCheckbox(
+        createCheckboxFilterControl(
             'Сортировка:', sortEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle),
         );
 

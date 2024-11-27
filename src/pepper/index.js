@@ -4,8 +4,8 @@ import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { InputValue } from '../common/storage/models/inputValue';
 import { isLessThanFilter } from '../common/filter/compare';
 import {
-    createFilterControlCheckbox,
-    createFilterControlNumber,
+    createCheckboxFilterControl,
+    createNumberFilterControl,
 } from '../common/filter/factories/genericControls';
 import {
     resetElementOpacity,
@@ -76,7 +76,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 24px;';
 
     const minVotesDiv =
-        createFilterControlNumber(
+        createNumberFilterControl(
             'Минимально голосов: ',
             minVotesFilter,
             '50',
@@ -87,7 +87,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         );
 
     const showExpiredDiv =
-        createFilterControlCheckbox(
+        createCheckboxFilterControl(
             'Завершённые: ', showExpiredFilter, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle),
         );
 

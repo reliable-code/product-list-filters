@@ -4,8 +4,8 @@ import { getURLPathElement } from '../common/url';
 import { createDiv, createLink } from '../common/dom/factories/elements';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
-    createFilterControlNumber,
-    createFilterControlText,
+    createNumberFilterControl,
+    createTextFilterControl,
 } from '../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
@@ -83,16 +83,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 20px;';
 
     const specFilterDiv =
-        createFilterControlText('Специализация:', specFilter, controlStyleObj, textInputStyleObj);
+        createTextFilterControl('Специализация:', specFilter, controlStyleObj, textInputStyleObj);
 
     const clinicFilterDiv =
-        createFilterControlText('Клиника:', clinicFilter, controlStyleObj, textInputStyleObj);
+        createTextFilterControl('Клиника:', clinicFilter, controlStyleObj, textInputStyleObj);
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const minExperienceDiv =
-        createFilterControlNumber(
+        createNumberFilterControl(
             'Мин. опыт: ',
             minExperienceFilter,
             '1',

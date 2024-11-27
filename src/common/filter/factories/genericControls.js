@@ -5,7 +5,7 @@ import {
     createTextInput,
 } from '../../dom/factories/elements';
 
-export function createFilterControlText(
+export function createTextFilterControl(
     labelText,
     inputValue,
     controlStyle = {},
@@ -23,7 +23,7 @@ export function createFilterControlText(
     return filterControl;
 }
 
-export function createFilterControlNumber(
+export function createNumberFilterControl(
     labelText,
     inputValue,
     inputStep,
@@ -47,7 +47,7 @@ export function createFilterControlNumber(
     return filterControl;
 }
 
-export function createFilterControlCheckbox(
+export function createCheckboxFilterControl(
     labelText,
     inputValue,
     controlStyle = {},

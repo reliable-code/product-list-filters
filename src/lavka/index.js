@@ -6,8 +6,8 @@ import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { createDiv } from '../common/dom/factories/elements';
 import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
 import {
-    createFilterControlCheckbox,
-    createFilterControlNumber,
+    createCheckboxFilterControl,
+    createNumberFilterControl,
 } from '../common/filter/factories/genericControls';
 import { insertAfter, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
@@ -200,7 +200,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
     const reloadTimerControlStyleObj = styleStringToObject(reloadTimerControlStyle);
 
     const observerReloadIntervalDiv =
-        createFilterControlNumber('Обновление, мин.: ',
+        createNumberFilterControl('Обновление, мин.: ',
             observerReloadInterval,
             0.5,
             1,
@@ -209,7 +209,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
             styleStringToObject(NUMBER_INPUT_STYLE));
 
     const minObserverSectionLengthDiv =
-        createFilterControlNumber('Мин. в секции: ',
+        createNumberFilterControl('Мин. в секции: ',
             minObserverSectionLength,
             1,
             1,
@@ -218,7 +218,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
             styleStringToObject(NUMBER_INPUT_STYLE));
 
     const showObserverNotificationDiv =
-        createFilterControlCheckbox(
+        createCheckboxFilterControl(
             'Оповещение: ',
             showObserverNotification,
             styleStringToObject(CONTROL_STYLE),

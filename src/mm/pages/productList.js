@@ -9,7 +9,7 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../common/filter/compare';
-import { createFilterControlText } from '../../common/filter/factories/genericControls';
+import { createTextFilterControl } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
     getAllElements,
@@ -116,7 +116,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinDiscountFilterControl(minDiscountFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const sellerNameFilterDiv =
-        createFilterControlText(
+        createTextFilterControl(
             'Продавец: ',
             sellerNameFilter,
             styleStringToObject(controlStyle),

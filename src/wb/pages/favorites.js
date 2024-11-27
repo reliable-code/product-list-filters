@@ -13,8 +13,8 @@ import { StoredInputValue } from '../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../common/filter/compare';
 import {
-    createFilterControlCheckbox,
-    createFilterControlNumber,
+    createCheckboxFilterControl,
+    createNumberFilterControl,
 } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getFirstElement, styleStringToObject } from '../../common/dom/helpers';
@@ -76,14 +76,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE),
         );
     const bestPriceDiv =
-        createFilterControlCheckbox(
+        createCheckboxFilterControl(
             'Лучшая цена: ',
             bestPriceFilter,
             styleStringToObject(CONTROL_STYLE),
             styleStringToObject(CHECKBOX_INPUT_STYLE),
         );
     const priceTolerancePercentDiv =
-        createFilterControlNumber(
+        createNumberFilterControl(
             'Допуск цены, %: ',
             priceTolerancePercent,
             1,
@@ -93,7 +93,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
             styleStringToObject(NUMBER_INPUT_STYLE),
         );
     const inStockOnlyFilterDiv =
-        createFilterControlCheckbox(
+        createCheckboxFilterControl(
             'В наличии: ',
             inStockOnlyFilter,
             styleStringToObject(CONTROL_STYLE),
