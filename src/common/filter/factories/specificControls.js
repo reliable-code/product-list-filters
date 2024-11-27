@@ -93,8 +93,8 @@ export function createMinDiscountFilterControl(
 
 export function createDiscountFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createDiscountFilterControlBase(
         'Скидка: ',

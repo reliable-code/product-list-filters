@@ -123,7 +123,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinRatingFilterControl(minRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const discountAmountDiv =
-        createDiscountFilterControl(discountAmount, controlStyle, numberInputStyle);
+        createDiscountFilterControl(discountAmount, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
 
     const noRatingDiv =
         createNoRatingFilterControl(noRatingFilter, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
