@@ -50,8 +50,8 @@ export function createMinReviewsFilterControl(
 
 export function createMaxReviewsFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createReviewsFilterControl(
         'Макс. отзывов: ',
