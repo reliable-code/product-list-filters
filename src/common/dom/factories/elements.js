@@ -1,4 +1,5 @@
 import { debounce } from '../utils';
+import { applyStyles } from '../helpers';
 
 export function createTextInput(style, onChange, value) {
     const input = createInput(style, 'text', onChange);
@@ -64,7 +65,7 @@ export function createElement(tagName, styles, innerHTML = null) {
 
     const element = document.createElement(tagName);
 
-    Object.assign(element.style, styles);
+    applyStyles(element.style, styles);
 
     if (innerHTML) element.innerHTML = innerHTML;
 

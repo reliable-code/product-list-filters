@@ -62,10 +62,7 @@ function parseNumber(text, cleanText, replaceComma) {
 }
 
 export function applyStyles(element, styles) {
-    Object.entries(styles)
-        .forEach(([key, value]) => {
-            element.style[key] = value;
-        });
+    Object.assign(element.style, styles);
 }
 
 export function styleObjectToString(styleObject) {
