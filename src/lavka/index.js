@@ -181,7 +181,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinDiscountFilterControl(minDiscountFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));
 
     const maxPriceDiv =
-        createMaxPriceFilterControl(maxPriceFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE, '25');
+        createMaxPriceFilterControl(maxPriceFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE), '25');
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE));

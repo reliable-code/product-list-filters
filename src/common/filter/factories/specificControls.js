@@ -153,15 +153,15 @@ function createPriceFilterControlBase(
 
 export function createMaxPriceFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
     inputStep = '250',
 ) {
     return createPriceFilterControlBase(
         'Макс. цена: ',
         inputValue,
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
         inputStep,
     );
 }
