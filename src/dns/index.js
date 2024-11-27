@@ -4,7 +4,7 @@ import { removeNonNumber } from '../common/string';
 import { getURLPathElement } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
-import { getAllElements, getFirstElement } from '../common/dom/helpers';
+import { applyStyles, getAllElements, getFirstElement } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
@@ -44,10 +44,11 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style =
-        'display: flex;' +
-        'grid-gap: 12px;' +
-        'padding-bottom: 12px;';
+    applyStyles(filtersContainer, {
+        display: 'flex',
+        gridGap: '12px',
+        paddingBottom: '12px',
+    });
 
     const controlStyle =
         'display: flex;' +
