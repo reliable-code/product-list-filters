@@ -90,7 +90,7 @@ function appendFiltersContainer(filterControls, parentNode) {
         createMinRatingFilterControl(minRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
+        createEnabledFilterControl(filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
 
     filterControls.append(minReviewsDiv, minRatingDiv, filterEnabledDiv);
 

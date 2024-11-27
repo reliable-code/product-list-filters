@@ -213,13 +213,13 @@ export function createNoRatingFilterControl(
 
 export function createEnabledFilterControl(
     inputValue,
-    controlStyle = null,
-    inputStyle = null,
+    controlStyle = {},
+    inputStyle = {},
 ) {
     return createFilterControlCheckbox(
         'Вкл: ',
         inputValue,
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
     );
 }

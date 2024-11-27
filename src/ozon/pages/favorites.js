@@ -89,8 +89,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv =
         createEnabledFilterControl(
             filterEnabled,
-            CONTROL_STYLE,
-            CHECKBOX_INPUT_STYLE,
+            styleStringToObject(CONTROL_STYLE),
+            styleStringToObject(CHECKBOX_INPUT_STYLE),
         );
 
     filtersContainer.append(

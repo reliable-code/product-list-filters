@@ -184,7 +184,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMaxPriceFilterControl(maxPriceFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE, '25');
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE);
+        createEnabledFilterControl(filterEnabled, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE));
 
     filtersContainer.append(minDiscountDiv, maxPriceDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
@@ -227,7 +227,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
 
     const observerEnabledDiv =
         createEnabledFilterControl(
-            observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+            observerEnabled, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE),
         );
 
     reloadTimerDiv = createDiv(reloadTimerControlStyleObj, reloadTimerSecondsLeft);
