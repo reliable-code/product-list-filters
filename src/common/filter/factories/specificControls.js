@@ -137,15 +137,17 @@ export function createMinCashbackFilterControl(
     );
 }
 
-function createPriceFilterControlBase(labelText, inputValue, controlStyle, inputStyle, inputStep) {
+function createPriceFilterControlBase(
+    labelText, inputValue, controlStyle, inputStyle, inputStep,
+) {
     return createFilterControlNumber(
         labelText,
         inputValue,
         inputStep,
         '0',
         '1000000',
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
+        controlStyle,
+        inputStyle,
     );
 }
 
@@ -156,7 +158,11 @@ export function createMaxPriceFilterControl(
     inputStep = '250',
 ) {
     return createPriceFilterControlBase(
-        'Макс. цена: ', inputValue, controlStyle, inputStyle, inputStep,
+        'Макс. цена: ',
+        inputValue,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
+        inputStep,
     );
 }
 
@@ -166,7 +172,11 @@ export function createMaxDiscountedPriceFilterControl(
     inputStyle = null,
 ) {
     return createPriceFilterControlBase(
-        'Макс. цена со скидкой: ', inputValue, controlStyle, inputStyle, '250',
+        'Макс. цена со скидкой: ',
+        inputValue,
+        styleStringToObject(controlStyle),
+        styleStringToObject(inputStyle),
+        '250',
     );
 }
 
