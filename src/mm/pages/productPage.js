@@ -106,7 +106,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     const maxPriceDiv =
         createMaxPriceFilterControl(
-            maxPriceFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
+            maxPriceFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle), '250',
         );
 
     const maxDiscountedPriceDiv =
