@@ -3,7 +3,10 @@ import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { InputValue } from '../common/storage/models/inputValue';
 import { isLessThanFilter } from '../common/filter/compare';
-import { createFilterControlCheckbox } from '../common/filter/factories/genericControls';
+import {
+    createFilterControlCheckbox,
+    createFilterControlNumber,
+} from '../common/filter/factories/genericControls';
 import {
     resetElementOpacity,
     setElementOpacity,
@@ -15,10 +18,7 @@ import {
     getFirstElement,
     styleStringToObject,
 } from '../common/dom/helpers';
-import {
-    createEnabledFilterControl,
-    createMinVotesFilterControl,
-} from '../common/filter/factories/specificControls';
+import { createEnabledFilterControl } from '../common/filter/factories/specificControls';
 
 const minVotesFilter = new InputValue(50);
 const showExpiredFilter = new StoredInputValue('show-expired-filter', false);
@@ -76,8 +76,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 24px;';
 
     const minVotesDiv =
-        createMinVotesFilterControl(
-            minVotesFilter, controlStyle, numberInputStyle,
+        createFilterControlNumber(
+            'Минимально голосов: ',
+            minVotesFilter,
+            '50',
+            '0',
+            '10000',
+            styleStringToObject(controlStyle),
+            styleStringToObject(numberInputStyle),
         );
 
     const showExpiredDiv =

@@ -121,22 +121,6 @@ function createDiscountFilterControlBase(
     );
 }
 
-export function createMinVotesFilterControl(
-    inputValue,
-    controlStyle = null,
-    inputStyle = null,
-) {
-    return createFilterControlNumber(
-        'Минимально голосов: ',
-        inputValue,
-        '50',
-        '0',
-        '10000',
-        styleStringToObject(controlStyle),
-        styleStringToObject(inputStyle),
-    );
-}
-
 export function createMinCashbackFilterControl(
     inputValue,
     controlStyle = null,
