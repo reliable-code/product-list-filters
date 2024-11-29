@@ -60,7 +60,7 @@ export function createMaxReviewsFilterControl(
     );
 }
 
-export function createReviewsFilterControl(
+function createReviewsFilterControl(
     labelText,
     inputValue,
     controlStyle = {},
