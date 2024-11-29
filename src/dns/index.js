@@ -4,12 +4,7 @@ import { removeNonNumber } from '../common/string';
 import { getURLPathElement } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
-import {
-    applyStyles,
-    getAllElements,
-    getFirstElement,
-    styleStringToObject,
-} from '../common/dom/helpers';
+import { applyStyles, getAllElements, getFirstElement } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
@@ -55,38 +50,44 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         paddingBottom: '12px',
     });
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;' +
-        'font-size: 15px;';
-    const inputStyle =
-        'margin-left: 6px;' +
-        'border: 1px solid #d9d9d9;' +
-        'border-radius: 8px;' +
-        'padding: 7px 14px;' +
-        'font-size: 15px;';
-    const textInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 180px;';
-    const numberInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 90px;';
-    const checkboxInputStyle =
-        'margin-left: 6px;' +
-        'width: 21px;' +
-        'height: 21px;';
+    const controlStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '15px',
+    };
+    const inputStyle = {
+        marginLeft: '6px',
+        border: '1px solid #d9d9d9',
+        borderRadius: '8px',
+        padding: '7px 14px',
+        fontSize: '15px',
+    };
+    const textInputStyle = {
+        ...inputStyle,
+        width: '180px',
+    };
+    const numberInputStyle = {
+        ...inputStyle,
+        width: '90px',
+    };
+    const checkboxInputStyle = {
+        marginLeft: '6px',
+        width: '21px',
+        height: '21px',
+    };
 
-    const nameFilterDiv =
-        createSearchFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
-
-    const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
-
-    const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle), 0.5);
-
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
+    const nameFilterDiv = createSearchFilterControl(
+        nameFilter, controlStyle, textInputStyle,
+    );
+    const minReviewsDiv = createMinReviewsFilterControl(
+        minReviewsFilter, controlStyle, numberInputStyle,
+    );
+    const minRatingDiv = createMinRatingFilterControl(
+        minRatingFilter, controlStyle, numberInputStyle, 0.5,
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, controlStyle, checkboxInputStyle,
+    );
 
     filtersContainer.append(
         nameFilterDiv, minReviewsDiv, minRatingDiv, filterEnabledDiv,
