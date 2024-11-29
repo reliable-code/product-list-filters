@@ -16,14 +16,14 @@ const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 
 const CATEGORY_NAME = getURLPathElement(3);
 
-const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
-const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
-const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.5, cleanList);
-const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
+function createFilter(keySuffix, defaultValue) {
+    return new StoredInputValue(`${CATEGORY_NAME}-${keySuffix}`, defaultValue, cleanList);
+}
+
+const nameFilter = createFilter('name-filter', null);
+const minReviewsFilter = createFilter('min-reviews-filter', null);
+const minRatingFilter = createFilter('min-rating-filter', 4.5);
+const filterEnabled = createFilter('filter-enabled', true);
 
 const productsPageList = getFirstElement(PRODUCTS_PAGE_LIST_SELECTOR);
 
