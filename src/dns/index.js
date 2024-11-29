@@ -24,7 +24,7 @@ const SELECTORS = {
 const SECTION_ID = getURLPathElement(3);
 
 function createFilter(keySuffix, defaultValue) {
-    return new StoredInputValue(`${SECTION_ID}-${keySuffix}`, defaultValue, cleanList);
+    return new StoredInputValue(`${SECTION_ID}-${keySuffix}`, defaultValue, processProductCards);
 }
 
 const nameFilter = createFilter('name-filter', null);
@@ -44,7 +44,7 @@ function initListClean() {
 
     appendFilterControlsIfNeeded(topFilters, appendFiltersContainer);
 
-    new MutationObserver(cleanList).observe(productList, {
+    new MutationObserver(processProductCards).observe(productList, {
         childList: true,
         subtree: true,
     });
@@ -103,7 +103,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-function cleanList() {
+function processProductCards() {
     const productCards = getAllElements(
         `${SELECTORS.PRODUCTS_PAGE_LIST} ${SELECTORS.PRODUCT}`,
     );
