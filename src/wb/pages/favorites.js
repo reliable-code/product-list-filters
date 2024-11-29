@@ -27,7 +27,7 @@ import {
 import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
-    createNameFilterControl,
+    createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
 
 const SELECTORS = {
@@ -72,7 +72,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     setCommonFiltersContainerStyles(filtersContainer);
 
     const nameFilterDiv =
-        createNameFilterControl(
+        createSearchFilterControl(
             nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE),
         );
     const bestPriceDiv =

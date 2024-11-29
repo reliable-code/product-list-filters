@@ -38,8 +38,8 @@ import {
     createMaxReviewsFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
-    createNameFilterControl,
     createNoRatingFilterControl,
+    createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
@@ -110,7 +110,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     setCommonFiltersContainerStyles(filtersContainer, parentNode);
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE));
+        createSearchFilterControl(nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE));
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));

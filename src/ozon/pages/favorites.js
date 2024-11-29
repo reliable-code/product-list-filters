@@ -30,7 +30,7 @@ import {
 import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
-    createNameFilterControl,
+    createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
@@ -66,7 +66,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     setCommonFiltersContainerStyles(filtersContainer, parentNode);
 
     const nameFilterDiv =
-        createNameFilterControl(
+        createSearchFilterControl(
             nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE),
         );
     const bestPriceDiv =

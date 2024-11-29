@@ -15,7 +15,7 @@ import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
-    createNameFilterControl,
+    createSearchFilterControl,
 } from '../common/filter/factories/specificControls';
 
 let nameFilter;
@@ -80,7 +80,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 23px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
+        createSearchFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));

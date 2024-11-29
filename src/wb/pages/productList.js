@@ -28,7 +28,7 @@ import {
     createMaxReviewsFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
-    createNameFilterControl,
+    createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
@@ -124,7 +124,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const priceControlStyleObj = styleStringToObject(priceControlStyle);
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE));
+        createSearchFilterControl(nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE));
 
     const minReviewsDiv =
         createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));

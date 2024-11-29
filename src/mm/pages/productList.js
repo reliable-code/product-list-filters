@@ -22,7 +22,7 @@ import {
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinDiscountFilterControl,
-    createNameFilterControl,
+    createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
 
 const CATEGORY_NAME = getURLPathElement(2);
@@ -104,7 +104,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         'height: 23px;';
 
     const nameFilterDiv =
-        createNameFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
+        createSearchFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
 
     const minCashbackDiv =
         createMinCashbackFilterControl(minCashbackFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));

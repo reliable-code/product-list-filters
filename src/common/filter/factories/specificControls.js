@@ -4,13 +4,13 @@ import {
     createTextFilterControl,
 } from './genericControls';
 
-export function createNameFilterControl(
+export function createSearchFilterControl(
     inputValue,
     controlStyle = {},
     inputStyle = {},
 ) {
     return createTextFilterControl(
-        'Содержит: ',
+        'Поиск: ',
         inputValue,
         controlStyle,
         inputStyle,
