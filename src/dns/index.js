@@ -12,7 +12,14 @@ import {
     createSearchFilterControl,
 } from '../common/filter/factories/specificControls';
 
-const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
+const SELECTORS = {
+    TOP_FILTERS: '.top-filters',
+    PRODUCTS_LIST: '.catalog-products',
+    PRODUCTS_PAGE_LIST: '.products-page__list',
+    PRODUCT: '.catalog-product',
+    PRODUCT_NAME: '.catalog-product__name',
+    PRODUCT_RATING: '.catalog-product__rating',
+};
 
 const SECTION_ID = getURLPathElement(3);
 
@@ -25,15 +32,15 @@ const minReviewsFilter = createFilter('min-reviews-filter', null);
 const minRatingFilter = createFilter('min-rating-filter', 4.5);
 const filterEnabled = createFilter('filter-enabled', true);
 
-const productsPageList = getFirstElement(PRODUCTS_PAGE_LIST_SELECTOR);
+const productsPageList = getFirstElement(SELECTORS.PRODUCTS_PAGE_LIST);
 
 if (productsPageList) {
     initListClean();
 }
 
 function initListClean() {
-    const topFilters = getFirstElement('.top-filters', productsPageList, true);
-    const productList = getFirstElement('.catalog-products', productsPageList, true);
+    const topFilters = getFirstElement(SELECTORS.TOP_FILTERS, productsPageList, true);
+    const productList = getFirstElement(SELECTORS.PRODUCTS_LIST, productsPageList, true);
 
     appendFilterControlsIfNeeded(topFilters, appendFiltersContainer);
 
@@ -97,7 +104,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const productCards = getAllElements(`${PRODUCTS_PAGE_LIST_SELECTOR} .catalog-product`);
+    const productCards = getAllElements(`${SELECTORS.PRODUCTS_PAGE_LIST} ${SELECTORS.PRODUCT}`);
 
     productCards.forEach(
         (productCard) => {
@@ -108,10 +115,10 @@ function cleanList() {
             }
 
             const productCardNameWrap =
-                getFirstElement('.catalog-product__name', productCard);
+                getFirstElement(SELECTORS.PRODUCT_NAME, productCard);
 
             const productCardRatingWrap =
-                getFirstElement('.catalog-product__rating', productCard);
+                getFirstElement(SELECTORS.PRODUCT_RATING, productCard);
 
             if (!productCardNameWrap || !productCardRatingWrap) {
                 hideElement(productCard);
