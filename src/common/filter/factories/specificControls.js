@@ -103,7 +103,7 @@ export function createDiscountFilterControl(
     );
 }
 
-function createDiscountFilterControlBase(
+export function createDiscountFilterControlBase(
     labelText,
     inputValue,
     controlStyle = {},

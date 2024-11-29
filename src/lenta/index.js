@@ -17,7 +17,7 @@ import {
     styleStringToObject,
 } from '../common/dom/helpers';
 import {
-    createDiscountFilterControl,
+    createDiscountFilterControlBase,
     createEnabledFilterControl,
     createMinRatingFilterControl,
     createNameFilterControl,
@@ -123,7 +123,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinRatingFilterControl(minRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
 
     const discountAmountDiv =
-        createDiscountFilterControl(discountAmount, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
+        createDiscountFilterControlBase(
+            'Скидка: ',
+            discountAmount,
+            styleStringToObject(controlStyle),
+            styleStringToObject(checkboxInputStyle),
+        );
 
     const noRatingDiv =
         createNoRatingFilterControl(noRatingFilter, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
