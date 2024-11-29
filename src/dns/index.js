@@ -104,40 +104,37 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const productCards = getAllElements(`${SELECTORS.PRODUCTS_PAGE_LIST} ${SELECTORS.PRODUCT}`);
-
-    productCards.forEach(
-        (productCard) => {
-            if (!filterEnabled.value) {
-                showElement(productCard);
-
-                return;
-            }
-
-            const productCardNameWrap =
-                getFirstElement(SELECTORS.PRODUCT_NAME, productCard);
-
-            const productCardRatingWrap =
-                getFirstElement(SELECTORS.PRODUCT_RATING, productCard);
-
-            if (!productCardNameWrap || !productCardRatingWrap) {
-                hideElement(productCard);
-                return;
-            }
-
-            const productCardName = productCardNameWrap.innerText;
-
-            const productCardReviewsNumber = getProductCardReviewsNumber(productCardRatingWrap);
-
-            const productCardRatingNumber = +productCardRatingWrap.getAttribute('data-rating');
-
-            const shouldHide =
-                isNotMatchTextFilter(productCardName, nameFilter) ||
-                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            updateElementDisplay(productCard, shouldHide);
-        },
+    const productCards = getAllElements(
+        `${SELECTORS.PRODUCTS_PAGE_LIST} ${SELECTORS.PRODUCT}`,
     );
+
+    productCards.forEach(processProductCard);
+}
+
+function processProductCard(productCard) {
+    if (!filterEnabled.value) {
+        showElement(productCard);
+        return;
+    }
+
+    const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_NAME, productCard);
+    const productCardRatingWrap = getFirstElement(SELECTORS.PRODUCT_RATING, productCard);
+
+    if (!productCardNameWrap || !productCardRatingWrap) {
+        hideElement(productCard);
+        return;
+    }
+
+    const productCardName = productCardNameWrap.innerText;
+    const productCardReviewsNumber = getProductCardReviewsNumber(productCardRatingWrap);
+    const productCardRatingNumber = +productCardRatingWrap.getAttribute('data-rating');
+
+    const shouldHide =
+        isNotMatchTextFilter(productCardName, nameFilter) ||
+        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+        isLessThanFilter(productCardRatingNumber, minRatingFilter);
+
+    updateElementDisplay(productCard, shouldHide);
 }
 
 function getProductCardReviewsNumber(productCardRatingWrap) {
