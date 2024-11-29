@@ -82,7 +82,7 @@ export function createMinDiscountFilterControl(
     controlStyle = {},
     inputStyle = {},
 ) {
-    return createDiscountFilterControlBase(
+    return createDiscountFilterControl(
         'Мин. скидка: ',
         inputValue,
         controlStyle,
@@ -91,19 +91,6 @@ export function createMinDiscountFilterControl(
 }
 
 export function createDiscountFilterControl(
-    inputValue,
-    controlStyle = {},
-    inputStyle = {},
-) {
-    return createDiscountFilterControlBase(
-        'Скидка: ',
-        inputValue,
-        controlStyle,
-        inputStyle,
-    );
-}
-
-export function createDiscountFilterControlBase(
     labelText,
     inputValue,
     controlStyle = {},
