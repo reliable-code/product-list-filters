@@ -14,10 +14,10 @@ import {
 
 const PRODUCTS_PAGE_LIST_SELECTOR = '.products-page__list';
 
-const CATEGORY_NAME = getURLPathElement(3);
+const SECTION_ID = getURLPathElement(3);
 
 function createFilter(keySuffix, defaultValue) {
-    return new StoredInputValue(`${CATEGORY_NAME}-${keySuffix}`, defaultValue, cleanList);
+    return new StoredInputValue(`${SECTION_ID}-${keySuffix}`, defaultValue, cleanList);
 }
 
 const nameFilter = createFilter('name-filter', null);
