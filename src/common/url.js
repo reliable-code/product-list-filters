@@ -53,6 +53,10 @@ export function pathnameIncludes(searchString) {
     return window.location.pathname.includes(searchString);
 }
 
+export function pathnameIncludesSome(searchStrings) {
+    return searchStrings.some((searchString) => pathnameIncludes(searchString));
+}
+
 export function somePathElementEquals(searchString) {
     const pathElements = window.location.pathname.split('/');
 
