@@ -26,11 +26,11 @@ let filterEnabled;
 (function initDocumentObserver() {
     const { documentElement } = document;
 
-    const observer = new MutationObserver(() => {
+    const observer = new MutationObserver(async () => {
         if (documentElement.classList.contains('nprogress-busy')) return;
 
         if (pathnameIncludesSome(['category', 'search'])) {
-            initListClean();
+            await initListClean();
         }
     });
 
@@ -40,17 +40,15 @@ let filterEnabled;
     });
 }());
 
-function initListClean() {
-    waitForElement(document, '.notification')
-        .then((notification) => {
-            const promotional = getFirstElement('.promotional-shelf', notification);
-            if (promotional) promotional.remove();
+async function initListClean() {
+    const notification = await waitForElement(document, '.notification');
+    const promotional = getFirstElement('.promotional-shelf', notification);
+    if (promotional) promotional.remove();
 
-            appendFilterControlsIfNeeded(notification, appendFiltersContainer, true);
+    appendFilterControlsIfNeeded(notification, appendFiltersContainer, true);
 
-            const productCardsWrap = getFirstElement('#category-products', document, true);
-            new MutationObserver(cleanList).observe(productCardsWrap, { childList: true });
-        });
+    const productCardsWrap = getFirstElement('#category-products', document, true);
+    new MutationObserver(cleanList).observe(productCardsWrap, { childList: true });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
