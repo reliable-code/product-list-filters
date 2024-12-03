@@ -1,7 +1,7 @@
 import { waitForElement } from '../common/dom/utils';
 import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
-import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
+import { getURLPathElementEnding, pathnameIncludesSome } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
@@ -23,22 +23,22 @@ let minReviewsFilter;
 let minRatingFilter;
 let filterEnabled;
 
-function initDocumentObserver() {
+(function initDocumentObserver() {
     const { documentElement } = document;
 
-    new MutationObserver(() => {
+    const observer = new MutationObserver(() => {
         if (documentElement.classList.contains('nprogress-busy')) return;
 
-        if (pathnameIncludes('category') || pathnameIncludes('search')) {
+        if (pathnameIncludesSome(['category', 'search'])) {
             initListClean();
         }
-    }).observe(documentElement, {
+    });
+
+    observer.observe(documentElement, {
         attributes: true,
         attributeFilter: ['class'],
     });
-}
-
-initDocumentObserver();
+}());
 
 function initListClean() {
     waitForElement(document, '.notification')
