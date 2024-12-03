@@ -93,15 +93,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const nameFilterDiv = createSearchFilterControl(
         nameFilter, controlStyle, textInputStyle,
     );
-
     const minReviewsDiv = createMinReviewsFilterControl(
         minReviewsFilter, controlStyle, numberInputStyle,
     );
-
     const minRatingDiv = createMinRatingFilterControl(
         minRatingFilter, controlStyle, numberInputStyle,
     );
-
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, controlStyle, checkboxInputStyle,
     );
@@ -140,7 +137,6 @@ function processProductCards() {
 function processProductCard(productCard) {
     if (!filterEnabled.value) {
         showElement(productCard);
-
         return;
     }
 
