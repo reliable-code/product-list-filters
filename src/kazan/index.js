@@ -18,6 +18,16 @@ import {
     createSearchFilterControl,
 } from '../common/filter/factories/specificControls';
 
+const SELECTORS = {
+    NOTIFICATION: '.notification',
+    PROMOTIONAL_SHELF: '.promotional-shelf',
+    CATEGORY_PRODUCTS: '#category-products',
+    PRODUCT_CARD: ':scope > div:not(.products-controllers)',
+    PRODUCT_CARD_NAME_WRAP: '.subtitle-item',
+    PRODUCT_CARD_RATING_WRAP: '.orders',
+    PRODUCT_CARD_RATING: '[data-test-id="text__rating"]',
+};
+
 let nameFilter;
 let minReviewsFilter;
 let minRatingFilter;
@@ -41,14 +51,14 @@ let filterEnabled;
 }());
 
 async function initListClean() {
-    const notification = await waitForElement(document, '.notification');
-    const promotional = getFirstElement('.promotional-shelf', notification);
+    const notification = await waitForElement(document, SELECTORS.NOTIFICATION);
+    const promotional = getFirstElement(SELECTORS.PROMOTIONAL_SHELF, notification);
     if (promotional) promotional.remove();
 
     appendFilterControlsIfNeeded(notification, appendFiltersContainer, true);
 
     const productCardsWrap = getFirstElement(
-        '#category-products', document, true,
+        SELECTORS.CATEGORY_PRODUCTS, document, true,
     );
     new MutationObserver(processProductCards).observe(productCardsWrap, { childList: true });
 }
@@ -125,10 +135,10 @@ function initFilters() {
 
 function processProductCards() {
     const productCardsWrap = getFirstElement(
-        '#category-products', document, true,
+        SELECTORS.CATEGORY_PRODUCTS, document, true,
     );
     const productCards = getAllElements(
-        ':scope > div:not(.products-controllers)', productCardsWrap,
+        SELECTORS.PRODUCT_CARD, productCardsWrap,
     );
 
     productCards.forEach(processProductCard);
@@ -141,13 +151,13 @@ function processProductCard(productCard) {
     }
 
     const productCardNameWrap = getFirstElement(
-        '.subtitle-item', productCard,
+        SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard,
     );
     const productCardRatingWrap = getFirstElement(
-        '.orders', productCard,
+        SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard,
     );
     const productCardRating = getFirstElement(
-        '[data-test-id="text__rating"]', productCardRatingWrap,
+        SELECTORS.PRODUCT_CARD_RATING, productCardRatingWrap,
     );
 
     if (!productCardNameWrap || !productCardRating) {
