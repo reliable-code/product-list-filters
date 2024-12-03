@@ -111,16 +111,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function initFilters() {
-    const categoryName = getURLPathElementEnding(2);
+    const sectionId = getURLPathElementEnding(2);
 
-    nameFilter =
-        new StoredInputValue(`${categoryName}-name-filter`, null, processProductCards);
-    minReviewsFilter =
-        new StoredInputValue(`${categoryName}-min-reviews-filter`, null, processProductCards);
-    minRatingFilter =
-        new StoredInputValue(`${categoryName}-min-rating-filter`, 4.8, processProductCards);
-    filterEnabled =
-        new StoredInputValue(`${categoryName}-filter-enabled`, true, processProductCards);
+    const createFilter = (key, defaultValue) => (
+        new StoredInputValue(`${sectionId}-${key}`, defaultValue, processProductCards)
+    );
+
+    nameFilter = createFilter('name-filter', null);
+    minReviewsFilter = createFilter('min-reviews-filter', null);
+    minRatingFilter = createFilter('min-rating-filter', 4.8);
+    filterEnabled = createFilter('filter-enabled', true);
 }
 
 function processProductCards() {
