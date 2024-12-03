@@ -47,7 +47,9 @@ async function initListClean() {
 
     appendFilterControlsIfNeeded(notification, appendFiltersContainer, true);
 
-    const productCardsWrap = getFirstElement('#category-products', document, true);
+    const productCardsWrap = getFirstElement(
+        '#category-products', document, true,
+    );
     new MutationObserver(cleanList).observe(productCardsWrap, { childList: true });
 }
 
@@ -125,42 +127,49 @@ function initFilters() {
 }
 
 function cleanList() {
-    const productCardsWrap = getFirstElement('#category-products', document, true);
-    const productCards = getAllElements(':scope > div:not(.products-controllers)', productCardsWrap);
-
-    productCards.forEach(
-        (productCard) => {
-            if (!filterEnabled.value) {
-                showElement(productCard);
-
-                return;
-            }
-
-            const productCardNameWrap =
-                getFirstElement('.subtitle-item', productCard);
-
-            const productCardRatingWrap =
-                getFirstElement('.orders', productCard);
-
-            const productCardRating =
-                getFirstElement('[data-test-id="text__rating"]', productCardRatingWrap);
-
-            if (!productCardNameWrap || !productCardRating) {
-                hideElement(productCard);
-                return;
-            }
-
-            const productCardName = productCardNameWrap.innerText;
-            const productCardReviewsNumber =
-                getNodeInnerNumber(productCardRatingWrap.childNodes[1], true);
-            const productCardRatingNumber =
-                getElementInnerNumber(productCardRating, true);
-
-            const shouldHide =
-                isNotMatchTextFilter(productCardName, nameFilter) ||
-                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            updateElementDisplay(productCard, shouldHide);
-        },
+    const productCardsWrap = getFirstElement(
+        '#category-products', document, true,
     );
+    const productCards = getAllElements(
+        ':scope > div:not(.products-controllers)', productCardsWrap,
+    );
+
+    productCards.forEach(processProductCard);
+}
+
+function processProductCard(productCard) {
+    if (!filterEnabled.value) {
+        showElement(productCard);
+
+        return;
+    }
+
+    const productCardNameWrap = getFirstElement(
+        '.subtitle-item', productCard,
+    );
+    const productCardRatingWrap = getFirstElement(
+        '.orders', productCard,
+    );
+    const productCardRating = getFirstElement(
+        '[data-test-id="text__rating"]', productCardRatingWrap,
+    );
+
+    if (!productCardNameWrap || !productCardRating) {
+        hideElement(productCard);
+        return;
+    }
+
+    const productCardName = productCardNameWrap.innerText;
+    const productCardReviewsNumber = getNodeInnerNumber(
+        productCardRatingWrap.childNodes[1], true,
+    );
+    const productCardRatingNumber = getElementInnerNumber(
+        productCardRating, true,
+    );
+
+    const shouldHide =
+        isNotMatchTextFilter(productCardName, nameFilter) ||
+        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+        isLessThanFilter(productCardRatingNumber, minRatingFilter);
+    updateElementDisplay(productCard, shouldHide);
 }
