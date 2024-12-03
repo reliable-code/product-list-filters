@@ -23,17 +23,22 @@ let minReviewsFilter;
 let minRatingFilter;
 let filterEnabled;
 
-const { documentElement } = document;
-new MutationObserver(() => {
-    if (documentElement.classList.contains('nprogress-busy')) return;
+function initDocumentObserver() {
+    const { documentElement } = document;
 
-    if (pathnameIncludes('category') || pathnameIncludes('search')) {
-        initListClean();
-    }
-}).observe(documentElement, {
-    attributes: true,
-    attributeFilter: ['class'],
-});
+    new MutationObserver(() => {
+        if (documentElement.classList.contains('nprogress-busy')) return;
+
+        if (pathnameIncludes('category') || pathnameIncludes('search')) {
+            initListClean();
+        }
+    }).observe(documentElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+    });
+}
+
+initDocumentObserver();
 
 function initListClean() {
     waitForElement(document, '.notification')
