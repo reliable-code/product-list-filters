@@ -50,7 +50,7 @@ async function initListClean() {
     const productCardsWrap = getFirstElement(
         '#category-products', document, true,
     );
-    new MutationObserver(cleanList).observe(productCardsWrap, { childList: true });
+    new MutationObserver(processProductCards).observe(productCardsWrap, { childList: true });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
@@ -117,16 +117,16 @@ function initFilters() {
     const categoryName = getURLPathElementEnding(2);
 
     nameFilter =
-        new StoredInputValue(`${categoryName}-name-filter`, null, cleanList);
+        new StoredInputValue(`${categoryName}-name-filter`, null, processProductCards);
     minReviewsFilter =
-        new StoredInputValue(`${categoryName}-min-reviews-filter`, null, cleanList);
+        new StoredInputValue(`${categoryName}-min-reviews-filter`, null, processProductCards);
     minRatingFilter =
-        new StoredInputValue(`${categoryName}-min-rating-filter`, 4.8, cleanList);
+        new StoredInputValue(`${categoryName}-min-rating-filter`, 4.8, processProductCards);
     filterEnabled =
-        new StoredInputValue(`${categoryName}-filter-enabled`, true, cleanList);
+        new StoredInputValue(`${categoryName}-filter-enabled`, true, processProductCards);
 }
 
-function cleanList() {
+function processProductCards() {
     const productCardsWrap = getFirstElement(
         '#category-products', document, true,
     );
