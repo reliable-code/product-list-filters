@@ -32,7 +32,7 @@ let filterEnabled;
         if (documentElement.classList.contains('nprogress-busy')) return;
 
         if (pathnameIncludesSome(['category', 'search'])) {
-            await initListClean();
+            await initProcessProductCards();
         }
     });
 
@@ -42,7 +42,7 @@ let filterEnabled;
     });
 }());
 
-async function initListClean() {
+async function initProcessProductCards() {
     const notification = await waitForElement(document, SELECTORS.NOTIFICATION);
     const promotional = getFirstElement(SELECTORS.PROMOTIONAL_SHELF, notification);
     if (promotional) promotional.remove();
