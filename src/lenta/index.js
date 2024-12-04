@@ -25,12 +25,7 @@ import {
 } from '../common/filter/factories/specificControls';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
-
-const ATTRIBUTES = {
-    PRICE: 'price',
-    DISCOUNT: 'discount',
-    DISCOUNTED_PRICE: 'discounted-price',
-};
+import { ATTRIBUTES } from './attributes';
 
 const SECTION_ID = getURLPathElementEnding(2);
 
