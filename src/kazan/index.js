@@ -123,8 +123,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function initFilters() {
     const sectionId = getURLPathElementEnding(2);
 
-    const createFilter = (key, defaultValue) => (
-        new StoredInputValue(`${sectionId}-${key}`, defaultValue, processProductCards)
+    const createFilter = (filterName, defaultValue) => (
+        StoredInputValue.createWithCompositeKey(
+            sectionId, filterName, defaultValue, processProductCards,
+        )
     );
 
     nameFilter = createFilter('name-filter', null);

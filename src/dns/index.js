@@ -23,9 +23,10 @@ const SELECTORS = {
 
 const SECTION_ID = getURLPathElement(3);
 
-// todo: extract createFilterBase
-function createFilter(keySuffix, defaultValue) {
-    return new StoredInputValue(`${SECTION_ID}-${keySuffix}`, defaultValue, processProductCards);
+function createFilter(filterName, defaultValue) {
+    return StoredInputValue.createWithCompositeKey(
+        SECTION_ID, filterName, defaultValue, processProductCards,
+    );
 }
 
 const nameFilter = createFilter('name-filter', null);
