@@ -31,13 +31,13 @@ const maxPriceFilter = createFilter('max-price-filter');
 const filterEnabled = createFilter('filter-enabled', true);
 
 const observerReloadInterval =
-    new StoredInputValue('observer-reload-interval', 3.5, runReloadTimerIfNeeded);
+    createFilter('observer-reload-interval', 3.5, runReloadTimerIfNeeded);
 const minObserverSectionLength =
-    new StoredInputValue('min-observer-section-length', 10);
+    createFilter('min-observer-section-length', 10);
 const showObserverNotification =
-    new StoredInputValue('show-observer-notification', true);
+    createFilter('show-observer-notification', true);
 const observerEnabled =
-    new StoredInputValue('observer-enabled', true, runReloadTimerIfNeeded);
+    createFilter('observer-enabled', true, runReloadTimerIfNeeded);
 
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
