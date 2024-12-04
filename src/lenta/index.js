@@ -277,10 +277,16 @@ function setRoundedPriceIfNeeded(
         return;
     }
 
-    const priceText =
-        discountedPriceValue ? `${priceValue} (${discountedPriceValue}) ₽` : `${priceValue} ₽`;
+    const priceText = getPriceText(discountedPriceValue, priceValue);
 
     productCardPrice.innerText = priceText;
-
     productCardPrice.classList.add(PRICE_ROUNDED_CLASS);
+}
+
+function getPriceText(discountedPriceValue, priceValue) {
+    if (discountedPriceValue) {
+        return `${priceValue} (${discountedPriceValue}) ₽`;
+    }
+
+    return `${priceValue} ₽`;
 }
