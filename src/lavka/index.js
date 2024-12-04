@@ -96,9 +96,9 @@ function initMainContent() {
         return;
     }
 
-    initListClean();
+    initProcessProductCards();
 
-    const observer = new MutationObserver(debounce(initListClean, 100));
+    const observer = new MutationObserver(debounce(initProcessProductCards, 100));
     observer.observe(mainContent, {
         childList: true,
         subtree: true,
@@ -166,7 +166,7 @@ function checkReloadTimer() {
     window.location.reload();
 }
 
-function initListClean() {
+function initProcessProductCards() {
     const productCardLinks = getAllElements(SELECTORS.PRODUCT_CARD_LINK, mainContent);
 
     if (!productCardLinks.length) return;
