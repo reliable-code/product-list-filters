@@ -11,10 +11,10 @@ import {
     updateElementOpacity,
 } from '../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    styleStringToObject,
 } from '../common/dom/helpers';
 import {
     createDiscountFilterControl,
@@ -90,56 +90,56 @@ function attachOrderItemsRemoveFunctionIfNeeded() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style =
-        'display: flex;' +
-        'grid-gap: 15px;' +
-        'margin-left: 10px;';
+    applyStyles(filtersContainer, {
+        display: 'flex',
+        gridGap: '15px',
+        marginLeft: '10px',
+    });
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;';
-    const inputStyle =
-        'margin-left: 5px;' +
-        'border: 1px solid #C9C9C9;' +
-        'border-radius: 8px;' +
-        'height: 40px;' +
-        'padding: 0 16px;';
-    const textInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 170px;';
-    const numberInputStyle =
-        inputStyle; // eslint-disable-line prefer-template
-    const checkboxInputStyle =
-        'margin-left: 5px;' +
-        'border: 1px solid #C9C9C9;' +
-        'border-radius: 4px;' +
-        'width: 22px;' +
-        'height: 22px;';
+    const controlStyle = {
+        display: 'flex',
+        alignItems: 'center',
+    };
+    const inputStyle = {
+        marginLeft: '5px',
+        border: '1px solid #C9C9C9',
+        borderRadius: '8px',
+        height: '40px',
+        padding: '0 16px',
+    };
+    const textInputStyle = {
+        ...inputStyle,
+        width: '170px',
+    };
+    const numberInputStyle = {
+        ...inputStyle,
+    };
+    const checkboxInputStyle = {
+        marginLeft: '5px',
+        border: '1px solid #C9C9C9',
+        borderRadius: '4px',
+        width: '22px',
+        height: '22px',
+    };
 
-    const nameFilterDiv =
-        createSearchFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
-
-    const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
-
-    const discountAmountDiv =
-        createDiscountFilterControl(
-            'Скидка: ',
-            discountAmount,
-            styleStringToObject(controlStyle),
-            styleStringToObject(checkboxInputStyle),
-        );
-
-    const noRatingDiv =
-        createNoRatingFilterControl(noRatingFilter, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
-
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
-
-    const sortEnabledDiv =
-        createCheckboxFilterControl(
-            'Сортировка:', sortEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle),
-        );
+    const nameFilterDiv = createSearchFilterControl(
+        nameFilter, controlStyle, textInputStyle,
+    );
+    const minRatingDiv = createMinRatingFilterControl(
+        minRatingFilter, controlStyle, numberInputStyle,
+    );
+    const discountAmountDiv = createDiscountFilterControl(
+        'Скидка: ', discountAmount, controlStyle, checkboxInputStyle,
+    );
+    const noRatingDiv = createNoRatingFilterControl(
+        noRatingFilter, controlStyle, checkboxInputStyle,
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, controlStyle, checkboxInputStyle,
+    );
+    const sortEnabledDiv = createCheckboxFilterControl(
+        'Сортировка:', sortEnabled, controlStyle, checkboxInputStyle,
+    );
 
     filtersContainer.append(
         nameFilterDiv,
