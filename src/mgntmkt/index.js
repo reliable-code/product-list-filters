@@ -123,14 +123,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function initFilters() {
     const sectionId = getURLPathElementEnding(2);
 
-    const createFilter = (filterName, defaultValue) => (
+    const createFilter = (filterName, defaultValue = null) => (
         StoredInputValue.createWithCompositeKey(
             sectionId, filterName, defaultValue, processProductCards,
         )
     );
 
-    nameFilter = createFilter('name-filter', null);
-    minReviewsFilter = createFilter('min-reviews-filter', null);
+    nameFilter = createFilter('name-filter');
+    minReviewsFilter = createFilter('min-reviews-filter');
     minRatingFilter = createFilter('min-rating-filter', 4.8);
     filterEnabled = createFilter('filter-enabled', true);
 }

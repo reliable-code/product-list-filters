@@ -23,14 +23,14 @@ const SELECTORS = {
 
 const SECTION_ID = getURLPathElement(3);
 
-function createFilter(filterName, defaultValue) {
+function createFilter(filterName, defaultValue = null) {
     return StoredInputValue.createWithCompositeKey(
         SECTION_ID, filterName, defaultValue, processProductCards,
     );
 }
 
-const nameFilter = createFilter('name-filter', null);
-const minReviewsFilter = createFilter('min-reviews-filter', null);
+const nameFilter = createFilter('name-filter');
+const minReviewsFilter = createFilter('min-reviews-filter');
 const minRatingFilter = createFilter('min-rating-filter', 4.5);
 const filterEnabled = createFilter('filter-enabled', true);
 
