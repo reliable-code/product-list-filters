@@ -50,9 +50,9 @@ const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
 
 const PRICE_ROUNDED_CLASS = 'priceRounded';
 
-setInterval(initListClean, 100);
+setInterval(initProcessProductCards, 100);
 
-function initListClean() {
+function initProcessProductCards() {
     const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
 
     if (productCardList) {
