@@ -58,7 +58,7 @@ function initListClean() {
     if (productCardList) {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
 
-        cleanList();
+        processProductCards();
     } else if (pathnameIncludes('order')) {
         attachOrderItemsRemoveFunctionIfNeeded();
     } else if (pathnameIncludes('basket')) {
@@ -128,7 +128,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function cleanList() {
+function processProductCards() {
     const pagination = getFirstElement('lu-pagination');
 
     if (pagination) setElementOrder(pagination, 99999);
