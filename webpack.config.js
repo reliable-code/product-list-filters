@@ -7,9 +7,9 @@ const isProduction = process.env.NODE_ENV === 'production';
 module.exports = monkey({
     entry: {
         dns: './src/dns/index.js',
-        kazan: './src/kazan/index.js',
         lavka: './src/lavka/index.js',
         lenta: './src/lenta/index.js',
+        mgntmkt: './src/mgntmkt/index.js',
         mm: './src/mm/index.js',
         ozon: './src/ozon/index.js',
         pepper: './src/pepper/index.js',
