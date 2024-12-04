@@ -27,6 +27,16 @@ import { STYLES } from './styles';
 
 const SECTION_ID = getURLPathElementEnding(2);
 
+function createGlobalFilter(filterName, defaultValue = null) {
+    return StoredInputValue.create(filterName, defaultValue);
+}
+
+function createSectionFilter(filterName, defaultValue = null) {
+    return StoredInputValue.createWithCompositeKey(
+        SECTION_ID, filterName, defaultValue,
+    );
+}
+
 const nameFilter =
     new StoredInputValue(`${SECTION_ID}-name-filter`, null);
 const minRatingFilter =
