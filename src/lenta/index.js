@@ -37,18 +37,12 @@ function createSectionFilter(filterName, defaultValue = null) {
     );
 }
 
-const nameFilter =
-    new StoredInputValue(`${SECTION_ID}-name-filter`, null);
-const minRatingFilter =
-    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.1);
-const discountAmount =
-    new StoredInputValue('discount-amount', 25);
-const noRatingFilter =
-    new StoredInputValue(`${SECTION_ID}-no-rating-filter`, false);
-const filterEnabled =
-    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true);
-const sortEnabled =
-    new StoredInputValue('sort-enabled', true);
+const nameFilter = createSectionFilter('name-filter');
+const minRatingFilter = createSectionFilter('min-rating-filter', 4.1);
+const discountAmount = createGlobalFilter('discount-amount', 25);
+const noRatingFilter = createSectionFilter('no-rating-filter', false);
+const filterEnabled = createSectionFilter('filter-enabled', true);
+const sortEnabled = createGlobalFilter('sort-enabled', true);
 
 const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
 const PRODUCT_CARD_SELECTOR = '.lu-grid__item';
