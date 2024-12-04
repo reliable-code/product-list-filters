@@ -93,28 +93,23 @@ function attachOrderItemsRemoveFunctionIfNeeded() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
-    const controlStyle = STYLES.CONTROL;
-    const textInputStyle = STYLES.TEXT_INPUT;
-    const numberInputStyle = STYLES.NUMBER_INPUT;
-    const checkboxInputStyle = STYLES.CHECKBOX_INPUT;
-
     const nameFilterDiv = createSearchFilterControl(
-        nameFilter, controlStyle, textInputStyle,
+        nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
     );
     const minRatingDiv = createMinRatingFilterControl(
-        minRatingFilter, controlStyle, numberInputStyle,
+        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const discountAmountDiv = createDiscountFilterControl(
-        'Скидка: ', discountAmount, controlStyle, checkboxInputStyle,
+        'Скидка: ', discountAmount, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
     const noRatingDiv = createNoRatingFilterControl(
-        noRatingFilter, controlStyle, checkboxInputStyle,
+        noRatingFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, controlStyle, checkboxInputStyle,
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
     const sortEnabledDiv = createCheckboxFilterControl(
-        'Сортировка:', sortEnabled, controlStyle, checkboxInputStyle,
+        'Сортировка:', sortEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(
