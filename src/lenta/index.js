@@ -46,8 +46,6 @@ const noRatingFilter = createSectionFilter('no-rating-filter', false);
 const filterEnabled = createSectionFilter('filter-enabled', true);
 const sortEnabled = createGlobalFilter('sort-enabled', true);
 
-const PRICE_ROUNDED_CLASS = 'priceRounded';
-
 setInterval(initProcessProductCards, 100);
 
 function initProcessProductCards() {
@@ -251,14 +249,14 @@ function setDiscountedPriceAttribute(productCard, priceValue) {
 function setRoundedPriceIfNeeded(
     productCardPrice, priceValue, discountedPriceValue, discountAttributeChanged,
 ) {
-    if (!discountAttributeChanged && productCardPrice.classList.contains(PRICE_ROUNDED_CLASS)) {
+    if (!discountAttributeChanged && productCardPrice.hasAttribute(ATTRIBUTES.PRICE_ROUNDED)) {
         return;
     }
 
     const priceText = getPriceText(discountedPriceValue, priceValue);
 
     productCardPrice.innerText = priceText;
-    productCardPrice.classList.add(PRICE_ROUNDED_CLASS);
+    productCardPrice.setAttribute(ATTRIBUTES.PRICE_ROUNDED, '');
 }
 
 function getPriceText(discountedPriceValue, priceValue) {
