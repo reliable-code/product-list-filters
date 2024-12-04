@@ -21,7 +21,7 @@ module.exports = {
         ecmaVersion: 'latest',
     },
     rules: {
-        indent: 'off',
+        indent: ['error', 4],
         'no-use-before-define': ['error', {
             functions: false,
             classes: false,
@@ -30,6 +30,6 @@ module.exports = {
         'operator-linebreak': 'off',
         'function-paren-newline': ['error', 'consistent'],
         'no-param-reassign': 'off',
-        'import/no-extraneous-dependencies': 'off',
+        'import/no-extraneous-dependencies': ['off', { devDependencies: true }],
     },
 };
