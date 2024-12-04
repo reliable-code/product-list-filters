@@ -24,18 +24,18 @@ import {
     createSearchFilterControl,
 } from '../common/filter/factories/specificControls';
 
-const CATEGORY_NAME = getURLPathElementEnding(2);
+const SECTION_ID = getURLPathElementEnding(2);
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null);
+    new StoredInputValue(`${SECTION_ID}-name-filter`, null);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.1);
+    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.1);
 const discountAmount =
     new StoredInputValue('discount-amount', 25);
 const noRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false);
+    new StoredInputValue(`${SECTION_ID}-no-rating-filter`, false);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true);
+    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true);
 const sortEnabled =
     new StoredInputValue('sort-enabled', true);
 
