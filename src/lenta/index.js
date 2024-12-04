@@ -75,9 +75,8 @@ function attachBasketProductNameLink() {
     });
 }
 
-// todo: check is valid
 function createProductLink(productId) {
-    return `https://ekb.online.lenta.com/item/${productId}`;
+    return `https://lenta.com/item/${productId}`;
 }
 
 function attachOrderItemsRemoveFunctionIfNeeded() {
