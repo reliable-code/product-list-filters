@@ -43,21 +43,31 @@ const discountAmount = createGlobalFilter('discount-amount', 25);
 const noRatingFilter = createSectionFilter('no-rating-filter', false);
 const filterEnabled = createSectionFilter('filter-enabled', true);
 const sortEnabled = createGlobalFilter('sort-enabled', true);
-
-const PRODUCT_CARD_LIST_SELECTOR = '.catalog-list';
-const PRODUCT_CARD_SELECTOR = '.lu-grid__item';
-const PRODUCT_CARD_RATING_SELECTOR = '.rating-number';
+const SELECTORS = {
+    PRODUCT_CARD_LIST: '.catalog-list',
+    PRODUCT_CARD: '.lu-grid__item',
+    PRODUCT_CARD_RATING: '.rating-number',
+    PRODUCT_CARD_NAME_WRAPPER: '.lu-product-card-name-wrapper',
+    PRODUCT_CARD_IMAGE_LINK: '.lu-product-card-image-link',
+    PRODUCT_CARD_IMAGE: '.lu-product-card-image',
+    PRODUCT_CARD_NAME: '.lu-product-card-name',
+    PRODUCT_CARD_FAVORITE_BUTTON: '.product-card-favorite-btn',
+    MAIN_PRICE: '.main-price',
+    BASKET_PRODUCT_CARD: 'lu-cart-product-card',
+    ORDER_PAGE: 'lu-profile-order-page',
+    ORDER_ITEM: 'lu-profile-order-item',
+    PAGINATION: 'lu-pagination',
+};
 
 const PRICE_ROUNDED_CLASS = 'priceRounded';
 
 setInterval(initProcessProductCards, 100);
 
 function initProcessProductCards() {
-    const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
+    const productCardList = getFirstElement(SELECTORS.PRODUCT_CARD_LIST);
 
     if (productCardList) {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
-
         processProductCards();
     } else if (pathnameIncludes('order')) {
         attachOrderItemsRemoveFunctionIfNeeded();
@@ -67,13 +77,13 @@ function initProcessProductCards() {
 }
 
 function attachBasketProductNameLink() {
-    const productCards = getAllElements('lu-cart-product-card');
+    const productCards = getAllElements(SELECTORS.BASKET_PRODUCT_CARD);
     productCards.forEach((productCard) => {
-        const favoriteButton = getFirstElement('.product-card-favorite-btn', productCard);
+        const favoriteButton = getFirstElement(SELECTORS.PRODUCT_CARD_FAVORITE_BUTTON, productCard);
         const productIdAttr = favoriteButton.getAttribute('id');
         const productId = removeNonDigit(productIdAttr);
         const productLink = createProductLink(productId);
-        const productCardName = getFirstElement('.lu-product-card-name', productCard);
+        const productCardName = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
         productCardName.href = productLink;
     });
 }
@@ -84,11 +94,11 @@ function createProductLink(productId) {
 }
 
 function attachOrderItemsRemoveFunctionIfNeeded() {
-    const orderPage = getFirstElement('lu-profile-order-page');
+    const orderPage = getFirstElement(SELECTORS.ORDER_PAGE);
 
     if (!orderPage) return;
 
-    const orderItems = getAllElements('lu-profile-order-item', orderPage);
+    const orderItems = getAllElements(SELECTORS.ORDER_ITEM, orderPage);
     orderItems.forEach((orderItem) => {
         const orderItemWrap = orderItem.parentNode;
         orderItemWrap.onclick = () => orderItemWrap.remove();
@@ -130,11 +140,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function processProductCards() {
-    const pagination = getFirstElement('lu-pagination');
+    const pagination = getFirstElement(SELECTORS.PAGINATION);
 
     if (pagination) setElementOrder(pagination, 99999);
 
-    const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
+    const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
     productCards.forEach(processProductCard);
 }
@@ -144,7 +154,7 @@ function processProductCard(productCard) {
 
     appendProductCardLinks(productCard);
 
-    const productCardPrice = getFirstElement('.main-price', productCard, true);
+    const productCardPrice = getFirstElement(SELECTORS.MAIN_PRICE, productCard, true);
     if (!productCardPrice) return;
 
     const priceValue = getPriceValueAttribute(productCard, productCardPrice);
@@ -175,7 +185,7 @@ function processProductCard(productCard) {
         return;
     }
 
-    const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
+    const productCardRating = getFirstElement(SELECTORS.PRODUCT_CARD_RATING, productCard);
 
     const minRatingIsNotMatchFilter =
         productCardRating ?
@@ -190,7 +200,7 @@ function processProductCard(productCard) {
 
 function getAndExpandProductCardName(productCard) {
     const productCardNameWrap =
-        getFirstElement('.lu-product-card-name-wrapper', productCard);
+        getFirstElement(SELECTORS.PRODUCT_CARD_NAME_WRAPPER, productCard);
 
     if (!productCardNameWrap) return '';
 
@@ -207,17 +217,17 @@ function expandProductCardName(productCardNameWrap) {
 
 function appendProductCardLinks(productCard) {
     const productCardImageLink =
-        getFirstElement('.lu-product-card-image-link', productCard);
+        getFirstElement(SELECTORS.PRODUCT_CARD_IMAGE_LINK, productCard);
 
     if (!productCardImageLink) return;
 
     const productCardImage =
-        getFirstElement('.lu-product-card-image', productCardImageLink);
+        getFirstElement(SELECTORS.PRODUCT_CARD_IMAGE, productCardImageLink);
 
     if (!productCardImage) return;
 
     const productId = getPathnameElement(productCardImage.src, 7, '');
-    const productCardNameLink = getFirstElement('.lu-product-card-name', productCard);
+    const productCardNameLink = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
     const productLink = createProductLink(productId);
 
     productCardImageLink.href = productLink;
