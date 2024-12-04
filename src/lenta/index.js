@@ -105,7 +105,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const discountAmountDiv = createDiscountFilterControl(
-        'Скидка: ', discountAmount, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+        'Скидка: ', discountAmount, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const noRatingDiv = createNoRatingFilterControl(
         noRatingFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
