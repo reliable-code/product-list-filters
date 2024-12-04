@@ -13,6 +13,42 @@ import {
 } from '../common/filter/factories/specificControls';
 import { SELECTORS } from './selectors';
 
+const STYLES_BASE = {
+    INPUT: {
+        marginLeft: '6px',
+        border: '1px solid #d9d9d9',
+        borderRadius: '8px',
+        padding: '7px 14px',
+        fontSize: '15px',
+    },
+};
+const STYLES = {
+    FILTERS_CONTAINER: {
+        display: 'flex',
+        gridGap: '12px',
+        paddingBottom: '12px',
+    },
+    CONTROL: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '15px',
+    },
+    INPUT: STYLES_BASE.INPUT,
+    TEXT_INPUT: {
+        ...STYLES_BASE.INPUT,
+        width: '180px',
+    },
+    NUMBER_INPUT: {
+        ...STYLES_BASE.INPUT,
+        width: '90px',
+    },
+    CHECKBOX_INPUT: {
+        marginLeft: '6px',
+        width: '21px',
+        height: '21px',
+    },
+};
+
 const SECTION_ID = getURLPathElement(3);
 
 function createFilter(filterName, defaultValue = null) {
@@ -45,37 +81,13 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    applyStyles(filtersContainer, {
-        display: 'flex',
-        gridGap: '12px',
-        paddingBottom: '12px',
-    });
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
-    const controlStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '15px',
-    };
-    const inputStyle = {
-        marginLeft: '6px',
-        border: '1px solid #d9d9d9',
-        borderRadius: '8px',
-        padding: '7px 14px',
-        fontSize: '15px',
-    };
-    const textInputStyle = {
-        ...inputStyle,
-        width: '180px',
-    };
-    const numberInputStyle = {
-        ...inputStyle,
-        width: '90px',
-    };
-    const checkboxInputStyle = {
-        marginLeft: '6px',
-        width: '21px',
-        height: '21px',
-    };
+    const controlStyle = STYLES.CONTROL;
+    const inputStyle = STYLES.INPUT;
+    const textInputStyle = STYLES.TEXT_INPUT;
+    const numberInputStyle = STYLES.NUMBER_INPUT;
+    const checkboxInputStyle = STYLES.CHECKBOX_INPUT;
 
     const nameFilterDiv = createSearchFilterControl(
         nameFilter, controlStyle, textInputStyle,
