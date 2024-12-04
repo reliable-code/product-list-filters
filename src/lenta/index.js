@@ -1,7 +1,7 @@
 import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonDigit } from '../common/string';
-import { getPathnameElement, getURLPathElementEnding, pathnameIncludes } from '../common/url';
+import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { createCheckboxFilterControl } from '../common/filter/factories/genericControls';
 import {
@@ -143,8 +143,6 @@ function processProductCards() {
 function processProductCard(productCard) {
     const productCardName = getAndExpandProductCardName(productCard);
 
-    appendProductCardLinks(productCard);
-
     const productCardPrice = getFirstElement(SELECTORS.MAIN_PRICE, productCard, true);
     if (!productCardPrice) return;
 
@@ -204,25 +202,6 @@ function expandProductCardName(productCardNameWrap) {
     const newHeight = '72px';
     productCardNameWrap.style.height = newHeight;
     productCardNameWrap.firstChild.style.height = newHeight;
-}
-
-function appendProductCardLinks(productCard) {
-    const productCardImageLink =
-        getFirstElement(SELECTORS.PRODUCT_CARD_IMAGE_LINK, productCard);
-
-    if (!productCardImageLink) return;
-
-    const productCardImage =
-        getFirstElement(SELECTORS.PRODUCT_CARD_IMAGE, productCardImageLink);
-
-    if (!productCardImage) return;
-
-    const productId = getPathnameElement(productCardImage.src, 7, '');
-    const productCardNameLink = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
-    const productLink = createProductLink(productId);
-
-    productCardImageLink.href = productLink;
-    productCardNameLink.href = productLink;
 }
 
 function getPriceValueAttribute(productCard, productCardPrice) {
