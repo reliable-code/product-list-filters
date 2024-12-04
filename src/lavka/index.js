@@ -22,7 +22,7 @@ import {
     createMinDiscountFilterControl,
 } from '../common/filter/factories/specificControls';
 
-function createFilter(filterName, defaultValue = null, onChange = cleanList) {
+function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
     return StoredInputValue.create(filterName, defaultValue, onChange);
 }
 
@@ -179,7 +179,7 @@ function initListClean() {
         );
     }
 
-    cleanList();
+    processProductCards();
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
@@ -248,7 +248,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
     insertAfter(parentNode.firstChild, observerControlsContainer);
 }
 
-function cleanList() {
+function processProductCards() {
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
 
     productCardLinks.forEach(processProductCard);
