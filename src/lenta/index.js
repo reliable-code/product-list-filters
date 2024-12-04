@@ -26,6 +26,12 @@ import {
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 
+const ATTRIBUTES = {
+    PRICE: 'price',
+    DISCOUNT: 'discount',
+    DISCOUNTED_PRICE: 'discounted-price',
+};
+
 const SECTION_ID = getURLPathElementEnding(2);
 
 function createGlobalFilter(filterName, defaultValue = null) {
@@ -152,7 +158,7 @@ function processProductCard(productCard) {
         discountAttributeChanged = setDiscountAttributesIfNeeded(
             productCard, productCardPrice, priceValue,
         );
-        discountedPriceValue = productCard.getAttribute('discounted-price');
+        discountedPriceValue = productCard.getAttribute(ATTRIBUTES.DISCOUNTED_PRICE);
     }
 
     setRoundedPriceIfNeeded(
@@ -221,32 +227,32 @@ function appendProductCardLinks(productCard) {
 }
 
 function getPriceValueAttribute(productCard, productCardPrice) {
-    if (!productCard.hasAttribute('price')) {
+    if (!productCard.hasAttribute(ATTRIBUTES.PRICE)) {
         addPriceAttribute(productCard, productCardPrice);
     }
 
-    return productCard.getAttribute('price');
+    return productCard.getAttribute(ATTRIBUTES.PRICE);
 }
 
 function addPriceAttribute(productCard, productCardPrice) {
     const priceValue =
         getElementInnerNumber(productCardPrice, true, true);
 
-    productCard.setAttribute('price', priceValue.toFixed());
+    productCard.setAttribute(ATTRIBUTES.PRICE, priceValue.toFixed());
 }
 
 function setDiscountAttributesIfNeeded(productCard, productCardPrice, priceValue) {
     if (productCardPrice.classList.contains('__accent')) return false;
 
-    if (productCard.hasAttribute('discount')) {
-        const lastDiscountValue = +productCard.getAttribute('discount');
+    if (productCard.hasAttribute(ATTRIBUTES.DISCOUNT)) {
+        const lastDiscountValue = +productCard.getAttribute(ATTRIBUTES.DISCOUNT);
 
         if (lastDiscountValue === discountAmount.value) return false;
     }
 
     if (discountAmount.value === 0) {
-        productCard.removeAttribute('discount');
-        productCard.removeAttribute('discounted-price');
+        productCard.removeAttribute(ATTRIBUTES.DISCOUNT);
+        productCard.removeAttribute(ATTRIBUTES.DISCOUNTED_PRICE);
     } else {
         setDiscountAttribute(productCard);
         setDiscountedPriceAttribute(productCard, priceValue);
@@ -256,12 +262,12 @@ function setDiscountAttributesIfNeeded(productCard, productCardPrice, priceValue
 }
 
 function setDiscountAttribute(productCard) {
-    productCard.setAttribute('discount', discountAmount.value);
+    productCard.setAttribute(ATTRIBUTES.DISCOUNT, discountAmount.value);
 }
 
 function setDiscountedPriceAttribute(productCard, priceValue) {
     const discountedPrice = (priceValue * ((100 - discountAmount.value) / 100)).toFixed();
-    productCard.setAttribute('discounted-price', discountedPrice);
+    productCard.setAttribute(ATTRIBUTES.DISCOUNTED_PRICE, discountedPrice);
 }
 
 function setRoundedPriceIfNeeded(
