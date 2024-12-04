@@ -54,21 +54,8 @@ async function initListClean() {
     new MutationObserver(processProductCards).observe(productCardsWrap, { childList: true });
 }
 
-function appendFiltersContainer(filtersContainer, parentNode) {
-    initFilters();
-
-    applyStyles(filtersContainer, {
-        display: 'flex',
-        gridGap: '11px',
-        marginBottom: '17px',
-    });
-
-    const controlStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '15px',
-    };
-    const inputStyle = {
+const STYLES_BASE = {
+    input: {
         marginLeft: '5px',
         border: '1px solid rgba(0,0,0,.12)',
         borderRadius: '4px',
@@ -76,32 +63,51 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         fontFamily: 'Roboto,sans-serif',
         fontSize: '.875rem',
         padding: '8px 11px',
-    };
-    const textInputStyle = {
-        ...inputStyle,
+    },
+};
+
+const STYLES = {
+    filtersContainer: {
+        display: 'flex',
+        gridGap: '11px',
+        marginBottom: '17px',
+    },
+    control: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '15px',
+    },
+    textInput: {
+        ...STYLES_BASE.input,
         width: '180px',
-    };
-    const numberInputStyle = {
-        ...inputStyle,
+    },
+    numberInput: {
+        ...STYLES_BASE.input,
         width: '90px',
-    };
-    const checkboxInputStyle = {
+    },
+    checkboxInput: {
         marginLeft: '5px',
         width: '23px',
         height: '23px',
-    };
+    },
+};
+
+function appendFiltersContainer(filtersContainer, parentNode) {
+    initFilters();
+
+    applyStyles(filtersContainer, STYLES.filtersContainer);
 
     const nameFilterDiv = createSearchFilterControl(
-        nameFilter, controlStyle, textInputStyle,
+        nameFilter, STYLES.control, STYLES.textInput,
     );
     const minReviewsDiv = createMinReviewsFilterControl(
-        minReviewsFilter, controlStyle, numberInputStyle,
+        minReviewsFilter, STYLES.control, STYLES.numberInput,
     );
     const minRatingDiv = createMinRatingFilterControl(
-        minRatingFilter, controlStyle, numberInputStyle,
+        minRatingFilter, STYLES.control, STYLES.numberInput,
     );
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, controlStyle, checkboxInputStyle,
+        filterEnabled, STYLES.control, STYLES.checkboxInput,
     );
 
     filtersContainer.append(
