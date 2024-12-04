@@ -89,38 +89,49 @@ function attachOrderItemsRemoveFunctionIfNeeded() {
     });
 }
 
-function appendFiltersContainer(filtersContainer, parentNode) {
-    applyStyles(filtersContainer, {
-        display: 'flex',
-        gridGap: '15px',
-        marginLeft: '10px',
-    });
-
-    const controlStyle = {
-        display: 'flex',
-        alignItems: 'center',
-    };
-    const inputStyle = {
+const STYLES_BASE = {
+    INPUT: {
         marginLeft: '5px',
         border: '1px solid #C9C9C9',
         borderRadius: '8px',
         height: '40px',
         padding: '0 16px',
-    };
-    const textInputStyle = {
-        ...inputStyle,
+    },
+};
+
+const STYLES = {
+    FILTERS_CONTAINER: {
+        display: 'flex',
+        gridGap: '15px',
+        marginLeft: '10px',
+    },
+    CONTROL: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    TEXT_INPUT: {
+        ...STYLES_BASE.INPUT,
         width: '170px',
-    };
-    const numberInputStyle = {
-        ...inputStyle,
-    };
-    const checkboxInputStyle = {
+    },
+    NUMBER_INPUT: {
+        ...STYLES_BASE.INPUT,
+    },
+    CHECKBOX_INPUT: {
         marginLeft: '5px',
         border: '1px solid #C9C9C9',
         borderRadius: '4px',
         width: '22px',
         height: '22px',
-    };
+    },
+};
+
+function appendFiltersContainer(filtersContainer, parentNode) {
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
+
+    const controlStyle = STYLES.CONTROL;
+    const textInputStyle = STYLES.TEXT_INPUT;
+    const numberInputStyle = STYLES.NUMBER_INPUT;
+    const checkboxInputStyle = STYLES.CHECKBOX_INPUT;
 
     const nameFilterDiv = createSearchFilterControl(
         nameFilter, controlStyle, textInputStyle,
