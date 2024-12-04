@@ -31,6 +31,43 @@ const SELECTORS = {
     PROMO_LABEL: 'li',
 };
 
+const STYLES_BASE = {
+    INPUT: {
+        marginLeft: '5px',
+        border: '2px solid #b3bcc5',
+        borderRadius: '6px',
+        padding: '6px 10px',
+    },
+    CONTROL: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+};
+
+const STYLES = {
+    CONTAINER: {
+        display: 'flex',
+        marginTop: '14px',
+        gridGap: '15px',
+    },
+    CONTROL: STYLES_BASE.CONTROL,
+    INPUT: STYLES_BASE.INPUT,
+    NUMBER_INPUT: {
+        ...STYLES_BASE.INPUT,
+        width: '90px',
+    },
+    CHECKBOX_INPUT: {
+        marginLeft: '5px',
+        width: '25px',
+        height: '25px',
+    },
+    RELOAD_TIMER_CONTROL: {
+        ...STYLES_BASE.CONTROL,
+        marginLeft: 'auto',
+        width: '170px',
+    },
+};
+
 function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
     return StoredInputValue.create(filterName, defaultValue, onChange);
 }
@@ -47,31 +84,6 @@ const showObserverNotification =
     createFilter('show-observer-notification', true);
 const observerEnabled =
     createFilter('observer-enabled', true, runReloadTimerIfNeeded);
-
-const CONTAINER_STYLE = {
-    display: 'flex',
-    marginTop: '14px',
-    gridGap: '15px',
-};
-const CONTROL_STYLE = {
-    display: 'flex',
-    alignItems: 'center',
-};
-const INPUT_STYLE = {
-    marginLeft: '5px',
-    border: '2px solid #b3bcc5',
-    borderRadius: '6px',
-    padding: '6px 10px',
-};
-const NUMBER_INPUT_STYLE = {
-    ...INPUT_STYLE,
-    width: '90px',
-};
-const CHECKBOX_INPUT_STYLE = {
-    marginLeft: '5px',
-    width: '25px',
-    height: '25px',
-};
 
 let mainContent;
 let firstRun = true;
@@ -195,16 +207,16 @@ function initProcessProductCards() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    applyStyles(filtersContainer, CONTAINER_STYLE);
+    applyStyles(filtersContainer, STYLES.CONTAINER);
 
     const minDiscountDiv = createMinDiscountFilterControl(
-        minDiscountFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE,
+        minDiscountFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const maxPriceDiv = createMaxPriceFilterControl(
-        maxPriceFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE, '25',
+        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, '25',
     );
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(minDiscountDiv, maxPriceDiv, filterEnabledDiv);
@@ -212,13 +224,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function appendObserverControlsContainer(observerControlsContainer, parentNode) {
-    applyStyles(observerControlsContainer, CONTAINER_STYLE);
+    applyStyles(observerControlsContainer, STYLES.CONTAINER);
 
-    const reloadTimerControlStyle = {
-        ...CONTROL_STYLE,
-        marginLeft: 'auto',
-        width: '170px',
-    };
+    const reloadTimerControlStyle = STYLES.RELOAD_TIMER_CONTROL;
 
     const observerReloadIntervalDiv = createNumberFilterControl(
         'Обновление, мин.: ',
@@ -226,8 +234,8 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
         0.5,
         1,
         60,
-        CONTROL_STYLE,
-        NUMBER_INPUT_STYLE,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
     );
     const minObserverSectionLengthDiv = createNumberFilterControl(
         'Мин. в секции: ',
@@ -235,17 +243,17 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
         1,
         1,
         50,
-        CONTROL_STYLE,
-        NUMBER_INPUT_STYLE,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
     );
     const showObserverNotificationDiv = createCheckboxFilterControl(
         'Оповещение: ',
         showObserverNotification,
-        CONTROL_STYLE,
-        CHECKBOX_INPUT_STYLE,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
     );
     const observerEnabledDiv = createEnabledFilterControl(
-        observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+        observerEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
     reloadTimerDiv = createDiv(reloadTimerControlStyle, reloadTimerSecondsLeft);
 
