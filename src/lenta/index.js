@@ -135,59 +135,56 @@ function cleanList() {
 
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
-    productCards.forEach(
-        (productCard) => {
-            const productCardName = getAndExpandProductCardName(productCard);
+    productCards.forEach(processProductCard);
+}
 
-            appendProductCardLinks(productCard);
+function processProductCard(productCard) {
+    const productCardName = getAndExpandProductCardName(productCard);
 
-            const productCardPrice = getFirstElement('.main-price', productCard, true);
-            if (!productCardPrice) return;
+    appendProductCardLinks(productCard);
 
-            const priceValue = getPriceValueAttribute(productCard, productCardPrice);
+    const productCardPrice = getFirstElement('.main-price', productCard, true);
+    if (!productCardPrice) return;
 
-            let discountedPriceValue;
-            let discountAttributeChanged = false;
+    const priceValue = getPriceValueAttribute(productCard, productCardPrice);
 
-            if (discountAmount.value !== null) {
-                discountAttributeChanged =
-                    setDiscountAttributesIfNeeded(productCard, productCardPrice, priceValue);
-                discountedPriceValue =
-                    productCard.getAttribute('discounted-price');
-            }
+    let discountedPriceValue;
+    let discountAttributeChanged = false;
 
-            setRoundedPriceIfNeeded(
-                productCardPrice, priceValue, discountedPriceValue, discountAttributeChanged,
-            );
+    if (discountAmount.value !== null) {
+        discountAttributeChanged = setDiscountAttributesIfNeeded(
+            productCard, productCardPrice, priceValue,
+        );
+        discountedPriceValue = productCard.getAttribute('discounted-price');
+    }
 
-            if (sortEnabled.value) {
-                const productCardOrder =
-                    discountedPriceValue ||
-                    priceValue;
-                setElementOrder(productCard, productCardOrder);
-            } else {
-                resetElementOrder(productCard);
-            }
-
-            if (!filterEnabled.value) {
-                resetElementOpacity(productCard);
-
-                return;
-            }
-
-            const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
-
-            const minRatingIsNotMatchFilter =
-                productCardRating ?
-                    isLessThanFilter(getElementInnerNumber(productCardRating), minRatingFilter) :
-                    !noRatingFilter.value;
-
-            const shouldSetOpacity =
-                isNotMatchTextFilter(productCardName, nameFilter) ||
-                minRatingIsNotMatchFilter;
-            updateElementOpacity(productCard, shouldSetOpacity);
-        },
+    setRoundedPriceIfNeeded(
+        productCardPrice, priceValue, discountedPriceValue, discountAttributeChanged,
     );
+
+    if (sortEnabled.value) {
+        const productCardOrder = discountedPriceValue || priceValue;
+        setElementOrder(productCard, productCardOrder);
+    } else {
+        resetElementOrder(productCard);
+    }
+
+    if (!filterEnabled.value) {
+        resetElementOpacity(productCard);
+        return;
+    }
+
+    const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
+
+    const minRatingIsNotMatchFilter =
+        productCardRating ?
+            isLessThanFilter(getElementInnerNumber(productCardRating), minRatingFilter) :
+            !noRatingFilter.value;
+
+    const shouldSetOpacity =
+        isNotMatchTextFilter(productCardName, nameFilter) ||
+        minRatingIsNotMatchFilter;
+    updateElementOpacity(productCard, shouldSetOpacity);
 }
 
 function getAndExpandProductCardName(productCard) {
