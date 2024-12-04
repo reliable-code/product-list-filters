@@ -71,7 +71,12 @@ function attachBasketProductNameLink() {
         const productId = removeNonDigit(productIdAttr);
         const productLink = createProductLink(productId);
         const productCardName = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
-        productCardName.href = productLink;
+
+        productCardName.addEventListener('mousedown', (event) => {
+            if (event.button === 1) {
+                window.open(productLink, '_blank');
+            }
+        });
     });
 }
 
