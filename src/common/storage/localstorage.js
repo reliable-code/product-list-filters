@@ -16,6 +16,11 @@ export class StoredInputValue extends InputValueBase {
         this.storageKey = storageKey;
     }
 
+    static createWithCompositeKey(keyPrefix, keySuffix, defaultValue = null, onChange = null) {
+        const storageKey = `${keyPrefix}-${keySuffix}`;
+        return new StoredInputValue(storageKey, defaultValue, onChange);
+    }
+
     updateValueFromEvent = (event) => {
         const newValue = getInputValueFromEvent(event);
         const newParsedValue = parseValue(newValue);
