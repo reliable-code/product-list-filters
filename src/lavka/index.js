@@ -22,9 +22,13 @@ import {
     createMinDiscountFilterControl,
 } from '../common/filter/factories/specificControls';
 
-const minDiscountFilter = new StoredInputValue('min-discount-filter', null, cleanList);
-const maxPriceFilter = new StoredInputValue('max-price-filter', null, cleanList);
-const filterEnabled = new StoredInputValue('filter-enabled', true, cleanList);
+function createFilter(filterName, defaultValue = null, onChange = cleanList) {
+    return StoredInputValue.create(filterName, defaultValue, onChange);
+}
+
+const minDiscountFilter = createFilter('min-discount-filter');
+const maxPriceFilter = createFilter('max-price-filter');
+const filterEnabled = createFilter('filter-enabled', true);
 
 const observerReloadInterval =
     new StoredInputValue('observer-reload-interval', 3.5, runReloadTimerIfNeeded);
