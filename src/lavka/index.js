@@ -69,14 +69,13 @@ let reloadTimerSecondsLeft = null;
 let reloadTimerDiv;
 
 initMainContent();
-observeHead();
 
-function observeHead() {
+(function observeHead() {
     const observer = new MutationObserver(debounce(initMainContent, 750));
     observer.observe(document.head, {
         childList: true,
     });
-}
+}());
 
 function initMainContent() {
     mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
