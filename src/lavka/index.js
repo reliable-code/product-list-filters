@@ -251,29 +251,29 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
 function cleanList() {
     const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
 
-    productCardLinks.forEach(
-        (productCardLink) => {
-            const productCardLinksParent = productCardLink.parentNode;
-            const productCard = productCardLinksParent.parentNode.parentNode.parentNode;
-            productCard.style.flex = 'none';
-            productCard.style.width = '25%';
+    productCardLinks.forEach(processProductCard);
+}
 
-            if (!filterEnabled.value) {
-                showElement(productCard);
-                return;
-            }
+function processProductCard(productCardLink) {
+    const productCardLinksParent = productCardLink.parentNode;
+    const productCard = productCardLinksParent.parentNode.parentNode.parentNode;
+    productCard.style.flex = 'none';
+    productCard.style.width = '25%';
 
-            const discountValue = getDiscountValue(productCardLinksParent);
+    if (!filterEnabled.value) {
+        showElement(productCard);
+        return;
+    }
 
-            const priceWrap = getFirstElement('span [aria-hidden="true"]', productCard);
-            const price = getElementInnerNumber(priceWrap, true);
+    const discountValue = getDiscountValue(productCardLinksParent);
 
-            const shouldHide =
-                isLessThanFilter(discountValue, minDiscountFilter) ||
-                isGreaterThanFilter(price, maxPriceFilter);
-            updateElementDisplay(productCard, shouldHide);
-        },
-    );
+    const priceWrap = getFirstElement('span [aria-hidden="true"]', productCard);
+    const price = getElementInnerNumber(priceWrap, true);
+
+    const shouldHide =
+        isLessThanFilter(discountValue, minDiscountFilter) ||
+        isGreaterThanFilter(price, maxPriceFilter);
+    updateElementDisplay(productCard, shouldHide);
 }
 
 function getDiscountValue(productCardLinksParent) {
