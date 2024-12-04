@@ -11,10 +11,10 @@ import {
 } from '../common/filter/factories/genericControls';
 import { insertAfter, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    styleStringToObject,
 } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -42,25 +42,30 @@ const observerEnabled =
 const MAIN_CONTENT_SELECTOR = '#main-content-id';
 const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
-const CONTAINER_STYLE =
-    'display: flex;' +
-    'margin-top: 14px;' +
-    'grid-gap: 15px;';
-const CONTROL_STYLE =
-    'display: flex;' +
-    'align-items: center;';
-const INPUT_STYLE =
-    'margin-left: 5px;' +
-    'border: 2px solid #b3bcc5;' +
-    'border-radius: 6px;' +
-    'padding: 6px 10px;';
-const NUMBER_INPUT_STYLE =
-    INPUT_STYLE + // eslint-disable-line prefer-template
-    'width: 90px;';
-const CHECKBOX_INPUT_STYLE =
-    'margin-left: 5px;' +
-    'width: 25px;' +
-    'height: 25px;';
+const CONTAINER_STYLE = {
+    display: 'flex',
+    marginTop: '14px',
+    gridGap: '15px',
+};
+const CONTROL_STYLE = {
+    display: 'flex',
+    alignItems: 'center',
+};
+const INPUT_STYLE = {
+    marginLeft: '5px',
+    border: '2px solid #b3bcc5',
+    borderRadius: '6px',
+    padding: '6px 10px',
+};
+const NUMBER_INPUT_STYLE = {
+    ...INPUT_STYLE,
+    width: '90px',
+};
+const CHECKBOX_INPUT_STYLE = {
+    marginLeft: '5px',
+    width: '25px',
+    height: '25px',
+};
 
 let mainContent;
 let firstRun = true;
@@ -178,62 +183,59 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style = CONTAINER_STYLE;
+    applyStyles(filtersContainer, CONTAINER_STYLE);
 
-    const minDiscountDiv =
-        createMinDiscountFilterControl(minDiscountFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));
-
-    const maxPriceDiv =
-        createMaxPriceFilterControl(maxPriceFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE), '25');
-
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE));
+    const minDiscountDiv = createMinDiscountFilterControl(
+        minDiscountFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE,
+    );
+    const maxPriceDiv = createMaxPriceFilterControl(
+        maxPriceFilter, CONTROL_STYLE, NUMBER_INPUT_STYLE, '25',
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+    );
 
     filtersContainer.append(minDiscountDiv, maxPriceDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
 }
 
 function appendObserverControlsContainer(observerControlsContainer, parentNode) {
-    observerControlsContainer.style = CONTAINER_STYLE;
-    const reloadTimerControlStyle =
-        CONTROL_STYLE + // eslint-disable-line prefer-template
-        'margin-left: auto;' +
-        'width: 170px;';
+    applyStyles(observerControlsContainer, CONTAINER_STYLE);
 
-    const reloadTimerControlStyleObj = styleStringToObject(reloadTimerControlStyle);
+    const reloadTimerControlStyle = {
+        ...CONTROL_STYLE,
+        marginLeft: 'auto',
+        width: '170px',
+    };
 
-    const observerReloadIntervalDiv =
-        createNumberFilterControl('Обновление, мин.: ',
-            observerReloadInterval,
-            0.5,
-            1,
-            60,
-            styleStringToObject(CONTROL_STYLE),
-            styleStringToObject(NUMBER_INPUT_STYLE));
-
-    const minObserverSectionLengthDiv =
-        createNumberFilterControl('Мин. в секции: ',
-            minObserverSectionLength,
-            1,
-            1,
-            50,
-            styleStringToObject(CONTROL_STYLE),
-            styleStringToObject(NUMBER_INPUT_STYLE));
-
-    const showObserverNotificationDiv =
-        createCheckboxFilterControl(
-            'Оповещение: ',
-            showObserverNotification,
-            styleStringToObject(CONTROL_STYLE),
-            styleStringToObject(CHECKBOX_INPUT_STYLE),
-        );
-
-    const observerEnabledDiv =
-        createEnabledFilterControl(
-            observerEnabled, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE),
-        );
-
-    reloadTimerDiv = createDiv(reloadTimerControlStyleObj, reloadTimerSecondsLeft);
+    const observerReloadIntervalDiv = createNumberFilterControl(
+        'Обновление, мин.: ',
+        observerReloadInterval,
+        0.5,
+        1,
+        60,
+        CONTROL_STYLE,
+        NUMBER_INPUT_STYLE,
+    );
+    const minObserverSectionLengthDiv = createNumberFilterControl(
+        'Мин. в секции: ',
+        minObserverSectionLength,
+        1,
+        1,
+        50,
+        CONTROL_STYLE,
+        NUMBER_INPUT_STYLE,
+    );
+    const showObserverNotificationDiv = createCheckboxFilterControl(
+        'Оповещение: ',
+        showObserverNotification,
+        CONTROL_STYLE,
+        CHECKBOX_INPUT_STYLE,
+    );
+    const observerEnabledDiv = createEnabledFilterControl(
+        observerEnabled, CONTROL_STYLE, CHECKBOX_INPUT_STYLE,
+    );
+    reloadTimerDiv = createDiv(reloadTimerControlStyle, reloadTimerSecondsLeft);
 
     observerControlsContainer.append(
         observerReloadIntervalDiv,
