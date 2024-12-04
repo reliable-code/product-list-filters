@@ -79,8 +79,6 @@ let checkReloadTimerIntervalId;
 let reloadTimerSecondsLeft = null;
 let reloadTimerDiv;
 
-initMainContent();
-
 (function observeHead() {
     const observer = new MutationObserver(debounce(initMainContent, 750));
     observer.observe(document.head, {
@@ -97,6 +95,8 @@ function initMainContent() {
     if (!pathnameIncludes('category')) {
         return;
     }
+
+    initListClean();
 
     const observer = new MutationObserver(debounce(initListClean, 100));
     observer.observe(mainContent, {
