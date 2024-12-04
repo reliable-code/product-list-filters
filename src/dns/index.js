@@ -83,23 +83,17 @@ function initListClean() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
-    const controlStyle = STYLES.CONTROL;
-    const inputStyle = STYLES.INPUT;
-    const textInputStyle = STYLES.TEXT_INPUT;
-    const numberInputStyle = STYLES.NUMBER_INPUT;
-    const checkboxInputStyle = STYLES.CHECKBOX_INPUT;
-
     const nameFilterDiv = createSearchFilterControl(
-        nameFilter, controlStyle, textInputStyle,
+        nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
     );
     const minReviewsDiv = createMinReviewsFilterControl(
-        minReviewsFilter, controlStyle, numberInputStyle,
+        minReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const minRatingDiv = createMinRatingFilterControl(
-        minRatingFilter, controlStyle, numberInputStyle, 0.5,
+        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, 0.5,
     );
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, controlStyle, checkboxInputStyle,
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(
