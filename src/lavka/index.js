@@ -22,6 +22,15 @@ import {
     createMinDiscountFilterControl,
 } from '../common/filter/factories/specificControls';
 
+const SELECTORS = {
+    MAIN_CONTENT: '#main-content-id',
+    SECTION_HEADER: 'h2',
+    OBSERVED_SECTION_SELECTOR: '[data-id="promo-expiring-products"]',
+    PRODUCT_CARD_LINK: '[data-type="product-card-link"]',
+    PRODUCT_CARD_PRICE_WRAP: 'span [aria-hidden="true"]',
+    PROMO_LABEL: 'li',
+};
+
 function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
     return StoredInputValue.create(filterName, defaultValue, onChange);
 }
@@ -38,9 +47,6 @@ const showObserverNotification =
     createFilter('show-observer-notification', true);
 const observerEnabled =
     createFilter('observer-enabled', true, runReloadTimerIfNeeded);
-
-const MAIN_CONTENT_SELECTOR = '#main-content-id';
-const PRODUCT_CARD_LINK_SELECTOR = '[data-type="product-card-link"]';
 
 const CONTAINER_STYLE = {
     display: 'flex',
@@ -83,8 +89,14 @@ initMainContent();
 }());
 
 function initMainContent() {
-    mainContent = getFirstElement(MAIN_CONTENT_SELECTOR);
-    if (!mainContent || !pathnameIncludes('category')) return;
+    mainContent = getFirstElement(SELECTORS.MAIN_CONTENT);
+    if (!mainContent) {
+        return;
+    }
+
+    if (!pathnameIncludes('category')) {
+        return;
+    }
 
     const observer = new MutationObserver(debounce(initListClean, 100));
     observer.observe(mainContent, {
@@ -105,7 +117,7 @@ function showSectionNotification(sectionName, sectionLength) {
 }
 
 function checkSectionExistsByName(sectionName) {
-    const headers = getAllElements('h2', mainContent);
+    const headers = getAllElements(SELECTORS.SECTION_HEADER, mainContent);
     const isSectionExists =
         [...headers].some((header) => header.innerText.includes(sectionName));
 
@@ -119,9 +131,9 @@ function checkSectionExistsBySelector(sectionSelector, sectionName) {
 
     if (!section) return;
 
-    const sectionLength = getAllElements(PRODUCT_CARD_LINK_SELECTOR, section).length;
+    const sectionLength = getAllElements(SELECTORS.PRODUCT_CARD_LINK, section).length;
 
-    const header = getFirstElement('h2', section);
+    const header = getFirstElement(SELECTORS.SECTION_HEADER, section);
     header.innerText += ` (${sectionLength})`;
 
     if (observerEnabled.value
@@ -155,7 +167,7 @@ function checkReloadTimer() {
 }
 
 function initListClean() {
-    const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
+    const productCardLinks = getAllElements(SELECTORS.PRODUCT_CARD_LINK, mainContent);
 
     if (!productCardLinks.length) return;
 
@@ -175,7 +187,7 @@ function initListClean() {
         runReloadTimerIfNeeded();
 
         checkSectionExistsBySelector(
-            '[data-id="promo-expiring-products"]', 'Последний день',
+            SELECTORS.OBSERVED_SECTION_SELECTOR, 'Последний день',
         );
     }
 
@@ -249,7 +261,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
 }
 
 function processProductCards() {
-    const productCardLinks = getAllElements(PRODUCT_CARD_LINK_SELECTOR, mainContent);
+    const productCardLinks = getAllElements(SELECTORS.PRODUCT_CARD_LINK, mainContent);
 
     productCardLinks.forEach(processProductCard);
 }
@@ -267,7 +279,7 @@ function processProductCard(productCardLink) {
 
     const discountValue = getDiscountValue(productCardLinksParent);
 
-    const priceWrap = getFirstElement('span [aria-hidden="true"]', productCard);
+    const priceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE_WRAP, productCard);
     const price = getElementInnerNumber(priceWrap, true);
 
     const shouldHide =
@@ -277,7 +289,7 @@ function processProductCard(productCardLink) {
 }
 
 function getDiscountValue(productCardLinksParent) {
-    const promoLabel = getFirstElement('li', productCardLinksParent);
+    const promoLabel = getFirstElement(SELECTORS.PROMO_LABEL, productCardLinksParent);
 
     if (!promoLabel) {
         return 0;
