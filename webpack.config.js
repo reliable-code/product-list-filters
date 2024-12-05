@@ -4,20 +4,24 @@ const { EsbuildPlugin } = require('esbuild-loader');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const entries = [
+    'dns',
+    'lavka',
+    'lenta',
+    'mgmkt',
+    'mgntmkt',
+    'ozon',
+    'pepper',
+    'prodoctorov',
+    'vseins',
+    'wb',
+    'yamarket',
+];
+
 module.exports = monkey({
-    entry: {
-        dns: './src/dns/index.js',
-        lavka: './src/lavka/index.js',
-        lenta: './src/lenta/index.js',
-        mgntmkt: './src/mgntmkt/index.js',
-        mm: './src/mm/index.js',
-        ozon: './src/ozon/index.js',
-        pepper: './src/pepper/index.js',
-        prodoctorov: './src/prodoctorov/index.js',
-        vseins: './src/vseins/index.js',
-        wb: './src/wb/index.js',
-        yamarket: './src/yamarket/index.js',
-    },
+    entry: Object.fromEntries(
+        entries.map((key) => [key, `./src/${key}/index.js`]),
+    ),
     output: {
         path: path.resolve(__dirname, 'dist'),
     },
