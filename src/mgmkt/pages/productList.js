@@ -40,10 +40,15 @@ const sellerNameFilter =
     new StoredInputValue(`${SECTION_ID}-seller-name-filter`, null, processProductCards);
 const filterEnabled =
     new InputValue(false, processProductCards);
-const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
-const PRODUCT_CARD_SELECTOR = '.catalog-item-desktop';
-const PRODUCT_CARD_PRICE_SELECTOR = '.catalog-item-regular-desktop__price';
-const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
+const SELECTORS = {
+    PRODUCT_CARD_LIST_HEADER: '.catalog-listing-controls',
+    PRODUCT_CARD: '.catalog-item-desktop',
+    PRODUCT_CARD_PRICE: '.catalog-item-regular-desktop__price',
+    PRODUCT_CARD_CASHBACK: '.bonus-percent',
+    PRODUCT_CARD_TITLE: '.catalog-item-regular-desktop__title-link',
+    PRODUCT_CARD_DISCOUNT: '.discount-percentage__value',
+    PRODUCT_CARD_SELLER_NAME: '.merchant-info__name',
+};
 
 export async function initProductListMods() {
     await executeProductListMods();
@@ -58,7 +63,9 @@ export async function initProductListMods() {
 }
 
 async function executeProductListMods() {
-    const productCardListHeader = await waitForElement(document, PRODUCT_CARD_LIST_CONTROLS);
+    const productCardListHeader = await waitForElement(
+        document, SELECTORS.PRODUCT_CARD_LIST_HEADER,
+    );
 
     appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
 
@@ -112,7 +119,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function processProductCards() {
-    const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
+    const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
     productCards.forEach(processProductCard);
 }
@@ -124,13 +131,13 @@ function processProductCard(productCard) {
     }
 
     const nameWrap =
-        getFirstElement('.catalog-item-regular-desktop__title-link', productCard);
+        getFirstElement(SELECTORS.PRODUCT_CARD_TITLE, productCard);
 
     const cashbackWrap =
-        getFirstElement(PRODUCT_CARD_CASHBACK_SELECTOR, productCard);
+        getFirstElement(SELECTORS.PRODUCT_CARD_CASHBACK, productCard);
 
     const discountWrap =
-        getFirstElement('.discount-percentage__value', productCard);
+        getFirstElement(SELECTORS.PRODUCT_CARD_DISCOUNT, productCard);
 
     if (!nameWrap) {
         hideElement(productCard);
@@ -149,14 +156,14 @@ function processProductCard(productCard) {
 
     const priceElement =
         addBalancedCashbackPriceIfNeeded(
-            productCard, PRODUCT_CARD_PRICE_SELECTOR, cashbackNumber,
+            productCard, SELECTORS.PRODUCT_CARD_PRICE, cashbackNumber,
         );
 
     const balancedCashbackPrice =
         +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
 
     const sellerNameWrap =
-        getFirstElement('.merchant-info__name', productCard);
+        getFirstElement(SELECTORS.PRODUCT_CARD_SELLER_NAME, productCard);
 
     const sellerNameIsNotMatchFilter =
         sellerNameWrap ?
