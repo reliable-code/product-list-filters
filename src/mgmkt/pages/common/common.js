@@ -1,8 +1,10 @@
 import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
 
-export const PRICE_ATTR = 'price';
-export const BALANCED_CASHBACK_PRICE_ATTR = 'balanced-cashback-price';
-export const COUPON_ATTR = 'applied-coupon';
+export const ATTRIBUTES = {
+    PRICE: 'price',
+    BALANCED_CASHBACK_PRICE: 'balanced-cashback-price',
+    COUPON: 'applied-coupon',
+};
 
 export function addBalancedCashbackPriceIfNeeded(
     priceParent, priceSelector, cashbackNumber, couponValue,
@@ -10,7 +12,7 @@ export function addBalancedCashbackPriceIfNeeded(
     const priceElement = getFirstElement(priceSelector, priceParent);
     const couponValueChanged = checkCouponValueChanged(priceElement, couponValue);
 
-    if (couponValueChanged || !priceElement.hasAttribute(BALANCED_CASHBACK_PRICE_ATTR)) {
+    if (couponValueChanged || !priceElement.hasAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE)) {
         addBalancedCashbackPrice(priceElement, cashbackNumber, couponValue);
     }
 
@@ -18,8 +20,8 @@ export function addBalancedCashbackPriceIfNeeded(
 }
 
 function checkCouponValueChanged(priceElement, couponValue) {
-    if (priceElement.hasAttribute(COUPON_ATTR)) {
-        const oldCouponValue = +priceElement.getAttribute(COUPON_ATTR);
+    if (priceElement.hasAttribute(ATTRIBUTES.COUPON)) {
+        const oldCouponValue = +priceElement.getAttribute(ATTRIBUTES.COUPON);
         return couponValue !== oldCouponValue;
     }
 
@@ -28,7 +30,7 @@ function checkCouponValueChanged(priceElement, couponValue) {
 
 function addBalancedCashbackPrice(priceElement, cashbackNumber, couponValue) {
     let priceNumber = getPriceNumber(priceElement);
-    priceElement.setAttribute(PRICE_ATTR, priceNumber);
+    priceElement.setAttribute(ATTRIBUTES.PRICE, priceNumber);
 
     if (couponValue) {
         if (couponValue < 1) {
@@ -36,15 +38,15 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber, couponValue) {
         } else {
             priceNumber -= couponValue;
         }
-        priceElement.setAttribute(COUPON_ATTR, couponValue);
+        priceElement.setAttribute(ATTRIBUTES.COUPON, couponValue);
     } else {
-        priceElement.removeAttribute(COUPON_ATTR);
+        priceElement.removeAttribute(ATTRIBUTES.COUPON);
     }
 
     const balancedCashbackUsage = getBalancedCashbackUsage(priceNumber, cashbackNumber);
 
     const balancedCashbackPrice = priceNumber - balancedCashbackUsage;
-    priceElement.setAttribute(BALANCED_CASHBACK_PRICE_ATTR, balancedCashbackPrice);
+    priceElement.setAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE, balancedCashbackPrice);
 
     const newPriceElementText =
         `${priceNumber.toLocaleString()} (${balancedCashbackPrice.toLocaleString()}) ₽`;
@@ -53,8 +55,8 @@ function addBalancedCashbackPrice(priceElement, cashbackNumber, couponValue) {
 }
 
 function getPriceNumber(priceElement) {
-    if (priceElement.hasAttribute(PRICE_ATTR)) {
-        return +priceElement.getAttribute(PRICE_ATTR);
+    if (priceElement.hasAttribute(ATTRIBUTES.PRICE)) {
+        return +priceElement.getAttribute(ATTRIBUTES.PRICE);
     }
 
     return getElementInnerNumber(priceElement, true);

@@ -1,7 +1,7 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
 import { StoredInputValue } from '../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { addBalancedCashbackPriceIfNeeded, BALANCED_CASHBACK_PRICE_ATTR } from './common/common';
+import { addBalancedCashbackPriceIfNeeded, ATTRIBUTES } from './common/common';
 import { getURLPathElement } from '../../common/url';
 import { InputValue } from '../../common/storage/models/inputValue';
 import {
@@ -180,7 +180,7 @@ function cleanList() {
                 );
 
             const balancedCashbackPrice =
-                +priceElement.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
+                +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
 
             const sellerNameWrap =
                 getFirstElement('.merchant-info__name', productCard);

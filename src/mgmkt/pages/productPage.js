@@ -2,11 +2,7 @@ import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 
 import { StoredInputValue } from '../../common/storage/storage';
-import {
-    addBalancedCashbackPriceIfNeeded,
-    BALANCED_CASHBACK_PRICE_ATTR,
-    PRICE_ATTR,
-} from './common/common';
+import { addBalancedCashbackPriceIfNeeded, ATTRIBUTES } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
 import { InputValue } from '../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
@@ -181,10 +177,10 @@ function cleanOffers() {
                 );
 
             const price =
-                +priceElement.getAttribute(PRICE_ATTR);
+                +priceElement.getAttribute(ATTRIBUTES.PRICE);
 
             const balancedCashbackPrice =
-                +priceElement.getAttribute(BALANCED_CASHBACK_PRICE_ATTR);
+                +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
 
             const sellerRatingNumber = getElementInnerNumber(sellerRatingWrap, true);
 
