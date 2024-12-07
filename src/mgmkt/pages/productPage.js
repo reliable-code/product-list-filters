@@ -27,17 +27,17 @@ import { STYLES } from './common/styles';
 const PRODUCT_NAME = getURLPathElementEnding(3);
 
 const minCashbackFilter =
-    new StoredInputValue(`${PRODUCT_NAME}-min-cashback-filter`, null, cleanOffers);
+    new StoredInputValue(`${PRODUCT_NAME}-min-cashback-filter`, null, processOffers);
 const maxPriceFilter =
-    new StoredInputValue(`${PRODUCT_NAME}-max-price-filter`, null, cleanOffers);
+    new StoredInputValue(`${PRODUCT_NAME}-max-price-filter`, null, processOffers);
 const maxDiscountedPriceFilter =
-    new StoredInputValue(`${PRODUCT_NAME}-max-discounted-price-filter`, null, cleanOffers);
+    new StoredInputValue(`${PRODUCT_NAME}-max-discounted-price-filter`, null, processOffers);
 const minSellerRatingFilter =
-    new StoredInputValue('min-seller-rating-filter', null, cleanOffers);
+    new StoredInputValue('min-seller-rating-filter', null, processOffers);
 const couponValue =
-    new InputValue(null, cleanOffers);
+    new InputValue(null, processOffers);
 const filterEnabled =
-    new StoredInputValue('filter-enabled', false, cleanOffers);
+    new StoredInputValue('filter-enabled', false, processOffers);
 
 export async function initProductPageMods() {
     await executeProductPageMods();
@@ -55,13 +55,13 @@ async function executeProductPageMods() {
 
     appendFilterControlsIfNeeded(offersFilter, appendFiltersContainer);
 
-    cleanOffers();
+    processOffers();
 
     const offersContainer = getFirstElement('.pdp-prices');
 
     if (offersContainer.hasAttribute(ATTRIBUTES.OBSERVED)) return;
 
-    const observer = new MutationObserver(debounce(cleanOffers, 50));
+    const observer = new MutationObserver(debounce(processOffers, 50));
 
     observer.observe(offersContainer, {
         childList: true,
@@ -119,7 +119,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-function cleanOffers() {
+function processOffers() {
     const offers = getAllElements('.pdp-prices .product-offer');
 
     offers.forEach(processOffer);
