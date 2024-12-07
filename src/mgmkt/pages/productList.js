@@ -59,24 +59,23 @@ export function initProductListMods() {
         });
 }
 
-function executeProductListMods() {
-    waitForElement(document, PRODUCT_CARD_LIST_CONTROLS)
-        .then((productCardListHeader) => {
-            appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
+async function executeProductListMods() {
+    const productCardListHeader = await waitForElement(document, PRODUCT_CARD_LIST_CONTROLS);
 
-            const productCardListContainer = productCardListHeader.parentNode;
+    appendFilterControlsIfNeeded(productCardListHeader, appendFiltersContainer);
 
-            if (productCardListContainer.hasAttribute(ATTRIBUTES.OBSERVED)) return;
+    const productCardListContainer = productCardListHeader.parentNode;
 
-            const observer = new MutationObserver(debounce(processProductCards, 50));
+    if (productCardListContainer.hasAttribute(ATTRIBUTES.OBSERVED)) return;
 
-            observer.observe(productCardListContainer, {
-                childList: true,
-                subtree: true,
-            });
+    const observer = new MutationObserver(debounce(processProductCards, 50));
 
-            productCardListContainer.setAttribute(ATTRIBUTES.OBSERVED, '');
-        });
+    observer.observe(productCardListContainer, {
+        childList: true,
+        subtree: true,
+    });
+
+    productCardListContainer.setAttribute(ATTRIBUTES.OBSERVED, '');
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
