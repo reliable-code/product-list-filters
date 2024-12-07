@@ -28,24 +28,20 @@ import { ATTRIBUTES } from './common/attributes';
 import { STYLES } from './common/styles';
 
 const SECTION_ID = getURLPathElement(2);
-const nameFilter =
-    new StoredInputValue(`${SECTION_ID}-name-filter`, null, processProductCards);
-const minCashbackFilter =
-    new StoredInputValue(`${SECTION_ID}-min-cashback-filter`, null, processProductCards);
-const maxPriceFilter =
-    new StoredInputValue(`${SECTION_ID}-max-price-filter`, null, processProductCards);
-const minDiscountFilter =
-    new StoredInputValue(`${SECTION_ID}-min-discount-filter`, null, processProductCards);
-const sellerNameFilter =
-    new StoredInputValue(`${SECTION_ID}-seller-name-filter`, null, processProductCards);
-const filterEnabled =
-    new InputValue(false, processProductCards);
 
 function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
     return StoredInputValue.createWithCompositeKey(
         SECTION_ID, filterName, defaultValue, onChange,
     );
 }
+
+const nameFilter = createFilter('name-filter');
+const minCashbackFilter = createFilter('min-cashback-filter');
+const maxPriceFilter = createFilter('max-price-filter');
+const minDiscountFilter = createFilter('min-discount-filter');
+const sellerNameFilter = createFilter('seller-name-filter');
+const filterEnabled = new InputValue(false, processProductCards);
+
 const SELECTORS = {
     PRODUCT_CARD_LIST_HEADER: '.catalog-listing-controls',
     PRODUCT_CARD: '.catalog-item-desktop',
