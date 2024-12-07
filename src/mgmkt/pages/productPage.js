@@ -23,15 +23,16 @@ import {
 import { createNumberFilterControl } from '../../common/filter/factories/genericControls';
 import { ATTRIBUTES } from './common/attributes';
 import { STYLES } from './common/styles';
+import { fnv1aHash32 as getHash } from '../../common/crypto';
 
-const PRODUCT_NAME = getURLPathElementEnding(3);
+const PRODUCT_NAME_HASH = getHash(getURLPathElementEnding(3));
 
 const minCashbackFilter =
-    new StoredInputValue(`${PRODUCT_NAME}-min-cashback-filter`, null, processOffers);
+    new StoredInputValue(`${PRODUCT_NAME_HASH}-min-cashback-filter`, null, processOffers);
 const maxPriceFilter =
-    new StoredInputValue(`${PRODUCT_NAME}-max-price-filter`, null, processOffers);
+    new StoredInputValue(`${PRODUCT_NAME_HASH}-max-price-filter`, null, processOffers);
 const maxDiscountedPriceFilter =
-    new StoredInputValue(`${PRODUCT_NAME}-max-discounted-price-filter`, null, processOffers);
+    new StoredInputValue(`${PRODUCT_NAME_HASH}-max-discounted-price-filter`, null, processOffers);
 const minSellerRatingFilter =
     new StoredInputValue('min-seller-rating-filter', null, processOffers);
 const couponValue =
