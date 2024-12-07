@@ -12,10 +12,10 @@ import {
 import { createTextFilterControl } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    styleStringToObject,
 } from '../../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -79,53 +79,56 @@ function executeProductListMods() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style =
-        'display: flex;' +
-        'grid-gap: 15px;' +
-        'padding: 14px 5px;';
+    applyStyles(filtersContainer, {
+        display: 'flex',
+        gridGap: '15px',
+        padding: '14px 5px',
+    });
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;' +
-        'font-size: 14px;';
-    const inputStyle =
-        'border: 1px solid #e4ebf0;' +
-        'font-size: 14px;' +
-        'border-radius: 8px;' +
-        'margin-left: 7px;' +
-        'padding: 8px 14px;';
-    const textInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 180px;';
-    const numberInputStyle =
-        inputStyle; // eslint-disable-line prefer-template
-    const checkboxInputStyle =
-        'margin-left: 7px;' +
-        'width: 23px;' +
-        'height: 23px;';
+    const controlStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '14px',
+    };
+    const inputStyle = {
+        border: '1px solid #e4ebf0',
+        fontSize: '14px',
+        borderRadius: '8px',
+        marginLeft: '7px',
+        padding: '8px 14px',
+    };
+    const textInputStyle = {
+        ...inputStyle,
+        width: '180px',
+    };
+    const numberInputStyle = {
+        ...inputStyle,
+    };
+    const checkboxInputStyle = {
+        marginLeft: '7px',
+        width: '23px',
+        height: '23px',
+    };
 
-    const nameFilterDiv =
-        createSearchFilterControl(nameFilter, styleStringToObject(controlStyle), styleStringToObject(textInputStyle));
+    const nameFilterDiv = createSearchFilterControl(
+        nameFilter, controlStyle, textInputStyle,
+    );
+    const minCashbackDiv = createMinCashbackFilterControl(
+        minCashbackFilter, controlStyle, numberInputStyle,
+    );
+    const maxPriceDiv = createMaxPriceFilterControl(
+        maxPriceFilter, controlStyle, numberInputStyle,
+    );
+    const minDiscountDiv = createMinDiscountFilterControl(
+        minDiscountFilter, controlStyle, numberInputStyle,
+    );
 
-    const minCashbackDiv =
-        createMinCashbackFilterControl(minCashbackFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
-
-    const maxPriceDiv =
-        createMaxPriceFilterControl(maxPriceFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
-
-    const minDiscountDiv =
-        createMinDiscountFilterControl(minDiscountFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
-
-    const sellerNameFilterDiv =
-        createTextFilterControl(
-            'Продавец: ',
-            sellerNameFilter,
-            styleStringToObject(controlStyle),
-            styleStringToObject(textInputStyle),
-        );
-
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
+    const sellerNameFilterDiv = createTextFilterControl(
+        'Продавец: ', sellerNameFilter, controlStyle, textInputStyle,
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, controlStyle, checkboxInputStyle,
+    );
 
     filtersContainer.append(
         nameFilterDiv,
