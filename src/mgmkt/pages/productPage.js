@@ -39,39 +39,36 @@ const couponValue =
 const filterEnabled =
     new StoredInputValue('filter-enabled', false, cleanOffers);
 
-export function initProductPageMods() {
-    executeProductPageMods();
+export async function initProductPageMods() {
+    await executeProductPageMods();
 
-    waitForElement(document, '#app')
-        .then((app) => {
-            const observer = new MutationObserver(debounce(executeProductPageMods));
+    const app = await waitForElement(document, '#app');
+    const observer = new MutationObserver(debounce(executeProductPageMods));
 
-            observer.observe(app, {
-                childList: true,
-            });
-        });
+    observer.observe(app, {
+        childList: true,
+    });
 }
 
-function executeProductPageMods() {
-    waitForElement(document, '.pdp-prices-filter')
-        .then((offersFilter) => {
-            appendFilterControlsIfNeeded(offersFilter, appendFiltersContainer);
+async function executeProductPageMods() {
+    const offersFilter = await waitForElement(document, '.pdp-prices-filter');
 
-            cleanOffers();
+    appendFilterControlsIfNeeded(offersFilter, appendFiltersContainer);
 
-            const offersContainer = getFirstElement('.pdp-prices');
+    cleanOffers();
 
-            if (offersContainer.hasAttribute('observed')) return;
+    const offersContainer = getFirstElement('.pdp-prices');
 
-            const observer = new MutationObserver(debounce(cleanOffers, 50));
+    if (offersContainer.hasAttribute(ATTRIBUTES.OBSERVED)) return;
 
-            observer.observe(offersContainer, {
-                childList: true,
-                subtree: true,
-            });
+    const observer = new MutationObserver(debounce(cleanOffers, 50));
 
-            offersContainer.setAttribute('observed', '');
-        });
+    observer.observe(offersContainer, {
+        childList: true,
+        subtree: true,
+    });
+
+    offersContainer.setAttribute(ATTRIBUTES.OBSERVED, '');
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
