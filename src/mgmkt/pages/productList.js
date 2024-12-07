@@ -28,17 +28,17 @@ import { ATTRIBUTES } from './common/attributes';
 
 const SECTION_ID = getURLPathElement(2);
 const nameFilter =
-    new StoredInputValue(`${SECTION_ID}-name-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-name-filter`, null, processProductCards);
 const minCashbackFilter =
-    new StoredInputValue(`${SECTION_ID}-min-cashback-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-min-cashback-filter`, null, processProductCards);
 const maxPriceFilter =
-    new StoredInputValue(`${SECTION_ID}-max-price-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-max-price-filter`, null, processProductCards);
 const minDiscountFilter =
-    new StoredInputValue(`${SECTION_ID}-min-discount-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-min-discount-filter`, null, processProductCards);
 const sellerNameFilter =
-    new StoredInputValue(`${SECTION_ID}-seller-name-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-seller-name-filter`, null, processProductCards);
 const filterEnabled =
-    new InputValue(false, cleanList);
+    new InputValue(false, processProductCards);
 const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
 const PRODUCT_CARD_SELECTOR = '.catalog-item-desktop';
 const PRODUCT_CARD_PRICE_SELECTOR = '.catalog-item-regular-desktop__price';
@@ -67,7 +67,7 @@ function executeProductListMods() {
 
             if (productCardListContainer.hasAttribute('observed')) return;
 
-            const observer = new MutationObserver(debounce(cleanList, 50));
+            const observer = new MutationObserver(debounce(processProductCards, 50));
 
             observer.observe(productCardListContainer, {
                 childList: true,
@@ -139,7 +139,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-function cleanList() {
+function processProductCards() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(processProductCard);
