@@ -3,9 +3,9 @@ import { initProductListMods } from './pages/productList';
 import { pathnameIncludes } from '../common/url';
 
 if (isProductPage()) {
-    initProductPageMods();
+    await initProductPageMods();
 } else {
-    initProductListMods();
+    await initProductListMods();
 }
 
 function isProductPage() {
