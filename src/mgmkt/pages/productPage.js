@@ -8,10 +8,10 @@ import { InputValue } from '../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    styleStringToObject,
 } from '../../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -22,6 +22,7 @@ import {
 } from '../../common/filter/factories/specificControls';
 import { createNumberFilterControl } from '../../common/filter/factories/genericControls';
 import { ATTRIBUTES } from './common/attributes';
+import { STYLES } from './common/styles';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 
@@ -74,63 +75,40 @@ function executeProductPageMods() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style =
-        'display: flex;' +
-        'grid-gap: 15px;' +
-        'padding: 14px 5px;';
+    applyStyles(filtersContainer, STYLES.CONTAINER);
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;' +
-        'font-size: 14px;';
-    const inputStyle =
-        'border: 1px solid #e4ebf0;' +
-        'font-size: 14px;' +
-        'border-radius: 8px;' +
-        'margin-left: 7px;' +
-        'padding: 8px 14px;';
-    const numberInputStyle =
-        inputStyle; // eslint-disable-line prefer-template
-    const checkboxInputStyle =
-        'margin-left: 7px;' +
-        'width: 23px;' +
-        'height: 23px;';
+    const minCashbackDiv = createMinCashbackFilterControl(
+        minCashbackFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
 
-    const minCashbackDiv =
-        createMinCashbackFilterControl(
-            minCashbackFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
-        );
+    const maxPriceDiv = createMaxPriceFilterControl(
+        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
 
-    const maxPriceDiv =
-        createMaxPriceFilterControl(
-            maxPriceFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
-        );
+    const maxDiscountedPriceDiv = createPriceFilterControl(
+        'Макс. цена со скидкой: ',
+        maxDiscountedPriceFilter,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+    );
 
-    const maxDiscountedPriceDiv =
-        createPriceFilterControl(
-            'Макс. цена со скидкой: ', maxDiscountedPriceFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
-        );
+    const minSellerRatingDiv = createMinRatingFilterControl(
+        minSellerRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
 
-    const minSellerRatingDiv =
-        createMinRatingFilterControl(
-            minSellerRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle),
-        );
+    const couponValueDiv = createNumberFilterControl(
+        'Купон: ',
+        couponValue,
+        '500',
+        '0',
+        '100000',
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+    );
 
-    const couponValueDiv =
-        createNumberFilterControl(
-            'Купон: ',
-            couponValue,
-            '500',
-            '0',
-            '100000',
-            styleStringToObject(controlStyle),
-            styleStringToObject(numberInputStyle),
-        );
-
-    const filterEnabledDiv =
-        createEnabledFilterControl(
-            filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle),
-        );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+    );
 
     filtersContainer.append(
         minCashbackDiv,
