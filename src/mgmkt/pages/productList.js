@@ -66,7 +66,7 @@ function executeProductListMods() {
 
             const productCardListContainer = productCardListHeader.parentNode;
 
-            if (productCardListContainer.hasAttribute('observed')) return;
+            if (productCardListContainer.hasAttribute(ATTRIBUTES.OBSERVED)) return;
 
             const observer = new MutationObserver(debounce(processProductCards, 50));
 
@@ -75,7 +75,7 @@ function executeProductListMods() {
                 subtree: true,
             });
 
-            productCardListContainer.setAttribute('observed', '');
+            productCardListContainer.setAttribute(ATTRIBUTES.OBSERVED, '');
         });
 }
 
