@@ -43,10 +43,20 @@ const minSellerRatingFilter = createGlobalFilter('min-seller-rating-filter');
 const couponValue = new InputValue(null, processOffers);
 const filterEnabled = createGlobalFilter('filter-enabled', false);
 
+export const SELECTORS = {
+    APP: '#app',
+    OFFERS_FILTER: '.pdp-prices-filter',
+    OFFERS_CONTAINER: '.pdp-prices',
+    OFFER: '.pdp-prices .product-offer',
+    PRICE: '.product-offer-price__amount',
+    CASHBACK: '.bonus-percent',
+    SELLER_RATING: '.pdp-merchant-rating-block__rating',
+};
+
 export async function initProductPageMods() {
     await executeProductPageMods();
 
-    const app = await waitForElement(document, '#app');
+    const app = await waitForElement(document, SELECTORS.APP);
     const observer = new MutationObserver(debounce(executeProductPageMods));
 
     observer.observe(app, {
@@ -55,13 +65,13 @@ export async function initProductPageMods() {
 }
 
 async function executeProductPageMods() {
-    const offersFilter = await waitForElement(document, '.pdp-prices-filter');
+    const offersFilter = await waitForElement(document, SELECTORS.OFFERS_FILTER);
 
     appendFilterControlsIfNeeded(offersFilter, appendFiltersContainer);
 
     processOffers();
 
-    const offersContainer = getFirstElement('.pdp-prices');
+    const offersContainer = getFirstElement(SELECTORS.OFFERS_CONTAINER);
 
     if (offersContainer.hasAttribute(ATTRIBUTES.OBSERVED)) return;
 
@@ -124,7 +134,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function processOffers() {
-    const offers = getAllElements('.pdp-prices .product-offer');
+    const offers = getAllElements(SELECTORS.OFFER);
 
     offers.forEach(processOffer);
 }
@@ -135,14 +145,9 @@ function processOffer(offer) {
         return;
     }
 
-    const priceWrap =
-        getFirstElement('.product-offer-price__amount', offer);
-
-    const cashbackWrap =
-        getFirstElement('.bonus-percent', offer);
-
-    const sellerRatingWrap =
-        getFirstElement('.pdp-merchant-rating-block__rating', offer);
+    const priceWrap = getFirstElement(SELECTORS.PRICE, offer);
+    const cashbackWrap = getFirstElement(SELECTORS.CASHBACK, offer);
+    const sellerRatingWrap = getFirstElement(SELECTORS.SELLER_RATING, offer);
 
     if (!priceWrap || !cashbackWrap || !sellerRatingWrap) {
         hideElement(offer);
@@ -151,17 +156,12 @@ function processOffer(offer) {
 
     const cashbackNumber = getElementInnerNumber(cashbackWrap, true);
 
-    const priceElement =
-        addBalancedCashbackPriceIfNeeded(
-            offer, '.product-offer-price__amount', cashbackNumber, couponValue.value,
-        );
+    const priceElement = addBalancedCashbackPriceIfNeeded(
+        offer, SELECTORS.PRICE, cashbackNumber, couponValue.value,
+    );
 
-    const price =
-        +priceElement.getAttribute(ATTRIBUTES.PRICE);
-
-    const balancedCashbackPrice =
-        +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
-
+    const price = +priceElement.getAttribute(ATTRIBUTES.PRICE);
+    const balancedCashbackPrice = +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
     const sellerRatingNumber = getElementInnerNumber(sellerRatingWrap, true);
 
     const shouldHide =
@@ -169,5 +169,6 @@ function processOffer(offer) {
         isGreaterThanFilter(price, maxPriceFilter) ||
         isGreaterThanFilter(balancedCashbackPrice, maxDiscountedPriceFilter) ||
         isLessThanFilter(sellerRatingNumber, minSellerRatingFilter);
+
     updateElementDisplay(offer, shouldHide);
 }
