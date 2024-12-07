@@ -125,50 +125,48 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function cleanOffers() {
     const offers = getAllElements('.pdp-prices .product-offer');
 
-    offers.forEach(
-        (offer) => {
-            if (!filterEnabled.value) {
-                showElement(offer);
+    offers.forEach(processOffer);
+}
 
-                return;
-            }
+function processOffer(offer) {
+    if (!filterEnabled.value) {
+        showElement(offer);
+        return;
+    }
 
-            const priceWrap =
-                getFirstElement('.product-offer-price__amount', offer);
+    const priceWrap =
+        getFirstElement('.product-offer-price__amount', offer);
 
-            const cashbackWrap =
-                getFirstElement('.bonus-percent', offer);
+    const cashbackWrap =
+        getFirstElement('.bonus-percent', offer);
 
-            const sellerRatingWrap =
-                getFirstElement('.pdp-merchant-rating-block__rating', offer);
+    const sellerRatingWrap =
+        getFirstElement('.pdp-merchant-rating-block__rating', offer);
 
-            if (!priceWrap || !cashbackWrap || !sellerRatingWrap) {
-                hideElement(offer);
+    if (!priceWrap || !cashbackWrap || !sellerRatingWrap) {
+        hideElement(offer);
+        return;
+    }
 
-                return;
-            }
+    const cashbackNumber = getElementInnerNumber(cashbackWrap, true);
 
-            const cashbackNumber = getElementInnerNumber(cashbackWrap, true);
+    const priceElement =
+        addBalancedCashbackPriceIfNeeded(
+            offer, '.product-offer-price__amount', cashbackNumber, couponValue.value,
+        );
 
-            const priceElement =
-                addBalancedCashbackPriceIfNeeded(
-                    offer, '.product-offer-price__amount', cashbackNumber, couponValue.value,
-                );
+    const price =
+        +priceElement.getAttribute(ATTRIBUTES.PRICE);
 
-            const price =
-                +priceElement.getAttribute(ATTRIBUTES.PRICE);
+    const balancedCashbackPrice =
+        +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
 
-            const balancedCashbackPrice =
-                +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
+    const sellerRatingNumber = getElementInnerNumber(sellerRatingWrap, true);
 
-            const sellerRatingNumber = getElementInnerNumber(sellerRatingWrap, true);
-
-            const shouldHide =
-                isLessThanFilter(cashbackNumber, minCashbackFilter) ||
-                isGreaterThanFilter(price, maxPriceFilter) ||
-                isGreaterThanFilter(balancedCashbackPrice, maxDiscountedPriceFilter) ||
-                isLessThanFilter(sellerRatingNumber, minSellerRatingFilter);
-            updateElementDisplay(offer, shouldHide);
-        },
-    );
+    const shouldHide =
+        isLessThanFilter(cashbackNumber, minCashbackFilter) ||
+        isGreaterThanFilter(price, maxPriceFilter) ||
+        isGreaterThanFilter(balancedCashbackPrice, maxDiscountedPriceFilter) ||
+        isLessThanFilter(sellerRatingNumber, minSellerRatingFilter);
+    updateElementDisplay(offer, shouldHide);
 }
