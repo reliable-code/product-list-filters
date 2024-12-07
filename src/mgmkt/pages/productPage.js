@@ -38,6 +38,15 @@ const couponValue =
     new InputValue(null, processOffers);
 const filterEnabled =
     new StoredInputValue('filter-enabled', false, processOffers);
+function createGlobalFilter(filterName, defaultValue = null, onChange = processOffers) {
+    return StoredInputValue.create(filterName, defaultValue, onChange);
+}
+
+function createProductFilter(filterName, defaultValue = null, onChange = processOffers) {
+    return StoredInputValue.createWithCompositeKey(
+        PRODUCT_NAME_HASH, filterName, defaultValue, onChange,
+    );
+}
 
 export async function initProductPageMods() {
     await executeProductPageMods();
