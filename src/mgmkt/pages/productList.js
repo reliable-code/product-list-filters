@@ -45,18 +45,16 @@ const PRODUCT_CARD_SELECTOR = '.catalog-item-desktop';
 const PRODUCT_CARD_PRICE_SELECTOR = '.catalog-item-regular-desktop__price';
 const PRODUCT_CARD_CASHBACK_SELECTOR = '.bonus-percent';
 
-export function initProductListMods() {
-    executeProductListMods();
+export async function initProductListMods() {
+    await executeProductListMods();
 
-    waitForElement(document, '#app')
-        .then((app) => {
-            const observer = new MutationObserver(debounce(executeProductListMods));
+    const app = await waitForElement(document, '#app');
+    const observer = new MutationObserver(debounce(executeProductListMods));
 
-            observer.observe(app, {
-                childList: true,
-                subtree: true,
-            });
-        });
+    observer.observe(app, {
+        childList: true,
+        subtree: true,
+    });
 }
 
 async function executeProductListMods() {
