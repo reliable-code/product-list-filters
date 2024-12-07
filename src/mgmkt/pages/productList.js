@@ -78,56 +78,62 @@ function executeProductListMods() {
         });
 }
 
-function appendFiltersContainer(filtersContainer, parentNode) {
-    applyStyles(filtersContainer, {
-        display: 'flex',
-        gridGap: '15px',
-        padding: '14px 5px',
-    });
-
-    const controlStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '14px',
-    };
-    const inputStyle = {
+const STYLES_BASE = {
+    INPUT: {
         border: '1px solid #e4ebf0',
         fontSize: '14px',
         borderRadius: '8px',
         marginLeft: '7px',
         padding: '8px 14px',
-    };
-    const textInputStyle = {
-        ...inputStyle,
+    },
+};
+
+const STYLES = {
+    CONTAINER: {
+        display: 'flex',
+        gridGap: '15px',
+        padding: '14px 5px',
+    },
+    CONTROL: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '14px',
+    },
+    TEXT_INPUT: {
+        ...STYLES_BASE.INPUT,
         width: '180px',
-    };
-    const numberInputStyle = {
-        ...inputStyle,
-    };
-    const checkboxInputStyle = {
+    },
+    NUMBER_INPUT: {
+        ...STYLES_BASE.INPUT,
+    },
+    CHECKBOX_INPUT: {
         marginLeft: '7px',
         width: '23px',
         height: '23px',
-    };
+    },
+};
+
+function appendFiltersContainer(filtersContainer, parentNode) {
+    applyStyles(filtersContainer, STYLES.CONTAINER);
 
     const nameFilterDiv = createSearchFilterControl(
-        nameFilter, controlStyle, textInputStyle,
+        nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
     );
     const minCashbackDiv = createMinCashbackFilterControl(
-        minCashbackFilter, controlStyle, numberInputStyle,
+        minCashbackFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const maxPriceDiv = createMaxPriceFilterControl(
-        maxPriceFilter, controlStyle, numberInputStyle,
+        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const minDiscountDiv = createMinDiscountFilterControl(
-        minDiscountFilter, controlStyle, numberInputStyle,
+        minDiscountFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
 
     const sellerNameFilterDiv = createTextFilterControl(
-        'Продавец: ', sellerNameFilter, controlStyle, textInputStyle,
+        'Продавец: ', sellerNameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
     );
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, controlStyle, checkboxInputStyle,
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(
