@@ -40,6 +40,12 @@ const sellerNameFilter =
     new StoredInputValue(`${SECTION_ID}-seller-name-filter`, null, processProductCards);
 const filterEnabled =
     new InputValue(false, processProductCards);
+
+function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
+    return StoredInputValue.createWithCompositeKey(
+        SECTION_ID, filterName, defaultValue, onChange,
+    );
+}
 const SELECTORS = {
     PRODUCT_CARD_LIST_HEADER: '.catalog-listing-controls',
     PRODUCT_CARD: '.catalog-item-desktop',
