@@ -26,18 +26,6 @@ import { STYLES } from './common/styles';
 
 const PRODUCT_NAME_HASH = getHash(getURLPathElementEnding(3));
 
-const minCashbackFilter =
-    new StoredInputValue(`${PRODUCT_NAME_HASH}-min-cashback-filter`, null, processOffers);
-const maxPriceFilter =
-    new StoredInputValue(`${PRODUCT_NAME_HASH}-max-price-filter`, null, processOffers);
-const maxDiscountedPriceFilter =
-    new StoredInputValue(`${PRODUCT_NAME_HASH}-max-discounted-price-filter`, null, processOffers);
-const minSellerRatingFilter =
-    new StoredInputValue('min-seller-rating-filter', null, processOffers);
-const couponValue =
-    new InputValue(null, processOffers);
-const filterEnabled =
-    new StoredInputValue('filter-enabled', false, processOffers);
 function createGlobalFilter(filterName, defaultValue = null, onChange = processOffers) {
     return StoredInputValue.create(filterName, defaultValue, onChange);
 }
@@ -47,6 +35,13 @@ function createProductFilter(filterName, defaultValue = null, onChange = process
         PRODUCT_NAME_HASH, filterName, defaultValue, onChange,
     );
 }
+
+const minCashbackFilter = createProductFilter('min-cashback-filter');
+const maxPriceFilter = createProductFilter('max-price-filter');
+const maxDiscountedPriceFilter = createProductFilter('max-discounted-price-filter');
+const minSellerRatingFilter = createGlobalFilter('min-seller-rating-filter');
+const couponValue = new InputValue(null, processOffers);
+const filterEnabled = createGlobalFilter('filter-enabled', false);
 
 export async function initProductPageMods() {
     await executeProductPageMods();
