@@ -26,17 +26,17 @@ import {
 } from '../../common/filter/factories/specificControls';
 import { ATTRIBUTES } from './common/attributes';
 
-const CATEGORY_NAME = getURLPathElement(2);
+const SECTION_ID = getURLPathElement(2);
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-name-filter`, null, cleanList);
 const minCashbackFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-cashback-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-min-cashback-filter`, null, cleanList);
 const maxPriceFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-max-price-filter`, null, cleanList);
 const minDiscountFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-discount-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-min-discount-filter`, null, cleanList);
 const sellerNameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-seller-name-filter`, null, cleanList);
+    new StoredInputValue(`${SECTION_ID}-seller-name-filter`, null, cleanList);
 const filterEnabled =
     new InputValue(false, cleanList);
 const PRODUCT_CARD_LIST_CONTROLS = '.catalog-listing-controls';
