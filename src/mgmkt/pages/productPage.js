@@ -1,9 +1,8 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
-import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-
-import { StoredInputValue } from '../../common/storage/storage';
-import { addBalancedCashbackPriceIfNeeded } from './common/common';
+import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getURLPathElementEnding } from '../../common/url';
+import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
+import { StoredInputValue } from '../../common/storage/storage';
 import { InputValue } from '../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
@@ -21,9 +20,9 @@ import {
     createPriceFilterControl,
 } from '../../common/filter/factories/specificControls';
 import { createNumberFilterControl } from '../../common/filter/factories/genericControls';
+import { addBalancedCashbackPriceIfNeeded } from './common/common';
 import { ATTRIBUTES } from './common/attributes';
 import { STYLES } from './common/styles';
-import { fnv1aHash32 as getHash } from '../../common/crypto';
 
 const PRODUCT_NAME_HASH = getHash(getURLPathElementEnding(3));
 
