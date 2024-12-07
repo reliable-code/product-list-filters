@@ -2,7 +2,7 @@ import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 
 import { StoredInputValue } from '../../common/storage/storage';
-import { addBalancedCashbackPriceIfNeeded, ATTRIBUTES } from './common/common';
+import { addBalancedCashbackPriceIfNeeded } from './common/common';
 import { getURLPathElementEnding } from '../../common/url';
 import { InputValue } from '../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
@@ -21,6 +21,7 @@ import {
     createPriceFilterControl,
 } from '../../common/filter/factories/specificControls';
 import { createNumberFilterControl } from '../../common/filter/factories/genericControls';
+import { ATTRIBUTES } from './common/attributes';
 
 const PRODUCT_NAME = getURLPathElementEnding(3);
 

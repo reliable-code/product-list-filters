@@ -1,10 +1,5 @@
 import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
-
-export const ATTRIBUTES = {
-    PRICE: 'price',
-    BALANCED_CASHBACK_PRICE: 'balanced-cashback-price',
-    COUPON: 'applied-coupon',
-};
+import { ATTRIBUTES } from './attributes';
 
 export function addBalancedCashbackPriceIfNeeded(
     priceParent, priceSelector, cashbackNumber, couponValue,

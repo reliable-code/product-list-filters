@@ -1,7 +1,7 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
 import { StoredInputValue } from '../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { addBalancedCashbackPriceIfNeeded, ATTRIBUTES } from './common/common';
+import { addBalancedCashbackPriceIfNeeded } from './common/common';
 import { getURLPathElement } from '../../common/url';
 import { InputValue } from '../../common/storage/models/inputValue';
 import {
@@ -24,6 +24,7 @@ import {
     createMinDiscountFilterControl,
     createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
+import { ATTRIBUTES } from './common/attributes';
 
 const CATEGORY_NAME = getURLPathElement(2);
 const nameFilter =
