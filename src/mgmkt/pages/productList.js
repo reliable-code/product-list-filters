@@ -142,62 +142,60 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
-    productCards.forEach(
-        (productCard) => {
-            if (!filterEnabled.value) {
-                showElement(productCard);
+    productCards.forEach(processProductCard);
+}
 
-                return;
-            }
+function processProductCard(productCard) {
+    if (!filterEnabled.value) {
+        showElement(productCard);
+        return;
+    }
 
-            const nameWrap =
-                getFirstElement('.catalog-item-regular-desktop__title-link', productCard);
+    const nameWrap =
+        getFirstElement('.catalog-item-regular-desktop__title-link', productCard);
 
-            const cashbackWrap =
-                getFirstElement(PRODUCT_CARD_CASHBACK_SELECTOR, productCard);
+    const cashbackWrap =
+        getFirstElement(PRODUCT_CARD_CASHBACK_SELECTOR, productCard);
 
-            const discountWrap =
-                getFirstElement('.discount-percentage__value', productCard);
+    const discountWrap =
+        getFirstElement('.discount-percentage__value', productCard);
 
-            if (!nameWrap) {
-                hideElement(productCard);
+    if (!nameWrap) {
+        hideElement(productCard);
+        return;
+    }
 
-                return;
-            }
+    const name = nameWrap.innerText;
 
-            const name = nameWrap.innerText;
+    const cashbackNumber =
+        getElementInnerNumber(cashbackWrap, true, false, 0);
 
-            const cashbackNumber =
-                getElementInnerNumber(cashbackWrap, true, false, 0);
+    const discountValue =
+        Math.abs(
+            getElementInnerNumber(discountWrap, true, false, 0),
+        );
 
-            const discountValue =
-                Math.abs(
-                    getElementInnerNumber(discountWrap, true, false, 0),
-                );
+    const priceElement =
+        addBalancedCashbackPriceIfNeeded(
+            productCard, PRODUCT_CARD_PRICE_SELECTOR, cashbackNumber,
+        );
 
-            const priceElement =
-                addBalancedCashbackPriceIfNeeded(
-                    productCard, PRODUCT_CARD_PRICE_SELECTOR, cashbackNumber,
-                );
+    const balancedCashbackPrice =
+        +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
 
-            const balancedCashbackPrice =
-                +priceElement.getAttribute(ATTRIBUTES.BALANCED_CASHBACK_PRICE);
+    const sellerNameWrap =
+        getFirstElement('.merchant-info__name', productCard);
 
-            const sellerNameWrap =
-                getFirstElement('.merchant-info__name', productCard);
+    const sellerNameIsNotMatchFilter =
+        sellerNameWrap ?
+            isNotMatchTextFilter(sellerNameWrap.innerText, sellerNameFilter) :
+            false;
 
-            const sellerNameIsNotMatchFilter =
-                sellerNameWrap ?
-                    isNotMatchTextFilter(sellerNameWrap.innerText, sellerNameFilter) :
-                    false;
-
-            const shouldHide =
-                isNotMatchTextFilter(name, nameFilter) ||
-                isLessThanFilter(cashbackNumber, minCashbackFilter) ||
-                isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter) ||
-                isLessThanFilter(discountValue, minDiscountFilter) ||
-                sellerNameIsNotMatchFilter;
-            updateElementDisplay(productCard, shouldHide);
-        },
-    );
+    const shouldHide =
+        isNotMatchTextFilter(name, nameFilter) ||
+        isLessThanFilter(cashbackNumber, minCashbackFilter) ||
+        isGreaterThanFilter(balancedCashbackPrice, maxPriceFilter) ||
+        isLessThanFilter(discountValue, minDiscountFilter) ||
+        sellerNameIsNotMatchFilter;
+    updateElementDisplay(productCard, shouldHide);
 }
