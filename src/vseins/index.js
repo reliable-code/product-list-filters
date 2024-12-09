@@ -20,16 +20,16 @@ import { getURLPathElement } from '../common/url';
 
 const PRODUCT_LIST_SELECTOR = '[data-qa="listing"] > div';
 
-const CATEGORY_NAME = getURLPathElement(2);
+const SECTION_ID = getURLPathElement(2);
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, processCards);
+    new StoredInputValue(`${SECTION_ID}-name-filter`, null, processCards);
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processCards);
+    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processCards);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processCards);
+    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, processCards);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processCards);
+    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, processCards);
 
 await initListClean();
 
