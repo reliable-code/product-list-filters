@@ -28,14 +28,10 @@ function createFilter(filterName, defaultValue = null) {
     );
 }
 
-const nameFilter =
-    new StoredInputValue(`${SECTION_ID}-name-filter`, null, processProductCards);
-const minReviewsFilter =
-    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processProductCards);
-const minRatingFilter =
-    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, processProductCards);
-const filterEnabled =
-    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, processProductCards);
+const nameFilter = createFilter('name-filter');
+const minReviewsFilter = createFilter('min-reviews-filter');
+const minRatingFilter = createFilter('min-rating-filter', 4.8);
+const filterEnabled = createFilter('filter-enabled', true);
 
 await initListClean();
 
