@@ -17,14 +17,7 @@ import {
 } from '../common/filter/factories/specificControls';
 import { STYLES } from './styles';
 import { getURLPathElement } from '../common/url';
-
-const SELECTORS = {
-    PRODUCT_LIST: '[data-qa="listing"]',
-    PRODUCT_LIST_TOP: '#product-listing-top',
-    PRODUCT_NAME_WRAP: '[data-qa="product-name"]',
-    PRODUCT_RATING_WRAP: '[data-qa="product-rating"]',
-    PRODUCT_RATING: '[name="rating"]',
-};
+import { SELECTORS } from './selectors';
 
 const SECTION_ID = getURLPathElement(2);
 
