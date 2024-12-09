@@ -18,7 +18,13 @@ import {
 import { STYLES } from './styles';
 import { getURLPathElement } from '../common/url';
 
-const PRODUCT_LIST_SELECTOR = '[data-qa="listing"] > div';
+const SELECTORS = {
+    PRODUCT_LIST: '[data-qa="listing"]',
+    PRODUCT_LIST_TOP: '#product-listing-top',
+    PRODUCT_NAME_WRAP: '[data-qa="product-name"]',
+    PRODUCT_RATING_WRAP: '[data-qa="product-rating"]',
+    PRODUCT_RATING: '[name="rating"]',
+};
 
 const SECTION_ID = getURLPathElement(2);
 
@@ -36,11 +42,11 @@ const filterEnabled = createFilter('filter-enabled', true);
 await initListClean();
 
 async function initListClean() {
-    const productListTop = await waitForElement(document, '#product-listing-top');
+    const productListTop = await waitForElement(document, SELECTORS.PRODUCT_LIST_TOP);
 
     if (!productListTop) return;
 
-    const productList = getFirstElement(PRODUCT_LIST_SELECTOR, document, true);
+    const productList = getFirstElement(SELECTORS.PRODUCT_LIST, document, true);
     appendFilterControlsIfNeeded(productList, appendFiltersContainer, true);
 
     const observer = new MutationObserver(processProductCards);
@@ -74,7 +80,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function processProductCards() {
-    const productCards = getAllElements(PRODUCT_LIST_SELECTOR);
+    const productCards = getAllElements(`${SELECTORS.PRODUCT_LIST} > div`);
 
     productCards.forEach(processProductCard);
 }
@@ -85,11 +91,8 @@ function processProductCard(productCard) {
         return;
     }
 
-    const productCardNameWrap =
-        getFirstElement('[data-qa="product-name"]', productCard);
-
-    const productCardRatingWrap =
-        getFirstElement('[data-qa="product-rating"]', productCard);
+    const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_NAME_WRAP, productCard);
+    const productCardRatingWrap = getFirstElement(SELECTORS.PRODUCT_RATING_WRAP, productCard);
 
     if (!productCardNameWrap || !productCardRatingWrap) {
         hideElement(productCard);
@@ -101,7 +104,7 @@ function processProductCard(productCard) {
     const productCardReviewsNumber =
         getNodeInnerNumber(productCardRatingWrap.childNodes[2], true);
 
-    const productCardRating = getFirstElement('[name="rating"]', productCardRatingWrap);
+    const productCardRating = getFirstElement(SELECTORS.PRODUCT_RATING, productCardRatingWrap);
     const productCardRatingNumber = +productCardRating.getAttribute('value');
 
     const shouldHide =
