@@ -16,22 +16,11 @@ import {
     createSearchFilterControl,
 } from '../common/filter/factories/specificControls';
 import { STYLES } from './styles';
+import { getURLPathElement } from '../common/url';
 
 const PRODUCT_LIST_SELECTOR = '[data-qa="listing"] > div';
 
-const CATEGORY_NAME = getCategoryName();
-
-function getCategoryName() {
-    const pathElements = getPathElements();
-    const categoryName = pathElements[2] ?? 'common';
-
-    return categoryName;
-}
-
-function getPathElements() {
-    const { pathname } = window.location;
-    return pathname.split('/');
-}
+const CATEGORY_NAME = getURLPathElement(2);
 
 const nameFilter =
     new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, processCards);
