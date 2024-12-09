@@ -106,38 +106,37 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function cleanList() {
     const productCards = getAllElements(`${PRODUCT_LIST_SELECTOR} > div`);
 
-    productCards.forEach(
-        (productCard) => {
-            if (!filterEnabled.value) {
-                showElement(productCard);
+    productCards.forEach(processCard);
+}
 
-                return;
-            }
+function processCard(productCard) {
+    if (!filterEnabled.value) {
+        showElement(productCard);
+        return;
+    }
 
-            const productCardNameWrap =
-                getFirstElement('[data-qa="product-name"]', productCard);
+    const productCardNameWrap =
+        getFirstElement('[data-qa="product-name"]', productCard);
 
-            const productCardRatingWrap =
-                getFirstElement('[data-qa="product-rating"]', productCard);
+    const productCardRatingWrap =
+        getFirstElement('[data-qa="product-rating"]', productCard);
 
-            if (!productCardNameWrap || !productCardRatingWrap) {
-                hideElement(productCard);
-                return;
-            }
+    if (!productCardNameWrap || !productCardRatingWrap) {
+        hideElement(productCard);
+        return;
+    }
 
-            const productCardName = productCardNameWrap.innerText;
+    const productCardName = productCardNameWrap.innerText;
 
-            const productCardReviewsNumber =
-                getNodeInnerNumber(productCardRatingWrap.childNodes[2], true);
+    const productCardReviewsNumber =
+        getNodeInnerNumber(productCardRatingWrap.childNodes[2], true);
 
-            const productCardRating = getFirstElement('[name="rating"]', productCardRatingWrap);
-            const productCardRatingNumber = +productCardRating.getAttribute('value');
+    const productCardRating = getFirstElement('[name="rating"]', productCardRatingWrap);
+    const productCardRatingNumber = +productCardRating.getAttribute('value');
 
-            const shouldHide =
-                isNotMatchTextFilter(productCardName, nameFilter) ||
-                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            updateElementDisplay(productCard, shouldHide);
-        },
-    );
+    const shouldHide =
+        isNotMatchTextFilter(productCardName, nameFilter) ||
+        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+        isLessThanFilter(productCardRatingNumber, minRatingFilter);
+    updateElementDisplay(productCard, shouldHide);
 }
