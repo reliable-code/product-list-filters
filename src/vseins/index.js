@@ -33,13 +33,13 @@ function getPathElements() {
 }
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, processCards);
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processCards);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processCards);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processCards);
 
 initListClean();
 
@@ -50,7 +50,7 @@ function initListClean() {
 
             appendFilterControlsIfNeeded(productList, appendFiltersContainer, true);
 
-            new MutationObserver(cleanList).observe(productList, {
+            new MutationObserver(processCards).observe(productList, {
                 childList: true,
                 subtree: true,
             });
@@ -103,7 +103,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.parentNode.insertBefore(filtersContainer, parentNode);
 }
 
-function cleanList() {
+function processCards() {
     const productCards = getAllElements(PRODUCT_LIST_SELECTOR);
 
     productCards.forEach(processCard);
