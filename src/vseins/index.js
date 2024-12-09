@@ -42,20 +42,21 @@ const minRatingFilter =
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processCards);
 
-initListClean();
+await initListClean();
 
-function initListClean() {
-    waitForElement(document, '#product-listing-top')
-        .then(() => {
-            const productList = getFirstElement(PRODUCT_LIST_SELECTOR, document, true);
+async function initListClean() {
+    const productListTop = await waitForElement(document, '#product-listing-top');
 
-            appendFilterControlsIfNeeded(productList, appendFiltersContainer, true);
+    if (!productListTop) return;
 
-            new MutationObserver(processCards).observe(productList, {
-                childList: true,
-                subtree: true,
-            });
-        });
+    const productList = getFirstElement(PRODUCT_LIST_SELECTOR, document, true);
+    appendFilterControlsIfNeeded(productList, appendFiltersContainer, true);
+
+    const observer = new MutationObserver(processCards);
+    observer.observe(productList, {
+        childList: true,
+        subtree: true,
+    });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
