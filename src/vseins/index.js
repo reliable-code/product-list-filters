@@ -22,6 +22,12 @@ const PRODUCT_LIST_SELECTOR = '[data-qa="listing"] > div';
 
 const SECTION_ID = getURLPathElement(2);
 
+function createFilter(filterName, defaultValue = null) {
+    return StoredInputValue.createWithCompositeKey(
+        SECTION_ID, filterName, defaultValue, processProductCards,
+    );
+}
+
 const nameFilter =
     new StoredInputValue(`${SECTION_ID}-name-filter`, null, processProductCards);
 const minReviewsFilter =
