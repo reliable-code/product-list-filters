@@ -57,56 +57,56 @@ function initListClean() {
         });
 }
 
-function appendFiltersContainer(filtersContainer, parentNode) {
-    const filtersContainerStyle = {
-        display: 'flex',
-        gridGap: '11px',
-        marginBottom: '18px',
-    };
-
-    applyStyles(filtersContainer, filtersContainerStyle);
-
-    const controlStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '16px',
-    };
-
-    const inputStyle = {
+const STYLES_BASE = {
+    input: {
         marginLeft: '5px',
         border: '1px solid #dadcde',
         borderRadius: '8px',
         padding: '8px 16px',
         fontSize: '16px',
-    };
+    },
+};
 
-    const textInputStyle = {
-        ...inputStyle,
+const STYLES = {
+    filtersContainer: {
+        display: 'flex',
+        gridGap: '11px',
+        marginBottom: '18px',
+    },
+    control: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '16px',
+    },
+    textInput: {
+        ...STYLES_BASE.input,
         width: '180px',
-    };
-
-    const numberInputStyle = {
-        ...inputStyle,
+    },
+    numberInput: {
+        ...STYLES_BASE.input,
         width: '90px',
-    };
-
-    const checkboxInputStyle = {
+    },
+    checkboxInput: {
         marginLeft: '5px',
         width: '22px',
         height: '22px',
-    };
+    },
+};
+
+function appendFiltersContainer(filtersContainer, parentNode) {
+    applyStyles(filtersContainer, STYLES.filtersContainer);
 
     const nameFilterDiv = createSearchFilterControl(
-        nameFilter, controlStyle, textInputStyle,
+        nameFilter, STYLES.control, STYLES.textInput,
     );
     const minReviewsDiv = createMinReviewsFilterControl(
-        minReviewsFilter, controlStyle, numberInputStyle,
+        minReviewsFilter, STYLES.control, STYLES.numberInput,
     );
     const minRatingDiv = createMinRatingFilterControl(
-        minRatingFilter, controlStyle, numberInputStyle,
+        minRatingFilter, STYLES.control, STYLES.numberInput,
     );
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, controlStyle, checkboxInputStyle,
+        filterEnabled, STYLES.control, STYLES.checkboxInput,
     );
 
     filtersContainer.append(
