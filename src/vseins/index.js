@@ -23,13 +23,13 @@ const PRODUCT_LIST_SELECTOR = '[data-qa="listing"] > div';
 const SECTION_ID = getURLPathElement(2);
 
 const nameFilter =
-    new StoredInputValue(`${SECTION_ID}-name-filter`, null, processCards);
+    new StoredInputValue(`${SECTION_ID}-name-filter`, null, processProductCards);
 const minReviewsFilter =
-    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processCards);
+    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processProductCards);
 const minRatingFilter =
-    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, processCards);
+    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, processProductCards);
 const filterEnabled =
-    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, processCards);
+    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, processProductCards);
 
 await initListClean();
 
@@ -41,7 +41,7 @@ async function initListClean() {
     const productList = getFirstElement(PRODUCT_LIST_SELECTOR, document, true);
     appendFilterControlsIfNeeded(productList, appendFiltersContainer, true);
 
-    const observer = new MutationObserver(processCards);
+    const observer = new MutationObserver(processProductCards);
     observer.observe(productList, {
         childList: true,
         subtree: true,
@@ -71,13 +71,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.parentNode.insertBefore(filtersContainer, parentNode);
 }
 
-function processCards() {
+function processProductCards() {
     const productCards = getAllElements(PRODUCT_LIST_SELECTOR);
 
-    productCards.forEach(processCard);
+    productCards.forEach(processProductCard);
 }
 
-function processCard(productCard) {
+function processProductCard(productCard) {
     if (!filterEnabled.value) {
         showElement(productCard);
         return;
