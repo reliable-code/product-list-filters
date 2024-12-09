@@ -16,7 +16,7 @@ import {
     createSearchFilterControl,
 } from '../common/filter/factories/specificControls';
 
-const PRODUCT_LIST_SELECTOR = '[data-qa="listing"]';
+const PRODUCT_LIST_SELECTOR = '[data-qa="listing"] > div';
 
 const CATEGORY_NAME = getCategoryName();
 
@@ -104,7 +104,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const productCards = getAllElements(`${PRODUCT_LIST_SELECTOR} > div`);
+    const productCards = getAllElements(PRODUCT_LIST_SELECTOR);
 
     productCards.forEach(processCard);
 }
