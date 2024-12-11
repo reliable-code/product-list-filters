@@ -15,7 +15,7 @@ const entries = [
     'prodoctorov',
     'vseins',
     'wb',
-    'yamarket',
+    'yamkt',
 ];
 
 module.exports = monkey({
