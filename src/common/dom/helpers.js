@@ -31,9 +31,9 @@ export function getElementInnerNumber(
     if (!element) {
         if (defaultValue === null) {
             console.log('No element found');
-        } else {
-            return defaultValue;
+            return null;
         }
+        return defaultValue;
     }
 
     const elementText = element.innerText;
