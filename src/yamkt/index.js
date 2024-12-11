@@ -27,6 +27,12 @@ const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@search/Controls"]';
 
 const SECTION_ID = getHashOrDefault(getURLPathElement(1));
 
+function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
+    return StoredInputValue.createWithCompositeKey(
+        SECTION_ID, filterName, defaultValue, onChange,
+    );
+}
+
 const minReviewsFilter =
     new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processProductCards);
 const minRatingFilter =
