@@ -25,14 +25,14 @@ import { getURLPathElement } from '../common/url';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@search/Controls"]';
 
-const CATEGORY_NAME = getHashOrDefault(getURLPathElement(1));
+const SECTION_ID = getHashOrDefault(getURLPathElement(1));
 
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processProductCards);
+    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processProductCards);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processProductCards);
+    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, processProductCards);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processProductCards);
+    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, processProductCards);
 
 const searchControls = getFirstElement(SEARCH_CONTROLS_SELECTOR);
 
