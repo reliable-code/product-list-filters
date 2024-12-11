@@ -30,7 +30,6 @@ import {
     getFirstElement,
     styleStringToObject,
 } from '../../common/dom/helpers';
-import { fnv1aHash32 as getHash } from '../../common/crypto';
 import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
 import {
     createEnabledFilterControl,
@@ -41,6 +40,7 @@ import {
     createNoRatingFilterControl,
     createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
+import { getHashOrDefault } from '../../common/crypto';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
@@ -84,10 +84,6 @@ function getCategoryName() {
     }
 
     return categoryName;
-}
-
-function getHashOrDefault(value, defaultValue = 'common') {
-    return value ? getHash(value) : defaultValue;
 }
 
 export function initProductListMods() {

@@ -1,5 +1,5 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
-import { fnv1aHash32 as getHash } from '../../common/crypto';
+import { getHashOrDefault } from '../../common/crypto';
 import { getURLPathElementEnding } from '../../common/url';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage/storage';
@@ -24,7 +24,7 @@ import { addBalancedCashbackPriceIfNeeded } from './common/common';
 import { ATTRIBUTES } from './common/attributes';
 import { STYLES } from './common/styles';
 
-const PRODUCT_NAME_HASH = getHash(getURLPathElementEnding(3));
+const PRODUCT_NAME_HASH = getHashOrDefault(getURLPathElementEnding(3));
 
 function createGlobalFilter(filterName, defaultValue = null, onChange = processOffers) {
     return StoredInputValue.create(filterName, defaultValue, onChange);

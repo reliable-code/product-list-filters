@@ -1,7 +1,7 @@
 /* eslint-disable no-bitwise */
 
 // FNV-1a hash function (32-bit version)
-export function fnv1aHash32(input) {
+function fnv1aHash32(input) {
     const FNV_OFFSET_BASIS = 2166136261; // Initial FNV-1a hash value (32-bit)
     const FNV_PRIME = 16777619; // The prime multiplier for the hash function
 
