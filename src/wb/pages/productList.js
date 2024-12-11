@@ -1,7 +1,7 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage/storage';
-import { getHash } from '../../common/crypto';
+import { getHash } from '../../common/hash/helpers';
 import { getURLPathElement, somePathElementEquals } from '../../common/url';
 import { createDiv } from '../../common/dom/factories/elements';
 import {

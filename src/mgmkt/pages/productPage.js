@@ -1,5 +1,5 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
-import { getHashOrDefault } from '../../common/crypto';
+import { getHashOrDefault } from '../../common/hash/helpers';
 import { getURLPathElementEnding } from '../../common/url';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { StoredInputValue } from '../../common/storage/storage';

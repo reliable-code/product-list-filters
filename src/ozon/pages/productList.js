@@ -40,7 +40,7 @@ import {
     createNoRatingFilterControl,
     createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
-import { getHashOrDefault } from '../../common/crypto';
+import { getHashOrDefault } from '../../common/hash/helpers';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
