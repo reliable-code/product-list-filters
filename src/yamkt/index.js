@@ -59,44 +59,51 @@ export function initProductListMods() {
     });
 }
 
-function appendFiltersContainer(filterControls, parentNode) {
-    const filterControlsStyle = {
+const STYLES_BASE = {
+    INPUT: {
+        margin: '0px 5px',
+    },
+};
+
+const STYLES = {
+    FILTER_CONTROLS: {
         display: 'flex',
         gap: '15px',
         padding: '0 10px 15px',
         fontSize: '16px',
         fontWeight: 500,
-    };
-    applyStyles(filterControls, filterControlsStyle);
-
-    const controlStyle = {
+    },
+    CONTROL: {
         display: 'flex',
         alignItems: 'center',
-    };
-    const inputStyle = {
-        margin: '0px 5px',
-    };
-    const numberInputStyle = {
-        ...inputStyle,
+    },
+    NUMBER_INPUT: {
+        ...STYLES_BASE.INPUT,
         borderRadius: '7px',
         border: 'none',
         padding: '9px 11px',
         boxShadow: 'inset 0 0 0 1.5px #d2d0cc',
-    };
-    const checkboxInputStyle = {
-        ...inputStyle,
+    },
+    CHECKBOX_INPUT: {
+        ...STYLES_BASE.INPUT,
         width: '23px',
         height: '23px',
-    };
+    },
+};
 
-    const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
+function appendFiltersContainer(filterControls, parentNode) {
+    applyStyles(filterControls, STYLES.FILTER_CONTROLS);
 
-    const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
+    const minReviewsDiv = createMinReviewsFilterControl(
+        minReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const minRatingDiv = createMinRatingFilterControl(
+        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+    );
 
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
     filterControls.append(minReviewsDiv, minRatingDiv, filterEnabledDiv);
 
     insertAfter(parentNode, filterControls);
