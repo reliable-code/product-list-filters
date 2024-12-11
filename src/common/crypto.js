@@ -23,3 +23,7 @@ export function getHash(value) {
         .toString(16)
         .padStart(8, '0');
 }
+
+export function getHashOrDefault(value, defaultValue = 'common') {
+    return value ? getHash(value) : defaultValue;
+}
