@@ -33,12 +33,9 @@ function createFilter(filterName, defaultValue = null, onChange = processProduct
     );
 }
 
-const minReviewsFilter =
-    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processProductCards);
-const minRatingFilter =
-    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, processProductCards);
-const filterEnabled =
-    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, processProductCards);
+const minReviewsFilter = createFilter('min-reviews-filter');
+const minRatingFilter = createFilter('min-rating-filter', 4.8);
+const filterEnabled = createFilter('filter-enabled', true);
 
 const searchControls = getFirstElement(SEARCH_CONTROLS_SELECTOR);
 
