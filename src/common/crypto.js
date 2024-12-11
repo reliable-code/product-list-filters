@@ -13,7 +13,13 @@ export function fnv1aHash32(input) {
         hash = Math.imul(hash, FNV_PRIME); // Multiply by the FNV prime
     }
 
-    // Constrain hash to 32 bits, convert to hex, and ensure it has 8 characters
-    return (hash >>> 0).toString(16)
+    // Constrain hash to 32 bits
+    return (hash >>> 0);
+}
+
+export function getHash(value) {
+    // Convert to hex, and ensure it has 8 characters
+    return fnv1aHash32(value)
+        .toString(16)
         .padStart(8, '0');
 }
