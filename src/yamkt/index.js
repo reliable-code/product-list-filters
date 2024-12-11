@@ -20,10 +20,11 @@ import {
     createMinReviewsFilterControl,
 } from '../common/filter/factories/specificControls';
 import { STYLES } from './styles';
+import { getURLPathElement } from '../common/url';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@search/Controls"]';
 
-const CATEGORY_NAME = getCategoryName();
+const CATEGORY_NAME = getURLPathElement(1);
 
 const minReviewsFilter =
     new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processProductCards);
@@ -31,14 +32,6 @@ const minRatingFilter =
     new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processProductCards);
 const filterEnabled =
     new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processProductCards);
-
-function getCategoryName() {
-    const { pathname } = window.location;
-    const pathElements = pathname.split('/');
-    const categoryName = pathElements[1] ?? 'common';
-
-    return categoryName;
-}
 
 const searchControls = getFirstElement(SEARCH_CONTROLS_SELECTOR);
 
