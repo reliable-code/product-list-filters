@@ -20,7 +20,7 @@ import {
     createMinReviewsFilterControl,
 } from '../common/filter/factories/specificControls';
 
-const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@marketplace/SearchControls"]';
+const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@search/Controls"]';
 
 const CATEGORY_NAME = getCategoryName();
 
@@ -108,17 +108,17 @@ function cleanList() {
                 return;
             }
 
+            const productCardName = getFirstElement('[data-baobab-name="title"]', productCard);
             const productCardReviewsWrap = getFirstElement('[data-auto="reviews"]', productCard);
-            const productCardRatingWrap = getFirstElement('[data-auto="rating"]', productCard);
 
-            if (!productCardReviewsWrap || !productCardRatingWrap) {
+            if (!productCardName || !productCardReviewsWrap) {
                 hideElement(productCard);
 
                 return;
             }
 
-            const productCardReviewsNumber = getElementInnerNumber(productCardReviewsWrap);
-            const productCardRatingNumber = getElementInnerNumber(productCardRatingWrap);
+            const productCardReviewsNumber = getElementInnerNumber(productCardReviewsWrap.children[1], true);
+            const productCardRatingNumber = getElementInnerNumber(productCardReviewsWrap.children[0], true);
 
             const shouldHide =
                 isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
