@@ -100,30 +100,32 @@ function appendFiltersContainer(filterControls, parentNode) {
 function cleanList() {
     const productCards = getAllElements('[data-apiary-widget-name="@marketfront/SerpEntity"]');
 
-    productCards.forEach(
-        (productCard) => {
-            if (!filterEnabled.value) {
-                showElement(productCard);
+    productCards.forEach(processProductCard);
+}
 
-                return;
-            }
+function processProductCard(productCard) {
+    if (!filterEnabled.value) {
+        showElement(productCard);
+        return;
+    }
 
-            const productCardName = getFirstElement('[data-baobab-name="title"]', productCard);
-            const productCardReviewsWrap = getFirstElement('[data-auto="reviews"]', productCard);
+    const productCardName = getFirstElement('[data-baobab-name="title"]', productCard);
+    const productCardReviewsWrap = getFirstElement('[data-auto="reviews"]', productCard);
 
-            if (!productCardName || !productCardReviewsWrap) {
-                hideElement(productCard);
+    if (!productCardName || !productCardReviewsWrap) {
+        hideElement(productCard);
+        return;
+    }
 
-                return;
-            }
-
-            const productCardReviewsNumber = getElementInnerNumber(productCardReviewsWrap.children[1], true);
-            const productCardRatingNumber = getElementInnerNumber(productCardReviewsWrap.children[0], true);
-
-            const shouldHide =
-                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter);
-            updateElementDisplay(productCard, shouldHide);
-        },
+    const productCardReviewsNumber = getElementInnerNumber(
+        productCardReviewsWrap.children[1], true,
     );
+    const productCardRatingNumber = getElementInnerNumber(
+        productCardReviewsWrap.children[0], true,
+    );
+
+    const shouldHide =
+        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+        isLessThanFilter(productCardRatingNumber, minRatingFilter);
+    updateElementDisplay(productCard, shouldHide);
 }
