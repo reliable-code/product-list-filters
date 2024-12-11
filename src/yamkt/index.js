@@ -20,11 +20,12 @@ import {
     createMinReviewsFilterControl,
 } from '../common/filter/factories/specificControls';
 import { STYLES } from './styles';
+import { getHashOrDefault } from '../common/hash/helpers';
 import { getURLPathElement } from '../common/url';
 
 const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@search/Controls"]';
 
-const CATEGORY_NAME = getURLPathElement(1);
+const CATEGORY_NAME = getHashOrDefault(getURLPathElement(1));
 
 const minReviewsFilter =
     new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processProductCards);
