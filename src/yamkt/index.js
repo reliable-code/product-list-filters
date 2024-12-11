@@ -25,11 +25,11 @@ const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@search/Controls"]';
 const CATEGORY_NAME = getCategoryName();
 
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processProductCards);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processProductCards);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processProductCards);
 
 function getCategoryName() {
     const { pathname } = window.location;
@@ -48,10 +48,10 @@ if (searchControls) {
 }
 
 export function initProductListMods() {
-    cleanList();
+    processProductCards();
 
     const searchResults = getFirstElement('[data-zone-name="searchResults"]');
-    const observer = new MutationObserver(debounce(cleanList, 50));
+    const observer = new MutationObserver(debounce(processProductCards, 50));
 
     observer.observe(searchResults, {
         childList: true,
@@ -97,7 +97,7 @@ function appendFiltersContainer(filterControls, parentNode) {
     insertAfter(parentNode, filterControls);
 }
 
-function cleanList() {
+function processProductCards() {
     const productCards = getAllElements('[data-apiary-widget-name="@marketfront/SerpEntity"]');
 
     productCards.forEach(processProductCard);
