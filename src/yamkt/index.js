@@ -9,10 +9,10 @@ import {
     updateElementDisplay,
 } from '../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    styleStringToObject,
 } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -60,38 +60,43 @@ export function initProductListMods() {
 }
 
 function appendFiltersContainer(filterControls, parentNode) {
-    filterControls.style =
-        'display: flex;' +
-        'gap: 15px;' +
-        'padding: 0 10px 15px;' +
-        'font-size: 16px;' +
-        'font-weight: 500;';
+    const filterControlsStyle = {
+        display: 'flex',
+        gap: '15px',
+        padding: '0 10px 15px',
+        fontSize: '16px',
+        fontWeight: 500,
+    };
+    applyStyles(filterControls, filterControlsStyle);
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;';
-    const inputStyle =
-        'margin: 0px 5px;';
-    const numberInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'border-radius: 7px;' +
-        'border: none;' +
-        'padding: 9px 11px;' +
-        'box-shadow: inset 0 0 0 1.5px #d2d0cc;';
-    const checkboxInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 23px;' +
-        'height: 23px;';
+    const controlStyle = {
+        display: 'flex',
+        alignItems: 'center',
+    };
+    const inputStyle = {
+        margin: '0px 5px',
+    };
+    const numberInputStyle = {
+        ...inputStyle,
+        borderRadius: '7px',
+        border: 'none',
+        padding: '9px 11px',
+        boxShadow: 'inset 0 0 0 1.5px #d2d0cc',
+    };
+    const checkboxInputStyle = {
+        ...inputStyle,
+        width: '23px',
+        height: '23px',
+    };
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
+        createMinReviewsFilterControl(minReviewsFilter, controlStyle, numberInputStyle);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
+        createMinRatingFilterControl(minRatingFilter, controlStyle, numberInputStyle);
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
-
+        createEnabledFilterControl(filterEnabled, controlStyle, checkboxInputStyle);
     filterControls.append(minReviewsDiv, minRatingDiv, filterEnabledDiv);
 
     insertAfter(parentNode, filterControls);
