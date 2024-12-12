@@ -44,13 +44,13 @@ if (appointmentsPage) {
 }
 
 function initDoctorListMods() {
-    setInterval(initListClean, 100);
+    setInterval(initProcessDoctorCards, 100);
 }
 
-function initListClean() {
+function initProcessDoctorCards() {
     appendFilterControlsIfNeeded(appointmentsPage, appendFiltersContainer);
 
-    cleanList();
+    processDoctorCards();
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
@@ -112,7 +112,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function cleanList() {
+function processDoctorCards() {
     const doctorCards = getAllElements(DOCTOR_CARD_SELECTOR, appointmentsPage);
 
     doctorCards.forEach(processDoctorCard);
