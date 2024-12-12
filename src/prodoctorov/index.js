@@ -27,10 +27,10 @@ const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
 
 const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
 
-const CATEGORY_NAME = getURLPathElement(2);
+const SECTION_ID = getURLPathElement(2);
 
-const specFilter = new StoredInputValue(`${CATEGORY_NAME}-spec-filter`, null, processDoctorCards);
-const clinicFilter = new StoredInputValue(`${CATEGORY_NAME}-clinic-filter`, null, processDoctorCards);
+const specFilter = new StoredInputValue(`${SECTION_ID}-spec-filter`, null, processDoctorCards);
+const clinicFilter = new StoredInputValue(`${SECTION_ID}-clinic-filter`, null, processDoctorCards);
 const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10, processDoctorCards);
 const minExperienceFilter = new StoredInputValue('min-experience-filter', 5, processDoctorCards);
 const filterEnabled = new StoredInputValue('filter-enabled', true, processDoctorCards);
