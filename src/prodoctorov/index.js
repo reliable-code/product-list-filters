@@ -20,7 +20,6 @@ import {
 } from '../common/filter/factories/specificControls';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
-const SPECIAL_PLACEMENT_CARD_SELECTOR = '.b-doctor-card_special-placement';
 
 const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
@@ -49,8 +48,6 @@ if (appointmentsPage) {
 }
 
 function initListClean() {
-    // removeSpecialPlacementCards();
-
     appendFilterControlsIfNeeded(appointmentsPage, appendFiltersContainer);
 
     cleanList();
@@ -113,14 +110,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.prepend(filtersContainer);
-}
-
-function removeSpecialPlacementCards() {
-    const specialPlacementCards = getAllElements(SPECIAL_PLACEMENT_CARD_SELECTOR);
-
-    specialPlacementCards.forEach(
-        (specialPlacementCard) => specialPlacementCard.remove(),
-    );
 }
 
 function cleanList() {
