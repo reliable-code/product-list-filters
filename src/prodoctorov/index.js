@@ -38,9 +38,13 @@ const filterEnabled = new StoredInputValue('filter-enabled', true);
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 
 if (appointmentsPage) {
-    setInterval(initListClean, 100);
+    initDoctorListMods();
 } else {
     initDoctorPageMods();
+}
+
+function initDoctorListMods() {
+    setInterval(initListClean, 100);
 }
 
 function initListClean() {
