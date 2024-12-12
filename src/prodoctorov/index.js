@@ -29,11 +29,11 @@ const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
 
 const CATEGORY_NAME = getURLPathElement(2);
 
-const specFilter = new StoredInputValue(`${CATEGORY_NAME}-spec-filter`, null);
-const clinicFilter = new StoredInputValue(`${CATEGORY_NAME}-clinic-filter`, null);
-const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10);
-const minExperienceFilter = new StoredInputValue('min-experience-filter', 5);
-const filterEnabled = new StoredInputValue('filter-enabled', true);
+const specFilter = new StoredInputValue(`${CATEGORY_NAME}-spec-filter`, null, processDoctorCards);
+const clinicFilter = new StoredInputValue(`${CATEGORY_NAME}-clinic-filter`, null, processDoctorCards);
+const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10, processDoctorCards);
+const minExperienceFilter = new StoredInputValue('min-experience-filter', 5, processDoctorCards);
+const filterEnabled = new StoredInputValue('filter-enabled', true, processDoctorCards);
 
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 
@@ -44,10 +44,6 @@ if (appointmentsPage) {
 }
 
 function initDoctorListMods() {
-    setInterval(initProcessDoctorCards, 100);
-}
-
-function initProcessDoctorCards() {
     appendFilterControlsIfNeeded(appointmentsPage, appendFiltersContainer);
 
     processDoctorCards();
