@@ -58,6 +58,8 @@ export function initProductListMods() {
 }
 
 function appendFiltersContainer(filterControls, parentNode) {
+    addInputSpinnerButtons();
+
     applyStyles(filterControls, STYLES.FILTER_CONTROLS);
 
     const nameFilterDiv = createSearchFilterControl(
@@ -78,6 +80,15 @@ function appendFiltersContainer(filterControls, parentNode) {
     );
 
     insertAfter(parentNode, filterControls);
+}
+
+function addInputSpinnerButtons() {
+    window.GM_addStyle(`
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            display: block; 
+        }
+    `);
 }
 
 function processProductCards() {
