@@ -57,6 +57,8 @@ function appendReviewsInfoToHeader() {
         SELECTORS.REVIEWS_FILTER_SPAN, reviewsFilter, true,
     );
 
+    if (reviewsFilterSpans.length < 2) return;
+
     reviewsFilterSpans.slice(1)
         .forEach((reviewsFilterSpan) => {
             const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
