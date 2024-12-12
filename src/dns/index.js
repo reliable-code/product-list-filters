@@ -4,7 +4,12 @@ import { removeNonNumber } from '../common/string';
 import { getURLPathElement } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
-import { applyStyles, getAllElements, getFirstElement } from '../common/dom/helpers';
+import {
+    applyStyles,
+    getAllElements,
+    getFirstElement,
+    getFirstElementInnerNumber,
+} from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
@@ -91,8 +96,10 @@ function processProductCard(productCard) {
     }
 
     const productCardName = productCardNameWrap.innerText;
-    const productCardReviewsNumber = getProductCardReviewsNumber(productCardRatingWrap);
-    const productCardRatingNumber = +productCardRatingWrap.getAttribute('data-rating');
+    const productCardReviewsNode =
+        [...productCardRatingWrap.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+    const productCardReviewsNumber = getProductCardReviewsNumber(productCardReviewsNode);
+    const productCardRatingNumber = getFirstElementInnerNumber(productCardRatingWrap, 'b');
 
     const shouldHide =
         isNotMatchTextFilter(productCardName, nameFilter) ||
