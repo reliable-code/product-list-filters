@@ -23,7 +23,13 @@ import { STYLES } from './styles';
 import { getHashOrDefault } from '../common/hash/helpers';
 import { getURLPathElement } from '../common/url';
 
-const SEARCH_CONTROLS_SELECTOR = '[data-apiary-widget-name="@search/Controls"]';
+const SELECTORS = {
+    SEARCH_CONTROLS: '[data-apiary-widget-name="@search/Controls"]',
+    SEARCH_RESULTS: '[data-zone-name="searchResults"]',
+    PRODUCT_CARD: '[data-apiary-widget-name="@marketfront/SerpEntity"]',
+    PRODUCT_CARD_NAME: '[data-baobab-name="title"]',
+    PRODUCT_CARD_REVIEWS_WRAP: '[data-auto="reviews"]',
+};
 
 const SECTION_ID = getHashOrDefault(getURLPathElement(1));
 
@@ -37,18 +43,17 @@ const minReviewsFilter = createFilter('min-reviews-filter');
 const minRatingFilter = createFilter('min-rating-filter', 4.8);
 const filterEnabled = createFilter('filter-enabled', true);
 
-const searchControls = getFirstElement(SEARCH_CONTROLS_SELECTOR);
+const searchControls = getFirstElement(SELECTORS.SEARCH_CONTROLS);
 
 if (searchControls) {
     appendFilterControlsIfNeeded(searchControls, appendFiltersContainer);
-
     initProductListMods();
 }
 
 export function initProductListMods() {
     processProductCards();
 
-    const searchResults = getFirstElement('[data-zone-name="searchResults"]');
+    const searchResults = getFirstElement(SELECTORS.SEARCH_RESULTS);
     const observer = new MutationObserver(debounce(processProductCards, 50));
 
     observer.observe(searchResults, {
@@ -76,7 +81,7 @@ function appendFiltersContainer(filterControls, parentNode) {
 }
 
 function processProductCards() {
-    const productCards = getAllElements('[data-apiary-widget-name="@marketfront/SerpEntity"]');
+    const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
     productCards.forEach(processProductCard);
 }
@@ -87,8 +92,12 @@ function processProductCard(productCard) {
         return;
     }
 
-    const productCardName = getFirstElement('[data-baobab-name="title"]', productCard);
-    const productCardReviewsWrap = getFirstElement('[data-auto="reviews"]', productCard);
+    const productCardName = getFirstElement(
+        SELECTORS.PRODUCT_CARD_NAME, productCard,
+    );
+    const productCardReviewsWrap = getFirstElement(
+        SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard,
+    );
 
     if (!productCardName || !productCardReviewsWrap) {
         hideElement(productCard);
