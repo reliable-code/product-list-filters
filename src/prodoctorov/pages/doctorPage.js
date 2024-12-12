@@ -57,14 +57,12 @@ function appendReviewsInfoToHeader() {
         SELECTORS.REVIEWS_FILTER_SPAN, reviewsFilter, true,
     );
 
-    const lastReviewsFilterSpansIndex = reviewsFilterSpans.length - 1;
-
-    for (let i = 1; i <= lastReviewsFilterSpansIndex; i += 1) {
-        const reviewsFilterSpan = reviewsFilterSpans[i];
-        const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
-        reviewsFilterSpanCopy.addEventListener('click', scrollToParentAndClick(reviewsFilterSpan));
-        reviewsInfo.append(reviewsFilterSpanCopy);
-    }
+    reviewsFilterSpans.slice(1)
+        .forEach((reviewsFilterSpan) => {
+            const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
+            reviewsFilterSpanCopy.addEventListener('click', scrollToParentAndClick(reviewsFilterSpan));
+            reviewsInfo.append(reviewsFilterSpanCopy);
+        });
 
     nameSpan.append(reviewsInfoWrap);
 }
