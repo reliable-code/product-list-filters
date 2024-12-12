@@ -62,18 +62,14 @@ function appendReviewsInfoToHeader() {
     reviewsFilterSpans.slice(1)
         .forEach((reviewsFilterSpan) => {
             const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
-            reviewsFilterSpanCopy.addEventListener('click', scrollToParentAndClick(reviewsFilterSpan));
+            reviewsFilterSpanCopy.addEventListener('click', () => {
+                reviewsFilterSpan.parentNode.scrollIntoView({ behavior: 'smooth' });
+                reviewsFilterSpan.click();
+            });
             reviewsInfo.append(reviewsFilterSpanCopy);
         });
 
     nameSpan.append(reviewsInfoWrap);
-}
-
-function scrollToParentAndClick(element) {
-    return () => {
-        element.parentNode.scrollIntoView({ behavior: 'smooth' });
-        element.click();
-    };
 }
 
 function appendDoctorContactLink() {
