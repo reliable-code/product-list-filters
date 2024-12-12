@@ -60,7 +60,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         minReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const minRatingDiv = createMinRatingFilterControl(
-        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, 0.5,
+        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
