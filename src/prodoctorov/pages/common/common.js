@@ -1,16 +1,16 @@
 import { createLink } from '../../../common/dom/factories/elements';
 
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
+const SITE_NAMES = ['Яндекс', 'НаПоправку', 'DocDoc', 'Докту'];
 
 export function appendAdditionalLinks(doctorName, linksContainer) {
     if (linksContainer.classList.contains(ADDITIONAL_LINKS_APPENDED_CLASS)) {
         return;
     }
 
-    appendAdditionalLink(doctorName, linksContainer, 'Яндекс');
-    appendAdditionalLink(doctorName, linksContainer, 'НаПоправку');
-    appendAdditionalLink(doctorName, linksContainer, 'DocDoc');
-    appendAdditionalLink(doctorName, linksContainer, 'Докту');
+    SITE_NAMES.forEach((siteName) => {
+        appendAdditionalLink(doctorName, linksContainer, siteName);
+    });
 
     linksContainer.classList.add(ADDITIONAL_LINKS_APPENDED_CLASS);
 }
