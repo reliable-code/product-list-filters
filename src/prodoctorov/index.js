@@ -41,6 +41,10 @@ const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 if (appointmentsPage) {
     setInterval(initListClean, 100);
 } else {
+    initDoctorPageMods();
+}
+
+function initDoctorPageMods() {
     appendDoctorPageAdditionalLinks();
     appendReviewsInfoToHeader();
     appendDoctorContactLink();
