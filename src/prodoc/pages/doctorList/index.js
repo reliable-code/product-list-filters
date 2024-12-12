@@ -20,8 +20,17 @@ import {
 } from '../../../common/filter/factories/specificControls';
 import { STYLES } from './styles';
 
-const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
-const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
+const SELECTORS = {
+    DOCTOR_CARD: '.b-doctor-card',
+    DOCTOR_CARD_NAME: '.b-doctor-card__name-surname',
+    PROFILE_CARD: '.b-profile-card',
+    REVIEWS_LINK: ':scope > a',
+    EXPERIENCE_WRAP: '.b-doctor-card__experience .mr-2 .ui-text',
+    SPEC_WRAP: '.b-doctor-card__spec',
+    CLINIC_CONTAINER: 'div.b-doctor-card__lpu-select',
+    CLINIC_WRAP: '.b-select__trigger-main-text',
+};
+
 const SECTION_ID = getURLPathElement(2);
 
 function createGlobalFilter(filterName, defaultValue = null, onChange = processDoctorCards) {
@@ -79,7 +88,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function processDoctorCards() {
-    const doctorCards = getAllElements(DOCTOR_CARD_SELECTOR);
+    const doctorCards = getAllElements(SELECTORS.DOCTOR_CARD);
 
     doctorCards.forEach(processDoctorCard);
 }
@@ -90,30 +99,32 @@ function processDoctorCard(doctorCard) {
         return;
     }
 
-    const profileCard =
-        getFirstElement('.b-profile-card', doctorCard, true);
-
-    const reviewsLink =
-        getFirstElement(':scope > a', profileCard);
-
-    const experienceWrap =
-        getFirstElement('.b-doctor-card__experience .mr-2 .ui-text', doctorCard, true);
+    const profileCard = getFirstElement(
+        SELECTORS.PROFILE_CARD, doctorCard, true,
+    );
+    const reviewsLink = getFirstElement(
+        SELECTORS.REVIEWS_LINK, profileCard,
+    );
+    const experienceWrap = getFirstElement(
+        SELECTORS.EXPERIENCE_WRAP, doctorCard, true,
+    );
 
     if (!reviewsLink || !experienceWrap) {
         hideElement(doctorCard);
         return;
     }
 
-    const specWrap = getFirstElement('.b-doctor-card__spec', doctorCard, true);
-
+    const specWrap = getFirstElement(
+        SELECTORS.SPEC_WRAP, doctorCard, true,
+    );
     const specInfo = specWrap.innerText.trim();
 
-    const clinicContainer =
-        getFirstElement('div.b-doctor-card__lpu-select', doctorCard, true);
-
-    const clinicWrap =
-        getFirstElement('.b-select__trigger-main-text', clinicContainer, true);
-
+    const clinicContainer = getFirstElement(
+        SELECTORS.CLINIC_CONTAINER, doctorCard, true,
+    );
+    const clinicWrap = getFirstElement(
+        SELECTORS.CLINIC_WRAP, clinicContainer, true,
+    );
     const clinicName = clinicWrap.innerText.trim();
 
     const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
@@ -127,7 +138,7 @@ function processDoctorCard(doctorCard) {
         isLessThanFilter(experienceNumber, minExperienceFilter);
     updateElementDisplay(doctorCard, shouldHide);
 
-    const doctorCardName = getFirstElement(DOCTOR_CARD_NAME_SELECTOR, doctorCard, true);
+    const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
     const doctorName = doctorCardName.innerText;
 
     appendAdditionalLinks(doctorName, profileCard);
