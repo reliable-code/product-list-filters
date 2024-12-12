@@ -9,10 +9,10 @@ import {
 } from '../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    styleStringToObject,
 } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -57,53 +57,56 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style =
-        'display: flex;' +
-        'grid-gap: 15px;' +
-        'margin-top: 5px;' +
-        'font-size: 15px;';
+    const filtersContainerStyle = {
+        display: 'flex',
+        gridGap: '15px',
+        marginTop: '5px',
+        fontSize: '15px',
+    };
+    applyStyles(filtersContainer, filtersContainerStyle);
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;';
-    const controlStyleObj = styleStringToObject(controlStyle);
+    const controlStyle = {
+        display: 'flex',
+        alignItems: 'center',
+    };
+    const inputStyle = {
+        margin: '0px 4px',
+    };
+    const textInputStyle = {
+        ...inputStyle,
+        width: '180px',
+    };
+    const numberInputStyle = {
+        ...inputStyle,
+        width: '45px',
+    };
+    const checkboxInputStyle = {
+        ...inputStyle,
+        width: '20px',
+        height: '20px',
+    };
 
-    const inputStyle =
-        'margin: 0px 4px;';
-    const textInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 180px;';
-    const textInputStyleObj = styleStringToObject(textInputStyle);
-    const numberInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 45px;';
-    const checkboxInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 20px;' +
-        'height: 20px;';
-
-    const specFilterDiv =
-        createTextFilterControl('Специализация:', specFilter, controlStyleObj, textInputStyleObj);
-
-    const clinicFilterDiv =
-        createTextFilterControl('Клиника:', clinicFilter, controlStyleObj, textInputStyleObj);
-
-    const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(controlStyle), styleStringToObject(numberInputStyle));
-
-    const minExperienceDiv =
-        createNumberFilterControl(
-            'Мин. опыт: ',
-            minExperienceFilter,
-            '1',
-            '0',
-            '100',
-            styleStringToObject(controlStyle),
-            styleStringToObject(numberInputStyle),
-        );
-
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle));
+    const specFilterDiv = createTextFilterControl(
+        'Специализация:', specFilter, controlStyle, textInputStyle,
+    );
+    const clinicFilterDiv = createTextFilterControl(
+        'Клиника:', clinicFilter, controlStyle, textInputStyle,
+    );
+    const minReviewsDiv = createMinReviewsFilterControl(
+        minReviewsFilter, controlStyle, numberInputStyle,
+    );
+    const minExperienceDiv = createNumberFilterControl(
+        'Мин. опыт: ',
+        minExperienceFilter,
+        '1',
+        '0',
+        '100',
+        controlStyle,
+        numberInputStyle,
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, controlStyle, checkboxInputStyle,
+    );
 
     filtersContainer.append(
         specFilterDiv, clinicFilterDiv, minReviewsDiv, minExperienceDiv, filterEnabledDiv,
