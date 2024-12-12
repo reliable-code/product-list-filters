@@ -18,12 +18,12 @@ import {
     createEnabledFilterControl,
     createMinReviewsFilterControl,
 } from '../common/filter/factories/specificControls';
+import { appendAdditionalLinks } from './pages/common/common';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 
 const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
-const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 
 const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
 const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
@@ -169,31 +169,6 @@ function processDoctorCard(doctorCard) {
     const doctorName = doctorCardName.innerText;
 
     appendAdditionalLinks(doctorName, profileCard);
-}
-
-function appendAdditionalLinks(doctorName, linksContainer) {
-    if (linksContainer.classList.contains(ADDITIONAL_LINKS_APPENDED_CLASS)) {
-        return;
-    }
-
-    appendAdditionalLink(doctorName, linksContainer, 'Яндекс');
-    appendAdditionalLink(doctorName, linksContainer, 'НаПоправку');
-    appendAdditionalLink(doctorName, linksContainer, 'DocDoc');
-    appendAdditionalLink(doctorName, linksContainer, 'Докту');
-
-    linksContainer.classList.add(ADDITIONAL_LINKS_APPENDED_CLASS);
-}
-
-function appendAdditionalLink(doctorName, linksContainer, siteName) {
-    const searchString = `${doctorName} ${siteName}`;
-    const encodedSearchString = encodeURIComponent(searchString);
-
-    const lineBreak = document.createElement('br');
-
-    const href = `https://www.google.com/search?q=${encodedSearchString}&btnI`;
-    const searchUrlLink = createLink({}, siteName, href);
-
-    linksContainer.append(lineBreak, searchUrlLink);
 }
 
 function appendDoctorPageAdditionalLinks() {
