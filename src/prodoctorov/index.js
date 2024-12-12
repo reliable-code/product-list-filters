@@ -39,11 +39,11 @@ function createSectionFilter(filterName, defaultValue = null, onChange = process
     );
 }
 
-const specFilter = new StoredInputValue(`${SECTION_ID}-spec-filter`, null, processDoctorCards);
-const clinicFilter = new StoredInputValue(`${SECTION_ID}-clinic-filter`, null, processDoctorCards);
-const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10, processDoctorCards);
-const minExperienceFilter = new StoredInputValue('min-experience-filter', 5, processDoctorCards);
-const filterEnabled = new StoredInputValue('filter-enabled', true, processDoctorCards);
+const specFilter = createSectionFilter('spec-filter');
+const clinicFilter = createSectionFilter('clinic-filter');
+const minReviewsFilter = createSectionFilter('min-reviews-filter', 10);
+const minExperienceFilter = createSectionFilter('min-experience-filter', 5);
+const filterEnabled = createGlobalFilter('filter-enabled', true);
 
 const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE);
 
