@@ -1,6 +1,6 @@
-import { getAllElements, getFirstElement } from '../../common/dom/helpers';
-import { createDiv, createLink } from '../../common/dom/factories/elements';
-import { appendAdditionalLinks } from './common/common';
+import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
+import { createDiv, createLink } from '../../../common/dom/factories/elements';
+import { appendAdditionalLinks } from '../common/common';
 
 const SELECTORS = {
     DOCTOR_DETAILS: '.b-doctor-details__toc',
