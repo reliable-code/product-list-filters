@@ -29,6 +29,16 @@ const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
 
 const SECTION_ID = getURLPathElement(2);
 
+function createGlobalFilter(filterName, defaultValue = null, onChange = processDoctorCards) {
+    return StoredInputValue.create(filterName, defaultValue, onChange);
+}
+
+function createSectionFilter(filterName, defaultValue = null, onChange = processDoctorCards) {
+    return StoredInputValue.createWithCompositeKey(
+        SECTION_ID, filterName, defaultValue, onChange,
+    );
+}
+
 const specFilter = new StoredInputValue(`${SECTION_ID}-spec-filter`, null, processDoctorCards);
 const clinicFilter = new StoredInputValue(`${SECTION_ID}-clinic-filter`, null, processDoctorCards);
 const minReviewsFilter = new StoredInputValue('min-reviews-filter', 10, processDoctorCards);
