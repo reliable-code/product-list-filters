@@ -16,13 +16,15 @@ export function appendAdditionalLinks(doctorName, linksContainer) {
 }
 
 function appendAdditionalLink(doctorName, linksContainer, siteName) {
-    const searchString = `${doctorName} ${siteName}`;
-    const encodedSearchString = encodeURIComponent(searchString);
+    const searchUrl = getSearchUrl(doctorName, siteName);
+    const searchUrlLink = createLink({}, siteName, searchUrl);
 
     const lineBreak = document.createElement('br');
-
-    const href = `https://www.google.com/search?q=${encodedSearchString}&btnI`;
-    const searchUrlLink = createLink({}, siteName, href);
-
     linksContainer.append(lineBreak, searchUrlLink);
+}
+
+function getSearchUrl(doctorName, siteName) {
+    const searchString = `${doctorName} ${siteName}`;
+    const encodedSearchString = encodeURIComponent(searchString);
+    return `https://www.google.com/search?q=${encodedSearchString}&btnI`;
 }
