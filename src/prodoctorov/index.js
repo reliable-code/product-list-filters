@@ -186,6 +186,7 @@ function appendAdditionalLinks(doctorName, linksContainer) {
         return;
     }
 
+    appendAdditionalLink(doctorName, linksContainer, 'Яндекс');
     appendAdditionalLink(doctorName, linksContainer, 'НаПоправку');
     appendAdditionalLink(doctorName, linksContainer, 'DocDoc');
     appendAdditionalLink(doctorName, linksContainer, 'Докту');
