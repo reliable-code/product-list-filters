@@ -1,7 +1,6 @@
 import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElement } from '../common/url';
-import { createDiv, createLink } from '../common/dom/factories/elements';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
     createNumberFilterControl,
@@ -19,6 +18,7 @@ import {
     createMinReviewsFilterControl,
 } from '../common/filter/factories/specificControls';
 import { appendAdditionalLinks } from './pages/common/common';
+import { initDoctorPageMods } from './pages/doctorPage';
 
 const APPOINTMENTS_PAGE = '.appointments_page';
 
@@ -26,7 +26,6 @@ const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
 
 const DOCTOR_DETAILS_MAIN_SELECTOR = '.b-doctor-details__main';
-const DOCTOR_DETAILS_MENU_SELECTOR = '.b-doctor-details__toc';
 
 const CATEGORY_NAME = getURLPathElement(2);
 
@@ -42,13 +41,6 @@ if (appointmentsPage) {
     setInterval(initListClean, 100);
 } else {
     initDoctorPageMods();
-}
-
-function initDoctorPageMods() {
-    appendDoctorPageAdditionalLinks();
-    appendReviewsInfoToHeader();
-    appendDoctorContactLink();
-    clickMoreReviewsButtonWhileExists();
 }
 
 function initListClean() {
@@ -169,92 +161,4 @@ function processDoctorCard(doctorCard) {
     const doctorName = doctorCardName.innerText;
 
     appendAdditionalLinks(doctorName, profileCard);
-}
-
-function appendDoctorPageAdditionalLinks() {
-    const doctorCardName = getFirstElement('.b-doctor-intro__title-first-line [itemprop="name"]', document, true);
-    if (doctorCardName) {
-        const doctorName = doctorCardName.innerText.trim();
-        const linksContainer = createDiv();
-        linksContainer.style.textAlign = 'center';
-        const doctorIntroLeft = getFirstElement('.b-doctor-intro__left-side');
-        doctorIntroLeft.append(linksContainer);
-
-        appendAdditionalLinks(doctorName, linksContainer);
-    }
-}
-
-function appendReviewsInfoToHeader() {
-    const reviewsFilter =
-        getFirstElement('.reviews-filter:not(.b-reviews-page__filter)');
-
-    if (!reviewsFilter) return;
-
-    const nameSpanHolder =
-        getFirstElement('.b-doctor-intro__title-first-line', document, true);
-
-    if (!nameSpanHolder) return;
-
-    const nameSpan = getFirstElement('[itemprop="name"]', nameSpanHolder, true);
-
-    if (!nameSpan) return;
-
-    const reviewsInfo = createDiv();
-    reviewsInfo.style.position = 'absolute';
-    reviewsInfo.classList.add('v-application');
-    const reviewsInfoWrap = createDiv();
-    reviewsInfoWrap.style.position = 'relative';
-    reviewsInfoWrap.style.height = '45px';
-    reviewsInfoWrap.append(reviewsInfo);
-
-    const reviewsFilterSpans = getAllElements(':scope > span', reviewsFilter, true);
-
-    const lastReviewsFilterSpansIndex = reviewsFilterSpans.length - 1;
-
-    for (let i = 1; i <= lastReviewsFilterSpansIndex; i += 1) {
-        const reviewsFilterSpan = reviewsFilterSpans[i];
-        const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
-        reviewsFilterSpanCopy.addEventListener('click', scrollToParentAndClick(reviewsFilterSpan));
-        reviewsInfo.append(reviewsFilterSpanCopy);
-    }
-
-    nameSpan.append(reviewsInfoWrap);
-}
-
-function scrollToParentAndClick(element) {
-    return () => {
-        element.parentNode.scrollIntoView({ behavior: 'smooth' });
-        element.click();
-    };
-}
-
-function appendDoctorContactLink() {
-    const doctorContacts = getFirstElement('#doctor-contacts');
-
-    if (!doctorContacts) return;
-
-    const doctorDetailsMenu = [...getAllElements(DOCTOR_DETAILS_MENU_SELECTOR)].pop();
-
-    if (!doctorDetailsMenu) return;
-
-    doctorDetailsMenu.style.position = 'sticky';
-    doctorDetailsMenu.style.top = '16px';
-
-    const doctorContactsLinkTitle = createDiv({}, 'Место работы');
-    doctorContactsLinkTitle.classList.add('b-doctor-details__toc-title');
-    const doctorContactsLink = createLink({}, null, '#doctor-contacts');
-    doctorContactsLink.append(doctorContactsLinkTitle);
-    doctorContactsLink.classList.add('b-doctor-details__toc-item');
-
-    doctorDetailsMenu.insertBefore(doctorContactsLink, doctorDetailsMenu.firstChild);
-}
-
-function clickMoreReviewsButtonWhileExists() {
-    const moreReviewsButton = getFirstElement('[data-qa="show_more_list_items"]');
-
-    if (moreReviewsButton && !moreReviewsButton.classList.contains('d-none')) {
-        moreReviewsButton.click();
-    }
-
-    setTimeout(clickMoreReviewsButtonWhileExists, 250);
 }
