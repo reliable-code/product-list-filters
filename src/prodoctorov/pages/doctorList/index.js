@@ -9,7 +9,7 @@ import { hideElement, showElement, updateElementDisplay } from '../../../common/
 import { isLessThanFilter, isNotMatchTextFilter } from '../../../common/filter/compare';
 import { appendAdditionalLinks } from '../common/common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
-import { StoredInputValue } from '../../../common/storage/localstorage';
+import { StoredInputValue } from '../../../common/storage/storage';
 import {
     createNumberFilterControl,
     createTextFilterControl,
