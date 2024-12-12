@@ -12,7 +12,7 @@ const entries = [
     'mgntmkt',
     'ozon',
     'pepper',
-    'prodoctorov',
+    'prodoc',
     'vseins',
     'wb',
     'yamkt',
