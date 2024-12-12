@@ -18,7 +18,6 @@ export const STYLES = {
         alignItems: 'center',
         fontSize: '15px',
     },
-    INPUT: STYLES_BASE.INPUT,
     TEXT_INPUT: {
         ...STYLES_BASE.INPUT,
         width: '180px',

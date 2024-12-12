@@ -5,10 +5,6 @@ const STYLES_BASE = {
         borderRadius: '6px',
         padding: '6px 10px',
     },
-    CONTROL: {
-        display: 'flex',
-        alignItems: 'center',
-    },
 };
 export const STYLES = {
     CONTAINER: {
@@ -16,8 +12,10 @@ export const STYLES = {
         marginTop: '14px',
         gridGap: '15px',
     },
-    CONTROL: STYLES_BASE.CONTROL,
-    INPUT: STYLES_BASE.INPUT,
+    CONTROL: {
+        display: 'flex',
+        alignItems: 'center',
+    },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
         width: '90px',
