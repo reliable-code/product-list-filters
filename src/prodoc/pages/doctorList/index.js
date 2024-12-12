@@ -18,6 +18,7 @@ import {
     createEnabledFilterControl,
     createMinReviewsFilterControl,
 } from '../../../common/filter/factories/specificControls';
+import { STYLES } from './styles';
 
 const DOCTOR_CARD_SELECTOR = '.b-doctor-card';
 const DOCTOR_CARD_NAME_SELECTOR = '.b-doctor-card__name-surname';
@@ -45,49 +46,17 @@ export function initDoctorListMods(appointmentsPage) {
     processDoctorCards();
 }
 
-const STYLE_BASE = {
-    INPUT: {
-        margin: '0px 4px',
-    },
-};
-
-const STYLE = {
-    FILTERS_CONTAINER: {
-        display: 'flex',
-        gridGap: '15px',
-        marginTop: '5px',
-        fontSize: '15px',
-    },
-    CONTROL: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    TEXT_INPUT: {
-        ...STYLE_BASE.INPUT,
-        width: '180px',
-    },
-    NUMBER_INPUT: {
-        ...STYLE_BASE.INPUT,
-        width: '45px',
-    },
-    CHECKBOX_INPUT: {
-        ...STYLE_BASE.INPUT,
-        width: '20px',
-        height: '20px',
-    },
-};
-
 function appendFiltersContainer(filtersContainer, parentNode) {
-    applyStyles(filtersContainer, STYLE.FILTERS_CONTAINER);
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
     const specFilterDiv = createTextFilterControl(
-        'Специализация:', specFilter, STYLE.CONTROL, STYLE.TEXT_INPUT,
+        'Специализация:', specFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
     );
     const clinicFilterDiv = createTextFilterControl(
-        'Клиника:', clinicFilter, STYLE.CONTROL, STYLE.TEXT_INPUT,
+        'Клиника:', clinicFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
     );
     const minReviewsDiv = createMinReviewsFilterControl(
-        minReviewsFilter, STYLE.CONTROL, STYLE.NUMBER_INPUT,
+        minReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const minExperienceDiv = createNumberFilterControl(
         'Мин. опыт: ',
@@ -95,11 +64,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         '1',
         '0',
         '100',
-        STYLE.CONTROL,
-        STYLE.NUMBER_INPUT,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
     );
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, STYLE.CONTROL, STYLE.CHECKBOX_INPUT,
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(
