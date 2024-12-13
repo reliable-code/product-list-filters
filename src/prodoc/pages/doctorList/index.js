@@ -9,7 +9,6 @@ import { hideElement, showElement, updateElementDisplay } from '../../../common/
 import { isLessThanFilter, isNotMatchTextFilter } from '../../../common/filter/compare';
 import { appendAdditionalLinks } from '../common/common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
-import { StoredInputValue } from '../../../common/storage/storage';
 import {
     createNumberFilterControl,
     createTextFilterControl,
@@ -20,18 +19,14 @@ import {
 } from '../../../common/filter/factories/specificControls';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
+import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 
 const SECTION_ID = getURLPathElement(2);
 
-function createGlobalFilter(filterName, defaultValue = null, onChange = processDoctorCards) {
-    return StoredInputValue.create(filterName, defaultValue, onChange);
-}
-
-function createSectionFilter(filterName, defaultValue = null, onChange = processDoctorCards) {
-    return StoredInputValue.createWithCompositeKey(
-        SECTION_ID, filterName, defaultValue, onChange,
-    );
-}
+const {
+    createGlobalFilter,
+    createSectionFilter,
+} = createFilterFactory(processDoctorCards, SECTION_ID);
 
 const specFilter = createSectionFilter('spec-filter');
 const clinicFilter = createSectionFilter('clinic-filter');
