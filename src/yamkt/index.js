@@ -1,5 +1,4 @@
 import { debounce } from '../common/dom/utils';
-import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
@@ -24,19 +23,16 @@ import { STYLES } from './styles';
 import { getHashOrDefault } from '../common/hash/helpers';
 import { getURLPathElement } from '../common/url';
 import { SELECTORS } from './selectors';
+import { createFilterFactory } from '../common/filter/factories/createFilter';
 
 const SECTION_ID = getHashOrDefault(getURLPathElement(1));
 
-function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
-    return StoredInputValue.createWithCompositeKey(
-        SECTION_ID, filterName, defaultValue, onChange,
-    );
-}
+const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
 
-const nameFilter = createFilter('name-filter');
-const minReviewsFilter = createFilter('min-reviews-filter');
-const minRatingFilter = createFilter('min-rating-filter', 4.8);
-const filterEnabled = createFilter('filter-enabled', true);
+const nameFilter = createSectionFilter('name-filter');
+const minReviewsFilter = createSectionFilter('min-reviews-filter');
+const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
+const filterEnabled = createSectionFilter('filter-enabled', true);
 
 const searchControls = getFirstElement(SELECTORS.SEARCH_CONTROLS);
 
