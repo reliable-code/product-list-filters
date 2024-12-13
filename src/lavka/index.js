@@ -1,5 +1,4 @@
 import { debounce } from '../common/dom/utils';
-import { StoredInputValue } from '../common/storage/localstorage';
 import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
@@ -23,23 +22,26 @@ import {
 } from '../common/filter/factories/specificControls';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
+import { createFilterFactory } from '../common/filter/factories/createFilter';
 
-function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
-    return StoredInputValue.create(filterName, defaultValue, onChange);
-}
+const { createGlobalFilter } = createFilterFactory(processProductCards);
 
-const minDiscountFilter = createFilter('min-discount-filter');
-const maxPriceFilter = createFilter('max-price-filter');
-const filterEnabled = createFilter('filter-enabled', true);
+const minDiscountFilter = createGlobalFilter('min-discount-filter');
+const maxPriceFilter = createGlobalFilter('max-price-filter');
+const filterEnabled = createGlobalFilter('filter-enabled', true);
 
-const observerReloadInterval =
-    createFilter('observer-reload-interval', 3.5, runReloadTimerIfNeeded);
-const minObserverSectionLength =
-    createFilter('min-observer-section-length', 10);
-const showObserverNotification =
-    createFilter('show-observer-notification', true);
-const observerEnabled =
-    createFilter('observer-enabled', true, runReloadTimerIfNeeded);
+const observerReloadInterval = createGlobalFilter(
+    'observer-reload-interval', 3.5, runReloadTimerIfNeeded,
+);
+const minObserverSectionLength = createGlobalFilter(
+    'min-observer-section-length', 10,
+);
+const showObserverNotification = createGlobalFilter(
+    'show-observer-notification', true,
+);
+const observerEnabled = createGlobalFilter(
+    'observer-enabled', true, runReloadTimerIfNeeded,
+);
 
 let mainContent;
 let firstRun = true;
