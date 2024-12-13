@@ -1,4 +1,3 @@
-import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonNumber } from '../common/string';
 import { getURLPathElement } from '../common/url';
@@ -18,19 +17,16 @@ import {
 } from '../common/filter/factories/specificControls';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
+import { createFilterFactory } from '../common/filter/factories/createFilter';
 
 const SECTION_ID = getURLPathElement(3);
 
-function createFilter(filterName, defaultValue = null) {
-    return StoredInputValue.createWithCompositeKey(
-        SECTION_ID, filterName, defaultValue, processProductCards,
-    );
-}
+const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
 
-const nameFilter = createFilter('name-filter');
-const minReviewsFilter = createFilter('min-reviews-filter');
-const minRatingFilter = createFilter('min-rating-filter', 4.5);
-const filterEnabled = createFilter('filter-enabled', true);
+const nameFilter = createSectionFilter('name-filter');
+const minReviewsFilter = createSectionFilter('min-reviews-filter');
+const minRatingFilter = createSectionFilter('min-rating-filter', 4.5);
+const filterEnabled = createSectionFilter('filter-enabled', true);
 
 const productsPageList = getFirstElement(SELECTORS.PRODUCTS_PAGE_LIST);
 
