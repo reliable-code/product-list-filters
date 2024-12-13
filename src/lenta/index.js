@@ -1,4 +1,3 @@
-import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonDigit } from '../common/string';
 import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
@@ -26,18 +25,14 @@ import {
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { ATTRIBUTES } from './attributes';
+import { createFilterFactory } from '../common/filter/factories/createFilter';
 
 const SECTION_ID = getURLPathElementEnding(2);
 
-function createGlobalFilter(filterName, defaultValue = null) {
-    return StoredInputValue.create(filterName, defaultValue);
-}
-
-function createSectionFilter(filterName, defaultValue = null) {
-    return StoredInputValue.createWithCompositeKey(
-        SECTION_ID, filterName, defaultValue,
-    );
-}
+const {
+    createGlobalFilter,
+    createSectionFilter,
+} = createFilterFactory(processProductCards, SECTION_ID);
 
 const nameFilter = createSectionFilter('name-filter');
 const minRatingFilter = createSectionFilter('min-rating-filter', 4.1);
