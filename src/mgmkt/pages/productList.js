@@ -1,5 +1,4 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
-import { StoredInputValue } from '../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { addBalancedCashbackPriceIfNeeded } from './common/common';
 import { getURLPathElement } from '../../common/url';
@@ -26,20 +25,17 @@ import {
 } from '../../common/filter/factories/specificControls';
 import { ATTRIBUTES } from './common/attributes';
 import { STYLES } from './common/styles';
+import { createFilterFactory } from '../../common/filter/factories/createFilter';
 
 const SECTION_ID = getURLPathElement(2);
 
-function createFilter(filterName, defaultValue = null, onChange = processProductCards) {
-    return StoredInputValue.createWithCompositeKey(
-        SECTION_ID, filterName, defaultValue, onChange,
-    );
-}
+const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
 
-const nameFilter = createFilter('name-filter');
-const minCashbackFilter = createFilter('min-cashback-filter');
-const maxPriceFilter = createFilter('max-price-filter');
-const minDiscountFilter = createFilter('min-discount-filter');
-const sellerNameFilter = createFilter('seller-name-filter');
+const nameFilter = createSectionFilter('name-filter');
+const minCashbackFilter = createSectionFilter('min-cashback-filter');
+const maxPriceFilter = createSectionFilter('max-price-filter');
+const minDiscountFilter = createSectionFilter('min-discount-filter');
+const sellerNameFilter = createSectionFilter('seller-name-filter');
 const filterEnabled = new InputValue(false, processProductCards);
 
 const SELECTORS = {
