@@ -1,28 +1,28 @@
-import { debounce, waitForElement } from '../../common/dom/utils';
-import { getHashOrDefault } from '../../common/hash/helpers';
-import { getURLPathElementEnding } from '../../common/url';
-import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { InputValue } from '../../common/storage/models/inputValue';
-import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
-import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
+import { debounce, waitForElement } from '../../../common/dom/utils';
+import { getHashOrDefault } from '../../../common/hash/helpers';
+import { getURLPathElementEnding } from '../../../common/url';
+import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
+import { InputValue } from '../../../common/storage/models/inputValue';
+import { isGreaterThanFilter, isLessThanFilter } from '../../../common/filter/compare';
+import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
     applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-} from '../../common/dom/helpers';
+} from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinRatingFilterControl,
     createPriceFilterControl,
-} from '../../common/filter/factories/specificControls';
-import { createNumberFilterControl } from '../../common/filter/factories/genericControls';
-import { addBalancedCashbackPriceIfNeeded } from './common/common';
-import { ATTRIBUTES } from './common/attributes';
-import { STYLES } from './common/styles';
-import { createFilterFactory } from '../../common/filter/factories/createFilter';
+} from '../../../common/filter/factories/specificControls';
+import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
+import { addBalancedCashbackPriceIfNeeded } from '../common/common';
+import { ATTRIBUTES } from '../common/attributes';
+import { STYLES } from '../common/styles';
+import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 
 const PRODUCT_NAME_HASH = getHashOrDefault(getURLPathElementEnding(3));
 

@@ -1,32 +1,32 @@
-import { debounce, waitForElement } from '../../common/dom/utils';
-import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { addBalancedCashbackPriceIfNeeded } from './common/common';
-import { getURLPathElement } from '../../common/url';
-import { InputValue } from '../../common/storage/models/inputValue';
+import { debounce, waitForElement } from '../../../common/dom/utils';
+import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
+import { addBalancedCashbackPriceIfNeeded } from '../common/common';
+import { getURLPathElement } from '../../../common/url';
+import { InputValue } from '../../../common/storage/models/inputValue';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../../common/filter/compare';
-import { createTextFilterControl } from '../../common/filter/factories/genericControls';
-import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
+} from '../../../common/filter/compare';
+import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
+import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
     applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-} from '../../common/dom/helpers';
+} from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
     createMinCashbackFilterControl,
     createMinDiscountFilterControl,
     createSearchFilterControl,
-} from '../../common/filter/factories/specificControls';
-import { ATTRIBUTES } from './common/attributes';
-import { STYLES } from './common/styles';
-import { createFilterFactory } from '../../common/filter/factories/createFilter';
-import { getHashOrDefault } from '../../common/hash/helpers';
+} from '../../../common/filter/factories/specificControls';
+import { ATTRIBUTES } from '../common/attributes';
+import { STYLES } from '../common/styles';
+import { createFilterFactory } from '../../../common/filter/factories/createFilter';
+import { getHashOrDefault } from '../../../common/hash/helpers';
 
 const SECTION_ID = getHashOrDefault(getURLPathElement(2));
 
