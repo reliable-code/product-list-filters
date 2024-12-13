@@ -1,5 +1,4 @@
 import { waitForElement } from '../common/dom/utils';
-import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElementEnding, pathnameIncludesSome } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
@@ -19,6 +18,7 @@ import {
 } from '../common/filter/factories/specificControls';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
+import { createFilterFactory } from '../common/filter/factories/createFilter';
 
 let nameFilter;
 let minReviewsFilter;
@@ -82,17 +82,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function initFilters() {
     const sectionId = getURLPathElementEnding(2);
+    const { createSectionFilter } = createFilterFactory(processProductCards, sectionId);
 
-    const createFilter = (filterName, defaultValue = null) => (
-        StoredInputValue.createWithCompositeKey(
-            sectionId, filterName, defaultValue, processProductCards,
-        )
-    );
-
-    nameFilter = createFilter('name-filter');
-    minReviewsFilter = createFilter('min-reviews-filter');
-    minRatingFilter = createFilter('min-rating-filter', 4.8);
-    filterEnabled = createFilter('filter-enabled', true);
+    nameFilter = createSectionFilter('name-filter');
+    minReviewsFilter = createSectionFilter('min-reviews-filter');
+    minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
+    filterEnabled = createSectionFilter('filter-enabled', true);
 }
 
 function processProductCards() {
