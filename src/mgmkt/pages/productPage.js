@@ -2,7 +2,6 @@ import { debounce, waitForElement } from '../../common/dom/utils';
 import { getHashOrDefault } from '../../common/hash/helpers';
 import { getURLPathElementEnding } from '../../common/url';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { StoredInputValue } from '../../common/storage/storage';
 import { InputValue } from '../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
@@ -23,22 +22,18 @@ import { createNumberFilterControl } from '../../common/filter/factories/generic
 import { addBalancedCashbackPriceIfNeeded } from './common/common';
 import { ATTRIBUTES } from './common/attributes';
 import { STYLES } from './common/styles';
+import { createFilterFactory } from '../../common/filter/factories/createFilter';
 
 const PRODUCT_NAME_HASH = getHashOrDefault(getURLPathElementEnding(3));
 
-function createGlobalFilter(filterName, defaultValue = null, onChange = processOffers) {
-    return StoredInputValue.create(filterName, defaultValue, onChange);
-}
+const {
+    createGlobalFilter,
+    createSectionFilter,
+} = createFilterFactory(processOffers, PRODUCT_NAME_HASH);
 
-function createProductFilter(filterName, defaultValue = null, onChange = processOffers) {
-    return StoredInputValue.createWithCompositeKey(
-        PRODUCT_NAME_HASH, filterName, defaultValue, onChange,
-    );
-}
-
-const minCashbackFilter = createProductFilter('min-cashback-filter');
-const maxPriceFilter = createProductFilter('max-price-filter');
-const maxDiscountedPriceFilter = createProductFilter('max-discounted-price-filter');
+const minCashbackFilter = createSectionFilter('min-cashback-filter');
+const maxPriceFilter = createSectionFilter('max-price-filter');
+const maxDiscountedPriceFilter = createSectionFilter('max-discounted-price-filter');
 const minSellerRatingFilter = createGlobalFilter('min-seller-rating-filter');
 const couponValue = new InputValue(null, processOffers);
 const filterEnabled = createGlobalFilter('filter-enabled', false);
