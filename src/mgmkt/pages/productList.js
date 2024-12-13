@@ -26,8 +26,9 @@ import {
 import { ATTRIBUTES } from './common/attributes';
 import { STYLES } from './common/styles';
 import { createFilterFactory } from '../../common/filter/factories/createFilter';
+import { getHashOrDefault } from '../../common/hash/helpers';
 
-const SECTION_ID = getURLPathElement(2);
+const SECTION_ID = getHashOrDefault(getURLPathElement(2));
 
 const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
 
