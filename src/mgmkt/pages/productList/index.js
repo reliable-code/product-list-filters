@@ -27,6 +27,7 @@ import { ATTRIBUTES } from '../common/attributes';
 import { STYLES } from '../common/styles';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { getHashOrDefault } from '../../../common/hash/helpers';
+import { SELECTORS } from './selectors';
 
 const SECTION_ID = getHashOrDefault(getURLPathElement(2));
 
@@ -38,16 +39,6 @@ const maxPriceFilter = createSectionFilter('max-price-filter');
 const minDiscountFilter = createSectionFilter('min-discount-filter');
 const sellerNameFilter = createSectionFilter('seller-name-filter');
 const filterEnabled = new InputValue(false, processProductCards);
-
-const SELECTORS = {
-    PRODUCT_CARD_LIST_HEADER: '.catalog-listing-controls',
-    PRODUCT_CARD: '.catalog-item-desktop',
-    PRODUCT_CARD_PRICE: '.catalog-item-regular-desktop__price',
-    PRODUCT_CARD_CASHBACK: '.bonus-percent',
-    PRODUCT_CARD_TITLE: '.catalog-item-regular-desktop__title-link',
-    PRODUCT_CARD_DISCOUNT: '.discount-percentage__value',
-    PRODUCT_CARD_SELLER_NAME: '.merchant-info__name',
-};
 
 export async function initProductListMods() {
     await executeProductListMods();

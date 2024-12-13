@@ -23,6 +23,7 @@ import { addBalancedCashbackPriceIfNeeded } from '../common/common';
 import { ATTRIBUTES } from '../common/attributes';
 import { STYLES } from '../common/styles';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
+import { SELECTORS } from './selectors';
 
 const PRODUCT_NAME_HASH = getHashOrDefault(getURLPathElementEnding(3));
 
@@ -37,16 +38,6 @@ const maxDiscountedPriceFilter = createSectionFilter('max-discounted-price-filte
 const minSellerRatingFilter = createGlobalFilter('min-seller-rating-filter');
 const couponValue = new InputValue(null, processOffers);
 const filterEnabled = createGlobalFilter('filter-enabled', false);
-
-export const SELECTORS = {
-    APP: '#app',
-    OFFERS_FILTER: '.pdp-prices-filter',
-    OFFERS_CONTAINER: '.pdp-prices',
-    OFFER: '.pdp-prices .product-offer',
-    PRICE: '.product-offer-price__amount',
-    CASHBACK: '.bonus-percent',
-    SELLER_RATING: '.pdp-merchant-rating-block__rating',
-};
 
 export async function initProductPageMods() {
     await executeProductPageMods();
