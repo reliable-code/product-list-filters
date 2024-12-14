@@ -1,7 +1,6 @@
 import { heartStrikeDislikeIcon } from './icons';
 import { getPathnameElementEnding } from '../../../common/url';
 import { createLink, createSpan } from '../../../common/dom/factories/elements';
-import { addGlobalStyle } from '../../../common/dom/manipulation';
 import { applyStyles, getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
 
@@ -45,12 +44,12 @@ export function setCommonFiltersContainerStyles(filtersContainer, parentNode) {
 }
 
 function addInputSpinnerButtons() {
-    addGlobalStyle(
-        'input[type=number]::-webkit-inner-spin-button,' +
-        'input[type=number]::-webkit-outer-spin-button {' +
-        '    -webkit-appearance: auto;' +
-        '}',
-    );
+    window.GM_addStyle(`
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: auto;
+        }
+    `);
 }
 
 export function getFirstProductCardsWrap() {
@@ -70,17 +69,16 @@ export function moveProductCardToFirstWrapIfNeeded(productCard, firstProductCard
 }
 
 export function hideUnwantedElements() {
-    const css =
-        '[data-widget="bigPromoPDP"],' +
-        '[data-widget="blackFridayStatus"],' +
-        '[data-widget="cellList"],' +
-        '[data-widget="skuGrid"],' +
-        '[data-widget="skuShelfGoods"],' +
-        '[data-widget="tagList"],' +
-        '[data-widget="webInstallmentPurchase"],' +
-        '[data-widget="webOneClickButton"] {' +
-        '   display: none !important;' +
-        '}';
-
-    addGlobalStyle(css);
+    window.GM_addStyle(`
+        [data-widget="bigPromoPDP"],
+        [data-widget="blackFridayStatus"],
+        [data-widget="cellList"],
+        [data-widget="skuGrid"],
+        [data-widget="skuShelfGoods"],
+        [data-widget="tagList"],
+        [data-widget="webInstallmentPurchase"],
+        [data-widget="webOneClickButton"] {
+            display: none !important;
+        }
+    `);
 }
