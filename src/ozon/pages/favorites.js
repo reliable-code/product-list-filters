@@ -94,10 +94,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 async function addProcessListToQueue(priceTolerancePercentChanged = false) {
-    processListQueue = processListQueue.then(() => processList(priceTolerancePercentChanged));
+    processListQueue = processListQueue.then(
+        () => processProductCards(priceTolerancePercentChanged),
+    );
 }
 
-async function processList(priceTolerancePercentChanged = false) {
+async function processProductCards(priceTolerancePercentChanged = false) {
     const productCards = [...getAllElements(SELECTORS.PRODUCT_CARDS)];
     const firstProductCardsWrap = getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, firstProductCardsWrap);
