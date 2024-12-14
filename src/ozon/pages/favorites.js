@@ -25,7 +25,7 @@ import {
     createEnabledFilterControl,
     createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
-import { SELECTORS } from './common/selectors';
+import { SELECTORS as COMMON_SELECTORS } from './common/selectors';
 import { STYLES } from './common/styles';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
@@ -43,7 +43,7 @@ const filterEnabled =
 let processListQueue = Promise.resolve();
 
 export async function initFavoritesMods() {
-    const searchResultsSort = await waitForElement(document, SELECTORS.SEARCH_RESULTS_SORT);
+    const searchResultsSort = await waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
     await addProcessListToQueue();
@@ -100,7 +100,7 @@ async function addProcessListToQueue(priceTolerancePercentChanged = false) {
 }
 
 async function processProductCards(priceTolerancePercentChanged = false) {
-    const productCards = [...getAllElements(SELECTORS.PRODUCT_CARDS)];
+    const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS)];
     const firstProductCardsWrap = getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, firstProductCardsWrap);
 
@@ -126,7 +126,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
     }
 
-    const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
+    const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
 
     if (!productCardNameWrap) {
         hideElement(productCard);
