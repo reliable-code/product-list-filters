@@ -1,4 +1,4 @@
-import { getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
+import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
 
 const STORAGE_KEYS = {
     AUTO_CHECKOUT: 'autoCheckout',
