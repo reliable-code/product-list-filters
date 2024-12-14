@@ -16,7 +16,6 @@ import { hideElement, showElement, updateElementDisplay } from '../../../common/
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import {
     ATTRIBUTES,
-    CURRENT_PRICE_ATTR,
     GOOD_PRICE_ATTR,
     LOWEST_PRICE_ATTR,
 } from '../../../common/priceHistory/attributes';
@@ -118,7 +117,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
 
     if (
         priceTolerancePercentChanged &&
-        productCard.hasAttribute(CURRENT_PRICE_ATTR) &&
+        productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
         productCard.hasAttribute(LOWEST_PRICE_ATTR)
     ) {
         const priceContainerWrap = getPriceContainer(productCard).parentNode;
@@ -156,7 +155,7 @@ async function appendStoredPriceValuesIfNeeded(productCard) {
 
     await appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
 
-    if (productCard.hasAttribute(CURRENT_PRICE_ATTR) &&
+    if (productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
         productCard.hasAttribute(LOWEST_PRICE_ATTR)) {
         checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
     }
@@ -177,7 +176,7 @@ async function appendStoredPriceValues(priceContainer, productCard, priceContain
     const priceData = await appendPriceHistory(priceContainer, priceSpan, productArticle);
 
     if (priceData) {
-        productCard.setAttribute(CURRENT_PRICE_ATTR, priceData.current);
+        productCard.setAttribute(ATTRIBUTES.CURRENT_PRICE, priceData.current);
         productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
 
         priceContainerWrap.style.display = 'block';

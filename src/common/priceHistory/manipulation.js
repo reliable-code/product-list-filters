@@ -1,5 +1,5 @@
 import { createDiv, createSpan } from '../dom/factories/elements';
-import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './attributes';
+import { ATTRIBUTES, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './attributes';
 import { getElementInnerNumber } from '../dom/helpers';
 import { getStorageValue, setStorageValueAsync } from '../storage/storage';
 import { ProductData } from '../models/productData';
@@ -303,7 +303,7 @@ function updatePriceHistory(currentProduct, currentPriceValue) {
 
 // todo: Determine "good price" based on price history (3-6 months)
 export function checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercentValue) {
-    const currentPrice = productCard.getAttribute(CURRENT_PRICE_ATTR);
+    const currentPrice = productCard.getAttribute(ATTRIBUTES.CURRENT_PRICE);
     const lowestPrice = productCard.getAttribute(LOWEST_PRICE_ATTR);
 
     const priceToleranceFactor = 1 + (priceTolerancePercentValue / 100);
