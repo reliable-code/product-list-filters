@@ -6,7 +6,7 @@ import { somePathElementEquals } from '../common/url';
 import { getFirstElement } from '../common/dom/helpers';
 import { runMigration as migrateDb } from './db/db';
 import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
-import { hideUnwantedElements } from './pages/common/common';
+import { hideUnwantedElements } from './pages/common';
 
 const COMMENTS_SELECTOR = '#comments';
 

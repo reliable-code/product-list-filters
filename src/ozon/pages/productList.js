@@ -14,7 +14,7 @@ import {
     SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
-} from './common/common';
+} from './common';
 import { getURLPathElement, getURLQueryStringParam, somePathElementEquals } from '../../common/url';
 import {
     isGreaterThanFilter,

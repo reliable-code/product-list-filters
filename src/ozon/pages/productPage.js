@@ -1,5 +1,5 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
-import { createDislikeButton } from './common/common';
+import { createDislikeButton } from './common';
 import { thumbsDownIcon } from './common/icons';
 import { removeSpaces } from '../../common/string';
 import { getURLPathElementEnding } from '../../common/url';

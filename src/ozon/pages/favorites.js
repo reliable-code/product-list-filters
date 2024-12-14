@@ -11,7 +11,7 @@ import {
     SEARCH_RESULTS_SORT_SELECTOR,
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
-} from './common/common';
+} from './common';
 import { StoredInputValue } from '../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../common/filter/compare';
