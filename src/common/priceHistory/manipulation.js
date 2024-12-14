@@ -1,5 +1,5 @@
 import { createDiv, createSpan } from '../dom/factories/elements';
-import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './constants';
+import { CURRENT_PRICE_ATTR, GOOD_PRICE_ATTR, LOWEST_PRICE_ATTR } from './attributes';
 import { getElementInnerNumber } from '../dom/helpers';
 import { getStorageValue, setStorageValueAsync } from '../storage/storage';
 import { ProductData } from '../models/productData';

@@ -19,7 +19,7 @@ import {
     CURRENT_PRICE_ATTR,
     GOOD_PRICE_ATTR,
     LOWEST_PRICE_ATTR,
-} from '../../../common/priceHistory/constants';
+} from '../../../common/priceHistory/attributes';
 import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,

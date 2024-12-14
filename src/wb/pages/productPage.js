@@ -1,7 +1,7 @@
 import { waitForElement } from '../../common/dom/utils';
 import { getURLPathElementEnding } from '../../common/url';
 import { getFirstElement } from '../../common/dom/helpers';
-import { APPEND_PRICE_HISTORY_PASSED_ATTR } from '../../common/priceHistory/constants';
+import { APPEND_PRICE_HISTORY_PASSED_ATTR } from '../../common/priceHistory/attributes';
 import { appendPriceHistory } from '../../common/priceHistory/manipulation';
 import { getPriceSpan } from './common/common';
 
