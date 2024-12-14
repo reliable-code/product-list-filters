@@ -3,6 +3,7 @@ import { getPathnameElementEnding } from '../../../common/url';
 import { createLink, createSpan } from '../../../common/dom/factories/elements';
 import { applyStyles, getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
+import { SELECTORS } from './selectors';
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
@@ -45,7 +46,7 @@ function addInputSpinnerButtons() {
 }
 
 export function getFirstProductCardsWrap() {
-    return getFirstElement('.widget-search-result-container').firstChild;
+    return getFirstElement(SELECTORS.PRODUCT_CARDS_WRAP);
 }
 
 export function moveProductCardsToFirstWrap(productCards, firstProductCardsWrap) {
