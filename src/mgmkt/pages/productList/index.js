@@ -1,6 +1,6 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
-import { addBalancedCashbackPriceIfNeeded } from '../common/common';
+import { addBalancedCashbackPriceIfNeeded } from '../common';
 import { getURLPathElement } from '../../../common/url';
 import { InputValue } from '../../../common/storage/models/inputValue';
 import {

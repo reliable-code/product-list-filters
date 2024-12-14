@@ -19,7 +19,7 @@ import {
     createPriceFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
-import { addBalancedCashbackPriceIfNeeded } from '../common/common';
+import { addBalancedCashbackPriceIfNeeded } from '../common';
 import { ATTRIBUTES } from '../common/attributes';
 import { STYLES } from '../common/styles';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
