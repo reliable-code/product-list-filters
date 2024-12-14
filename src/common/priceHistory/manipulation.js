@@ -1,5 +1,5 @@
 import { createDiv, createSpan } from '../dom/factories/elements';
-import { ATTRIBUTES, GOOD_PRICE_ATTR } from './attributes';
+import { ATTRIBUTES } from './attributes';
 import { getElementInnerNumber } from '../dom/helpers';
 import { getStorageValue, setStorageValueAsync } from '../storage/storage';
 import { ProductData } from '../models/productData';
@@ -316,7 +316,7 @@ export function checkIfGoodPrice(priceContainerWrap, productCard, priceTolerance
         priceContainerWrap.style.marginBottom = '5px';
         priceContainerWrap.style.width = '-webkit-fill-available';
 
-        productCard.setAttribute(GOOD_PRICE_ATTR, '');
+        productCard.setAttribute(ATTRIBUTES.GOOD_PRICE, '');
     } else {
         const stylePropertiesToRemove =
             ['border', 'borderRadius', 'padding', 'marginBottom', 'width'];
@@ -324,6 +324,6 @@ export function checkIfGoodPrice(priceContainerWrap, productCard, priceTolerance
             (property) => priceContainerWrap.style.removeProperty(property),
         );
 
-        productCard.removeAttribute(GOOD_PRICE_ATTR);
+        productCard.removeAttribute(ATTRIBUTES.GOOD_PRICE);
     }
 }

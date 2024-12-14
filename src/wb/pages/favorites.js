@@ -18,7 +18,7 @@ import {
 } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getFirstElement, styleStringToObject } from '../../common/dom/helpers';
-import { ATTRIBUTES, GOOD_PRICE_ATTR } from '../../common/priceHistory/attributes';
+import { ATTRIBUTES } from '../../common/priceHistory/attributes';
 import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
@@ -205,5 +205,5 @@ async function handlePriceData(productCard, priceContainer, priceTolerancePercen
 }
 
 function isNotMatchBestPriceFilter(productCard) {
-    return bestPriceFilter.value ? !productCard.hasAttribute(GOOD_PRICE_ATTR) : false;
+    return bestPriceFilter.value ? !productCard.hasAttribute(ATTRIBUTES.GOOD_PRICE) : false;
 }
