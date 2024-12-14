@@ -19,7 +19,7 @@ import {
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getFirstElement, styleStringToObject } from '../../common/dom/helpers';
 import {
-    APPEND_STORED_PRICE_VALUES_PASSED_ATTR,
+    ATTRIBUTES,
     CURRENT_PRICE_ATTR,
     GOOD_PRICE_ATTR,
     LOWEST_PRICE_ATTR,
@@ -155,11 +155,11 @@ async function processList(priceTolerancePercentChanged = false) {
 }
 
 async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
-    if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) return;
+    if (productCard.hasAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED)) return;
 
     const outOfStock = getFirstElement('.goods-card__out-stock', productCard);
     if (outOfStock) {
-        productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+        productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
         return;
     }
 
@@ -191,7 +191,7 @@ async function appendStoredPriceValues(priceContainer, productCard, priceContain
     getFirstElement('.goods-card__similar', priceContainerWrap)
         ?.remove();
 
-    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+    productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
 }
 
 async function handlePriceData(productCard, priceContainer, priceTolerancePercentChanged) {

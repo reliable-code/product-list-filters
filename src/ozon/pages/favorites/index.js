@@ -15,7 +15,7 @@ import {
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import {
-    APPEND_STORED_PRICE_VALUES_PASSED_ATTR,
+    ATTRIBUTES,
     CURRENT_PRICE_ATTR,
     GOOD_PRICE_ATTR,
     LOWEST_PRICE_ATTR,
@@ -143,11 +143,11 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
 }
 
 async function appendStoredPriceValuesIfNeeded(productCard) {
-    if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) return;
+    if (productCard.hasAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED)) return;
 
     const additionalInfo = getFirstElement(SELECTORS.ADDITIONAL_INFO, productCard);
     if (additionalInfo?.innerText === 'Нет в наличии') {
-        productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+        productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
         return;
     }
 
@@ -183,5 +183,5 @@ async function appendStoredPriceValues(priceContainer, productCard, priceContain
         priceContainerWrap.style.display = 'block';
     }
 
-    productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
+    productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
 }
