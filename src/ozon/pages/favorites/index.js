@@ -1,37 +1,33 @@
-import { debounce, waitForElement } from '../../common/dom/utils';
+import { debounce, waitForElement } from '../../../common/dom/utils';
 import {
     getFirstProductCardsWrap,
     getProductArticleFromLink,
     moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
-} from './common';
-import { StoredInputValue } from '../../common/storage/storage';
-import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { isNotMatchTextFilter } from '../../common/filter/compare';
+} from '../common';
+import { StoredInputValue } from '../../../common/storage/storage';
+import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
+import { isNotMatchTextFilter } from '../../../common/filter/compare';
 import {
     createCheckboxFilterControl,
     createNumberFilterControl,
-} from '../../common/filter/factories/genericControls';
-import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
-import { getAllElements, getFirstElement } from '../../common/dom/helpers';
+} from '../../../common/filter/factories/genericControls';
+import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
+import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import {
     APPEND_STORED_PRICE_VALUES_PASSED_ATTR,
     CURRENT_PRICE_ATTR,
     GOOD_PRICE_ATTR,
     LOWEST_PRICE_ATTR,
-} from '../../common/priceHistory/constants';
-import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
+} from '../../../common/priceHistory/constants';
+import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
     createSearchFilterControl,
-} from '../../common/filter/factories/specificControls';
-import { SELECTORS as COMMON_SELECTORS } from './common/selectors';
-import { STYLES } from './common/styles';
-
-const SELECTORS = {
-    PAGINATOR: '[data-widget="paginator"]',
-    ADDITIONAL_INFO: '.tsBodyControl400Small',
-};
+} from '../../../common/filter/factories/specificControls';
+import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
+import { STYLES } from '../common/styles';
+import { SELECTORS } from './selectors';
 
 const nameFilter =
     new StoredInputValue('favorites-name-filter', null, addProcessListToQueue);
