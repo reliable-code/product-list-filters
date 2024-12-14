@@ -2,7 +2,8 @@ import { heartStrikeDislikeIcon } from './icons';
 import { getPathnameElementEnding } from '../../../common/url';
 import { createLink, createSpan } from '../../../common/dom/factories/elements';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
-import { getFirstElement } from '../../../common/dom/helpers';
+import { applyStyles, getFirstElement } from '../../../common/dom/helpers';
+import { STYLES } from './styles';
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
@@ -27,8 +28,9 @@ export function createDislikeButton(onClick, needLabel = true) {
     };
 
     if (needLabel) {
-        const productDislikeButtonSpan =
-            createSpan({ paddingLeft: '8px' }, 'Дизлайк');
+        const productDislikeButtonSpan = createSpan(
+            { paddingLeft: '8px' }, 'Дизлайк',
+        );
         productDislikeButton.append(productDislikeButtonSpan);
     }
 
@@ -38,20 +40,8 @@ export function createDislikeButton(onClick, needLabel = true) {
 export function setCommonFiltersContainerStyles(filtersContainer, parentNode) {
     addInputSpinnerButtons();
 
-    filtersContainer.style =
-        'display: flex;' +
-        'flex-flow: wrap;' +
-        'grid-gap: 15px;' +
-        'min-width: 1250px;';
-
-    parentNode.style =
-        'position: sticky;' +
-        'top: 2px;' +
-        'background-color: #fff;' +
-        'z-index: 2;' +
-        'padding-bottom: 11px;' +
-        'margin-bottom: 0;' +
-        'gap: 15px;';
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
+    applyStyles(parentNode, STYLES.FILTERS_CONTAINER_WRAP);
 }
 
 function addInputSpinnerButtons() {
