@@ -40,4 +40,11 @@ export const STYLES = {
         width: '25px',
         height: '25px',
     },
+    DISLIKE_BUTTON: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        marginLeft: 'auto',
+        color: 'rgba(0, 26, 52, 0.6)',
+        cursor: 'pointer',
+    },
 };

@@ -10,15 +10,7 @@ export function getProductArticleFromLink(productCardLink) {
 }
 
 export function createDislikeButton(onClick, needLabel = true) {
-    const style = {
-        display: 'inline-flex',
-        alignItems: 'center',
-        marginLeft: 'auto',
-        color: 'rgba(0, 26, 52, 0.6)',
-        cursor: 'pointer',
-    };
-
-    const productDislikeButton = createLink(style, heartStrikeDislikeIcon);
+    const productDislikeButton = createLink(STYLES.DISLIKE_BUTTON, heartStrikeDislikeIcon);
 
     productDislikeButton.onclick = () => {
         if (window.confirm('Выставить низкий рейтинг?')) {
