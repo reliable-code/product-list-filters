@@ -2,15 +2,12 @@ import { addStorageValueListener, StoredInputValue } from '../../common/storage/
 import { debounce, waitForElement } from '../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
 import {
-    CHECKBOX_INPUT_STYLE,
-    CONTROL_STYLE,
     createDislikeButton,
     getFirstProductCardsWrap,
     getProductArticleFromLink,
     moveProductCardToFirstWrapIfNeeded,
-    NUMBER_INPUT_STYLE,
     setCommonFiltersContainerStyles,
-    TEXT_INPUT_STYLE,
+    STYLES,
 } from './common';
 import { getURLPathElement, getURLQueryStringParam, somePathElementEquals } from '../../common/url';
 import {
@@ -25,7 +22,6 @@ import {
     getArrayElementInnerNumber,
     getElementInnerNumber,
     getFirstElement,
-    styleStringToObject,
 } from '../../common/dom/helpers';
 import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
 import {
@@ -103,37 +99,36 @@ export function initProductListMods() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     setCommonFiltersContainerStyles(filtersContainer, parentNode);
 
-    const nameFilterDiv =
-        createSearchFilterControl(nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE));
-
-    const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));
-
-    const maxReviewsDiv =
-        createMaxReviewsFilterControl(maxReviewsFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));
-
-    const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));
-
-    const noRatingDiv =
-        createNoRatingFilterControl(noRatingFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE));
-
-    const maxPriceDiv =
-        createMaxPriceFilterControl(maxPriceFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE), '25');
-
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE));
-
-    const nameLinesNumberDiv =
-        createNumberFilterControl(
-            'Строк: ',
-            nameLinesNumber,
-            1,
-            1,
-            10,
-            styleStringToObject(CONTROL_STYLE),
-            styleStringToObject(NUMBER_INPUT_STYLE),
-        );
+    const nameFilterDiv = createSearchFilterControl(
+        nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
+    );
+    const minReviewsDiv = createMinReviewsFilterControl(
+        minReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const maxReviewsDiv = createMaxReviewsFilterControl(
+        maxReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const minRatingDiv = createMinRatingFilterControl(
+        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const noRatingDiv = createNoRatingFilterControl(
+        noRatingFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+    );
+    const maxPriceDiv = createMaxPriceFilterControl(
+        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, '25',
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+    );
+    const nameLinesNumberDiv = createNumberFilterControl(
+        'Строк: ',
+        nameLinesNumber,
+        1,
+        1,
+        10,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+    );
 
     filtersContainer.append(
         nameFilterDiv,

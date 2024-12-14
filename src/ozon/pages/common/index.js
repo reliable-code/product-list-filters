@@ -4,24 +4,34 @@ import { createLink, createSpan } from '../../../common/dom/factories/elements';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
 import { getFirstElement } from '../../../common/dom/helpers';
 
-const INPUT_STYLE =
-    'margin-left: 5px;' +
-    'border: 2px solid #b3bcc5;' +
-    'border-radius: 6px;' +
-    'padding: 6px 10px;';
-export const NUMBER_INPUT_STYLE =
-    INPUT_STYLE + // eslint-disable-line prefer-template
-    'width: 75px;';
-export const TEXT_INPUT_STYLE =
-    INPUT_STYLE + // eslint-disable-line prefer-template
-    'width: 180px;';
-export const CONTROL_STYLE =
-    'display: flex;' +
-    'align-items: center;';
-export const CHECKBOX_INPUT_STYLE =
-    'margin-left: 5px;' +
-    'width: 25px;' +
-    'height: 25px;';
+const STYLES_BASE = {
+    INPUT: {
+        marginLeft: '5px',
+        border: '2px solid #b3bcc5',
+        borderRadius: '6px',
+        padding: '6px 10px',
+    },
+};
+
+export const STYLES = {
+    NUMBER_INPUT: {
+        ...STYLES_BASE.INPUT,
+        width: '75px',
+    },
+    TEXT_INPUT: {
+        ...STYLES_BASE.INPUT,
+        width: '180px',
+    },
+    CONTROL: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    CHECKBOX_INPUT: {
+        marginLeft: '5px',
+        width: '25px',
+        height: '25px',
+    },
+};
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
