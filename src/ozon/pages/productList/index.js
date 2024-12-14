@@ -37,7 +37,7 @@ import {
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { getHashOrDefault } from '../../../common/hash/helpers';
-import { SELECTORS } from '../common/selectors';
+import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { STYLES } from '../common/styles';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
@@ -85,7 +85,7 @@ function getCategoryName() {
 }
 
 export function initProductListMods() {
-    waitForElement(document, SELECTORS.SEARCH_RESULTS_SORT)
+    waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT)
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
             addStorageValueListener('last-rate-update', cleanList);
@@ -149,7 +149,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const productCards = getAllElements(SELECTORS.PRODUCT_CARDS, paginatorContent);
+    const productCards = getAllElements(COMMON_SELECTORS.PRODUCT_CARDS, paginatorContent);
 
     const firstProductCardsWrap = getFirstProductCardsWrap();
 
@@ -173,7 +173,7 @@ function cleanList() {
             const productArticle = getProductArticleFromLink(productCardLink);
 
             const productCardNameWrap =
-                getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
+                getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
 
             const productCardPriceWrap =
                 getFirstElement(PRODUCT_CARD_PRICE_SELECTOR, productCard);
