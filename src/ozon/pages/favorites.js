@@ -4,7 +4,6 @@ import {
     getProductArticleFromLink,
     moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
-    STYLES,
 } from './common';
 import { StoredInputValue } from '../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
@@ -27,6 +26,7 @@ import {
     createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
 import { SELECTORS } from './common/selectors';
+import { STYLES } from './common/styles';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 

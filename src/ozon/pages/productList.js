@@ -7,7 +7,6 @@ import {
     getProductArticleFromLink,
     moveProductCardToFirstWrapIfNeeded,
     setCommonFiltersContainerStyles,
-    STYLES,
 } from './common';
 import { getURLPathElement, getURLQueryStringParam, somePathElementEquals } from '../../common/url';
 import {
@@ -35,6 +34,7 @@ import {
 } from '../../common/filter/factories/specificControls';
 import { getHashOrDefault } from '../../common/hash/helpers';
 import { SELECTORS } from './common/selectors';
+import { STYLES } from './common/styles';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
