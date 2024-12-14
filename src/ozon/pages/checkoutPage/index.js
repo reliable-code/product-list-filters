@@ -1,6 +1,15 @@
 import { getElementInnerNumber, getFirstElement } from '../../../common/dom/helpers';
 import { STORAGE_KEYS } from './storageKeys';
 
+const isAutoCheckout = () => isBoolStorageOption(STORAGE_KEYS.AUTO_CHECKOUT);
+const isAutoSkipCart = () => isBoolStorageOption(STORAGE_KEYS.AUTO_SKIP_CART);
+const isAutoReloadCheckout = () => isBoolStorageOption(STORAGE_KEYS.AUTO_RELOAD_CHECKOUT);
+const isAutoCheckoutProd = () => isBoolStorageOption(STORAGE_KEYS.AUTO_CHECKOUT_PROD);
+
+function isBoolStorageOption(key) {
+    return getBoolStorageOption(key) === '1';
+}
+
 export function initCheckoutMods() {
     if (isAutoCheckout()) {
         autoBuyIfGoodPrice();
@@ -24,26 +33,6 @@ function getBoolStorageOption(key, defaultValue = '0') {
 
     localStorage.setItem(key, defaultValue);
     return defaultValue;
-}
-
-function isBoolStorageOption(key) {
-    return getBoolStorageOption(key) === '1';
-}
-
-function isAutoCheckout() {
-    return isBoolStorageOption(STORAGE_KEYS.AUTO_CHECKOUT);
-}
-
-function isAutoSkipCart() {
-    return isBoolStorageOption(STORAGE_KEYS.AUTO_SKIP_CART);
-}
-
-function isAutoReloadCheckout() {
-    return isBoolStorageOption(STORAGE_KEYS.AUTO_RELOAD_CHECKOUT);
-}
-
-function isAutoCheckoutProd() {
-    return isBoolStorageOption(STORAGE_KEYS.AUTO_CHECKOUT_PROD);
 }
 
 function autoSkipCartOrReload() {
