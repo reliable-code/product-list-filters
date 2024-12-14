@@ -65,6 +65,7 @@ function checkCheckoutGoodPrice() {
         return;
     }
 
+    // eslint-disable-next-line no-restricted-globals
     if (confirm('Установить цену для автопокупки?')) {
         const autoCheckoutGoodPrice = prompt('Введите допустимую цену:');
         localStorage.setItem(STORAGE_KEYS.AUTO_CHECKOUT_GOOD_PRICE, autoCheckoutGoodPrice);
