@@ -147,18 +147,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function cleanList() {
     const productCards = getAllElements(SELECTORS.PRODUCT_CARDS, paginatorContent);
 
-    const productCardsLength = productCards.length;
-    warnIfListNotFull(productCardsLength);
-
     const firstProductCardsWrap = getFirstProductCardsWrap();
-
-    let showCounter = 0;
 
     productCards.forEach(
         (productCard) => {
             if (!filterEnabled.value) {
                 showElement(productCard);
-                showCounter += 1;
                 return;
             }
 
@@ -238,20 +232,8 @@ function cleanList() {
                 isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
                 isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
             updateElementDisplay(productCard, shouldHide);
-
-            if (!shouldHide) showCounter += 1;
         },
     );
-
-    console.log(`Отображено: ${showCounter} из ${productCardsLength}`);
-}
-
-function warnIfListNotFull(productCardsLength, defaultLength = 36) {
-    if (productCardsLength === defaultLength || window.location.search.includes('text')) {
-        return;
-    }
-
-    console.warn(`Озон предоставил ${productCardsLength} позиций из ${defaultLength}`);
 }
 
 function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
