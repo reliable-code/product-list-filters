@@ -18,11 +18,7 @@ import {
 } from '../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
 import { getAllElements, getFirstElement, styleStringToObject } from '../../common/dom/helpers';
-import {
-    ATTRIBUTES,
-    GOOD_PRICE_ATTR,
-    LOWEST_PRICE_ATTR,
-} from '../../common/priceHistory/attributes';
+import { ATTRIBUTES, GOOD_PRICE_ATTR } from '../../common/priceHistory/attributes';
 import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
@@ -167,7 +163,7 @@ async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
     await appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
 
     if (productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
-        productCard.hasAttribute(LOWEST_PRICE_ATTR)) {
+        productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)) {
         checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
     }
 }
@@ -183,7 +179,7 @@ async function appendStoredPriceValues(priceContainer, productCard, priceContain
 
     if (priceData) {
         productCard.setAttribute(ATTRIBUTES.CURRENT_PRICE, priceData.current);
-        productCard.setAttribute(LOWEST_PRICE_ATTR, priceData.lowest);
+        productCard.setAttribute(ATTRIBUTES.LOWEST_PRICE, priceData.lowest);
         priceContainerWrap.style.display = 'block';
     }
 
@@ -199,7 +195,7 @@ async function handlePriceData(productCard, priceContainer, priceTolerancePercen
     if (
         !priceTolerancePercentChanged ||
         !productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) ||
-        !productCard.hasAttribute(LOWEST_PRICE_ATTR)
+        !productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)
     ) {
         return;
     }
