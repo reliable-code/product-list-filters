@@ -5,7 +5,6 @@ import {
     moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
 } from '../common';
-import { StoredInputValue } from '../../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../../common/filter/compare';
 import {
@@ -23,16 +22,16 @@ import {
 import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
+import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 
-const nameFilter =
-    new StoredInputValue('favorites-name-filter', null, addProcessListToQueue);
-const bestPriceFilter =
-    new StoredInputValue('best-price-filter', false, addProcessListToQueue);
+const { createGlobalFilter } = createFilterFactory(addProcessListToQueue);
+
 const onPriceTolerancePercentChange = () => addProcessListToQueue(true);
-const priceTolerancePercent =
-    new StoredInputValue('price-tolerance-percent', 3, onPriceTolerancePercentChange);
-const filterEnabled =
-    new StoredInputValue('favorites-filter-enabled', true, addProcessListToQueue);
+
+const nameFilter = createGlobalFilter('favorites-name-filter');
+const bestPriceFilter = createGlobalFilter('best-price-filter', false);
+const priceTolerancePercent = createGlobalFilter('price-tolerance-percent', 3, onPriceTolerancePercentChange);
+const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
 
 let processListQueue = Promise.resolve();
 
