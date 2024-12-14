@@ -1,28 +1,32 @@
-import { addStorageValueListener, StoredInputValue } from '../../common/storage/storage';
-import { debounce, waitForElement } from '../../common/dom/utils';
-import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
+import { addStorageValueListener, StoredInputValue } from '../../../common/storage/storage';
+import { debounce, waitForElement } from '../../../common/dom/utils';
+import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
     createDislikeButton,
     getFirstProductCardsWrap,
     getProductArticleFromLink,
     moveProductCardToFirstWrapIfNeeded,
     setCommonFiltersContainerStyles,
-} from './common';
-import { getURLPathElement, getURLQueryStringParam, somePathElementEquals } from '../../common/url';
+} from '../common';
+import {
+    getURLPathElement,
+    getURLQueryStringParam,
+    somePathElementEquals,
+} from '../../../common/url';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../../common/filter/compare';
-import { createNumberFilterControl } from '../../common/filter/factories/genericControls';
-import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
+} from '../../../common/filter/compare';
+import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
+import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
     getAllElements,
     getArrayElementInnerNumber,
     getElementInnerNumber,
     getFirstElement,
-} from '../../common/dom/helpers';
-import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
+} from '../../../common/dom/helpers';
+import { getStoredRatingValue, setStoredRatingValue } from '../../db/db';
 import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
@@ -31,10 +35,10 @@ import {
     createMinReviewsFilterControl,
     createNoRatingFilterControl,
     createSearchFilterControl,
-} from '../../common/filter/factories/specificControls';
-import { getHashOrDefault } from '../../common/hash/helpers';
-import { SELECTORS } from './common/selectors';
-import { STYLES } from './common/styles';
+} from '../../../common/filter/factories/specificControls';
+import { getHashOrDefault } from '../../../common/hash/helpers';
+import { SELECTORS } from '../common/selectors';
+import { STYLES } from '../common/styles';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
