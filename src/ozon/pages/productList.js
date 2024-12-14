@@ -9,7 +9,6 @@ import {
     getProductArticleFromLink,
     moveProductCardToFirstWrapIfNeeded,
     NUMBER_INPUT_STYLE,
-    SELECTORS,
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
 } from './common';
@@ -39,6 +38,7 @@ import {
     createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
 import { getHashOrDefault } from '../../common/hash/helpers';
+import { SELECTORS } from './common/selectors';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);

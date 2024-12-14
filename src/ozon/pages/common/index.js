@@ -4,12 +4,6 @@ import { createLink, createSpan } from '../../../common/dom/factories/elements';
 import { addGlobalStyle } from '../../../common/dom/manipulation';
 import { getFirstElement } from '../../../common/dom/helpers';
 
-export const SELECTORS = {
-    SEARCH_RESULTS_SORT: '[data-widget="searchResultsSort"]',
-    PRODUCT_CARDS: '.widget-search-result-container > div > div.tile-root',
-    PRODUCT_CARD_NAME: '.tsBody500Medium',
-};
-
 const INPUT_STYLE =
     'margin-left: 5px;' +
     'border: 2px solid #b3bcc5;' +

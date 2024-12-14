@@ -6,7 +6,6 @@ import {
     getProductArticleFromLink,
     moveProductCardsToFirstWrap,
     NUMBER_INPUT_STYLE,
-    SELECTORS,
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
 } from './common';
@@ -30,6 +29,7 @@ import {
     createEnabledFilterControl,
     createSearchFilterControl,
 } from '../../common/filter/factories/specificControls';
+import { SELECTORS } from './common/selectors';
 
 const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
 
