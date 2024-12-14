@@ -9,9 +9,7 @@ import {
     getProductArticleFromLink,
     moveProductCardToFirstWrapIfNeeded,
     NUMBER_INPUT_STYLE,
-    PRODUCT_CARD_NAME_SELECTOR,
-    PRODUCT_CARDS_SELECTOR,
-    SEARCH_RESULTS_SORT_SELECTOR,
+    SELECTORS,
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
 } from './common';
@@ -87,7 +85,7 @@ function getCategoryName() {
 }
 
 export function initProductListMods() {
-    waitForElement(document, SEARCH_RESULTS_SORT_SELECTOR)
+    waitForElement(document, SELECTORS.SEARCH_RESULTS_SORT)
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
             addStorageValueListener('last-rate-update', cleanList);
@@ -152,7 +150,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const productCards = getAllElements(PRODUCT_CARDS_SELECTOR, paginatorContent);
+    const productCards = getAllElements(SELECTORS.PRODUCT_CARDS, paginatorContent);
 
     const productCardsLength = productCards.length;
     warnIfListNotFull(productCardsLength);
@@ -182,7 +180,7 @@ function cleanList() {
             const productArticle = getProductArticleFromLink(productCardLink);
 
             const productCardNameWrap =
-                getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+                getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
 
             const productCardPriceWrap =
                 getFirstElement(PRODUCT_CARD_PRICE_SELECTOR, productCard);
