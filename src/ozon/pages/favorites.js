@@ -28,7 +28,10 @@ import {
 import { SELECTORS as COMMON_SELECTORS } from './common/selectors';
 import { STYLES } from './common/styles';
 
-const PAGINATOR_SELECTOR = '[data-widget="paginator"]';
+const SELECTORS = {
+    PAGINATOR: '[data-widget="paginator"]',
+    ADDITIONAL_INFO: '.tsBodyControl400Small',
+};
 
 const nameFilter =
     new StoredInputValue('favorites-name-filter', null, addProcessListToQueue);
@@ -50,7 +53,7 @@ export async function initFavoritesMods() {
 
     const observer = new MutationObserver(debounce(addProcessListToQueue));
 
-    const paginator = getFirstElement(PAGINATOR_SELECTOR);
+    const paginator = getFirstElement(SELECTORS.PAGINATOR);
     observer.observe(paginator, {
         childList: true,
         subtree: true,
@@ -146,8 +149,8 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
 async function appendStoredPriceValuesIfNeeded(productCard) {
     if (productCard.hasAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR)) return;
 
-    const additionalInfoDiv = getFirstElement('.tsBodyControl400Small', productCard);
-    if (additionalInfoDiv?.innerText === 'Нет в наличии') {
+    const additionalInfo = getFirstElement(SELECTORS.ADDITIONAL_INFO, productCard);
+    if (additionalInfo?.innerText === 'Нет в наличии') {
         productCard.setAttribute(APPEND_STORED_PRICE_VALUES_PASSED_ATTR, '');
         return;
     }
