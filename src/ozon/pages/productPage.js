@@ -158,15 +158,6 @@ async function appendRatingValue(starsContainer) {
     }
 }
 
-function getCountedRatingValueFromRatingInfoContainer(ratingInfo) {
-    const ratingValueContainer = ratingInfo.children[0].children[1];
-
-    const ratingValueSpan = ratingValueContainer.children[0];
-    const ratingValue = getRatingValue(ratingValueSpan);
-
-    return ratingValue;
-}
-
 function getRatingValueFromRatingInfo(ratingInfo) {
     const ratingCounters = ratingInfo.children[2].children;
 
