@@ -67,18 +67,11 @@ const nameLinesNumber =
 let processListQueue = Promise.resolve();
 
 function getSectionId() {
-    let sectionId;
+    const sectionName = somePathElementEquals('search')
+        ? getURLQueryStringParam('text')
+        : getURLPathElement(2, '');
 
-    if (somePathElementEquals('search')) {
-        const textParam = getURLQueryStringParam('text');
-        sectionId = getHashOrDefault(textParam);
-    } else {
-        const sectionIdPathElement = getURLPathElement(2, '');
-
-        sectionId = getHashOrDefault(sectionIdPathElement);
-    }
-
-    return sectionId;
+    return getHashOrDefault(sectionName);
 }
 
 export async function initProductListMods(paginatorContent) {
