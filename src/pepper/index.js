@@ -18,19 +18,13 @@ import {
 } from '../common/dom/helpers';
 import { createEnabledFilterControl } from '../common/filter/factories/specificControls';
 import { createFilterFactory } from '../common/filter/factories/createFilter';
+import { SELECTORS } from './selectors';
 
 const { createGlobalFilter } = createFilterFactory(initListClean);
 
 const minVotesFilter = createGlobalFilter('min-votes-filter', 50);
 const showExpiredFilter = createGlobalFilter('show-expired-filter', false);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
-
-const SELECTORS = {
-    DISCUSSIONS: 'div.md\\:block.hidden.common-box:nth-of-type(3)',
-    PRODUCT_CARD_CONTAINER: '#deals-container',
-    PRODUCT_CARD: '.deal-card',
-    PRODUCT_CARD_RATING: '.common-box span',
-};
 
 setInterval(initListClean, 100);
 await makeDiscussionsSticky();

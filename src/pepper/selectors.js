@@ -1,0 +1,6 @@
+export const SELECTORS = {
+    DISCUSSIONS: 'div.md\\:block.hidden.common-box:nth-of-type(3)',
+    PRODUCT_CARD_CONTAINER: '#deals-container',
+    PRODUCT_CARD: '.deal-card',
+    PRODUCT_CARD_RATING: '.common-box span',
+};
