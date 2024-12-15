@@ -234,13 +234,18 @@ function anyRatingFilterHasValue() {
 
 function getProductCardRatingNumber(productCardRatingWrapSpans, productArticle) {
     const storedRatingValue = getStoredRatingValue(productArticle);
-    if (storedRatingValue) {
-        productCardRatingWrapSpans[0].children[1].textContent = storedRatingValue.toString()
-            .padEnd(5);
-        return storedRatingValue;
+    if (!storedRatingValue) {
+        return getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
     }
 
-    return getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
+    updateRatingText(productCardRatingWrapSpans, storedRatingValue);
+
+    return storedRatingValue;
+}
+
+function updateRatingText(productCardRatingWrapSpans, storedRatingValue) {
+    productCardRatingWrapSpans[0].children[1].textContent = storedRatingValue.toString()
+        .padEnd(5);
 }
 
 function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
