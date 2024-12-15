@@ -20,6 +20,14 @@ const SELECTORS = {
     PRODUCT_REVIEWS_INFO: '.tsBodyControl500Medium',
 };
 
+const STYLES = {
+    BAD_REVIEWS_LINK: {
+        alignItems: 'center',
+        display: 'flex',
+        color: 'rgba(0, 26, 52, 0.6)',
+    },
+};
+
 export async function initProductPageMods() {
     await Promise.all([
         initAppendPriceHistory(),
@@ -134,13 +142,8 @@ function appendBadReviewsLink(productReviewsWrap) {
     const productBadReviewsLinkWrap = createDiv();
     productBadReviewsLinkWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
 
-    const linkStyle = {
-        alignItems: 'center',
-        display: 'flex',
-        color: 'rgba(0, 26, 52, 0.6)',
-    };
     const productBadReviewsLink = createLink(
-        linkStyle, thumbsDownIcon, `${productReviewsLink.href}?sort=score_asc`,
+        STYLES.BAD_REVIEWS_LINK, thumbsDownIcon, `${productReviewsLink.href}?sort=score_asc`,
     );
     const productBadReviewsLinkSpan = createSpan(
         { paddingLeft: '8px' }, 'Плохие отзывы',
