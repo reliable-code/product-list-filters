@@ -4,4 +4,6 @@ export const SELECTORS = {
     WEB_GALLERY: '[data-widget="webGallery"]',
     WEB_PRODUCT_HEADING: '[data-widget="webProductHeading"]',
     PRODUCT_REVIEWS_INFO: '.tsBodyControl500Medium',
+    REVIEWS_CONTAINER: '[data-widget="webReviewTabs"]',
+    REVIEWS_CONTAINER_COLUMNS: '[data-widget="column"]',
 };

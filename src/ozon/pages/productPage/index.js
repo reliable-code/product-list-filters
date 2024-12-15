@@ -148,10 +148,14 @@ async function appendRatingValue(starsContainer) {
     }
 
     try {
-        const reviewsContainer = await waitForElement(document, '[data-widget="webReviewTabs"]');
-        const reviewsContainerColumns = getAllElements('[data-widget="column"]', reviewsContainer);
+        const reviewsContainer = await waitForElement(document, SELECTORS.REVIEWS_CONTAINER);
+        const reviewsContainerColumns = getAllElements(
+            SELECTORS.REVIEWS_CONTAINER_COLUMNS, reviewsContainer,
+        );
         const reviewsInfoContainer = reviewsContainerColumns[2];
-        const ratingInfoContainer = await waitForElement(reviewsInfoContainer, ':scope > div:not([data-widget])');
+        const ratingInfoContainer = await waitForElement(
+            reviewsInfoContainer, ':scope > div:not([data-widget])',
+        );
 
         const ratingInfo = ratingInfoContainer?.children[0];
         if (!ratingInfo) return;
