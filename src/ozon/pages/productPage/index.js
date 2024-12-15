@@ -14,6 +14,7 @@ import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 
 const SELECTORS = {
     PRODUCT_REVIEWS_WRAP: '[data-widget="webSingleProductScore"]',
+    PRICE_CONTAINER: '[data-widget="webPrice"]',
 };
 
 export async function initProductPageMods() {
@@ -32,13 +33,17 @@ export async function initProductPageMods() {
 }
 
 async function initAppendPriceHistory() {
-    const priceContainer = await waitForElement(document, '[data-widget="webPrice"]');
+    const priceContainer = await waitForElement(document, SELECTORS.PRICE_CONTAINER);
     if (!priceContainer) return;
 
     const productArticle = getProductArticleFromPathname();
     const priceSpan = getFirstElement('span', priceContainer);
 
     await appendPriceHistory(priceContainer, priceSpan, productArticle);
+}
+
+function getProductArticleFromPathname() {
+    return getURLPathElementEnding(2, 'unknown');
 }
 
 async function initSkipFirstGalleryVideo() {
@@ -87,10 +92,6 @@ function appendDislikeButton(productReviewsWrap) {
 
 function getProductReviewsInfoClassList(productReviewsWrap) {
     return getFirstElement('.tsBodyControl500Medium', productReviewsWrap).classList;
-}
-
-function getProductArticleFromPathname() {
-    return getURLPathElementEnding(2, 'unknown');
 }
 
 function dislikeProduct(starsContainer) {
