@@ -129,33 +129,25 @@ function replaceRatingValue(starsContainer, ratingValue) {
 function appendBadReviewsLink(productReviewsWrap) {
     const productReviewsLink = getFirstElement('a', productReviewsWrap);
 
-    if (productReviewsLink) {
-        const productBadReviewsLinkWrap = createDiv();
-        productBadReviewsLinkWrap.classList =
-            getProductReviewsInfoClassList(productReviewsWrap);
+    if (!productReviewsLink) return;
 
-        const style = {
-            alignItems: 'center',
-            display: 'flex',
-            color: 'rgba(0, 26, 52, 0.6)',
-        };
+    const productBadReviewsLinkWrap = createDiv();
+    productBadReviewsLinkWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
 
-        const productBadReviewsLink =
-            createLink(
-                style,
-                thumbsDownIcon,
-                `${productReviewsLink.href}?sort=score_asc`,
-            );
-
-        const productBadReviewsLinkSpan =
-            createSpan({ paddingLeft: '8px' }, 'Плохие отзывы');
-
-        productBadReviewsLink.append(productBadReviewsLinkSpan);
-
-        productBadReviewsLinkWrap.append(productBadReviewsLink);
-
-        insertAfter(productReviewsWrap.parentNode, productBadReviewsLinkWrap);
-    }
+    const linkStyle = {
+        alignItems: 'center',
+        display: 'flex',
+        color: 'rgba(0, 26, 52, 0.6)',
+    };
+    const productBadReviewsLink = createLink(
+        linkStyle, thumbsDownIcon, `${productReviewsLink.href}?sort=score_asc`,
+    );
+    const productBadReviewsLinkSpan = createSpan(
+        { paddingLeft: '8px' }, 'Плохие отзывы',
+    );
+    productBadReviewsLink.append(productBadReviewsLinkSpan);
+    productBadReviewsLinkWrap.append(productBadReviewsLink);
+    insertAfter(productReviewsWrap.parentNode, productBadReviewsLinkWrap);
 }
 
 async function appendRatingValue(starsContainer) {
