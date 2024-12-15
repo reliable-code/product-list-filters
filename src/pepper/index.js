@@ -1,7 +1,5 @@
 import { waitForElement } from '../common/dom/utils';
-import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
-import { InputValue } from '../common/storage/models/inputValue';
 import { isLessThanFilter } from '../common/filter/compare';
 import {
     createCheckboxFilterControl,
@@ -19,10 +17,13 @@ import {
     styleStringToObject,
 } from '../common/dom/helpers';
 import { createEnabledFilterControl } from '../common/filter/factories/specificControls';
+import { createFilterFactory } from '../common/filter/factories/createFilter';
 
-const minVotesFilter = new InputValue(50);
-const showExpiredFilter = new StoredInputValue('show-expired-filter', false);
-const filterEnabled = new StoredInputValue('filter-enabled', true);
+const { createGlobalFilter } = createFilterFactory(initListClean);
+
+const minVotesFilter = createGlobalFilter('min-votes-filter', 50);
+const showExpiredFilter = createGlobalFilter('show-expired-filter', false);
+const filterEnabled = createGlobalFilter('filter-enabled', true);
 
 const PRODUCT_CARD_CONTAINER_SELECTOR = '#deals-container';
 const PRODUCT_CARD_SELECTOR = '.deal-card';
