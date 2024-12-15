@@ -165,8 +165,7 @@ function processProductCard(productCard) {
         return;
     }
 
-    const productCardLink =
-        getFirstElement('a', productCard);
+    const productCardLink = getFirstElement('a', productCard);
 
     if (!productCardLink) {
         hideElement(productCard);
@@ -175,11 +174,9 @@ function processProductCard(productCard) {
 
     const productArticle = getProductArticleFromLink(productCardLink);
 
-    const productCardNameWrap =
-        getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
+    const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
 
-    const productCardPriceWrap =
-        getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
+    const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
 
     if (!productCardNameWrap || !productCardPriceWrap) {
         hideElement(productCard);
@@ -188,11 +185,9 @@ function processProductCard(productCard) {
 
     productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
 
-    const productCardPriceNumber =
-        getElementInnerNumber(productCardPriceWrap, true);
+    const productCardPriceNumber = getElementInnerNumber(productCardPriceWrap, true);
 
-    const productCardRatingWrap =
-        getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
+    const productCardRatingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
 
     let productCardReviewsNumber;
     let productCardRatingNumber;
@@ -206,17 +201,19 @@ function processProductCard(productCard) {
             return;
         }
     } else {
-        const productCardRatingWrapSpans =
-            getAllElements(':scope > span', productCardRatingWrap, true);
-
-        productCardReviewsNumber =
-            getArrayElementInnerNumber(productCardRatingWrapSpans, 1, true);
+        const productCardRatingWrapSpans = getAllElements(
+            ':scope > span', productCardRatingWrap, true,
+        );
+        productCardReviewsNumber = getArrayElementInnerNumber(
+            productCardRatingWrapSpans, 1, true,
+        );
 
         const storedRatingValue = getStoredRatingValue(productArticle);
 
         if (!storedRatingValue) {
-            productCardRatingNumber =
-                getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
+            productCardRatingNumber = getArrayElementInnerNumber(
+                productCardRatingWrapSpans, 0,
+            );
         } else {
             productCardRatingNumber = storedRatingValue;
 
