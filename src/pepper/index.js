@@ -25,21 +25,20 @@ const minVotesFilter = createGlobalFilter('min-votes-filter', 50);
 const showExpiredFilter = createGlobalFilter('show-expired-filter', false);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
 
-const PRODUCT_CARD_CONTAINER_SELECTOR = '#deals-container';
-const PRODUCT_CARD_SELECTOR = '.deal-card';
-const PRODUCT_CARD_RATING_SELECTOR = '.common-box span';
-
 const SELECTORS = {
     DISCUSSIONS: 'div.md\\:block.hidden.common-box:nth-of-type(3)',
+    PRODUCT_CARD_CONTAINER: '#deals-container',
+    PRODUCT_CARD: '.deal-card',
+    PRODUCT_CARD_RATING: '.common-box span',
 };
 
 setInterval(initListClean, 100);
 await makeDiscussionsSticky();
 
-const productCardList = getFirstElement(PRODUCT_CARD_CONTAINER_SELECTOR);
+const productCardList = getFirstElement(SELECTORS.PRODUCT_CARD_CONTAINER);
 
 function initListClean() {
-    const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
+    const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
     if (productCardList && productCards.length) {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
@@ -121,7 +120,7 @@ function cleanList(productCards) {
                 return;
             }
 
-            const productCardRating = getFirstElement(PRODUCT_CARD_RATING_SELECTOR, productCard);
+            const productCardRating = getFirstElement(SELECTORS.PRODUCT_CARD_RATING, productCard);
 
             if (productCardRating.innerText.includes('Новое')) return;
 
