@@ -17,6 +17,7 @@ const SELECTORS = {
     PRICE_CONTAINER: '[data-widget="webPrice"]',
     WEB_GALLERY: '[data-widget="webGallery"]',
     WEB_PRODUCT_HEADING: '[data-widget="webProductHeading"]',
+    PRODUCT_REVIEWS_INFO: '.tsBodyControl500Medium',
 };
 
 export async function initProductPageMods() {
@@ -102,7 +103,7 @@ function appendDislikeButton(productReviewsWrap) {
 }
 
 function getProductReviewsInfoClassList(productReviewsWrap) {
-    return getFirstElement('.tsBodyControl500Medium', productReviewsWrap).classList;
+    return getFirstElement(SELECTORS.PRODUCT_REVIEWS_INFO, productReviewsWrap).classList;
 }
 
 function dislikeProduct(starsContainer) {
