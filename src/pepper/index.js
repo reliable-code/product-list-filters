@@ -37,7 +37,7 @@ function initListClean() {
     if (productCardList && productCards.length) {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
 
-        cleanList(productCards);
+        processProductCards(productCards);
     }
 }
 
@@ -97,7 +97,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function cleanList(productCards) {
+function processProductCards(productCards) {
     productCards.forEach(processProductCard);
 }
 
