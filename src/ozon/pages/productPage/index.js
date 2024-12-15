@@ -15,6 +15,8 @@ import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 const SELECTORS = {
     PRODUCT_REVIEWS_WRAP: '[data-widget="webSingleProductScore"]',
     PRICE_CONTAINER: '[data-widget="webPrice"]',
+    WEB_GALLERY: '[data-widget="webGallery"]',
+    WEB_PRODUCT_HEADING: '[data-widget="webProductHeading"]',
 };
 
 export async function initProductPageMods() {
@@ -47,7 +49,7 @@ function getProductArticleFromPathname() {
 }
 
 async function initSkipFirstGalleryVideo() {
-    const webGallery = await waitForElement(document, '[data-widget="webGallery"]');
+    const webGallery = await waitForElement(document, SELECTORS.WEB_GALLERY);
     if (!webGallery) return;
 
     const observer = new MutationObserver(debounce(() => {
@@ -73,7 +75,16 @@ function skipFirstGalleryVideo(webGallery) {
             .every((ic) => firstGalleryItem.classList.contains(ic));
 
     if (firstGalleryItemIsImage) return;
+
     secondGalleryItem.click();
+}
+
+async function extendProductNameMaxHeight() {
+    const webProductHeading = await waitForElement(document, SELECTORS.WEB_PRODUCT_HEADING);
+    if (!webProductHeading) return;
+
+    const productName = getFirstElement('h1', webProductHeading);
+    if (productName) productName.style.maxHeight = '90px';
 }
 
 function appendDislikeButton(productReviewsWrap) {
@@ -199,15 +210,4 @@ function replaceRatingValue(starsContainer, ratingValue) {
     const starsContainerTextArray = starsContainer.textContent.split(' • ');
     const reviewsCountText = starsContainerTextArray[1] ?? starsContainerTextArray[0];
     starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
-}
-
-async function extendProductNameMaxHeight() {
-    const webProductHeading =
-        await waitForElement(document, '[data-widget="webProductHeading"]');
-    if (!webProductHeading) return;
-
-    const productName = getFirstElement('h1', webProductHeading);
-    if (productName) {
-        productName.style.maxHeight = '90px';
-    }
 }
