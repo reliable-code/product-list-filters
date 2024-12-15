@@ -12,14 +12,7 @@ import {
 import { getStoredRatingValue, setStoredRatingValue } from '../../db/db';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { SELECTORS } from './selectors';
-
-const STYLES = {
-    BAD_REVIEWS_LINK: {
-        alignItems: 'center',
-        display: 'flex',
-        color: 'rgba(0, 26, 52, 0.6)',
-    },
-};
+import { STYLES } from './styles';
 
 export async function initProductPageMods() {
     await Promise.all([
