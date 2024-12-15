@@ -84,20 +84,19 @@ function getCategoryName() {
     return categoryName;
 }
 
-export function initProductListMods() {
-    waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT)
-        .then((searchResultsSort) => {
-            appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
-            addStorageValueListener('last-rate-update', processProductCards);
+export async function initProductListMods() {
+    const searchResultsSort = await waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT);
+    appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-            processProductCards();
-            const observer = new MutationObserver(debounce(processProductCards, 150));
+    addStorageValueListener('last-rate-update', addProcessProductCardsToQueue);
 
-            observer.observe(paginatorContent, {
-                childList: true,
-                subtree: true,
-            });
-        });
+    await addProcessProductCardsToQueue();
+    const observer = new MutationObserver(debounce(addProcessProductCardsToQueue, 150));
+
+    observer.observe(paginatorContent, {
+        childList: true,
+        subtree: true,
+    });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
