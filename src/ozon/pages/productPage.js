@@ -1,7 +1,6 @@
 import { debounce, waitForElement } from '../../common/dom/utils';
 import { createDislikeButton } from './common';
 import { thumbsDownIcon } from './common/icons';
-import { removeSpaces } from '../../common/string';
 import { getURLPathElementEnding } from '../../common/url';
 import { createDiv, createLink, createSpan } from '../../common/dom/factories/elements';
 import { insertAfter } from '../../common/dom/manipulation';
@@ -53,8 +52,6 @@ async function initSkipFirstGalleryVideo() {
 }
 
 function skipFirstGalleryVideo(webGallery) {
-    webGallery = getFirstElement('[data-widget="webGallery"]');
-
     const firstGalleryItem = getFirstElement('[data-index="0"]', webGallery);
     if (!firstGalleryItem) return;
 
@@ -190,21 +187,6 @@ function getRatingValueFromRatingInfo(ratingInfo) {
 
 function getStarsContainer(productReviewsWrap) {
     return productReviewsWrap.children[0].children[1];
-}
-
-function getRatingValue(ratingValueSpan) {
-    let ratingValue;
-
-    try {
-        const ratingValueSpanArray = removeSpaces(ratingValueSpan.innerHTML)
-            .split('/');
-
-        ratingValue = ratingValueSpanArray.length === 2 ? ratingValueSpanArray[0] : null;
-    } catch (e) {
-        console.log(`Failed to get ratingValue: ${e.message}`);
-    }
-
-    return ratingValue;
 }
 
 function replaceRatingValue(starsContainer, ratingValue) {
