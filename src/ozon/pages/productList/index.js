@@ -41,8 +41,6 @@ import { STYLES } from '../common/styles';
 import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { SELECTORS } from './selectors';
 
-export const paginatorContent = getFirstElement(COMMON_SELECTORS.PAGINATOR_CONTENT);
-
 const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 
 // todo: wrap into init func
@@ -84,7 +82,7 @@ function getCategoryName() {
     return categoryName;
 }
 
-export async function initProductListMods() {
+export async function initProductListMods(paginatorContent) {
     const searchResultsSort = await waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 

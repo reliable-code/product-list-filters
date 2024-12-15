@@ -1,6 +1,6 @@
 import { waitForElement } from '../common/dom/utils';
 import { initFavoritesMods } from './pages/favorites';
-import { initProductListMods, paginatorContent } from './pages/productList';
+import { initProductListMods } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
 import { somePathElementEquals } from '../common/url';
 import { getFirstElement } from '../common/dom/helpers';
@@ -9,6 +9,7 @@ import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
 import { hideUnwantedElements } from './pages/common';
 
 export const SELECTORS = {
+    PAGINATOR_CONTENT: '#paginatorContent',
     COMMENTS: '#comments',
 };
 
@@ -61,8 +62,9 @@ async function initMods() {
 
     await replaceFavoritesLink();
 
+    const paginatorContent = getFirstElement(SELECTORS.PAGINATOR_CONTENT);
     if (paginatorContent) {
-        initProductListMods();
+        await initProductListMods(paginatorContent);
         return;
     }
 
