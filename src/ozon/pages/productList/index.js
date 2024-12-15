@@ -172,13 +172,36 @@ function processProductCard(productCard) {
 
     const productCardRatingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
 
+    const {
+        productCardReviewsNumber,
+        productCardRatingNumber,
+        shouldHideProductCard,
+    } = processProductCardRating(productCardRatingWrap, productArticle);
+
+    if (shouldHideProductCard) {
+        hideElement(productCard);
+        return;
+    }
+
+    const productCardName = productCardNameWrap.innerText;
+    productCardNameWrap.title = productCardName;
+
+    const shouldHide =
+        isNotMatchTextFilter(productCardName, nameFilter) ||
+        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+        isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
+        isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
+        isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
+    updateElementDisplay(productCard, shouldHide);
+}
+
+function processProductCardRating(productCardRatingWrap, productArticle) {
     let productCardReviewsNumber;
     let productCardRatingNumber;
-    let shouldHideProductCard = false;
 
     if (!productCardRatingWrap) {
         if (anyRatingFilterHasValue() && !noRatingFilter.value) {
-            shouldHideProductCard = true;
+            return { shouldHideProductCard: true };
         }
     } else {
         const productCardRatingWrapSpans = getAllElements(
@@ -205,21 +228,11 @@ function processProductCard(productCard) {
         appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle);
     }
 
-    if (shouldHideProductCard) {
-        hideElement(productCard);
-        return;
-    }
-
-    const productCardName = productCardNameWrap.innerText;
-    productCardNameWrap.title = productCardName;
-
-    const shouldHide =
-        isNotMatchTextFilter(productCardName, nameFilter) ||
-        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-        isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
-        isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
-        isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
-    updateElementDisplay(productCard, shouldHide);
+    return {
+        productCardReviewsNumber,
+        productCardRatingNumber,
+        shouldHideProductCard: false,
+    };
 }
 
 function setLineClamp(productCardNameWrap) {
