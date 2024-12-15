@@ -8,7 +8,9 @@ import { runMigration as migrateDb } from './db/db';
 import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
 import { hideUnwantedElements } from './pages/common';
 
-const COMMENTS_SELECTOR = '#comments';
+export const SELECTORS = {
+    COMMENTS: '#comments',
+};
 
 migrateDb();
 
@@ -65,7 +67,7 @@ async function initMods() {
     }
 
     if (somePathElementEquals('reviews')) {
-        const comments = getFirstElement(COMMENTS_SELECTOR);
+        const comments = getFirstElement(SELECTORS.COMMENTS);
         if (comments) comments.scrollIntoView();
         return;
     }
