@@ -94,8 +94,9 @@ function appendDislikeButton(productReviewsWrap) {
     productDislikeButtonWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
 
     const starsContainer = getStarsContainer(productReviewsWrap);
-    const productDislikeButton =
-        createDislikeButton(() => dislikeProduct(starsContainer));
+    const productDislikeButton = createDislikeButton(
+        () => dislikeProduct(starsContainer),
+    );
 
     productDislikeButtonWrap.append(productDislikeButton);
 
@@ -106,11 +107,23 @@ function getProductReviewsInfoClassList(productReviewsWrap) {
     return getFirstElement(SELECTORS.PRODUCT_REVIEWS_INFO, productReviewsWrap).classList;
 }
 
+function getStarsContainer(productReviewsWrap) {
+    return productReviewsWrap.children[0].children[1];
+}
+
 function dislikeProduct(starsContainer) {
     const productArticle = getProductArticleFromPathname();
 
     setStoredRatingValue(productArticle, 1);
     replaceRatingValue(starsContainer, 1);
+}
+
+function replaceRatingValue(starsContainer, ratingValue) {
+    const SEPARATOR = ' • ';
+
+    const starsContainerTextParts = starsContainer.textContent.split(SEPARATOR);
+    const reviewsCountText = starsContainerTextParts[1] || starsContainerTextParts[0];
+    starsContainer.textContent = [ratingValue, reviewsCountText].join(SEPARATOR);
 }
 
 function appendBadReviewsLink(productReviewsWrap) {
@@ -201,14 +214,4 @@ function getRatingValueFromRatingInfo(ratingInfo) {
     const ratingValueRounded = Math.round((ratingValue + Number.EPSILON) * 1000) / 1000;
 
     return ratingValueRounded;
-}
-
-function getStarsContainer(productReviewsWrap) {
-    return productReviewsWrap.children[0].children[1];
-}
-
-function replaceRatingValue(starsContainer, ratingValue) {
-    const starsContainerTextArray = starsContainer.textContent.split(' • ');
-    const reviewsCountText = starsContainerTextArray[1] ?? starsContainerTextArray[0];
-    starsContainer.textContent = [ratingValue, reviewsCountText].join(' • ');
 }
