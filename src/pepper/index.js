@@ -21,18 +21,18 @@ import { createFilterFactory } from '../common/filter/factories/createFilter';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
 
-const { createGlobalFilter } = createFilterFactory(initListClean);
+const { createGlobalFilter } = createFilterFactory(initProcessProductCards);
 
 const minVotesFilter = createGlobalFilter('min-votes-filter', 50);
 const showExpiredFilter = createGlobalFilter('show-expired-filter', false);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
 
-setInterval(initListClean, 100);
+setInterval(initProcessProductCards, 100);
 await makeDiscussionsSticky();
 
 const productCardList = getFirstElement(SELECTORS.PRODUCT_CARD_CONTAINER);
 
-function initListClean() {
+function initProcessProductCards() {
     const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
     if (productCardList && productCards.length) {
