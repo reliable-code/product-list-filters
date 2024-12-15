@@ -1,4 +1,4 @@
-import { addStorageValueListener, StoredInputValue } from '../../../common/storage/storage';
+import { addStorageValueListener } from '../../../common/storage/storage';
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
@@ -41,28 +41,25 @@ import { STYLES } from '../common/styles';
 import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { SELECTORS } from './selectors';
 import { ATTRIBUTES } from './attributes';
+import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 
 // todo: wrap into init func
 const SECTION_ID = getSectionId();
 
-const nameFilter =
-    new StoredInputValue(`${SECTION_ID}-name-filter`, null, addProcessProductCardsToQueue);
-const minReviewsFilter =
-    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, addProcessProductCardsToQueue);
-const maxReviewsFilter =
-    new StoredInputValue(`${SECTION_ID}-max-reviews-filter`, null, addProcessProductCardsToQueue);
-const minRatingFilter =
-    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, addProcessProductCardsToQueue);
-const noRatingFilter =
-    new StoredInputValue(`${SECTION_ID}-no-rating-filter`, false, addProcessProductCardsToQueue);
-const maxPriceFilter =
-    new StoredInputValue(`${SECTION_ID}-max-price-filter`, null, addProcessProductCardsToQueue);
-const filterEnabled =
-    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, addProcessProductCardsToQueue);
-const nameLinesNumber =
-    new StoredInputValue('name-lines-number', 2, addProcessProductCardsToQueue);
-// const rowCardsNumber =
-//     new StoredInputValue('row-cards-number', 4, addProcessProductCardsToQueue);
+const {
+    createGlobalFilter,
+    createSectionFilter,
+} = createFilterFactory(addProcessProductCardsToQueue, SECTION_ID);
+
+const nameFilter = createSectionFilter('name-filter');
+const minReviewsFilter = createSectionFilter('min-reviews-filter');
+const maxReviewsFilter = createSectionFilter('max-reviews-filter');
+const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
+const noRatingFilter = createSectionFilter('no-rating-filter', false);
+const maxPriceFilter = createSectionFilter('max-price-filter');
+const filterEnabled = createSectionFilter('filter-enabled', true);
+const nameLinesNumber = createGlobalFilter('name-lines-number', 2);
+// const rowCardsNumber = createGlobalFilter('row-cards-number', 4);
 
 let processListQueue = Promise.resolve();
 
