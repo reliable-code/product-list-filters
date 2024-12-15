@@ -11,6 +11,7 @@ import { hideUnwantedElements } from './pages/common';
 export const SELECTORS = {
     PAGINATOR_CONTENT: '#paginatorContent',
     COMMENTS: '#comments',
+    FAVORITES_LINK: '[data-widget="favoriteCounter"]',
 };
 
 migrateDb();
@@ -85,6 +86,6 @@ async function initMods() {
 }
 
 async function replaceFavoritesLink() {
-    const favoritesLink = await waitForElement(document, '[data-widget="favoriteCounter"]');
+    const favoritesLink = await waitForElement(document, SELECTORS.FAVORITES_LINK);
     if (favoritesLink) favoritesLink.href += '?avail=inStock';
 }
