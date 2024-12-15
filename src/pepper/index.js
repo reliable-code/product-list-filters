@@ -28,10 +28,12 @@ const PRODUCT_CARD_CONTAINER_SELECTOR = '#deals-container';
 const PRODUCT_CARD_SELECTOR = '.deal-card';
 const PRODUCT_CARD_RATING_SELECTOR = '.common-box span';
 
-const DISCUSSIONS_SELECTOR = ':scope > div:not(.js-vue2):not(.vue-portal-target)';
+const SELECTORS = {
+    DISCUSSIONS: 'div.md\\:block.hidden.common-box:nth-of-type(3)',
+};
 
 setInterval(initListClean, 100);
-// makeDiscussionsSticky();
+makeDiscussionsSticky();
 
 const productCardList = getFirstElement(PRODUCT_CARD_CONTAINER_SELECTOR);
 
@@ -132,8 +134,7 @@ function cleanList(productCards) {
 }
 
 function makeDiscussionsSticky() {
-    const listLayoutSide = getFirstElement('.listLayout-side');
-    waitForElement(listLayoutSide, DISCUSSIONS_SELECTOR, 2000)
+    waitForElement(document, SELECTORS.DISCUSSIONS)
         .then(
             (discussions) => {
                 if (!discussions) return;
