@@ -27,18 +27,25 @@ const minVotesFilter = createGlobalFilter('min-votes-filter', 50);
 const showExpiredFilter = createGlobalFilter('show-expired-filter', false);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
 
-setInterval(initProcessProductCards, 100);
 await makeDiscussionsSticky();
 
-const productCardList = getFirstElement(SELECTORS.PRODUCT_CARD_CONTAINER);
+const productCardContainer = getFirstElement(SELECTORS.PRODUCT_CARD_CONTAINER);
+
+if (productCardContainer) {
+    initProcessProductCards();
+}
 
 function initProcessProductCards() {
     const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
-    if (productCardList && productCards.length) {
-        appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
+    if (productCardContainer && productCards.length) {
+        appendFilterControlsIfNeeded(productCardContainer, appendFiltersContainer);
 
-        processProductCards(productCards);
+        processProductCards();
+        new MutationObserver(processProductCards).observe(productCardContainer, {
+            childList: true,
+            subtree: true,
+        });
     }
 }
 
@@ -72,7 +79,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function processProductCards(productCards) {
+function processProductCards() {
+    const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
+
     productCards.forEach(processProductCard);
 }
 
