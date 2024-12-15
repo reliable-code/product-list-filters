@@ -33,7 +33,7 @@ const SELECTORS = {
 };
 
 setInterval(initListClean, 100);
-makeDiscussionsSticky();
+await makeDiscussionsSticky();
 
 const productCardList = getFirstElement(PRODUCT_CARD_CONTAINER_SELECTOR);
 
@@ -133,14 +133,10 @@ function cleanList(productCards) {
     );
 }
 
-function makeDiscussionsSticky() {
-    waitForElement(document, SELECTORS.DISCUSSIONS)
-        .then(
-            (discussions) => {
-                if (!discussions) return;
+async function makeDiscussionsSticky() {
+    const discussions = await waitForElement(document, SELECTORS.DISCUSSIONS);
+    if (!discussions) return;
 
-                discussions.style.position = 'sticky';
-                discussions.style.top = '0';
-            },
-        );
+    discussions.style.position = 'sticky';
+    discussions.style.top = '0';
 }
