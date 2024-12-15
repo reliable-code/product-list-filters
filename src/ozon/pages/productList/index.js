@@ -151,16 +151,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-function cleanList() {
+async function cleanList() {
     const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS, paginatorContent)];
     const firstProductCardsWrap = getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, firstProductCardsWrap);
 
-    productCards.forEach(
-        (productCard) => {
-            processProductCard(productCard);
-        },
-    );
+    await Promise.all(productCards.map(processProductCard));
 }
 
 function processProductCard(productCard) {
