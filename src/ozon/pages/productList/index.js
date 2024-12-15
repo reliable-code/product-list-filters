@@ -67,6 +67,8 @@ const nameLinesNumber =
 // const rowCardsNumber =
 //     new StoredInputValue('row-cards-number', 4, processProductCards);
 
+let processListQueue = Promise.resolve();
+
 function getCategoryName() {
     let categoryName;
 
@@ -144,6 +146,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
+}
+
+async function addProcessProductCardsToQueue() {
+    processListQueue = processListQueue.then(processProductCards);
 }
 
 async function processProductCards() {
