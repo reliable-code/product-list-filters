@@ -47,23 +47,23 @@ const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 const CATEGORY_NAME = getCategoryName();
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, processProductCards);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, addProcessProductCardsToQueue);
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processProductCards);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, addProcessProductCardsToQueue);
 const maxReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, processProductCards);
+    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, addProcessProductCardsToQueue);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processProductCards);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, addProcessProductCardsToQueue);
 const noRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, processProductCards);
+    new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, addProcessProductCardsToQueue);
 const maxPriceFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, processProductCards);
+    new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, addProcessProductCardsToQueue);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processProductCards);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, addProcessProductCardsToQueue);
 const nameLinesNumber =
-    new StoredInputValue('name-lines-number', 2, processProductCards);
+    new StoredInputValue('name-lines-number', 2, addProcessProductCardsToQueue);
 // const rowCardsNumber =
-//     new StoredInputValue('row-cards-number', 4, processProductCards);
+//     new StoredInputValue('row-cards-number', 4, addProcessProductCardsToQueue);
 
 let processListQueue = Promise.resolve();
 
@@ -252,7 +252,7 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
     productCardRatingWrap.setAttribute(DISLIKE_BUTTON_ADDED_ATTR, '');
 }
 
-function dislikeProductOnProductList(productArticle) {
+async function dislikeProductOnProductList(productArticle) {
     setStoredRatingValue(productArticle, 1);
-    processProductCards();
+    await addProcessProductCardsToQueue();
 }
