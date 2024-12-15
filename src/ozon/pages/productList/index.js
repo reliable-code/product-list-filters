@@ -253,7 +253,8 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
         return;
     }
 
-    productCardRatingWrap.style = 'display: flex; width: 100%';
+    productCardRatingWrap.style.display = 'flex';
+    productCardRatingWrap.style.width = '100%';
 
     const dislikeButton =
         createDislikeButton(
