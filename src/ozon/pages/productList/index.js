@@ -43,8 +43,11 @@ import { STYLES } from '../common/styles';
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
 
-const PRODUCT_CARD_PRICE_SELECTOR = '.tsHeadline500Medium';
-const PRODUCT_CARD_RATING_WRAP_SELECTOR = '.tsBodyMBold';
+const SELECTORS = {
+    PRODUCT_CARD_PRICE: '.tsHeadline500Medium',
+    PRODUCT_CARD_RATING_WRAP: '.tsBodyMBold',
+};
+
 const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 
 // todo: wrap into init func
@@ -176,7 +179,7 @@ function cleanList() {
                 getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
 
             const productCardPriceWrap =
-                getFirstElement(PRODUCT_CARD_PRICE_SELECTOR, productCard);
+                getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
 
             if (!productCardNameWrap || !productCardPriceWrap) {
                 hideElement(productCard);
@@ -189,7 +192,7 @@ function cleanList() {
                 getElementInnerNumber(productCardPriceWrap, true);
 
             const productCardRatingWrap =
-                getFirstElement(PRODUCT_CARD_RATING_WRAP_SELECTOR, productCard);
+                getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
 
             let productCardReviewsNumber;
             let productCardRatingNumber;
