@@ -43,22 +43,22 @@ import { SELECTORS } from './selectors';
 import { ATTRIBUTES } from './attributes';
 
 // todo: wrap into init func
-const CATEGORY_NAME = getCategoryName();
+const SECTION_ID = getSectionId();
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, addProcessProductCardsToQueue);
+    new StoredInputValue(`${SECTION_ID}-name-filter`, null, addProcessProductCardsToQueue);
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, addProcessProductCardsToQueue);
+    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, addProcessProductCardsToQueue);
 const maxReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, addProcessProductCardsToQueue);
+    new StoredInputValue(`${SECTION_ID}-max-reviews-filter`, null, addProcessProductCardsToQueue);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, addProcessProductCardsToQueue);
+    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, addProcessProductCardsToQueue);
 const noRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, addProcessProductCardsToQueue);
+    new StoredInputValue(`${SECTION_ID}-no-rating-filter`, false, addProcessProductCardsToQueue);
 const maxPriceFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, addProcessProductCardsToQueue);
+    new StoredInputValue(`${SECTION_ID}-max-price-filter`, null, addProcessProductCardsToQueue);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, addProcessProductCardsToQueue);
+    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, addProcessProductCardsToQueue);
 const nameLinesNumber =
     new StoredInputValue('name-lines-number', 2, addProcessProductCardsToQueue);
 // const rowCardsNumber =
@@ -66,19 +66,19 @@ const nameLinesNumber =
 
 let processListQueue = Promise.resolve();
 
-function getCategoryName() {
-    let categoryName;
+function getSectionId() {
+    let sectionId;
 
     if (somePathElementEquals('search')) {
         const textParam = getURLQueryStringParam('text');
-        categoryName = getHashOrDefault(textParam);
+        sectionId = getHashOrDefault(textParam);
     } else {
-        const categoryNameElement = getURLPathElement(2, '');
+        const sectionIdPathElement = getURLPathElement(2, '');
 
-        categoryName = getHashOrDefault(categoryNameElement);
+        sectionId = getHashOrDefault(sectionIdPathElement);
     }
 
-    return categoryName;
+    return sectionId;
 }
 
 export async function initProductListMods(paginatorContent) {
