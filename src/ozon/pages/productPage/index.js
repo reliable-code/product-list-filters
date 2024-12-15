@@ -1,12 +1,16 @@
-import { debounce, waitForElement } from '../../common/dom/utils';
-import { createDislikeButton } from './common';
-import { thumbsDownIcon } from './common/icons';
-import { getURLPathElementEnding } from '../../common/url';
-import { createDiv, createLink, createSpan } from '../../common/dom/factories/elements';
-import { insertAfter } from '../../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../../common/dom/helpers';
-import { getStoredRatingValue, setStoredRatingValue } from '../db/db';
-import { appendPriceHistory } from '../../common/priceHistory/manipulation';
+import { debounce, waitForElement } from '../../../common/dom/utils';
+import { createDislikeButton } from '../common';
+import { thumbsDownIcon } from '../common/icons';
+import { getURLPathElementEnding } from '../../../common/url';
+import { createDiv, createLink, createSpan } from '../../../common/dom/factories/elements';
+import { insertAfter } from '../../../common/dom/manipulation';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+} from '../../../common/dom/helpers';
+import { getStoredRatingValue, setStoredRatingValue } from '../../db/db';
+import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 
 const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
 
