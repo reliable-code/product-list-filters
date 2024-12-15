@@ -29,16 +29,13 @@ const filterEnabled = createGlobalFilter('filter-enabled', true);
 
 await makeDiscussionsSticky();
 
-const productCardContainer = getFirstElement(SELECTORS.PRODUCT_CARD_CONTAINER);
-
-if (productCardContainer) {
-    initProcessProductCards();
-}
+initProcessProductCards();
 
 function initProcessProductCards() {
     const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
-    if (productCardContainer && productCards.length) {
+    if (productCards.length) {
+        const productCardContainer = productCards[0].parentElement;
         appendFilterControlsIfNeeded(productCardContainer, appendFiltersContainer);
 
         processProductCards();
