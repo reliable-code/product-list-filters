@@ -50,23 +50,23 @@ const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 const CATEGORY_NAME = getCategoryName();
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, processProductCards);
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processProductCards);
 const maxReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, processProductCards);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processProductCards);
 const noRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-no-rating-filter`, false, processProductCards);
 const maxPriceFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-max-price-filter`, null, processProductCards);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processProductCards);
 const nameLinesNumber =
-    new StoredInputValue('name-lines-number', 2, cleanList);
+    new StoredInputValue('name-lines-number', 2, processProductCards);
 // const rowCardsNumber =
-//     new StoredInputValue('row-cards-number', 4, cleanList);
+//     new StoredInputValue('row-cards-number', 4, processProductCards);
 
 function getCategoryName() {
     let categoryName;
@@ -87,10 +87,10 @@ export function initProductListMods() {
     waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT)
         .then((searchResultsSort) => {
             appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
-            addStorageValueListener('last-rate-update', cleanList);
+            addStorageValueListener('last-rate-update', processProductCards);
 
-            cleanList();
-            const observer = new MutationObserver(debounce(cleanList, 150));
+            processProductCards();
+            const observer = new MutationObserver(debounce(processProductCards, 150));
 
             observer.observe(paginatorContent, {
                 childList: true,
@@ -147,7 +147,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
 }
 
-async function cleanList() {
+async function processProductCards() {
     const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS, paginatorContent)];
     const firstProductCardsWrap = getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, firstProductCardsWrap);
@@ -252,5 +252,5 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
 
 function dislikeProductOnProductList(productArticle) {
     setStoredRatingValue(productArticle, 1);
-    cleanList();
+    processProductCards();
 }
