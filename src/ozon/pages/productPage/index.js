@@ -172,7 +172,7 @@ async function appendRatingValue(starsContainer) {
 }
 
 function getRatingValueFromRatingInfo(ratingInfo) {
-    const ratingCounters = ratingInfo.children[2].children;
+    const ratingCounters = ratingInfo?.children?.[2]?.children;
 
     if (!ratingCounters) return null;
 
