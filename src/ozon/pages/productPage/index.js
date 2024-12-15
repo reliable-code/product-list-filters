@@ -12,7 +12,9 @@ import {
 import { getStoredRatingValue, setStoredRatingValue } from '../../db/db';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 
-const PRODUCT_REVIEWS_WRAP_SELECTOR = '[data-widget="webSingleProductScore"]';
+const SELECTORS = {
+    PRODUCT_REVIEWS_WRAP: '[data-widget="webSingleProductScore"]',
+};
 
 export async function initProductPageMods() {
     await Promise.all([
@@ -21,8 +23,7 @@ export async function initProductPageMods() {
         extendProductNameMaxHeight(),
     ]);
 
-    const productReviewsWrap =
-        await waitForElement(document, `${PRODUCT_REVIEWS_WRAP_SELECTOR}`);
+    const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
     if (!productReviewsWrap) return;
 
     appendDislikeButton(productReviewsWrap);
