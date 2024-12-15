@@ -7,12 +7,7 @@ import { getFirstElement } from '../common/dom/helpers';
 import { runMigration as migrateDb } from './db/db';
 import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
 import { hideUnwantedElements } from './pages/common';
-
-export const SELECTORS = {
-    PAGINATOR_CONTENT: '#paginatorContent',
-    COMMENTS: '#comments',
-    FAVORITES_LINK: '[data-widget="favoriteCounter"]',
-};
+import { SELECTORS } from './selectors';
 
 migrateDb();
 
