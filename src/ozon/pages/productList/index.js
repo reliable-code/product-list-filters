@@ -5,7 +5,7 @@ import {
     createDislikeButton,
     getFirstProductCardsWrap,
     getProductArticleFromLink,
-    moveProductCardToFirstWrapIfNeeded,
+    moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
 } from '../common';
 import {
@@ -152,24 +152,22 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList() {
-    const productCards = getAllElements(COMMON_SELECTORS.PRODUCT_CARDS, paginatorContent);
-
+    const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS, paginatorContent)];
     const firstProductCardsWrap = getFirstProductCardsWrap();
+    moveProductCardsToFirstWrap(productCards, firstProductCardsWrap);
 
     productCards.forEach(
         (productCard) => {
-            processProductCard(productCard, firstProductCardsWrap);
+            processProductCard(productCard);
         },
     );
 }
 
-function processProductCard(productCard, firstProductCardsWrap) {
+function processProductCard(productCard) {
     if (!filterEnabled.value) {
         showElement(productCard);
         return;
     }
-
-    moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap);
 
     const productCardLink =
         getFirstElement('a', productCard);
