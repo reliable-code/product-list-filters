@@ -11,14 +11,7 @@ import {
 } from '../../../common/dom/helpers';
 import { getStoredRatingValue, setStoredRatingValue } from '../../db/db';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
-
-const SELECTORS = {
-    PRODUCT_REVIEWS_WRAP: '[data-widget="webSingleProductScore"]',
-    PRICE_CONTAINER: '[data-widget="webPrice"]',
-    WEB_GALLERY: '[data-widget="webGallery"]',
-    WEB_PRODUCT_HEADING: '[data-widget="webProductHeading"]',
-    PRODUCT_REVIEWS_INFO: '.tsBodyControl500Medium',
-};
+import { SELECTORS } from './selectors';
 
 const STYLES = {
     BAD_REVIEWS_LINK: {
