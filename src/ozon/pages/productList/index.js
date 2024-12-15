@@ -41,7 +41,9 @@ import { STYLES } from '../common/styles';
 import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { SELECTORS } from './selectors';
 
-const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
+const ATTRIBUTES = {
+    DISLIKE_BUTTON_ADDED: 'dislikeButtonAdded',
+};
 
 // todo: wrap into init func
 const CATEGORY_NAME = getCategoryName();
@@ -237,7 +239,7 @@ function processProductCard(productCard) {
 }
 
 function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
-    if (productCardRatingWrap.hasAttribute(DISLIKE_BUTTON_ADDED_ATTR)) {
+    if (productCardRatingWrap.hasAttribute(ATTRIBUTES.DISLIKE_BUTTON_ADDED)) {
         return;
     }
 
@@ -249,7 +251,7 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
         );
 
     productCardRatingWrap.append(dislikeButton);
-    productCardRatingWrap.setAttribute(DISLIKE_BUTTON_ADDED_ATTR, '');
+    productCardRatingWrap.setAttribute(ATTRIBUTES.DISLIKE_BUTTON_ADDED, '');
 }
 
 async function dislikeProductOnProductList(productArticle) {
