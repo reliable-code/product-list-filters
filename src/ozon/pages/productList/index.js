@@ -40,10 +40,7 @@ import { getHashOrDefault } from '../../../common/hash/helpers';
 import { STYLES } from '../common/styles';
 import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { SELECTORS } from './selectors';
-
-const ATTRIBUTES = {
-    DISLIKE_BUTTON_ADDED: 'dislikeButtonAdded',
-};
+import { ATTRIBUTES } from './attributes';
 
 // todo: wrap into init func
 const CATEGORY_NAME = getCategoryName();
