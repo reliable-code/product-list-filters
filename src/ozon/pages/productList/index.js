@@ -37,12 +37,11 @@ import {
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { getHashOrDefault } from '../../../common/hash/helpers';
-import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { STYLES } from '../common/styles';
+import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { SELECTORS } from './selectors';
 
-const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
-export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
+export const paginatorContent = getFirstElement(COMMON_SELECTORS.PAGINATOR_CONTENT);
 
 const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 
