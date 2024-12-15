@@ -39,14 +39,10 @@ import {
 import { getHashOrDefault } from '../../../common/hash/helpers';
 import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { STYLES } from '../common/styles';
+import { SELECTORS } from './selectors';
 
 const PAGINATOR_CONTENT_SELECTOR = '#paginatorContent';
 export const paginatorContent = getFirstElement(PAGINATOR_CONTENT_SELECTOR);
-
-const SELECTORS = {
-    PRODUCT_CARD_PRICE: '.tsHeadline500Medium',
-    PRODUCT_CARD_RATING_WRAP: '.tsBodyMBold',
-};
 
 const DISLIKE_BUTTON_ADDED_ATTR = 'dislikeButtonAdded';
 
