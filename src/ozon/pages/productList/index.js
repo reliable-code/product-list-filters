@@ -174,11 +174,11 @@ function processProductCard(productCard) {
 
     let productCardReviewsNumber;
     let productCardRatingNumber;
+    let shouldHideProductCard = false;
 
     if (!productCardRatingWrap) {
         if (anyRatingFilterHasValue() && !noRatingFilter.value) {
-            hideElement(productCard);
-            return;
+            shouldHideProductCard = true;
         }
     } else {
         const productCardRatingWrapSpans = getAllElements(
@@ -203,6 +203,11 @@ function processProductCard(productCard) {
         }
 
         appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle);
+    }
+
+    if (shouldHideProductCard) {
+        hideElement(productCard);
+        return;
     }
 
     const productCardName = productCardNameWrap.innerText;
