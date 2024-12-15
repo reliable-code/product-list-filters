@@ -147,7 +147,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 async function processProductCards() {
-    const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS, paginatorContent)];
+    const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS)];
     const firstProductCardsWrap = getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, firstProductCardsWrap);
 
