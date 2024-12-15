@@ -132,7 +132,7 @@ function appendBadReviewsLink(productReviewsWrap) {
         STYLES.BAD_REVIEWS_LINK, thumbsDownIcon, `${productReviewsLink.href}?sort=score_asc`,
     );
     const productBadReviewsLinkSpan = createSpan(
-        { paddingLeft: '8px' }, 'Плохие отзывы',
+        STYLES.BAD_REVIEWS_LINK_SPAN, 'Плохие отзывы',
     );
     productBadReviewsLink.append(productBadReviewsLinkSpan);
     productBadReviewsLinkWrap.append(productBadReviewsLink);
