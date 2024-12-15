@@ -11,10 +11,10 @@ import {
     updateElementOpacity,
 } from '../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    styleStringToObject,
 } from '../common/dom/helpers';
 import { createEnabledFilterControl } from '../common/filter/factories/specificControls';
 import { createFilterFactory } from '../common/filter/factories/createFilter';
@@ -42,55 +42,62 @@ function initListClean() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    filtersContainer.style =
-        'display: flex;' +
-        'grid-gap: 15px;' +
-        'padding: 11px 19px;' +
-        'margin-bottom: .5rem;' +
-        'background-color: #fff;' +
-        'border-width: 1px;' +
-        'border-color: rgb(229 229 229);' +
-        'border-radius: 10px;' +
-        'position: sticky;' +
-        'z-index: 11;' +
-        'top: -1px;';
+    const filtersContainerStyle = {
+        display: 'flex',
+        gridGap: '15px',
+        padding: '11px 19px',
+        marginBottom: '.5rem',
+        backgroundColor: '#fff',
+        borderWidth: '1px',
+        borderColor: 'rgb(229, 229, 229)',
+        borderRadius: '10px',
+        position: 'sticky',
+        zIndex: '11',
+        top: '-1px',
+    };
 
-    const controlStyle =
-        'display: flex;' +
-        'align-items: center;';
-    const inputStyle =
-        'border: 1px solid #d1d5db;' +
-        'border-radius: 8px;' +
-        'margin-left: 7px;';
-    const numberInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'padding: 7px 14px;' +
-        'background-color: #fff;';
-    const checkboxInputStyle =
-        inputStyle + // eslint-disable-line prefer-template
-        'width: 24px;' +
-        'height: 24px;';
+    applyStyles(filtersContainer, filtersContainerStyle);
 
-    const minVotesDiv =
-        createNumberFilterControl(
-            'Минимально голосов: ',
-            minVotesFilter,
-            '50',
-            '0',
-            '10000',
-            styleStringToObject(controlStyle),
-            styleStringToObject(numberInputStyle),
-        );
+    const controlStyle = {
+        display: 'flex',
+        alignItems: 'center',
+    };
 
-    const showExpiredDiv =
-        createCheckboxFilterControl(
-            'Завершённые: ', showExpiredFilter, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle),
-        );
+    const inputStyle = {
+        border: '1px solid #d1d5db',
+        borderRadius: '8px',
+        marginLeft: '7px',
+    };
 
-    const filterEnabledDiv =
-        createEnabledFilterControl(
-            filterEnabled, styleStringToObject(controlStyle), styleStringToObject(checkboxInputStyle),
-        );
+    const numberInputStyle = {
+        ...inputStyle,
+        padding: '7px 14px',
+        backgroundColor: '#fff',
+    };
+
+    const checkboxInputStyle = {
+        ...inputStyle,
+        width: '24px',
+        height: '24px',
+    };
+
+    const minVotesDiv = createNumberFilterControl(
+        'Минимально голосов: ',
+        minVotesFilter,
+        '50',
+        '0',
+        '10000',
+        controlStyle,
+        numberInputStyle,
+    );
+
+    const showExpiredDiv = createCheckboxFilterControl(
+        'Завершённые: ', showExpiredFilter, controlStyle, checkboxInputStyle,
+    );
+
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, controlStyle, checkboxInputStyle,
+    );
 
     filtersContainer.append(minVotesDiv, showExpiredDiv, filterEnabledDiv);
 
