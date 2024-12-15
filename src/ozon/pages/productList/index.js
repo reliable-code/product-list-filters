@@ -176,10 +176,7 @@ function processProductCard(productCard) {
     let productCardRatingNumber;
 
     if (!productCardRatingWrap) {
-        const anyRatingFilterHasValue =
-            minReviewsFilter.value || maxReviewsFilter.value || minRatingFilter.value;
-
-        if (anyRatingFilterHasValue && !noRatingFilter.value) {
+        if (anyRatingFilterHasValue() && !noRatingFilter.value) {
             hideElement(productCard);
             return;
         }
@@ -209,7 +206,6 @@ function processProductCard(productCard) {
     }
 
     const productCardName = productCardNameWrap.innerText;
-
     productCardNameWrap.title = productCardName;
 
     const shouldHide =
@@ -223,6 +219,10 @@ function processProductCard(productCard) {
 
 function setLineClamp(productCardNameWrap) {
     productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
+}
+
+function anyRatingFilterHasValue() {
+    return minReviewsFilter.value || maxReviewsFilter.value || minRatingFilter.value;
 }
 
 function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
