@@ -41,8 +41,16 @@ function initListClean() {
     }
 }
 
-function appendFiltersContainer(filtersContainer, parentNode) {
-    const filtersContainerStyle = {
+const STYLES_BASE = {
+    INPUT: {
+        border: '1px solid #d1d5db',
+        borderRadius: '8px',
+        marginLeft: '7px',
+    },
+};
+
+const STYLES = {
+    FILTERS_CONTAINER: {
         display: 'flex',
         gridGap: '15px',
         padding: '11px 19px',
@@ -54,32 +62,25 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         position: 'sticky',
         zIndex: '11',
         top: '-1px',
-    };
-
-    applyStyles(filtersContainer, filtersContainerStyle);
-
-    const controlStyle = {
+    },
+    CONTROL: {
         display: 'flex',
         alignItems: 'center',
-    };
-
-    const inputStyle = {
-        border: '1px solid #d1d5db',
-        borderRadius: '8px',
-        marginLeft: '7px',
-    };
-
-    const numberInputStyle = {
-        ...inputStyle,
+    },
+    NUMBER_INPUT: {
+        ...STYLES_BASE.INPUT,
         padding: '7px 14px',
         backgroundColor: '#fff',
-    };
-
-    const checkboxInputStyle = {
-        ...inputStyle,
+    },
+    CHECKBOX_INPUT: {
+        ...STYLES_BASE.INPUT,
         width: '24px',
         height: '24px',
-    };
+    },
+};
+
+function appendFiltersContainer(filtersContainer, parentNode) {
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
     const minVotesDiv = createNumberFilterControl(
         'Минимально голосов: ',
@@ -87,20 +88,24 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         '50',
         '0',
         '10000',
-        controlStyle,
-        numberInputStyle,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
     );
 
     const showExpiredDiv = createCheckboxFilterControl(
-        'Завершённые: ', showExpiredFilter, controlStyle, checkboxInputStyle,
+        'Завершённые: ',
+        showExpiredFilter,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
     );
 
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, controlStyle, checkboxInputStyle,
+        filterEnabled,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(minVotesDiv, showExpiredDiv, filterEnabledDiv);
-
     parentNode.prepend(filtersContainer);
 }
 
