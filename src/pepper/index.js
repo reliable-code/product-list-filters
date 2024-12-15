@@ -98,33 +98,31 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function cleanList(productCards) {
-    productCards.forEach(
-        (productCard) => {
-            if (!filterEnabled.value) {
-                resetElementOpacity(productCard);
+    productCards.forEach(processProductCard);
+}
 
-                return;
-            }
+function processProductCard(productCard) {
+    if (!filterEnabled.value) {
+        resetElementOpacity(productCard);
+        return;
+    }
 
-            const isExpired = productCard.classList.contains('expired-view');
+    const isExpired = productCard.classList.contains('expired-view');
 
-            if (isExpired && !showExpiredFilter.value) {
-                setElementOpacity(productCard);
+    if (isExpired && !showExpiredFilter.value) {
+        setElementOpacity(productCard);
+        return;
+    }
 
-                return;
-            }
+    const productCardRating = getFirstElement(SELECTORS.PRODUCT_CARD_RATING, productCard);
 
-            const productCardRating = getFirstElement(SELECTORS.PRODUCT_CARD_RATING, productCard);
+    if (productCardRating.innerText.includes('Новое')) return;
 
-            if (productCardRating.innerText.includes('Новое')) return;
+    const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
-            const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
-
-            const shouldSetOpacity =
-                isLessThanFilter(productCardRatingNumber, minVotesFilter);
-            updateElementOpacity(productCard, shouldSetOpacity);
-        },
-    );
+    const shouldSetOpacity =
+        isLessThanFilter(productCardRatingNumber, minVotesFilter);
+    updateElementOpacity(productCard, shouldSetOpacity);
 }
 
 async function makeDiscussionsSticky() {
