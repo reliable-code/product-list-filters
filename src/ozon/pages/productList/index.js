@@ -153,16 +153,13 @@ function processProductCard(productCard) {
     }
 
     const productCardLink = getFirstElement('a', productCard);
-
     if (!productCardLink) {
         hideElement(productCard);
         return;
     }
 
     const productArticle = getProductArticleFromLink(productCardLink);
-
     const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
-
     const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
 
     if (!productCardNameWrap || !productCardPriceWrap) {
@@ -170,8 +167,7 @@ function processProductCard(productCard) {
         return;
     }
 
-    productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
-
+    setLineClamp(productCardNameWrap);
     const productCardPriceNumber = getElementInnerNumber(productCardPriceWrap, true);
 
     const productCardRatingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
@@ -223,6 +219,10 @@ function processProductCard(productCard) {
         isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
         isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
     updateElementDisplay(productCard, shouldHide);
+}
+
+function setLineClamp(productCardNameWrap) {
+    productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
 }
 
 function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
