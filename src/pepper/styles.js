@@ -31,6 +31,7 @@ export const STYLES = {
     },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
+        width: '90px',
         padding: '7px 14px',
         backgroundColor: '#fff',
     },
