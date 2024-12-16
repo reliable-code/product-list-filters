@@ -1,6 +1,6 @@
 import { waitForElement } from '../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
-import { isLessThanFilter } from '../common/filter/compare';
+import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
     createCheckboxFilterControl,
     createNumberFilterControl,
@@ -16,13 +16,17 @@ import {
     getElementInnerNumber,
     getFirstElement,
 } from '../common/dom/helpers';
-import { createEnabledFilterControl } from '../common/filter/factories/specificControls';
+import {
+    createEnabledFilterControl,
+    createSearchFilterControl,
+} from '../common/filter/factories/specificControls';
 import { createFilterFactory } from '../common/filter/factories/createFilter';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
 
 const { createGlobalFilter } = createFilterFactory(initProcessProductCards);
 
+const nameFilter = createGlobalFilter('name-filter');
 const minVotesFilter = createGlobalFilter('min-votes-filter', 50);
 const showExpiredFilter = createGlobalFilter('show-expired-filter', false);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
@@ -49,6 +53,9 @@ function initProcessProductCards() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
+    const nameFilterDiv = createSearchFilterControl(
+        nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
+    );
     const minVotesDiv = createNumberFilterControl(
         'Минимально голосов: ',
         minVotesFilter,
@@ -72,7 +79,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CHECKBOX_INPUT,
     );
 
-    filtersContainer.append(minVotesDiv, showExpiredDiv, filterEnabledDiv);
+    filtersContainer.append(
+        nameFilterDiv, minVotesDiv, showExpiredDiv, filterEnabledDiv,
+    );
     parentNode.prepend(filtersContainer);
 }
 
@@ -99,9 +108,13 @@ function processProductCard(productCard) {
 
     if (productCardRating.innerText.includes('Новое')) return;
 
+    const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_NAME, productCard);
     const productCardRatingNumber = getElementInnerNumber(productCardRating, true);
 
+    const productCardName = productCardNameWrap.innerText;
+
     const shouldSetOpacity =
+        isNotMatchTextFilter(productCardName, nameFilter) ||
         isLessThanFilter(productCardRatingNumber, minVotesFilter);
     updateElementOpacity(productCard, shouldSetOpacity);
 }

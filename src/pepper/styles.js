@@ -23,6 +23,12 @@ export const STYLES = {
         display: 'flex',
         alignItems: 'center',
     },
+    TEXT_INPUT: {
+        ...STYLES_BASE.INPUT,
+        width: '180px',
+        padding: '7px 14px',
+        backgroundColor: '#fff',
+    },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
         padding: '7px 14px',
