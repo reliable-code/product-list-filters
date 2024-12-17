@@ -1,5 +1,4 @@
 import { waitForElement } from '../common/dom/utils';
-import { StoredInputValue } from '../common/storage/localstorage';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
@@ -15,22 +14,19 @@ import {
     createMinReviewsFilterControl,
     createSearchFilterControl,
 } from '../common/filter/factories/specificControls';
-import { STYLES } from './styles';
 import { getURLPathElement } from '../common/url';
+import { createFilterFactory } from '../common/filter/factories/createFilter';
+import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 
 const SECTION_ID = getURLPathElement(2);
 
-function createFilter(filterName, defaultValue = null) {
-    return StoredInputValue.createWithCompositeKey(
-        SECTION_ID, filterName, defaultValue, processProductCards,
-    );
-}
+const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
 
-const nameFilter = createFilter('name-filter');
-const minReviewsFilter = createFilter('min-reviews-filter');
-const minRatingFilter = createFilter('min-rating-filter', 4.8);
-const filterEnabled = createFilter('filter-enabled', true);
+const nameFilter = createSectionFilter('name-filter');
+const minReviewsFilter = createSectionFilter('min-reviews-filter');
+const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
+const filterEnabled = createSectionFilter('filter-enabled', true);
 
 await initListClean();
 
