@@ -94,6 +94,11 @@ function processProductCards() {
 }
 
 function processProductCard(productCard) {
+    const productId = getProductId(productCard);
+
+    highlightNewestSeenProductCard(productId, productCard);
+    addMarkAsNewestSeenHandler(productCard, productId);
+
     if (!filterEnabled.value) {
         resetElementOpacity(productCard);
         return;
