@@ -161,43 +161,36 @@ function checkMinPrice(minPriceDiv) {
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
-    productCards.forEach(
-        (productCard) => {
-            if (!filterEnabled.value) {
-                showElement(productCard);
+    productCards.forEach(processProductCard);
+}
 
-                return;
-            }
+function processProductCard(productCard) {
+    if (!filterEnabled.value) {
+        showElement(productCard);
+        return;
+    }
 
-            const productCardNameWrap =
-                getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+    const productCardNameWrap = getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
 
-            const productCardName = productCardNameWrap.innerText;
-            productCardNameWrap.title = productCardName;
-            productCardNameWrap.style.whiteSpace = 'normal';
+    const productCardName = productCardNameWrap.innerText;
+    productCardNameWrap.title = productCardName;
+    productCardNameWrap.style.whiteSpace = 'normal';
 
-            const productCardReviewsNumber =
-                getFirstElementInnerNumber(
-                    productCard, PRODUCT_CARD_REVIEWS_SELECTOR, true,
-                );
-
-            const productCardRatingNumber =
-                getFirstElementInnerNumber(
-                    productCard, PRODUCT_CARD_RATING_SELECTOR, true, true,
-                );
-
-            const productCardPriceNumber =
-                getFirstElementInnerNumber(
-                    productCard, PRODUCT_CARD_PRICE_SELECTOR, true,
-                );
-
-            const shouldHide =
-                isNotMatchTextFilter(productCardName, nameFilter) ||
-                isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-                isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
-                isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
-                productCardPriceNumber < minPriceValue;
-            updateElementDisplay(productCard, shouldHide);
-        },
+    const productCardReviewsNumber = getFirstElementInnerNumber(
+        productCard, PRODUCT_CARD_REVIEWS_SELECTOR, true,
     );
+    const productCardRatingNumber = getFirstElementInnerNumber(
+        productCard, PRODUCT_CARD_RATING_SELECTOR, true, true,
+    );
+    const productCardPriceNumber = getFirstElementInnerNumber(
+        productCard, PRODUCT_CARD_PRICE_SELECTOR, true,
+    );
+
+    const shouldHide =
+        isNotMatchTextFilter(productCardName, nameFilter) ||
+        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
+        isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
+        isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
+        productCardPriceNumber < minPriceValue;
+    updateElementDisplay(productCard, shouldHide);
 }
