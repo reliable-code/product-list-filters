@@ -43,15 +43,15 @@ const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 const CATEGORY_NAME = getCategoryName();
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, processProductCards);
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processProductCards);
 const maxReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, processProductCards);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processProductCards);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, cleanList);
+    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processProductCards);
 
 let minPriceValue = getMinPriceValueFromURL();
 const minPriceDivContent = () => `Минимальная цена: ${minPriceValue}`;
@@ -93,11 +93,11 @@ export function initProductListMods() {
 
             appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
 
-            cleanList();
+            processProductCards();
 
             const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
 
-            const observer = new MutationObserver(debounce(cleanList, 150));
+            const observer = new MutationObserver(debounce(processProductCards, 150));
 
             observer.observe(productCardList, {
                 childList: true,
@@ -158,7 +158,7 @@ function checkMinPrice(minPriceDiv) {
     }
 }
 
-function cleanList() {
+function processProductCards() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
     productCards.forEach(processProductCard);
