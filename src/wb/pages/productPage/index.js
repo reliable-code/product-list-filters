@@ -1,16 +1,10 @@
 import { waitForElement } from '../../../common/dom/utils';
 import { getURLPathElementEnding } from '../../../common/url';
 import { getFirstElement } from '../../../common/dom/helpers';
-import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { getPriceSpan } from '../common';
-
-const SELECTORS = {
-    SIDE_CONTAINER: '.product-page__aside-container',
-    PRICE_CONTAINER: '.price-block__content',
-    WALLET_PRICE: '.price-block__wallet-price',
-    PRICE: '.price-block__price',
-};
+import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
+import { SELECTORS } from './selectors';
 
 export async function initProductPageMods() {
     await initAppendPriceHistory();
