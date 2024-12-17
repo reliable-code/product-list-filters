@@ -119,6 +119,11 @@ function processProductCard(productCard) {
     updateElementOpacity(productCard, shouldSetOpacity);
 }
 
+function markAsNewestSeen(productId) {
+    setNewestSeenProductId(productId);
+    processProductCards();
+}
+
 async function makeDiscussionsSticky() {
     const discussions = await waitForElement(document, SELECTORS.DISCUSSIONS);
     if (!discussions) return;
