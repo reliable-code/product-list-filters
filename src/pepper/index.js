@@ -23,6 +23,7 @@ import {
 import { createFilterFactory } from '../common/filter/factories/createFilter';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
+import { ATTRIBUTES } from './attributes';
 
 const { createGlobalFilter } = createFilterFactory(initProcessProductCards);
 
@@ -117,6 +118,17 @@ function processProductCard(productCard) {
         isNotMatchTextFilter(productCardName, nameFilter) ||
         isLessThanFilter(productCardRatingNumber, minVotesFilter);
     updateElementOpacity(productCard, shouldSetOpacity);
+}
+
+function addMarkAsNewestSeenHandler(productCard, productId) {
+    if (productCard.hasAttribute(ATTRIBUTES.MARK_AS_NEWEST_SEEN_APPENDED)) return;
+    productCard.addEventListener('mousedown', (event) => {
+        if (event.button === 1) {
+            markAsNewestSeen(productId);
+            event.preventDefault();
+        }
+    });
+    productCard.setAttribute(ATTRIBUTES.MARK_AS_NEWEST_SEEN_APPENDED, '');
 }
 
 function markAsNewestSeen(productId) {
