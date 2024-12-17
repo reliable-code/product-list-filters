@@ -1,35 +1,35 @@
-import { debounce, waitForElement } from '../../common/dom/utils';
-import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { StoredInputValue } from '../../common/storage/storage';
-import { getHash } from '../../common/hash/helpers';
-import { getURLPathElement, somePathElementEquals } from '../../common/url';
-import { createDiv } from '../../common/dom/factories/elements';
+import { debounce, waitForElement } from '../../../common/dom/utils';
+import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
+import { StoredInputValue } from '../../../common/storage/storage';
+import { getHash } from '../../../common/hash/helpers';
+import { getURLPathElement, somePathElementEquals } from '../../../common/url';
+import { createDiv } from '../../../common/dom/factories/elements';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
-} from '../../common/filter/compare';
-import { showElement, updateElementDisplay } from '../../common/dom/manipulation';
+} from '../../../common/filter/compare';
+import { showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
     styleStringToObject,
-} from '../../common/dom/helpers';
+} from '../../../common/dom/helpers';
 import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
     NUMBER_INPUT_STYLE,
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
-} from './common';
+} from '../common';
 import {
     createEnabledFilterControl,
     createMaxReviewsFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createSearchFilterControl,
-} from '../../common/filter/factories/specificControls';
+} from '../../../common/filter/factories/specificControls';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';
