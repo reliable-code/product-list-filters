@@ -40,28 +40,28 @@ const PRODUCT_CARD_RATING_SELECTOR = '.address-rate-mini';
 const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
-const CATEGORY_NAME = getCategoryName();
+const SECTION_ID = getSectionId();
 
 const nameFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-name-filter`, null, processProductCards);
+    new StoredInputValue(`${SECTION_ID}-name-filter`, null, processProductCards);
 const minReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-reviews-filter`, null, processProductCards);
+    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processProductCards);
 const maxReviewsFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-max-reviews-filter`, null, processProductCards);
+    new StoredInputValue(`${SECTION_ID}-max-reviews-filter`, null, processProductCards);
 const minRatingFilter =
-    new StoredInputValue(`${CATEGORY_NAME}-min-rating-filter`, 4.8, processProductCards);
+    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, processProductCards);
 const filterEnabled =
-    new StoredInputValue(`${CATEGORY_NAME}-filter-enabled`, true, processProductCards);
+    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, processProductCards);
 
 let minPriceValue = getMinPriceValueFromURL();
 const minPriceDivContent = () => `Минимальная цена: ${minPriceValue}`;
 
-function getCategoryName() {
-    const categoryNamePosition = somePathElementEquals('brands') ? 2 : 3;
-    const categoryNameElement = getURLPathElement(categoryNamePosition, '');
+function getSectionId() {
+    const sectionNamePosition = somePathElementEquals('brands') ? 2 : 3;
+    const sectionName = getURLPathElement(sectionNamePosition, '');
 
-    return (categoryNameElement && categoryNameElement !== 'search.aspx')
-        ? getHash(categoryNameElement)
+    return (sectionName && sectionName !== 'search.aspx')
+        ? getHash(sectionName)
         : 'common';
 }
 
