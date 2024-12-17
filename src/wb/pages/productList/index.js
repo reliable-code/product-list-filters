@@ -30,16 +30,7 @@ import {
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
-
-const SELECTORS = {
-    FILTERS_BLOCK_WRAP: '.filters-block__wrap',
-    PRODUCT_CARD_LIST: '.product-card-list',
-    PRODUCT_CARD: '.product-card',
-    PRODUCT_CARD_NAME: '.product-card__brand-wrap',
-    PRODUCT_CARD_REVIEWS: '.product-card__count',
-    PRODUCT_CARD_RATING: '.address-rate-mini',
-    PRODUCT_CARD_PRICE: '.price__lower-price',
-};
+import { SELECTORS } from './selectors';
 
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
