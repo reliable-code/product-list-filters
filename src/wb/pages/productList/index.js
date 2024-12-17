@@ -31,13 +31,16 @@ import {
 } from '../../../common/filter/factories/specificControls';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 
-const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
-const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';
-const PRODUCT_CARD_SELECTOR = '.product-card';
-const PRODUCT_CARD_NAME_SELECTOR = '.product-card__brand-wrap';
-const PRODUCT_CARD_REVIEWS_SELECTOR = '.product-card__count';
-const PRODUCT_CARD_RATING_SELECTOR = '.address-rate-mini';
-const PRODUCT_CARD_PRICE_SELECTOR = '.price__lower-price';
+const SELECTORS = {
+    FILTERS_BLOCK_WRAP: '.filters-block__wrap',
+    PRODUCT_CARD_LIST: '.product-card-list',
+    PRODUCT_CARD: '.product-card',
+    PRODUCT_CARD_NAME: '.product-card__brand-wrap',
+    PRODUCT_CARD_REVIEWS: '.product-card__count',
+    PRODUCT_CARD_RATING: '.address-rate-mini',
+    PRODUCT_CARD_PRICE: '.price__lower-price',
+};
+
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
 const SECTION_ID = getSectionId();
@@ -78,7 +81,7 @@ function getMinPriceValueFromURL() {
 }
 
 export function initProductListMods() {
-    waitForElement(document, FILTERS_BLOCK_WRAP_SELECTOR)
+    waitForElement(document, SELECTORS.FILTERS_BLOCK_WRAP)
         .then((filtersBlockWrap) => {
             removeRecentItemsBlock();
 
@@ -86,7 +89,7 @@ export function initProductListMods() {
 
             processProductCards();
 
-            const productCardList = getFirstElement(PRODUCT_CARD_LIST_SELECTOR);
+            const productCardList = getFirstElement(SELECTORS.PRODUCT_CARD_LIST);
 
             const observer = new MutationObserver(debounce(processProductCards, 150));
 
@@ -150,7 +153,7 @@ function checkMinPrice(minPriceDiv) {
 }
 
 function processProductCards() {
-    const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
+    const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
     productCards.forEach(processProductCard);
 }
@@ -161,20 +164,20 @@ function processProductCard(productCard) {
         return;
     }
 
-    const productCardNameWrap = getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+    const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
 
     const productCardName = productCardNameWrap.innerText;
     productCardNameWrap.title = productCardName;
     productCardNameWrap.style.whiteSpace = 'normal';
 
     const productCardReviewsNumber = getFirstElementInnerNumber(
-        productCard, PRODUCT_CARD_REVIEWS_SELECTOR, true,
+        productCard, SELECTORS.PRODUCT_CARD_REVIEWS, true,
     );
     const productCardRatingNumber = getFirstElementInnerNumber(
-        productCard, PRODUCT_CARD_RATING_SELECTOR, true, true,
+        productCard, SELECTORS.PRODUCT_CARD_RATING, true, true,
     );
     const productCardPriceNumber = getFirstElementInnerNumber(
-        productCard, PRODUCT_CARD_PRICE_SELECTOR, true,
+        productCard, SELECTORS.PRODUCT_CARD_PRICE, true,
     );
 
     const shouldHide =
