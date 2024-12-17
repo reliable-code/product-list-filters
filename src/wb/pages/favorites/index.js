@@ -1,4 +1,4 @@
-import { debounce, waitForElement } from '../../common/dom/utils';
+import { debounce, waitForElement } from '../../../common/dom/utils';
 import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
@@ -8,22 +8,22 @@ import {
     PRODUCT_CARD_NAME_SELECTOR,
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
-} from './common';
-import { StoredInputValue } from '../../common/storage/storage';
-import { appendFilterControlsIfNeeded } from '../../common/filter/manager';
-import { isNotMatchTextFilter } from '../../common/filter/compare';
+} from '../common';
+import { StoredInputValue } from '../../../common/storage/storage';
+import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
+import { isNotMatchTextFilter } from '../../../common/filter/compare';
 import {
     createCheckboxFilterControl,
     createNumberFilterControl,
-} from '../../common/filter/factories/genericControls';
-import { hideElement, showElement, updateElementDisplay } from '../../common/dom/manipulation';
-import { getAllElements, getFirstElement, styleStringToObject } from '../../common/dom/helpers';
-import { ATTRIBUTES } from '../../common/priceHistory/attributes';
-import { appendPriceHistory, checkIfGoodPrice } from '../../common/priceHistory/manipulation';
+} from '../../../common/filter/factories/genericControls';
+import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
+import { getAllElements, getFirstElement, styleStringToObject } from '../../../common/dom/helpers';
+import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
+import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
     createSearchFilterControl,
-} from '../../common/filter/factories/specificControls';
+} from '../../../common/filter/factories/specificControls';
 
 const SELECTORS = {
     FILTER_CONTAINER: '.favorites-goods__head',
