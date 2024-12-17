@@ -158,31 +158,6 @@ function checkMinPrice(minPriceDiv) {
     }
 }
 
-function initPaginationObserver() {
-    waitForElement(document, '.pagination', 10000)
-        .then((pagination) => {
-            const observer = new MutationObserver(() => updatePaginationCopy(pagination));
-
-            observer.observe(pagination, {
-                childList: true,
-                subtree: true,
-            });
-        });
-}
-
-function updatePaginationCopy(pagination) {
-    let paginationCopy = getFirstElement('.paginationCopy');
-
-    if (paginationCopy) paginationCopy.remove();
-
-    paginationCopy = pagination.cloneNode(true);
-    paginationCopy.classList.add('paginationCopy');
-    paginationCopy.style.margin = '-15px 0 20px';
-
-    const productList = getFirstElement('.catalog-page__main');
-    productList.parentNode.insertBefore(paginationCopy, productList);
-}
-
 function cleanList() {
     const productCards = getAllElements(PRODUCT_CARD_SELECTOR);
 
