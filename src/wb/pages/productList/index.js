@@ -1,6 +1,5 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
-import { StoredInputValue } from '../../../common/storage/storage';
 import { getHash } from '../../../common/hash/helpers';
 import { getURLPathElement, somePathElementEquals } from '../../../common/url';
 import { createDiv } from '../../../common/dom/factories/elements';
@@ -30,6 +29,7 @@ import {
     createMinReviewsFilterControl,
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
+import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 
 const FILTERS_BLOCK_WRAP_SELECTOR = '.filters-block__wrap';
 const PRODUCT_CARD_LIST_SELECTOR = '.product-card-list';
@@ -42,16 +42,13 @@ const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
 const SECTION_ID = getSectionId();
 
-const nameFilter =
-    new StoredInputValue(`${SECTION_ID}-name-filter`, null, processProductCards);
-const minReviewsFilter =
-    new StoredInputValue(`${SECTION_ID}-min-reviews-filter`, null, processProductCards);
-const maxReviewsFilter =
-    new StoredInputValue(`${SECTION_ID}-max-reviews-filter`, null, processProductCards);
-const minRatingFilter =
-    new StoredInputValue(`${SECTION_ID}-min-rating-filter`, 4.8, processProductCards);
-const filterEnabled =
-    new StoredInputValue(`${SECTION_ID}-filter-enabled`, true, processProductCards);
+const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
+
+const nameFilter = createSectionFilter('name-filter');
+const minReviewsFilter = createSectionFilter('min-reviews-filter');
+const maxReviewsFilter = createSectionFilter('max-reviews-filter');
+const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
+const filterEnabled = createSectionFilter('filter-enabled', true);
 
 let minPriceValue = getMinPriceValueFromURL();
 const minPriceDivContent = () => `Минимальная цена: ${minPriceValue}`;
