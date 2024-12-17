@@ -99,10 +99,11 @@ function processProductCards() {
 }
 
 function processProductCard(productCard) {
-    const productId = getProductId(productCard);
+    const productCardLink = getFirstElement(SELECTORS.PRODUCT_CARD_LINK, productCard);
+    const productId = getProductId(productCardLink);
 
     highlightNewestSeenProductCard(productId, productCard);
-    addMarkAsNewestSeenHandler(productCard, productId);
+    addMarkAsNewestSeenHandler(productCard, productCardLink, productId);
 
     if (!filterEnabled.value) {
         resetElementOpacity(productCard);
@@ -131,8 +132,7 @@ function processProductCard(productCard) {
     updateElementOpacity(productCard, shouldSetOpacity);
 }
 
-function getProductId(productCard) {
-    const productCardLink = getFirstElement(SELECTORS.PRODUCT_CARD_LINK, productCard);
+function getProductId(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
     const productIdString = productCardLinkHref.split('-')
         .pop();
@@ -148,10 +148,10 @@ function highlightNewestSeenProductCard(productId, productCard) {
     }
 }
 
-function addMarkAsNewestSeenHandler(productCard, productId) {
+function addMarkAsNewestSeenHandler(productCard, productCardLink, productId) {
     if (productCard.hasAttribute(ATTRIBUTES.MARK_AS_NEWEST_SEEN_APPENDED)) return;
     productCard.addEventListener('mousedown', (event) => {
-        if (event.button === 1) {
+        if (event.button === 1 && event.target !== productCardLink) {
             markAsNewestSeen(productId);
             event.preventDefault();
         }
