@@ -23,6 +23,7 @@ import {
 import { createFilterFactory } from '../common/filter/factories/createFilter';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
+import { getNewestSeenProductId, setNewestSeenProductId } from './db';
 import { ATTRIBUTES } from './attributes';
 
 const { createGlobalFilter } = createFilterFactory(initProcessProductCards);
@@ -118,6 +119,14 @@ function processProductCard(productCard) {
         isNotMatchTextFilter(productCardName, nameFilter) ||
         isLessThanFilter(productCardRatingNumber, minVotesFilter);
     updateElementOpacity(productCard, shouldSetOpacity);
+}
+
+function highlightNewestSeenProductCard(productId, productCard) {
+    if (productId === getNewestSeenProductId()) {
+        productCard.style.border = '5px solid #8ab854';
+    } else {
+        productCard.style.removeProperty('border');
+    }
 }
 
 function addMarkAsNewestSeenHandler(productCard, productId) {
