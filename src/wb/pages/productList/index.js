@@ -60,15 +60,9 @@ function getCategoryName() {
     const categoryNamePosition = somePathElementEquals('brands') ? 2 : 3;
     const categoryNameElement = getURLPathElement(categoryNamePosition, '');
 
-    let categoryName;
-
-    if (categoryNameElement && categoryNameElement !== 'search.aspx') {
-        categoryName = getHash(categoryNameElement);
-    } else {
-        categoryName = 'common';
-    }
-
-    return categoryName;
+    return (categoryNameElement && categoryNameElement !== 'search.aspx')
+        ? getHash(categoryNameElement)
+        : 'common';
 }
 
 function getMinPriceValueFromURL() {
