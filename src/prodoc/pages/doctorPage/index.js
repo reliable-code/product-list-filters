@@ -1,6 +1,6 @@
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import { createDiv, createLink } from '../../../common/dom/factories/elements';
-import { appendAdditionalLinks } from '../common/common';
+import { appendAdditionalLinks } from '../common';
 import { SELECTORS } from './selectors';
 
 export function initDoctorPageMods() {

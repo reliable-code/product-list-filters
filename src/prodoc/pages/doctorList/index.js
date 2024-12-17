@@ -7,7 +7,7 @@ import {
 } from '../../../common/dom/helpers';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import { isLessThanFilter, isNotMatchTextFilter } from '../../../common/filter/compare';
-import { appendAdditionalLinks } from '../common/common';
+import { appendAdditionalLinks } from '../common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
     createNumberFilterControl,
