@@ -121,6 +121,15 @@ function processProductCard(productCard) {
     updateElementOpacity(productCard, shouldSetOpacity);
 }
 
+function getProductId(productCard) {
+    const productCardLink = getFirstElement(SELECTORS.PRODUCT_CARD_LINK, productCard);
+    const productCardLinkHref = productCardLink.getAttribute('href');
+    const productIdString = productCardLinkHref.split('-')
+        .pop();
+
+    return +productIdString;
+}
+
 function highlightNewestSeenProductCard(productId, productCard) {
     if (productId === getNewestSeenProductId()) {
         productCard.style.border = '5px solid #8ab854';
