@@ -10,6 +10,7 @@ import {
 } from '../../../common/filter/compare';
 import { showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
@@ -19,7 +20,6 @@ import {
     CHECKBOX_INPUT_STYLE,
     CONTROL_STYLE,
     NUMBER_INPUT_STYLE,
-    setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
 } from '../common';
 import {
@@ -31,6 +31,7 @@ import {
 } from '../../../common/filter/factories/specificControls';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { SELECTORS } from './selectors';
+import { STYLES } from '../common/styles';
 
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
@@ -95,7 +96,7 @@ function removeRecentItemsBlock() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    setCommonFiltersContainerStyles(filtersContainer);
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
     const priceControlStyle =
         CONTROL_STYLE + // eslint-disable-line prefer-template

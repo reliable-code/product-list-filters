@@ -6,7 +6,6 @@ import {
     getProductArticleFromLink,
     NUMBER_INPUT_STYLE,
     PRODUCT_CARD_NAME_SELECTOR,
-    setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
 } from '../common';
 import { StoredInputValue } from '../../../common/storage/storage';
@@ -17,13 +16,19 @@ import {
     createNumberFilterControl,
 } from '../../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
-import { getAllElements, getFirstElement, styleStringToObject } from '../../../common/dom/helpers';
+import {
+    applyStyles,
+    getAllElements,
+    getFirstElement,
+    styleStringToObject,
+} from '../../../common/dom/helpers';
 import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
+import { STYLES } from '../common/styles';
 
 const SELECTORS = {
     FILTER_CONTAINER: '.favorites-goods__head',
@@ -64,7 +69,7 @@ export async function initFavoritesMods() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    setCommonFiltersContainerStyles(filtersContainer);
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
     const nameFilterDiv =
         createSearchFilterControl(
