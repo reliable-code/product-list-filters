@@ -1,9 +1,9 @@
-import { waitForElement } from '../../common/dom/utils';
-import { getURLPathElementEnding } from '../../common/url';
-import { getFirstElement } from '../../common/dom/helpers';
-import { ATTRIBUTES } from '../../common/priceHistory/attributes';
-import { appendPriceHistory } from '../../common/priceHistory/manipulation';
-import { getPriceSpan } from './common';
+import { waitForElement } from '../../../common/dom/utils';
+import { getURLPathElementEnding } from '../../../common/url';
+import { getFirstElement } from '../../../common/dom/helpers';
+import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
+import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
+import { getPriceSpan } from '../common';
 
 const SELECTORS = {
     SIDE_CONTAINER: '.product-page__aside-container',
