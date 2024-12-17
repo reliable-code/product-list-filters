@@ -22,7 +22,7 @@ import {
     NUMBER_INPUT_STYLE,
     setCommonFiltersContainerStyles,
     TEXT_INPUT_STYLE,
-} from './common/common';
+} from './common';
 import {
     createEnabledFilterControl,
     createMaxReviewsFilterControl,
