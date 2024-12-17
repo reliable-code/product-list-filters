@@ -28,7 +28,7 @@ async function initMods() {
             if (pathnameIncludes('detail')) {
                 await initProductPageMods();
             } else {
-                initProductListMods();
+                await initProductListMods();
             }
         } else if (somePathElementEquals('favorites')) {
             await initFavoritesMods();

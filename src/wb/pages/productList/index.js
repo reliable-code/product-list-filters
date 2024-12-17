@@ -71,23 +71,18 @@ function getMinPriceValueFromURL() {
     return minPriceFilterValue;
 }
 
-export function initProductListMods() {
-    waitForElement(document, SELECTORS.FILTERS_BLOCK_WRAP)
-        .then((filtersBlockWrap) => {
-            removeRecentItemsBlock();
+export async function initProductListMods() {
+    const filtersBlockWrap = await waitForElement(document, SELECTORS.FILTERS_BLOCK_WRAP);
+    appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
 
-            appendFilterControlsIfNeeded(filtersBlockWrap, appendFiltersContainer);
+    removeRecentItemsBlock();
 
-            processProductCards();
-
-            const productCardList = getFirstElement(SELECTORS.PRODUCT_CARD_LIST);
-
-            const observer = new MutationObserver(debounce(processProductCards, 150));
-
-            observer.observe(productCardList, {
-                childList: true,
-            });
-        });
+    processProductCards();
+    const productCardList = getFirstElement(SELECTORS.PRODUCT_CARD_LIST);
+    const observer = new MutationObserver(debounce(processProductCards, 150));
+    observer.observe(productCardList, {
+        childList: true,
+    });
 }
 
 function removeRecentItemsBlock() {
