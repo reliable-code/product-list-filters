@@ -3,4 +3,5 @@ export const SELECTORS = {
     PRODUCT_CARD: '.deal-card',
     PRODUCT_CARD_RATING: '.common-box span',
     PRODUCT_NAME: '.custom-card-title',
+    PRODUCT_CARD_LINK: '.custom-card-title > a',
 };
