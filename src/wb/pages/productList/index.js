@@ -98,11 +98,10 @@ function removeRecentItemsBlock() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
-    const priceControlStyle =
-        CONTROL_STYLE + // eslint-disable-line prefer-template
-        'margin-right: 37px;';
-
-    const priceControlStyleObj = styleStringToObject(priceControlStyle);
+    const priceControlStyle = {
+        ...STYLES.CONTROL,
+        marginRight: '37px',
+    };
 
     const nameFilterDiv =
         createSearchFilterControl(nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE));
@@ -117,7 +116,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         createMinRatingFilterControl(minRatingFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(NUMBER_INPUT_STYLE));
 
     const minPriceDiv =
-        createDiv(priceControlStyleObj, minPriceDivContent());
+        createDiv(priceControlStyle, minPriceDivContent());
 
     const filterEnabledDiv =
         createEnabledFilterControl(filterEnabled, styleStringToObject(CONTROL_STYLE), styleStringToObject(CHECKBOX_INPUT_STYLE));

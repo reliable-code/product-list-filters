@@ -16,6 +16,9 @@ export const STYLES = {
         ...STYLES_BASE.INPUT,
         width: '180px',
     },
-    CONTROL: {},
+    CONTROL: {
+        display: 'flex',
+        alignItems: 'center',
+    },
     CHECKBOX_INPUT: {},
 };
