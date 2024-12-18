@@ -92,28 +92,24 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
     filtersContainer.classList.add('input-search');
 
-    const priceControlStyle = {
-        ...STYLES.CONTROL,
-        marginRight: '37px',
-    };
-
-    const nameFilterDiv =
-        createSearchFilterControl(nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT);
-
-    const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT);
-
-    const maxReviewsDiv =
-        createMaxReviewsFilterControl(maxReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT);
-
-    const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT);
-
-    const minPriceDiv =
-        createDiv(priceControlStyle, minPriceDivContent());
-
-    const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT);
+    const nameFilterDiv = createSearchFilterControl(
+        nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
+    );
+    const minReviewsDiv = createMinReviewsFilterControl(
+        minReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const maxReviewsDiv = createMaxReviewsFilterControl(
+        maxReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const minRatingDiv = createMinRatingFilterControl(
+        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const minPriceDiv = createDiv(
+        STYLES.CONTROL, minPriceDivContent(),
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+    );
 
     setInterval(() => checkMinPrice(minPriceDiv), 500);
 
