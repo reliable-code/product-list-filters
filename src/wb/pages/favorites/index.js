@@ -136,6 +136,21 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
     updateElementDisplay(productCard, shouldHide);
 }
 
+async function handlePriceData(productCard, priceContainer, priceTolerancePercentChanged) {
+    await appendStoredPriceValuesIfNeeded(productCard, priceContainer);
+
+    if (
+        !priceTolerancePercentChanged ||
+        !productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) ||
+        !productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)
+    ) {
+        return;
+    }
+
+    const priceWrapper = priceContainer.parentNode;
+    checkIfGoodPrice(priceWrapper, productCard, priceTolerancePercent.value);
+}
+
 async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
     if (productCard.hasAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED)) return;
 
@@ -174,21 +189,6 @@ async function appendStoredPriceValues(priceContainer, productCard, priceContain
         ?.remove();
 
     productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
-}
-
-async function handlePriceData(productCard, priceContainer, priceTolerancePercentChanged) {
-    await appendStoredPriceValuesIfNeeded(productCard, priceContainer);
-
-    if (
-        !priceTolerancePercentChanged ||
-        !productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) ||
-        !productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)
-    ) {
-        return;
-    }
-
-    const priceWrapper = priceContainer.parentNode;
-    checkIfGoodPrice(priceWrapper, productCard, priceTolerancePercent.value);
 }
 
 function isNotMatchBestPriceFilter(productCard) {
