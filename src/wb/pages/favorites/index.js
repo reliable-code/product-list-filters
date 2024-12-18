@@ -29,14 +29,7 @@ import {
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { STYLES } from '../common/styles';
-
-const SELECTORS = {
-    FILTER_CONTAINER: '.favorites-goods__head',
-    PRODUCT_LIST_CONTAINER: '.favorites-goods',
-    PRODUCT_CARDS: '.favorites-goods__list > .goods-card',
-    WALLET_PRICE: '.wallet-price',
-    PRICE: '.goods-card__price-now',
-};
+import { SELECTORS } from './selectors';
 
 const nameFilter =
     new StoredInputValue('favorites-name-filter', null, addProcessListToQueue);
