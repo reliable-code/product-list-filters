@@ -10,7 +10,8 @@ export const STYLES = {
     FILTERS_CONTAINER: {
         display: 'flex',
         gridGap: '20px',
-        marginTop: '19px',
+        margin: '19px auto 0',
+        maxWidth: '1435px',
     },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
