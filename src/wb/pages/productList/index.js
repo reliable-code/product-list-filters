@@ -25,6 +25,7 @@ import {
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { SELECTORS } from './selectors';
 import { STYLES } from '../common/styles';
+import { createSeparator } from '../../../common/filter/factories/helpers';
 
 const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
 
@@ -107,6 +108,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minPriceDiv = createDiv(
         STYLES.CONTROL, minPriceDivContent(),
     );
+    const separatorDiv = createSeparator(
+        STYLES.CONTROL,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
@@ -114,7 +118,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     setInterval(() => checkMinPrice(minPriceDiv), 500);
 
     filtersContainer.append(
-        nameFilterDiv, minReviewsDiv, maxReviewsDiv, minRatingDiv, minPriceDiv, filterEnabledDiv,
+        nameFilterDiv,
+        minReviewsDiv,
+        maxReviewsDiv,
+        minRatingDiv,
+        minPriceDiv,
+        separatorDiv,
+        filterEnabledDiv,
     );
     parentNode.append(filtersContainer);
 }
