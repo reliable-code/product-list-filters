@@ -8,7 +8,6 @@ import {
     PRODUCT_CARD_NAME_SELECTOR,
     TEXT_INPUT_STYLE,
 } from '../common';
-import { StoredInputValue } from '../../../common/storage/storage';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../../common/filter/compare';
 import {
@@ -22,26 +21,24 @@ import {
     getFirstElement,
     styleStringToObject,
 } from '../../../common/dom/helpers';
-import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
+import { createFilterFactory } from '../../../common/filter/factories/createFilter';
+import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
 
-const nameFilter =
-    new StoredInputValue('favorites-name-filter', null, addProcessListToQueue);
-const bestPriceFilter =
-    new StoredInputValue('best-price-filter', false, addProcessListToQueue);
+const { createGlobalFilter } = createFilterFactory(addProcessListToQueue);
 const onPriceTolerancePercentChange = () => addProcessListToQueue(true);
-const priceTolerancePercent =
-    new StoredInputValue('price-tolerance-percent', 3, onPriceTolerancePercentChange);
-const inStockOnlyFilter =
-    new StoredInputValue('in-stock-only-filter', true, addProcessListToQueue);
-const filterEnabled =
-    new StoredInputValue('favorites-filter-enabled', true, addProcessListToQueue);
+
+const nameFilter = createGlobalFilter('favorites-name-filter');
+const bestPriceFilter = createGlobalFilter('best-price-filter', false);
+const priceTolerancePercent = createGlobalFilter('price-tolerance-percent', 3, onPriceTolerancePercentChange);
+const inStockOnlyFilter = createGlobalFilter('in-stock-only-filter', true);
+const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
 
 let processListQueue = Promise.resolve();
 
