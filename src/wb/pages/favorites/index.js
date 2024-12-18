@@ -1,13 +1,5 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
-import {
-    CHECKBOX_INPUT_STYLE,
-    CONTROL_STYLE,
-    getPriceSpan,
-    getProductArticleFromLink,
-    NUMBER_INPUT_STYLE,
-    PRODUCT_CARD_NAME_SELECTOR,
-    TEXT_INPUT_STYLE,
-} from '../common';
+import { getPriceSpan, getProductArticleFromLink, PRODUCT_CARD_NAME_SELECTOR } from '../common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../../common/filter/compare';
 import {
@@ -15,12 +7,7 @@ import {
     createNumberFilterControl,
 } from '../../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
-import {
-    applyStyles,
-    getAllElements,
-    getFirstElement,
-    styleStringToObject,
-} from '../../../common/dom/helpers';
+import { applyStyles, getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
@@ -44,14 +31,12 @@ let processListQueue = Promise.resolve();
 
 export async function initFavoritesMods() {
     const filterContainer = await waitForElement(document, SELECTORS.FILTER_CONTAINER);
-
     appendFilterControlsIfNeeded(filterContainer, appendFiltersContainer);
 
     await addProcessListToQueue();
     const observer = new MutationObserver(debounce(addProcessListToQueue));
 
     const productListContainer = getFirstElement(SELECTORS.PRODUCT_LIST_CONTAINER);
-
     observer.observe(productListContainer, {
         childList: true,
         subtree: true,
@@ -60,41 +45,37 @@ export async function initFavoritesMods() {
 
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
+    filtersContainer.classList.add('input-search');
 
-    const nameFilterDiv =
-        createSearchFilterControl(
-            nameFilter, styleStringToObject(CONTROL_STYLE), styleStringToObject(TEXT_INPUT_STYLE),
-        );
-    const bestPriceDiv =
-        createCheckboxFilterControl(
-            'Лучшая цена: ',
-            bestPriceFilter,
-            styleStringToObject(CONTROL_STYLE),
-            styleStringToObject(CHECKBOX_INPUT_STYLE),
-        );
-    const priceTolerancePercentDiv =
-        createNumberFilterControl(
-            'Допуск цены, %: ',
-            priceTolerancePercent,
-            1,
-            0,
-            100,
-            styleStringToObject(CONTROL_STYLE),
-            styleStringToObject(NUMBER_INPUT_STYLE),
-        );
-    const inStockOnlyFilterDiv =
-        createCheckboxFilterControl(
-            'В наличии: ',
-            inStockOnlyFilter,
-            styleStringToObject(CONTROL_STYLE),
-            styleStringToObject(CHECKBOX_INPUT_STYLE),
-        );
-    const filterEnabledDiv =
-        createEnabledFilterControl(
-            filterEnabled,
-            styleStringToObject(CONTROL_STYLE),
-            styleStringToObject(CHECKBOX_INPUT_STYLE),
-        );
+    const nameFilterDiv = createSearchFilterControl(
+        nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
+    );
+    const bestPriceDiv = createCheckboxFilterControl(
+        'Лучшая цена: ',
+        bestPriceFilter,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
+    );
+    const priceTolerancePercentDiv = createNumberFilterControl(
+        'Допуск цены, %: ',
+        priceTolerancePercent,
+        1,
+        0,
+        100,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+    );
+    const inStockOnlyFilterDiv = createCheckboxFilterControl(
+        'В наличии: ',
+        inStockOnlyFilter,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
+    );
+    const filterEnabledDiv = createEnabledFilterControl(
+        filterEnabled,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
+    );
 
     filtersContainer.append(
         nameFilterDiv,
