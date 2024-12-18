@@ -100,34 +100,38 @@ async function addProcessListToQueue(priceTolerancePercentChanged = false) {
 async function processProductCards(priceTolerancePercentChanged = false) {
     const productCards = [...getAllElements(SELECTORS.PRODUCT_CARDS)];
 
-    await Promise.all(productCards.map(async (productCard) => {
-        if (!filterEnabled.value) {
-            showElement(productCard);
-            return;
-        }
+    await Promise.all(productCards.map(
+        (productCard) => processProductCard(productCard, priceTolerancePercentChanged),
+    ));
+}
 
-        const priceContainer = getFirstElement('.goods-card__price', productCard);
-        if (!priceContainer) {
-            updateElementDisplay(productCard, inStockOnlyFilter.value);
-            return;
-        }
+async function processProductCard(productCard, priceTolerancePercentChanged) {
+    if (!filterEnabled.value) {
+        showElement(productCard);
+        return;
+    }
 
-        await handlePriceData(productCard, priceContainer, priceTolerancePercentChanged);
+    const priceContainer = getFirstElement('.goods-card__price', productCard);
+    if (!priceContainer) {
+        updateElementDisplay(productCard, inStockOnlyFilter.value);
+        return;
+    }
 
-        const productCardNameWrap = getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
-        if (!productCardNameWrap) {
-            hideElement(productCard);
-            return;
-        }
+    await handlePriceData(productCard, priceContainer, priceTolerancePercentChanged);
 
-        const productCardName = productCardNameWrap.innerText;
-        productCardNameWrap.title = productCardName;
+    const productCardNameWrap = getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+    if (!productCardNameWrap) {
+        hideElement(productCard);
+        return;
+    }
 
-        const shouldHide =
-            isNotMatchTextFilter(productCardName, nameFilter) ||
-            isNotMatchBestPriceFilter(productCard);
-        updateElementDisplay(productCard, shouldHide);
-    }));
+    const productCardName = productCardNameWrap.innerText;
+    productCardNameWrap.title = productCardName;
+
+    const shouldHide =
+        isNotMatchTextFilter(productCardName, nameFilter) ||
+        isNotMatchBestPriceFilter(productCard);
+    updateElementDisplay(productCard, shouldHide);
 }
 
 async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
