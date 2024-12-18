@@ -7,6 +7,8 @@ import { runMigration } from './db/db';
 
 runMigration();
 
+hideUnwantedElements();
+
 (function observeHead() {
     const { head } = document;
 
@@ -36,4 +38,12 @@ async function initMods() {
     } catch (error) {
         console.error('Error in initMods:', error);
     }
+}
+
+export function hideUnwantedElements() {
+    window.GM_addStyle(`
+        .j-b-recommended-goods-wrapper {
+            display: none !important;
+        }
+    `);
 }
