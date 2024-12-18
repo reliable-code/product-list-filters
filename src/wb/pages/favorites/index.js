@@ -17,6 +17,7 @@ import { createFilterFactory } from '../../../common/filter/factories/createFilt
 import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
+import { createSeparator } from '../../../common/filter/factories/helpers';
 
 const { createGlobalFilter } = createFilterFactory(addProcessListToQueue);
 const onPriceTolerancePercentChange = () => addProcessListToQueue(true);
@@ -71,6 +72,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.CHECKBOX_INPUT,
     );
+    const separatorDiv = createSeparator(
+        STYLES.CONTROL,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled,
         STYLES.CONTROL,
@@ -82,6 +86,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         bestPriceDiv,
         priceTolerancePercentDiv,
         inStockOnlyFilterDiv,
+        separatorDiv,
         filterEnabledDiv,
     );
 
