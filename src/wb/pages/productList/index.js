@@ -14,9 +14,7 @@ import {
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
-    styleStringToObject,
 } from '../../../common/dom/helpers';
-import { CHECKBOX_INPUT_STYLE, NUMBER_INPUT_STYLE, TEXT_INPUT_STYLE } from '../common';
 import {
     createEnabledFilterControl,
     createMaxReviewsFilterControl,
@@ -92,6 +90,7 @@ function removeRecentItemsBlock() {
 
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
+    filtersContainer.classList.add('input-search');
 
     const priceControlStyle = {
         ...STYLES.CONTROL,
@@ -99,22 +98,22 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     };
 
     const nameFilterDiv =
-        createSearchFilterControl(nameFilter, STYLES.CONTROL, styleStringToObject(TEXT_INPUT_STYLE));
+        createSearchFilterControl(nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT);
 
     const minReviewsDiv =
-        createMinReviewsFilterControl(minReviewsFilter, STYLES.CONTROL, styleStringToObject(NUMBER_INPUT_STYLE));
+        createMinReviewsFilterControl(minReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT);
 
     const maxReviewsDiv =
-        createMaxReviewsFilterControl(maxReviewsFilter, STYLES.CONTROL, styleStringToObject(NUMBER_INPUT_STYLE));
+        createMaxReviewsFilterControl(maxReviewsFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT);
 
     const minRatingDiv =
-        createMinRatingFilterControl(minRatingFilter, STYLES.CONTROL, styleStringToObject(NUMBER_INPUT_STYLE));
+        createMinRatingFilterControl(minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT);
 
     const minPriceDiv =
         createDiv(priceControlStyle, minPriceDivContent());
 
     const filterEnabledDiv =
-        createEnabledFilterControl(filterEnabled, STYLES.CONTROL, styleStringToObject(CHECKBOX_INPUT_STYLE));
+        createEnabledFilterControl(filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT);
 
     setInterval(() => checkMinPrice(minPriceDiv), 500);
 
