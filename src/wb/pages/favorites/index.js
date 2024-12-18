@@ -1,5 +1,5 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
-import { getPriceSpan, getProductArticleFromLink, PRODUCT_CARD_NAME_SELECTOR } from '../common';
+import { getPriceSpan, getProductArticleFromLink } from '../common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../../common/filter/compare';
 import {
@@ -94,7 +94,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 async function addProcessListToQueue(priceTolerancePercentChanged = false) {
-    processListQueue = processListQueue.then(() => processProductCards(priceTolerancePercentChanged));
+    processListQueue = processListQueue.then(
+        () => processProductCards(priceTolerancePercentChanged),
+    );
 }
 
 async function processProductCards(priceTolerancePercentChanged = false) {
@@ -111,7 +113,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         return;
     }
 
-    const priceContainer = getFirstElement('.goods-card__price', productCard);
+    const priceContainer = getFirstElement(SELECTORS.PRICE_CONTAINER, productCard);
     if (!priceContainer) {
         updateElementDisplay(productCard, inStockOnlyFilter.value);
         return;
@@ -119,7 +121,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
 
     await handlePriceData(productCard, priceContainer, priceTolerancePercentChanged);
 
-    const productCardNameWrap = getFirstElement(PRODUCT_CARD_NAME_SELECTOR, productCard);
+    const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
     if (!productCardNameWrap) {
         hideElement(productCard);
         return;
@@ -137,8 +139,8 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
 async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
     if (productCard.hasAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED)) return;
 
-    const outOfStock = getFirstElement('.goods-card__out-stock', productCard);
-    if (outOfStock) {
+    const outOfStockLabel = getFirstElement(SELECTORS.OUT_OF_STOCK_LABEL, productCard);
+    if (outOfStockLabel) {
         productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
         return;
     }
@@ -168,7 +170,7 @@ async function appendStoredPriceValues(priceContainer, productCard, priceContain
         priceContainerWrap.style.display = 'block';
     }
 
-    getFirstElement('.goods-card__similar', priceContainerWrap)
+    getFirstElement(SELECTORS.SIMILAR_BUTTON, priceContainerWrap)
         ?.remove();
 
     productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
