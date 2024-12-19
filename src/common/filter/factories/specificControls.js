@@ -141,6 +141,17 @@ export function createPriceFilterControl(
     );
 }
 
+export function createMinPriceFilterControl(
+    inputValue,
+    controlStyle = {},
+    inputStyle = {},
+    inputStep = '25',
+) {
+    return createPriceFilterControl(
+        'Мин. цена: ', inputValue, controlStyle, inputStyle, inputStep,
+    );
+}
+
 export function createMaxPriceFilterControl(
     inputValue,
     controlStyle = {},
