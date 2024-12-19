@@ -23,6 +23,7 @@ import {
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
 import { createFilterFactory } from '../common/filter/factories/createFilter';
+import { createSeparator } from '../common/filter/factories/helpers';
 
 const { createGlobalFilter } = createFilterFactory(processProductCards);
 
@@ -173,11 +174,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const maxPriceDiv = createMaxPriceFilterControl(
         maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, '25',
     );
+    const separatorDiv = createSeparator(
+        STYLES.CONTROL,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
-    filtersContainer.append(minDiscountDiv, maxPriceDiv, filterEnabledDiv);
+    filtersContainer.append(minDiscountDiv, maxPriceDiv, separatorDiv, filterEnabledDiv);
     insertAfter(parentNode.firstChild, filtersContainer);
 }
 
@@ -210,6 +214,9 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
         STYLES.CONTROL,
         STYLES.CHECKBOX_INPUT,
     );
+    const separatorDiv = createSeparator(
+        STYLES.CONTROL,
+    );
     const observerEnabledDiv = createEnabledFilterControl(
         observerEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
@@ -219,6 +226,7 @@ function appendObserverControlsContainer(observerControlsContainer, parentNode) 
         observerReloadIntervalDiv,
         minObserverSectionLengthDiv,
         showObserverNotificationDiv,
+        separatorDiv,
         observerEnabledDiv,
         reloadTimerDiv,
     );
