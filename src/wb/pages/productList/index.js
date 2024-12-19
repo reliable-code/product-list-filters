@@ -97,10 +97,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const minPriceDiv = createMinPriceFilterControl(
-        minPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+        minPriceFilter, STYLES.CONTROL, STYLES.PRICE_INPUT,
     );
     const maxPriceDiv = createMaxPriceFilterControl(
-        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+        maxPriceFilter, STYLES.CONTROL, STYLES.PRICE_INPUT,
     );
     const separatorDiv = createSeparator(
         STYLES.CONTROL,

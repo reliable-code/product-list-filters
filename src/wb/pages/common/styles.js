@@ -17,6 +17,10 @@ export const STYLES = {
         ...STYLES_BASE.INPUT,
         width: '75px',
     },
+    PRICE_INPUT: {
+        ...STYLES_BASE.INPUT,
+        width: '100px',
+    },
     TEXT_INPUT: {
         ...STYLES_BASE.INPUT,
         width: '200px',
