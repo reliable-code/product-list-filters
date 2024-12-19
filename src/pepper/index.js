@@ -152,8 +152,11 @@ function addMarkAsNewestSeenHandler(productCard, productCardLink, productId) {
     if (productCard.hasAttribute(ATTRIBUTES.MARK_AS_NEWEST_SEEN_APPENDED)) return;
     productCard.addEventListener('mousedown', (event) => {
         if (event.button === 1 && event.target !== productCardLink) {
-            markAsNewestSeen(productId);
-            event.preventDefault();
+            // eslint-disable-next-line no-restricted-globals
+            if (confirm('Пометить как новое?')) {
+                markAsNewestSeen(productId);
+                event.preventDefault();
+            }
         }
     });
     productCard.setAttribute(ATTRIBUTES.MARK_AS_NEWEST_SEEN_APPENDED, '');
