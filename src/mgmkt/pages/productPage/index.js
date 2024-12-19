@@ -79,7 +79,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     const maxPriceDiv = createMaxPriceFilterControl(
-        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, '250',
     );
 
     const maxDiscountedPriceDiv = createPriceFilterControl(

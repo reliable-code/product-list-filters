@@ -172,7 +172,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         minDiscountFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const maxPriceDiv = createMaxPriceFilterControl(
-        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, '25',
+        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const separatorDiv = createSeparator(
         STYLES.CONTROL,

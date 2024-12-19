@@ -105,7 +105,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         noRatingFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
     const maxPriceDiv = createMaxPriceFilterControl(
-        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, '25',
+        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,

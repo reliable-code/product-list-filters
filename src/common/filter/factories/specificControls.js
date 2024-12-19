@@ -145,7 +145,7 @@ export function createMaxPriceFilterControl(
     inputValue,
     controlStyle = {},
     inputStyle = {},
-    inputStep = '250',
+    inputStep = '25',
 ) {
     return createPriceFilterControl(
         'Макс. цена: ', inputValue, controlStyle, inputStyle, inputStep,
