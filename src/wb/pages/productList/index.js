@@ -2,7 +2,6 @@ import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { getHash } from '../../../common/hash/helpers';
 import { getURLPathElement, somePathElementEquals } from '../../../common/url';
-import { createDiv } from '../../../common/dom/factories/elements';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
@@ -17,7 +16,9 @@ import {
 } from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
+    createMaxPriceFilterControl,
     createMaxReviewsFilterControl,
+    createMinPriceFilterControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createSearchFilterControl,
@@ -37,10 +38,11 @@ const nameFilter = createSectionFilter('name-filter');
 const minReviewsFilter = createSectionFilter('min-reviews-filter');
 const maxReviewsFilter = createSectionFilter('max-reviews-filter');
 const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
+const minPriceFilter = createSectionFilter('min-price-filter');
+const maxPriceFilter = createSectionFilter('max-price-filter');
 const filterEnabled = createSectionFilter('filter-enabled', true);
 
-let minPriceValue = getMinPriceValueFromURL();
-const minPriceDivContent = () => `Минимальная цена: ${minPriceValue}`;
+const minPriceValue = getMinPriceValueFromURL();
 
 function getSectionId() {
     const sectionNamePosition = somePathElementEquals('brands') ? 2 : 3;
@@ -94,8 +96,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minRatingDiv = createMinRatingFilterControl(
         minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
-    const minPriceDiv = createDiv(
-        STYLES.CONTROL, minPriceDivContent(),
+    const minPriceDiv = createMinPriceFilterControl(
+        minPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
+    const maxPriceDiv = createMaxPriceFilterControl(
+        maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const separatorDiv = createSeparator(
         STYLES.CONTROL,
@@ -104,27 +109,17 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
-    setInterval(() => checkMinPrice(minPriceDiv), 500);
-
     filtersContainer.append(
         nameFilterDiv,
         minReviewsDiv,
         maxReviewsDiv,
         minRatingDiv,
         minPriceDiv,
+        maxPriceDiv,
         separatorDiv,
         filterEnabledDiv,
     );
     parentNode.append(filtersContainer);
-}
-
-function checkMinPrice(minPriceDiv) {
-    const currentMinPriceValue = getMinPriceValueFromURL();
-
-    if (minPriceValue !== currentMinPriceValue) {
-        minPriceValue = currentMinPriceValue;
-        minPriceDiv.textContent = minPriceDivContent();
-    }
 }
 
 function processProductCards() {
@@ -160,6 +155,7 @@ function processProductCard(productCard) {
         isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
         isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
         isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
-        productCardPriceNumber < minPriceValue;
+        isLessThanFilter(productCardPriceNumber, minPriceFilter) ||
+        isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
     updateElementDisplay(productCard, shouldHide);
 }
