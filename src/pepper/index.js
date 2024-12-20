@@ -23,12 +23,7 @@ import {
 import { createFilterFactory } from '../common/filter/factories/createFilter';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
-import {
-    getNewestSeenProductId,
-    getPrevNewestSeenProductId,
-    setNewestSeenProductId,
-    setPrevNewestSeenProductId,
-} from './db';
+import { getNewestSeenProductId, setNewestSeenProductId } from './db';
 import { ATTRIBUTES } from './attributes';
 
 const { createGlobalFilter } = createFilterFactory(initProcessProductCards);
@@ -102,7 +97,7 @@ function processProductCard(productCard) {
     const productCardLink = getFirstElement(SELECTORS.PRODUCT_CARD_LINK, productCard);
     const productId = getProductId(productCardLink);
 
-    highlightNewestSeenProductCard(productId, productCard);
+    highlightNewProductCards(productId, productCard);
     addMarkAsNewestSeenHandler(productCard, productCardLink, productId);
 
     if (!filterEnabled.value) {
@@ -140,9 +135,9 @@ function getProductId(productCardLink) {
     return +productIdString;
 }
 
-function highlightNewestSeenProductCard(productId, productCard) {
-    if (productId === getNewestSeenProductId() || productId === getPrevNewestSeenProductId()) {
-        productCard.style.border = '5px solid #8ab854';
+function highlightNewProductCards(productId, productCard) {
+    if (productId > getNewestSeenProductId()) {
+        productCard.style.border = '3px solid #8ab854';
     } else {
         productCard.style.removeProperty('border');
     }
@@ -163,8 +158,6 @@ function addMarkAsNewestSeenHandler(productCard, productCardLink, productId) {
 }
 
 function markAsNewestSeen(productId) {
-    const prevNewestSeenProductId = getNewestSeenProductId();
-    setPrevNewestSeenProductId(prevNewestSeenProductId);
     setNewestSeenProductId(productId);
 
     processProductCards();
