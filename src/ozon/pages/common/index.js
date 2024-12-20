@@ -63,9 +63,11 @@ export function moveProductCardToFirstWrapIfNeeded(productCard, firstProductCard
 
 export function hideUnwantedElements() {
     window.GM_addStyle(`
+        [data-widget="bannerCarousel"],
         [data-widget="bigPromoPDP"],
         [data-widget="blackFridayStatus"],
         [data-widget="cellList"],
+        [data-widget="feedbackTile"],
         [data-widget="skuGrid"],
         [data-widget="skuShelfGoods"],
         [data-widget="tagList"],
