@@ -1,12 +1,13 @@
+import { runMigration as migrateDb } from './db/db';
+import { hideUnwantedElements } from './pages/common';
 import { waitForElement } from '../common/dom/utils';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
+import { initReviewsMods } from './pages/reviews';
+import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
 import { somePathElementEquals } from '../common/url';
 import { getFirstElement } from '../common/dom/helpers';
-import { runMigration as migrateDb } from './db/db';
-import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
-import { hideUnwantedElements } from './pages/common';
 import { SELECTORS } from './selectors';
 
 migrateDb();
@@ -65,8 +66,7 @@ async function initMods() {
     }
 
     if (somePathElementEquals('reviews')) {
-        const comments = getFirstElement(SELECTORS.COMMENTS);
-        if (comments) comments.scrollIntoView();
+        await initReviewsMods();
         return;
     }
 
