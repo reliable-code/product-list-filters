@@ -16,6 +16,13 @@ export function getAllElements(selector, parentNode = document, logNotFound = fa
     return elements;
 }
 
+export function findElementByText(parentElement, selector, text) {
+    return [...parentElement.querySelectorAll(selector)].find(
+        (element) => element.textContent.trim()
+            .includes(text),
+    );
+}
+
 export function getFirstElementInnerNumber(
     parentNode, selector, cleanText = false, replaceComma = false,
 ) {
