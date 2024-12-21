@@ -36,7 +36,7 @@ export function setCommonFiltersContainerStyles(filtersContainer, parentNode) {
     applyStyles(parentNode, STYLES.FILTERS_CONTAINER_WRAP);
 }
 
-function addInputSpinnerButtons() {
+export function addInputSpinnerButtons() {
     window.GM_addStyle(`
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
