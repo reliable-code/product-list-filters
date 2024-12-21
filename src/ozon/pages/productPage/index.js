@@ -1,7 +1,6 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
-import { createDislikeButton } from '../common';
+import { createDislikeButton, getProductArticleFromPathname } from '../common';
 import { thumbsDownIcon } from '../common/icons';
-import { getURLPathElementEnding } from '../../../common/url';
 import { createDiv, createLink, createSpan } from '../../../common/dom/factories/elements';
 import { insertAfter } from '../../../common/dom/manipulation';
 import {
@@ -37,10 +36,6 @@ async function initAppendPriceHistory() {
     const priceSpan = getFirstElement('span', priceContainer);
 
     await appendPriceHistory(priceContainer, priceSpan, productArticle);
-}
-
-function getProductArticleFromPathname() {
-    return getURLPathElementEnding(2, 'unknown');
 }
 
 async function initSkipFirstGalleryVideo() {

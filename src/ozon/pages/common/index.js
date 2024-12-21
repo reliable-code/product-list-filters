@@ -1,5 +1,5 @@
 import { heartStrikeDislikeIcon } from './icons';
-import { getPathnameElementEnding } from '../../../common/url';
+import { getPathnameElementEnding, getURLPathElementEnding } from '../../../common/url';
 import { createLink, createSpan } from '../../../common/dom/factories/elements';
 import { applyStyles, getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
@@ -8,6 +8,10 @@ import { SELECTORS } from './selectors';
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
     return getPathnameElementEnding(productCardLinkHref, 2);
+}
+
+export function getProductArticleFromPathname() {
+    return getURLPathElementEnding(2, 'unknown');
 }
 
 export function createDislikeButton(onClick, needLabel = true) {
