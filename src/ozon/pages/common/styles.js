@@ -13,15 +13,7 @@ export const STYLES = {
         flexFlow: 'wrap',
         gap: '15px',
         minWidth: '1250px',
-    },
-    FILTERS_CONTAINER_WRAP: {
-        position: 'sticky',
-        top: '2px',
-        backgroundColor: '#fff',
-        zIndex: 2,
-        paddingBottom: '11px',
-        marginBottom: 0,
-        gap: '15px',
+        paddingBottom: '14px',
     },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,

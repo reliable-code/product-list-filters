@@ -87,7 +87,7 @@ export async function initProductListMods(paginatorContent) {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    setCommonFiltersContainerStyles(filtersContainer, parentNode);
+    setCommonFiltersContainerStyles(filtersContainer);
 
     const nameFilterDiv = createSearchFilterControl(
         nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,

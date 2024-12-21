@@ -33,11 +33,10 @@ export function createDislikeButton(onClick, needLabel = true) {
     return productDislikeButton;
 }
 
-export function setCommonFiltersContainerStyles(filtersContainer, parentNode) {
+export function setCommonFiltersContainerStyles(filtersContainer) {
     addInputSpinnerButtons();
 
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
-    applyStyles(parentNode, STYLES.FILTERS_CONTAINER_WRAP);
 }
 
 export function addInputSpinnerButtons() {

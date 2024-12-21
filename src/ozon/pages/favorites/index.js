@@ -51,7 +51,7 @@ export async function initFavoritesMods() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    setCommonFiltersContainerStyles(filtersContainer, parentNode);
+    setCommonFiltersContainerStyles(filtersContainer);
 
     const nameFilterDiv = createSearchFilterControl(
         nameFilter,
