@@ -37,4 +37,8 @@ export class StoredInputValue extends InputValueBase {
         this.value = newValue;
         this.onChangeIfDefined();
     }
+
+    clearValue() {
+        this.updateValue(null);
+    }
 }
