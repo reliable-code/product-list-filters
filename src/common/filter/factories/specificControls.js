@@ -163,6 +163,23 @@ export function createMaxPriceFilterControl(
     );
 }
 
+export function createLikesFilterControl(
+    labelText,
+    inputValue,
+    controlStyle = {},
+    inputStyle = {},
+) {
+    return createNumberFilterControl(
+        labelText,
+        inputValue,
+        '1',
+        '0',
+        '99999',
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createNoRatingFilterControl(
     inputValue,
     controlStyle = {},
