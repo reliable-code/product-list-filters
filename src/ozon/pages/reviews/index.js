@@ -22,7 +22,8 @@ import {
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { ATTRIBUTES } from './attributes';
-import { addInputSpinnerButtons } from '../common';
+import { addInputSpinnerButtons, getProductArticleFromPathname } from '../common';
+import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -35,6 +36,8 @@ export async function initReviewsMods() {
     const comments = getFirstElement(SELECTORS.COMMENTS);
     if (comments) comments.scrollIntoView();
 
+    cleanFiltersIfNotLastProduct();
+
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
 
@@ -46,6 +49,19 @@ export async function initReviewsMods() {
         childList: true,
         subtree: true,
     });
+}
+
+function cleanFiltersIfNotLastProduct() {
+    const productArticle = getProductArticleFromPathname();
+    const lastProductArticle = getReviewsLastProductArticle();
+
+    if (productArticle !== lastProductArticle) {
+        textFilter.clearValue();
+        minLikesFilter.clearValue();
+        maxDislikesFilter.clearValue();
+    }
+
+    setReviewsLastProductArticle(productArticle);
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
