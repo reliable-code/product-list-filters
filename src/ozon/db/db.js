@@ -76,3 +76,11 @@ function getStoredProductValue(productArticle) {
 function getProductStorageKey(productArticle) {
     return `product-${productArticle}`;
 }
+
+export function setReviewsLastProductArticle(productArticle) {
+    return setStorageValue('reviews-last-product-article', productArticle);
+}
+
+export function getReviewsLastProductArticle() {
+    return getStorageValue('reviews-last-product-article');
+}
