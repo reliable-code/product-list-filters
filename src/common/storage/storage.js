@@ -26,10 +26,15 @@ export class StoredInputValue extends InputValueBase {
         const newValue = getInputValueFromEvent(event);
         const newParsedValue = parseValue(newValue);
 
-        if (this.value === newParsedValue) return;
-        setStorageValue(this.storageKey, newParsedValue);
-
-        this.value = newParsedValue;
-        this.onChangeIfDefined();
+        this.updateValue(newParsedValue);
     };
+
+    updateValue(newValue) {
+        if (this.value === newValue) return;
+
+        setStorageValue(this.storageKey, newValue);
+
+        this.value = newValue;
+        this.onChangeIfDefined();
+    }
 }
