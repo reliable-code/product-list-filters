@@ -23,7 +23,12 @@ import {
 import { createFilterFactory } from '../common/filter/factories/createFilter';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
-import { getNewestSeenProductId, setNewestSeenProductId } from './db';
+import {
+    getNewestSeenProductId,
+    getPrevNewestSeenProductId,
+    setNewestSeenProductId,
+    setPrevNewestSeenProductId,
+} from './db';
 import { ATTRIBUTES } from './attributes';
 
 const { createGlobalFilter } = createFilterFactory(initProcessProductCards);
@@ -136,7 +141,7 @@ function getProductId(productCardLink) {
 }
 
 function highlightNewProductCards(productId, productCard) {
-    if (productId > getNewestSeenProductId()) {
+    if (productId > getPrevNewestSeenProductId()) {
         productCard.style.border = '3px solid #8ab854';
     } else {
         productCard.style.removeProperty('border');
@@ -158,6 +163,8 @@ function addMarkAsNewestSeenHandler(productCard, productCardLink, productId) {
 }
 
 function markAsNewestSeen(productId) {
+    const prevNewestSeenProductId = getNewestSeenProductId();
+    setPrevNewestSeenProductId(prevNewestSeenProductId);
     setNewestSeenProductId(productId);
 
     processProductCards();
