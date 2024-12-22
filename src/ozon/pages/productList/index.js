@@ -22,6 +22,7 @@ import {
 import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
+    applyStyles,
     getAllElements,
     getArrayElementInnerNumber,
     getElementInnerNumber,
@@ -89,6 +90,7 @@ export async function initProductListMods(paginatorContent) {
 
 function appendFiltersContainer(filtersContainer, parentNode) {
     setCommonFiltersContainerStyles(filtersContainer);
+    applyStyles(parentNode, { position: 'relative' });
 
     const nameFilterDiv = createSearchFilterControl(
         nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
