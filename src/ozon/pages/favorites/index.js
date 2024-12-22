@@ -1,5 +1,6 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import {
+    addScrollToFiltersButton,
     getFirstProductCardsWrap,
     getProductArticleFromLink,
     moveProductCardsToFirstWrap,
@@ -84,6 +85,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
+    addScrollToFiltersButton(parentNode);
 }
 
 async function addProcessProductCardsToQueue(priceTolerancePercentChanged = false) {

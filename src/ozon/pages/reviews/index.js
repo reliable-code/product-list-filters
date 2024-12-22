@@ -22,7 +22,11 @@ import {
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { ATTRIBUTES } from './attributes';
-import { addInputSpinnerButtons, getProductArticleFromPathname } from '../common';
+import {
+    addInputSpinnerButtons,
+    addScrollToFiltersButton,
+    getProductArticleFromPathname,
+} from '../common';
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
@@ -100,6 +104,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
+    addScrollToFiltersButton(parentNode);
 }
 
 function processReviewCards() {
