@@ -52,7 +52,7 @@ export const STYLES = {
         cursor: 'pointer',
         fontSize: '14px',
         transition: 'background-color 0.3s',
-        display: 'flex',
+        display: 'none',
         gap: '4px',
     },
 };
