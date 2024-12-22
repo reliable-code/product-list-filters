@@ -88,7 +88,6 @@ export async function initProductListMods(paginatorContent) {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    addScrollToFiltersButton(parentNode);
     setCommonFiltersContainerStyles(filtersContainer);
 
     const nameFilterDiv = createSearchFilterControl(
@@ -134,6 +133,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
+    addScrollToFiltersButton(parentNode);
 }
 
 async function addProcessProductCardsToQueue() {
