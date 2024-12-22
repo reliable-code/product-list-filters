@@ -84,5 +84,5 @@ export function hideUnwantedElements() {
 
 export function addScrollToFiltersButton(parentNode) {
     const button = createScrollToFiltersButton(STYLES.SCROLL_TO_FILTERS_BUTTON);
-    parentNode.appendChild(button);
+    if (button) parentNode.appendChild(button);
 }
