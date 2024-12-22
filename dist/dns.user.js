@@ -6,7 +6,7 @@
 // @grant        GM_getValue
 // @match        https://www.dns-shop.ru/catalog/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      0.1.73486360
+// @version      0.1.73487906
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=dns-shop.ru
 // @author       reliable-code
 // ==/UserScript==
