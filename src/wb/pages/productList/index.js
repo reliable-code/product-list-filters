@@ -1,7 +1,11 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
-import { getHash } from '../../../common/hash/helpers';
-import { getURLPathElement, somePathElementEquals } from '../../../common/url';
+import { getHashOrDefault } from '../../../common/hash/helpers';
+import {
+    getURLPathElement,
+    getURLQueryStringParam,
+    somePathElementEquals,
+} from '../../../common/url';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
@@ -45,12 +49,15 @@ const filterEnabled = createSectionFilter('filter-enabled', true);
 const minPriceValue = getMinPriceValueFromURL();
 
 function getSectionId() {
-    const sectionNamePosition = somePathElementEquals('brands') ? 2 : 3;
-    const sectionName = getURLPathElement(sectionNamePosition, '');
+    const sectionName = somePathElementEquals('search.aspx')
+        ? getURLQueryStringParam('search')
+        : getURLPathElement(getSectionPosition(), '');
 
-    return (sectionName && sectionName !== 'search.aspx')
-        ? getHash(sectionName)
-        : 'common';
+    return getHashOrDefault(sectionName);
+}
+
+function getSectionPosition() {
+    return somePathElementEquals('brands') ? 2 : 3;
 }
 
 function getMinPriceValueFromURL() {
