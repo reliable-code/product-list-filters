@@ -4,6 +4,7 @@ import { createLink, createSpan } from '../../../common/dom/factories/elements';
 import { applyStyles, getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
+import { createScrollToFiltersButton } from '../../../common/filter/factories/helpers';
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
@@ -79,4 +80,9 @@ export function hideUnwantedElements() {
             display: none !important;
         }
     `);
+}
+
+export function addScrollToFiltersButton(parentNode) {
+    const button = createScrollToFiltersButton(STYLES.SCROLL_TO_FILTERS_BUTTON);
+    parentNode.appendChild(button);
 }
