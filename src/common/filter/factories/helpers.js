@@ -10,7 +10,7 @@ export function createScrollToFiltersButton(
 ) {
     const filtersContainer = document.getElementById(filtersContainerId);
     if (!filtersContainer) {
-        console.error(`Element with id="${filtersContainerId}" not found.`);
+        console.log(`Element with id="${filtersContainerId}" not found.`);
         return null;
     }
 
@@ -26,6 +26,11 @@ export function createScrollToFiltersButton(
             top: filtersContainer.offsetTop - 75,
         });
     });
+    new IntersectionObserver(([entry]) => {
+        button.style.display = entry.isIntersecting ? 'none' : 'flex';
+    }, {
+        threshold: 1,
+    }).observe(filtersContainer);
 
     return button;
 }
