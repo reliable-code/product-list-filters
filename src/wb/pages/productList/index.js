@@ -32,8 +32,6 @@ import { SELECTORS } from './selectors';
 import { STYLES } from '../common/styles';
 import { createSeparator } from '../../../common/filter/factories/helpers';
 
-const PRICE_FILTER_URL_PARAMS_NAME = 'priceU';
-
 const SECTION_ID = getSectionId();
 
 const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
@@ -46,8 +44,6 @@ const minPriceFilter = createSectionFilter('min-price-filter');
 const maxPriceFilter = createSectionFilter('max-price-filter');
 const filterEnabled = createSectionFilter('filter-enabled', true);
 
-const minPriceValue = getMinPriceValueFromURL();
-
 function getSectionId() {
     const sectionName = somePathElementEquals('search.aspx')
         ? getURLQueryStringParam('search')
@@ -58,21 +54,6 @@ function getSectionId() {
 
 function getSectionPosition() {
     return somePathElementEquals('brands') ? 2 : 3;
-}
-
-function getMinPriceValueFromURL() {
-    const params = new URLSearchParams(window.location.search);
-
-    if (!params.has(PRICE_FILTER_URL_PARAMS_NAME)) {
-        return 0;
-    }
-
-    const priceFilterParams = params.get(PRICE_FILTER_URL_PARAMS_NAME);
-    const priceFilterParamsArray = priceFilterParams.split(';');
-    const minPriceFilterParam = priceFilterParamsArray[0];
-    const minPriceFilterValue = minPriceFilterParam / 100;
-
-    return minPriceFilterValue;
 }
 
 export async function initProductListMods() {
