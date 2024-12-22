@@ -22,14 +22,15 @@ export function createScrollToFiltersButton(
         button.style.filter = 'brightness(1)';
     });
     button.addEventListener('click', () => {
+        const rect = filtersContainer.getBoundingClientRect();
         window.scrollTo({
-            top: filtersContainer.offsetTop - 75,
+            top: rect.top + window.scrollY - scrollOffset,
         });
     });
     new IntersectionObserver(([entry]) => {
         button.style.display = entry.isIntersecting ? 'none' : 'flex';
     }, {
-        threshold: 1,
+        threshold: 0.5,
     }).observe(filtersContainer);
 
     return button;
