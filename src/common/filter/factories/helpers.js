@@ -8,6 +8,12 @@ export function createSeparator(controlStyle = {}) {
 export function createScrollToFiltersButton(
     controlStyle = {}, filtersContainerId = 'customFiltersContainer',
 ) {
+    const filtersContainer = document.getElementById(filtersContainerId);
+    if (!filtersContainer) {
+        console.error(`Element with id="${filtersContainerId}" not found.`);
+        return null;
+    }
+
     const button = createButton(controlStyle, `${arrowUpIcon}К фильтрам`);
     button.addEventListener('mouseover', () => {
         button.style.filter = 'brightness(0.9)';
@@ -16,14 +22,9 @@ export function createScrollToFiltersButton(
         button.style.filter = 'brightness(1)';
     });
     button.addEventListener('click', () => {
-        const filtersContainer = document.getElementById(filtersContainerId);
-        if (filtersContainer) {
-            window.scrollTo({
-                top: filtersContainer.offsetTop - 75,
-            });
-        } else {
-            console.error(`Element with id="${filtersContainerId}" not found.`);
-        }
+        window.scrollTo({
+            top: filtersContainer.offsetTop - 75,
+        });
     });
 
     return button;
