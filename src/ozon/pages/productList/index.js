@@ -2,6 +2,7 @@ import { addStorageValueListener } from '../../../common/storage/storage';
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
+    addScrollToFiltersButton,
     createDislikeButton,
     getFirstProductCardsWrap,
     getProductArticleFromLink,
@@ -87,6 +88,7 @@ export async function initProductListMods(paginatorContent) {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
+    addScrollToFiltersButton(parentNode);
     setCommonFiltersContainerStyles(filtersContainer);
 
     const nameFilterDiv = createSearchFilterControl(
