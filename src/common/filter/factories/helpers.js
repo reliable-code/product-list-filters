@@ -6,7 +6,7 @@ export function createSeparator(controlStyle = {}) {
 }
 
 export function createScrollToFiltersButton(
-    controlStyle = {}, filtersContainerId = 'customFiltersContainer',
+    controlStyle = {}, scrollOffset = 75, filtersContainerId = 'customFiltersContainer',
 ) {
     const filtersContainer = document.getElementById(filtersContainerId);
     if (!filtersContainer) {
