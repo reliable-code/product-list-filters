@@ -45,9 +45,7 @@ export async function initReviewsMods(needScrollToComments = true) {
 
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
-
-    const reviewsListWrap = getFirstElement(SELECTORS.REVIEWS_LIST_WRAP);
-    reviewsListWrapParent = reviewsListWrap?.parentNode;
+    setReviewsListWrapParent();
 
     processReviewCards();
 
@@ -113,6 +111,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     parentNode.append(filtersContainer);
     addScrollToFiltersButton(parentNode);
+}
+
+function setReviewsListWrapParent() {
+    const reviewsListWrap = getFirstElement(SELECTORS.REVIEWS_LIST_WRAP);
+    reviewsListWrapParent = reviewsListWrap?.parentNode;
 }
 
 function processReviewCards() {
