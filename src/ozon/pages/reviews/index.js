@@ -52,7 +52,7 @@ export async function initReviewsMods(needScrollToComments = true, multipleRevie
     const observer = new MutationObserver(debounce(processReviewCards));
     observer.observe(reviewsContainer, {
         childList: true,
-        subtree: true,
+        subtree: !multipleReviewsList,
     });
 }
 
