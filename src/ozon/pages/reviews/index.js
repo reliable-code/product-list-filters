@@ -37,8 +37,7 @@ const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 export async function initReviewsMods() {
-    const comments = getFirstElement(SELECTORS.COMMENTS);
-    if (comments) comments.scrollIntoView();
+    scrollToComments();
 
     cleanFiltersIfNotLastProduct();
 
@@ -53,6 +52,11 @@ export async function initReviewsMods() {
         childList: true,
         subtree: true,
     });
+}
+
+function scrollToComments() {
+    const comments = getFirstElement(SELECTORS.COMMENTS);
+    if (comments) comments.scrollIntoView();
 }
 
 function cleanFiltersIfNotLastProduct() {
