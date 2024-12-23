@@ -36,8 +36,8 @@ const minLikesFilter = createGlobalFilter('reviews-min-likes-filter');
 const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
-export async function initReviewsMods() {
-    scrollToComments();
+export async function initReviewsMods(needScrollToComments = true) {
+    if (needScrollToComments) scrollToComments();
 
     cleanFiltersIfNotLastProduct();
 
