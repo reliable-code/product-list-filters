@@ -36,6 +36,8 @@ const minLikesFilter = createGlobalFilter('reviews-min-likes-filter');
 const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
+let reviewsListWrapParent;
+
 export async function initReviewsMods(needScrollToComments = true) {
     if (needScrollToComments) scrollToComments();
 
@@ -44,11 +46,13 @@ export async function initReviewsMods(needScrollToComments = true) {
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
 
+    const reviewsListWrap = getFirstElement(SELECTORS.REVIEWS_LIST_WRAP);
+    reviewsListWrapParent = reviewsListWrap?.parentNode;
+
     processReviewCards();
 
     const observer = new MutationObserver(debounce(processReviewCards));
-    const reviewsListWrap = getFirstElement(SELECTORS.REVIEWS_LIST_WRAP);
-    observer.observe(reviewsListWrap.parentNode, {
+    observer.observe(reviewsListWrapParent, {
         childList: true,
         subtree: true,
     });
