@@ -12,6 +12,7 @@ import { getStoredRatingValue, setStoredRatingValue } from '../../db/db';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
+import { initReviewsMods } from '../reviews';
 
 export async function initProductPageMods() {
     await Promise.all([
@@ -26,6 +27,7 @@ export async function initProductPageMods() {
     appendDislikeButton(productReviewsWrap);
     appendBadReviewsLink(productReviewsWrap);
     await appendRatingValue(getStarsContainer(productReviewsWrap));
+    await initReviewsMods(false);
 }
 
 async function initAppendPriceHistory() {
