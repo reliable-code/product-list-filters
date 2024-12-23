@@ -40,21 +40,21 @@ const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 let reviewsContainer;
 
-export async function initReviewsMods(needScrollToComments = true, multipleReviewsList = false) {
+export async function initReviewsMods(needScrollToComments = true, isMultipleReviewsList = false) {
     if (needScrollToComments) scrollToComments();
 
     cleanFiltersIfNotLastProduct();
 
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
-    setReviewsContainer(multipleReviewsList);
+    setReviewsContainer(isMultipleReviewsList);
 
     processReviewCards();
 
     const observer = new MutationObserver(debounce(processReviewCards));
     observer.observe(reviewsContainer, {
         childList: true,
-        subtree: !multipleReviewsList,
+        subtree: !isMultipleReviewsList,
     });
 }
 
@@ -115,9 +115,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton(parentNode);
 }
 
-function setReviewsContainer(multipleReviewsList) {
+function setReviewsContainer(isMultipleReviewsList) {
     const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
-    reviewsContainer = multipleReviewsList ? reviewsList?.parentNode : reviewsList.children[1];
+    reviewsContainer = isMultipleReviewsList ? reviewsList?.parentNode : reviewsList.children[1];
 }
 
 function processReviewCards() {
