@@ -78,6 +78,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(parentNode, {
         display: 'grid',
         gap: '10px',
+        paddingBottom: '0',
     });
 
     const nameFilterDiv = createSearchFilterControl(
