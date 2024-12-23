@@ -6,6 +6,8 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    highlightSubstring,
+    removeHighlights,
 } from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -142,6 +144,9 @@ function processReviewCard(review) {
         hideElement(reviewCard);
         return;
     }
+
+    removeHighlights(reviewCard);
+    if (textFilter.value) highlightSubstring(reviewCard, textFilter.value);
 
     const likeButton = findElementByText(reviewFooter, 'button', 'Да');
     const dislikeButton = findElementByText(reviewFooter, 'button', 'Нет');
