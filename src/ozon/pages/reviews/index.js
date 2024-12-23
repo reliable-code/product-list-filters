@@ -112,8 +112,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function processReviewCards() {
     const reviews = getAllElements(SELECTORS.REVIEWS);
-
     reviews.forEach(processReviewCard);
+
+    removeUnnecessaryElements();
 }
 
 function processReviewCard(review) {
@@ -160,4 +161,9 @@ function readMoreClick(reviewCard) {
     if (readMoreSpan) readMoreSpan.click();
 
     reviewCard.setAttribute(ATTRIBUTES.READ_MORE_CLICK_PASSED, '');
+}
+
+function removeUnnecessaryElements() {
+    getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsListWrapParent)
+        .forEach((element) => element.remove());
 }
