@@ -47,8 +47,8 @@ export async function initReviewsMods(needScrollToComments = true) {
     processReviewCards();
 
     const observer = new MutationObserver(debounce(processReviewCards));
-    const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
-    observer.observe(reviewsList, {
+    const reviewsListWrap = getFirstElement(SELECTORS.REVIEWS_LIST_WRAP);
+    observer.observe(reviewsListWrap.parentNode, {
         childList: true,
         subtree: true,
     });
