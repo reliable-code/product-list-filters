@@ -27,7 +27,7 @@ export async function initProductPageMods() {
     appendDislikeButton(productReviewsWrap);
     appendBadReviewsLink(productReviewsWrap);
     await appendRatingValue(getStarsContainer(productReviewsWrap));
-    await initReviewsMods(false);
+    await initReviewsMods(false, true);
 }
 
 async function initAppendPriceHistory() {

@@ -36,21 +36,21 @@ const minLikesFilter = createGlobalFilter('reviews-min-likes-filter');
 const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
-let reviewsListWrapParent;
+let reviewsContainer;
 
-export async function initReviewsMods(needScrollToComments = true) {
+export async function initReviewsMods(needScrollToComments = true, multipleReviewsList = false) {
     if (needScrollToComments) scrollToComments();
 
     cleanFiltersIfNotLastProduct();
 
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
-    setReviewsListWrapParent();
+    setReviewsContainer(multipleReviewsList);
 
     processReviewCards();
 
     const observer = new MutationObserver(debounce(processReviewCards));
-    observer.observe(reviewsListWrapParent, {
+    observer.observe(reviewsContainer, {
         childList: true,
         subtree: true,
     });
@@ -113,9 +113,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton(parentNode);
 }
 
-function setReviewsListWrapParent() {
-    const reviewsListWrap = getFirstElement(SELECTORS.REVIEWS_LIST_WRAP);
-    reviewsListWrapParent = reviewsListWrap?.parentNode;
+function setReviewsContainer(multipleReviewsList) {
+    const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
+    reviewsContainer = multipleReviewsList ? reviewsList?.parentNode : reviewsList.children[1];
 }
 
 function processReviewCards() {
@@ -127,6 +127,7 @@ function processReviewCards() {
 
 function processReviewCard(review) {
     const reviewCard = review.parentNode;
+
     readMoreClick(reviewCard);
 
     if (!filterEnabled.value) {
@@ -172,6 +173,6 @@ function readMoreClick(reviewCard) {
 }
 
 function removeUnnecessaryElements() {
-    getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsListWrapParent)
+    getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsContainer)
         .forEach((element) => element.remove());
 }
