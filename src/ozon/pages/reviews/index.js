@@ -74,7 +74,6 @@ function cleanFiltersIfNotLastProduct() {
 
 function appendFiltersContainer(filtersContainer, parentNode) {
     addInputSpinnerButtons();
-
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
     applyStyles(parentNode, {
         display: 'grid',
@@ -112,12 +111,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function processReviewCards() {
-    const reviewsCards = getAllElements(SELECTORS.REVIEWS);
+    const reviews = getAllElements(SELECTORS.REVIEWS);
 
-    reviewsCards.forEach(processReviewCard);
+    reviews.forEach(processReviewCard);
 }
 
-function processReviewCard(reviewCard) {
+function processReviewCard(review) {
+    const reviewCard = review.parentNode;
     readMoreClick(reviewCard);
 
     if (!filterEnabled.value) {
