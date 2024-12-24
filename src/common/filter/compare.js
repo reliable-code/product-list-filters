@@ -6,9 +6,7 @@ function isMatchTextFilter(parameterValue, filter) {
     if (!filter.value) return true;
 
     const comparedString = parameterValue.toLowerCase();
-    const searchStrings = filter.value.toLowerCase()
-        .split(',')
-        .map((searchString) => searchString.trim());
+    const searchStrings = getSearchStrings(filter);
 
     const includeSearchStrings = [];
     const notIncludeSearchStrings = [];
@@ -26,6 +24,11 @@ function isMatchTextFilter(parameterValue, filter) {
         notIncludeSearchStrings.every((searchString) => !comparedString.includes(searchString));
 }
 
+function getSearchStrings(filter) {
+    return filter.value.toLowerCase()
+        .split(',')
+        .map((searchString) => searchString.trim());
+}
 export function isLessThanFilter(parameterValue, filter) {
     return filter.value && parameterValue < filter.value;
 }
