@@ -145,7 +145,7 @@ function processReviewCard(review) {
     }
 
     removeHighlights(reviewCard);
-    if (textFilter.value) highlightSubstring(reviewCard, textFilter.value);
+    if (textFilter.value) highlightSearchString(reviewTextWrap, textFilter.value);
 
     const likeButton = findElementByText(reviewFooter, 'button', 'Да');
     const dislikeButton = findElementByText(reviewFooter, 'button', 'Нет');
@@ -179,4 +179,12 @@ function readMoreClick(reviewCard) {
 function removeUnnecessaryElements() {
     getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsContainer)
         .forEach((element) => element.remove());
+}
+
+function highlightSearchString(reviewTextWrap, searchString) {
+    const productVariationLink = getFirstElement('a', reviewTextWrap);
+    const reviewText = getFirstElement(SELECTORS.REVIEW_TEXT, reviewTextWrap);
+
+    highlightSubstring(productVariationLink, searchString);
+    highlightSubstring(reviewText, searchString);
 }
