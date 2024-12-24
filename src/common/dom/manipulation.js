@@ -1,3 +1,5 @@
+import { clearIntersectionObserver, runOnceOnIntersection } from './utils';
+
 export function insertAfter(existingNode, newNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
@@ -5,6 +7,11 @@ export function insertAfter(existingNode, newNode) {
 export function hideElement(element) {
     setElementDisplayAttributeIfNeeded(element);
     setElementDisplay(element, 'none');
+}
+
+export function hideElementOnIntersection(element) {
+    if (element.intersectionObserver) return;
+    runOnceOnIntersection(element, () => hideElement(element));
 }
 
 export function showElement(element) {
@@ -16,6 +23,15 @@ export function updateElementDisplay(element, shouldHide) {
     if (shouldHide) {
         hideElement(element);
     } else {
+        showElement(element);
+    }
+}
+
+export function updateElementDisplayByIntersection(element, shouldHide) {
+    if (shouldHide) {
+        hideElementOnIntersection(element);
+    } else {
+        clearIntersectionObserver(element);
         showElement(element);
     }
 }
