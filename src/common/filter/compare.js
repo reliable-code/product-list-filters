@@ -27,7 +27,8 @@ function isMatchTextFilter(parameterValue, filter) {
 function getSearchStrings(filter) {
     return filter.value.toLowerCase()
         .split(',')
-        .map((searchString) => searchString.trim());
+        .map((searchString) => searchString.trim())
+        .filter((searchString) => searchString !== '');
 }
 export function isLessThanFilter(parameterValue, filter) {
     return filter.value && parameterValue < filter.value;
