@@ -37,3 +37,23 @@ export function debounce(func, wait = 250) {
         timeoutId = setTimeout(() => func(...args), wait);
     };
 }
+
+export function runOnceOnIntersection(element, callback) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            callback();
+            clearIntersectionObserver(element);
+        });
+    });
+
+    element.intersectionObserver = observer;
+    observer.observe(element);
+}
+
+export function clearIntersectionObserver(element) {
+    if (!element.intersectionObserver) return;
+
+    element.intersectionObserver.disconnect();
+    element.intersectionObserver = null;
+}
