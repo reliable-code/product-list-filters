@@ -30,6 +30,12 @@ function getSearchStrings(filter) {
         .map((searchString) => searchString.trim())
         .filter((searchString) => searchString !== '');
 }
+
+export function getIncludedSearchStrings(filter) {
+    return getSearchStrings(filter)
+        .filter((searchString) => !searchString.startsWith('!'));
+}
+
 export function isLessThanFilter(parameterValue, filter) {
     return filter.value && parameterValue < filter.value;
 }
