@@ -19,6 +19,7 @@ import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
+    getIncludedSearchStrings,
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
@@ -179,6 +180,13 @@ function readMoreClick(reviewCard) {
 function removeUnnecessaryElements() {
     getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsContainer)
         .forEach((element) => element.remove());
+}
+
+function highlightSearchStrings(reviewTextWrap, filter) {
+    const searchStrings = getIncludedSearchStrings(filter);
+    searchStrings.forEach(
+        (searchString) => highlightSearchString(reviewTextWrap, searchString),
+    );
 }
 
 function highlightSearchString(reviewTextWrap, searchString) {
