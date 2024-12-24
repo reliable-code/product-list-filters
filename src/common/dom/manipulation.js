@@ -7,16 +7,16 @@ export function hideElement(element) {
     setElementDisplay(element, 'none');
 }
 
-export function showElement(element, display) {
-    const resolvedDisplay = display || getElementDisplay(element);
-    setElementDisplay(element, resolvedDisplay);
+export function showElement(element) {
+    const display = getElementDisplay(element);
+    setElementDisplay(element, display);
 }
 
-export function updateElementDisplay(element, shouldHide, display) {
+export function updateElementDisplay(element, shouldHide) {
     if (shouldHide) {
         hideElement(element);
     } else {
-        showElement(element, display);
+        showElement(element);
     }
 }
 
