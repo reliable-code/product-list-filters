@@ -54,7 +54,6 @@ export async function initReviewsMods(needScrollToComments = true, isMultipleRev
     const observer = new MutationObserver(debounce(processReviewCards));
     observer.observe(reviewsContainer, {
         childList: true,
-        subtree: !isMultipleReviewsList,
     });
 }
 
