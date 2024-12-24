@@ -37,9 +37,9 @@ export function getIncludedSearchStrings(filter) {
 }
 
 export function isLessThanFilter(parameterValue, filter) {
-    return filter.value && parameterValue < filter.value;
+    return filter.value != null && parameterValue < filter.value;
 }
 
 export function isGreaterThanFilter(parameterValue, filter) {
-    return filter.value && parameterValue > filter.value;
+    return filter.value != null && parameterValue > filter.value;
 }
