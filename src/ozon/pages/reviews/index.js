@@ -6,6 +6,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    getNonEmptyTextNodes,
     highlightSubstring,
     removeHighlights,
 } from '../../../common/dom/helpers';
@@ -185,11 +186,9 @@ function highlightSearchStrings(reviewTextWrap, filter) {
 }
 
 function highlightSearchString(reviewTextWrap, searchString) {
-    const productVariationLink = getFirstElement('a', reviewTextWrap);
-    const reviewText = getFirstElement(SELECTORS.REVIEW_TEXT, reviewTextWrap);
-
-    highlightSubstring(productVariationLink, searchString);
-    highlightSubstring(reviewText, searchString);
+    getNonEmptyTextNodes(reviewTextWrap)
+        .map((textNode) => textNode.parentNode)
+        .forEach((textNodeParent) => highlightSubstring(textNodeParent, searchString));
 }
 
 function removeUnnecessaryElements() {
