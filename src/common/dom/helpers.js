@@ -109,3 +109,11 @@ export function removeHighlights(container) {
         span.replaceWith(span.textContent);
     });
 }
+
+export function getNonEmptyTextNodes(element) {
+    const traverse = (node) => (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ''
+        ? [node]
+        : [...node.childNodes].flatMap(traverse));
+
+    return traverse(element);
+}
