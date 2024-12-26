@@ -81,10 +81,16 @@ function processMovieCard(movieCard) {
         return;
     }
 
+    const myVoteWrap = getFirstElement(SELECTORS.MY_VOTE_WRAP, movieCard);
     const genreWrap = getFirstElement(SELECTORS.GENRE_WRAP, movieCard);
     const nameWrap = getFirstElement(SELECTORS.NAME_WRAP, movieCard);
 
-    if (!genreWrap || !nameWrap) {
+    if (!myVoteWrap || !genreWrap || !nameWrap) {
+        hideElement(movieCard);
+        return;
+    }
+
+    if (myVoteWrap.innerText) {
         hideElement(movieCard);
         return;
     }
