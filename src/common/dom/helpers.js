@@ -106,7 +106,9 @@ export function highlightSubstring(container, substring) {
 export function removeHighlights(container) {
     const highlights = getAllElements('.highlightedSubstring', container);
     highlights.forEach((span) => {
+        const { parentNode } = span;
         span.replaceWith(span.textContent);
+        parentNode.normalize();
     });
 }
 
