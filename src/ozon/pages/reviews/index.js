@@ -177,11 +177,6 @@ function readMoreClick(reviewCard) {
     reviewCard.setAttribute(ATTRIBUTES.READ_MORE_CLICK_PASSED, '');
 }
 
-function removeUnnecessaryElements() {
-    getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsContainer)
-        .forEach((element) => element.remove());
-}
-
 function highlightSearchStrings(reviewTextWrap, filter) {
     const searchStrings = getIncludedSearchStrings(filter);
     searchStrings.forEach(
@@ -195,4 +190,9 @@ function highlightSearchString(reviewTextWrap, searchString) {
 
     highlightSubstring(productVariationLink, searchString);
     highlightSubstring(reviewText, searchString);
+}
+
+function removeUnnecessaryElements() {
+    getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsContainer)
+        .forEach((element) => element.remove());
 }
