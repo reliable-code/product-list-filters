@@ -19,6 +19,7 @@ import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
     createMinDiscountFilterControl,
+    createMinPriceFilterControl,
 } from '../common/filter/factories/specificControls';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
@@ -28,6 +29,7 @@ import { createSeparator } from '../common/filter/factories/helpers';
 const { createGlobalFilter } = createFilterFactory(processProductCards);
 
 const minDiscountFilter = createGlobalFilter('min-discount-filter');
+const minPriceFilter = createGlobalFilter('min-price-filter');
 const maxPriceFilter = createGlobalFilter('max-price-filter');
 const filterEnabled = createGlobalFilter('filter-enabled', true);
 
@@ -171,6 +173,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minDiscountDiv = createMinDiscountFilterControl(
         minDiscountFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
+    const minPriceDiv = createMinPriceFilterControl(
+        minPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
     const maxPriceDiv = createMaxPriceFilterControl(
         maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
@@ -181,7 +186,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
-    filtersContainer.append(minDiscountDiv, maxPriceDiv, separatorDiv, filterEnabledDiv);
+    filtersContainer.append(
+        minDiscountDiv, minPriceDiv, maxPriceDiv, separatorDiv, filterEnabledDiv,
+    );
     insertAfter(parentNode.firstChild, filtersContainer);
 }
 
@@ -258,6 +265,7 @@ function processProductCard(productCardLink) {
 
     const shouldHide =
         isLessThanFilter(discountValue, minDiscountFilter) ||
+        isLessThanFilter(price, minPriceFilter) ||
         isGreaterThanFilter(price, maxPriceFilter);
     updateElementDisplay(productCard, shouldHide);
 }
