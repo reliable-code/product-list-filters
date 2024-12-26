@@ -82,7 +82,7 @@ export function hideUnwantedElements() {
     `);
 }
 
-export function addScrollToFiltersButton(parentNode) {
+export function addScrollToFiltersButton(parentNode = document.body) {
     const button = createScrollToFiltersButton(STYLES.SCROLL_TO_FILTERS_BUTTON);
     if (button) parentNode.appendChild(button);
 }

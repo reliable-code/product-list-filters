@@ -112,7 +112,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
-    addScrollToFiltersButton(parentNode);
+    addScrollToFiltersButton();
 }
 
 function setReviewsContainer(isMultipleReviewsList) {
