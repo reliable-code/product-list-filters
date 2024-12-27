@@ -125,6 +125,8 @@ function processReviewCards() {
     const reviews = getAllElements(SELECTORS.REVIEWS);
     reviews.forEach(processReviewCard);
 
+    updateVisibleReviewsCount(reviews);
+
     removeUnnecessaryElements();
 }
 
@@ -189,6 +191,18 @@ function highlightSearchString(reviewTextWrap, searchString) {
     getNonEmptyTextNodes(reviewTextWrap)
         .map((textNode) => textNode.parentNode)
         .forEach((textNodeParent) => highlightSubstring(textNodeParent, searchString));
+}
+
+function updateVisibleReviewsCount(reviews) {
+    const visibleReviewsCount = [...reviews].filter(
+        (review) => review.parentNode.style.display !== 'none',
+    ).length;
+
+    const stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
+    if (!stickyReviewsInfo) return;
+
+    const baseReviewsInfoText = stickyReviewsInfo.textContent.split('(')[0].trim();
+    stickyReviewsInfo.textContent = `${baseReviewsInfoText} (${visibleReviewsCount}/${reviews.length})`;
 }
 
 function removeUnnecessaryElements() {
