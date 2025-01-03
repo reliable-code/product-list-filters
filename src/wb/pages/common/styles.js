@@ -4,12 +4,15 @@ const STYLES_BASE = {
         height: '36px',
         padding: '6px 12px',
     },
-};
-
-export const STYLES = {
     FILTERS_CONTAINER: {
         display: 'flex',
         gridGap: '20px',
+    },
+};
+
+export const STYLES = {
+    PRODUCTS_FILTERS_CONTAINER: {
+        ...STYLES_BASE.FILTERS_CONTAINER,
         margin: '19px auto 0',
         maxWidth: '1435px',
     },
