@@ -6,8 +6,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    getNonEmptyTextNodes,
-    highlightSubstring,
+    highlightSearchString,
     removeHighlights,
 } from '../../../common/dom/helpers';
 import {
@@ -185,12 +184,6 @@ function highlightSearchStrings(reviewTextWrap, filter) {
     searchStrings.forEach(
         (searchString) => highlightSearchString(reviewTextWrap, searchString),
     );
-}
-
-function highlightSearchString(reviewTextWrap, searchString) {
-    getNonEmptyTextNodes(reviewTextWrap)
-        .map((textNode) => textNode.parentNode)
-        .forEach((textNodeParent) => highlightSubstring(textNodeParent, searchString));
 }
 
 function updateVisibleReviewsCount(reviews) {

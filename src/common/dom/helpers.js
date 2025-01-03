@@ -119,3 +119,9 @@ export function getNonEmptyTextNodes(element) {
 
     return traverse(element);
 }
+
+export function highlightSearchString(textWrap, searchString) {
+    getNonEmptyTextNodes(textWrap)
+        .map((textNode) => textNode.parentNode)
+        .forEach((textNodeParent) => highlightSubstring(textNodeParent, searchString));
+}
