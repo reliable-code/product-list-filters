@@ -2,7 +2,7 @@ import { getAllElements, getNonEmptyTextNodes } from './helpers';
 
 export function highlightSearchStrings(searchStrings, textWrap) {
     searchStrings.forEach(
-        (searchString) => highlightSearchString(textWrap, searchString),
+        (searchString) => highlightSubstring(textWrap, searchString),
     );
 }
 
