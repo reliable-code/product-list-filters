@@ -181,8 +181,12 @@ function readMoreClick(reviewCard) {
 
 function highlightSearchStringsByFilter(textWrap, filter) {
     const searchStrings = getIncludedSearchStrings(filter);
+    highlightSearchStrings(searchStrings, textWrap);
+}
+
+function highlightSearchStrings(searchStrings, textWrap) {
     searchStrings.forEach(
-        (searchString) => highlightSearchString(reviewTextWrap, searchString),
+        (searchString) => highlightSearchString(textWrap, searchString),
     );
 }
 
