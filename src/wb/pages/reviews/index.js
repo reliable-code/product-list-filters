@@ -28,6 +28,8 @@ const minRatingFilter = createGlobalFilter('reviews-min-rating-filter');
 const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
+const reviewCardsCache = new WeakMap();
+
 export async function initReviewsMods() {
     cleanFiltersIfNotLastProduct();
 
@@ -105,36 +107,45 @@ function processReviewCard(reviewCard) {
         return;
     }
 
-    const productVariationWrap = getFirstElement(SELECTORS.PRODUCT_VARIATION_WRAP, reviewCard);
-    const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
-
-    if (!productVariationWrap || !reviewTextWrap) {
-        hideElement(reviewCard);
-        return;
-    }
-
     removeHighlights(reviewCard);
 
+    let cachedData = reviewCardsCache.get(reviewCard);
+
+    if (!cachedData) {
+        const productVariationWrap = getFirstElement(SELECTORS.PRODUCT_VARIATION_WRAP, reviewCard);
+        const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
+
+        if (!productVariationWrap || !reviewTextWrap) {
+            hideElement(reviewCard);
+            return;
+        }
+
+        const textWraps = [productVariationWrap, reviewTextWrap];
+
+        const ratingWrap = getFirstElement(SELECTORS.REVIEW_RATING_WRAP, reviewCard);
+
+        if (!ratingWrap) {
+            hideElement(reviewCard);
+            return;
+        }
+
+        cachedData = {
+            textWraps,
+            filterableText: reviewTextWrap.innerText + productVariationWrap.innerText,
+            rating: getRating(ratingWrap),
+        };
+
+        reviewCardsCache.set(reviewCard, cachedData);
+    }
+
     if (textFilter.value) {
-        highlightSearchStringsByFilterMultiple(
-            textFilter, [productVariationWrap, reviewTextWrap],
-        );
+        highlightSearchStringsByFilterMultiple(textFilter, cachedData.textWraps);
     }
-
-    const ratingWrap = getFirstElement(SELECTORS.REVIEW_RATING_WRAP, reviewCard);
-
-    if (!ratingWrap) {
-        hideElement(reviewCard);
-        return;
-    }
-
-    const rating = getRating(ratingWrap);
-    const filterableText = reviewTextWrap.innerText + productVariationWrap.innerText;
 
     const shouldHide =
-        isNotMatchTextFilter(filterableText, textFilter) ||
-        isLessThanFilter(rating, minRatingFilter) ||
-        isGreaterThanFilter(rating, maxRatingFilter);
+        isNotMatchTextFilter(cachedData.filterableText, textFilter) ||
+        isLessThanFilter(cachedData.rating, minRatingFilter) ||
+        isGreaterThanFilter(cachedData.rating, maxRatingFilter);
     updateElementDisplay(reviewCard, shouldHide);
 }
 
