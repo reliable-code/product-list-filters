@@ -1,15 +1,9 @@
-import { getAllElements, getNonEmptyTextNodes } from './helpers';
+import { getAllElements } from './helpers';
 
 export function highlightSearchStrings(searchStrings, textWrap) {
     searchStrings.forEach(
         (searchString) => highlightSubstring(textWrap, searchString),
     );
-}
-
-function highlightSearchString(textWrap, searchString) {
-    getNonEmptyTextNodes(textWrap)
-        .map((textNode) => textNode.parentNode)
-        .forEach((textNodeParent) => highlightSubstring(textNodeParent, searchString));
 }
 
 export function highlightSubstring(container, substring) {
