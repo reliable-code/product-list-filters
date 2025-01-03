@@ -4,7 +4,7 @@ import { createLink, createSpan } from '../../../common/dom/factories/elements';
 import { applyStyles, getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
-import { createScrollToFiltersButton } from '../../../common/filter/factories/helpers';
+import { addScrollToFiltersButtonBase } from '../../../common/filter/factories/helpers';
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
@@ -83,6 +83,5 @@ export function hideUnwantedElements() {
 }
 
 export function addScrollToFiltersButton(parentNode = document.body) {
-    const button = createScrollToFiltersButton(STYLES.SCROLL_TO_FILTERS_BUTTON);
-    if (button) parentNode.appendChild(button);
+    addScrollToFiltersButtonBase(parentNode, STYLES.SCROLL_TO_FILTERS_BUTTON);
 }

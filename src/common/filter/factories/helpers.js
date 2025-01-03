@@ -5,7 +5,7 @@ export function createSeparator(controlStyle = {}) {
     return createDiv(controlStyle, '|');
 }
 
-export function createScrollToFiltersButton(
+function createScrollToFiltersButton(
     controlStyle = {}, scrollOffset = 75, filtersContainerId = 'customFiltersContainer',
 ) {
     const filtersContainer = document.getElementById(filtersContainerId);
@@ -34,4 +34,9 @@ export function createScrollToFiltersButton(
     }).observe(filtersContainer);
 
     return button;
+}
+
+export function addScrollToFiltersButtonBase(parentNode, controlStyle = {}) {
+    const button = createScrollToFiltersButton(controlStyle);
+    if (button) parentNode.appendChild(button);
 }
