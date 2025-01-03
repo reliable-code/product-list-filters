@@ -1,5 +1,5 @@
 import { processEntriesByKeyFilter, runMigrationTaskIfNeeded } from '../../common/db/db';
-import { setStorageValue } from '../../common/storage/storage';
+import { getStorageValue, setStorageValue } from '../../common/storage/storage';
 
 const ACTUAL_DB_VERSION = 1;
 
@@ -46,4 +46,12 @@ function updateProductPriceDate(entryKey, productPropKey, value) {
         value[productPropKey] = datedPrice;
         setStorageValue(entryKey, value);
     }
+}
+
+export function setReviewsLastProductArticle(productArticle) {
+    return setStorageValue('reviews-last-product-article', productArticle);
+}
+
+export function getReviewsLastProductArticle() {
+    return getStorageValue('reviews-last-product-article');
 }
