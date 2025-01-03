@@ -147,7 +147,7 @@ function processReviewCard(review) {
     }
 
     removeHighlights(reviewCard);
-    if (textFilter.value) highlightSearchStringsByFilter(reviewTextWrap, textFilter);
+    if (textFilter.value) highlightSearchStringsByFilter(textFilter, reviewTextWrap);
 
     const likeButton = findElementByText(reviewFooter, 'button', 'Да');
     const dislikeButton = findElementByText(reviewFooter, 'button', 'Нет');

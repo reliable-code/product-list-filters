@@ -1,7 +1,7 @@
 import { getIncludedSearchStrings } from './helpers';
 import { highlightSearchStrings } from '../dom/highlighting';
 
-export function highlightSearchStringsByFilter(textWrap, filter) {
+export function highlightSearchStringsByFilter(filter, textWrap) {
     const searchStrings = getIncludedSearchStrings(filter);
     highlightSearchStrings(searchStrings, textWrap);
 }
