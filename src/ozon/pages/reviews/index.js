@@ -28,8 +28,8 @@ import {
     getProductArticleFromPathname,
 } from '../common';
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
-import { highlightSearchStrings, removeHighlights } from '../../../common/dom/highlighting';
-import { getIncludedSearchStrings } from '../../../common/filter/helpers';
+import { removeHighlights } from '../../../common/dom/highlighting';
+import { highlightSearchStringsByFilter } from '../../../common/filter/highlighting';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -176,11 +176,6 @@ function readMoreClick(reviewCard) {
     if (readMoreSpan) readMoreSpan.click();
 
     reviewCard.setAttribute(ATTRIBUTES.READ_MORE_CLICK_PASSED, '');
-}
-
-function highlightSearchStringsByFilter(textWrap, filter) {
-    const searchStrings = getIncludedSearchStrings(filter);
-    highlightSearchStrings(searchStrings, textWrap);
 }
 
 function updateVisibleReviewsCount(reviews) {
