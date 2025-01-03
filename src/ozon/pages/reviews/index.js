@@ -6,8 +6,6 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    highlightSearchStrings,
-    removeHighlights,
 } from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -31,6 +29,7 @@ import {
     getProductArticleFromPathname,
 } from '../common';
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
+import { highlightSearchStrings, removeHighlights } from '../../../common/dom/highlighting';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
