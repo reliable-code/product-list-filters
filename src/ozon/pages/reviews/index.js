@@ -17,7 +17,6 @@ import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
-    getIncludedSearchStrings,
     isGreaterThanFilter,
     isLessThanFilter,
     isNotMatchTextFilter,
@@ -30,6 +29,7 @@ import {
 } from '../common';
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
 import { highlightSearchStrings, removeHighlights } from '../../../common/dom/highlighting';
+import { getIncludedSearchStrings } from '../../../common/filter/helpers';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 

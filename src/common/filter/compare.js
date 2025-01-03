@@ -1,3 +1,5 @@
+import { getSearchStrings } from './helpers';
+
 export function isNotMatchTextFilter(parameterValue, filter) {
     return !isMatchTextFilter(parameterValue, filter);
 }
@@ -22,18 +24,6 @@ function isMatchTextFilter(parameterValue, filter) {
 
     return includeSearchStrings.every((searchString) => comparedString.includes(searchString)) &&
         notIncludeSearchStrings.every((searchString) => !comparedString.includes(searchString));
-}
-
-function getSearchStrings(filter) {
-    return filter.value.toLowerCase()
-        .split(',')
-        .map((searchString) => searchString.trim())
-        .filter((searchString) => searchString !== '');
-}
-
-export function getIncludedSearchStrings(filter) {
-    return getSearchStrings(filter)
-        .filter((searchString) => !searchString.startsWith('!'));
 }
 
 export function isLessThanFilter(parameterValue, filter) {
