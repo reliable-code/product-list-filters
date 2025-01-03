@@ -1,7 +1,7 @@
 import { getAllElements } from './helpers';
 
-export function highlightSearchStrings(searchStrings, textWrap) {
-    searchStrings.forEach(
+export function highlightSubstrings(substrings, textWrap) {
+    substrings.forEach(
         (searchString) => highlightSubstring(textWrap, searchString),
     );
 }
