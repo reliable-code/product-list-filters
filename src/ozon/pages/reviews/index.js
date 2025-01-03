@@ -6,7 +6,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    highlightSearchString,
+    highlightSearchStrings,
     removeHighlights,
 } from '../../../common/dom/helpers';
 import {
@@ -182,12 +182,6 @@ function readMoreClick(reviewCard) {
 function highlightSearchStringsByFilter(textWrap, filter) {
     const searchStrings = getIncludedSearchStrings(filter);
     highlightSearchStrings(searchStrings, textWrap);
-}
-
-function highlightSearchStrings(searchStrings, textWrap) {
-    searchStrings.forEach(
-        (searchString) => highlightSearchString(textWrap, searchString),
-    );
 }
 
 function updateVisibleReviewsCount(reviews) {
