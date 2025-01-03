@@ -1,10 +1,10 @@
 import { initProductListMods } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
 import { initFavoritesMods } from './pages/favorites';
+import { initReviewsMods } from './pages/reviews';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { debounce } from '../common/dom/utils';
 import { runMigration } from './db/db';
-import { initReviewsMods } from './pages/reviews';
 
 runMigration();
 
