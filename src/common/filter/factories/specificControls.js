@@ -22,12 +22,31 @@ export function createMinRatingFilterControl(
     controlStyle = {},
     inputStyle = {},
     inputStep = 0.1,
+    inputMin = 3.0,
 ) {
     return createNumberFilterControl(
         'Мин. рейтинг: ',
         inputValue,
         inputStep,
-        3.0,
+        inputMin,
+        5.0,
+        controlStyle,
+        inputStyle,
+    );
+}
+
+export function createMaxRatingFilterControl(
+    inputValue,
+    controlStyle = {},
+    inputStyle = {},
+    inputStep = 0.1,
+    inputMin = 3.0,
+) {
+    return createNumberFilterControl(
+        'Макс. рейтинг: ',
+        inputValue,
+        inputStep,
+        inputMin,
         5.0,
         controlStyle,
         inputStyle,
