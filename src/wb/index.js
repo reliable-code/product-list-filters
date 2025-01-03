@@ -4,6 +4,7 @@ import { initFavoritesMods } from './pages/favorites';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { debounce } from '../common/dom/utils';
 import { runMigration } from './db/db';
+import { initReviewsMods } from './pages/reviews';
 
 runMigration();
 
@@ -29,6 +30,8 @@ async function initMods() {
         if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
             if (pathnameIncludes('detail')) {
                 await initProductPageMods();
+            } else if (somePathElementEquals('feedbacks')) {
+                await initReviewsMods();
             } else {
                 await initProductListMods();
             }
