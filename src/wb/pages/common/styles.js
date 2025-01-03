@@ -43,7 +43,7 @@ export const STYLES = {
     SCROLL_TO_FILTERS_BUTTON: {
         position: 'fixed',
         bottom: '20px',
-        right: '20px',
+        right: '70px',
         padding: '10px 20px 10px 14px',
         backgroundColor: '#a73afd',
         color: 'white',

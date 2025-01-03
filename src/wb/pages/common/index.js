@@ -1,7 +1,7 @@
 import { getPathnameElement, getURLPathElementEnding } from '../../../common/url';
 import { getFirstElement } from '../../../common/dom/helpers';
 import { addScrollToFiltersButtonBase } from '../../../common/filter/factories/helpers';
-import { STYLES } from '../../../ozon/pages/common/styles';
+import { STYLES } from './styles';
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
