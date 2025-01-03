@@ -16,6 +16,9 @@ export const STYLES = {
         margin: '19px auto 0',
         maxWidth: '1435px',
     },
+    REVIEWS_FILTERS_CONTAINER: {
+        ...STYLES_BASE.FILTERS_CONTAINER,
+    },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
         width: '75px',
