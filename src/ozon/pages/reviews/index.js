@@ -40,6 +40,8 @@ const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 let reviewsContainer;
 
+const reviewCardsCache = new WeakMap();
+
 export async function initReviewsMods(needScrollToComments = true, isMultipleReviewsList = false) {
     if (needScrollToComments) scrollToComments();
 
@@ -131,41 +133,57 @@ function processReviewCards() {
 function processReviewCard(review) {
     const reviewCard = review.parentNode;
 
-    readMoreClick(reviewCard);
-
     if (!filterEnabled.value) {
         showElement(reviewCard);
         return;
     }
 
-    const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
-    const reviewFooter = getFirstElement(SELECTORS.REVIEW_FOOTER, reviewCard);
-
-    if (!reviewTextWrap || !reviewFooter) {
-        hideElement(reviewCard);
-        return;
-    }
-
     removeHighlights(reviewCard);
-    if (textFilter.value) highlightSearchStringsByFilter(textFilter, reviewTextWrap);
 
-    const likeButton = findElementByText(reviewFooter, 'button', 'Да');
-    const dislikeButton = findElementByText(reviewFooter, 'button', 'Нет');
+    let cachedData = reviewCardsCache.get(reviewCard);
 
-    if (!likeButton || !dislikeButton) {
-        hideElement(reviewCard);
-        return;
+    if (!cachedData) {
+        readMoreClick(reviewCard);
+
+        const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
+        const reviewFooter = getFirstElement(SELECTORS.REVIEW_FOOTER, reviewCard);
+
+        if (!reviewTextWrap || !reviewFooter) {
+            hideElement(reviewCard);
+            return;
+        }
+
+        const likeButton = findElementByText(reviewFooter, 'button', 'Да');
+        const dislikeButton = findElementByText(reviewFooter, 'button', 'Нет');
+
+        if (!likeButton || !dislikeButton) {
+            hideElement(reviewCard);
+            return;
+        }
+
+        const likesNumber = getElementInnerNumber(likeButton, true);
+        const dislikesNumber = getElementInnerNumber(dislikeButton, true);
+
+        const reviewText = reviewTextWrap.innerText;
+
+        cachedData = {
+            reviewTextWrap,
+            reviewText,
+            likesNumber,
+            dislikesNumber,
+        };
+
+        reviewCardsCache.set(reviewCard, cachedData);
     }
 
-    const likesNumber = getElementInnerNumber(likeButton, true);
-    const dislikesNumber = getElementInnerNumber(dislikeButton, true);
-
-    const reviewText = reviewTextWrap.innerText;
+    if (textFilter.value) {
+        highlightSearchStringsByFilter(textFilter, cachedData.reviewTextWrap);
+    }
 
     const shouldHide =
-        isNotMatchTextFilter(reviewText, textFilter) ||
-        isLessThanFilter(likesNumber, minLikesFilter) ||
-        isGreaterThanFilter(dislikesNumber, maxDislikesFilter);
+        isNotMatchTextFilter(cachedData.reviewText, textFilter) ||
+        isLessThanFilter(cachedData.likesNumber, minLikesFilter) ||
+        isGreaterThanFilter(cachedData.dislikesNumber, maxDislikesFilter);
     updateElementDisplay(reviewCard, shouldHide);
 }
 
