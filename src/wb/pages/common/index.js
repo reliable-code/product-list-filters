@@ -1,4 +1,4 @@
-import { getPathnameElement } from '../../../common/url';
+import { getPathnameElement, getURLPathElementEnding } from '../../../common/url';
 import { getFirstElement } from '../../../common/dom/helpers';
 
 export function getProductArticleFromLink(productCardLink) {
@@ -10,4 +10,8 @@ export function getProductArticleFromLink(productCardLink) {
 export function getPriceSpan(priceContainer, selectors) {
     return getFirstElement(selectors.WALLET_PRICE, priceContainer) ||
         getFirstElement(selectors.PRICE, priceContainer);
+}
+
+export function getProductArticleFromPathname() {
+    return getURLPathElementEnding(2, 'unknown');
 }

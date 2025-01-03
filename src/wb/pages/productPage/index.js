@@ -1,8 +1,7 @@
 import { waitForElement } from '../../../common/dom/utils';
-import { getURLPathElementEnding } from '../../../common/url';
 import { getFirstElement } from '../../../common/dom/helpers';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
-import { getPriceSpan } from '../common';
+import { getPriceSpan, getProductArticleFromPathname } from '../common';
 import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { SELECTORS } from './selectors';
 
@@ -32,8 +31,4 @@ async function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArti
     await appendPriceHistory(priceContainer, priceSpan, productArticle);
 
     priceContainerWrap.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
-}
-
-function getProductArticleFromPathname() {
-    return getURLPathElementEnding(2, 'unknown');
 }
