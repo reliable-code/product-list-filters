@@ -1,5 +1,9 @@
 import { removeNonNumber } from '../string';
 
+export function hasElement(selector, parentNode = document) {
+    return !!parentNode.querySelector(selector);
+}
+
 export function getFirstElement(selector, parentNode = document, logNotFound = false) {
     const element = parentNode.querySelector(selector);
 
