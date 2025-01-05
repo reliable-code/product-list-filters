@@ -11,6 +11,7 @@ export class StoredInputValue extends InputValueBase {
     constructor(storageKey, defaultValue = null, onChange = null) {
         super(getStorageValue(storageKey, defaultValue), onChange);
         this.storageKey = storageKey;
+        this.defaultValue = defaultValue;
     }
 
     static create(storageKey, defaultValue = null, onChange = null) {
