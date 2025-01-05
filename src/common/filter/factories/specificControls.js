@@ -212,6 +212,19 @@ export function createNoRatingFilterControl(
     );
 }
 
+export function createHasPhotoFilterControl(
+    inputValue,
+    controlStyle = {},
+    inputStyle = {},
+) {
+    return createCheckboxFilterControl(
+        'С фото: ',
+        inputValue,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createEnabledFilterControl(
     inputValue,
     controlStyle = {},
