@@ -42,4 +42,8 @@ export class StoredInputValue extends InputValueBase {
     clearValue() {
         this.updateValue(null);
     }
+
+    resetValue() {
+        this.updateValue(this.defaultValue);
+    }
 }
