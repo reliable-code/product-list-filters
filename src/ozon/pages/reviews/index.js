@@ -6,9 +6,11 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    hasElement,
 } from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
+    createHasPhotoFilterControl,
     createLikesFilterControl,
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
@@ -19,6 +21,7 @@ import { hideElement, showElement, updateElementDisplay } from '../../../common/
 import {
     isGreaterThanFilter,
     isLessThanFilter,
+    isNotEqualBoolFilter,
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { ATTRIBUTES } from './attributes';
@@ -36,6 +39,7 @@ const { createGlobalFilter } = createFilterFactory(processReviewCards);
 const textFilter = createGlobalFilter('reviews-text-filter');
 const minLikesFilter = createGlobalFilter('reviews-min-likes-filter');
 const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
+const hasPhotoFilter = createGlobalFilter('reviews-has-photo-filter', false);
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 let reviewsContainer;
@@ -102,6 +106,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.NUMBER_INPUT,
     );
+    const hasPhotoDiv = createHasPhotoFilterControl(
+        hasPhotoFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
@@ -110,6 +117,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         nameFilterDiv,
         minLikesDiv,
         maxDislikesDiv,
+        hasPhotoDiv,
         filterEnabledDiv,
     );
 
@@ -167,13 +175,14 @@ function processReviewCard(review) {
         const likesNumber = getElementInnerNumber(likeButton, true);
         const dislikesNumber = getElementInnerNumber(dislikeButton, true);
 
-        const reviewText = reviewTextWrap.innerText;
+        const hasPhoto = hasElement('img', reviewContent);
 
         cachedData = {
             reviewContent,
             reviewText,
             likesNumber,
             dislikesNumber,
+            hasPhoto,
         };
 
         reviewCardsCache.set(reviewCard, cachedData);
@@ -186,7 +195,8 @@ function processReviewCard(review) {
     const shouldHide =
         isNotMatchTextFilter(cachedData.reviewText, textFilter) ||
         isLessThanFilter(cachedData.likesNumber, minLikesFilter) ||
-        isGreaterThanFilter(cachedData.dislikesNumber, maxDislikesFilter);
+        isGreaterThanFilter(cachedData.dislikesNumber, maxDislikesFilter) ||
+        isNotEqualBoolFilter(cachedData.hasPhoto, hasPhotoFilter);
     updateElementDisplay(reviewCard, shouldHide);
 }
 
