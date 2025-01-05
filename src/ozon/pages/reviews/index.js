@@ -45,7 +45,7 @@ const reviewCardsCache = new WeakMap();
 export async function initReviewsMods(needScrollToComments = true, isMultipleReviewsList = false) {
     if (needScrollToComments) scrollToComments();
 
-    cleanFiltersIfNotLastProduct();
+    resetFiltersIfNotLastProduct();
 
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
@@ -64,14 +64,15 @@ function scrollToComments() {
     if (comments) comments.scrollIntoView();
 }
 
-function cleanFiltersIfNotLastProduct() {
+function resetFiltersIfNotLastProduct() {
     const productArticle = getProductArticleFromPathname();
     const lastProductArticle = getReviewsLastProductArticle();
 
     if (productArticle !== lastProductArticle) {
-        textFilter.clearValue();
-        minLikesFilter.clearValue();
-        maxDislikesFilter.clearValue();
+        textFilter.resetValue();
+        minLikesFilter.resetValue();
+        hasPhotoFilter.resetValue();
+        maxDislikesFilter.resetValue();
     }
 
     setReviewsLastProductArticle(productArticle);

@@ -31,7 +31,7 @@ const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 const reviewCardsCache = new WeakMap();
 
 export async function initReviewsMods() {
-    cleanFiltersIfNotLastProduct();
+    resetFiltersIfNotLastProduct();
 
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
@@ -45,14 +45,14 @@ export async function initReviewsMods() {
     });
 }
 
-function cleanFiltersIfNotLastProduct() {
+function resetFiltersIfNotLastProduct() {
     const productArticle = getProductArticleFromPathname();
     const lastProductArticle = getReviewsLastProductArticle();
 
     if (productArticle !== lastProductArticle) {
-        textFilter.clearValue();
-        minRatingFilter.clearValue();
-        maxRatingFilter.clearValue();
+        textFilter.resetValue();
+        minRatingFilter.resetValue();
+        maxRatingFilter.resetValue();
     }
 
     setReviewsLastProductArticle(productArticle);
