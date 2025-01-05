@@ -33,3 +33,7 @@ export function isLessThanFilter(parameterValue, filter) {
 export function isGreaterThanFilter(parameterValue, filter) {
     return filter.value != null && parameterValue > filter.value;
 }
+
+export function isNotEqualBoolFilter(parameterValue, filter) {
+    return filter.value != null && parameterValue !== filter.value;
+}
