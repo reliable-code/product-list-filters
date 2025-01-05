@@ -146,10 +146,10 @@ function processReviewCard(review) {
     if (!cachedData) {
         readMoreClick(reviewCard);
 
-        const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
+        const reviewContent = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
         const reviewFooter = getFirstElement(SELECTORS.REVIEW_FOOTER, reviewCard);
 
-        if (!reviewTextWrap || !reviewFooter) {
+        if (!reviewContent || !reviewFooter) {
             hideElement(reviewCard);
             return;
         }
@@ -162,13 +162,15 @@ function processReviewCard(review) {
             return;
         }
 
+        const reviewText = reviewContent.innerText;
+
         const likesNumber = getElementInnerNumber(likeButton, true);
         const dislikesNumber = getElementInnerNumber(dislikeButton, true);
 
         const reviewText = reviewTextWrap.innerText;
 
         cachedData = {
-            reviewTextWrap,
+            reviewContent,
             reviewText,
             likesNumber,
             dislikesNumber,
@@ -178,7 +180,7 @@ function processReviewCard(review) {
     }
 
     if (textFilter.value) {
-        highlightSearchStringsByFilter(textFilter, cachedData.reviewTextWrap);
+        highlightSearchStringsByFilter(textFilter, cachedData.reviewContent);
     }
 
     const shouldHide =
