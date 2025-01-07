@@ -51,16 +51,7 @@ export async function initReviewsMods(needScrollToComments = true, isMultipleRev
 
     resetFiltersIfNotLastProduct();
 
-    const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
-    appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
-    setReviewsContainer(isMultipleReviewsList);
-
-    processReviewCards();
-
-    const observer = new MutationObserver(debounce(processReviewCards));
-    observer.observe(reviewsContainer, {
-        childList: true,
-    });
+    await executeReviewsMods(isMultipleReviewsList);
 }
 
 function scrollToComments() {
@@ -80,6 +71,19 @@ function resetFiltersIfNotLastProduct() {
     }
 
     setReviewsLastProductArticle(productArticle);
+}
+
+async function executeReviewsMods(isMultipleReviewsList) {
+    const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
+    appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
+    setReviewsContainer(isMultipleReviewsList);
+
+    processReviewCards();
+
+    const observer = new MutationObserver(debounce(processReviewCards));
+    observer.observe(reviewsContainer, {
+        childList: true,
+    });
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
