@@ -229,3 +229,11 @@ function removeUnnecessaryElements() {
     getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsContainer)
         .forEach((element) => element.remove());
 }
+
+async function checkFiltersContainer(paginator) {
+    if (getFirstElement(SELECTORS.FILTERS_CONTAINER, paginator)) return;
+
+    await waitForElement(paginator, SELECTORS.WEB_REVIEW_TABS);
+
+    await executeReviewsMods(true);
+}

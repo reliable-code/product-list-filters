@@ -7,4 +7,6 @@ export const SELECTORS = {
     REVIEW_FOOTER: ':scope > div:nth-of-type(1) > div:nth-of-type(3)',
     STICKY_REVIEWS_INFO: '[data-widget="webStickyProducts"] [data-widget="webReviewProductScore"] .tsBodyControl400Small',
     UNNECESSARY_ELEMENTS: '[data-widget="separator"], [data-widget="skuGrid"]',
+    FILTERS_CONTAINER: '#customFiltersContainer',
+    WEB_REVIEW_TABS: '[data-widget="webReviewTabs"]',
 };
