@@ -32,7 +32,7 @@ import {
 } from '../common';
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
 import { removeHighlights } from '../../../common/dom/highlighting';
-import { highlightSearchStringsByFilter } from '../../../common/filter/highlighting';
+import { highlightSearchStringsByFilterMultiple } from '../../../common/filter/highlighting';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -160,13 +160,20 @@ function processReviewCard(review) {
     if (!cachedData) {
         readMoreClick(reviewCard);
 
-        const reviewContent = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
+        const reviewContent = getFirstElement(SELECTORS.REVIEW_CONTENT, reviewCard);
         const reviewFooter = getFirstElement(SELECTORS.REVIEW_FOOTER, reviewCard);
 
         if (!reviewContent || !reviewFooter) {
             hideElement(reviewCard);
             return;
         }
+
+        const productVariationWrap = getFirstElement(
+            SELECTORS.PRODUCT_VARIATION_WRAP, reviewContent,
+        );
+        const reviewSurveyWrap = getFirstElement(SELECTORS.REVIEW_SURVEY_WRAP, reviewContent);
+        const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewContent);
+        const reviewTextWraps = [reviewSurveyWrap, reviewTextWrap].filter(Boolean);
 
         const likeButton = findElementByText(reviewFooter, 'button', 'Да');
         const dislikeButton = findElementByText(reviewFooter, 'button', 'Нет');
@@ -176,7 +183,9 @@ function processReviewCard(review) {
             return;
         }
 
-        const reviewText = reviewContent.innerText;
+        const productVariationText = productVariationWrap.innerText;
+        const reviewText = reviewTextWraps.map((textWrap) => textWrap.innerText)
+            .join(' ');
 
         const likesNumber = getElementInnerNumber(likeButton, true);
         const dislikesNumber = getElementInnerNumber(dislikeButton, true);
@@ -184,7 +193,9 @@ function processReviewCard(review) {
         const hasPhoto = hasElement('img', reviewContent);
 
         cachedData = {
-            reviewContent,
+            productVariationWrap,
+            productVariationText,
+            reviewTextWraps,
             reviewText,
             likesNumber,
             dislikesNumber,
@@ -195,7 +206,7 @@ function processReviewCard(review) {
     }
 
     if (textFilter.value) {
-        highlightSearchStringsByFilter(textFilter, cachedData.reviewContent);
+        highlightSearchStringsByFilterMultiple(textFilter, cachedData.reviewTextWraps);
     }
 
     const shouldHide =
