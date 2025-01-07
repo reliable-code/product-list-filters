@@ -23,7 +23,7 @@ import { highlightSearchStringsByFilterMultiple } from '../../../common/filter/h
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
-const textFilter = createGlobalFilter('reviews-text-filter');
+const reviewTextFilter = createGlobalFilter('reviews-text-filter');
 const minRatingFilter = createGlobalFilter('reviews-min-rating-filter');
 const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
@@ -50,7 +50,7 @@ function resetFiltersIfNotLastProduct() {
     const lastProductArticle = getReviewsLastProductArticle();
 
     if (productArticle !== lastProductArticle) {
-        textFilter.resetValue();
+        reviewTextFilter.resetValue();
         minRatingFilter.resetValue();
         maxRatingFilter.resetValue();
     }
@@ -62,8 +62,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.REVIEWS_FILTERS_CONTAINER);
     filtersContainer.classList.add('input-search');
 
-    const nameFilterDiv = createSearchFilterControl(
-        textFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
+    const reviewTextFilterDiv = createSearchFilterControl(
+        reviewTextFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
     );
     const minRatingDiv = createMinRatingFilterControl(
         minRatingFilter,
@@ -84,7 +84,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     filtersContainer.append(
-        nameFilterDiv,
+        reviewTextFilterDiv,
         minRatingDiv,
         maxRatingDiv,
         filterEnabledDiv,
@@ -138,12 +138,12 @@ function processReviewCard(reviewCard) {
         reviewCardsCache.set(reviewCard, cachedData);
     }
 
-    if (textFilter.value) {
-        highlightSearchStringsByFilterMultiple(textFilter, cachedData.textWraps);
+    if (reviewTextFilter.value) {
+        highlightSearchStringsByFilterMultiple(reviewTextFilter, cachedData.textWraps);
     }
 
     const shouldHide =
-        isNotMatchTextFilter(cachedData.filterableText, textFilter) ||
+        isNotMatchTextFilter(cachedData.filterableText, reviewTextFilter) ||
         isLessThanFilter(cachedData.rating, minRatingFilter) ||
         isGreaterThanFilter(cachedData.rating, maxRatingFilter);
     updateElementDisplay(reviewCard, shouldHide);
