@@ -1,4 +1,4 @@
-const STYLES_BASE = {
+export const STYLES_BASE = {
     INPUT: {
         marginLeft: '5px',
         border: '2px solid #b3bcc5',

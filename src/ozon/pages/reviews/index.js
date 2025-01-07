@@ -13,7 +13,7 @@ import {
     createHasPhotoFilterControl,
     createLikesFilterControl,
 } from '../../../common/filter/factories/specificControls';
-import { STYLES } from '../common/styles';
+import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
