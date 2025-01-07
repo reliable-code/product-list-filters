@@ -11,7 +11,7 @@ const STYLES_BASE = {
 };
 
 export const STYLES = {
-    PRODUCTS_FILTERS_CONTAINER: {
+    FILTERS_CONTAINER: {
         ...STYLES_BASE.FILTERS_CONTAINER,
         margin: '19px auto 0',
         maxWidth: '1435px',

@@ -69,7 +69,7 @@ export async function initProductListMods() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    applyStyles(filtersContainer, STYLES.PRODUCTS_FILTERS_CONTAINER);
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
     filtersContainer.classList.add('input-search');
 
     const nameFilterDiv = createSearchFilterControl(
