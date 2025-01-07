@@ -12,7 +12,6 @@ import {
     createEnabledFilterControl,
     createHasPhotoFilterControl,
     createLikesFilterControl,
-    createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
@@ -33,10 +32,11 @@ import {
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
 import { removeHighlights } from '../../../common/dom/highlighting';
 import { highlightSearchStringsByFilterMultiple } from '../../../common/filter/highlighting';
+import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
-const textFilter = createGlobalFilter('reviews-text-filter');
+const reviewTextFilter = createGlobalFilter('reviews-text-filter');
 const minLikesFilter = createGlobalFilter('reviews-min-likes-filter');
 const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
 const hasPhotoFilter = createGlobalFilter('reviews-has-photo-filter', false);
@@ -66,7 +66,7 @@ function resetFiltersIfNotLastProduct() {
     const lastProductArticle = getReviewsLastProductArticle();
 
     if (productArticle !== lastProductArticle) {
-        textFilter.resetValue();
+        reviewTextFilter.resetValue();
         minLikesFilter.resetValue();
         hasPhotoFilter.resetValue();
         maxDislikesFilter.resetValue();
@@ -97,8 +97,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         paddingBottom: '0',
     });
 
-    const nameFilterDiv = createSearchFilterControl(
-        textFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
+    const reviewTextFilterDiv = createTextFilterControl(
+        'Текст:',
+        reviewTextFilter,
+        STYLES.CONTROL,
+        STYLES.TEXT_INPUT,
     );
     const minLikesDiv = createLikesFilterControl(
         'Мин. лайков: ',
@@ -120,7 +123,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     filtersContainer.append(
-        nameFilterDiv,
+        reviewTextFilterDiv,
         minLikesDiv,
         maxDislikesDiv,
         hasPhotoDiv,
@@ -205,12 +208,12 @@ function processReviewCard(review) {
         reviewCardsCache.set(reviewCard, cachedData);
     }
 
-    if (textFilter.value) {
-        highlightSearchStringsByFilterMultiple(textFilter, cachedData.reviewTextWraps);
+    if (reviewTextFilter.value) {
+        highlightSearchStringsByFilterMultiple(reviewTextFilter, cachedData.reviewTextWraps);
     }
 
     const shouldHide =
-        isNotMatchTextFilter(cachedData.reviewText, textFilter) ||
+        isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter) ||
         isLessThanFilter(cachedData.likesNumber, minLikesFilter) ||
         isGreaterThanFilter(cachedData.dislikesNumber, maxDislikesFilter) ||
         isNotEqualBoolFilter(cachedData.hasPhoto, hasPhotoFilter);
