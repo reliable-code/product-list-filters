@@ -97,11 +97,7 @@ async function executeReviewsMods(isMultipleReviewsList) {
 function appendFiltersContainer(filtersContainer, parentNode) {
     addInputSpinnerButtons();
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
-    applyStyles(parentNode, {
-        display: 'grid',
-        gap: '10px',
-        paddingBottom: '0',
-    });
+    applyStyles(parentNode, STYLES.FILTERS_CONTAINER_WRAP);
 
     const variationFilterDiv = createTextFilterControl(
         'Вариация:',
