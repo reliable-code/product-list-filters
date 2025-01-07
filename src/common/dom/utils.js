@@ -29,6 +29,26 @@ export async function waitForElement(parentNode, selector, timeout = null) {
     });
 }
 
+export async function waitUntilElementGone(parentNode, selector) {
+    const existingElement = parentNode.querySelector(selector);
+    if (!existingElement) return Promise.resolve();
+
+    return new Promise((resolve) => {
+        const observer = new MutationObserver(mutationCallback);
+        observer.observe(parentNode, {
+            childList: true,
+            subtree: true,
+        });
+
+        function mutationCallback() {
+            if (parentNode.querySelector(selector)) return;
+
+            observer.disconnect();
+            resolve();
+        }
+    });
+}
+
 export function debounce(func, wait = 250) {
     let timeoutId;
     return (...args) => {
