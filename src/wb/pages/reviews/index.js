@@ -20,6 +20,7 @@ import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../.
 import { removeHighlights } from '../../../common/dom/highlighting';
 import { highlightSearchStringsByFilter } from '../../../common/filter/highlighting';
 import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
+import { createSeparator } from '../../../common/filter/factories/helpers';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -90,6 +91,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         1,
         1,
     );
+    const separatorDiv = createSeparator(
+        STYLES.CONTROL,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
@@ -99,6 +103,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         reviewTextFilterDiv,
         minRatingDiv,
         maxRatingDiv,
+        separatorDiv,
         filterEnabledDiv,
     );
 
