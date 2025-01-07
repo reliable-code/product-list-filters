@@ -31,11 +31,15 @@ import {
 } from '../common';
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
 import { removeHighlights } from '../../../common/dom/highlighting';
-import { highlightSearchStringsByFilterMultiple } from '../../../common/filter/highlighting';
+import {
+    highlightSearchStringsByFilter,
+    highlightSearchStringsByFilterMultiple,
+} from '../../../common/filter/highlighting';
 import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
+const variationFilter = createGlobalFilter('reviews-variation-filter');
 const reviewTextFilter = createGlobalFilter('reviews-text-filter');
 const minLikesFilter = createGlobalFilter('reviews-min-likes-filter');
 const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
@@ -66,6 +70,7 @@ function resetFiltersIfNotLastProduct() {
     const lastProductArticle = getReviewsLastProductArticle();
 
     if (productArticle !== lastProductArticle) {
+        variationFilter.resetValue();
         reviewTextFilter.resetValue();
         minLikesFilter.resetValue();
         hasPhotoFilter.resetValue();
@@ -97,6 +102,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         paddingBottom: '0',
     });
 
+    const variationFilterDiv = createTextFilterControl(
+        'Вариация:',
+        variationFilter,
+        STYLES.CONTROL,
+        STYLES.TEXT_INPUT,
+    );
     const reviewTextFilterDiv = createTextFilterControl(
         'Текст:',
         reviewTextFilter,
@@ -123,6 +134,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     filtersContainer.append(
+        variationFilterDiv,
         reviewTextFilterDiv,
         minLikesDiv,
         maxDislikesDiv,
@@ -208,11 +220,16 @@ function processReviewCard(review) {
         reviewCardsCache.set(reviewCard, cachedData);
     }
 
+    if (variationFilter.value) {
+        highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
+    }
+
     if (reviewTextFilter.value) {
         highlightSearchStringsByFilterMultiple(reviewTextFilter, cachedData.reviewTextWraps);
     }
 
     const shouldHide =
+        isNotMatchTextFilter(cachedData.productVariationText, variationFilter) ||
         isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter) ||
         isLessThanFilter(cachedData.likesNumber, minLikesFilter) ||
         isGreaterThanFilter(cachedData.dislikesNumber, maxDislikesFilter) ||
