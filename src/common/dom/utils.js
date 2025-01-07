@@ -1,10 +1,9 @@
 export async function waitForElement(parentNode, selector, timeout = null) {
     const existingElement = parentNode.querySelector(selector);
-    if (existingElement) return existingElement;
+    if (existingElement) return Promise.resolve(existingElement);
 
     return new Promise((resolve) => {
         const observer = new MutationObserver(mutationCallback);
-
         observer.observe(parentNode, {
             childList: true,
             subtree: true,
