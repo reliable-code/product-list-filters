@@ -5,7 +5,6 @@ import {
     createEnabledFilterControl,
     createMaxRatingFilterControl,
     createMinRatingFilterControl,
-    createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
@@ -19,10 +18,12 @@ import {
 import { addScrollToFiltersButton, getProductArticleFromPathname } from '../common';
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
 import { removeHighlights } from '../../../common/dom/highlighting';
-import { highlightSearchStringsByFilterMultiple } from '../../../common/filter/highlighting';
+import { highlightSearchStringsByFilter } from '../../../common/filter/highlighting';
+import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
+const variationFilter = createGlobalFilter('reviews-variation-filter');
 const reviewTextFilter = createGlobalFilter('reviews-text-filter');
 const minRatingFilter = createGlobalFilter('reviews-min-rating-filter');
 const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
@@ -50,6 +51,7 @@ function resetFiltersIfNotLastProduct() {
     const lastProductArticle = getReviewsLastProductArticle();
 
     if (productArticle !== lastProductArticle) {
+        variationFilter.resetValue();
         reviewTextFilter.resetValue();
         minRatingFilter.resetValue();
         maxRatingFilter.resetValue();
@@ -62,8 +64,17 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.REVIEWS_FILTERS_CONTAINER);
     filtersContainer.classList.add('input-search');
 
-    const reviewTextFilterDiv = createSearchFilterControl(
-        reviewTextFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
+    const variationFilterDiv = createTextFilterControl(
+        'Вариация:',
+        variationFilter,
+        STYLES.CONTROL,
+        STYLES.TEXT_INPUT,
+    );
+    const reviewTextFilterDiv = createTextFilterControl(
+        'Текст:',
+        reviewTextFilter,
+        STYLES.CONTROL,
+        STYLES.TEXT_INPUT,
     );
     const minRatingDiv = createMinRatingFilterControl(
         minRatingFilter,
@@ -84,6 +95,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     filtersContainer.append(
+        variationFilterDiv,
         reviewTextFilterDiv,
         minRatingDiv,
         maxRatingDiv,
@@ -120,8 +132,6 @@ function processReviewCard(reviewCard) {
             return;
         }
 
-        const textWraps = [productVariationWrap, reviewTextWrap];
-
         const ratingWrap = getFirstElement(SELECTORS.REVIEW_RATING_WRAP, reviewCard);
 
         if (!ratingWrap) {
@@ -130,20 +140,27 @@ function processReviewCard(reviewCard) {
         }
 
         cachedData = {
-            textWraps,
-            filterableText: reviewTextWrap.innerText + productVariationWrap.innerText,
+            productVariationWrap,
+            productVariationText: productVariationWrap.innerText,
+            reviewTextWrap,
+            reviewText: reviewTextWrap.innerText,
             rating: getRating(ratingWrap),
         };
 
         reviewCardsCache.set(reviewCard, cachedData);
     }
 
+    if (variationFilter.value) {
+        highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
+    }
+
     if (reviewTextFilter.value) {
-        highlightSearchStringsByFilterMultiple(reviewTextFilter, cachedData.textWraps);
+        highlightSearchStringsByFilter(reviewTextFilter, cachedData.reviewTextWrap);
     }
 
     const shouldHide =
-        isNotMatchTextFilter(cachedData.filterableText, reviewTextFilter) ||
+        isNotMatchTextFilter(cachedData.productVariationText, variationFilter) ||
+        isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter) ||
         isLessThanFilter(cachedData.rating, minRatingFilter) ||
         isGreaterThanFilter(cachedData.rating, maxRatingFilter);
     updateElementDisplay(reviewCard, shouldHide);
