@@ -6,7 +6,7 @@ import {
     createMaxRatingFilterControl,
     createMinRatingFilterControl,
 } from '../../../common/filter/factories/specificControls';
-import { STYLES } from '../common/styles';
+import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
@@ -61,7 +61,7 @@ function resetFiltersIfNotLastProduct() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    applyStyles(filtersContainer, STYLES.REVIEWS_FILTERS_CONTAINER);
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
     filtersContainer.classList.add('input-search');
 
     const variationFilterDiv = createTextFilterControl(

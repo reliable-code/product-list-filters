@@ -1,4 +1,4 @@
-const STYLES_BASE = {
+export const STYLES_BASE = {
     INPUT: {
         marginLeft: '5px',
         height: '36px',
@@ -15,9 +15,6 @@ export const STYLES = {
         ...STYLES_BASE.FILTERS_CONTAINER,
         margin: '19px auto 0',
         maxWidth: '1435px',
-    },
-    REVIEWS_FILTERS_CONTAINER: {
-        ...STYLES_BASE.FILTERS_CONTAINER,
     },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
