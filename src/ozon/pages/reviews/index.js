@@ -36,6 +36,7 @@ import {
     highlightSearchStringsByFilterMultiple,
 } from '../../../common/filter/highlighting';
 import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
+import { createSeparator } from '../../../common/filter/factories/helpers';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -129,6 +130,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const hasPhotoDiv = createHasPhotoFilterControl(
         hasPhotoFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
+    const separatorDiv = createSeparator(
+        STYLES.CONTROL,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
@@ -139,6 +143,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         minLikesDiv,
         maxDislikesDiv,
         hasPhotoDiv,
+        separatorDiv,
         filterEnabledDiv,
     );
 
