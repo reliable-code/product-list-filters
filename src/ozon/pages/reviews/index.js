@@ -52,6 +52,8 @@ export async function initReviewsMods(needScrollToComments = true, isMultipleRev
     resetFiltersIfNotLastProduct();
 
     await executeReviewsMods(isMultipleReviewsList);
+
+    if (isMultipleReviewsList) await observePaginator();
 }
 
 function scrollToComments() {
@@ -228,6 +230,16 @@ function updateVisibleReviewsCount(reviews) {
 function removeUnnecessaryElements() {
     getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsContainer)
         .forEach((element) => element.remove());
+}
+
+async function observePaginator() {
+    const paginator = getFirstElement(SELECTORS.PAGINATOR);
+    const observer = new MutationObserver(
+        debounce(() => checkFiltersContainer(paginator)),
+    );
+    observer.observe(paginator, {
+        childList: true,
+    });
 }
 
 async function checkFiltersContainer(paginator) {
