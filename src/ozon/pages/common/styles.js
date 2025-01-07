@@ -5,15 +5,18 @@ const STYLES_BASE = {
         borderRadius: '6px',
         padding: '6px 10px',
     },
-};
-
-export const STYLES = {
     FILTERS_CONTAINER: {
         display: 'flex',
         flexFlow: 'wrap',
         gap: '15px',
-        minWidth: '1250px',
         paddingBottom: '14px',
+    },
+};
+
+export const STYLES = {
+    FILTERS_CONTAINER: {
+        ...STYLES_BASE.FILTERS_CONTAINER,
+        minWidth: '1250px',
     },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
