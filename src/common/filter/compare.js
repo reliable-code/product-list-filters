@@ -35,5 +35,5 @@ export function isGreaterThanFilter(parameterValue, filter) {
 }
 
 export function isNotEqualBoolFilter(parameterValue, filter) {
-    return filter.value != null && parameterValue !== filter.value;
+    return filter.value && parameterValue !== filter.value;
 }
