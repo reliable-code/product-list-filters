@@ -211,3 +211,7 @@ function updateAverageRating() {
 
     averageRatingWrap.textContent = averageRatingRounded;
 }
+
+function getFirstTextNode(element) {
+    return [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+}
