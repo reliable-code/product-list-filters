@@ -1,6 +1,11 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
-import { applyStyles, getAllElements, getFirstElement } from '../../../common/dom/helpers';
+import {
+    applyStyles,
+    getAllElements,
+    getFirstElement,
+    getFirstElementInnerNumber,
+} from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMaxRatingFilterControl,
@@ -22,7 +27,10 @@ import {
     highlightSearchStringsByFilter,
     highlightSearchStringsByFilterMultiple,
 } from '../../../common/filter/highlighting';
-import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
+import {
+    createCheckboxFilterControl,
+    createTextFilterControl,
+} from '../../../common/filter/factories/genericControls';
 import { createSeparator } from '../../../common/filter/factories/helpers';
 import { roundToPrecision } from '../../../common/mathUtils';
 
@@ -32,15 +40,19 @@ const variationFilter = createGlobalFilter('reviews-variation-filter');
 const reviewTextFilter = createGlobalFilter('reviews-text-filter');
 const minRatingFilter = createGlobalFilter('reviews-min-rating-filter');
 const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
+const waitFullLoad = createGlobalFilter('reviews-wait-full-load', false);
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 const reviewCardsCache = new Map();
+let totalReviewCount;
 
 export async function initReviewsMods() {
     resetFiltersIfNotLastProduct();
 
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
+
+    totalReviewCount = getFirstElementInnerNumber(document, SELECTORS.TOTAL_REVIEWS_COUNT);
 
     processReviewCards();
 
@@ -95,11 +107,19 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         1,
         1,
     );
+    const waitFullLoadDiv = createCheckboxFilterControl(
+        'Прогрузка: ',
+        waitFullLoad,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
+    );
     const separatorDiv = createSeparator(
         STYLES.CONTROL,
     );
     const filterEnabledDiv = createEnabledFilterControl(
-        filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+        filterEnabled,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(
@@ -107,6 +127,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         reviewTextFilterDiv,
         minRatingDiv,
         maxRatingDiv,
+        waitFullLoadDiv,
         separatorDiv,
         filterEnabledDiv,
     );
@@ -166,6 +187,11 @@ function processReviewCard(reviewCard) {
 
     if (variationFilter.value) {
         highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
+    }
+
+    if (waitFullLoad.value && reviewCardsCache.size < totalReviewCount) {
+        hideElement(reviewCard);
+        return;
     }
 
     const shouldHide =
