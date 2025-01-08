@@ -195,8 +195,13 @@ function updateVisibleReviewsCount(reviewCards) {
 }
 
 function updateAverageRating() {
+    const stickyAverageRatingWrap = getFirstElement(SELECTORS.STICKY_AVERAGE_RATING_WRAP);
     const averageRatingWrap = getFirstElement(SELECTORS.AVERAGE_RATING_WRAP);
-    if (!averageRatingWrap) return;
+
+    if (!stickyAverageRatingWrap || !averageRatingWrap) return;
+
+    const stickyAverageRating = getFirstTextNode(stickyAverageRatingWrap);
+    if (!stickyAverageRating) return;
 
     let totalRating = 0;
     let reviewCount = 0;
@@ -209,6 +214,7 @@ function updateAverageRating() {
     const averageRating = reviewCount > 0 ? totalRating / reviewCount : 0;
     const averageRatingRounded = roundToPrecision(averageRating);
 
+    stickyAverageRating.nodeValue = averageRatingRounded;
     averageRatingWrap.textContent = averageRatingRounded;
 }
 

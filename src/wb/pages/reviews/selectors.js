@@ -6,5 +6,6 @@ export const SELECTORS = {
     REVIEW_TEXT_WRAP: '.feedback__content',
     REVIEW_RATING_WRAP: '.feedback__rating',
     STICKY_REVIEWS_INFO: '.product-line__param',
+    STICKY_AVERAGE_RATING_WRAP: '.address-rate-mini',
     AVERAGE_RATING_WRAP: '.rating-product__numb',
 };
