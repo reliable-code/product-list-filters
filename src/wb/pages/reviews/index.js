@@ -18,7 +18,10 @@ import {
 import { addScrollToFiltersButton, getProductArticleFromPathname } from '../common';
 import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
 import { removeHighlights } from '../../../common/dom/highlighting';
-import { highlightSearchStringsByFilter } from '../../../common/filter/highlighting';
+import {
+    highlightSearchStringsByFilter,
+    highlightSearchStringsByFilterMultiple,
+} from '../../../common/filter/highlighting';
 import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
 import { createSeparator } from '../../../common/filter/factories/helpers';
 
@@ -147,20 +150,20 @@ function processReviewCard(reviewCard) {
         cachedData = {
             productVariationWrap,
             productVariationText: productVariationWrap.innerText,
-            reviewTextWrap,
-            reviewText: reviewTextWrap.innerText,
+            reviewTextWraps: [productVariationWrap, reviewTextWrap],
+            reviewText: productVariationWrap.innerText + reviewTextWrap.innerText,
             rating: getRating(ratingWrap),
         };
 
         reviewCardsCache.set(reviewCard, cachedData);
     }
 
-    if (variationFilter.value) {
-        highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
+    if (reviewTextFilter.value) {
+        highlightSearchStringsByFilterMultiple(reviewTextFilter, cachedData.reviewTextWraps);
     }
 
-    if (reviewTextFilter.value) {
-        highlightSearchStringsByFilter(reviewTextFilter, cachedData.reviewTextWrap);
+    if (variationFilter.value) {
+        highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
     }
 
     const shouldHide =
