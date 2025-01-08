@@ -13,6 +13,7 @@ import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
 import { initReviewsMods } from '../reviews';
+import { roundToPrecision } from '../../../common/mathUtils';
 
 export async function initProductPageMods() {
     await Promise.all([
@@ -193,7 +194,5 @@ function getRatingValueFromRatingInfo(ratingInfo) {
 
     const ratingValue = ratingWeightSum / reviewCounterSum;
 
-    const ratingValueRounded = Math.round((ratingValue + Number.EPSILON) * 1000) / 1000;
-
-    return ratingValueRounded;
+    return roundToPrecision(ratingValue);
 }

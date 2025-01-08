@@ -1,3 +1,7 @@
+export function roundToPrecision(value, precision = 1000) {
+    return Math.round((value + Number.EPSILON) * precision) / precision;
+}
+
 export function getMedian(values) {
     const sortedValues = values.slice()
         .sort((a, b) => a - b);
