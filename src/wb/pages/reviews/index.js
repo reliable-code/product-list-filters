@@ -24,6 +24,7 @@ import {
 } from '../../../common/filter/highlighting';
 import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
 import { createSeparator } from '../../../common/filter/factories/helpers';
+import { roundToPrecision } from '../../../common/mathUtils';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -33,7 +34,7 @@ const minRatingFilter = createGlobalFilter('reviews-min-rating-filter');
 const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
-const reviewCardsCache = new WeakMap();
+const reviewCardsCache = new Map();
 
 export async function initReviewsMods() {
     resetFiltersIfNotLastProduct();
@@ -119,6 +120,7 @@ function processReviewCards() {
     reviewCards.forEach(processReviewCard);
 
     updateVisibleReviewsCount(reviewCards);
+    updateAverageRating();
 }
 
 function processReviewCard(reviewCard) {
@@ -190,4 +192,22 @@ function updateVisibleReviewsCount(reviewCards) {
 
     const baseReviewsInfoText = stickyReviewsInfo.textContent.split('(')[0].trim();
     stickyReviewsInfo.textContent = `${baseReviewsInfoText} (${visibleReviewsCount}/${reviewCards.length})`;
+}
+
+function updateAverageRating() {
+    const averageRatingWrap = getFirstElement(SELECTORS.AVERAGE_RATING_WRAP);
+    if (!averageRatingWrap) return;
+
+    let totalRating = 0;
+    let reviewCount = 0;
+
+    reviewCardsCache.forEach((cachedData) => {
+        totalRating += cachedData.rating;
+        reviewCount += 1;
+    });
+
+    const averageRating = reviewCount > 0 ? totalRating / reviewCount : 0;
+    const averageRatingRounded = roundToPrecision(averageRating);
+
+    averageRatingWrap.textContent = averageRatingRounded;
 }
