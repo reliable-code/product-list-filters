@@ -43,18 +43,20 @@ const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
 const waitFullLoad = createGlobalFilter('reviews-wait-full-load', false);
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
-const reviewCardsCache = new Map();
-let totalReviewCount;
-let averageRatingWrap;
-let stickyAverageRating;
+const state = {
+    productArticle: null,
+    totalReviewCount: null,
+    averageRatingWrap: null,
+    stickyAverageRating: null,
+    reviewCardsCache: new Map(),
+};
 
 export async function initReviewsMods() {
+    initVariables();
     resetFiltersIfNotLastProduct();
 
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
-
-    initVariables();
 
     processReviewCards();
 
@@ -65,18 +67,33 @@ export async function initReviewsMods() {
     });
 }
 
+function initVariables() {
+    state.productArticle = getProductArticleFromPathname();
+    state.totalReviewCount = getFirstElementInnerNumber(document, SELECTORS.TOTAL_REVIEWS_COUNT);
+
+    const stickyAverageRatingWrap = getFirstElement(SELECTORS.STICKY_AVERAGE_RATING_WRAP);
+    state.averageRatingWrap = getFirstElement(SELECTORS.AVERAGE_RATING_WRAP);
+
+    if (!stickyAverageRatingWrap || !state.averageRatingWrap) return;
+
+    state.stickyAverageRating = getFirstTextNode(stickyAverageRatingWrap);
+}
+
+function getFirstTextNode(element) {
+    return [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+}
+
 function resetFiltersIfNotLastProduct() {
-    const productArticle = getProductArticleFromPathname();
     const lastProductArticle = getReviewsLastProductArticle();
 
-    if (productArticle !== lastProductArticle) {
+    if (state.productArticle !== lastProductArticle) {
         variationFilter.resetValue();
         reviewTextFilter.resetValue();
         minRatingFilter.resetValue();
         maxRatingFilter.resetValue();
     }
 
-    setReviewsLastProductArticle(productArticle);
+    setReviewsLastProductArticle(state.productArticle);
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
@@ -138,24 +155,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton();
 }
 
-function initVariables() {
-    totalReviewCount = getFirstElementInnerNumber(document, SELECTORS.TOTAL_REVIEWS_COUNT);
-
-    const stickyAverageRatingWrap = getFirstElement(SELECTORS.STICKY_AVERAGE_RATING_WRAP);
-    averageRatingWrap = getFirstElement(SELECTORS.AVERAGE_RATING_WRAP);
-
-    if (!stickyAverageRatingWrap || !averageRatingWrap) return;
-
-    stickyAverageRating = getFirstTextNode(stickyAverageRatingWrap);
-}
-
-function getFirstTextNode(element) {
-    return [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
-}
-
 function processReviewCards() {
     const reviewCards = getAllElements(SELECTORS.REVIEWS);
-    const isFullLoadComplete = reviewCards.length >= totalReviewCount;
+    const isFullLoadComplete = reviewCards.length >= state.totalReviewCount;
     reviewCards.forEach((reviewCard) => {
         processReviewCard(reviewCard, isFullLoadComplete);
     });
@@ -172,7 +174,7 @@ function processReviewCard(reviewCard, isFullLoadComplete) {
 
     removeHighlights(reviewCard);
 
-    let cachedData = reviewCardsCache.get(reviewCard);
+    let cachedData = state.reviewCardsCache.get(reviewCard);
 
     if (!cachedData) {
         const productVariationWrap = getFirstElement(SELECTORS.PRODUCT_VARIATION_WRAP, reviewCard);
@@ -198,7 +200,7 @@ function processReviewCard(reviewCard, isFullLoadComplete) {
             rating: getRating(ratingWrap),
         };
 
-        reviewCardsCache.set(reviewCard, cachedData);
+        state.reviewCardsCache.set(reviewCard, cachedData);
     }
 
     if (reviewTextFilter.value) {
@@ -244,7 +246,7 @@ function updateAverageRating() {
     let totalRating = 0;
     let reviewCount = 0;
 
-    reviewCardsCache.forEach((cachedData) => {
+    state.reviewCardsCache.forEach((cachedData) => {
         totalRating += cachedData.rating;
         reviewCount += 1;
     });
@@ -252,6 +254,6 @@ function updateAverageRating() {
     const averageRating = reviewCount > 0 ? totalRating / reviewCount : 0;
     const averageRatingRounded = roundToPrecision(averageRating);
 
-    stickyAverageRating.nodeValue = averageRatingRounded;
-    averageRatingWrap.textContent = averageRatingRounded;
+    state.stickyAverageRating.nodeValue = averageRatingRounded;
+    state.averageRatingWrap.textContent = averageRatingRounded;
 }
