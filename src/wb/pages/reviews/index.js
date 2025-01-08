@@ -138,16 +138,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function processReviewCards() {
     const reviewCards = getAllElements(SELECTORS.REVIEWS);
-    const reviewCardsCount = reviewCards.length;
+    const isFullLoadComplete = reviewCards.length >= totalReviewCount;
     reviewCards.forEach((reviewCard) => {
-        processReviewCard(reviewCard, reviewCardsCount);
+        processReviewCard(reviewCard, isFullLoadComplete);
     });
 
     updateVisibleReviewsCount(reviewCards);
     updateAverageRating();
 }
 
-function processReviewCard(reviewCard, reviewCardsCount) {
+function processReviewCard(reviewCard, isFullLoadComplete) {
     if (!filterEnabled.value) {
         showElement(reviewCard);
         return;
@@ -192,7 +192,7 @@ function processReviewCard(reviewCard, reviewCardsCount) {
         highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
     }
 
-    if (waitFullLoad.value && reviewCardsCount < totalReviewCount) {
+    if (waitFullLoad.value && !isFullLoadComplete) {
         hideElement(reviewCard);
         return;
     }
