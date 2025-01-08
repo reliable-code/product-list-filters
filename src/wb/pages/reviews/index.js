@@ -45,6 +45,8 @@ const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 const reviewCardsCache = new Map();
 let totalReviewCount;
+let averageRatingWrap;
+let stickyAverageRating;
 
 export async function initReviewsMods() {
     resetFiltersIfNotLastProduct();
@@ -52,7 +54,7 @@ export async function initReviewsMods() {
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
 
-    totalReviewCount = getFirstElementInnerNumber(document, SELECTORS.TOTAL_REVIEWS_COUNT);
+    initVariables();
 
     processReviewCards();
 
@@ -134,6 +136,21 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     parentNode.append(filtersContainer);
     addScrollToFiltersButton();
+}
+
+function initVariables() {
+    totalReviewCount = getFirstElementInnerNumber(document, SELECTORS.TOTAL_REVIEWS_COUNT);
+
+    const stickyAverageRatingWrap = getFirstElement(SELECTORS.STICKY_AVERAGE_RATING_WRAP);
+    averageRatingWrap = getFirstElement(SELECTORS.AVERAGE_RATING_WRAP);
+
+    if (!stickyAverageRatingWrap || !averageRatingWrap) return;
+
+    stickyAverageRating = getFirstTextNode(stickyAverageRatingWrap);
+}
+
+function getFirstTextNode(element) {
+    return [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
 }
 
 function processReviewCards() {
@@ -224,14 +241,6 @@ function updateVisibleReviewsCount(reviewCards) {
 }
 
 function updateAverageRating() {
-    const stickyAverageRatingWrap = getFirstElement(SELECTORS.STICKY_AVERAGE_RATING_WRAP);
-    const averageRatingWrap = getFirstElement(SELECTORS.AVERAGE_RATING_WRAP);
-
-    if (!stickyAverageRatingWrap || !averageRatingWrap) return;
-
-    const stickyAverageRating = getFirstTextNode(stickyAverageRatingWrap);
-    if (!stickyAverageRating) return;
-
     let totalRating = 0;
     let reviewCount = 0;
 
@@ -245,8 +254,4 @@ function updateAverageRating() {
 
     stickyAverageRating.nodeValue = averageRatingRounded;
     averageRatingWrap.textContent = averageRatingRounded;
-}
-
-function getFirstTextNode(element) {
-    return [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
 }
