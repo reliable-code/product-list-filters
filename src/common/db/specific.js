@@ -4,9 +4,7 @@ import { RatedProductData as ProductData } from '../models/ratedProductData';
 export function setStoredRatingValue(productArticle, ratingValue) {
     const productStorageKey = getProductStorageKey(productArticle);
     const storedProduct = getStorageValue(productStorageKey);
-
-    const currentProduct =
-        storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
+    const currentProduct = getCurrentProduct(storedProduct);
 
     currentProduct.rating = ratingValue;
     currentProduct.updateLastCheckDate();
@@ -15,9 +13,12 @@ export function setStoredRatingValue(productArticle, ratingValue) {
     setStorageValue('last-rate-update', Date.now());
 }
 
-export function getStoredRatingValue(productArticle) {
-    const storedProduct = getStoredProductValue(productArticle);
-    return storedProduct?.rating ?? null;
+function getProductStorageKey(productArticle) {
+    return `product-${productArticle}`;
+}
+
+function getCurrentProduct(storedProduct) {
+    return storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
 }
 
 function getStoredProductValue(productArticle) {
@@ -25,8 +26,9 @@ function getStoredProductValue(productArticle) {
     return getStorageValue(productStorageKey);
 }
 
-function getProductStorageKey(productArticle) {
-    return `product-${productArticle}`;
+export function getStoredRatingValue(productArticle) {
+    const storedProduct = getStoredProductValue(productArticle);
+    return storedProduct?.rating ?? null;
 }
 
 export function setReviewsLastProductArticle(productArticle) {
