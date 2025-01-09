@@ -6,4 +6,5 @@ export const SELECTORS = {
     FILTER_COUNT_WRAP: '[data-qa="reviews_filter_amount"]',
     NAME_SPAN_HOLDER: '.b-doctor-intro__title-first-line',
     NAME_SPAN: '[itemprop="name"]',
+    REVIEWS_CONTAINER: '#rating',
 };

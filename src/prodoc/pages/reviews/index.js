@@ -7,11 +7,13 @@ import {
 } from '../../../common/dom/helpers';
 import { waitForElement } from '../../../common/dom/utils';
 import { createDiv, createSpan } from '../../../common/dom/factories/elements';
+import { getURLQueryStringParam } from '../../../common/url';
 
 export async function initReviewsMods() {
     appendDoctorPageAdditionalLinks();
     const filtersData = await getFiltersData();
     appendReviewsInfoToHeader(filtersData);
+    if (getURLQueryStringParam('rates_category')) scrollToReviews();
 }
 
 async function getFiltersData() {
@@ -72,4 +74,9 @@ function appendReviewsInfoToHeader(filtersData) {
     });
 
     nameSpan.append(reviewsInfoWrap);
+}
+
+function scrollToReviews() {
+    const reviewsContainer = getFirstElement(SELECTORS.REVIEWS_CONTAINER);
+    reviewsContainer.scrollIntoView({ behavior: 'smooth' });
 }
