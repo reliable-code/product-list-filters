@@ -52,7 +52,7 @@ const state = {
     productArticle: null,
     totalReviewCount: null,
     averageRatingWrap: null,
-    stickyAverageRating: null,
+    stickyAverageRatingNode: null,
     isAverageRatingFinalized: false,
     reviewCardsCache: new Map(),
 };
@@ -84,7 +84,7 @@ async function initVariables() {
 
     if (!stickyAverageRatingWrap || !state.averageRatingWrap) return;
 
-    state.stickyAverageRating = getFirstTextNode(stickyAverageRatingWrap);
+    state.stickyAverageRatingNode = getFirstTextNode(stickyAverageRatingWrap);
 }
 
 function resetFiltersIfNotLastProduct() {
@@ -258,7 +258,7 @@ function updateAverageRating(isFullLoadComplete) {
     const averageRating = reviewCount > 0 ? totalRating / reviewCount : 0;
     const averageRatingRounded = roundToPrecision(averageRating);
 
-    state.stickyAverageRating.nodeValue = averageRatingRounded;
+    state.stickyAverageRatingNode.nodeValue = averageRatingRounded;
     state.averageRatingWrap.textContent = averageRatingRounded;
 
     if (isFullLoadComplete) {
