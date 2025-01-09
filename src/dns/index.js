@@ -8,6 +8,7 @@ import {
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,
+    getFirstTextNode,
 } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -92,8 +93,7 @@ function processProductCard(productCard) {
     }
 
     const productCardName = productCardNameWrap.innerText;
-    const productCardReviewsNode =
-        [...productCardRatingWrap.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+    const productCardReviewsNode = getFirstTextNode(productCardRatingWrap);
     const productCardReviewsNumber = getProductCardReviewsNumber(productCardReviewsNode);
     const productCardRatingNumber = getFirstElementInnerNumber(productCardRatingWrap, 'b');
 

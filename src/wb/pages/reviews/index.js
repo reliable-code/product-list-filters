@@ -5,6 +5,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    getFirstTextNode,
 } from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -84,10 +85,6 @@ async function initVariables() {
     if (!stickyAverageRatingWrap || !state.averageRatingWrap) return;
 
     state.stickyAverageRating = getFirstTextNode(stickyAverageRatingWrap);
-}
-
-function getFirstTextNode(element) {
-    return [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
 }
 
 function resetFiltersIfNotLastProduct() {

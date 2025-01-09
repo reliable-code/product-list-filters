@@ -72,6 +72,18 @@ function parseNumber(text, cleanText, replaceComma) {
     return number;
 }
 
+export function getFirstTextNode(element) {
+    return [...element.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+}
+
+export function getNonEmptyTextNodes(element) {
+    const traverse = (node) => (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ''
+        ? [node]
+        : [...node.childNodes].flatMap(traverse));
+
+    return traverse(element);
+}
+
 export function applyStyles(element, styles) {
     Object.assign(element.style, styles);
 }
@@ -96,12 +108,4 @@ export function styleStringToObject(styleString) {
             styleObject[camelCaseKey] = value;
             return styleObject;
         }, {});
-}
-
-export function getNonEmptyTextNodes(element) {
-    const traverse = (node) => (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ''
-        ? [node]
-        : [...node.childNodes].flatMap(traverse));
-
-    return traverse(element);
 }
