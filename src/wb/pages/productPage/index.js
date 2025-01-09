@@ -1,12 +1,16 @@
 import { waitForElement } from '../../../common/dom/utils';
-import { getFirstElement } from '../../../common/dom/helpers';
+import { getFirstElement, getFirstTextNode } from '../../../common/dom/helpers';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { getPriceSpan, getProductArticleFromPathname } from '../common';
 import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { SELECTORS } from './selectors';
+import { getStoredRatingValue } from '../../../common/db/specific';
 
 export async function initProductPageMods() {
-    await initAppendPriceHistory();
+    await Promise.all([
+        initAppendPriceHistory(),
+        appendRatingValue(),
+    ]);
 }
 
 async function initAppendPriceHistory() {
@@ -31,4 +35,17 @@ async function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArti
     await appendPriceHistory(priceContainer, priceSpan, productArticle);
 
     priceContainerWrap.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
+}
+
+async function appendRatingValue() {
+    const productArticle = getProductArticleFromPathname();
+    const storedRatingValue = getStoredRatingValue(productArticle);
+
+    if (!storedRatingValue) return;
+
+    const ratingNodeWrap = getFirstElement(SELECTORS.RATING_NODE_WRAP);
+    if (!ratingNodeWrap) return;
+
+    const ratingNode = getFirstTextNode(ratingNodeWrap);
+    ratingNode.nodeValue = storedRatingValue;
 }
