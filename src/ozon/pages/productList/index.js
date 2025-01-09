@@ -28,7 +28,6 @@ import {
     getElementInnerNumber,
     getFirstElement,
 } from '../../../common/dom/helpers';
-import { getStoredRatingValue, setStoredRatingValue } from '../../db';
 import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
@@ -44,6 +43,7 @@ import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { SELECTORS } from './selectors';
 import { ATTRIBUTES } from './attributes';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
+import { getStoredRatingValue, setStoredRatingValue } from '../../../common/db/specific';
 
 // todo: wrap into init func
 const SECTION_ID = getSectionId();
