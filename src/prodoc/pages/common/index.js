@@ -1,4 +1,6 @@
-import { createLink } from '../../../common/dom/factories/elements';
+import { createDiv, createLink } from '../../../common/dom/factories/elements';
+import { getFirstElement } from '../../../common/dom/helpers';
+import { SELECTORS } from './selectors';
 
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 const SITE_NAMES = ['Яндекс', 'НаПоправку', 'DocDoc', 'Докту'];
@@ -27,4 +29,16 @@ function getSearchUrl(doctorName, siteName) {
     const searchString = `${doctorName} ${siteName}`;
     const encodedSearchString = encodeURIComponent(searchString);
     return `https://www.google.com/search?q=${encodedSearchString}&btnI`;
+}
+
+export function appendDoctorPageAdditionalLinks() {
+    const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, document, true);
+    if (!doctorCardName) return;
+
+    const doctorName = doctorCardName.innerText.trim();
+    const linksContainer = createDiv();
+    linksContainer.style.textAlign = 'center';
+    const doctorIntroLeft = getFirstElement(SELECTORS.DOCTOR_INTRO_LEFT);
+    doctorIntroLeft.append(linksContainer);
+    appendAdditionalLinks(doctorName, linksContainer);
 }

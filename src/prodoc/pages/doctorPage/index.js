@@ -1,24 +1,12 @@
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import { createDiv, createLink } from '../../../common/dom/factories/elements';
-import { appendAdditionalLinks } from '../common';
+import { appendDoctorPageAdditionalLinks } from '../common';
 import { SELECTORS } from './selectors';
 
 export function initDoctorPageMods() {
     appendDoctorPageAdditionalLinks();
     // appendReviewsInfoToHeader();
     appendDoctorContactLink();
-}
-
-function appendDoctorPageAdditionalLinks() {
-    const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, document, true);
-    if (!doctorCardName) return;
-
-    const doctorName = doctorCardName.innerText.trim();
-    const linksContainer = createDiv();
-    linksContainer.style.textAlign = 'center';
-    const doctorIntroLeft = getFirstElement(SELECTORS.DOCTOR_INTRO_LEFT);
-    doctorIntroLeft.append(linksContainer);
-    appendAdditionalLinks(doctorName, linksContainer);
 }
 
 function appendReviewsInfoToHeader() {
