@@ -1,5 +1,5 @@
 import { processEntriesByKeyFilter, runMigrationTaskIfNeeded } from '../../common/db';
-import { getStorageValue, setStorageValue } from '../../common/storage/storage';
+import { getStorageValue, setStorageValue } from '../../common/storage';
 
 const ACTUAL_DB_VERSION = 1;
 

@@ -1,4 +1,4 @@
-import { getStorageValue, setStorageValue } from '../common/storage/storage';
+import { getStorageValue, setStorageValue } from '../common/storage';
 
 export function setNewestSeenProductId(productId) {
     setStorageValue('newest-seen-product-id', productId);

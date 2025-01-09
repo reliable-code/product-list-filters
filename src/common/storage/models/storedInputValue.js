@@ -1,7 +1,7 @@
 import { InputValueBase } from './inputValueBase';
 import { getInputValueFromEvent } from '../helpers';
 import { parseValue } from '../utils';
-import { getStorageValue, setStorageValue } from '../storage';
+import { getStorageValue, setStorageValue } from '../index';
 
 export class StoredInputValue extends InputValueBase {
     constructor(storageKey, defaultValue = null, onChange = null) {

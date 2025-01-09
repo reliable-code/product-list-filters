@@ -1,4 +1,4 @@
-import { getStorageValue, setStorageValue } from '../storage/storage';
+import { getStorageValue, setStorageValue } from '../storage';
 
 export const getAllKeys = window.GM_listValues;
 

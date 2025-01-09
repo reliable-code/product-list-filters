@@ -1,5 +1,5 @@
 import { processEntriesByKeyFilter, runMigrationTaskIfNeeded } from '../../common/db';
-import { getStorageValue, setStorageValue } from '../../common/storage/storage';
+import { getStorageValue, setStorageValue } from '../../common/storage';
 import { RatedProductData as ProductData } from '../../common/models/ratedProductData';
 
 const ACTUAL_DB_VERSION = 6;

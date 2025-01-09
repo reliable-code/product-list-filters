@@ -1,7 +1,7 @@
 import { createDiv, createSpan } from '../dom/factories/elements';
 import { ATTRIBUTES } from './attributes';
 import { getElementInnerNumber } from '../dom/helpers';
-import { getStorageValue, setStorageValueAsync } from '../storage/storage';
+import { getStorageValue, setStorageValueAsync } from '../storage';
 import { ProductData } from '../models/productData';
 import { RatedProductData } from '../models/ratedProductData';
 import { PriceData } from '../models/priceData';
