@@ -7,7 +7,6 @@ export function initDoctorPageMods() {
     appendDoctorPageAdditionalLinks();
     appendReviewsInfoToHeader();
     appendDoctorContactLink();
-    clickMoreReviewsButtonWhileExists();
 }
 
 function appendDoctorPageAdditionalLinks() {
@@ -80,14 +79,4 @@ function appendDoctorContactLink() {
     doctorContactsLink.append(doctorContactsLinkTitle);
 
     doctorDetailsMenu.insertBefore(doctorContactsLink, doctorDetailsMenu.firstChild);
-}
-
-function clickMoreReviewsButtonWhileExists() {
-    const moreReviewsButton = getFirstElement(SELECTORS.MORE_REVIEWS_BUTTON);
-
-    if (moreReviewsButton && !moreReviewsButton.classList.contains('d-none')) {
-        moreReviewsButton.click();
-    }
-
-    setTimeout(clickMoreReviewsButtonWhileExists, 250);
 }

@@ -7,5 +7,4 @@ export const SELECTORS = {
     NAME_SPAN: '[itemprop="name"]',
     REVIEWS_FILTER_SPAN: ':scope > span',
     DOCTOR_CONTACTS: '#doctor-contacts',
-    MORE_REVIEWS_BUTTON: '[data-qa="show_more_list_items"]',
 };
