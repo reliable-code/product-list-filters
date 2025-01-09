@@ -3,8 +3,8 @@ import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
     applyStyles,
     getAllElements,
+    getElementInnerNumber,
     getFirstElement,
-    getFirstElementInnerNumber,
 } from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -55,7 +55,7 @@ const state = {
 };
 
 export async function initReviewsMods() {
-    initVariables();
+    await initVariables();
     resetFiltersIfNotLastProduct();
 
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
@@ -70,9 +70,11 @@ export async function initReviewsMods() {
     });
 }
 
-function initVariables() {
+async function initVariables() {
     state.productArticle = getProductArticleFromPathname();
-    state.totalReviewCount = getFirstElementInnerNumber(document, SELECTORS.TOTAL_REVIEWS_COUNT);
+
+    const totalReviewCountWrap = await waitForElement(document, SELECTORS.TOTAL_REVIEWS_COUNT_WRAP);
+    state.totalReviewCount = getElementInnerNumber(totalReviewCountWrap);
 
     const stickyAverageRatingWrap = getFirstElement(SELECTORS.STICKY_AVERAGE_RATING_WRAP);
     state.averageRatingWrap = getFirstElement(SELECTORS.AVERAGE_RATING_WRAP);

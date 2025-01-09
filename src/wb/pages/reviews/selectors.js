@@ -1,6 +1,6 @@
 export const SELECTORS = {
     CONTROLS_CONTAINER: '.product-feedbacks__sorting',
-    TOTAL_REVIEWS_COUNT: '.product-feedbacks__count',
+    TOTAL_REVIEWS_COUNT_WRAP: '.product-feedbacks__count',
     REVIEWS_LIST: '.comments__list',
     REVIEWS: '.comments__item',
     PRODUCT_VARIATION_WRAP: '.feedback__params',
