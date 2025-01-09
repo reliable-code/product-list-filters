@@ -1,4 +1,4 @@
-import { StoredInputValue } from '../../storage/storage';
+import { StoredInputValue } from '../../storage/models/storedInputValue';
 
 export function createFilterFactory(defaultOnChange, sectionId = null) {
     return {
