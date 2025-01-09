@@ -5,7 +5,7 @@ import { SELECTORS } from './selectors';
 
 export function initDoctorPageMods() {
     appendDoctorPageAdditionalLinks();
-    appendReviewsInfoToHeader();
+    // appendReviewsInfoToHeader();
     appendDoctorContactLink();
 }
 
