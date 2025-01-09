@@ -21,7 +21,6 @@ import {
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { addScrollToFiltersButton, getProductArticleFromPathname } from '../common';
-import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db';
 import { removeHighlights } from '../../../common/dom/highlighting';
 import {
     highlightSearchStringsByFilter,
@@ -33,6 +32,10 @@ import {
 } from '../../../common/filter/factories/genericControls';
 import { createSeparator } from '../../../common/filter/factories/helpers';
 import { roundToPrecision } from '../../../common/mathUtils';
+import {
+    getReviewsLastProductArticle,
+    setReviewsLastProductArticle,
+} from '../../../common/db/specific';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
