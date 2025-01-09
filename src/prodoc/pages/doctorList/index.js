@@ -126,5 +126,15 @@ function processDoctorCard(doctorCard) {
     const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
     const doctorName = doctorCardName.innerText;
 
+    replaceReviewsLink(profileCard);
     appendAdditionalLinks(doctorName, profileCard);
+}
+
+function replaceReviewsLink(profileCard) {
+    const reviewsLink = getFirstElement(
+        SELECTORS.REVIEWS_LINK, profileCard,
+    );
+    reviewsLink.href = reviewsLink.href.replace(
+        /\/#otzivi$/, '/otzivi/#rating',
+    );
 }
