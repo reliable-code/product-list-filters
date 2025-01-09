@@ -35,6 +35,7 @@ import { roundToPrecision } from '../../../common/mathUtils';
 import {
     getReviewsLastProductArticle,
     setReviewsLastProductArticle,
+    setStoredRatingValue,
 } from '../../../common/db/specific';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
@@ -168,7 +169,7 @@ function processReviewCards() {
     });
 
     updateVisibleReviewsCount(reviewCards);
-    updateAverageRating();
+    updateAverageRating(isFullLoadComplete);
 }
 
 function processReviewCard(reviewCard, isFullLoadComplete) {
@@ -247,7 +248,7 @@ function updateVisibleReviewsCount(reviewCards) {
     stickyReviewsInfo.textContent = `${baseReviewsInfoText} (${visibleReviewsCount}/${reviewCards.length})`;
 }
 
-function updateAverageRating() {
+function updateAverageRating(isFullLoadComplete) {
     let totalRating = 0;
     let reviewCount = 0;
 
@@ -261,4 +262,6 @@ function updateAverageRating() {
 
     state.stickyAverageRating.nodeValue = averageRatingRounded;
     state.averageRatingWrap.textContent = averageRatingRounded;
+
+    if (isFullLoadComplete) setStoredRatingValue(state.productArticle, averageRatingRounded);
 }
