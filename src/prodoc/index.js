@@ -11,7 +11,7 @@ const appointmentsPage = getFirstElement(APPOINTMENTS_PAGE_SELECTOR);
 if (appointmentsPage) {
     initDoctorListMods(appointmentsPage);
 } else if (somePathElementEquals('otzivi')) {
-    initReviewsMods();
+    await initReviewsMods();
 } else if (somePathElementEquals('vrach')) {
     initDoctorPageMods();
 }
