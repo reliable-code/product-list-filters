@@ -1,6 +1,11 @@
 import { getStorageValue, setStorageValue } from '../storage';
 import { RatedProductData as ProductData } from '../models/ratedProductData';
 
+const STORAGE_KEYS = {
+    LAST_RATE_UPDATE: 'last-rate-update',
+    REVIEWS_LAST_PRODUCT_ARTICLE: 'reviews-last-product-article',
+};
+
 export function setStoredRatingValue(productArticle, ratingValue) {
     const productStorageKey = getProductStorageKey(productArticle);
     const storedProduct = getStorageValue(productStorageKey);
@@ -10,7 +15,7 @@ export function setStoredRatingValue(productArticle, ratingValue) {
     currentProduct.updateLastCheckDate();
 
     setStorageValue(productStorageKey, currentProduct);
-    setStorageValue('last-rate-update', Date.now());
+    setStorageValue(STORAGE_KEYS.LAST_RATE_UPDATE, Date.now());
 }
 
 function getProductStorageKey(productArticle) {
@@ -32,9 +37,9 @@ export function getStoredRatingValue(productArticle) {
 }
 
 export function setReviewsLastProductArticle(productArticle) {
-    return setStorageValue('reviews-last-product-article', productArticle);
+    return setStorageValue(STORAGE_KEYS.REVIEWS_LAST_PRODUCT_ARTICLE, productArticle);
 }
 
 export function getReviewsLastProductArticle() {
-    return getStorageValue('reviews-last-product-article');
+    return getStorageValue(STORAGE_KEYS.REVIEWS_LAST_PRODUCT_ARTICLE);
 }
