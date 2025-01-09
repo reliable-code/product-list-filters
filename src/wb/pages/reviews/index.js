@@ -52,6 +52,7 @@ const state = {
     totalReviewCount: null,
     averageRatingWrap: null,
     stickyAverageRating: null,
+    isAverageRatingFinalized: false,
     reviewCardsCache: new Map(),
 };
 
@@ -169,7 +170,7 @@ function processReviewCards() {
     });
 
     updateVisibleReviewsCount(reviewCards);
-    updateAverageRating(isFullLoadComplete);
+    if (!state.isAverageRatingFinalized) updateAverageRating(isFullLoadComplete);
 }
 
 function processReviewCard(reviewCard, isFullLoadComplete) {
@@ -263,5 +264,8 @@ function updateAverageRating(isFullLoadComplete) {
     state.stickyAverageRating.nodeValue = averageRatingRounded;
     state.averageRatingWrap.textContent = averageRatingRounded;
 
-    if (isFullLoadComplete) setStoredRatingValue(state.productArticle, averageRatingRounded);
+    if (isFullLoadComplete) {
+        setStoredRatingValue(state.productArticle, averageRatingRounded);
+        state.isAverageRatingFinalized = true;
+    }
 }
