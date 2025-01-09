@@ -1,4 +1,4 @@
-import { processEntriesByKeyFilter, runMigrationTaskIfNeeded } from '../../common/db';
+import { processEntriesByKeyFilter, runMigrationTaskIfNeeded } from '../../common/db/generic';
 import { getStorageValue, setStorageValue } from '../../common/storage';
 import { RatedProductData as ProductData } from '../../common/models/ratedProductData';
 
