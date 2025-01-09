@@ -1,4 +1,4 @@
-import { runMigration as migrateDb } from './db/db';
+import { runMigration as migrateDb } from './db';
 import { hideUnwantedElements } from './pages/common';
 import { waitForElement } from '../common/dom/utils';
 import { initFavoritesMods } from './pages/favorites';

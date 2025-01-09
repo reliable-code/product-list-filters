@@ -8,7 +8,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
 } from '../../../common/dom/helpers';
-import { getStoredRatingValue, setStoredRatingValue } from '../../db/db';
+import { getStoredRatingValue, setStoredRatingValue } from '../../db';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';

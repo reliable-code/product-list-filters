@@ -28,7 +28,7 @@ import {
     getElementInnerNumber,
     getFirstElement,
 } from '../../../common/dom/helpers';
-import { getStoredRatingValue, setStoredRatingValue } from '../../db/db';
+import { getStoredRatingValue, setStoredRatingValue } from '../../db';
 import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,

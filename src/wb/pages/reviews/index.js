@@ -21,7 +21,7 @@ import {
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { addScrollToFiltersButton, getProductArticleFromPathname } from '../common';
-import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db/db';
+import { getReviewsLastProductArticle, setReviewsLastProductArticle } from '../../db';
 import { removeHighlights } from '../../../common/dom/highlighting';
 import {
     highlightSearchStringsByFilter,

@@ -1,7 +1,8 @@
-import { processEntriesByKeyFilter, runMigrationTaskIfNeeded } from '../../common/db/db';
+import { processEntriesByKeyFilter, runMigrationTaskIfNeeded } from '../../common/db';
 import { getStorageValue, setStorageValue } from '../../common/storage/storage';
+import { RatedProductData as ProductData } from '../../common/models/ratedProductData';
 
-const ACTUAL_DB_VERSION = 1;
+const ACTUAL_DB_VERSION = 6;
 
 export function runMigration() {
     runMigrationTaskIfNeeded(migrationTask, ACTUAL_DB_VERSION, false);
@@ -46,6 +47,34 @@ function updateProductPriceDate(entryKey, productPropKey, value) {
         value[productPropKey] = datedPrice;
         setStorageValue(entryKey, value);
     }
+}
+
+export function setStoredRatingValue(productArticle, ratingValue) {
+    const productStorageKey = getProductStorageKey(productArticle);
+    const storedProduct = getStorageValue(productStorageKey);
+
+    const currentProduct =
+        storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
+
+    currentProduct.rating = ratingValue;
+    currentProduct.updateLastCheckDate();
+
+    setStorageValue(productStorageKey, currentProduct);
+    setStorageValue('last-rate-update', Date.now());
+}
+
+export function getStoredRatingValue(productArticle) {
+    const storedProduct = getStoredProductValue(productArticle);
+    return storedProduct?.rating ?? null;
+}
+
+function getStoredProductValue(productArticle) {
+    const productStorageKey = getProductStorageKey(productArticle);
+    return getStorageValue(productStorageKey);
+}
+
+function getProductStorageKey(productArticle) {
+    return `product-${productArticle}`;
 }
 
 export function setReviewsLastProductArticle(productArticle) {

@@ -4,7 +4,7 @@ import { initFavoritesMods } from './pages/favorites';
 import { initReviewsMods } from './pages/reviews';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { debounce } from '../common/dom/utils';
-import { runMigration } from './db/db';
+import { runMigration } from './db';
 
 runMigration();
 
