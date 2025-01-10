@@ -40,6 +40,8 @@ const state = {
 };
 
 export function initDoctorListMods(appointmentsPage) {
+    getFirstElement(SELECTORS.LIST_HEADER)
+        .remove();
     const doctorFilters = getFirstElement(SELECTORS.DOCTOR_FILTERS);
     appendFilterControlsIfNeeded(doctorFilters, appendFiltersContainer);
 

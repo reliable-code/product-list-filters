@@ -1,4 +1,5 @@
 export const SELECTORS = {
+    LIST_HEADER: '.h2_rating',
     DOCTOR_FILTERS: '.doctor-filters',
     DOCTOR_CARD: '.b-doctor-card',
     DOCTOR_CARD_NAME: '.b-doctor-card__name-surname',
