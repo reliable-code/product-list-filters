@@ -54,20 +54,21 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl, compactView 
     reviewsInfoBlock.style.height = compactView ? '10px' : '23px';
     reviewsInfoBlock.append(reviewsInfo);
 
-    reviewsData.forEach((reviewsCategoryData) => {
-        const {
-            category,
-            title,
-            count,
-            bgClassSuffix,
-        } = reviewsCategoryData;
+    reviewsData.slice(compactView ? 1 : 0)
+        .forEach((reviewsCategoryData) => {
+            const {
+                category,
+                title,
+                count,
+                bgClassSuffix,
+            } = reviewsCategoryData;
 
-        const href = `${baseReviewsUrl}?rates_category=${category}`;
-        const linkText = compactView ? count : `${title} ${count}`;
-        const reviewsCategoryInfo = createLink(STYLES.REVIEW_INFO, linkText, href);
-        reviewsCategoryInfo.classList = getReviewsCategoryInfoClassString(bgClassSuffix);
-        reviewsInfo.append(reviewsCategoryInfo);
-    });
+            const href = `${baseReviewsUrl}?rates_category=${category}`;
+            const linkText = compactView ? count : `${title} ${count}`;
+            const reviewsCategoryInfo = createLink(STYLES.REVIEW_INFO, linkText, href);
+            reviewsCategoryInfo.classList = getReviewsCategoryInfoClassString(bgClassSuffix);
+            reviewsInfo.append(reviewsCategoryInfo);
+        });
 
     return reviewsInfoBlock;
 }
