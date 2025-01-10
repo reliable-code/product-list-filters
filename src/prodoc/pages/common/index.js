@@ -1,6 +1,8 @@
 import { createDiv, createLink } from '../../../common/dom/factories/elements';
 import { getFirstElement } from '../../../common/dom/helpers';
 import { SELECTORS } from './selectors';
+import { getURLPathElement } from '../../../common/url';
+import { removeNonDigit } from '../../../common/string';
 
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
 const SITE_NAMES = ['Яндекс', 'НаПоправку', 'DocDoc', 'Докту'];
@@ -74,4 +76,9 @@ export function appendReviewsInfoBlockToHeader(reviewsInfoBlock) {
     if (!nameSpan) return;
 
     nameSpan.append(reviewsInfoBlock);
+}
+
+export function getDoctorIdFromPathname() {
+    const doctorSection = getURLPathElement(3, 'unknown');
+    return removeNonDigit(doctorSection);
 }
