@@ -21,6 +21,7 @@ import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { getStoredReviewsData } from '../../db';
+import { debounce } from '../../../common/dom/utils';
 
 const SECTION_ID = getURLPathElement(2);
 
@@ -45,6 +46,11 @@ export function initDoctorListMods(appointmentsPage) {
     appendFilterControlsIfNeeded(doctorFilters, appendFiltersContainer);
 
     processDoctorCards();
+
+    const observer = new MutationObserver(debounce(processDoctorCards));
+    observer.observe(appointmentsPage, {
+        childList: true,
+    });
 }
 
 function removeListHeader() {
