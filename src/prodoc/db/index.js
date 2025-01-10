@@ -1,6 +1,10 @@
 import { getStorageValue, setStorageValue } from '../../common/storage';
 import { DoctorData } from '../models/doctorData';
 
+export const STORAGE_KEYS = {
+    LAST_DOCTOR_UPDATE: 'last-doctor-update',
+};
+
 export function setStoredReviewsData(doctorId, reviewsData) {
     const doctorStorageKey = getDoctorStorageKey(doctorId);
     const storedDoctor = getStorageValue(doctorStorageKey);
@@ -9,7 +13,8 @@ export function setStoredReviewsData(doctorId, reviewsData) {
     currentDoctor.reviewsData = reviewsData;
     currentDoctor.updateLastCheckDate();
 
-    return setStorageValue(doctorStorageKey, currentDoctor);
+    setStorageValue(doctorStorageKey, currentDoctor);
+    setStorageValue(STORAGE_KEYS.LAST_DOCTOR_UPDATE, Date.now());
 }
 
 function getDoctorStorageKey(doctorId) {
