@@ -34,6 +34,10 @@ const minReviewsFilter = createSectionFilter('min-reviews-filter', 10);
 const minExperienceFilter = createSectionFilter('min-experience-filter', 5);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
 
+const state = {
+    doctorCardsCache: new WeakMap(),
+};
+
 export function initDoctorListMods(appointmentsPage) {
     appendFilterControlsIfNeeded(appointmentsPage, appendFiltersContainer);
 
@@ -84,46 +88,58 @@ function processDoctorCard(doctorCard) {
         return;
     }
 
-    const profileCard = getFirstElement(SELECTORS.PROFILE_CARD, doctorCard);
-    const reviewsLink = getFirstElement(SELECTORS.REVIEWS_LINK, profileCard);
-    const experienceWrap = getFirstElement(SELECTORS.EXPERIENCE_WRAP, doctorCard);
+    let cachedData = state.doctorCardsCache.get(doctorCard);
 
-    if (!reviewsLink || !experienceWrap) {
-        hideElement(doctorCard);
-        return;
+    if (!cachedData) {
+        const profileCard = getFirstElement(SELECTORS.PROFILE_CARD, doctorCard);
+        const reviewsLink = getFirstElement(SELECTORS.REVIEWS_LINK, profileCard);
+        const experienceWrap = getFirstElement(SELECTORS.EXPERIENCE_WRAP, doctorCard);
+
+        if (!reviewsLink || !experienceWrap) {
+            hideElement(doctorCard);
+            return;
+        }
+
+        const specWrap = getFirstElement(
+            SELECTORS.SPEC_WRAP, doctorCard, true,
+        );
+        const specInfo = specWrap.innerText.trim();
+
+        const clinicContainer = getFirstElement(
+            SELECTORS.CLINIC_CONTAINER, doctorCard, true,
+        );
+        const clinicWrap = getFirstElement(
+            SELECTORS.CLINIC_WRAP, clinicContainer, true,
+        );
+        const clinicName = clinicWrap.innerText.trim();
+
+        const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
+
+        const experienceNumber = getElementInnerNumber(experienceWrap, true);
+
+        const newReviewsLinkHref = getNewReviewsLinkHref(reviewsLink);
+        reviewsLink.href = newReviewsLinkHref;
+
+        const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
+        const doctorName = doctorCardName.innerText;
+        appendAdditionalLinks(doctorName, profileCard);
+
+        cachedData = {
+            specInfo,
+            clinicName,
+            reviewsLinkNumber,
+            experienceNumber,
+        };
+
+        state.doctorCardsCache.set(doctorCard, cachedData);
     }
 
-    const specWrap = getFirstElement(
-        SELECTORS.SPEC_WRAP, doctorCard, true,
-    );
-    const specInfo = specWrap.innerText.trim();
-
-    const clinicContainer = getFirstElement(
-        SELECTORS.CLINIC_CONTAINER, doctorCard, true,
-    );
-    const clinicWrap = getFirstElement(
-        SELECTORS.CLINIC_WRAP, clinicContainer, true,
-    );
-    const clinicName = clinicWrap.innerText.trim();
-
-    const reviewsLinkNumber = getElementInnerNumber(reviewsLink, true);
-
-    const experienceNumber = getElementInnerNumber(experienceWrap, true);
-
     const shouldHide =
-        isNotMatchTextFilter(specInfo, specFilter) ||
-        isNotMatchTextFilter(clinicName, clinicFilter) ||
-        isLessThanFilter(reviewsLinkNumber, minReviewsFilter) ||
-        isLessThanFilter(experienceNumber, minExperienceFilter);
+        isNotMatchTextFilter(cachedData.specInfo, specFilter) ||
+        isNotMatchTextFilter(cachedData.clinicName, clinicFilter) ||
+        isLessThanFilter(cachedData.reviewsLinkNumber, minReviewsFilter) ||
+        isLessThanFilter(cachedData.experienceNumber, minExperienceFilter);
     updateElementDisplay(doctorCard, shouldHide);
-
-    const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
-    const doctorName = doctorCardName.innerText;
-
-    const newReviewsLinkHref = getNewReviewsLinkHref(reviewsLink);
-    reviewsLink.href = newReviewsLinkHref;
-
-    appendAdditionalLinks(doctorName, profileCard);
 }
 
 function getNewReviewsLinkHref(reviewsLink) {
