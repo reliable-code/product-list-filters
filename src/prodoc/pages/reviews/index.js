@@ -45,13 +45,13 @@ async function getReviewsData() {
 
             const countWrap = getFirstElement(SELECTORS.FILTER_COUNT_WRAP, filter);
             const count = getElementInnerNumber(countWrap, true);
-            const classes = countWrap.classList.value;
+            const bgClassSuffix = parseBgClassSuffix(countWrap.classList);
 
             return {
                 category,
                 title,
                 count,
-                classes,
+                bgClassSuffix,
             };
         });
 

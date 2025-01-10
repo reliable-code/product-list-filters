@@ -1,6 +1,7 @@
 import { createDiv, createLink } from '../../../common/dom/factories/elements';
 import { getFirstElement } from '../../../common/dom/helpers';
 import { SELECTORS } from './selectors';
+import { STYLES } from './styles';
 import { getURLPathElement } from '../../../common/url';
 import { removeNonDigit } from '../../../common/string';
 
@@ -57,13 +58,18 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl) {
     reviewsInfoBlock.append(reviewsInfo);
 
     reviewsData.forEach((reviewData) => {
-        const link = `${baseReviewsUrl}?rates_category=${reviewData.category}`;
-        const linkStyles = { textDecoration: 'none' };
-        const headerFilter = createLink(
-            linkStyles, `${reviewData.title} ${reviewData.count}`, link,
-        );
-        headerFilter.classList = reviewData.classes;
-        reviewsInfo.append(headerFilter);
+        const {
+            category,
+            title,
+            count,
+            bgClassSuffix,
+        } = reviewData;
+
+        const href = `${baseReviewsUrl}?rates_category=${category}`;
+        const linkText = `${title} ${count}`;
+        const reviewInfo = createLink(STYLES.REVIEW_INFO, linkText, href);
+        reviewInfo.classList = getReviewsInfoClassString(bgClassSuffix);
+        reviewsInfo.append(reviewInfo);
     });
     return reviewsInfoBlock;
 }
