@@ -2,7 +2,7 @@ import { createDiv, createLink } from '../../../common/dom/factories/elements';
 import { getFirstElement } from '../../../common/dom/helpers';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
-import { getURLPathElement } from '../../../common/url';
+import { getPathnameElement, getURLPathElement } from '../../../common/url';
 import { removeNonDigit } from '../../../common/string';
 
 const ADDITIONAL_LINKS_APPENDED_CLASS = 'additionalLinksAppended';
@@ -87,5 +87,10 @@ export function appendReviewsInfoBlockToHeader(reviewsInfoBlock) {
 
 export function getDoctorIdFromPathname() {
     const doctorSection = getURLPathElement(3, 'unknown');
+    return removeNonDigit(doctorSection);
+}
+
+export function getDoctorIdFromHref(doctorCardHref) {
+    const doctorSection = getPathnameElement(doctorCardHref, 5, '');
     return removeNonDigit(doctorSection);
 }
