@@ -120,9 +120,7 @@ function processDoctorCard(doctorCard) {
         const newReviewsLinkHref = getNewReviewsLinkHref(reviewsLink);
         reviewsLink.href = newReviewsLinkHref;
 
-        const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
-        const doctorName = doctorCardName.innerText;
-        appendAdditionalLinks(doctorName, profileCard);
+        appendAdditionalLinks(getDoctorName(doctorCard), profileCard);
 
         cachedData = {
             specInfo,
@@ -146,4 +144,9 @@ function getNewReviewsLinkHref(reviewsLink) {
     return reviewsLink.href.replace(
         /\/#otzivi$/, '/otzivi/',
     );
+}
+
+function getDoctorName(doctorCard) {
+    const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
+    return doctorCardName.innerText;
 }
