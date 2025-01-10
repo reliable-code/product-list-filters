@@ -6,7 +6,11 @@ import {
     getFirstElement,
 } from '../../../common/dom/helpers';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
-import { isLessThanFilter, isNotMatchTextFilter } from '../../../common/filter/compare';
+import {
+    isGreaterThanFilter,
+    isLessThanFilter,
+    isNotMatchTextFilter,
+} from '../../../common/filter/compare';
 import { appendAdditionalLinks, createReviewsInfoBlock, getDoctorIdFromHref } from '../common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
@@ -34,6 +38,7 @@ const specFilter = createSectionFilter('spec-filter');
 const clinicFilter = createSectionFilter('clinic-filter');
 const minReviewsFilter = createSectionFilter('min-reviews-filter', 10);
 const minExperienceFilter = createSectionFilter('min-experience-filter', 5);
+const maxExperienceFilter = createSectionFilter('max-experience-filter', 40);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
 
 const state = {
@@ -79,12 +84,26 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.NUMBER_INPUT,
     );
+    const maxExperienceDiv = createNumberFilterControl(
+        'Макс. опыт: ',
+        maxExperienceFilter,
+        '1',
+        '0',
+        '100',
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(
-        specFilterDiv, clinicFilterDiv, minReviewsDiv, minExperienceDiv, filterEnabledDiv,
+        specFilterDiv,
+        clinicFilterDiv,
+        minReviewsDiv,
+        minExperienceDiv,
+        maxExperienceDiv,
+        filterEnabledDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -158,7 +177,8 @@ function processDoctorCard(doctorCard) {
         isNotMatchTextFilter(cachedData.specInfo, specFilter) ||
         isNotMatchTextFilter(cachedData.clinicName, clinicFilter) ||
         isLessThanFilter(cachedData.reviewsLinkNumber, minReviewsFilter) ||
-        isLessThanFilter(cachedData.experienceNumber, minExperienceFilter);
+        isLessThanFilter(cachedData.experienceNumber, minExperienceFilter) ||
+        isGreaterThanFilter(cachedData.experienceNumber, maxExperienceFilter);
     updateElementDisplay(doctorCard, shouldHide);
 }
 
