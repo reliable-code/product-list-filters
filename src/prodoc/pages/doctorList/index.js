@@ -40,12 +40,16 @@ const state = {
 };
 
 export function initDoctorListMods(appointmentsPage) {
-    getFirstElement(SELECTORS.LIST_HEADER)
-        .remove();
+    removeListHeader();
     const doctorFilters = getFirstElement(SELECTORS.DOCTOR_FILTERS);
     appendFilterControlsIfNeeded(doctorFilters, appendFiltersContainer);
 
     processDoctorCards();
+}
+
+function removeListHeader() {
+    const listHeader = getFirstElement(SELECTORS.LIST_HEADER);
+    if (listHeader) listHeader.remove();
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
