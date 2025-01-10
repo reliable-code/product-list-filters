@@ -7,7 +7,7 @@ import {
 } from '../../../common/dom/helpers';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import { isLessThanFilter, isNotMatchTextFilter } from '../../../common/filter/compare';
-import { appendAdditionalLinks } from '../common';
+import { appendAdditionalLinks, createReviewsInfoBlock, getDoctorIdFromHref } from '../common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
     createNumberFilterControl,
@@ -20,6 +20,7 @@ import {
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
+import { getStoredReviewsData } from '../../db';
 
 const SECTION_ID = getURLPathElement(2);
 
@@ -119,6 +120,14 @@ function processDoctorCard(doctorCard) {
 
         const newReviewsLinkHref = getNewReviewsLinkHref(reviewsLink);
         reviewsLink.href = newReviewsLinkHref;
+
+        const reviewsData = getStoredReviewsData(getDoctorIdFromHref(newReviewsLinkHref));
+        if (reviewsData) {
+            const reviewsInfoBlock = createReviewsInfoBlock(
+                reviewsData, newReviewsLinkHref, true,
+            );
+            profileCard.append(reviewsInfoBlock);
+        }
 
         appendAdditionalLinks(getDoctorName(doctorCard), profileCard);
 
