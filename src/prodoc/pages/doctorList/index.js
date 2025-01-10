@@ -24,8 +24,9 @@ import {
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
-import { getStoredReviewsData } from '../../db';
+import { getStoredReviewsData, STORAGE_KEYS } from '../../db';
 import { debounce } from '../../../common/dom/utils';
+import { addStorageValueListener } from '../../../common/storage';
 
 const SECTION_ID = getURLPathElement(2);
 
@@ -47,11 +48,15 @@ const state = {
 
 export function initDoctorListMods(appointmentsPage) {
     setExperienceQueryParam();
+
     removeListHeader();
+
     const doctorFilters = getFirstElement(SELECTORS.DOCTOR_FILTERS);
     appendFilterControlsIfNeeded(doctorFilters, appendFiltersContainer);
 
     processDoctorCards();
+
+    addStorageValueListener(STORAGE_KEYS.LAST_DOCTOR_UPDATE, processDoctorCards);
 
     const observer = new MutationObserver(debounce(processDoctorCards));
     observer.observe(appointmentsPage, {
