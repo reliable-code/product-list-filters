@@ -43,7 +43,7 @@ export function appendDoctorPageAdditionalLinks() {
     appendAdditionalLinks(doctorName, linksContainer);
 }
 
-export function appendReviewsInfoToHeader(filters, baseReviewsUrl) {
+export function appendReviewsInfoBlockToHeader(filters, baseReviewsUrl) {
     const nameSpanHolder = getFirstElement(SELECTORS.NAME_SPAN_HOLDER, document, true);
     if (!nameSpanHolder) return;
 
@@ -53,12 +53,12 @@ export function appendReviewsInfoToHeader(filters, baseReviewsUrl) {
     const reviewsInfo = createDiv({ gridGap: '6px' });
     reviewsInfo.classList.add('v-application');
 
-    const reviewsInfoWrap = createDiv({
+    const reviewsInfoBlock = createDiv({
         height: '23px',
         marginTop: '5px',
     });
 
-    reviewsInfoWrap.append(reviewsInfo);
+    reviewsInfoBlock.append(reviewsInfo);
 
     filters.forEach((filter) => {
         const link = `${baseReviewsUrl}?rates_category=${filter.category}`;
@@ -69,5 +69,5 @@ export function appendReviewsInfoToHeader(filters, baseReviewsUrl) {
         reviewsInfo.append(headerFilter);
     });
 
-    nameSpan.append(reviewsInfoWrap);
+    nameSpan.append(reviewsInfoBlock);
 }

@@ -1,4 +1,4 @@
-import { appendDoctorPageAdditionalLinks, appendReviewsInfoToHeader } from '../common';
+import { appendDoctorPageAdditionalLinks, appendReviewsInfoBlockToHeader } from '../common';
 import { SELECTORS } from './selectors';
 import {
     getAllElements,
@@ -12,7 +12,7 @@ export async function initReviewsMods() {
     appendDoctorPageAdditionalLinks();
     const filters = await getFiltersData();
     const baseReviewsUrl = `${window.location.origin}${window.location.pathname}`;
-    appendReviewsInfoToHeader(filters, baseReviewsUrl);
+    appendReviewsInfoBlockToHeader(filters, baseReviewsUrl);
     if (getURLQueryStringParam('rates_category')) scrollToReviews();
 }
 
