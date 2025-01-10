@@ -4,7 +4,6 @@ export const STYLES = {
         justifyContent: 'center',
     },
     REVIEWS_INFO_BLOCK: {
-        height: '23px',
         marginTop: '5px',
     },
     REVIEW_INFO: {

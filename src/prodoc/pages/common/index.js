@@ -51,6 +51,7 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl, compactView 
     reviewsInfo.classList.add('v-application');
 
     const reviewsInfoBlock = createDiv(STYLES.REVIEWS_INFO_BLOCK);
+    reviewsInfoBlock.style.height = compactView ? '10px' : '23px';
     reviewsInfoBlock.append(reviewsInfo);
 
     reviewsData.forEach((reviewsCategoryData) => {
