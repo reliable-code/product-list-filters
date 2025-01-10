@@ -1,6 +1,9 @@
 const STYLES_BASE = {
     INPUT: {
-        margin: '0px 4px',
+        border: '1px solid #c7d3d9',
+        borderRadius: '10px',
+        padding: '7px 14px',
+        marginLeft: '6px',
     },
 };
 export const STYLES = {
@@ -8,7 +11,7 @@ export const STYLES = {
         display: 'flex',
         gridGap: '15px',
         marginTop: '5px',
-        fontSize: '15px',
+        flexFlow: 'wrap',
     },
     CONTROL: {
         display: 'flex',
@@ -16,11 +19,11 @@ export const STYLES = {
     },
     TEXT_INPUT: {
         ...STYLES_BASE.INPUT,
-        width: '180px',
+        width: '195px',
     },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
-        width: '45px',
+        width: '70px',
     },
     CHECKBOX_INPUT: {
         ...STYLES_BASE.INPUT,
