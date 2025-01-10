@@ -42,3 +42,32 @@ export function appendDoctorPageAdditionalLinks() {
     doctorIntroLeft.append(linksContainer);
     appendAdditionalLinks(doctorName, linksContainer);
 }
+
+export function appendReviewsInfoToHeader(filters, baseReviewsUrl) {
+    const nameSpanHolder = getFirstElement(SELECTORS.NAME_SPAN_HOLDER, document, true);
+    if (!nameSpanHolder) return;
+
+    const nameSpan = getFirstElement(SELECTORS.NAME_SPAN, nameSpanHolder, true);
+    if (!nameSpan) return;
+
+    const reviewsInfo = createDiv({ gridGap: '6px' });
+    reviewsInfo.classList.add('v-application');
+
+    const reviewsInfoWrap = createDiv({
+        height: '23px',
+        marginTop: '5px',
+    });
+
+    reviewsInfoWrap.append(reviewsInfo);
+
+    filters.forEach((filter) => {
+        const link = `${baseReviewsUrl}?rates_category=${filter.category}`;
+        const headerFilter = createLink(
+            { textDecoration: 'none' }, `${filter.title} ${filter.count}`, link,
+        );
+        headerFilter.classList = filter.classList;
+        reviewsInfo.append(headerFilter);
+    });
+
+    nameSpan.append(reviewsInfoWrap);
+}
