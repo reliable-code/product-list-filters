@@ -68,6 +68,10 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl) {
     return reviewsInfoBlock;
 }
 
+function getReviewsInfoClassString(bgClassSuffix) {
+    return `text-caption ui-kit-color-text px-2 py-1 rounded ui-kit-bg-bg-${bgClassSuffix}`;
+}
+
 export function appendReviewsInfoBlockToHeader(reviewsInfoBlock) {
     const nameSpanHolder = getFirstElement(SELECTORS.NAME_SPAN_HOLDER, document, true);
     if (!nameSpanHolder) return;
