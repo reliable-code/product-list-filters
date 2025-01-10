@@ -40,7 +40,8 @@ const state = {
 };
 
 export function initDoctorListMods(appointmentsPage) {
-    appendFilterControlsIfNeeded(appointmentsPage, appendFiltersContainer);
+    const doctorFilters = getFirstElement(SELECTORS.DOCTOR_FILTERS);
+    appendFilterControlsIfNeeded(doctorFilters, appendFiltersContainer);
 
     processDoctorCards();
 }
@@ -74,7 +75,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         specFilterDiv, clinicFilterDiv, minReviewsDiv, minExperienceDiv, filterEnabledDiv,
     );
 
-    parentNode.prepend(filtersContainer);
+    parentNode.append(filtersContainer);
 }
 
 function processDoctorCards() {

@@ -1,4 +1,5 @@
 export const SELECTORS = {
+    DOCTOR_FILTERS: '.doctor-filters',
     DOCTOR_CARD: '.b-doctor-card',
     DOCTOR_CARD_NAME: '.b-doctor-card__name-surname',
     PROFILE_CARD: '.b-profile-card',
