@@ -1,6 +1,7 @@
 export const STYLES = {
     REVIEWS_INFO: {
         gridGap: '6px',
+        justifyContent: 'center',
     },
     REVIEWS_INFO_BLOCK: {
         height: '23px',
