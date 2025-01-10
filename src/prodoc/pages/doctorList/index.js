@@ -5,7 +5,12 @@ import {
     getElementInnerNumber,
     getFirstElement,
 } from '../../../common/dom/helpers';
-import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
+import {
+    hideElement,
+    insertAfter,
+    showElement,
+    updateElementDisplay,
+} from '../../../common/dom/manipulation';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
@@ -159,14 +164,6 @@ function processDoctorCard(doctorCard) {
         const newReviewsLinkHref = getNewReviewsLinkHref(reviewsLink);
         reviewsLink.href = newReviewsLinkHref;
 
-        const reviewsData = getStoredReviewsData(getDoctorIdFromHref(newReviewsLinkHref));
-        if (reviewsData) {
-            const reviewsInfoBlock = createReviewsInfoBlock(
-                reviewsData, newReviewsLinkHref, true,
-            );
-            profileCard.append(reviewsInfoBlock);
-        }
-
         appendAdditionalLinks(getDoctorName(doctorCard), profileCard);
 
         cachedData = {
@@ -174,10 +171,14 @@ function processDoctorCard(doctorCard) {
             clinicName,
             reviewsLinkNumber,
             experienceNumber,
+            reviewsLink,
+            reviewInfoAppended: false,
         };
 
         state.doctorCardsCache.set(doctorCard, cachedData);
     }
+
+    appendReviewInfoIfNeeded(cachedData);
 
     const shouldHide =
         isNotMatchTextFilter(cachedData.specInfo, specFilter) ||
@@ -197,6 +198,19 @@ function getNewReviewsLinkHref(reviewsLink) {
 function getDoctorName(doctorCard) {
     const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
     return doctorCardName.innerText;
+}
+
+function appendReviewInfoIfNeeded(cachedData) {
+    if (cachedData.reviewInfoAppended) return;
+
+    const { reviewsLink } = cachedData;
+    const reviewsLinkHref = reviewsLink.href;
+    const reviewsData = getStoredReviewsData(getDoctorIdFromHref(reviewsLinkHref));
+    if (!reviewsData) return;
+
+    const reviewsInfoBlock = createReviewsInfoBlock(reviewsData, reviewsLinkHref, true);
+    insertAfter(reviewsLink, reviewsInfoBlock);
+    cachedData.reviewInfoAppended = true;
 }
 
 function setExperienceQueryParam() {
