@@ -43,7 +43,11 @@ import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { SELECTORS } from './selectors';
 import { ATTRIBUTES } from './attributes';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
-import { getStoredRatingValue, setStoredRatingValue } from '../../../common/db/specific';
+import {
+    getStoredRatingValue,
+    setStoredRatingValue,
+    STORAGE_KEYS,
+} from '../../../common/db/specific';
 
 // todo: wrap into init func
 const SECTION_ID = getSectionId();
@@ -77,7 +81,7 @@ export async function initProductListMods(paginatorContent) {
     const searchResultsSort = await waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-    addStorageValueListener('last-rate-update', addProcessProductCardsToQueue);
+    addStorageValueListener(STORAGE_KEYS.LAST_RATE_UPDATE, addProcessProductCardsToQueue);
 
     await addProcessProductCardsToQueue();
     const observer = new MutationObserver(debounce(addProcessProductCardsToQueue, 150));

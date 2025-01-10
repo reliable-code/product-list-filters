@@ -1,7 +1,7 @@
 import { getStorageValue, setStorageValue } from '../storage';
 import { RatedProductData as ProductData } from '../models/ratedProductData';
 
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
     LAST_RATE_UPDATE: 'last-rate-update',
     REVIEWS_LAST_PRODUCT_ARTICLE: 'reviews-last-product-article',
 };
