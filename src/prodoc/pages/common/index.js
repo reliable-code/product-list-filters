@@ -53,24 +53,25 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl) {
     const reviewsInfoBlock = createDiv(STYLES.REVIEWS_INFO_BLOCK);
     reviewsInfoBlock.append(reviewsInfo);
 
-    reviewsData.forEach((reviewData) => {
+    reviewsData.forEach((reviewsCategoryData) => {
         const {
             category,
             title,
             count,
             bgClassSuffix,
-        } = reviewData;
+        } = reviewsCategoryData;
 
         const href = `${baseReviewsUrl}?rates_category=${category}`;
         const linkText = `${title} ${count}`;
-        const reviewInfo = createLink(STYLES.REVIEW_INFO, linkText, href);
-        reviewInfo.classList = getReviewsInfoClassString(bgClassSuffix);
-        reviewsInfo.append(reviewInfo);
+        const reviewsCategoryInfo = createLink(STYLES.REVIEW_INFO, linkText, href);
+        reviewsCategoryInfo.classList = getReviewsCategoryInfoClassString(bgClassSuffix);
+        reviewsInfo.append(reviewsCategoryInfo);
     });
+
     return reviewsInfoBlock;
 }
 
-function getReviewsInfoClassString(bgClassSuffix) {
+function getReviewsCategoryInfoClassString(bgClassSuffix) {
     return `text-caption ui-kit-color-text px-2 py-1 rounded ui-kit-bg-bg-${bgClassSuffix}`;
 }
 
