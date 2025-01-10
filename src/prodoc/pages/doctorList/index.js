@@ -195,6 +195,9 @@ function getDoctorName(doctorCard) {
 
 function setExperienceQueryParam() {
     const url = new URL(window.location.href);
+    const experienceQueryParam = url.searchParams.get('experience');
+    if (+experienceQueryParam === minExperienceFilter.value) return;
+
     url.searchParams.set('experience', minExperienceFilter.value);
     window.location.href = url.toString();
 }
