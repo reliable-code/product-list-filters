@@ -6,13 +6,14 @@ import {
     getFirstElement,
 } from '../../../common/dom/helpers';
 import { waitForElement } from '../../../common/dom/utils';
-import { createDiv, createSpan } from '../../../common/dom/factories/elements';
+import { createDiv, createLink } from '../../../common/dom/factories/elements';
 import { getURLQueryStringParam } from '../../../common/url';
 
 export async function initReviewsMods() {
     appendDoctorPageAdditionalLinks();
-    const filtersData = await getFiltersData();
-    appendReviewsInfoToHeader(filtersData);
+    const filters = await getFiltersData();
+    const baseReviewsUrl = `${window.location.origin}${window.location.pathname}`;
+    appendReviewsInfoToHeader(filters, baseReviewsUrl);
     if (getURLQueryStringParam('rates_category')) scrollToReviews();
 }
 
@@ -21,31 +22,34 @@ async function getFiltersData() {
     filterChip.click();
 
     const filterList = await waitForElement(document, SELECTORS.FILTER_LIST);
-    const filtersData = new Map(
-        [...getAllElements(SELECTORS.FILTER_LIST_ITEM, filterList)]
-            .map((filter) => {
-                const title = getFirstElement(SELECTORS.FILTER_TITLE_WRAP, filter)
-                    .textContent
-                    .trim();
+    const filters = [...getAllElements(SELECTORS.FILTER_LIST_ITEM, filterList)]
+        .map((filter) => {
+            const categoryAttributeValue = filter.getAttribute('data-qa');
+            if (!categoryAttributeValue) return null;
+            const category = categoryAttributeValue.replace('reviews_filter_list_item_', '');
 
-                const countWrap = getFirstElement(SELECTORS.FILTER_COUNT_WRAP, filter);
-                const count = getElementInnerNumber(countWrap, true);
-                const { classList } = countWrap;
+            const title = getFirstElement(SELECTORS.FILTER_TITLE_WRAP, filter)
+                .textContent
+                .trim();
 
-                return [filter, {
-                    title,
-                    count,
-                    classList,
-                }];
-            }),
-    );
+            const countWrap = getFirstElement(SELECTORS.FILTER_COUNT_WRAP, filter);
+            const count = getElementInnerNumber(countWrap, true);
+            const { classList } = countWrap;
+
+            return {
+                category,
+                title,
+                count,
+                classList,
+            };
+        });
 
     filterChip.click();
 
-    return filtersData;
+    return filters;
 }
 
-function appendReviewsInfoToHeader(filtersData) {
+function appendReviewsInfoToHeader(filters, baseReviewsUrl) {
     const nameSpanHolder = getFirstElement(SELECTORS.NAME_SPAN_HOLDER, document, true);
     if (!nameSpanHolder) return;
 
@@ -62,14 +66,12 @@ function appendReviewsInfoToHeader(filtersData) {
 
     reviewsInfoWrap.append(reviewsInfo);
 
-    filtersData.forEach((data, filter) => {
-        const headerFilter = createSpan(
-            { cursor: 'pointer' }, `${data.title} ${data.count}`,
+    filters.forEach((filter) => {
+        const link = `${baseReviewsUrl}?rates_category=${filter.category}`;
+        const headerFilter = createLink(
+            { textDecoration: 'none' }, `${filter.title} ${filter.count}`, link,
         );
-        headerFilter.classList = data.classList;
-        headerFilter.addEventListener('click', () => {
-            filter.click();
-        });
+        headerFilter.classList = filter.classList;
         reviewsInfo.append(headerFilter);
     });
 
