@@ -47,14 +47,10 @@ export function appendDoctorPageAdditionalLinks() {
 }
 
 export function createReviewsInfoBlock(reviewsData, baseReviewsUrl) {
-    const reviewsInfo = createDiv({ gridGap: '6px' });
+    const reviewsInfo = createDiv(STYLES.REVIEWS_INFO);
     reviewsInfo.classList.add('v-application');
 
-    const reviewsInfoBlock = createDiv({
-        height: '23px',
-        marginTop: '5px',
-    });
-
+    const reviewsInfoBlock = createDiv(STYLES.REVIEWS_INFO_BLOCK);
     reviewsInfoBlock.append(reviewsInfo);
 
     reviewsData.forEach((reviewData) => {
