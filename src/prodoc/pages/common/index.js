@@ -48,6 +48,7 @@ export function appendDoctorPageAdditionalLinks() {
 
 export function createReviewsInfoBlock(reviewsData, baseReviewsUrl, compactView = false) {
     const reviewsInfo = createDiv(STYLES.REVIEWS_INFO);
+    if (compactView) reviewsInfo.style.justifyContent = 'center';
     reviewsInfo.classList.add('v-application');
 
     const reviewsInfoBlock = createDiv(STYLES.REVIEWS_INFO_BLOCK);
