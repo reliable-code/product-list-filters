@@ -46,7 +46,7 @@ export function appendDoctorPageAdditionalLinks() {
     appendAdditionalLinks(doctorName, linksContainer);
 }
 
-export function createReviewsInfoBlock(reviewsData, baseReviewsUrl) {
+export function createReviewsInfoBlock(reviewsData, baseReviewsUrl, compactView = false) {
     const reviewsInfo = createDiv(STYLES.REVIEWS_INFO);
     reviewsInfo.classList.add('v-application');
 
@@ -62,7 +62,7 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl) {
         } = reviewsCategoryData;
 
         const href = `${baseReviewsUrl}?rates_category=${category}`;
-        const linkText = `${title} ${count}`;
+        const linkText = compactView ? count : `${title} ${count}`;
         const reviewsCategoryInfo = createLink(STYLES.REVIEW_INFO, linkText, href);
         reviewsCategoryInfo.classList = getReviewsCategoryInfoClassString(bgClassSuffix);
         reviewsInfo.append(reviewsCategoryInfo);
