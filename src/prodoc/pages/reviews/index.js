@@ -2,6 +2,7 @@ import {
     appendDoctorPageAdditionalLinks,
     appendReviewsInfoBlockToHeader,
     createReviewsInfoBlock,
+    getDoctorIdFromPathname,
 } from '../common';
 import { SELECTORS } from './selectors';
 import {
@@ -11,13 +12,19 @@ import {
 } from '../../../common/dom/helpers';
 import { waitForElement } from '../../../common/dom/utils';
 import { getURLQueryStringParam } from '../../../common/url';
+import { setStoredReviewsData } from '../../db';
 
 export async function initReviewsMods() {
     appendDoctorPageAdditionalLinks();
+
     const reviewsData = await getReviewsData();
+
+    setStoredReviewsData(getDoctorIdFromPathname(), reviewsData);
+
     const baseReviewsUrl = `${window.location.origin}${window.location.pathname}`;
     const reviewsInfoBlock = createReviewsInfoBlock(reviewsData, baseReviewsUrl);
     appendReviewsInfoBlockToHeader(reviewsInfoBlock);
+
     if (getURLQueryStringParam('rates_category')) scrollToReviews();
 }
 
