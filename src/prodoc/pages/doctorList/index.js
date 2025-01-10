@@ -84,15 +84,9 @@ function processDoctorCard(doctorCard) {
         return;
     }
 
-    const profileCard = getFirstElement(
-        SELECTORS.PROFILE_CARD, doctorCard, true,
-    );
-    const reviewsLink = getFirstElement(
-        SELECTORS.REVIEWS_LINK, profileCard,
-    );
-    const experienceWrap = getFirstElement(
-        SELECTORS.EXPERIENCE_WRAP, doctorCard, true,
-    );
+    const profileCard = getFirstElement(SELECTORS.PROFILE_CARD, doctorCard);
+    const reviewsLink = getFirstElement(SELECTORS.REVIEWS_LINK, profileCard);
+    const experienceWrap = getFirstElement(SELECTORS.EXPERIENCE_WRAP, doctorCard);
 
     if (!reviewsLink || !experienceWrap) {
         hideElement(doctorCard);
@@ -126,15 +120,14 @@ function processDoctorCard(doctorCard) {
     const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
     const doctorName = doctorCardName.innerText;
 
-    replaceReviewsLink(profileCard);
+    const newReviewsLinkHref = getNewReviewsLinkHref(reviewsLink);
+    reviewsLink.href = newReviewsLinkHref;
+
     appendAdditionalLinks(doctorName, profileCard);
 }
 
-function replaceReviewsLink(profileCard) {
-    const reviewsLink = getFirstElement(
-        SELECTORS.REVIEWS_LINK, profileCard,
-    );
-    reviewsLink.href = reviewsLink.href.replace(
+function getNewReviewsLinkHref(reviewsLink) {
+    return reviewsLink.href.replace(
         /\/#otzivi$/, '/otzivi/',
     );
 }
