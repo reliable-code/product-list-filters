@@ -60,7 +60,7 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl) {
         const headerFilter = createLink(
             linkStyles, `${reviewData.title} ${reviewData.count}`, link,
         );
-        headerFilter.classList = reviewData.classList;
+        headerFilter.classList = reviewData.classes;
         reviewsInfo.append(headerFilter);
     });
     return reviewsInfoBlock;

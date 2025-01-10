@@ -38,13 +38,13 @@ async function getReviewsData() {
 
             const countWrap = getFirstElement(SELECTORS.FILTER_COUNT_WRAP, filter);
             const count = getElementInnerNumber(countWrap, true);
-            const { classList } = countWrap;
+            const classes = countWrap.classList.value;
 
             return {
                 category,
                 title,
                 count,
-                classList,
+                classes,
             };
         });
 
