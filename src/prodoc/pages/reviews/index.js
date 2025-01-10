@@ -21,8 +21,7 @@ export async function initReviewsMods() {
 
     setStoredReviewsData(getDoctorIdFromPathname(), reviewsData);
 
-    const baseReviewsUrl = `${window.location.origin}${window.location.pathname}`;
-    const reviewsInfoBlock = createReviewsInfoBlock(reviewsData, baseReviewsUrl);
+    const reviewsInfoBlock = createReviewsInfoBlock(reviewsData, getBaseReviewsUrl());
     appendReviewsInfoBlockToHeader(reviewsInfoBlock);
 
     if (getURLQueryStringParam('rates_category')) scrollToReviews();
@@ -63,6 +62,11 @@ async function getReviewsData() {
 function parseBgClassSuffix(classList) {
     const match = classList.value.match(/ui-kit-bg-bg-(\w+)/);
     return match ? match[1] : null;
+}
+
+function getBaseReviewsUrl() {
+    const { location } = window;
+    return `${location.origin}${location.pathname}`;
 }
 
 function scrollToReviews() {
