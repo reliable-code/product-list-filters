@@ -46,6 +46,7 @@ const state = {
 };
 
 export function initDoctorListMods(appointmentsPage) {
+    setExperienceQueryParam();
     removeListHeader();
     const doctorFilters = getFirstElement(SELECTORS.DOCTOR_FILTERS);
     appendFilterControlsIfNeeded(doctorFilters, appendFiltersContainer);
