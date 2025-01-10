@@ -60,6 +60,11 @@ async function getReviewsData() {
     return reviewsData;
 }
 
+function parseBgClassSuffix(classList) {
+    const match = classList.value.match(/ui-kit-bg-bg-(\w+)/);
+    return match ? match[1] : null;
+}
+
 function scrollToReviews() {
     const reviewsContainer = getFirstElement(SELECTORS.REVIEWS_CONTAINER);
     reviewsContainer.scrollIntoView({ behavior: 'smooth' });
