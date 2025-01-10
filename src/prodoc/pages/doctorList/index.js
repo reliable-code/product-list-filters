@@ -37,7 +37,7 @@ const {
 const specFilter = createSectionFilter('spec-filter');
 const clinicFilter = createSectionFilter('clinic-filter');
 const minReviewsFilter = createSectionFilter('min-reviews-filter', 10);
-const minExperienceFilter = createSectionFilter('min-experience-filter', 5);
+const minExperienceFilter = createSectionFilter('min-experience-filter', 5, setExperienceQueryParam);
 const maxExperienceFilter = createSectionFilter('max-experience-filter', 40);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
 
@@ -191,4 +191,10 @@ function getNewReviewsLinkHref(reviewsLink) {
 function getDoctorName(doctorCard) {
     const doctorCardName = getFirstElement(SELECTORS.DOCTOR_CARD_NAME, doctorCard, true);
     return doctorCardName.innerText;
+}
+
+function setExperienceQueryParam() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('experience', minExperienceFilter.value);
+    window.location.href = url.toString();
 }
