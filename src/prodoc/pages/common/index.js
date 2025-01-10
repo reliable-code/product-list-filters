@@ -43,7 +43,7 @@ export function appendDoctorPageAdditionalLinks() {
     appendAdditionalLinks(doctorName, linksContainer);
 }
 
-export function createReviewsInfoBlock(filters, baseReviewsUrl) {
+export function createReviewsInfoBlock(reviewsData, baseReviewsUrl) {
     const reviewsInfo = createDiv({ gridGap: '6px' });
     reviewsInfo.classList.add('v-application');
 
@@ -54,12 +54,13 @@ export function createReviewsInfoBlock(filters, baseReviewsUrl) {
 
     reviewsInfoBlock.append(reviewsInfo);
 
-    filters.forEach((filter) => {
-        const link = `${baseReviewsUrl}?rates_category=${filter.category}`;
+    reviewsData.forEach((reviewData) => {
+        const link = `${baseReviewsUrl}?rates_category=${reviewData.category}`;
+        const linkStyles = { textDecoration: 'none' };
         const headerFilter = createLink(
-            { textDecoration: 'none' }, `${filter.title} ${filter.count}`, link,
+            linkStyles, `${reviewData.title} ${reviewData.count}`, link,
         );
-        headerFilter.classList = filter.classList;
+        headerFilter.classList = reviewData.classList;
         reviewsInfo.append(headerFilter);
     });
     return reviewsInfoBlock;

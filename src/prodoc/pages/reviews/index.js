@@ -14,19 +14,19 @@ import { getURLQueryStringParam } from '../../../common/url';
 
 export async function initReviewsMods() {
     appendDoctorPageAdditionalLinks();
-    const filters = await getFiltersData();
+    const reviewsData = await getReviewsData();
     const baseReviewsUrl = `${window.location.origin}${window.location.pathname}`;
-    const reviewsInfoBlock = createReviewsInfoBlock(filters, baseReviewsUrl);
+    const reviewsInfoBlock = createReviewsInfoBlock(reviewsData, baseReviewsUrl);
     appendReviewsInfoBlockToHeader(reviewsInfoBlock);
     if (getURLQueryStringParam('rates_category')) scrollToReviews();
 }
 
-async function getFiltersData() {
+async function getReviewsData() {
     const filterChip = getFirstElement(SELECTORS.FILTER_CHIP);
     filterChip.click();
 
     const filterList = await waitForElement(document, SELECTORS.FILTER_LIST);
-    const filters = [...getAllElements(SELECTORS.FILTER_LIST_ITEM, filterList)]
+    const reviewsData = [...getAllElements(SELECTORS.FILTER_LIST_ITEM, filterList)]
         .map((filter) => {
             const categoryAttributeValue = filter.getAttribute('data-qa');
             if (!categoryAttributeValue) return null;
@@ -50,7 +50,7 @@ async function getFiltersData() {
 
     filterChip.click();
 
-    return filters;
+    return reviewsData;
 }
 
 function scrollToReviews() {
