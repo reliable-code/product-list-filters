@@ -1,51 +1,27 @@
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import { createDiv, createLink } from '../../../common/dom/factories/elements';
-import { appendDoctorPageAdditionalLinks } from '../common';
+import {
+    appendDoctorPageAdditionalLinks,
+    appendReviewsInfoBlockToHeader,
+    createReviewsInfoBlock,
+    getDoctorIdFromPathname,
+} from '../common';
 import { SELECTORS } from './selectors';
+import { getStoredReviewsData } from '../../db';
 
 export function initDoctorPageMods() {
     appendDoctorPageAdditionalLinks();
-    // appendReviewsInfoToHeader();
     appendDoctorContactLink();
+
+    const reviewsData = getStoredReviewsData(getDoctorIdFromPathname());
+    if (!reviewsData) return;
+    const reviewsInfoBlock = createReviewsInfoBlock(reviewsData, getBaseReviewsUrl());
+    appendReviewsInfoBlockToHeader(reviewsInfoBlock);
 }
 
-function appendReviewsInfoToHeader() {
-    const reviewsFilter = getFirstElement(SELECTORS.REVIEWS_FILTER);
-    if (!reviewsFilter) return;
-
-    const nameSpanHolder = getFirstElement(SELECTORS.NAME_SPAN_HOLDER, document, true);
-    if (!nameSpanHolder) return;
-
-    const nameSpan = getFirstElement(SELECTORS.NAME_SPAN, nameSpanHolder, true);
-    if (!nameSpan) return;
-
-    const reviewsInfo = createDiv();
-    reviewsInfo.style.position = 'absolute';
-    reviewsInfo.classList.add('v-application');
-
-    const reviewsInfoWrap = createDiv();
-    reviewsInfoWrap.style.position = 'relative';
-    reviewsInfoWrap.style.height = '45px';
-
-    reviewsInfoWrap.append(reviewsInfo);
-
-    const reviewsFilterSpans = getAllElements(
-        SELECTORS.REVIEWS_FILTER_SPAN, reviewsFilter, true,
-    );
-
-    if (reviewsFilterSpans.length < 2) return;
-
-    reviewsFilterSpans.slice(1)
-        .forEach((reviewsFilterSpan) => {
-            const reviewsFilterSpanCopy = reviewsFilterSpan.cloneNode(true);
-            reviewsFilterSpanCopy.addEventListener('click', () => {
-                reviewsFilterSpan.parentNode.scrollIntoView({ behavior: 'smooth' });
-                reviewsFilterSpan.click();
-            });
-            reviewsInfo.append(reviewsFilterSpanCopy);
-        });
-
-    nameSpan.append(reviewsInfoWrap);
+function getBaseReviewsUrl() {
+    const { location } = window;
+    return `${location.origin}${location.pathname}otzivi/`;
 }
 
 function appendDoctorContactLink() {

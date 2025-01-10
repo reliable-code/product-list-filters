@@ -135,6 +135,6 @@ function replaceReviewsLink(profileCard) {
         SELECTORS.REVIEWS_LINK, profileCard,
     );
     reviewsLink.href = reviewsLink.href.replace(
-        /\/#otzivi$/, '/otzivi/#rating',
+        /\/#otzivi$/, '/otzivi/',
     );
 }
