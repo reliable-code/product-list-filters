@@ -76,6 +76,7 @@ function removeListHeader() {
 
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
+    filtersContainer.style.marginTop = '6px';
 
     const specFilterDiv = createTextFilterControl(
         'Специализация:', specFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,

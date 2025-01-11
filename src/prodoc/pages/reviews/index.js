@@ -55,6 +55,7 @@ export async function initReviewsMods() {
 
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
+    filtersContainer.style.marginTop = '12px';
 
     const reviewTextFilterDiv = createSearchFilterControl(
         reviewTextFilter,

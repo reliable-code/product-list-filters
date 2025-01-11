@@ -11,7 +11,6 @@ export const STYLES = {
     FILTERS_CONTAINER: {
         display: 'flex',
         gridGap: '15px',
-        marginTop: '5px',
         flexFlow: 'wrap',
     },
     CONTROL: {
