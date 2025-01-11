@@ -19,16 +19,25 @@ import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { STYLES } from '../common/styles';
 import {
     createEnabledFilterControl,
+    createMaxRatingFilterControl,
+    createMinRatingFilterControl,
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import { removeHighlights } from '../../../common/dom/highlighting';
 import { highlightSearchStringsByFilter } from '../../../common/filter/highlighting';
-import { isNotMatchTextFilter } from '../../../common/filter/compare';
+import {
+    isGreaterThanFilter,
+    isLessThanFilter,
+    isNotMatchTextFilter,
+} from '../../../common/filter/compare';
+import { createSeparator } from '../../../common/filter/factories/helpers';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
 const reviewTextFilter = createGlobalFilter('reviews-text-filter');
+const minRatingFilter = createGlobalFilter('reviews-min-rating-filter');
+const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 const state = {
@@ -62,6 +71,23 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.TEXT_INPUT,
     );
+    const minRatingDiv = createMinRatingFilterControl(
+        minRatingFilter,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+        1,
+        1,
+    );
+    const maxRatingDiv = createMaxRatingFilterControl(
+        maxRatingFilter,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+        1,
+        1,
+    );
+    const separatorDiv = createSeparator(
+        STYLES.CONTROL,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled,
         STYLES.CONTROL,
@@ -70,6 +96,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     filtersContainer.append(
         reviewTextFilterDiv,
+        minRatingDiv,
+        maxRatingDiv,
+        separatorDiv,
         filterEnabledDiv,
     );
 
@@ -93,8 +122,9 @@ function processReviewCard(reviewCard) {
 
     if (!cachedData) {
         const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
+        const ratingWrap = getFirstElement(SELECTORS.REVIEW_RATING_WRAP, reviewCard);
 
-        if (!reviewTextWrap) {
+        if (!reviewTextWrap || !ratingWrap) {
             hideElement(reviewCard);
             return;
         }
@@ -102,6 +132,7 @@ function processReviewCard(reviewCard) {
         cachedData = {
             reviewTextWrap,
             reviewText: reviewTextWrap.innerText,
+            rating: getElementInnerNumber(ratingWrap),
         };
 
         state.reviewCardsCache.set(reviewCard, cachedData);
@@ -112,7 +143,9 @@ function processReviewCard(reviewCard) {
     }
 
     const shouldHide =
-        isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter);
+        isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter) ||
+        isLessThanFilter(cachedData.rating, minRatingFilter) ||
+        isGreaterThanFilter(cachedData.rating, maxRatingFilter);
     updateElementDisplay(reviewCard, shouldHide);
 }
 
