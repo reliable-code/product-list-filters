@@ -26,12 +26,12 @@ import {
     createEnabledFilterControl,
     createMinReviewsFilterControl,
 } from '../../../common/filter/factories/specificControls';
-import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { getStoredReviewsData, STORAGE_KEYS } from '../../db';
 import { debounce } from '../../../common/dom/utils';
 import { addStorageValueListener } from '../../../common/storage';
+import { STYLES } from '../common/styles';
 
 const SECTION_ID = getURLPathElement(2);
 
