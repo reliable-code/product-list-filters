@@ -202,7 +202,7 @@ function processReviewCard(review) {
             return;
         }
 
-        const productVariationText = productVariationWrap.innerText;
+        const productVariationText = productVariationWrap?.innerText || '';
         const reviewText = reviewTextWraps.map((textWrap) => textWrap.innerText)
             .join(' ');
 
@@ -224,7 +224,7 @@ function processReviewCard(review) {
         reviewCardsCache.set(reviewCard, cachedData);
     }
 
-    if (variationFilter.value) {
+    if (variationFilter.value && cachedData.productVariationWrap) {
         highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
     }
 
