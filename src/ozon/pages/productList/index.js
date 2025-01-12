@@ -186,6 +186,7 @@ function processProductCard(productCard) {
 
         const {
             productCardReviewsWrap,
+            productCardRatingWrap,
             productCardReviewsNumber,
             productCardRatingNumber,
             shouldHideProductCard,
@@ -201,6 +202,7 @@ function processProductCard(productCard) {
 
         cachedData = {
             productArticle,
+            productCardRatingWrap,
             productCardNameWrap,
             productCardName,
             productCardReviewsNumber,
@@ -224,6 +226,7 @@ function processProductCard(productCard) {
 
 function processProductCardRating(productCardRatingContainer, productArticle) {
     let productCardReviewsWrap;
+    let productCardRatingWrap;
     let productCardReviewsNumber;
     let productCardRatingNumber;
 
@@ -235,7 +238,7 @@ function processProductCardRating(productCardRatingContainer, productArticle) {
         productCardReviewsWrap = getFirstElement(
             ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
         );
-        const productCardRatingWrap = getFirstElement(
+        productCardRatingWrap = getFirstElement(
             ':scope > span:nth-of-type(1) > span:nth-of-type(1)', productCardRatingContainer, true,
         );
         productCardReviewsNumber = getElementInnerNumber(
@@ -250,6 +253,7 @@ function processProductCardRating(productCardRatingContainer, productArticle) {
 
     return {
         productCardReviewsWrap,
+        productCardRatingWrap,
         productCardReviewsNumber,
         productCardRatingNumber,
         shouldHideProductCard: false,
