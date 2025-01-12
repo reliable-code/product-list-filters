@@ -236,7 +236,7 @@ function processProductCardRating(productCardRatingContainer, productArticle) {
             ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
         );
         const productCardRatingWrap = getFirstElement(
-            ':scope > span:nth-of-type(1)', productCardRatingContainer, true,
+            ':scope > span:nth-of-type(1) > span:nth-of-type(1)', productCardRatingContainer, true,
         );
         productCardReviewsNumber = getElementInnerNumber(
             productCardReviewsWrap, true,
@@ -261,22 +261,18 @@ function anyRatingFilterHasValue() {
 }
 
 function getProductCardRatingNumber(productCardRatingWrap, productArticle) {
-    const productCardRatingSpan = getFirstElement(
-        ':scope > span:nth-of-type(1)', productCardRatingWrap,
-    );
-
     const storedRatingValue = getStoredRatingValue(productArticle);
     if (!storedRatingValue) {
-        return getElementInnerNumber(productCardRatingSpan);
+        return getElementInnerNumber(productCardRatingWrap);
     }
 
-    updateRatingText(productCardRatingSpan, storedRatingValue);
+    updateRatingText(productCardRatingWrap, storedRatingValue);
 
     return storedRatingValue;
 }
 
-function updateRatingText(productCardRatingSpan, storedRatingValue) {
-    productCardRatingSpan.textContent = storedRatingValue.toString()
+function updateRatingText(productCardRatingWrap, storedRatingValue) {
+    productCardRatingWrap.textContent = storedRatingValue.toString()
         .padEnd(5);
 }
 
