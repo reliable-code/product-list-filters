@@ -5,8 +5,12 @@ export function insertAfter(existingNode, newNode) {
 }
 
 export function hideElement(element) {
-    setElementDisplayAttributeIfNeeded(element);
-    setElementDisplay(element, 'none');
+    element.style.display = 'none';
+}
+
+export function saveElementDisplayAndHide(element) {
+    saveElementDisplayIfNeeded(element);
+    hideElement(element);
 }
 
 export function hideElementOnIntersection(element) {
@@ -14,9 +18,13 @@ export function hideElementOnIntersection(element) {
     runOnceOnIntersection(element, () => hideElement(element));
 }
 
-export function showElement(element) {
+export function showElement(element, display = '') {
+    element.style.display = display;
+}
+
+export function getElementDisplayAndShow(element) {
     const display = getElementDisplay(element);
-    setElementDisplay(element, display);
+    showElement(element, display);
 }
 
 export function updateElementDisplay(element, shouldHide) {
@@ -36,17 +44,13 @@ export function updateElementDisplayByIntersection(element, shouldHide) {
     }
 }
 
-function setElementDisplay(element, display) {
-    element.style.display = display;
-}
-
 function getElementDisplay(element) {
-    setElementDisplayAttributeIfNeeded(element);
+    saveElementDisplayIfNeeded(element);
 
     return element.defaultDisplay;
 }
 
-function setElementDisplayAttributeIfNeeded(element) {
+function saveElementDisplayIfNeeded(element) {
     if (element.defaultDisplay) return;
 
     const { display } = getComputedStyle(element);
