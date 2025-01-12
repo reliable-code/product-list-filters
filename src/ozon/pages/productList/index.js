@@ -87,10 +87,10 @@ export async function initProductListMods(paginatorContent) {
     const searchResultsSort = await waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-    addStorageValueListener(STORAGE_KEYS.LAST_RATE_UPDATE, processProductCards);
+    addStorageValueListener(STORAGE_KEYS.LAST_RATE_UPDATE, () => processProductCards(true));
 
     processProductCards();
-    const observer = new MutationObserver(debounce(processProductCards, 150));
+    const observer = new MutationObserver(debounce(() => processProductCards(), 150));
 
     observer.observe(paginatorContent, {
         childList: true,
@@ -148,14 +148,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton(parentNode);
 }
 
-function processProductCards() {
+function processProductCards(rateUpdated = false) {
     const productCards = getAllElements(COMMON_SELECTORS.PRODUCT_CARDS);
     state.firstProductCardsWrap ??= getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
-    productCards.forEach(processProductCard);
+    productCards.forEach((productCard) => processProductCard(productCard, rateUpdated));
 }
 
-function processProductCard(productCard) {
+function processProductCard(productCard, rateUpdated) {
     if (!filterEnabled.value) {
         showElement(productCard);
         return;
@@ -214,6 +214,8 @@ function processProductCard(productCard) {
         };
 
         state.productCardsCache.set(productCard, cachedData);
+    } else if (rateUpdated && !cachedData.storedRatingValue) {
+        checkStoredRatingValue(cachedData);
     }
 
     setLineClamp(cachedData.productCardNameWrap);
