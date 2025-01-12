@@ -149,4 +149,8 @@ function getProductCardRatingNumber(productCard) {
     return getFirstElementInnerNumber(
         productCard, SELECTORS.PRODUCT_CARD_RATING, true, true,
     );
+
+function updateRatingText(productCardRatingWrap, storedRatingValue) {
+    productCardRatingWrap.textContent = storedRatingValue.toString()
+        .replace('.', ',');
 }
