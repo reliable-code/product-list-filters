@@ -20,12 +20,7 @@ import {
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
-import {
-    applyStyles,
-    hideElement,
-    showElement,
-    updateElementDisplay,
-} from '../../../common/dom/manipulation';
+import { applyStyles, hideElement, showElement } from '../../../common/dom/manipulation';
 import {
     getAllElements,
     getElementInnerNumber,
@@ -152,12 +147,21 @@ function processProductCards(rateUpdated = false) {
     const productCards = getAllElements(COMMON_SELECTORS.PRODUCT_CARDS);
     state.firstProductCardsWrap ??= getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
-    productCards.forEach((productCard) => processProductCard(productCard, rateUpdated));
+
+    const displayGroups = {
+        show: [],
+        hide: [],
+    };
+    productCards.forEach((productCard) => processProductCard(
+        productCard, displayGroups, rateUpdated,
+    ));
+    displayGroups.show.forEach(showElement);
+    displayGroups.hide.forEach(hideElement);
 }
 
-function processProductCard(productCard, rateUpdated) {
+function processProductCard(productCard, displayGroups, rateUpdated) {
     if (!filterEnabled.value) {
-        showElement(productCard);
+        displayGroups.show.push(productCard);
         return;
     }
 
@@ -166,7 +170,7 @@ function processProductCard(productCard, rateUpdated) {
     if (!cachedData) {
         const productCardLink = getFirstElement('a', productCard);
         if (!productCardLink) {
-            hideElement(productCard);
+            displayGroups.hide.push(productCard);
             return;
         }
 
@@ -175,7 +179,7 @@ function processProductCard(productCard, rateUpdated) {
         const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
 
         if (!productCardNameWrap || !productCardPriceWrap) {
-            hideElement(productCard);
+            displayGroups.hide.push(productCard);
             return;
         }
 
@@ -195,7 +199,7 @@ function processProductCard(productCard, rateUpdated) {
         } = processProductCardRating(productCardRatingContainer, storedRatingValue, productArticle);
 
         if (shouldHideProductCard) {
-            hideElement(productCard);
+            displayGroups.hide.push(productCard);
             return;
         }
 
@@ -226,7 +230,12 @@ function processProductCard(productCard, rateUpdated) {
         isGreaterThanFilter(cachedData.productCardReviewsNumber, maxReviewsFilter) ||
         isLessThanFilter(cachedData.productCardRatingNumber, minRatingFilter) ||
         isGreaterThanFilter(cachedData.productCardPriceNumber, maxPriceFilter);
-    updateElementDisplay(productCard, shouldHide);
+
+    if (shouldHide) {
+        displayGroups.hide.push(productCard);
+    } else {
+        displayGroups.show.push(productCard);
+    }
 }
 
 function processProductCardRating(productCardRatingContainer, storedRatingValue, productArticle) {
