@@ -1,21 +1,20 @@
-import { getPathnameElement, getURLPathElementEnding } from '../../../common/url';
+import { getPathnameElementEnding, getURLPathElementEnding } from '../../../common/url';
 import { getFirstElement } from '../../../common/dom/helpers';
 import { addScrollToFiltersButtonBase } from '../../../common/filter/factories/helpers';
 import { STYLES } from './styles';
 
+export function getProductArticleFromPathname() {
+    return getURLPathElementEnding(2, 'unknown');
+}
+
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
-
-    return getPathnameElement(productCardLinkHref, 4, '');
+    return getPathnameElementEnding(productCardLinkHref, 4);
 }
 
 export function getPriceSpan(priceContainer, selectors) {
     return getFirstElement(selectors.WALLET_PRICE, priceContainer) ||
         getFirstElement(selectors.PRICE, priceContainer);
-}
-
-export function getProductArticleFromPathname() {
-    return getURLPathElementEnding(2, 'unknown');
 }
 
 export function addScrollToFiltersButton(parentNode = document.body) {

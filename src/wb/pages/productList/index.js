@@ -30,6 +30,7 @@ import { createFilterFactory } from '../../../common/filter/factories/createFilt
 import { SELECTORS } from './selectors';
 import { STYLES } from '../common/styles';
 import { createSeparator } from '../../../common/filter/factories/helpers';
+import { getProductArticleFromLink } from '../common';
 
 const SECTION_ID = getSectionId();
 
@@ -149,6 +150,12 @@ function getProductCardRatingNumber(productCard) {
     return getFirstElementInnerNumber(
         productCard, SELECTORS.PRODUCT_CARD_RATING, true, true,
     );
+
+
+function getProductArticle(productCard) {
+    const productCardLink = getFirstElement('a', productCard);
+    return getProductArticleFromLink(productCardLink);
+}
 
 function updateRatingText(productCardRatingWrap, storedRatingValue) {
     productCardRatingWrap.textContent = storedRatingValue.toString()
