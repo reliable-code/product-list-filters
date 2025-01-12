@@ -39,4 +39,15 @@ export const STYLES = {
     REVIEW_INFO: {
         textDecoration: 'none',
     },
+    REVIEW_INFO_TOOLTIP: {
+        position: 'absolute',
+        backgroundColor: '#333',
+        color: '#fff',
+        padding: '4px 8px',
+        borderRadius: '8px',
+        fontSize: '12px',
+        zIndex: '1000',
+        pointerEvents: 'none',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    },
 };
