@@ -71,6 +71,12 @@ export function assignElementToDisplayGroup(shouldHide, displayGroups, element) 
         displayGroups.show.push(element);
     }
 }
+
+export function handleDisplayGroups(displayGroups) {
+    displayGroups.show.forEach(showElement);
+    displayGroups.hide.forEach(hideElement);
+}
+
 export function updateElementOpacity(element, shouldSetOpacity, opacity = 0.3) {
     if (shouldSetOpacity) {
         setElementOpacity(element, opacity);
