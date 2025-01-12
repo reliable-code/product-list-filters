@@ -58,7 +58,7 @@ const SECTION_ID = getSectionId();
 const {
     createGlobalFilter,
     createSectionFilter,
-} = createFilterFactory(addProcessProductCardsToQueue, SECTION_ID);
+} = createFilterFactory(processProductCards, SECTION_ID);
 
 const nameFilter = createSectionFilter('name-filter');
 const minReviewsFilter = createSectionFilter('min-reviews-filter');
@@ -75,8 +75,6 @@ const state = {
     productCardsCache: new WeakMap(),
 };
 
-let processListQueue = Promise.resolve();
-
 function getSectionId() {
     const sectionName = somePathElementEquals('search')
         ? getURLQueryStringParam('text')
@@ -89,10 +87,10 @@ export async function initProductListMods(paginatorContent) {
     const searchResultsSort = await waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-    addStorageValueListener(STORAGE_KEYS.LAST_RATE_UPDATE, addProcessProductCardsToQueue);
+    addStorageValueListener(STORAGE_KEYS.LAST_RATE_UPDATE, processProductCards);
 
-    await addProcessProductCardsToQueue();
-    const observer = new MutationObserver(debounce(addProcessProductCardsToQueue, 150));
+    processProductCards();
+    const observer = new MutationObserver(debounce(processProductCards, 150));
 
     observer.observe(paginatorContent, {
         childList: true,
@@ -150,16 +148,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton(parentNode);
 }
 
-async function addProcessProductCardsToQueue() {
-    processListQueue = processListQueue.then(processProductCards);
-}
-
-async function processProductCards() {
-    const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS)];
+function processProductCards() {
+    const productCards = getAllElements(COMMON_SELECTORS.PRODUCT_CARDS);
     state.firstProductCardsWrap ??= getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
-
-    await Promise.all(productCards.map(processProductCard));
+    productCards.forEach(processProductCard);
 }
 
 function processProductCard(productCard) {
@@ -306,7 +299,7 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
 
 async function dislikeProductOnProductList(productArticle) {
     setStoredRatingValue(productArticle, 1);
-    await addProcessProductCardsToQueue();
+    processProductCards();
 }
 
 function setLineClamp(productCardNameWrap) {
