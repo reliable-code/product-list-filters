@@ -22,9 +22,9 @@ import {
 import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
 import {
     applyStyles,
-    hideElement,
+    assignElementToDisplayGroup,
+    handleDisplayGroups,
     initDisplayGroups,
-    showElement,
 } from '../../../common/dom/manipulation';
 import {
     getAllElements,
@@ -154,36 +154,27 @@ function processProductCards(rateUpdated = false) {
     moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
 
     const displayGroups = initDisplayGroups();
-    productCards.forEach((productCard) => processProductCard(
-        productCard, displayGroups, rateUpdated,
-    ));
-    displayGroups.show.forEach(showElement);
-    displayGroups.hide.forEach(hideElement);
+    productCards.forEach((productCard) => {
+        const shouldHide = processProductCard(productCard, rateUpdated);
+        assignElementToDisplayGroup(shouldHide, displayGroups, productCard);
+    });
+    handleDisplayGroups(displayGroups);
 }
 
-function processProductCard(productCard, displayGroups, rateUpdated) {
-    if (!filterEnabled.value) {
-        displayGroups.show.push(productCard);
-        return;
-    }
+function processProductCard(productCard, rateUpdated) {
+    if (!filterEnabled.value) return false;
 
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
         const productCardLink = getFirstElement('a', productCard);
-        if (!productCardLink) {
-            displayGroups.hide.push(productCard);
-            return;
-        }
+        if (!productCardLink) return true;
 
         const productArticle = getProductArticleFromLink(productCardLink);
         const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
         const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
 
-        if (!productCardNameWrap || !productCardPriceWrap) {
-            displayGroups.hide.push(productCard);
-            return;
-        }
+        if (!productCardNameWrap || !productCardPriceWrap) return true;
 
         const productCardPriceNumber = getElementInnerNumber(productCardPriceWrap, true);
 
@@ -200,10 +191,7 @@ function processProductCard(productCard, displayGroups, rateUpdated) {
             shouldHideProductCard,
         } = processProductCardRating(productCardRatingContainer, storedRatingValue, productArticle);
 
-        if (shouldHideProductCard) {
-            displayGroups.hide.push(productCard);
-            return;
-        }
+        if (shouldHideProductCard) return true;
 
         const productCardName = productCardNameWrap.innerText;
         productCardNameWrap.title = productCardName;
@@ -226,18 +214,13 @@ function processProductCard(productCard, displayGroups, rateUpdated) {
 
     setLineClamp(cachedData.productCardNameWrap);
 
-    const shouldHide =
+    return (
         isNotMatchTextFilter(cachedData.productCardName, nameFilter) ||
         isLessThanFilter(cachedData.productCardReviewsNumber, minReviewsFilter) ||
         isGreaterThanFilter(cachedData.productCardReviewsNumber, maxReviewsFilter) ||
         isLessThanFilter(cachedData.productCardRatingNumber, minRatingFilter) ||
-        isGreaterThanFilter(cachedData.productCardPriceNumber, maxPriceFilter);
-
-    if (shouldHide) {
-        displayGroups.hide.push(productCard);
-    } else {
-        displayGroups.show.push(productCard);
-    }
+        isGreaterThanFilter(cachedData.productCardPriceNumber, maxPriceFilter)
+    );
 }
 
 function processProductCardRating(productCardRatingContainer, storedRatingValue, productArticle) {
