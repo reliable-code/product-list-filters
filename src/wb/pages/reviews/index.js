@@ -1,7 +1,6 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
-    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -15,7 +14,12 @@ import {
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
-import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
+import {
+    applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../../../common/dom/manipulation';
 import {
     isGreaterThanFilter,
     isLessThanFilter,

@@ -4,17 +4,13 @@ import { getURLPathElementEnding, pathnameIncludes } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import { createCheckboxFilterControl } from '../common/filter/factories/genericControls';
 import {
+    applyStyles,
     resetElementOpacity,
     resetElementOrder,
     setElementOrder,
     updateElementOpacity,
 } from '../common/dom/manipulation';
-import {
-    applyStyles,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-} from '../common/dom/helpers';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 import {
     createDiscountFilterControl,
     createEnabledFilterControl,

@@ -6,7 +6,6 @@ import {
 } from '../common';
 import { SELECTORS } from './selectors';
 import {
-    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
@@ -23,7 +22,12 @@ import {
     createMinRatingFilterControl,
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
-import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
+import {
+    applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../../../common/dom/manipulation';
 import { removeHighlights } from '../../../common/dom/highlighting';
 import { highlightSearchStringsByFilter } from '../../../common/filter/highlighting';
 import {

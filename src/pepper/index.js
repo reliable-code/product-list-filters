@@ -6,16 +6,12 @@ import {
     createNumberFilterControl,
 } from '../common/filter/factories/genericControls';
 import {
+    applyStyles,
     resetElementOpacity,
     setElementOpacity,
     updateElementOpacity,
 } from '../common/dom/manipulation';
-import {
-    applyStyles,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-} from '../common/dom/helpers';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createSearchFilterControl,

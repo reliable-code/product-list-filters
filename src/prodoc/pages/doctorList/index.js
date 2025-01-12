@@ -1,11 +1,11 @@
 import { getURLPathElement } from '../../../common/url';
 import {
-    applyStyles,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
 } from '../../../common/dom/helpers';
 import {
+    applyStyles,
     hideElement,
     insertAfter,
     showElement,

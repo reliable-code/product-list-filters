@@ -11,9 +11,8 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
-import { showElement, updateElementDisplay } from '../../../common/dom/manipulation';
+import { applyStyles, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
-    applyStyles,
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,

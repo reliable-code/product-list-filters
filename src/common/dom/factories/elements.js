@@ -1,5 +1,6 @@
 import { debounce } from '../utils';
-import { applyStyles } from '../helpers';
+
+import { applyStyles } from '../manipulation';
 
 export function createTextInput(style, onChange, value) {
     const input = createInput(style, 'text', onChange);

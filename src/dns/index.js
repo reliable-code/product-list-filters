@@ -2,9 +2,13 @@ import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { removeNonNumber } from '../common/string';
 import { getURLPathElement } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
-import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
     applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../common/dom/manipulation';
+import {
     getAllElements,
     getFirstElement,
     getFirstElementInnerNumber,

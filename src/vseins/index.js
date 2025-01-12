@@ -1,13 +1,13 @@
 import { waitForElement } from '../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
-import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
     applyStyles,
-    getAllElements,
-    getFirstElement,
-    getNodeInnerNumber,
-} from '../common/dom/helpers';
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../common/dom/manipulation';
+import { getAllElements, getFirstElement, getNodeInnerNumber } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,

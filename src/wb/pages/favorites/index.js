@@ -6,8 +6,13 @@ import {
     createCheckboxFilterControl,
     createNumberFilterControl,
 } from '../../../common/filter/factories/genericControls';
-import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
-import { applyStyles, getAllElements, getFirstElement } from '../../../common/dom/helpers';
+import {
+    applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../../../common/dom/manipulation';
+import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,

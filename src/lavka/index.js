@@ -8,13 +8,13 @@ import {
     createCheckboxFilterControl,
     createNumberFilterControl,
 } from '../common/filter/factories/genericControls';
-import { insertAfter, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
     applyStyles,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-} from '../common/dom/helpers';
+    insertAfter,
+    showElement,
+    updateElementDisplay,
+} from '../common/dom/manipulation';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,

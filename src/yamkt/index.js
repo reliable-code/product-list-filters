@@ -2,17 +2,13 @@ import { debounce } from '../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
+    applyStyles,
     hideElement,
     insertAfter,
     showElement,
     updateElementDisplay,
 } from '../common/dom/manipulation';
-import {
-    applyStyles,
-    getAllElements,
-    getElementInnerNumber,
-    getFirstElement,
-} from '../common/dom/helpers';
+import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,

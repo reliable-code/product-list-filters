@@ -1,10 +1,11 @@
 import { heartStrikeDislikeIcon } from './icons';
 import { getPathnameElementEnding, getURLPathElementEnding } from '../../../common/url';
 import { createLink, createSpan } from '../../../common/dom/factories/elements';
-import { applyStyles, getFirstElement } from '../../../common/dom/helpers';
+import { getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { addScrollToFiltersButtonBase } from '../../../common/filter/factories/helpers';
+import { applyStyles } from '../../../common/dom/manipulation';
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');

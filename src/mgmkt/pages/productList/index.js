@@ -9,9 +9,13 @@ import {
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
-import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
     applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../../../common/dom/manipulation';
+import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,

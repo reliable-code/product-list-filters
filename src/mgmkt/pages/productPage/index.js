@@ -4,9 +4,13 @@ import { getURLPathElementEnding } from '../../../common/url';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { InputValue } from '../../../common/storage/models/inputValue';
 import { isGreaterThanFilter, isLessThanFilter } from '../../../common/filter/compare';
-import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
     applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../../../common/dom/manipulation';
+import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,

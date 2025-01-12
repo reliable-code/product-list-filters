@@ -2,9 +2,13 @@ import { waitForElement } from '../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { getURLPathElementEnding, pathnameIncludesSome } from '../common/url';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
-import { hideElement, showElement, updateElementDisplay } from '../common/dom/manipulation';
 import {
     applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../common/dom/manipulation';
+import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,

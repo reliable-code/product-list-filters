@@ -20,9 +20,13 @@ import {
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
-import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
     applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../../../common/dom/manipulation';
+import {
     getAllElements,
     getArrayElementInnerNumber,
     getElementInnerNumber,

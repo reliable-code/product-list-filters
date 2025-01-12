@@ -83,29 +83,3 @@ export function getNonEmptyTextNodes(element) {
 
     return traverse(element);
 }
-
-export function applyStyles(element, styles) {
-    Object.assign(element.style, styles);
-}
-
-export function styleObjectToString(styleObject) {
-    return Object.entries(styleObject)
-        .map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1')
-            .toLowerCase()}: ${value};`)
-        .join(' ');
-}
-
-export function styleStringToObject(styleString) {
-    if (!styleString) return {};
-
-    return styleString
-        .split(';')
-        .filter((rule) => rule.trim() !== '')
-        .reduce((styleObject, rule) => {
-            const [key, value] = rule.split(':')
-                .map((item) => item.trim());
-            const camelCaseKey = key.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
-            styleObject[camelCaseKey] = value;
-            return styleObject;
-        }, {});
-}
