@@ -63,6 +63,14 @@ export function initDisplayGroups() {
         hide: [],
     };
 }
+
+export function assignElementToDisplayGroup(shouldHide, displayGroups, element) {
+    if (shouldHide) {
+        displayGroups.hide.push(element);
+    } else {
+        displayGroups.show.push(element);
+    }
+}
 export function updateElementOpacity(element, shouldSetOpacity, opacity = 0.3) {
     if (shouldSetOpacity) {
         setElementOpacity(element, opacity);
