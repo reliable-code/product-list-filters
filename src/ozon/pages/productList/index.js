@@ -305,3 +305,12 @@ async function dislikeProductOnProductList(productArticle) {
 function setLineClamp(productCardNameWrap) {
     productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
 }
+
+function checkStoredRatingValue(cachedData) {
+    const storedRatingValue = getStoredRatingValue(cachedData.productArticle);
+    if (!storedRatingValue) return;
+
+    cachedData.storedRatingValue = storedRatingValue;
+    cachedData.productCardRatingNumber = storedRatingValue;
+    updateRatingText(cachedData.productCardRatingWrap, storedRatingValue);
+}
