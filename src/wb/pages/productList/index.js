@@ -130,9 +130,7 @@ function processProductCard(productCard) {
     const productCardReviewsNumber = getFirstElementInnerNumber(
         productCard, SELECTORS.PRODUCT_CARD_REVIEWS, true,
     );
-    const productCardRatingNumber = getFirstElementInnerNumber(
-        productCard, SELECTORS.PRODUCT_CARD_RATING, true, true,
-    );
+    const productCardRatingNumber = getProductCardRatingNumber(productCard);
     const productCardPriceNumber = getFirstElementInnerNumber(
         productCard, SELECTORS.PRODUCT_CARD_PRICE, true,
     );
@@ -145,4 +143,10 @@ function processProductCard(productCard) {
         isLessThanFilter(productCardPriceNumber, minPriceFilter) ||
         isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
     updateElementDisplay(productCard, shouldHide);
+}
+
+function getProductCardRatingNumber(productCard) {
+    return getFirstElementInnerNumber(
+        productCard, SELECTORS.PRODUCT_CARD_RATING, true, true,
+    );
 }
