@@ -20,7 +20,12 @@ import {
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
 import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
-import { applyStyles, hideElement, showElement } from '../../../common/dom/manipulation';
+import {
+    applyStyles,
+    hideElement,
+    initDisplayGroups,
+    showElement,
+} from '../../../common/dom/manipulation';
 import {
     getAllElements,
     getElementInnerNumber,
@@ -148,10 +153,7 @@ function processProductCards(rateUpdated = false) {
     state.firstProductCardsWrap ??= getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
 
-    const displayGroups = {
-        show: [],
-        hide: [],
-    };
+    const displayGroups = initDisplayGroups();
     productCards.forEach((productCard) => processProductCard(
         productCard, displayGroups, rateUpdated,
     ));

@@ -57,6 +57,12 @@ function saveElementDisplayIfNeeded(element) {
     element.defaultDisplay = display;
 }
 
+export function initDisplayGroups() {
+    return {
+        show: [],
+        hide: [],
+    };
+}
 export function updateElementOpacity(element, shouldSetOpacity, opacity = 0.3) {
     if (shouldSetOpacity) {
         setElementOpacity(element, opacity);
