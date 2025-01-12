@@ -71,6 +71,7 @@ const nameLinesNumber = createGlobalFilter('name-lines-number', 2);
 // const rowCardsNumber = createGlobalFilter('row-cards-number', 4);
 
 const state = {
+    firstProductCardsWrap: null,
     productCardsCache: new WeakMap(),
 };
 
@@ -155,8 +156,8 @@ async function addProcessProductCardsToQueue() {
 
 async function processProductCards() {
     const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS)];
-    const firstProductCardsWrap = getFirstProductCardsWrap();
-    moveProductCardsToFirstWrap(productCards, firstProductCardsWrap);
+    state.firstProductCardsWrap ??= getFirstProductCardsWrap();
+    moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
 
     await Promise.all(productCards.map(processProductCard));
 }

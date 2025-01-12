@@ -34,6 +34,10 @@ const bestPriceFilter = createGlobalFilter('best-price-filter', false);
 const priceTolerancePercent = createGlobalFilter('price-tolerance-percent', 3, onPriceTolerancePercentChange);
 const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
 
+const state = {
+    firstProductCardsWrap: null,
+};
+
 let processListQueue = Promise.resolve();
 
 export async function initFavoritesMods() {
@@ -96,8 +100,8 @@ async function addProcessProductCardsToQueue(priceTolerancePercentChanged = fals
 
 async function processProductCards(priceTolerancePercentChanged = false) {
     const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS)];
-    const firstProductCardsWrap = getFirstProductCardsWrap();
-    moveProductCardsToFirstWrap(productCards, firstProductCardsWrap);
+    state.firstProductCardsWrap ??= getFirstProductCardsWrap();
+    moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
 
     await Promise.all(productCards.map(
         (productCard) => processProductCard(productCard, priceTolerancePercentChanged),
