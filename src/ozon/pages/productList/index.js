@@ -70,6 +70,10 @@ const filterEnabled = createSectionFilter('filter-enabled', true);
 const nameLinesNumber = createGlobalFilter('name-lines-number', 2);
 // const rowCardsNumber = createGlobalFilter('row-cards-number', 4);
 
+const state = {
+    productCardsCache: new WeakMap(),
+};
+
 let processListQueue = Promise.resolve();
 
 function getSectionId() {
@@ -163,86 +167,97 @@ function processProductCard(productCard) {
         return;
     }
 
-    const productCardLink = getFirstElement('a', productCard);
-    if (!productCardLink) {
-        hideElement(productCard);
-        return;
+    let cachedData = state.productCardsCache.get(productCard);
+
+    if (!cachedData) {
+        const productCardLink = getFirstElement('a', productCard);
+        if (!productCardLink) {
+            hideElement(productCard);
+            return;
+        }
+
+        const productArticle = getProductArticleFromLink(productCardLink);
+        const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
+        const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
+
+        if (!productCardNameWrap || !productCardPriceWrap) {
+            hideElement(productCard);
+            return;
+        }
+
+        const productCardPriceNumber = getElementInnerNumber(productCardPriceWrap, true);
+        const productCardRatingContainer = getFirstElement(
+            SELECTORS.PRODUCT_CARD_RATING_CONTAINER, productCard,
+        );
+
+        const {
+            productCardReviewsWrap,
+            productCardReviewsNumber,
+            productCardRatingNumber,
+            shouldHideProductCard,
+        } = processProductCardRating(productCardRatingContainer, productArticle);
+
+        if (shouldHideProductCard) {
+            hideElement(productCard);
+            return;
+        }
+
+        const productCardName = productCardNameWrap.innerText;
+        productCardNameWrap.title = productCardName;
+
+        cachedData = {
+            productArticle,
+            productCardNameWrap,
+            productCardName,
+            productCardReviewsNumber,
+            productCardRatingNumber,
+            productCardPriceNumber,
+        };
+
+        state.productCardsCache.set(productCard, cachedData);
     }
 
-    const productArticle = getProductArticleFromLink(productCardLink);
-    const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
-    const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
-
-    if (!productCardNameWrap || !productCardPriceWrap) {
-        hideElement(productCard);
-        return;
-    }
-
-    setLineClamp(productCardNameWrap);
-
-    const productCardPriceNumber = getElementInnerNumber(productCardPriceWrap, true);
-    const productCardRatingContainer = getFirstElement(
-        SELECTORS.PRODUCT_CARD_RATING_CONTAINER, productCard,
-    );
-
-    const {
-        productCardRatingNumber,
-        productCardReviewsNumber,
-        productCardReviewsWrap,
-        shouldHideProductCard,
-    } = processProductCardRating(productCardRatingContainer, productArticle);
-
-    if (shouldHideProductCard) {
-        hideElement(productCard);
-        return;
-    }
-
-    const productCardName = productCardNameWrap.innerText;
-    productCardNameWrap.title = productCardName;
+    setLineClamp(cachedData.productCardNameWrap);
 
     const shouldHide =
-        isNotMatchTextFilter(productCardName, nameFilter) ||
-        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-        isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
-        isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
-        isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
+        isNotMatchTextFilter(cachedData.productCardName, nameFilter) ||
+        isLessThanFilter(cachedData.productCardReviewsNumber, minReviewsFilter) ||
+        isGreaterThanFilter(cachedData.productCardReviewsNumber, maxReviewsFilter) ||
+        isLessThanFilter(cachedData.productCardRatingNumber, minRatingFilter) ||
+        isGreaterThanFilter(cachedData.productCardPriceNumber, maxPriceFilter);
     updateElementDisplay(productCard, shouldHide);
 }
 
-function setLineClamp(productCardNameWrap) {
-    productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
-}
-
 function processProductCardRating(productCardRatingContainer, productArticle) {
-    let productCardRatingNumber;
-    let productCardReviewsNumber;
     let productCardReviewsWrap;
+    let productCardReviewsNumber;
+    let productCardRatingNumber;
 
     if (!productCardRatingContainer) {
         if (anyRatingFilterHasValue() && !noRatingFilter.value) {
             return { shouldHideProductCard: true };
         }
     } else {
-        const productCardRatingWrap = getFirstElement(
-            ':scope > span:nth-of-type(1)', productCardRatingContainer, true,
-        );
         productCardReviewsWrap = getFirstElement(
             ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
         );
-        productCardRatingNumber = getProductCardRatingNumber(
-            productCardRatingWrap, productArticle,
+        const productCardRatingWrap = getFirstElement(
+            ':scope > span:nth-of-type(1)', productCardRatingContainer, true,
         );
         productCardReviewsNumber = getElementInnerNumber(
             productCardReviewsWrap, true,
+        );
+        productCardRatingNumber = getProductCardRatingNumber(
+            productCardRatingWrap, productArticle,
         );
 
         appendProductDislikeButtonIfNeeded(productCardRatingContainer, productArticle);
     }
 
     return {
-        productCardRatingNumber,
-        productCardReviewsNumber,
         productCardReviewsWrap,
+        productCardReviewsNumber,
+        productCardRatingNumber,
         shouldHideProductCard: false,
     };
 }
@@ -291,4 +306,8 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
 async function dislikeProductOnProductList(productArticle) {
     setStoredRatingValue(productArticle, 1);
     await addProcessProductCardsToQueue();
+}
+
+function setLineClamp(productCardNameWrap) {
+    productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
 }
