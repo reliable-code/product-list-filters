@@ -28,7 +28,6 @@ import {
 } from '../../../common/dom/manipulation';
 import {
     getAllElements,
-    getArrayElementInnerNumber,
     getElementInnerNumber,
     getFirstElement,
 } from '../../../common/dom/helpers';
@@ -182,13 +181,16 @@ function processProductCard(productCard) {
     setLineClamp(productCardNameWrap);
 
     const productCardPriceNumber = getElementInnerNumber(productCardPriceWrap, true);
-    const productCardRatingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
+    const productCardRatingContainer = getFirstElement(
+        SELECTORS.PRODUCT_CARD_RATING_CONTAINER, productCard,
+    );
 
     const {
-        productCardReviewsNumber,
         productCardRatingNumber,
+        productCardReviewsNumber,
+        productCardReviewsWrap,
         shouldHideProductCard,
-    } = processProductCardRating(productCardRatingWrap, productArticle);
+    } = processProductCardRating(productCardRatingContainer, productArticle);
 
     if (shouldHideProductCard) {
         hideElement(productCard);
@@ -211,31 +213,36 @@ function setLineClamp(productCardNameWrap) {
     productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
 }
 
-function processProductCardRating(productCardRatingWrap, productArticle) {
-    let productCardReviewsNumber;
+function processProductCardRating(productCardRatingContainer, productArticle) {
     let productCardRatingNumber;
+    let productCardReviewsNumber;
+    let productCardReviewsWrap;
 
-    if (!productCardRatingWrap) {
+    if (!productCardRatingContainer) {
         if (anyRatingFilterHasValue() && !noRatingFilter.value) {
             return { shouldHideProductCard: true };
         }
     } else {
-        const productCardRatingWrapSpans = getAllElements(
-            ':scope > span', productCardRatingWrap, true,
+        const productCardRatingWrap = getFirstElement(
+            ':scope > span:nth-of-type(1)', productCardRatingContainer, true,
         );
-        productCardReviewsNumber = getArrayElementInnerNumber(
-            productCardRatingWrapSpans, 1, true,
+        productCardReviewsWrap = getFirstElement(
+            ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
         );
         productCardRatingNumber = getProductCardRatingNumber(
-            productCardRatingWrapSpans, productArticle,
+            productCardRatingWrap, productArticle,
+        );
+        productCardReviewsNumber = getElementInnerNumber(
+            productCardReviewsWrap, true,
         );
 
-        appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle);
+        appendProductDislikeButtonIfNeeded(productCardRatingContainer, productArticle);
     }
 
     return {
-        productCardReviewsNumber,
         productCardRatingNumber,
+        productCardReviewsNumber,
+        productCardReviewsWrap,
         shouldHideProductCard: false,
     };
 }
@@ -244,19 +251,23 @@ function anyRatingFilterHasValue() {
     return minReviewsFilter.value || maxReviewsFilter.value || minRatingFilter.value;
 }
 
-function getProductCardRatingNumber(productCardRatingWrapSpans, productArticle) {
+function getProductCardRatingNumber(productCardRatingWrap, productArticle) {
+    const productCardRatingSpan = getFirstElement(
+        ':scope > span:nth-of-type(1)', productCardRatingWrap,
+    );
+
     const storedRatingValue = getStoredRatingValue(productArticle);
     if (!storedRatingValue) {
-        return getArrayElementInnerNumber(productCardRatingWrapSpans, 0);
+        return getElementInnerNumber(productCardRatingSpan);
     }
 
-    updateRatingText(productCardRatingWrapSpans, storedRatingValue);
+    updateRatingText(productCardRatingSpan, storedRatingValue);
 
     return storedRatingValue;
 }
 
-function updateRatingText(productCardRatingWrapSpans, storedRatingValue) {
-    productCardRatingWrapSpans[0].children[1].textContent = storedRatingValue.toString()
+function updateRatingText(productCardRatingSpan, storedRatingValue) {
+    productCardRatingSpan.textContent = storedRatingValue.toString()
         .padEnd(5);
 }
 
