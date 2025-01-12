@@ -18,13 +18,13 @@ export function hideElementOnIntersection(element) {
     runOnceOnIntersection(element, () => hideElement(element));
 }
 
-export function showElement(element, display = '') {
-    element.style.display = display;
+export function showElement(element) {
+    element.style.display = '';
 }
 
 export function getElementDisplayAndShow(element) {
     const display = getElementDisplay(element);
-    showElement(element, display);
+    element.style.display = display;
 }
 
 export function updateElementDisplay(element, shouldHide) {
