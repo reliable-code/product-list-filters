@@ -46,6 +46,10 @@ const minPriceFilter = createSectionFilter('min-price-filter');
 const maxPriceFilter = createSectionFilter('max-price-filter');
 const filterEnabled = createSectionFilter('filter-enabled', true);
 
+const state = {
+    productCardsCache: new WeakMap(),
+};
+
 function getSectionId() {
     const sectionName = somePathElementEquals('search.aspx')
         ? getURLQueryStringParam('search')
@@ -124,27 +128,40 @@ function processProductCard(productCard) {
         return;
     }
 
-    const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
+    let cachedData = state.productCardsCache.get(productCard);
 
-    const productCardName = productCardNameWrap.innerText;
-    productCardNameWrap.title = productCardName;
-    productCardNameWrap.style.whiteSpace = 'normal';
+    if (!cachedData) {
+        const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
 
-    const productCardReviewsNumber = getFirstElementInnerNumber(
-        productCard, SELECTORS.PRODUCT_CARD_REVIEWS, true,
-    );
-    const productCardRatingNumber = getProductCardRatingNumber(productCard);
-    const productCardPriceNumber = getFirstElementInnerNumber(
-        productCard, SELECTORS.PRODUCT_CARD_PRICE, true,
-    );
+        const productCardName = productCardNameWrap.innerText;
+        productCardNameWrap.title = productCardName;
+        productCardNameWrap.style.whiteSpace = 'normal';
+
+        const productCardReviewsNumber = getFirstElementInnerNumber(
+            productCard, SELECTORS.PRODUCT_CARD_REVIEWS, true,
+        );
+        const productCardRatingNumber = getProductCardRatingNumber(productCard);
+        const productCardPriceNumber = getFirstElementInnerNumber(
+            productCard, SELECTORS.PRODUCT_CARD_PRICE, true,
+        );
+
+        cachedData = {
+            productCardName,
+            productCardReviewsNumber,
+            productCardRatingNumber,
+            productCardPriceNumber,
+        };
+
+        state.productCardsCache.set(productCard, cachedData);
+    }
 
     const shouldHide =
-        isNotMatchTextFilter(productCardName, nameFilter) ||
-        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-        isGreaterThanFilter(productCardReviewsNumber, maxReviewsFilter) ||
-        isLessThanFilter(productCardRatingNumber, minRatingFilter) ||
-        isLessThanFilter(productCardPriceNumber, minPriceFilter) ||
-        isGreaterThanFilter(productCardPriceNumber, maxPriceFilter);
+        isNotMatchTextFilter(cachedData.productCardName, nameFilter) ||
+        isLessThanFilter(cachedData.productCardReviewsNumber, minReviewsFilter) ||
+        isGreaterThanFilter(cachedData.productCardReviewsNumber, maxReviewsFilter) ||
+        isLessThanFilter(cachedData.productCardRatingNumber, minRatingFilter) ||
+        isLessThanFilter(cachedData.productCardPriceNumber, minPriceFilter) ||
+        isGreaterThanFilter(cachedData.productCardPriceNumber, maxPriceFilter);
     updateElementDisplay(productCard, shouldHide);
 }
 
