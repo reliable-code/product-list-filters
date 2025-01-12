@@ -14,6 +14,7 @@ import {
 import { applyStyles, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
 import {
     getAllElements,
+    getElementInnerNumber,
     getFirstElement,
     getFirstElementInnerNumber,
 } from '../../../common/dom/helpers';
@@ -30,6 +31,7 @@ import { createFilterFactory } from '../../../common/filter/factories/createFilt
 import { SELECTORS } from './selectors';
 import { STYLES } from '../common/styles';
 import { createSeparator } from '../../../common/filter/factories/helpers';
+import { getStoredRatingValue } from '../../../common/db/specific';
 import { getProductArticleFromLink } from '../common';
 
 const SECTION_ID = getSectionId();
@@ -147,10 +149,20 @@ function processProductCard(productCard) {
 }
 
 function getProductCardRatingNumber(productCard) {
-    return getFirstElementInnerNumber(
-        productCard, SELECTORS.PRODUCT_CARD_RATING, true, true,
+    const productCardRatingWrap = getFirstElement(
+        SELECTORS.PRODUCT_CARD_RATING, productCard,
     );
 
+    const productArticle = getProductArticle(productCard);
+    const storedRatingValue = getStoredRatingValue(productArticle);
+    if (!storedRatingValue) {
+        return getElementInnerNumber(productCard, true, true);
+    }
+
+    updateRatingText(productCardRatingWrap, storedRatingValue);
+
+    return storedRatingValue;
+}
 
 function getProductArticle(productCard) {
     const productCardLink = getFirstElement('a', productCard);
