@@ -69,6 +69,10 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl, compactView 
             const reviewsCategoryInfo = createLink(STYLES.REVIEW_INFO, linkText, href);
             reviewsCategoryInfo.classList = getReviewsCategoryInfoClassString(bgClassSuffix);
             reviewsInfo.append(reviewsCategoryInfo);
+
+            if (compactView) {
+                bindTooltipEvents(reviewsCategoryInfo, title);
+            }
         });
 
     return reviewsInfoBlock;
@@ -76,6 +80,26 @@ export function createReviewsInfoBlock(reviewsData, baseReviewsUrl, compactView 
 
 function getReviewsCategoryInfoClassString(bgClassSuffix) {
     return `text-caption ui-kit-color-text px-2 py-1 rounded ui-kit-bg-bg-${bgClassSuffix}`;
+}
+
+function bindTooltipEvents(reviewsCategoryInfo, title) {
+    let tooltip = null;
+
+    reviewsCategoryInfo.addEventListener('mouseenter', () => {
+        tooltip = createDiv(STYLES.REVIEW_INFO_TOOLTIP, title);
+        document.body.appendChild(tooltip);
+
+        const rect = reviewsCategoryInfo.getBoundingClientRect();
+        tooltip.style.left = `${rect.right + window.scrollX - 2}px`;
+        tooltip.style.top = `${rect.top + window.scrollY - tooltip.offsetHeight + 3}px`;
+    });
+
+    reviewsCategoryInfo.addEventListener('mouseleave', () => {
+        if (tooltip) {
+            tooltip.remove();
+            tooltip = null;
+        }
+    });
 }
 
 export function appendReviewsInfoBlockToHeader(reviewsInfoBlock) {
