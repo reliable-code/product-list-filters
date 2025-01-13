@@ -44,7 +44,6 @@ import { getHashOrDefault } from '../../../common/hash/helpers';
 import { STYLES } from '../common/styles';
 import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { SELECTORS } from './selectors';
-import { ATTRIBUTES } from './attributes';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import {
     getStoredRatingValue,
@@ -247,7 +246,7 @@ function processProductCardRating(productCardRatingContainer, storedRatingValue,
             productCardRatingWrap, storedRatingValue,
         );
 
-        appendProductDislikeButtonIfNeeded(productCardRatingContainer, productArticle);
+        appendProductDislikeButton(productCardRatingContainer, productArticle);
     }
 
     return {
@@ -278,11 +277,7 @@ function updateRatingText(productCardRatingWrap, storedRatingValue) {
         .padEnd(5);
 }
 
-function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticle) {
-    if (productCardRatingWrap.hasAttribute(ATTRIBUTES.DISLIKE_BUTTON_ADDED)) {
-        return;
-    }
-
+function appendProductDislikeButton(productCardRatingWrap, productArticle) {
     productCardRatingWrap.style.display = 'flex';
     productCardRatingWrap.style.width = '100%';
 
@@ -292,7 +287,6 @@ function appendProductDislikeButtonIfNeeded(productCardRatingWrap, productArticl
         );
 
     productCardRatingWrap.append(dislikeButton);
-    productCardRatingWrap.setAttribute(ATTRIBUTES.DISLIKE_BUTTON_ADDED, '');
 }
 
 async function dislikeProductOnProductList(productArticle) {
