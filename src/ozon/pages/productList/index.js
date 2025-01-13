@@ -170,8 +170,7 @@ function processProductCard(productCard, rateUpdated) {
         const productCardLink = getFirstElement('a', productCard);
         if (!productCardLink) return true;
 
-        const productCardLinkHref = clearQueryParams(productCardLink.getAttribute('href'));
-        productCardLink.href = productCardLinkHref;
+        const productCardLinkHref = processProductCardLink(productCardLink);
         const productArticle = getProductArticleFromLinkHref(productCardLinkHref);
         const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
         const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
@@ -259,6 +258,13 @@ function processProductCardRating(productCardRatingContainer, storedRatingValue,
         productCardRatingNumber,
         shouldHideProductCard: false,
     };
+}
+
+function processProductCardLink(productCardLink) {
+    const productCardLinkHref = productCardLink.getAttribute('href');
+    const cleanedProductCardLinkHref = clearQueryParams(productCardLinkHref);
+    productCardLink.href = cleanedProductCardLinkHref;
+    return cleanedProductCardLinkHref;
 }
 
 function anyRatingFilterHasValue() {
