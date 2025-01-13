@@ -128,7 +128,7 @@ function processReviewCard(reviewCard) {
         const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
         const ratingWrap = getFirstElement(SELECTORS.REVIEW_RATING_WRAP, reviewCard);
 
-        if (!reviewTextWrap || !ratingWrap) {
+        if (!reviewTextWrap) {
             hideElement(reviewCard);
             return;
         }
@@ -136,7 +136,7 @@ function processReviewCard(reviewCard) {
         cachedData = {
             reviewTextWrap,
             reviewText: reviewTextWrap.innerText,
-            rating: getElementInnerNumber(ratingWrap),
+            rating: ratingWrap && getElementInnerNumber(ratingWrap),
         };
 
         state.reviewCardsCache.set(reviewCard, cachedData);
@@ -153,6 +153,7 @@ function processReviewCard(reviewCard) {
 }
 
 function shouldHideByRating(rating) {
+    if (!rating) return false;
     return isLessThanFilter(rating, minRatingFilter) ||
         isGreaterThanFilter(rating, maxRatingFilter);
 }
