@@ -38,6 +38,7 @@ export const STYLES = {
     },
     REVIEW_INFO: {
         textDecoration: 'none',
+        flexShrink: 0,
     },
     REVIEW_INFO_TOOLTIP: {
         position: 'absolute',

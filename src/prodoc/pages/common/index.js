@@ -90,8 +90,8 @@ function bindTooltipEvents(reviewsCategoryInfo, title) {
         document.body.appendChild(tooltip);
 
         const rect = reviewsCategoryInfo.getBoundingClientRect();
-        tooltip.style.left = `${rect.right + window.scrollX - 2}px`;
-        tooltip.style.top = `${rect.top + window.scrollY - tooltip.offsetHeight + 3}px`;
+        tooltip.style.left = `${(rect.left + rect.right) / 2 - tooltip.offsetWidth / 2 + window.scrollX + 2}px`;
+        tooltip.style.top = `${rect.top + window.scrollY - tooltip.offsetHeight - 4}px`;
     });
 
     reviewsCategoryInfo.addEventListener('mouseleave', () => {
