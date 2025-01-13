@@ -148,9 +148,13 @@ function processReviewCard(reviewCard) {
 
     const shouldHide =
         isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter) ||
-        isLessThanFilter(cachedData.rating, minRatingFilter) ||
-        isGreaterThanFilter(cachedData.rating, maxRatingFilter);
+        shouldHideByRating(cachedData.rating);
     updateElementDisplay(reviewCard, shouldHide);
+}
+
+function shouldHideByRating(rating) {
+    return isLessThanFilter(rating, minRatingFilter) ||
+        isGreaterThanFilter(rating, maxRatingFilter);
 }
 
 async function getReviewsData() {
