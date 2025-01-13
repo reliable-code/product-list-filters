@@ -9,6 +9,10 @@ import { applyStyles } from '../../../common/dom/manipulation';
 
 export function getProductArticleFromLink(productCardLink) {
     const productCardLinkHref = productCardLink.getAttribute('href');
+    return getProductArticleFromLinkHref(productCardLinkHref);
+}
+
+function getProductArticleFromLinkHref(productCardLinkHref) {
     return getPathnameElementEnding(productCardLinkHref, 2);
 }
 
