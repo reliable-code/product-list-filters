@@ -62,3 +62,7 @@ export function somePathElementEquals(searchString) {
 
     return pathElements.some((pathElement) => pathElement === searchString);
 }
+
+export function clearQueryParams(link) {
+    return link.split('?')[0];
+}
