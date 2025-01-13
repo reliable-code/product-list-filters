@@ -12,7 +12,7 @@ export function getProductArticleFromLink(productCardLink) {
     return getProductArticleFromLinkHref(productCardLinkHref);
 }
 
-function getProductArticleFromLinkHref(productCardLinkHref) {
+export function getProductArticleFromLinkHref(productCardLinkHref) {
     return getPathnameElementEnding(productCardLinkHref, 2);
 }
 

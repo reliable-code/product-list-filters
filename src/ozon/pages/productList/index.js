@@ -5,11 +5,12 @@ import {
     addScrollToFiltersButton,
     createDislikeButton,
     getFirstProductCardsWrap,
-    getProductArticleFromLink,
+    getProductArticleFromLinkHref,
     moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
 } from '../common';
 import {
+    clearQueryParams,
     getURLPathElement,
     getURLQueryStringParam,
     somePathElementEquals,
@@ -169,7 +170,9 @@ function processProductCard(productCard, rateUpdated) {
         const productCardLink = getFirstElement('a', productCard);
         if (!productCardLink) return true;
 
-        const productArticle = getProductArticleFromLink(productCardLink);
+        const productCardLinkHref = clearQueryParams(productCardLink.getAttribute('href'));
+        productCardLink.href = productCardLinkHref;
+        const productArticle = getProductArticleFromLinkHref(productCardLinkHref);
         const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
         const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
 
