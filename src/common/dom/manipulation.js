@@ -1,4 +1,5 @@
 import { clearIntersectionObserver, runOnceOnIntersection } from './utils';
+import { getQueryParam } from '../url';
 
 export function insertAfter(existingNode, newNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
@@ -106,9 +107,7 @@ export function setElementBackground(element, background) {
 }
 
 export function scrollToElementFromQueryParam() {
-    const searchParams = new URLSearchParams(window.location.search);
-    const elementId = searchParams.get('scrollTo');
-
+    const elementId = getQueryParam('scrollTo');
     if (!elementId) return;
 
     const element = document.getElementById(elementId);

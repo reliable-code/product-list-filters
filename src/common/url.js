@@ -63,6 +63,11 @@ export function somePathElementEquals(searchString) {
     return pathElements.some((pathElement) => pathElement === searchString);
 }
 
+export function getQueryParam(name) {
+    const queryParams = new URLSearchParams(window.location.search);
+    return queryParams.get(name);
+}
+
 export function clearQueryParams(link) {
     return link.split('?')[0];
 }
