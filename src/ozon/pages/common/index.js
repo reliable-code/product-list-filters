@@ -90,14 +90,3 @@ export function hideUnwantedElements() {
 export function addScrollToFiltersButton(parentNode = document.body) {
     addScrollToFiltersButtonBase(parentNode, STYLES.SCROLL_TO_FILTERS_BUTTON);
 }
-
-export function scrollToComments(isProductPage = true) {
-    const comments = getFirstElement(SELECTORS.COMMENTS);
-    if (!comments) return;
-
-    const commentsPosition = comments.getBoundingClientRect().top + window.scrollY;
-    const offset = isProductPage ? 80 : 0;
-    window.scrollTo({
-        top: commentsPosition - offset,
-    });
-}
