@@ -105,6 +105,20 @@ export function setElementBackground(element, background) {
     element.style.background = background;
 }
 
+export function scrollToElementFromQueryParam() {
+    const searchParams = new URLSearchParams(window.location.search);
+    const elementId = searchParams.get('scrollTo');
+
+    if (!elementId) return;
+
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.scrollIntoView();
+    } else {
+        console.log(`Element with ID "${elementId}" was not found.`);
+    }
+}
+
 export function addGlobalStyle(css, id = 'custom-global-style') {
     let style = document.getElementById(id);
 
