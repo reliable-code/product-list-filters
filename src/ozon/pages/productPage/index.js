@@ -14,7 +14,7 @@ import { STYLES } from './styles';
 import { initReviewsMods } from '../reviews';
 import { roundToPrecision } from '../../../common/mathUtils';
 import { getStoredRatingValue, setStoredRatingValue } from '../../../common/db/specific';
-import { getQueryParam } from '../../../common/url';
+import { getQueryParam, setQueryParamsAndRedirect } from '../../../common/url';
 
 export async function initProductPageMods() {
     await Promise.all([
@@ -144,10 +144,10 @@ function appendBadReviewsLink(productReviewsWrap) {
 }
 
 function redirectToBadReviews() {
-    const url = new URL(window.location.href);
-    url.searchParams.set('sort', 'score_asc');
-    url.searchParams.set('scrollTo', 'comments');
-    window.location.href = url.toString();
+    setQueryParamsAndRedirect({
+        sort: 'score_asc',
+        scrollTo: 'comments',
+    });
 }
 
 async function appendRatingValue(starsContainer) {

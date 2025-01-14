@@ -71,3 +71,16 @@ export function getQueryParam(name) {
 export function clearQueryParams(link) {
     return link.split('?')[0];
 }
+
+export function setQueryParamsAndRedirect(queryParams) {
+    try {
+        const url = new URL(window.location.href);
+        Object.entries(queryParams)
+            .forEach(([key, value]) => {
+                url.searchParams.set(key, value);
+            });
+        window.location.href = url.toString();
+    } catch (error) {
+        console.error('Failed to redirect:', error);
+    }
+}
