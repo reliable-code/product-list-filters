@@ -32,6 +32,7 @@ import {
     addInputSpinnerButtons,
     addScrollToFiltersButton,
     getProductArticleFromPathname,
+    scrollToComments,
 } from '../common';
 import { removeHighlights } from '../../../common/dom/highlighting';
 import {
@@ -66,17 +67,6 @@ export async function initReviewsMods(needScrollToComments = true, isProductPage
     await executeReviewsMods(isProductPage);
 
     if (isProductPage) await observePaginator();
-}
-
-function scrollToComments(isProductPage) {
-    const comments = getFirstElement(SELECTORS.COMMENTS);
-    if (!comments) return;
-
-    const commentsPosition = comments.getBoundingClientRect().top + window.scrollY;
-    const offset = isProductPage ? 80 : 0;
-    window.scrollTo({
-        top: commentsPosition - offset,
-    });
 }
 
 function resetFiltersIfNotLastProduct() {
