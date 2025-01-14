@@ -194,8 +194,6 @@ function processProductCard(productCard, rateUpdated) {
             productCardRatingContainer, productCardLinkHref, productArticle,
         );
 
-        if (noProductCardRatingContainer) return true;
-
         const productCardName = productCardNameWrap.innerText;
         productCardNameWrap.title = productCardName;
 
@@ -207,6 +205,7 @@ function processProductCard(productCard, rateUpdated) {
             productCardReviewsNumber,
             productCardRatingNumber,
             productCardPriceNumber,
+            noProductCardRatingContainer,
             storedRatingValue,
         };
 
@@ -216,6 +215,8 @@ function processProductCard(productCard, rateUpdated) {
     }
 
     setLineClamp(cachedData.productCardNameWrap);
+
+    if (shouldHideByNoRating(cachedData)) return true;
 
     return (
         isNotMatchTextFilter(cachedData.productCardName, nameFilter) ||
@@ -227,33 +228,24 @@ function processProductCard(productCard, rateUpdated) {
 }
 
 function processProductCardRating(productCardRatingContainer, productCardLinkHref, productArticle) {
-    let storedRatingValue;
-    let productCardRatingWrap;
-    let productCardReviewsNumber;
-    let productCardRatingNumber;
+    if (!productCardRatingContainer) return { noProductCardRatingContainer: true };
 
-    if (!productCardRatingContainer) {
-        if (anyRatingFilterHasValue() && !noRatingFilter.value) {
-            return { noProductCardRatingContainer: true };
-        }
-    } else {
-        storedRatingValue = getStoredRatingValue(productArticle);
-        const productCardReviewsWrap = getFirstElement(
-            ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
-        );
-        productCardRatingWrap = getFirstElement(
-            ':scope > span:nth-of-type(1) > span:nth-of-type(1)', productCardRatingContainer, true,
-        );
-        productCardReviewsNumber = getElementInnerNumber(
-            productCardReviewsWrap, true,
-        );
-        productCardRatingNumber = getProductCardRatingNumber(
-            productCardRatingWrap, storedRatingValue,
-        );
+    const storedRatingValue = getStoredRatingValue(productArticle);
+    const productCardReviewsWrap = getFirstElement(
+        ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
+    );
+    const productCardRatingWrap = getFirstElement(
+        ':scope > span:nth-of-type(1) > span:nth-of-type(1)', productCardRatingContainer, true,
+    );
+    const productCardReviewsNumber = getElementInnerNumber(
+        productCardReviewsWrap, true,
+    );
+    const productCardRatingNumber = getProductCardRatingNumber(
+        productCardRatingWrap, storedRatingValue,
+    );
 
-        wrapReviewsWrapWithLink(productCardReviewsWrap, productCardLinkHref);
-        appendProductDislikeButton(productCardRatingContainer, productArticle);
-    }
+    wrapReviewsWrapWithLink(productCardReviewsWrap, productCardLinkHref);
+    appendProductDislikeButton(productCardRatingContainer, productArticle);
 
     return {
         storedRatingValue,
