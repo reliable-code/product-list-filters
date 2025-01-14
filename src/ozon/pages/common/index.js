@@ -23,11 +23,11 @@ export function getProductArticleFromPathname() {
 export function createDislikeButton(onClick, needLabel = true) {
     const productDislikeButton = createLink(STYLES.DISLIKE_BUTTON, heartStrikeDislikeIcon);
 
-    productDislikeButton.onclick = () => {
+    productDislikeButton.addEventListener('click', () => {
         if (window.confirm('Выставить низкий рейтинг?')) {
             onClick();
         }
-    };
+    });
 
     if (needLabel) {
         const productDislikeButtonSpan = createSpan(
