@@ -51,6 +51,7 @@ import {
     setStoredRatingValue,
     STORAGE_KEYS,
 } from '../../../common/db/specific';
+import { createLink } from '../../../common/dom/factories/elements';
 
 // todo: wrap into init func
 const SECTION_ID = getSectionId();
@@ -274,6 +275,13 @@ function getProductCardRatingNumber(productCardRatingWrap, storedRatingValue) {
 function updateRatingText(productCardRatingWrap, storedRatingValue) {
     productCardRatingWrap.textContent = storedRatingValue.toString()
         .padEnd(5);
+}
+
+function wrapReviewsWrapWithLink(productCardReviewsWrap, productCardLinkHref) {
+    const link = createLink();
+    link.href = `${productCardLinkHref}?scrollTo=reviews`;
+    link.append(...productCardReviewsWrap.childNodes);
+    productCardReviewsWrap.append(link);
 }
 
 function appendProductDislikeButton(productCardRatingWrap, productArticle) {
