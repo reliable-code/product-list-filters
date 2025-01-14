@@ -180,18 +180,18 @@ function processProductCard(productCard, rateUpdated) {
 
         const productCardPriceNumber = getElementInnerNumber(productCardPriceWrap, true);
 
-        const storedRatingValue = getStoredRatingValue(productArticle);
         const productCardRatingContainer = getFirstElement(
             SELECTORS.PRODUCT_CARD_RATING_CONTAINER, productCard,
         );
 
         const {
+            storedRatingValue,
             productCardRatingWrap,
             productCardReviewsNumber,
             productCardRatingNumber,
             shouldHideProductCard,
         } = processProductCardRating(
-            productCardRatingContainer, storedRatingValue, productCardLinkHref, productArticle,
+            productCardRatingContainer, productCardLinkHref, productArticle,
         );
 
         if (shouldHideProductCard) return true;
@@ -226,9 +226,8 @@ function processProductCard(productCard, rateUpdated) {
     );
 }
 
-function processProductCardRating(
-    productCardRatingContainer, storedRatingValue, productCardLinkHref, productArticle,
-) {
+function processProductCardRating(productCardRatingContainer, productCardLinkHref, productArticle) {
+    let storedRatingValue;
     let productCardRatingWrap;
     let productCardReviewsNumber;
     let productCardRatingNumber;
@@ -238,6 +237,7 @@ function processProductCardRating(
             return { shouldHideProductCard: true };
         }
     } else {
+        storedRatingValue = getStoredRatingValue(productArticle);
         const productCardReviewsWrap = getFirstElement(
             ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
         );
@@ -256,6 +256,7 @@ function processProductCardRating(
     }
 
     return {
+        storedRatingValue,
         productCardRatingWrap,
         productCardReviewsNumber,
         productCardRatingNumber,
