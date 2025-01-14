@@ -190,7 +190,9 @@ function processProductCard(productCard, rateUpdated) {
             productCardReviewsNumber,
             productCardRatingNumber,
             shouldHideProductCard,
-        } = processProductCardRating(productCardRatingContainer, storedRatingValue, productArticle);
+        } = processProductCardRating(
+            productCardRatingContainer, storedRatingValue, productCardLinkHref, productArticle,
+        );
 
         if (shouldHideProductCard) return true;
 
@@ -224,7 +226,9 @@ function processProductCard(productCard, rateUpdated) {
     );
 }
 
-function processProductCardRating(productCardRatingContainer, storedRatingValue, productArticle) {
+function processProductCardRating(
+    productCardRatingContainer, storedRatingValue, productCardLinkHref, productArticle,
+) {
     let productCardRatingWrap;
     let productCardReviewsNumber;
     let productCardRatingNumber;
@@ -247,6 +251,7 @@ function processProductCardRating(productCardRatingContainer, storedRatingValue,
             productCardRatingWrap, storedRatingValue,
         );
 
+        wrapReviewsWrapWithLink(productCardReviewsWrap, productCardLinkHref);
         appendProductDislikeButton(productCardRatingContainer, productArticle);
     }
 
