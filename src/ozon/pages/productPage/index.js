@@ -1,5 +1,5 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
-import { createDislikeButton, getProductArticleFromPathname, scrollToComments } from '../common';
+import { createDislikeButton, getProductArticleFromPathname } from '../common';
 import { thumbsDownIcon } from '../common/icons';
 import { createDiv, createLink, createSpan } from '../../../common/dom/factories/elements';
 import { insertAfter } from '../../../common/dom/manipulation';
@@ -133,7 +133,7 @@ function appendBadReviewsLink(productReviewsWrap) {
     );
     productBadReviewsLink.addEventListener('click', (event) => {
         event.preventDefault();
-        scrollToComments();
+        redirectToBadReviews();
     });
     const productBadReviewsLinkSpan = createSpan(
         STYLES.BAD_REVIEWS_LINK_SPAN, 'Плохие отзывы',
@@ -141,6 +141,13 @@ function appendBadReviewsLink(productReviewsWrap) {
     productBadReviewsLink.append(productBadReviewsLinkSpan);
     productBadReviewsLinkWrap.append(productBadReviewsLink);
     insertAfter(productReviewsWrap.parentNode, productBadReviewsLinkWrap);
+}
+
+function redirectToBadReviews() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('sort', 'score_asc');
+    url.searchParams.set('scrollTo', 'comments');
+    window.location.href = url.toString();
 }
 
 async function appendRatingValue(starsContainer) {
