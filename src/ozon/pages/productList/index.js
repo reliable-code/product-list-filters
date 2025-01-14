@@ -277,7 +277,7 @@ function updateRatingText(productCardRatingWrap, storedRatingValue) {
 
 function wrapReviewsWrapWithLink(productCardReviewsWrap, productCardLinkHref) {
     const link = createLink();
-    link.href = `${productCardLinkHref}?scrollTo=reviews`;
+    link.href = `${productCardLinkHref}?scrollTo=comments`;
     link.append(...productCardReviewsWrap.childNodes);
     productCardReviewsWrap.append(link);
 }
