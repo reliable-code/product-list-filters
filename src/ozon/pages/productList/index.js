@@ -189,12 +189,12 @@ function processProductCard(productCard, rateUpdated) {
             productCardRatingWrap,
             productCardReviewsNumber,
             productCardRatingNumber,
-            shouldHideProductCard,
+            noProductCardRatingContainer,
         } = processProductCardRating(
             productCardRatingContainer, productCardLinkHref, productArticle,
         );
 
-        if (shouldHideProductCard) return true;
+        if (noProductCardRatingContainer) return true;
 
         const productCardName = productCardNameWrap.innerText;
         productCardNameWrap.title = productCardName;
@@ -234,7 +234,7 @@ function processProductCardRating(productCardRatingContainer, productCardLinkHre
 
     if (!productCardRatingContainer) {
         if (anyRatingFilterHasValue() && !noRatingFilter.value) {
-            return { shouldHideProductCard: true };
+            return { noProductCardRatingContainer: true };
         }
     } else {
         storedRatingValue = getStoredRatingValue(productArticle);
@@ -260,7 +260,7 @@ function processProductCardRating(productCardRatingContainer, productCardLinkHre
         productCardRatingWrap,
         productCardReviewsNumber,
         productCardRatingNumber,
-        shouldHideProductCard: false,
+        noProductCardRatingContainer: false,
     };
 }
 
