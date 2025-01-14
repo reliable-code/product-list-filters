@@ -185,7 +185,6 @@ function processProductCard(productCard, rateUpdated) {
         );
 
         const {
-            productCardReviewsWrap,
             productCardRatingWrap,
             productCardReviewsNumber,
             productCardRatingNumber,
@@ -225,7 +224,6 @@ function processProductCard(productCard, rateUpdated) {
 }
 
 function processProductCardRating(productCardRatingContainer, storedRatingValue, productArticle) {
-    let productCardReviewsWrap;
     let productCardRatingWrap;
     let productCardReviewsNumber;
     let productCardRatingNumber;
@@ -235,7 +233,7 @@ function processProductCardRating(productCardRatingContainer, storedRatingValue,
             return { shouldHideProductCard: true };
         }
     } else {
-        productCardReviewsWrap = getFirstElement(
+        const productCardReviewsWrap = getFirstElement(
             ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
         );
         productCardRatingWrap = getFirstElement(
@@ -252,7 +250,6 @@ function processProductCardRating(productCardRatingContainer, storedRatingValue,
     }
 
     return {
-        productCardReviewsWrap,
         productCardRatingWrap,
         productCardReviewsNumber,
         productCardRatingNumber,
