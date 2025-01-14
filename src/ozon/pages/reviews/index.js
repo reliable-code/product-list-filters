@@ -59,7 +59,7 @@ let reviewsContainer;
 const reviewCardsCache = new WeakMap();
 
 export async function initReviewsMods(needScrollToComments = true, isMultipleReviewsList = false) {
-    if (needScrollToComments) scrollToComments();
+    if (needScrollToComments) scrollToComments(isMultipleReviewsList);
 
     resetFiltersIfNotLastProduct();
 
@@ -68,9 +68,15 @@ export async function initReviewsMods(needScrollToComments = true, isMultipleRev
     if (isMultipleReviewsList) await observePaginator();
 }
 
-function scrollToComments() {
+function scrollToComments(isMultipleReviewsList) {
     const comments = getFirstElement(SELECTORS.COMMENTS);
-    if (comments) comments.scrollIntoView();
+    if (!comments) return;
+
+    const commentsPosition = comments.getBoundingClientRect().top + window.scrollY;
+    const offset = isMultipleReviewsList ? 80 : 0;
+    window.scrollTo({
+        top: commentsPosition - offset,
+    });
 }
 
 function resetFiltersIfNotLastProduct() {
