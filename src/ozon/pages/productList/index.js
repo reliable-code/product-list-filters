@@ -311,6 +311,10 @@ function setLineClamp(productCardNameWrap) {
     productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
 }
 
+function shouldHideByNoRating(cachedData) {
+    return cachedData.noProductCardRatingContainer && anyRatingFilterHasValue() && !noRatingFilter.value;
+}
+
 function checkStoredRatingValue(cachedData) {
     const storedRatingValue = getStoredRatingValue(cachedData.productArticle);
     if (!storedRatingValue) return;
