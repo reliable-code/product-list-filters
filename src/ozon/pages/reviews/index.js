@@ -58,22 +58,22 @@ let reviewsContainer;
 
 const reviewCardsCache = new WeakMap();
 
-export async function initReviewsMods(needScrollToComments = true, isMultipleReviewsList = false) {
-    if (needScrollToComments) scrollToComments(isMultipleReviewsList);
+export async function initReviewsMods(needScrollToComments = true, isProductPage = false) {
+    if (needScrollToComments) scrollToComments(isProductPage);
 
     resetFiltersIfNotLastProduct();
 
-    await executeReviewsMods(isMultipleReviewsList);
+    await executeReviewsMods(isProductPage);
 
-    if (isMultipleReviewsList) await observePaginator();
+    if (isProductPage) await observePaginator();
 }
 
-function scrollToComments(isMultipleReviewsList) {
+function scrollToComments(isProductPage) {
     const comments = getFirstElement(SELECTORS.COMMENTS);
     if (!comments) return;
 
     const commentsPosition = comments.getBoundingClientRect().top + window.scrollY;
-    const offset = isMultipleReviewsList ? 80 : 0;
+    const offset = isProductPage ? 80 : 0;
     window.scrollTo({
         top: commentsPosition - offset,
     });
@@ -94,10 +94,10 @@ function resetFiltersIfNotLastProduct() {
     setReviewsLastProductArticle(productArticle);
 }
 
-async function executeReviewsMods(isMultipleReviewsList) {
+async function executeReviewsMods(isProductPage) {
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
-    setReviewsContainer(isMultipleReviewsList);
+    setReviewsContainer(isProductPage);
 
     processReviewCards();
 
@@ -160,9 +160,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton();
 }
 
-function setReviewsContainer(isMultipleReviewsList) {
+function setReviewsContainer(isProductPage) {
     const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
-    reviewsContainer = isMultipleReviewsList ? reviewsList?.parentNode : reviewsList.children[1];
+    reviewsContainer = isProductPage ? reviewsList?.parentNode : reviewsList.children[1];
 }
 
 function processReviewCards() {
