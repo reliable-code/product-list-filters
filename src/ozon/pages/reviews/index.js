@@ -221,14 +221,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 async function initVariables() {
     if (state.reviewsContainer) return;
 
-    const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
+    const reviewsList = await waitForElement(document, SELECTORS.REVIEWS_LIST);
     if (!state.isProductPage) {
         state.reviewsContainer = reviewsList.children[1];
         return;
     }
 
     state.reviewsContainer = reviewsList?.parentNode;
-    state.stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
+    state.stickyReviewsInfo = await waitForElement(document, SELECTORS.STICKY_REVIEWS_INFO);
     state.stickyReviewsInfoDefaultText = state.stickyReviewsInfo.textContent.trim();
     state.totalReviewCount = getElementInnerNumber(state.stickyReviewsInfo, true);
 }
