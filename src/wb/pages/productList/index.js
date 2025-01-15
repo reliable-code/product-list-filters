@@ -1,11 +1,7 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { getHashOrDefault } from '../../../common/hash/helpers';
-import {
-    getURLPathElement,
-    getURLQueryStringParam,
-    somePathElementEquals,
-} from '../../../common/url';
+import { getURLPathElement, getURLQueryParam, somePathElementEquals } from '../../../common/url';
 import {
     isGreaterThanFilter,
     isLessThanFilter,
@@ -52,7 +48,7 @@ const state = {
 
 function getSectionId() {
     const sectionName = somePathElementEquals('search.aspx')
-        ? getURLQueryStringParam('search')
+        ? getURLQueryParam('search')
         : getURLPathElement(getSectionPosition(), '');
 
     return getHashOrDefault(sectionName);

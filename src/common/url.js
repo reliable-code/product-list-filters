@@ -37,16 +37,13 @@ export function getPathnameElementEnding(pathname, position, defaultValue = 'com
     return getPathElementEnding(pathElement, defaultValue, logResult);
 }
 
-export function getURLQueryStringParam(paramName) {
-    const queryString = window.location.search;
-
-    return getQueryStringParam(queryString, paramName);
+export function getURLQueryParam(name) {
+    const queryParams = new URLSearchParams(window.location.search);
+    return queryParams.get(name);
 }
 
-function getQueryStringParam(queryString, paramName) {
-    const params = new URLSearchParams(queryString);
-
-    return params.get(paramName);
+export function clearQueryParams(link) {
+    return link.split('?')[0];
 }
 
 export function pathnameIncludes(searchString) {
@@ -61,15 +58,6 @@ export function somePathElementEquals(searchString) {
     const pathElements = window.location.pathname.split('/');
 
     return pathElements.some((pathElement) => pathElement === searchString);
-}
-
-export function getQueryParam(name) {
-    const queryParams = new URLSearchParams(window.location.search);
-    return queryParams.get(name);
-}
-
-export function clearQueryParams(link) {
-    return link.split('?')[0];
 }
 
 export function setQueryParamsAndRedirect(queryParams) {

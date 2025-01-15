@@ -14,7 +14,7 @@ import { STYLES } from './styles';
 import { initReviewsMods } from '../reviews';
 import { roundToPrecision } from '../../../common/mathUtils';
 import { getStoredRatingValue, setStoredRatingValue } from '../../../common/db/specific';
-import { getQueryParam, setQueryParamsAndRedirect } from '../../../common/url';
+import { getURLQueryParam, setQueryParamsAndRedirect } from '../../../common/url';
 
 export async function initProductPageMods() {
     await Promise.all([
@@ -29,7 +29,7 @@ export async function initProductPageMods() {
     appendDislikeButton(productReviewsWrap);
     appendBadReviewsLink(productReviewsWrap);
     await appendRatingValue(getStarsContainer(productReviewsWrap));
-    const needScrollToComments = getQueryParam('scrollTo') === 'comments';
+    const needScrollToComments = getURLQueryParam('scrollTo') === 'comments';
     await initReviewsMods(needScrollToComments, true);
 }
 

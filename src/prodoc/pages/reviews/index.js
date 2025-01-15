@@ -11,7 +11,7 @@ import {
     getFirstElement,
 } from '../../../common/dom/helpers';
 import { waitForElement } from '../../../common/dom/utils';
-import { getURLQueryStringParam } from '../../../common/url';
+import { getURLQueryParam } from '../../../common/url';
 import { setStoredReviewsData } from '../../db';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
@@ -63,7 +63,7 @@ export async function initReviewsMods() {
     const reviewsInfoBlock = createReviewsInfoBlock(reviewsData, getBaseReviewsUrl());
     appendReviewsInfoBlockToHeader(reviewsInfoBlock);
 
-    if (getURLQueryStringParam('rates_category')) scrollToReviews();
+    if (getURLQueryParam('rates_category')) scrollToReviews();
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {

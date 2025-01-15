@@ -12,7 +12,7 @@ import {
 import {
     clearQueryParams,
     getURLPathElement,
-    getURLQueryStringParam,
+    getURLQueryParam,
     somePathElementEquals,
 } from '../../../common/url';
 import {
@@ -78,7 +78,7 @@ const state = {
 
 function getSectionId() {
     const sectionName = somePathElementEquals('search')
-        ? getURLQueryStringParam('text')
+        ? getURLQueryParam('text')
         : getURLPathElement(2, '');
 
     return getHashOrDefault(sectionName);
