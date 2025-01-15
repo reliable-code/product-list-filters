@@ -200,7 +200,8 @@ function processReviewCards() {
     const reviews = getAllElements(SELECTORS.REVIEWS);
     reviews.forEach(processReviewCard);
 
-    updateVisibleReviewsCount(reviews);
+    const visibleReviews = getVisibleReviews(reviews);
+    updateVisibleReviewsCount(visibleReviews, reviews);
 
     removeUnnecessaryElements();
 }
@@ -307,11 +308,9 @@ function getVisibleReviews(reviews) {
     );
 }
 
-function updateVisibleReviewsCount(reviews) {
-    const visibleReviewsCount = getVisibleReviews(reviews).length;
-
+function updateVisibleReviewsCount(visibleReviews, reviews) {
     state.stickyReviewsInfo.textContent =
-        `${state.stickyReviewsInfoDefaultText} (${visibleReviewsCount}/${reviews.length})`;
+        `${state.stickyReviewsInfoDefaultText} (${(visibleReviews.length)}/${reviews.length})`;
 }
 
 function removeUnnecessaryElements() {
