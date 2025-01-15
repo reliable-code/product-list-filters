@@ -58,9 +58,10 @@ const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
 const hasPhotoFilter = createGlobalFilter('reviews-has-photo-filter', false);
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
-let reviewsContainer;
-
-const reviewCardsCache = new WeakMap();
+const state = {
+    reviewsContainer: null,
+    reviewCardsCache: new Map(),
+};
 
 export async function initReviewsMods(needScrollToComments = true, isProductPage = false) {
     if (needScrollToComments) scrollToComments(isProductPage);
@@ -108,7 +109,7 @@ async function executeReviewsMods(isProductPage) {
     processReviewCards();
 
     const observer = new MutationObserver(debounce(processReviewCards));
-    observer.observe(reviewsContainer, {
+    observer.observe(state.reviewsContainer, {
         childList: true,
     });
 }
@@ -184,7 +185,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function setReviewsContainer(isProductPage) {
     const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
-    reviewsContainer = isProductPage ? reviewsList?.parentNode : reviewsList.children[1];
+    state.reviewsContainer = isProductPage ? reviewsList?.parentNode : reviewsList.children[1];
 }
 
 function processReviewCards() {
@@ -206,7 +207,7 @@ function processReviewCard(review) {
 
     removeHighlights(reviewCard);
 
-    let cachedData = reviewCardsCache.get(reviewCard);
+    let cachedData = state.reviewCardsCache.get(reviewCard);
 
     if (!cachedData) {
         readMoreClick(reviewCard);
@@ -257,7 +258,7 @@ function processReviewCard(review) {
             hasPhoto,
         };
 
-        reviewCardsCache.set(reviewCard, cachedData);
+        state.reviewCardsCache.set(reviewCard, cachedData);
     }
 
     if (variationFilter.value && cachedData.productVariationWrap) {
