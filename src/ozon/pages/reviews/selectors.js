@@ -1,5 +1,6 @@
 export const SELECTORS = {
     COMMENTS: '#comments',
+    CHARACTERISTICS: '#section-characteristics',
     CONTROLS_CONTAINER: '[data-widget="webListReviews"] > div',
     REVIEWS_LIST: '[data-widget="webListReviews"]',
     REVIEWS: '[data-widget="webListReviews"] > div > div > div[data-review-uuid]',

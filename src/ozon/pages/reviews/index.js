@@ -73,7 +73,7 @@ const state = {
 
 export async function initReviewsMods(needScrollToComments = true, isProductPage = false) {
     state.isProductPage = isProductPage;
-    if (needScrollToComments) scrollToComments();
+    if (needScrollToComments) await scrollToComments();
 
     resetFiltersIfNotLastProduct();
 
@@ -82,15 +82,34 @@ export async function initReviewsMods(needScrollToComments = true, isProductPage
     if (state.isProductPage) await observePaginator();
 }
 
-function scrollToComments() {
-    const comments = getFirstElement(SELECTORS.COMMENTS);
-    if (!comments) return;
+async function scrollToComments() {
+    if (!state.isProductPage) {
+        const comments = getFirstElement(SELECTORS.COMMENTS);
+        if (!comments) return;
+        window.scrollTo({
+            top: comments.getBoundingClientRect().top + window.scrollY - 70,
+        });
 
-    const offset = state.isProductPage ? 80 : 0;
-    const commentsPosition = comments.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({
-        top: commentsPosition - offset,
+        return;
+    }
+
+    const characteristics = await waitForElement(document, SELECTORS.CHARACTERISTICS);
+    if (!characteristics) return;
+
+    let lastPosition = 0;
+
+    const resizeObserver = new ResizeObserver(() => {
+        const currentPosition = characteristics.getBoundingClientRect().bottom;
+        if (Math.abs(currentPosition - lastPosition) > 1) {
+            window.scrollTo({
+                top: currentPosition + window.scrollY + 10,
+            });
+        }
+
+        lastPosition = currentPosition;
     });
+
+    resizeObserver.observe(characteristics);
 }
 
 function resetFiltersIfNotLastProduct() {
