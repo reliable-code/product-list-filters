@@ -7,13 +7,13 @@ import { SELECTORS } from './selectors';
 import { addScrollToFiltersButtonBase } from '../../../common/filter/factories/helpers';
 import { applyStyles } from '../../../common/dom/manipulation';
 
-export function getProductArticleFromLink(productCardLink) {
-    const productCardLinkHref = productCardLink.getAttribute('href');
-    return getProductArticleFromLinkHref(productCardLinkHref);
+export function getProductArticleFromLink(productLink) {
+    const productLinkHref = productLink.getAttribute('href');
+    return getProductArticleFromLinkHref(productLinkHref);
 }
 
-export function getProductArticleFromLinkHref(productCardLinkHref) {
-    return getPathnameElementEnding(productCardLinkHref, 2);
+export function getProductArticleFromLinkHref(productLinkHref) {
+    return getPathnameElementEnding(productLinkHref, 2);
 }
 
 export function getProductArticleFromPathname() {
