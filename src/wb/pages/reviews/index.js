@@ -36,12 +36,12 @@ import {
     createTextFilterControl,
 } from '../../../common/filter/factories/genericControls';
 import { createSeparator } from '../../../common/filter/factories/helpers';
-import { roundToPrecision } from '../../../common/mathUtils';
 import {
     getReviewsLastProductArticle,
     setReviewsLastProductArticle,
     setStoredRatingValue,
 } from '../../../common/db/specific';
+import { getAverageRating } from '../../../common/rating/helpers';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -251,16 +251,7 @@ function updateVisibleReviewsCount(reviewCards) {
 }
 
 function updateAverageRating(isFullLoadComplete) {
-    let totalRating = 0;
-    let reviewCount = 0;
-
-    state.reviewCardsCache.forEach((cachedData) => {
-        totalRating += cachedData.rating;
-        reviewCount += 1;
-    });
-
-    const averageRating = reviewCount > 0 ? totalRating / reviewCount : 0;
-    const averageRatingRounded = roundToPrecision(averageRating);
+    const averageRatingRounded = getAverageRating(state.reviewCardsCache);
 
     state.stickyAverageRatingNode.nodeValue = averageRatingRounded;
     state.averageRatingWrap.textContent = averageRatingRounded;
