@@ -13,6 +13,7 @@ import {
     createLikesFilterControl,
     createMaxRatingFilterControl,
     createMinRatingFilterControl,
+    createWaitFullLoadFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
@@ -57,12 +58,15 @@ const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
 const minRatingFilter = createGlobalFilter('reviews-min-rating-filter');
 const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
 const hasPhotoFilter = createGlobalFilter('reviews-has-photo-filter', false);
+const waitFullLoad = createGlobalFilter('reviews-wait-full-load', false);
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 const state = {
     reviewsContainer: null,
     stickyReviewsInfo: null,
     stickyReviewsInfoDefaultText: null,
+    totalReviewCount: null,
+    isFullLoadComplete: false,
     reviewCardsCache: new Map(),
 };
 
@@ -164,6 +168,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const hasPhotoDiv = createHasPhotoFilterControl(
         hasPhotoFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
+    const waitFullLoadDiv = createWaitFullLoadFilterControl(
+        waitFullLoad,
+        STYLES.CONTROL,
+        STYLES.CHECKBOX_INPUT,
+    );
     const separatorDiv = createSeparator(
         STYLES.CONTROL,
     );
@@ -179,6 +188,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         minRatingDiv,
         maxRatingDiv,
         hasPhotoDiv,
+        waitFullLoadDiv,
         separatorDiv,
         filterEnabledDiv,
     );
@@ -195,11 +205,13 @@ async function initVariables(isProductPage) {
 
     state.stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
     state.stickyReviewsInfoDefaultText = state.stickyReviewsInfo.textContent.trim();
+    state.totalReviewCount = getElementInnerNumber(state.stickyReviewsInfo, true);
 }
 
 function processReviewCards() {
     const reviews = getAllElements(SELECTORS.REVIEWS);
     const reviewCards = [...reviews].map((review) => review.parentNode);
+    state.isFullLoadComplete = reviewCards.length >= state.totalReviewCount;
     reviewCards.forEach(processReviewCard);
 
     updateVisibleReviewCardsInfo(reviewCards);
@@ -275,6 +287,11 @@ function processReviewCard(reviewCard) {
 
     if (reviewTextFilter.value) {
         highlightSearchStringsByFilterMultiple(reviewTextFilter, cachedData.reviewTextWraps);
+    }
+
+    if (waitFullLoad.value && !state.isFullLoadComplete) {
+        hideElement(reviewCard);
+        return;
     }
 
     const shouldHide =
