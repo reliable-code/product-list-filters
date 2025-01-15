@@ -198,7 +198,8 @@ async function initVariables(isProductPage) {
 
 function processReviewCards() {
     const reviews = getAllElements(SELECTORS.REVIEWS);
-    reviews.forEach(processReviewCard);
+    const reviewCards = [...reviews].map((review) => review.parentNode);
+    reviewCards.forEach(processReviewCard);
 
     const visibleReviews = getVisibleReviews(reviews);
     updateVisibleReviewsCount(visibleReviews, reviews);
@@ -206,9 +207,7 @@ function processReviewCards() {
     removeUnnecessaryElements();
 }
 
-function processReviewCard(review) {
-    const reviewCard = review.parentNode;
-
+function processReviewCard(reviewCard) {
     if (!filterEnabled.value) {
         showElement(reviewCard);
         return;
