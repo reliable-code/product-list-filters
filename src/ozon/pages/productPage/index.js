@@ -17,20 +17,16 @@ import { getStoredRatingValue, setStoredRatingValue } from '../../../common/db/s
 import { getURLQueryParam, setQueryParamsAndRedirect } from '../../../common/url';
 
 export async function initProductPageMods() {
+    const needScrollToComments = getURLQueryParam('scrollTo') === 'comments';
     await Promise.all([
         initAppendPriceHistory(),
         initSkipFirstGalleryVideo(),
         extendProductNameMaxHeight(),
+        appendDislikeButton(),
+        appendBadReviewsLink(),
+        appendRatingValue(),
+        initReviewsMods(needScrollToComments, true),
     ]);
-
-    const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
-    if (!productReviewsWrap) return;
-
-    appendDislikeButton(productReviewsWrap);
-    appendBadReviewsLink(productReviewsWrap);
-    await appendRatingValue(getStarsContainer(productReviewsWrap));
-    const needScrollToComments = getURLQueryParam('scrollTo') === 'comments';
-    await initReviewsMods(needScrollToComments, true);
 }
 
 async function initAppendPriceHistory() {
@@ -82,7 +78,8 @@ async function extendProductNameMaxHeight() {
     if (productName) productName.style.maxHeight = '90px';
 }
 
-function appendDislikeButton(productReviewsWrap) {
+async function appendDislikeButton() {
+    const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
     const productDislikeButtonWrap = createDiv();
 
     productDislikeButtonWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
@@ -120,7 +117,8 @@ function replaceRatingValue(starsContainer, ratingValue) {
     starsContainer.textContent = [ratingValue, reviewsCountText].join(SEPARATOR);
 }
 
-function appendBadReviewsLink(productReviewsWrap) {
+async function appendBadReviewsLink() {
+    const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
     const productReviewsLink = getFirstElement('a', productReviewsWrap);
 
     if (!productReviewsLink) return;
@@ -150,7 +148,9 @@ function redirectToBadReviews() {
     });
 }
 
-async function appendRatingValue(starsContainer) {
+async function appendRatingValue() {
+    const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
+    const starsContainer = getStarsContainer(productReviewsWrap);
     const productArticle = getProductArticleFromPathname();
     const storedRatingValue = getStoredRatingValue(productArticle);
 
