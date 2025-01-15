@@ -73,7 +73,7 @@ const state = {
 
 export async function initReviewsMods(needScrollToComments = true, isProductPage = false) {
     state.isProductPage = isProductPage;
-    if (needScrollToComments) await scrollToComments();
+    if (needScrollToComments) await initScrollToComments();
 
     resetFiltersIfNotLastProduct();
 
@@ -82,34 +82,30 @@ export async function initReviewsMods(needScrollToComments = true, isProductPage
     if (state.isProductPage) await observePaginator();
 }
 
-async function scrollToComments() {
-    if (!state.isProductPage) {
-        const comments = getFirstElement(SELECTORS.COMMENTS);
-        if (!comments) return;
-        window.scrollTo({
-            top: comments.getBoundingClientRect().top + window.scrollY - 70,
-        });
+async function initScrollToComments() {
+    const comments = await waitForElement(document, SELECTORS.COMMENTS);
 
+    if (!state.isProductPage) {
+        scrollToComments(comments, 70);
         return;
     }
 
-    const characteristics = await waitForElement(document, SELECTORS.CHARACTERISTICS);
-    if (!characteristics) return;
+    const scrollToCommentsWhileNoReviewsList = () => {
+        scrollToComments(comments);
 
-    let lastPosition = 0;
+        const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
+        if (reviewsList) return;
 
-    const resizeObserver = new ResizeObserver(() => {
-        const currentPosition = characteristics.getBoundingClientRect().bottom;
-        if (Math.abs(currentPosition - lastPosition) > 1) {
-            window.scrollTo({
-                top: currentPosition + window.scrollY + 10,
-            });
-        }
+        requestAnimationFrame(scrollToCommentsWhileNoReviewsList);
+    };
 
-        lastPosition = currentPosition;
+    scrollToCommentsWhileNoReviewsList();
+}
+
+function scrollToComments(comments, offset = 80) {
+    window.scrollTo({
+        top: comments.getBoundingClientRect().top + window.scrollY - offset,
     });
-
-    resizeObserver.observe(characteristics);
 }
 
 function resetFiltersIfNotLastProduct() {

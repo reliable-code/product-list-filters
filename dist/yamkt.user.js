@@ -7,7 +7,7 @@
 // @grant        GM_getValue
 // @match        https://market.yandex.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      1.0.73696917
+// @version      1.0.73697271
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=market.yandex.ru
 // @author       reliable-code
 // ==/UserScript==
