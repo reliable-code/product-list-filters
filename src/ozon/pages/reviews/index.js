@@ -46,6 +46,7 @@ import {
     getReviewsLastProductArticle,
     setReviewsLastProductArticle,
 } from '../../../common/db/specific';
+import { getAverageRating } from '../../../common/rating/helpers';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -201,8 +202,7 @@ function processReviewCards() {
     const reviewCards = [...reviews].map((review) => review.parentNode);
     reviewCards.forEach(processReviewCard);
 
-    const visibleReviews = getVisibleReviews(reviews);
-    updateVisibleReviewsCount(visibleReviews, reviews);
+    updateVisibleReviewCardsInfo(reviewCards);
 
     removeUnnecessaryElements();
 }
@@ -301,15 +301,24 @@ function readMoreClick(reviewCard) {
     reviewCard.setAttribute(ATTRIBUTES.READ_MORE_CLICK_PASSED, '');
 }
 
-function getVisibleReviews(reviews) {
-    return [...reviews].filter(
-        (review) => review.parentNode.style.display !== 'none',
-    );
+function updateVisibleReviewCardsInfo(reviewCards) {
+    const visibleReviewCards = getVisibleReviewCards(reviewCards);
+
+    const filteredReviewCardsCache = visibleReviewCards
+        .filter((reviewCard) => state.reviewCardsCache.has(reviewCard))
+        .map((reviewCard) => state.reviewCardsCache.get(reviewCard));
+
+    const averageRatingRounded = getAverageRating(filteredReviewCardsCache);
+
+    const averageRatingInfo = averageRatingRounded ? ` • ${averageRatingRounded}` : '';
+    state.stickyReviewsInfo.textContent = `
+        ${state.stickyReviewsInfoDefaultText} 
+        (${visibleReviewCards.length}/${reviewCards.length}${averageRatingInfo})
+    `;
 }
 
-function updateVisibleReviewsCount(visibleReviews, reviews) {
-    state.stickyReviewsInfo.textContent =
-        `${state.stickyReviewsInfoDefaultText} (${(visibleReviews.length)}/${reviews.length})`;
+function getVisibleReviewCards(reviewCards) {
+    return reviewCards.filter((reviewCard) => reviewCard.style.display !== 'none');
 }
 
 function removeUnnecessaryElements() {
