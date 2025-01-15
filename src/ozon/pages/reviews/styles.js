@@ -7,7 +7,10 @@ export const STYLES = {
         gap: '10px',
         paddingBottom: '0',
     },
-    NUMBER_INPUT: COMMON_STYLES.NUMBER_INPUT,
+    NUMBER_INPUT: {
+        ...STYLES_BASE.INPUT,
+        width: '78px',
+    },
     TEXT_INPUT: {
         ...STYLES_BASE.INPUT,
         width: '330px',

@@ -11,6 +11,8 @@ import {
     createEnabledFilterControl,
     createHasPhotoFilterControl,
     createLikesFilterControl,
+    createMaxRatingFilterControl,
+    createMinRatingFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
@@ -51,6 +53,8 @@ const variationFilter = createGlobalFilter('reviews-variation-filter');
 const reviewTextFilter = createGlobalFilter('reviews-text-filter');
 const minLikesFilter = createGlobalFilter('reviews-min-likes-filter');
 const maxDislikesFilter = createGlobalFilter('reviews-max-dislikes-filter');
+const minRatingFilter = createGlobalFilter('reviews-min-rating-filter');
+const maxRatingFilter = createGlobalFilter('reviews-max-rating-filter');
 const hasPhotoFilter = createGlobalFilter('reviews-has-photo-filter', false);
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
@@ -87,8 +91,10 @@ function resetFiltersIfNotLastProduct() {
         variationFilter.resetValue();
         reviewTextFilter.resetValue();
         minLikesFilter.resetValue();
-        hasPhotoFilter.resetValue();
         maxDislikesFilter.resetValue();
+        minRatingFilter.resetValue();
+        maxRatingFilter.resetValue();
+        hasPhotoFilter.resetValue();
     }
 
     setReviewsLastProductArticle(productArticle);
@@ -136,6 +142,20 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.NUMBER_INPUT,
     );
+    const minRatingDiv = createMinRatingFilterControl(
+        minRatingFilter,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+        1,
+        1,
+    );
+    const maxRatingDiv = createMaxRatingFilterControl(
+        maxRatingFilter,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+        1,
+        1,
+    );
     const hasPhotoDiv = createHasPhotoFilterControl(
         hasPhotoFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
@@ -151,6 +171,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         reviewTextFilterDiv,
         minLikesDiv,
         maxDislikesDiv,
+        minRatingDiv,
+        maxRatingDiv,
         hasPhotoDiv,
         separatorDiv,
         filterEnabledDiv,
@@ -251,6 +273,8 @@ function processReviewCard(review) {
         isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter) ||
         isLessThanFilter(cachedData.likesNumber, minLikesFilter) ||
         isGreaterThanFilter(cachedData.dislikesNumber, maxDislikesFilter) ||
+        isLessThanFilter(cachedData.rating, minRatingFilter) ||
+        isGreaterThanFilter(cachedData.rating, maxRatingFilter) ||
         isNotEqualBoolFilter(cachedData.hasPhoto, hasPhotoFilter);
     updateElementDisplay(reviewCard, shouldHide);
 }
