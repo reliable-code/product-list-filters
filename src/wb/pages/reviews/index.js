@@ -53,6 +53,7 @@ const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 const state = {
     productArticle: null,
     totalReviewCount: null,
+    isFullLoadComplete: false,
     stickyReviewsInfo: null,
     stickyReviewsInfoDefaultText: null,
     averageRatingWrap: null,
@@ -166,16 +167,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function processReviewCards() {
     const reviewCards = getAllElements(SELECTORS.REVIEWS);
-    const isFullLoadComplete = reviewCards.length >= state.totalReviewCount;
-    reviewCards.forEach((reviewCard) => {
-        processReviewCard(reviewCard, isFullLoadComplete);
-    });
+    state.isFullLoadComplete = reviewCards.length >= state.totalReviewCount;
+    reviewCards.forEach(processReviewCard);
 
     updateVisibleReviewsCount(reviewCards);
-    if (!state.isAverageRatingFinalized) updateAverageRating(isFullLoadComplete);
+    if (!state.isAverageRatingFinalized) updateAverageRating();
 }
 
-function processReviewCard(reviewCard, isFullLoadComplete) {
+function processReviewCard(reviewCard) {
     if (!filterEnabled.value) {
         showElement(reviewCard);
         return;
@@ -220,7 +219,7 @@ function processReviewCard(reviewCard, isFullLoadComplete) {
         highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
     }
 
-    if (waitFullLoad.value && !isFullLoadComplete) {
+    if (waitFullLoad.value && !state.isFullLoadComplete) {
         hideElement(reviewCard);
         return;
     }
@@ -248,13 +247,13 @@ function updateVisibleReviewsCount(reviewCards) {
         `${state.stickyReviewsInfoDefaultText} (${visibleReviewsCount}/${reviewCards.length})`;
 }
 
-function updateAverageRating(isFullLoadComplete) {
+function updateAverageRating() {
     const averageRatingRounded = getAverageRating(state.reviewCardsCache);
 
     state.stickyAverageRatingNode.nodeValue = averageRatingRounded;
     state.averageRatingWrap.textContent = averageRatingRounded;
 
-    if (isFullLoadComplete) {
+    if (state.isFullLoadComplete) {
         setStoredRatingValue(state.productArticle, averageRatingRounded);
         state.isAverageRatingFinalized = true;
     }
