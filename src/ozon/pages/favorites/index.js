@@ -125,7 +125,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercent.value);
     }
 
-    const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
+    const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
 
     if (!productCardNameWrap) {
         hideElement(productCard);

@@ -168,91 +168,85 @@ function processProductCard(productCard, rateUpdated) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
-        const productCardLink = getFirstElement('a', productCard);
-        if (!productCardLink) return true;
+        const productLink = getFirstElement('a', productCard);
+        if (!productLink) return true;
 
-        const productCardLinkHref = clearQueryParams(productCardLink.getAttribute('href'));
-        const productArticle = getProductArticleFromLinkHref(productCardLinkHref);
-        const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME, productCard);
-        const productCardPriceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE, productCard);
+        const productLinkHref = clearQueryParams(productLink.getAttribute('href'));
+        const productArticle = getProductArticleFromLinkHref(productLinkHref);
+        const nameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
+        const priceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE_WRAP, productCard);
 
-        if (!productCardNameWrap || !productCardPriceWrap) return true;
+        if (!nameWrap || !priceWrap) return true;
 
-        const productCardPriceNumber = getElementInnerNumber(productCardPriceWrap, true);
+        const price = getElementInnerNumber(priceWrap, true);
 
-        const productCardRatingContainer = getFirstElement(
+        const ratingContainer = getFirstElement(
             SELECTORS.PRODUCT_CARD_RATING_CONTAINER, productCard,
         );
 
         const {
-            storedRatingValue,
-            productCardRatingWrap,
-            productCardReviewsNumber,
-            productCardRatingNumber,
-            noProductCardRatingContainer,
-        } = processProductCardRating(
-            productCardRatingContainer, productCardLinkHref, productArticle,
-        );
+            ratingWrap,
+            reviewsCount,
+            rating,
+            storedRating,
+            noRatingContainer,
+        } = processProductCardRating(ratingContainer, productLinkHref, productArticle);
 
-        const productCardName = productCardNameWrap.innerText;
-        productCardNameWrap.title = productCardName;
+        const name = nameWrap.innerText;
+        nameWrap.title = name;
 
         cachedData = {
             productArticle,
-            productCardRatingWrap,
-            productCardNameWrap,
-            productCardName,
-            productCardReviewsNumber,
-            productCardRatingNumber,
-            productCardPriceNumber,
-            noProductCardRatingContainer,
-            storedRatingValue,
+            nameWrap,
+            name,
+            price,
+            ratingWrap,
+            reviewsCount,
+            rating,
+            storedRating,
+            noRatingContainer,
         };
 
         state.productCardsCache.set(productCard, cachedData);
-    } else if (rateUpdated && !cachedData.storedRatingValue) {
-        checkStoredRatingValue(cachedData);
+    } else if (rateUpdated && !cachedData.storedRating) {
+        checkStoredRating(cachedData);
     }
 
-    setLineClamp(cachedData.productCardNameWrap);
+    setLineClamp(cachedData.nameWrap);
 
     if (shouldHideByNoRating(cachedData)) return true;
 
     return (
-        isNotMatchTextFilter(cachedData.productCardName, nameFilter) ||
-        isLessThanFilter(cachedData.productCardReviewsNumber, minReviewsFilter) ||
-        isGreaterThanFilter(cachedData.productCardReviewsNumber, maxReviewsFilter) ||
-        isLessThanFilter(cachedData.productCardRatingNumber, minRatingFilter) ||
-        isGreaterThanFilter(cachedData.productCardPriceNumber, maxPriceFilter)
+        isNotMatchTextFilter(cachedData.name, nameFilter) ||
+        isLessThanFilter(cachedData.reviewsCount, minReviewsFilter) ||
+        isGreaterThanFilter(cachedData.reviewsCount, maxReviewsFilter) ||
+        isLessThanFilter(cachedData.rating, minRatingFilter) ||
+        isGreaterThanFilter(cachedData.price, maxPriceFilter)
     );
 }
 
-function processProductCardRating(productCardRatingContainer, productCardLinkHref, productArticle) {
-    if (!productCardRatingContainer) return { noProductCardRatingContainer: true };
+function processProductCardRating(ratingContainer, productLinkHref, productArticle) {
+    if (!ratingContainer) return { noRatingContainer: true };
 
-    const storedRatingValue = getStoredRatingValue(productArticle);
-    const productCardReviewsWrap = getFirstElement(
-        ':scope > span:nth-of-type(2)', productCardRatingContainer, true,
+    const storedRating = getStoredRatingValue(productArticle);
+    const reviewsWrap = getFirstElement(
+        ':scope > span:nth-of-type(2)', ratingContainer, true,
     );
-    const productCardRatingWrap = getFirstElement(
-        ':scope > span:nth-of-type(1) > span:nth-of-type(1)', productCardRatingContainer, true,
+    const ratingWrap = getFirstElement(
+        ':scope > span:nth-of-type(1) > span:nth-of-type(1)', ratingContainer, true,
     );
-    const productCardReviewsNumber = getElementInnerNumber(
-        productCardReviewsWrap, true,
-    );
-    const productCardRatingNumber = getProductCardRatingNumber(
-        productCardRatingWrap, storedRatingValue,
-    );
+    const reviewsCount = getElementInnerNumber(reviewsWrap, true);
+    const rating = getProductCardRating(ratingWrap, storedRating);
 
-    wrapReviewsWrapWithLink(productCardReviewsWrap, productCardLinkHref);
-    appendProductDislikeButton(productCardRatingContainer, productArticle);
+    wrapReviewsWrapWithLink(reviewsWrap, productLinkHref);
+    appendProductDislikeButton(ratingContainer, productArticle);
 
     return {
-        storedRatingValue,
-        productCardRatingWrap,
-        productCardReviewsNumber,
-        productCardRatingNumber,
-        noProductCardRatingContainer: false,
+        ratingWrap,
+        reviewsCount,
+        rating,
+        storedRating,
+        noRatingContainer: false,
     };
 }
 
@@ -260,38 +254,38 @@ function anyRatingFilterHasValue() {
     return minReviewsFilter.value || maxReviewsFilter.value || minRatingFilter.value;
 }
 
-function getProductCardRatingNumber(productCardRatingWrap, storedRatingValue) {
-    if (!storedRatingValue) {
-        return getElementInnerNumber(productCardRatingWrap);
+function getProductCardRating(ratingWrap, storedRating) {
+    if (!storedRating) {
+        return getElementInnerNumber(ratingWrap);
     }
 
-    updateRatingText(productCardRatingWrap, storedRatingValue);
+    updateRatingText(ratingWrap, storedRating);
 
-    return storedRatingValue;
+    return storedRating;
 }
 
-function updateRatingText(productCardRatingWrap, storedRatingValue) {
-    productCardRatingWrap.textContent = storedRatingValue.toString()
+function updateRatingText(ratingWrap, storedRating) {
+    ratingWrap.textContent = storedRating.toString()
         .padEnd(5);
 }
 
-function wrapReviewsWrapWithLink(productCardReviewsWrap, productCardLinkHref) {
+function wrapReviewsWrapWithLink(reviewsWrap, productLinkHref) {
     const link = createLink();
-    link.href = `${productCardLinkHref}?scrollTo=comments`;
-    link.append(...productCardReviewsWrap.childNodes);
-    productCardReviewsWrap.append(link);
+    link.href = `${productLinkHref}?scrollTo=comments`;
+    link.append(...reviewsWrap.childNodes);
+    reviewsWrap.append(link);
 }
 
-function appendProductDislikeButton(productCardRatingWrap, productArticle) {
-    productCardRatingWrap.style.display = 'flex';
-    productCardRatingWrap.style.width = '100%';
+function appendProductDislikeButton(ratingWrap, productArticle) {
+    ratingWrap.style.display = 'flex';
+    ratingWrap.style.width = '100%';
 
     const dislikeButton =
         createDislikeButton(
             () => dislikeProductOnProductList(productArticle), false,
         );
 
-    productCardRatingWrap.append(dislikeButton);
+    ratingWrap.append(dislikeButton);
 }
 
 async function dislikeProductOnProductList(productArticle) {
@@ -299,19 +293,19 @@ async function dislikeProductOnProductList(productArticle) {
     processProductCards();
 }
 
-function setLineClamp(productCardNameWrap) {
-    productCardNameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
+function setLineClamp(nameWrap) {
+    nameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
 }
 
 function shouldHideByNoRating(cachedData) {
-    return cachedData.noProductCardRatingContainer && anyRatingFilterHasValue() && !noRatingFilter.value;
+    return cachedData.noRatingContainer && anyRatingFilterHasValue() && !noRatingFilter.value;
 }
 
-function checkStoredRatingValue(cachedData) {
-    const storedRatingValue = getStoredRatingValue(cachedData.productArticle);
-    if (!storedRatingValue) return;
+function checkStoredRating(cachedData) {
+    const storedRating = getStoredRatingValue(cachedData.productArticle);
+    if (!storedRating) return;
 
-    cachedData.storedRatingValue = storedRatingValue;
-    cachedData.productCardRatingNumber = storedRatingValue;
-    updateRatingText(cachedData.productCardRatingWrap, storedRatingValue);
+    cachedData.storedRating = storedRating;
+    cachedData.rating = storedRating;
+    updateRatingText(cachedData.ratingWrap, storedRating);
 }
