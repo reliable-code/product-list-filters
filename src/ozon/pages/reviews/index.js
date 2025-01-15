@@ -62,6 +62,7 @@ const waitFullLoad = createGlobalFilter('reviews-wait-full-load', false);
 const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 const state = {
+    isProductPage: false,
     reviewsContainer: null,
     stickyReviewsInfo: null,
     stickyReviewsInfoDefaultText: null,
@@ -71,21 +72,22 @@ const state = {
 };
 
 export async function initReviewsMods(needScrollToComments = true, isProductPage = false) {
-    if (needScrollToComments) scrollToComments(isProductPage);
+    state.isProductPage = isProductPage;
+    if (needScrollToComments) scrollToComments();
 
     resetFiltersIfNotLastProduct();
 
-    await executeReviewsMods(isProductPage);
+    await executeReviewsMods();
 
-    if (isProductPage) await observePaginator();
+    if (state.isProductPage) await observePaginator();
 }
 
-export function scrollToComments(isProductPage) {
+function scrollToComments() {
     const comments = getFirstElement(SELECTORS.COMMENTS);
     if (!comments) return;
 
+    const offset = state.isProductPage ? 80 : 0;
     const commentsPosition = comments.getBoundingClientRect().top + window.scrollY;
-    const offset = isProductPage ? 80 : 0;
     window.scrollTo({
         top: commentsPosition - offset,
     });
@@ -108,10 +110,10 @@ function resetFiltersIfNotLastProduct() {
     setReviewsLastProductArticle(productArticle);
 }
 
-async function executeReviewsMods(isProductPage) {
+async function executeReviewsMods() {
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
 
-    await initVariables(isProductPage);
+    await initVariables();
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
 
     processReviewCards();
@@ -197,12 +199,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton();
 }
 
-async function initVariables(isProductPage) {
+async function initVariables() {
     if (state.reviewsContainer) return;
 
     const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
-    state.reviewsContainer = isProductPage ? reviewsList?.parentNode : reviewsList.children[1];
+    if (!state.isProductPage) {
+        state.reviewsContainer = reviewsList.children[1];
+        return;
+    }
 
+    state.reviewsContainer = reviewsList?.parentNode;
     state.stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
     state.stickyReviewsInfoDefaultText = state.stickyReviewsInfo.textContent.trim();
     state.totalReviewCount = getElementInnerNumber(state.stickyReviewsInfo, true);
@@ -211,10 +217,10 @@ async function initVariables(isProductPage) {
 function processReviewCards() {
     const reviews = getAllElements(SELECTORS.REVIEWS);
     const reviewCards = [...reviews].map((review) => review.parentNode);
-    state.isFullLoadComplete = reviewCards.length >= state.totalReviewCount;
+    state.isFullLoadComplete = !state.isProductPage || reviewCards.length >= state.totalReviewCount;
     reviewCards.forEach(processReviewCard);
 
-    updateVisibleReviewCardsInfo(reviewCards);
+    if (state.isProductPage) updateVisibleReviewCardsInfo(reviewCards);
 
     removeUnnecessaryElements();
 }
