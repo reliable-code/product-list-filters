@@ -225,6 +225,19 @@ export function createHasPhotoFilterControl(
     );
 }
 
+export function createWaitFullLoadFilterControl(
+    inputValue,
+    controlStyle = {},
+    inputStyle = {},
+) {
+    return createCheckboxFilterControl(
+        'Прогрузка: ',
+        inputValue,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createEnabledFilterControl(
     inputValue,
     controlStyle = {},

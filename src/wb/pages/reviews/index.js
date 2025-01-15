@@ -10,6 +10,7 @@ import {
     createEnabledFilterControl,
     createMaxRatingFilterControl,
     createMinRatingFilterControl,
+    createWaitFullLoadFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
@@ -31,10 +32,7 @@ import {
     highlightSearchStringsByFilter,
     highlightSearchStringsByFilterMultiple,
 } from '../../../common/filter/highlighting';
-import {
-    createCheckboxFilterControl,
-    createTextFilterControl,
-} from '../../../common/filter/factories/genericControls';
+import { createTextFilterControl } from '../../../common/filter/factories/genericControls';
 import { createSeparator } from '../../../common/filter/factories/helpers';
 import {
     getReviewsLastProductArticle,
@@ -138,8 +136,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         1,
         1,
     );
-    const waitFullLoadDiv = createCheckboxFilterControl(
-        'Прогрузка: ',
+    const waitFullLoadDiv = createWaitFullLoadFilterControl(
         waitFullLoad,
         STYLES.CONTROL,
         STYLES.CHECKBOX_INPUT,
