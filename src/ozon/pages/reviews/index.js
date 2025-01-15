@@ -60,6 +60,8 @@ const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 const state = {
     reviewsContainer: null,
+    stickyReviewsInfo: null,
+    stickyReviewsInfoDefaultText: null,
     reviewCardsCache: new Map(),
 };
 
@@ -103,8 +105,9 @@ function resetFiltersIfNotLastProduct() {
 
 async function executeReviewsMods(isProductPage) {
     const controlsContainer = await waitForElement(document, SELECTORS.CONTROLS_CONTAINER);
+
+    await initVariables(isProductPage);
     appendFilterControlsIfNeeded(controlsContainer, appendFiltersContainer);
-    setReviewsContainer(isProductPage);
 
     processReviewCards();
 
@@ -183,9 +186,14 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton();
 }
 
-function setReviewsContainer(isProductPage) {
+async function initVariables(isProductPage) {
+    if (state.reviewsContainer) return;
+
     const reviewsList = getFirstElement(SELECTORS.REVIEWS_LIST);
     state.reviewsContainer = isProductPage ? reviewsList?.parentNode : reviewsList.children[1];
+
+    state.stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
+    state.stickyReviewsInfoDefaultText = state.stickyReviewsInfo.textContent.trim();
 }
 
 function processReviewCards() {
@@ -298,15 +306,12 @@ function updateVisibleReviewsCount(reviews) {
         (review) => review.parentNode.style.display !== 'none',
     ).length;
 
-    const stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
-    if (!stickyReviewsInfo) return;
-
-    const baseReviewsInfoText = stickyReviewsInfo.textContent.split('(')[0].trim();
-    stickyReviewsInfo.textContent = `${baseReviewsInfoText} (${visibleReviewsCount}/${reviews.length})`;
+    state.stickyReviewsInfo.textContent =
+        `${state.stickyReviewsInfoDefaultText} (${visibleReviewsCount}/${reviews.length})`;
 }
 
 function removeUnnecessaryElements() {
-    getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, reviewsContainer)
+    getAllElements(SELECTORS.UNNECESSARY_ELEMENTS, state.reviewsContainer)
         .forEach((element) => element.remove());
 }
 
