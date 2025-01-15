@@ -257,7 +257,7 @@ function processReviewCard(reviewCard) {
         const reviewContent = getFirstElement(SELECTORS.REVIEW_CONTENT, reviewCard);
         const reviewFooter = getFirstElement(SELECTORS.REVIEW_FOOTER, reviewCard);
 
-        if (!reviewHeader || !reviewContent || !reviewFooter) {
+        if (!reviewHeader || !reviewContent) {
             hideElement(reviewCard);
             return;
         }
@@ -269,20 +269,19 @@ function processReviewCard(reviewCard) {
         const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewContent);
         const reviewTextWraps = [reviewSurveyWrap, reviewTextWrap].filter(Boolean);
 
-        const likeButton = findElementByText(reviewFooter, 'button', 'Да');
-        const dislikeButton = findElementByText(reviewFooter, 'button', 'Нет');
-
-        if (!likeButton || !dislikeButton) {
-            hideElement(reviewCard);
-            return;
-        }
+        const likeButton = reviewFooter && findElementByText(reviewFooter, 'button', 'Да');
+        const dislikeButton = reviewFooter && findElementByText(reviewFooter, 'button', 'Нет');
 
         const productVariationText = productVariationWrap?.innerText || '';
         const reviewText = reviewTextWraps.map((textWrap) => textWrap.innerText)
             .join(' ');
 
-        const likesNumber = getElementInnerNumber(likeButton, true);
-        const dislikesNumber = getElementInnerNumber(dislikeButton, true);
+        const likesNumber = getElementInnerNumber(
+            likeButton, true, false, 0,
+        );
+        const dislikesNumber = getElementInnerNumber(
+            dislikeButton, true, false, 0,
+        );
 
         const rating = getRating(reviewHeader);
 
