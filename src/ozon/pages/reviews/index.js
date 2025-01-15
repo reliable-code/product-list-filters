@@ -251,6 +251,10 @@ function processReviewCard(review) {
     updateElementDisplay(reviewCard, shouldHide);
 }
 
+function getRating(reviewHeader) {
+    return getAllElements('svg[style*="255, 168, 0"]', reviewHeader).length;
+}
+
 function readMoreClick(reviewCard) {
     if (reviewCard.hasAttribute(ATTRIBUTES.READ_MORE_CLICK_PASSED)) return;
 
