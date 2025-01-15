@@ -57,6 +57,7 @@ const state = {
     totalReviewCount: null,
     averageRatingWrap: null,
     stickyAverageRatingNode: null,
+    reviewsContainerObserver: null,
     isAverageRatingFinalized: false,
     reviewCardsCache: new Map(),
 };
@@ -70,11 +71,7 @@ export async function initReviewsMods() {
 
     processReviewCards();
 
-    const observer = new MutationObserver(debounce(processReviewCards));
-    const reviewsContainer = getFirstElement(SELECTORS.REVIEWS_LIST);
-    observer.observe(reviewsContainer, {
-        childList: true,
-    });
+    initReviewsContainerObserver();
 }
 
 async function initVariables() {
@@ -260,4 +257,13 @@ function updateAverageRating(isFullLoadComplete) {
         setStoredRatingValue(state.productArticle, averageRatingRounded);
         state.isAverageRatingFinalized = true;
     }
+}
+
+function initReviewsContainerObserver() {
+    if (state.reviewsContainerObserver) return;
+    state.reviewsContainerObserver = new MutationObserver(debounce(processReviewCards));
+    const reviewsContainer = getFirstElement(SELECTORS.REVIEWS_LIST);
+    state.reviewsContainerObserver.observe(reviewsContainer, {
+        childList: true,
+    });
 }
