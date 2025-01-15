@@ -301,10 +301,14 @@ function readMoreClick(reviewCard) {
     reviewCard.setAttribute(ATTRIBUTES.READ_MORE_CLICK_PASSED, '');
 }
 
-function updateVisibleReviewsCount(reviews) {
-    const visibleReviewsCount = [...reviews].filter(
+function getVisibleReviews(reviews) {
+    return [...reviews].filter(
         (review) => review.parentNode.style.display !== 'none',
-    ).length;
+    );
+}
+
+function updateVisibleReviewsCount(reviews) {
+    const visibleReviewsCount = getVisibleReviews(reviews).length;
 
     state.stickyReviewsInfo.textContent =
         `${state.stickyReviewsInfoDefaultText} (${visibleReviewsCount}/${reviews.length})`;
