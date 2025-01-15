@@ -189,10 +189,11 @@ function processReviewCard(review) {
     if (!cachedData) {
         readMoreClick(reviewCard);
 
+        const reviewHeader = getFirstElement(SELECTORS.REVIEW_HEADER, reviewCard);
         const reviewContent = getFirstElement(SELECTORS.REVIEW_CONTENT, reviewCard);
         const reviewFooter = getFirstElement(SELECTORS.REVIEW_FOOTER, reviewCard);
 
-        if (!reviewContent || !reviewFooter) {
+        if (!reviewHeader || !reviewContent || !reviewFooter) {
             hideElement(reviewCard);
             return;
         }
@@ -219,6 +220,8 @@ function processReviewCard(review) {
         const likesNumber = getElementInnerNumber(likeButton, true);
         const dislikesNumber = getElementInnerNumber(dislikeButton, true);
 
+        const rating = getRating(reviewHeader);
+
         const hasPhoto = hasElement('img', reviewContent);
 
         cachedData = {
@@ -228,6 +231,7 @@ function processReviewCard(review) {
             reviewText,
             likesNumber,
             dislikesNumber,
+            rating,
             hasPhoto,
         };
 

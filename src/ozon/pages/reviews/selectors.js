@@ -3,6 +3,7 @@ export const SELECTORS = {
     CONTROLS_CONTAINER: '[data-widget="webListReviews"] > div',
     REVIEWS_LIST: '[data-widget="webListReviews"]',
     REVIEWS: '[data-widget="webListReviews"] > div > div > div[data-review-uuid]',
+    REVIEW_HEADER: ':scope > div:nth-of-type(1) > div:nth-of-type(1)',
     REVIEW_CONTENT: ':scope > div:nth-of-type(1) > div:nth-of-type(2)',
     REVIEW_FOOTER: ':scope > div:nth-of-type(1) > div:nth-of-type(3)',
     PRODUCT_VARIATION_WRAP: ':scope > div:nth-of-type(1) a',
