@@ -55,6 +55,8 @@ const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 const state = {
     productArticle: null,
     totalReviewCount: null,
+    stickyReviewsInfo: null,
+    stickyReviewsInfoDefaultText: null,
     averageRatingWrap: null,
     stickyAverageRatingNode: null,
     reviewsContainerObserver: null,
@@ -75,10 +77,15 @@ export async function initReviewsMods() {
 }
 
 async function initVariables() {
+    if (state.productArticle) return;
+
     state.productArticle = getProductArticleFromPathname();
 
     const totalReviewCountWrap = await waitForElement(document, SELECTORS.TOTAL_REVIEWS_COUNT_WRAP);
     state.totalReviewCount = getElementInnerNumber(totalReviewCountWrap);
+
+    state.stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
+    state.stickyReviewsInfoDefaultText = state.stickyReviewsInfo.textContent.trim();
 
     const stickyAverageRatingWrap = getFirstElement(SELECTORS.STICKY_AVERAGE_RATING_WRAP);
     state.averageRatingWrap = getFirstElement(SELECTORS.AVERAGE_RATING_WRAP);
@@ -240,11 +247,8 @@ function updateVisibleReviewsCount(reviewCards) {
         (reviewCard) => reviewCard.style.display !== 'none',
     ).length;
 
-    const stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
-    if (!stickyReviewsInfo) return;
-
-    const baseReviewsInfoText = stickyReviewsInfo.textContent.split('(')[0].trim();
-    stickyReviewsInfo.textContent = `${baseReviewsInfoText} (${visibleReviewsCount}/${reviewCards.length})`;
+    state.stickyReviewsInfo.textContent =
+        `${state.stickyReviewsInfoDefaultText} (${visibleReviewsCount}/${reviewCards.length})`;
 }
 
 function updateAverageRating(isFullLoadComplete) {
