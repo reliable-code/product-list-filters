@@ -9,7 +9,7 @@ import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
 import { somePathElementEquals } from '../common/url';
 import { getFirstElement } from '../common/dom/helpers';
 import { SELECTORS } from './selectors';
-import { wrapFirstElementContentWithLink } from '../common/dom/manipulation';
+import { wrapFirstElementWithLink } from '../common/dom/manipulation';
 
 migrateDb();
 
@@ -88,10 +88,10 @@ function fixLinks() {
         return;
     }
 
-    wrapFirstElementContentWithLink('/my/main', SELECTORS.PROFILE_LOGO);
-    wrapFirstElementContentWithLink('/my/orderlist', SELECTORS.ORDER_INFO);
-    wrapFirstElementContentWithLink('/my/favorites?avail=inStock', SELECTORS.FAVORITES);
-    wrapFirstElementContentWithLink('/my/cart', SELECTORS.HEADER_ICON);
+    wrapFirstElementWithLink('/my/main', SELECTORS.PROFILE_LOGO);
+    wrapFirstElementWithLink('/my/orderlist', SELECTORS.ORDER_INFO);
+    wrapFirstElementWithLink('/my/favorites?avail=inStock', SELECTORS.FAVORITES);
+    wrapFirstElementWithLink('/my/cart', SELECTORS.HEADER_ICON);
 }
 
 async function replaceFavoritesLink() {

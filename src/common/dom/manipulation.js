@@ -108,6 +108,17 @@ export function setElementBackground(element, background) {
     element.style.background = background;
 }
 
+export function wrapFirstElementWithLink(href, selector) {
+    const element = getFirstElement(selector);
+    if (!element) return;
+
+    const link = createLink();
+    link.href = href;
+
+    element.parentNode.append(link);
+    link.append(element);
+}
+
 export function wrapFirstElementContentWithLink(href, selector) {
     const element = getFirstElement(selector);
     if (!element) return;
