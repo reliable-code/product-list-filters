@@ -9,6 +9,7 @@ import { initCartMods, initCheckoutMods } from './pages/checkoutPage';
 import { somePathElementEquals } from '../common/url';
 import { getFirstElement } from '../common/dom/helpers';
 import { SELECTORS } from './selectors';
+import { wrapFirstElementContentWithLink } from '../common/dom/manipulation';
 
 migrateDb();
 
@@ -57,7 +58,7 @@ async function initMods() {
         return;
     }
 
-    await replaceFavoritesLink();
+    fixLinks();
 
     const paginatorContent = getFirstElement(SELECTORS.PAGINATOR_CONTENT);
     if (paginatorContent) {
@@ -80,7 +81,21 @@ async function initMods() {
     }
 }
 
+function fixLinks() {
+    const header = getFirstElement(SELECTORS.HEADER);
+    if (header.querySelectorAll('a').length >= 5) {
+        setTimeout(replaceFavoritesLink, 0);
+        return;
+    }
+
+    wrapFirstElementContentWithLink('/my/main', SELECTORS.PROFILE_LOGO);
+    wrapFirstElementContentWithLink('/my/orderlist', SELECTORS.ORDER_INFO);
+    wrapFirstElementContentWithLink('/my/favorites?avail=inStock', SELECTORS.FAVORITES);
+    wrapFirstElementContentWithLink('/my/cart', SELECTORS.HEADER_ICON);
+}
+
 async function replaceFavoritesLink() {
-    const favoritesLink = await waitForElement(document, SELECTORS.FAVORITES_LINK);
-    if (favoritesLink) favoritesLink.href += '?avail=inStock';
+    const favoritesLink = await waitForElement(document, SELECTORS.FAVORITES, 3000);
+    if (!favoritesLink) return;
+    favoritesLink.href = `${favoritesLink.getAttribute('href')}?avail=inStock`;
 }
