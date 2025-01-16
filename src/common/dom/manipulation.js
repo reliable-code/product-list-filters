@@ -1,5 +1,6 @@
 import { clearIntersectionObserver, runOnceOnIntersection } from './utils';
 import { getURLQueryParam } from '../url';
+import { createLink } from './factories/elements';
 
 export function insertAfter(existingNode, newNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
@@ -104,6 +105,13 @@ export function setElementOrder(element, order) {
 
 export function setElementBackground(element, background) {
     element.style.background = background;
+}
+
+export function wrapElementContentWithLink(href, element) {
+    const link = createLink();
+    link.href = href;
+    link.append(...element.childNodes);
+    element.append(link);
 }
 
 export function scrollToElementFromQueryParam() {

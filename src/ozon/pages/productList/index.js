@@ -26,6 +26,7 @@ import {
     assignElementToDisplayGroup,
     handleDisplayGroups,
     initDisplayGroups,
+    wrapElementContentWithLink,
 } from '../../../common/dom/manipulation';
 import {
     getAllElements,
@@ -51,7 +52,6 @@ import {
     setStoredRatingValue,
     STORAGE_KEYS,
 } from '../../../common/db/specific';
-import { createLink } from '../../../common/dom/factories/elements';
 
 // todo: wrap into init func
 const SECTION_ID = getSectionId();
@@ -238,7 +238,7 @@ function processProductCardRating(ratingContainer, productLinkHref, productArtic
     const reviewsCount = getElementInnerNumber(reviewsWrap, true);
     const rating = getProductCardRating(ratingWrap, storedRating);
 
-    wrapReviewsWrapWithLink(reviewsWrap, productLinkHref);
+    wrapReviewsWrapContentWithLink(reviewsWrap, productLinkHref);
     appendProductDislikeButton(ratingContainer, productArticle);
 
     return {
@@ -269,11 +269,9 @@ function updateRatingText(ratingWrap, storedRating) {
         .padEnd(5);
 }
 
-function wrapReviewsWrapWithLink(reviewsWrap, productLinkHref) {
-    const link = createLink();
-    link.href = `${productLinkHref}?scrollTo=comments`;
-    link.append(...reviewsWrap.childNodes);
-    reviewsWrap.append(link);
+function wrapReviewsWrapContentWithLink(reviewsWrap, productLinkHref) {
+    const href = `${productLinkHref}?scrollTo=comments`;
+    wrapElementContentWithLink(href, reviewsWrap);
 }
 
 function appendProductDislikeButton(ratingWrap, productArticle) {
