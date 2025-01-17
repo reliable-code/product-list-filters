@@ -25,9 +25,9 @@ import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 
-const { createGlobalFilter } = createFilterFactory(addProcessProductCardsToQueue);
+const { createGlobalFilter } = createFilterFactory(processProductCards);
 
-const onPriceTolerancePercentChange = () => addProcessProductCardsToQueue(true);
+const onPriceTolerancePercentChange = () => processProductCards(true);
 
 const nameFilter = createGlobalFilter('favorites-name-filter');
 const bestPriceFilter = createGlobalFilter('best-price-filter', false);
@@ -38,15 +38,13 @@ const state = {
     firstProductCardsWrap: null,
 };
 
-let processListQueue = Promise.resolve();
-
 export async function initFavoritesMods() {
     const searchResultsSort = await waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
-    await addProcessProductCardsToQueue();
+    await processProductCards();
 
-    const observer = new MutationObserver(debounce(addProcessProductCardsToQueue));
+    const observer = new MutationObserver(debounce(processProductCards));
 
     const paginator = getFirstElement(SELECTORS.PAGINATOR);
     observer.observe(paginator, {
@@ -90,12 +88,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
     parentNode.append(filtersContainer);
     addScrollToFiltersButton(parentNode);
-}
-
-async function addProcessProductCardsToQueue(priceTolerancePercentChanged = false) {
-    processListQueue = processListQueue.then(
-        () => processProductCards(priceTolerancePercentChanged),
-    );
 }
 
 async function processProductCards(priceTolerancePercentChanged = false) {
