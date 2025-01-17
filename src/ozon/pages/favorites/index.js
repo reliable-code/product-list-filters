@@ -12,7 +12,11 @@ import {
     createCheckboxFilterControl,
     createNumberFilterControl,
 } from '../../../common/filter/factories/genericControls';
-import { hideElement, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
+import {
+    assignElementToDisplayGroup,
+    handleDisplayGroups,
+    initDisplayGroups,
+} from '../../../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
@@ -95,16 +99,18 @@ async function processProductCards(priceTolerancePercentChanged = false) {
     state.firstProductCardsWrap ??= getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
 
-    await Promise.all(productCards.map(
-        (productCard) => processProductCard(productCard, priceTolerancePercentChanged),
-    ));
+    const displayGroups = initDisplayGroups();
+    await Promise.all(
+        productCards.map(async (productCard) => {
+            const shouldHide = await processProductCard(productCard, priceTolerancePercentChanged);
+            assignElementToDisplayGroup(shouldHide, displayGroups, productCard);
+        }),
+    );
+    handleDisplayGroups(displayGroups);
 }
 
 async function processProductCard(productCard, priceTolerancePercentChanged) {
-    if (!filterEnabled.value) {
-        showElement(productCard);
-        return;
-    }
+    if (!filterEnabled.value) return false;
 
     await appendStoredPriceValuesIfNeeded(productCard);
 
@@ -119,19 +125,15 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
 
     const productCardNameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
 
-    if (!productCardNameWrap) {
-        hideElement(productCard);
-        return;
-    }
+    if (!productCardNameWrap) return true;
 
     const productCardName = productCardNameWrap.innerText;
     productCardNameWrap.title = productCardName;
 
     const isNotMatchBestPriceFilter =
         bestPriceFilter.value ? !productCard.hasAttribute(ATTRIBUTES.GOOD_PRICE) : false;
-    const shouldHide =
-        isNotMatchTextFilter(productCardName, nameFilter) || isNotMatchBestPriceFilter;
-    updateElementDisplay(productCard, shouldHide);
+
+    return isNotMatchTextFilter(productCardName, nameFilter) || isNotMatchBestPriceFilter;
 }
 
 async function appendStoredPriceValuesIfNeeded(productCard) {
