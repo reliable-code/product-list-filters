@@ -169,7 +169,7 @@ function getProductCardRatingNumber(productCard) {
     const productArticle = getProductArticle(productCard);
     const storedRatingValue = getStoredRatingValue(productArticle);
     if (!storedRatingValue) {
-        return getElementInnerNumber(productCard, true, true);
+        return getElementInnerNumber(productCardRatingWrap, true, true);
     }
 
     updateRatingText(productCardRatingWrap, storedRatingValue);
