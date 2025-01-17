@@ -26,20 +26,20 @@ export class StoredInputValue extends InputValueBase {
         this.updateValue(newParsedValue);
     };
 
-    updateValue(newValue) {
+    updateValue(newValue, callOnChange = true) {
         if (this.value === newValue) return;
 
         setStorageValue(this.storageKey, newValue);
 
         this.value = newValue;
-        this.onChangeIfDefined();
+        if (callOnChange) this.onChangeIfDefined();
     }
 
-    clearValue() {
-        this.updateValue(null);
+    clearValue(callOnChange = false) {
+        this.updateValue(null, callOnChange);
     }
 
-    resetValue() {
-        this.updateValue(this.defaultValue);
+    resetValue(callOnChange = false) {
+        this.updateValue(this.defaultValue, callOnChange);
     }
 }
