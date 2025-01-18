@@ -9,9 +9,9 @@ import {
 } from '../../../common/filter/compare';
 import {
     applyStyles,
-    hideElement,
-    showElement,
-    updateElementDisplay,
+    assignElementToDisplayGroup,
+    handleDisplayGroups,
+    initDisplayGroups,
 } from '../../../common/dom/manipulation';
 import {
     getAllElements,
@@ -119,14 +119,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function processProductCards() {
     const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
-    productCards.forEach(processProductCard);
+    const displayGroups = initDisplayGroups();
+    productCards.forEach((productCard) => {
+        const shouldHide = processProductCard(productCard);
+        assignElementToDisplayGroup(shouldHide, displayGroups, productCard);
+    });
+    handleDisplayGroups(displayGroups);
 }
 
 function processProductCard(productCard) {
-    if (!filterEnabled.value) {
-        showElement(productCard);
-        return;
-    }
+    if (!filterEnabled.value) return false;
 
     let cachedData = state.productCardsCache.get(productCard);
 
@@ -134,10 +136,7 @@ function processProductCard(productCard) {
         const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
         const priceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE_WRAP, productCard);
 
-        if (!nameWrap || !priceWrap) {
-            hideElement(productCard);
-            return;
-        }
+        if (!nameWrap || !priceWrap) return true;
 
         const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
 
@@ -159,14 +158,14 @@ function processProductCard(productCard) {
         state.productCardsCache.set(productCard, cachedData);
     }
 
-    const shouldHide =
+    return (
         isNotMatchTextFilter(cachedData.name, nameFilter) ||
         isLessThanFilter(cachedData.reviewsCount, minReviewsFilter) ||
         isGreaterThanFilter(cachedData.reviewsCount, maxReviewsFilter) ||
         isLessThanFilter(cachedData.rating, minRatingFilter) ||
         isLessThanFilter(cachedData.price, minPriceFilter) ||
-        isGreaterThanFilter(cachedData.price, maxPriceFilter);
-    updateElementDisplay(productCard, shouldHide);
+        isGreaterThanFilter(cachedData.price, maxPriceFilter)
+    );
 }
 
 function getProductCardRating(productCard) {
