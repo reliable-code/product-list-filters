@@ -308,6 +308,17 @@ export function determineIfGoodPrice(priceTolerancePercent, priceData) {
 
     return priceData.current <= goodPrice;
 }
+
+export function highlightIfGoodPrice(isGoodPrice, priceWrapContainer) {
+    if (isGoodPrice) {
+        applyGoodPriceStyles(priceWrapContainer);
+    } else {
+        removeGoodPriceStyles(priceWrapContainer);
+    }
+
+    return isGoodPrice;
+}
+
 export function checkIfGoodPriceFromAttributes(
     priceWrapContainer, productCard, priceTolerancePercentValue,
 ) {
