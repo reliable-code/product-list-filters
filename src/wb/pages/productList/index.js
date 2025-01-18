@@ -7,12 +7,16 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
-import { applyStyles, showElement, updateElementDisplay } from '../../../common/dom/manipulation';
+import {
+    applyStyles,
+    hideElement,
+    showElement,
+    updateElementDisplay,
+} from '../../../common/dom/manipulation';
 import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    getFirstElementInnerNumber,
 } from '../../../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -127,54 +131,56 @@ function processProductCard(productCard) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
-        const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
+        const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
+        const priceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE_WRAP, productCard);
 
-        const productCardName = productCardNameWrap.innerText;
-        productCardNameWrap.title = productCardName;
-        productCardNameWrap.style.whiteSpace = 'normal';
+        if (!nameWrap || !priceWrap) {
+            hideElement(productCard);
+            return;
+        }
 
-        const productCardReviewsNumber = getFirstElementInnerNumber(
-            productCard, SELECTORS.PRODUCT_CARD_REVIEWS, true,
-        );
-        const productCardRatingNumber = getProductCardRatingNumber(productCard);
-        const productCardPriceNumber = getFirstElementInnerNumber(
-            productCard, SELECTORS.PRODUCT_CARD_PRICE, true,
-        );
+        const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
+
+        const name = nameWrap.innerText;
+        nameWrap.title = name;
+        nameWrap.style.whiteSpace = 'normal';
+
+        const reviewsCount = getElementInnerNumber(reviewsWrap, true, false, 0);
+        const rating = getProductCardRating(productCard);
+        const price = getElementInnerNumber(priceWrap, true);
 
         cachedData = {
-            productCardName,
-            productCardReviewsNumber,
-            productCardRatingNumber,
-            productCardPriceNumber,
+            name,
+            reviewsCount,
+            rating,
+            price,
         };
 
         state.productCardsCache.set(productCard, cachedData);
     }
 
     const shouldHide =
-        isNotMatchTextFilter(cachedData.productCardName, nameFilter) ||
-        isLessThanFilter(cachedData.productCardReviewsNumber, minReviewsFilter) ||
-        isGreaterThanFilter(cachedData.productCardReviewsNumber, maxReviewsFilter) ||
-        isLessThanFilter(cachedData.productCardRatingNumber, minRatingFilter) ||
-        isLessThanFilter(cachedData.productCardPriceNumber, minPriceFilter) ||
-        isGreaterThanFilter(cachedData.productCardPriceNumber, maxPriceFilter);
+        isNotMatchTextFilter(cachedData.name, nameFilter) ||
+        isLessThanFilter(cachedData.reviewsCount, minReviewsFilter) ||
+        isGreaterThanFilter(cachedData.reviewsCount, maxReviewsFilter) ||
+        isLessThanFilter(cachedData.rating, minRatingFilter) ||
+        isLessThanFilter(cachedData.price, minPriceFilter) ||
+        isGreaterThanFilter(cachedData.price, maxPriceFilter);
     updateElementDisplay(productCard, shouldHide);
 }
 
-function getProductCardRatingNumber(productCard) {
-    const productCardRatingWrap = getFirstElement(
-        SELECTORS.PRODUCT_CARD_RATING, productCard,
-    );
+function getProductCardRating(productCard) {
+    const ratingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
 
     const productArticle = getProductArticle(productCard);
-    const storedRatingValue = getStoredRatingValue(productArticle);
-    if (!storedRatingValue) {
-        return getElementInnerNumber(productCardRatingWrap, true, true);
+    const storedRating = getStoredRatingValue(productArticle);
+    if (!storedRating) {
+        return getElementInnerNumber(ratingWrap, true, true);
     }
 
-    updateRatingText(productCardRatingWrap, storedRatingValue);
+    updateRatingText(ratingWrap, storedRating);
 
-    return storedRatingValue;
+    return storedRating;
 }
 
 function getProductArticle(productCard) {
