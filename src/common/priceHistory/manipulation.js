@@ -313,15 +313,9 @@ export function checkIfGoodPriceFromAttributes(
 
     if (currentPrice <= goodPrice) {
         applyGoodPriceStyles(priceWrapContainer);
-
         productCard.setAttribute(ATTRIBUTES.GOOD_PRICE, '');
     } else {
-        const stylePropertiesToRemove =
-            ['border', 'borderRadius', 'padding', 'marginBottom', 'width'];
-        stylePropertiesToRemove.forEach(
-            (property) => priceWrapContainer.style.removeProperty(property),
-        );
-
+        removeGoodPriceStyles(priceWrapContainer);
         productCard.removeAttribute(ATTRIBUTES.GOOD_PRICE);
     }
 }
@@ -332,4 +326,11 @@ function applyGoodPriceStyles(priceWrapContainer) {
     priceWrapContainer.style.padding = '4px 10px 6px';
     priceWrapContainer.style.marginBottom = '5px';
     priceWrapContainer.style.width = '-webkit-fill-available';
+}
+
+function removeGoodPriceStyles(priceWrapContainer) {
+    const stylePropertiesToRemove = ['border', 'borderRadius', 'padding', 'marginBottom', 'width'];
+    stylePropertiesToRemove.forEach(
+        (property) => priceWrapContainer.style.removeProperty(property),
+    );
 }
