@@ -40,6 +40,7 @@ const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
 
 const state = {
     firstProductCardsWrap: null,
+    productCardsCache: new WeakMap(),
 };
 
 export async function initFavoritesMods() {
@@ -112,9 +113,23 @@ async function processProductCards(priceTolerancePercentChanged = false) {
 async function processProductCard(productCard, priceTolerancePercentChanged) {
     if (!filterEnabled.value) return false;
 
-    await appendStoredPricesIfNeeded(productCard);
+    let cachedData = state.productCardsCache.get(productCard);
 
-    if (
+    if (!cachedData) {
+        await appendStoredPricesIfNeeded(productCard);
+
+        const nameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
+        if (!nameWrap) return true;
+
+        const name = nameWrap.innerText;
+        nameWrap.title = name;
+
+        cachedData = {
+            name,
+        };
+
+        state.productCardsCache.set(productCard, cachedData);
+    } else if (
         priceTolerancePercentChanged &&
         productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
         productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)
@@ -123,17 +138,10 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         checkIfGoodPrice(priceWrapContainer, productCard, priceTolerancePercent.value);
     }
 
-    const nameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
-
-    if (!nameWrap) return true;
-
-    const name = nameWrap.innerText;
-    nameWrap.title = name;
-
     const isNotMatchBestPriceFilter =
         bestPriceFilter.value ? !productCard.hasAttribute(ATTRIBUTES.GOOD_PRICE) : false;
 
-    return isNotMatchTextFilter(name, nameFilter) || isNotMatchBestPriceFilter;
+    return isNotMatchTextFilter(cachedData.name, nameFilter) || isNotMatchBestPriceFilter;
 }
 
 async function appendStoredPricesIfNeeded(productCard) {
