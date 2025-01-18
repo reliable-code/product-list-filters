@@ -133,19 +133,26 @@ function processProductCard(productCard) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
+        const productLink = getFirstElement('a', productCard);
+        if (!productLink) return true;
+
+        const productArticle = getProductArticleFromLink(productLink);
+
         const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
         const priceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE_WRAP, productCard);
 
         if (!nameWrap || !priceWrap) return true;
 
         const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
+        const ratingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
 
         const name = nameWrap.innerText;
         nameWrap.title = name;
         nameWrap.style.whiteSpace = 'normal';
 
+        const storedRating = getStoredRatingValue(productArticle);
         const reviewsCount = getElementInnerNumber(reviewsWrap, true, false, 0);
-        const rating = getProductCardRating(productCard);
+        const rating = getProductCardRating(ratingWrap, storedRating);
         const price = getElementInnerNumber(priceWrap, true);
 
         cachedData = {
@@ -168,11 +175,7 @@ function processProductCard(productCard) {
     );
 }
 
-function getProductCardRating(productCard) {
-    const ratingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, productCard);
-
-    const productArticle = getProductArticle(productCard);
-    const storedRating = getStoredRatingValue(productArticle);
+function getProductCardRating(ratingWrap, storedRating) {
     if (!storedRating) {
         return getElementInnerNumber(ratingWrap, true, true);
     }
@@ -182,12 +185,7 @@ function getProductCardRating(productCard) {
     return storedRating;
 }
 
-function getProductArticle(productCard) {
-    const productLink = getFirstElement('a', productCard);
-    return getProductArticleFromLink(productLink);
-}
-
-function updateRatingText(productCardRatingWrap, storedRatingValue) {
-    productCardRatingWrap.textContent = storedRatingValue.toString()
+function updateRatingText(ratingWrap, storedRating) {
+    ratingWrap.textContent = storedRating.toString()
         .replace('.', ',');
 }
