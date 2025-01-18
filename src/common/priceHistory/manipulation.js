@@ -302,7 +302,9 @@ function updatePriceHistory(currentProduct, currentPriceValue) {
 }
 
 // todo: Determine "good price" based on price history (3-6 months)
-export function checkIfGoodPrice(priceWrapContainer, productCard, priceTolerancePercentValue) {
+export function checkIfGoodPriceFromAttributes(
+    priceWrapContainer, productCard, priceTolerancePercentValue,
+) {
     const currentPrice = productCard.getAttribute(ATTRIBUTES.CURRENT_PRICE);
     const lowestPrice = productCard.getAttribute(ATTRIBUTES.LOWEST_PRICE);
 

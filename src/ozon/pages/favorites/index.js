@@ -19,7 +19,10 @@ import {
 } from '../../../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
-import { appendPriceHistory, checkIfGoodPrice } from '../../../common/priceHistory/manipulation';
+import {
+    appendPriceHistory,
+    checkIfGoodPriceFromAttributes,
+} from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
     createSearchFilterControl,
@@ -135,7 +138,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)
     ) {
         const priceWrapContainer = getPriceWrap(productCard).parentNode;
-        checkIfGoodPrice(priceWrapContainer, productCard, priceTolerancePercent.value);
+        checkIfGoodPriceFromAttributes(priceWrapContainer, productCard, priceTolerancePercent.value);
     }
 
     const isNotMatchBestPriceFilter =
@@ -155,7 +158,7 @@ async function appendStoredPricesIfNeeded(productCard) {
 
     if (productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
         productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)) {
-        checkIfGoodPrice(priceWrapContainer, productCard, priceTolerancePercent.value);
+        checkIfGoodPriceFromAttributes(priceWrapContainer, productCard, priceTolerancePercent.value);
     }
 }
 
