@@ -5,6 +5,7 @@ import {
     getProductArticleFromLinkHref,
     moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
+    wrapReviewsWrapContentWithLink,
 } from '../common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import { isNotMatchTextFilter } from '../../../common/filter/compare';
@@ -147,6 +148,9 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         state.productCardsCache.set(productCard, cachedData);
 
         await appendStoredPricesIfNeeded(productCard, cachedData);
+
+        const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
+        if (reviewsWrap) wrapReviewsWrapContentWithLink(reviewsWrap, productLinkHref);
     } else if (priceTolerancePercentChanged && cachedData.priceData) {
         cachedData.isGoodPrice = determineIfGoodPrice(
             priceTolerancePercent.value, cachedData.priceData,
