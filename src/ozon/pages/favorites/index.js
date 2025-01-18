@@ -145,13 +145,8 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
 }
 
 async function appendStoredPricesIfNeeded(productCard) {
-    if (productCard.hasAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED)) return;
-
     const additionalInfo = getFirstElement(SELECTORS.ADDITIONAL_INFO, productCard);
-    if (additionalInfo?.innerText === 'Нет в наличии') {
-        productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
-        return;
-    }
+    if (additionalInfo?.innerText === 'Нет в наличии') return;
 
     const priceWrap = getPriceWrap(productCard);
     const priceWrapContainer = priceWrap.parentNode;
@@ -170,7 +165,6 @@ function getPriceWrap(productCard) {
 
 async function appendStoredPrices(productCard, priceContainer, priceContainerWrap) {
     const productCardLink = getFirstElement('a', productCard);
-
     if (!productCardLink) return;
 
     const productArticle = getProductArticleFromLink(productCardLink);
@@ -178,12 +172,9 @@ async function appendStoredPrices(productCard, priceContainer, priceContainerWra
 
     const priceData = await appendPriceHistory(priceContainer, priceSpan, productArticle);
 
-    if (priceData) {
-        productCard.setAttribute(ATTRIBUTES.CURRENT_PRICE, priceData.current);
-        productCard.setAttribute(ATTRIBUTES.LOWEST_PRICE, priceData.lowest);
+    if (!priceData) return;
 
-        priceContainerWrap.style.display = 'block';
-    }
-
-    productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
+    productCard.setAttribute(ATTRIBUTES.CURRENT_PRICE, priceData.current);
+    productCard.setAttribute(ATTRIBUTES.LOWEST_PRICE, priceData.lowest);
+    priceContainerWrap.style.display = 'block';
 }
