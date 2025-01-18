@@ -302,7 +302,7 @@ function updatePriceHistory(currentProduct, currentPriceValue) {
 }
 
 // todo: Determine "good price" based on price history (3-6 months)
-export function checkIfGoodPrice(priceContainerWrap, productCard, priceTolerancePercentValue) {
+export function checkIfGoodPrice(priceWrapContainer, productCard, priceTolerancePercentValue) {
     const currentPrice = productCard.getAttribute(ATTRIBUTES.CURRENT_PRICE);
     const lowestPrice = productCard.getAttribute(ATTRIBUTES.LOWEST_PRICE);
 
@@ -310,18 +310,18 @@ export function checkIfGoodPrice(priceContainerWrap, productCard, priceTolerance
     const goodPrice = lowestPrice * priceToleranceFactor;
 
     if (currentPrice <= goodPrice) {
-        priceContainerWrap.style.border = '3px solid rgb(214, 245, 177)';
-        priceContainerWrap.style.borderRadius = '14px';
-        priceContainerWrap.style.padding = '4px 10px 6px';
-        priceContainerWrap.style.marginBottom = '5px';
-        priceContainerWrap.style.width = '-webkit-fill-available';
+        priceWrapContainer.style.border = '3px solid rgb(214, 245, 177)';
+        priceWrapContainer.style.borderRadius = '14px';
+        priceWrapContainer.style.padding = '4px 10px 6px';
+        priceWrapContainer.style.marginBottom = '5px';
+        priceWrapContainer.style.width = '-webkit-fill-available';
 
         productCard.setAttribute(ATTRIBUTES.GOOD_PRICE, '');
     } else {
         const stylePropertiesToRemove =
             ['border', 'borderRadius', 'padding', 'marginBottom', 'width'];
         stylePropertiesToRemove.forEach(
-            (property) => priceContainerWrap.style.removeProperty(property),
+            (property) => priceWrapContainer.style.removeProperty(property),
         );
 
         productCard.removeAttribute(ATTRIBUTES.GOOD_PRICE);
