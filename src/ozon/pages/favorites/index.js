@@ -20,7 +20,6 @@ import {
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import {
     appendPriceHistory,
-    checkIfGoodPriceFromAttributes,
     determineIfGoodPrice,
     highlightIfGoodPrice,
 } from '../../../common/priceHistory/manipulation';
@@ -121,12 +120,17 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
 
     if (!cachedData) {
         const nameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
-        if (!nameWrap) return true;
+        const priceWrap = getPriceWrap(productCard);
+        if (!nameWrap || !priceWrap) return true;
+
+        const priceWrapContainer = priceWrap.parentNode;
 
         const name = nameWrap.innerText;
         nameWrap.title = name;
 
         cachedData = {
+            priceWrap,
+            priceWrapContainer,
             name,
         };
 
@@ -137,8 +141,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         cachedData.isGoodPrice = determineIfGoodPrice(
             priceTolerancePercent.value, cachedData.priceData,
         );
-        const priceWrapContainer = getPriceWrap(productCard).parentNode;
-        highlightIfGoodPrice(cachedData.isGoodPrice, priceWrapContainer);
+        highlightIfGoodPrice(cachedData.isGoodPrice, cachedData.priceWrapContainer);
     }
 
     const isNotMatchBestPriceFilter = bestPriceFilter.value ? !cachedData.isGoodPrice : false;
@@ -146,31 +149,36 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
     return isNotMatchTextFilter(cachedData.name, nameFilter) || isNotMatchBestPriceFilter;
 }
 
-async function appendStoredPricesIfNeeded(productCard, cachedData) {
-    const additionalInfo = getFirstElement(SELECTORS.ADDITIONAL_INFO, productCard);
-    if (additionalInfo?.innerText === 'Нет в наличии') return;
-
-    const priceWrap = getPriceWrap(productCard);
-    const priceWrapContainer = priceWrap.parentNode;
-
-    await appendStoredPrices(productCard, priceWrap, priceWrapContainer, cachedData);
-    if (!cachedData.priceData) return;
-
-    checkIfGoodPriceFromAttributes(priceWrapContainer, productCard, priceTolerancePercent.value);
-}
-
 function getPriceWrap(productCard) {
     return productCard?.children[0]?.children[1]?.children[0]?.children[0] || null;
 }
 
-async function appendStoredPrices(productCard, priceContainer, priceContainerWrap, cachedData) {
+async function appendStoredPricesIfNeeded(productCard, cachedData) {
+    const additionalInfo = getFirstElement(SELECTORS.ADDITIONAL_INFO, productCard);
+    if (additionalInfo?.innerText === 'Нет в наличии') return;
+
+    await appendStoredPrices(productCard, cachedData);
+    if (!cachedData.priceData) return;
+
+    cachedData.isGoodPrice = determineIfGoodPrice(
+        priceTolerancePercent.value, cachedData.priceData,
+    );
+    highlightIfGoodPrice(cachedData.isGoodPrice, cachedData.priceWrapContainer);
+}
+
+async function appendStoredPrices(productCard, cachedData) {
     const productCardLink = getFirstElement('a', productCard);
     if (!productCardLink) return;
 
+    const {
+        priceWrap,
+        priceWrapContainer,
+    } = cachedData;
+
     const productArticle = getProductArticleFromLink(productCardLink);
-    const priceSpan = getFirstElement('span', priceContainer);
+    const priceSpan = getFirstElement('span', priceWrap);
 
-    cachedData.priceData = await appendPriceHistory(priceContainer, priceSpan, productArticle);
+    cachedData.priceData = await appendPriceHistory(priceWrap, priceSpan, productArticle);
 
-    priceContainerWrap.style.display = 'block';
+    priceWrapContainer.style.display = 'block';
 }
