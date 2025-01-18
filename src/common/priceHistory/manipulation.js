@@ -312,11 +312,7 @@ export function checkIfGoodPriceFromAttributes(
     const goodPrice = lowestPrice * priceToleranceFactor;
 
     if (currentPrice <= goodPrice) {
-        priceWrapContainer.style.border = '3px solid rgb(214, 245, 177)';
-        priceWrapContainer.style.borderRadius = '14px';
-        priceWrapContainer.style.padding = '4px 10px 6px';
-        priceWrapContainer.style.marginBottom = '5px';
-        priceWrapContainer.style.width = '-webkit-fill-available';
+        applyGoodPriceStyles(priceWrapContainer);
 
         productCard.setAttribute(ATTRIBUTES.GOOD_PRICE, '');
     } else {
@@ -328,4 +324,12 @@ export function checkIfGoodPriceFromAttributes(
 
         productCard.removeAttribute(ATTRIBUTES.GOOD_PRICE);
     }
+}
+
+function applyGoodPriceStyles(priceWrapContainer) {
+    priceWrapContainer.style.border = '3px solid rgb(214, 245, 177)';
+    priceWrapContainer.style.borderRadius = '14px';
+    priceWrapContainer.style.padding = '4px 10px 6px';
+    priceWrapContainer.style.marginBottom = '5px';
+    priceWrapContainer.style.width = '-webkit-fill-available';
 }
