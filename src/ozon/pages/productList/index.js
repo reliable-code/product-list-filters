@@ -177,8 +177,6 @@ function processProductCard(productCard, rateUpdated) {
 
         if (!nameWrap || !priceWrap) return true;
 
-        const price = getElementInnerNumber(priceWrap, true);
-
         const ratingContainer = getFirstElement(
             SELECTORS.PRODUCT_CARD_RATING_CONTAINER, productCard,
         );
@@ -193,6 +191,8 @@ function processProductCard(productCard, rateUpdated) {
 
         const name = nameWrap.innerText;
         nameWrap.title = name;
+
+        const price = getElementInnerNumber(priceWrap, true);
 
         cachedData = {
             productArticle,
@@ -265,16 +265,16 @@ function updateRatingText(ratingWrap, storedRating) {
         .padEnd(5);
 }
 
-function appendProductDislikeButton(ratingWrap, productArticle) {
-    ratingWrap.style.display = 'flex';
-    ratingWrap.style.width = '100%';
+function appendProductDislikeButton(ratingContainer, productArticle) {
+    ratingContainer.style.display = 'flex';
+    ratingContainer.style.width = '100%';
 
     const dislikeButton =
         createDislikeButton(
             () => dislikeProductOnProductList(productArticle), false,
         );
 
-    ratingWrap.append(dislikeButton);
+    ratingContainer.append(dislikeButton);
 }
 
 async function dislikeProductOnProductList(productArticle) {
