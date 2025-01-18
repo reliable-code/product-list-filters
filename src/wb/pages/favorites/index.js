@@ -151,10 +151,9 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         highlightIfGoodPrice(cachedData.isGoodPrice, cachedData.priceInfoContainer);
     }
 
-    return (
-        isNotMatchTextFilter(cachedData.name, nameFilter) ||
-        isNotMatchBestPriceFilter(cachedData)
-    );
+    const isNotMatchBestPriceFilter = bestPriceFilter.value ? !cachedData.isGoodPrice : false;
+
+    return isNotMatchTextFilter(cachedData.name, nameFilter) || isNotMatchBestPriceFilter;
 }
 
 async function appendStoredPricesIfNeeded(productCard, cachedData) {
@@ -182,8 +181,4 @@ async function appendStoredPrices(productCard, cachedData) {
 
     getFirstElement(SELECTORS.SIMILAR_BUTTON, priceInfoContainer)
         ?.remove();
-}
-
-function isNotMatchBestPriceFilter(cachedData) {
-    return bestPriceFilter.value ? !cachedData.isGoodPrice : false;
 }
