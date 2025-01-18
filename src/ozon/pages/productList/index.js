@@ -228,12 +228,9 @@ function processProductCardRating(ratingContainer, productLinkHref, productArtic
     if (!ratingContainer) return { noRatingContainer: true };
 
     const storedRating = getStoredRatingValue(productArticle);
-    const reviewsWrap = getFirstElement(
-        ':scope > span:nth-of-type(2)', ratingContainer, true,
-    );
-    const ratingWrap = getFirstElement(
-        ':scope > span:nth-of-type(1) > span:nth-of-type(1)', ratingContainer, true,
-    );
+    const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, ratingContainer, true);
+    const ratingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, ratingContainer, true);
+
     const reviewsCount = getElementInnerNumber(reviewsWrap, true);
     const rating = getProductCardRating(ratingWrap, storedRating);
 

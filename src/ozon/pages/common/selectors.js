@@ -4,5 +4,7 @@ export const SELECTORS = {
     PRODUCT_CARD_NAME_WRAP: '.tsBody500Medium',
     PRODUCT_CARD_PRICE_WRAP: '.tsHeadline500Medium',
     PRODUCT_CARD_RATING_CONTAINER: '.tsBodyMBold',
+    PRODUCT_CARD_REVIEWS_WRAP: ':scope > span:nth-of-type(2)',
+    PRODUCT_CARD_RATING_WRAP: ':scope > span:nth-of-type(1) > span:nth-of-type(1)',
     PRODUCT_CARDS_WRAP: '.widget-search-result-container > :first-child',
 };
