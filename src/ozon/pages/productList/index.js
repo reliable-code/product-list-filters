@@ -44,8 +44,7 @@ import {
 } from '../../../common/filter/factories/specificControls';
 import { getHashOrDefault } from '../../../common/hash/helpers';
 import { STYLES } from '../common/styles';
-import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
-import { SELECTORS } from './selectors';
+import { SELECTORS } from '../common/selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import {
     getStoredRatingValue,
@@ -85,7 +84,7 @@ function getSectionId() {
 }
 
 export async function initProductListMods(paginatorContent) {
-    const searchResultsSort = await waitForElement(document, COMMON_SELECTORS.SEARCH_RESULTS_SORT);
+    const searchResultsSort = await waitForElement(document, SELECTORS.SEARCH_RESULTS_SORT);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
     addStorageValueListener(STORAGE_KEYS.LAST_RATE_UPDATE, () => processProductCards(true));
@@ -150,7 +149,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function processProductCards(rateUpdated = false) {
-    const productCards = getAllElements(COMMON_SELECTORS.PRODUCT_CARDS);
+    const productCards = getAllElements(SELECTORS.PRODUCT_CARDS);
     state.firstProductCardsWrap ??= getFirstProductCardsWrap();
     moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
 
@@ -173,7 +172,7 @@ function processProductCard(productCard, rateUpdated) {
 
         const productLinkHref = clearQueryParams(productLink.getAttribute('href'));
         const productArticle = getProductArticleFromLinkHref(productLinkHref);
-        const nameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
+        const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
         const priceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE_WRAP, productCard);
 
         if (!nameWrap || !priceWrap) return true;

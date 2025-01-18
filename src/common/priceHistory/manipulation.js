@@ -309,11 +309,11 @@ export function determineIfGoodPrice(priceTolerancePercent, priceData) {
     return priceData.current <= goodPrice;
 }
 
-export function highlightIfGoodPrice(isGoodPrice, priceWrapContainer) {
+export function highlightIfGoodPrice(isGoodPrice, priceInfoContainer) {
     if (isGoodPrice) {
-        applyGoodPriceStyles(priceWrapContainer);
+        applyGoodPriceStyles(priceInfoContainer);
     } else {
-        removeGoodPriceStyles(priceWrapContainer);
+        removeGoodPriceStyles(priceInfoContainer);
     }
 }
 
