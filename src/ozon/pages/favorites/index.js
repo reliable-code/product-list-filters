@@ -2,7 +2,7 @@ import { debounce, waitForElement } from '../../../common/dom/utils';
 import {
     addScrollToFiltersButton,
     getFirstProductCardsWrap,
-    getProductArticleFromLink,
+    getProductArticleFromLinkHref,
     moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
 } from '../common';
@@ -31,6 +31,7 @@ import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
 import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
+import { clearQueryParams } from '../../../common/url';
 
 const { createGlobalFilter } = createFilterFactory(processProductCards);
 
@@ -119,6 +120,11 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
+        const productLink = getFirstElement('a', productCard);
+        if (!productLink) return true;
+
+        const productLinkHref = clearQueryParams(productLink.getAttribute('href'));
+        const productArticle = getProductArticleFromLinkHref(productLinkHref);
         const nameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
         const priceWrap = getPriceWrap(productCard);
         if (!nameWrap || !priceWrap) return true;
@@ -129,6 +135,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         nameWrap.title = name;
 
         cachedData = {
+            productArticle,
             priceWrap,
             priceWrapContainer,
             name,
@@ -157,19 +164,16 @@ async function appendStoredPricesIfNeeded(productCard, cachedData) {
     const additionalInfo = getFirstElement(SELECTORS.ADDITIONAL_INFO, productCard);
     if (additionalInfo?.innerText === 'Нет в наличии') return;
 
-    await appendStoredPrices(productCard, cachedData);
+    await appendStoredPrices(cachedData);
 }
 
-async function appendStoredPrices(productCard, cachedData) {
-    const productCardLink = getFirstElement('a', productCard);
-    if (!productCardLink) return;
-
+async function appendStoredPrices(cachedData) {
     const {
+        productArticle,
         priceWrap,
         priceWrapContainer,
     } = cachedData;
 
-    const productArticle = getProductArticleFromLink(productCardLink);
     const priceSpan = getFirstElement('span', priceWrap);
 
     cachedData.priceData = await appendPriceHistory(priceWrap, priceSpan, productArticle);
