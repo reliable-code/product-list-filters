@@ -18,10 +18,11 @@ import {
     initDisplayGroups,
 } from '../../../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
-import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import {
     appendPriceHistory,
     checkIfGoodPriceFromAttributes,
+    determineIfGoodPrice,
+    highlightIfGoodPrice,
 } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
@@ -119,8 +120,6 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
-        await appendStoredPricesIfNeeded(productCard);
-
         const nameWrap = getFirstElement(COMMON_SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
         if (!nameWrap) return true;
 
@@ -132,52 +131,46 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         };
 
         state.productCardsCache.set(productCard, cachedData);
-    } else if (
-        priceTolerancePercentChanged &&
-        productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
-        productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)
-    ) {
+
+        await appendStoredPricesIfNeeded(productCard, cachedData);
+    } else if (priceTolerancePercentChanged && cachedData.priceData) {
+        cachedData.isGoodPrice = determineIfGoodPrice(
+            priceTolerancePercent.value, cachedData.priceData,
+        );
         const priceWrapContainer = getPriceWrap(productCard).parentNode;
-        checkIfGoodPriceFromAttributes(priceWrapContainer, productCard, priceTolerancePercent.value);
+        highlightIfGoodPrice(cachedData.isGoodPrice, priceWrapContainer);
     }
 
-    const isNotMatchBestPriceFilter =
-        bestPriceFilter.value ? !productCard.hasAttribute(ATTRIBUTES.GOOD_PRICE) : false;
+    const isNotMatchBestPriceFilter = bestPriceFilter.value ? !cachedData.isGoodPrice : false;
 
     return isNotMatchTextFilter(cachedData.name, nameFilter) || isNotMatchBestPriceFilter;
 }
 
-async function appendStoredPricesIfNeeded(productCard) {
+async function appendStoredPricesIfNeeded(productCard, cachedData) {
     const additionalInfo = getFirstElement(SELECTORS.ADDITIONAL_INFO, productCard);
     if (additionalInfo?.innerText === 'Нет в наличии') return;
 
     const priceWrap = getPriceWrap(productCard);
     const priceWrapContainer = priceWrap.parentNode;
 
-    await appendStoredPrices(productCard, priceWrap, priceWrapContainer);
+    await appendStoredPrices(productCard, priceWrap, priceWrapContainer, cachedData);
+    if (!cachedData.priceData) return;
 
-    if (productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
-        productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)) {
-        checkIfGoodPriceFromAttributes(priceWrapContainer, productCard, priceTolerancePercent.value);
-    }
+    checkIfGoodPriceFromAttributes(priceWrapContainer, productCard, priceTolerancePercent.value);
 }
 
 function getPriceWrap(productCard) {
     return productCard?.children[0]?.children[1]?.children[0]?.children[0] || null;
 }
 
-async function appendStoredPrices(productCard, priceContainer, priceContainerWrap) {
+async function appendStoredPrices(productCard, priceContainer, priceContainerWrap, cachedData) {
     const productCardLink = getFirstElement('a', productCard);
     if (!productCardLink) return;
 
     const productArticle = getProductArticleFromLink(productCardLink);
     const priceSpan = getFirstElement('span', priceContainer);
 
-    const priceData = await appendPriceHistory(priceContainer, priceSpan, productArticle);
+    cachedData.priceData = await appendPriceHistory(priceContainer, priceSpan, productArticle);
 
-    if (!priceData) return;
-
-    productCard.setAttribute(ATTRIBUTES.CURRENT_PRICE, priceData.current);
-    productCard.setAttribute(ATTRIBUTES.LOWEST_PRICE, priceData.lowest);
     priceContainerWrap.style.display = 'block';
 }
