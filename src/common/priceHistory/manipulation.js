@@ -315,8 +315,6 @@ export function highlightIfGoodPrice(isGoodPrice, priceWrapContainer) {
     } else {
         removeGoodPriceStyles(priceWrapContainer);
     }
-
-    return isGoodPrice;
 }
 
 export function checkIfGoodPriceFromAttributes(

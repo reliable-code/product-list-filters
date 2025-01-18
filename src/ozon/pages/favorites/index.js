@@ -158,12 +158,6 @@ async function appendStoredPricesIfNeeded(productCard, cachedData) {
     if (additionalInfo?.innerText === 'Нет в наличии') return;
 
     await appendStoredPrices(productCard, cachedData);
-    if (!cachedData.priceData) return;
-
-    cachedData.isGoodPrice = determineIfGoodPrice(
-        priceTolerancePercent.value, cachedData.priceData,
-    );
-    highlightIfGoodPrice(cachedData.isGoodPrice, cachedData.priceWrapContainer);
 }
 
 async function appendStoredPrices(productCard, cachedData) {
@@ -179,6 +173,12 @@ async function appendStoredPrices(productCard, cachedData) {
     const priceSpan = getFirstElement('span', priceWrap);
 
     cachedData.priceData = await appendPriceHistory(priceWrap, priceSpan, productArticle);
+    if (!cachedData.priceData) return;
 
     priceWrapContainer.style.display = 'block';
+
+    cachedData.isGoodPrice = determineIfGoodPrice(
+        priceTolerancePercent.value, cachedData.priceData,
+    );
+    highlightIfGoodPrice(cachedData.isGoodPrice, priceWrapContainer);
 }
