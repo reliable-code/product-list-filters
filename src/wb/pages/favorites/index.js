@@ -27,8 +27,8 @@ import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
 import { createSeparator } from '../../../common/filter/factories/helpers';
 
-const { createGlobalFilter } = createFilterFactory(addProcessListToQueue);
-const onPriceTolerancePercentChange = () => addProcessListToQueue(true);
+const { createGlobalFilter } = createFilterFactory(processProductCards);
+const onPriceTolerancePercentChange = () => processProductCards(true);
 
 const nameFilter = createGlobalFilter('favorites-name-filter');
 const bestPriceFilter = createGlobalFilter('best-price-filter', false);
@@ -36,14 +36,12 @@ const priceTolerancePercent = createGlobalFilter('price-tolerance-percent', 3, o
 const inStockOnlyFilter = createGlobalFilter('in-stock-only-filter', true);
 const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
 
-let processListQueue = Promise.resolve();
-
 export async function initFavoritesMods() {
     const filterContainer = await waitForElement(document, SELECTORS.FILTER_CONTAINER);
     appendFilterControlsIfNeeded(filterContainer, appendFiltersContainer);
 
-    await addProcessListToQueue();
-    const observer = new MutationObserver(debounce(addProcessListToQueue));
+    await processProductCards();
+    const observer = new MutationObserver(debounce(processProductCards));
 
     const productListContainer = getFirstElement(SELECTORS.PRODUCT_LIST_CONTAINER);
     observer.observe(productListContainer, {
@@ -99,12 +97,6 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     parentNode.append(filtersContainer);
-}
-
-async function addProcessListToQueue(priceTolerancePercentChanged = false) {
-    processListQueue = processListQueue.then(
-        () => processProductCards(priceTolerancePercentChanged),
-    );
 }
 
 async function processProductCards(priceTolerancePercentChanged = false) {
