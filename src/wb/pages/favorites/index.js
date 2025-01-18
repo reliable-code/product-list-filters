@@ -117,25 +117,25 @@ async function processProductCards(priceTolerancePercentChanged = false) {
 async function processProductCard(productCard, priceTolerancePercentChanged) {
     if (!filterEnabled.value) return false;
 
-    const priceContainer = getFirstElement(SELECTORS.PRICE_CONTAINER, productCard);
-    if (!priceContainer) return inStockOnlyFilter.value;
+    const priceInfoWrap = getFirstElement(SELECTORS.PRICE_INFO_WRAP, productCard);
+    if (!priceInfoWrap) return inStockOnlyFilter.value;
 
-    await handlePriceData(productCard, priceContainer, priceTolerancePercentChanged);
+    await handlePriceData(productCard, priceInfoWrap, priceTolerancePercentChanged);
 
-    const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
-    if (!productCardNameWrap) return true;
+    const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
+    if (!nameWrap) return true;
 
-    const productCardName = productCardNameWrap.innerText;
-    productCardNameWrap.title = productCardName;
+    const name = nameWrap.innerText;
+    nameWrap.title = name;
 
     return (
-        isNotMatchTextFilter(productCardName, nameFilter) ||
+        isNotMatchTextFilter(name, nameFilter) ||
         isNotMatchBestPriceFilter(productCard)
     );
 }
 
-async function handlePriceData(productCard, priceContainer, priceTolerancePercentChanged) {
-    await appendStoredPriceValuesIfNeeded(productCard, priceContainer);
+async function handlePriceData(productCard, priceInfoWrap, priceTolerancePercentChanged) {
+    await appendStoredPricesIfNeeded(productCard, priceInfoWrap);
 
     if (
         !priceTolerancePercentChanged ||
@@ -145,11 +145,11 @@ async function handlePriceData(productCard, priceContainer, priceTolerancePercen
         return;
     }
 
-    const priceWrapper = priceContainer.parentNode;
-    checkIfGoodPriceFromAttributes(priceWrapper, productCard, priceTolerancePercent.value);
+    const priceInfoContainer = priceInfoWrap.parentNode;
+    checkIfGoodPriceFromAttributes(priceInfoContainer, productCard, priceTolerancePercent.value);
 }
 
-async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
+async function appendStoredPricesIfNeeded(productCard, priceInfoWrap) {
     if (productCard.hasAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED)) return;
 
     const outOfStockLabel = getFirstElement(SELECTORS.OUT_OF_STOCK_LABEL, productCard);
@@ -158,32 +158,32 @@ async function appendStoredPriceValuesIfNeeded(productCard, priceContainer) {
         return;
     }
 
-    const priceContainerWrap = priceContainer.parentNode;
+    const priceInfoContainer = priceInfoWrap.parentNode;
 
-    await appendStoredPriceValues(priceContainer, productCard, priceContainerWrap);
+    await appendStoredPrices(priceInfoWrap, productCard, priceInfoContainer);
 
     if (productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
         productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)) {
-        checkIfGoodPriceFromAttributes(priceContainerWrap, productCard, priceTolerancePercent.value);
+        checkIfGoodPriceFromAttributes(priceInfoContainer, productCard, priceTolerancePercent.value);
     }
 }
 
-async function appendStoredPriceValues(priceContainer, productCard, priceContainerWrap) {
+async function appendStoredPrices(priceInfoWrap, productCard, priceInfoContainer) {
     const priceSpan = getPriceSpan(productCard, SELECTORS);
     const productCardLink = getFirstElement('a', productCard);
 
     if (!priceSpan || !productCardLink) return;
 
     const productArticle = getProductArticleFromLink(productCardLink);
-    const priceData = await appendPriceHistory(priceContainer, priceSpan, productArticle);
+    const priceData = await appendPriceHistory(priceInfoWrap, priceSpan, productArticle);
 
     if (priceData) {
         productCard.setAttribute(ATTRIBUTES.CURRENT_PRICE, priceData.current);
         productCard.setAttribute(ATTRIBUTES.LOWEST_PRICE, priceData.lowest);
-        priceContainerWrap.style.display = 'block';
+        priceInfoContainer.style.display = 'block';
     }
 
-    getFirstElement(SELECTORS.SIMILAR_BUTTON, priceContainerWrap)
+    getFirstElement(SELECTORS.SIMILAR_BUTTON, priceInfoContainer)
         ?.remove();
 
     productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
