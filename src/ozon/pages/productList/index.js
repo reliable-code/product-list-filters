@@ -8,6 +8,7 @@ import {
     getProductArticleFromLinkHref,
     moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
+    wrapReviewsWrapContentWithLink,
 } from '../common';
 import {
     clearQueryParams,
@@ -26,7 +27,6 @@ import {
     assignElementToDisplayGroup,
     handleDisplayGroups,
     initDisplayGroups,
-    wrapElementContentWithLink,
 } from '../../../common/dom/manipulation';
 import {
     getAllElements,
@@ -263,11 +263,6 @@ function getProductCardRating(ratingWrap, storedRating) {
 function updateRatingText(ratingWrap, storedRating) {
     ratingWrap.textContent = storedRating.toString()
         .padEnd(5);
-}
-
-function wrapReviewsWrapContentWithLink(reviewsWrap, productLinkHref) {
-    const href = `${productLinkHref}?scrollTo=comments`;
-    wrapElementContentWithLink(href, reviewsWrap);
 }
 
 function appendProductDislikeButton(ratingWrap, productArticle) {

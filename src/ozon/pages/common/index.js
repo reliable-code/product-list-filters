@@ -5,7 +5,7 @@ import { getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { addScrollToFiltersButtonBase } from '../../../common/filter/factories/helpers';
-import { applyStyles } from '../../../common/dom/manipulation';
+import { applyStyles, wrapElementContentWithLink } from '../../../common/dom/manipulation';
 
 export function getProductArticleFromLink(productLink) {
     const productLinkHref = productLink.getAttribute('href');
@@ -68,6 +68,11 @@ export function moveProductCardToFirstWrapIfNeeded(productCard, firstProductCard
     if (productCard.parentNode === firstProductCardsWrap) return;
 
     firstProductCardsWrap.appendChild(productCard);
+}
+
+export function wrapReviewsWrapContentWithLink(reviewsWrap, productLinkHref) {
+    const href = `${productLinkHref}?scrollTo=comments`;
+    wrapElementContentWithLink(href, reviewsWrap);
 }
 
 export function hideUnwantedElements() {
