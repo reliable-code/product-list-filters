@@ -15,14 +15,14 @@ import {
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import {
     appendPriceHistory,
-    checkIfGoodPriceFromAttributes,
+    determineIfGoodPrice,
+    highlightIfGoodPrice,
 } from '../../../common/priceHistory/manipulation';
 import {
     createEnabledFilterControl,
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
-import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { STYLES } from '../common/styles';
 import { SELECTORS } from './selectors';
 import { createSeparator } from '../../../common/filter/factories/helpers';
@@ -142,71 +142,48 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         };
 
         state.productCardsCache.set(productCard, cachedData);
-    }
 
-    await handlePriceData(productCard, cachedData.priceInfoWrap, priceTolerancePercentChanged);
+        await appendStoredPricesIfNeeded(productCard, cachedData);
+    } else if (priceTolerancePercentChanged && cachedData.priceData) {
+        cachedData.isGoodPrice = determineIfGoodPrice(
+            priceTolerancePercent.value, cachedData.priceData,
+        );
+        highlightIfGoodPrice(cachedData.isGoodPrice, cachedData.priceInfoContainer);
+    }
 
     return (
         isNotMatchTextFilter(cachedData.name, nameFilter) ||
-        isNotMatchBestPriceFilter(productCard)
+        isNotMatchBestPriceFilter(cachedData)
     );
 }
 
-async function handlePriceData(productCard, priceInfoWrap, priceTolerancePercentChanged) {
-    await appendStoredPricesIfNeeded(productCard, priceInfoWrap);
-
-    if (
-        !priceTolerancePercentChanged ||
-        !productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) ||
-        !productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)
-    ) {
-        return;
-    }
-
-    const priceInfoContainer = priceInfoWrap.parentNode;
-    checkIfGoodPriceFromAttributes(priceInfoContainer, productCard, priceTolerancePercent.value);
-}
-
-async function appendStoredPricesIfNeeded(productCard, priceInfoWrap) {
-    if (productCard.hasAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED)) return;
-
+async function appendStoredPricesIfNeeded(productCard, cachedData) {
     const outOfStockLabel = getFirstElement(SELECTORS.OUT_OF_STOCK_LABEL, productCard);
-    if (outOfStockLabel) {
-        productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
-        return;
-    }
+    if (outOfStockLabel) return;
 
-    const priceInfoContainer = priceInfoWrap.parentNode;
-
-    await appendStoredPrices(priceInfoWrap, productCard, priceInfoContainer);
-
-    if (productCard.hasAttribute(ATTRIBUTES.CURRENT_PRICE) &&
-        productCard.hasAttribute(ATTRIBUTES.LOWEST_PRICE)) {
-        checkIfGoodPriceFromAttributes(priceInfoContainer, productCard, priceTolerancePercent.value);
-    }
+    await appendStoredPrices(productCard, cachedData);
 }
 
-async function appendStoredPrices(priceInfoWrap, productCard, priceInfoContainer) {
+async function appendStoredPrices(productCard, cachedData) {
     const priceSpan = getPriceSpan(productCard, SELECTORS);
     const productCardLink = getFirstElement('a', productCard);
-
     if (!priceSpan || !productCardLink) return;
 
-    const productArticle = getProductArticleFromLink(productCardLink);
-    const priceData = await appendPriceHistory(priceInfoWrap, priceSpan, productArticle);
+    const {
+        priceInfoWrap,
+        priceInfoContainer,
+    } = cachedData;
 
-    if (priceData) {
-        productCard.setAttribute(ATTRIBUTES.CURRENT_PRICE, priceData.current);
-        productCard.setAttribute(ATTRIBUTES.LOWEST_PRICE, priceData.lowest);
-        priceInfoContainer.style.display = 'block';
-    }
+    const productArticle = getProductArticleFromLink(productCardLink);
+    cachedData.priceData = await appendPriceHistory(priceInfoWrap, priceSpan, productArticle);
+    if (!cachedData.priceData) return;
+
+    priceInfoContainer.style.display = 'block';
 
     getFirstElement(SELECTORS.SIMILAR_BUTTON, priceInfoContainer)
         ?.remove();
-
-    productCard.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
 }
 
-function isNotMatchBestPriceFilter(productCard) {
-    return bestPriceFilter.value ? !productCard.hasAttribute(ATTRIBUTES.GOOD_PRICE) : false;
+function isNotMatchBestPriceFilter(cachedData) {
+    return bestPriceFilter.value ? !cachedData.isGoodPrice : false;
 }
