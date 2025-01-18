@@ -178,8 +178,8 @@ function getProductCardRatingNumber(productCard) {
 }
 
 function getProductArticle(productCard) {
-    const productCardLink = getFirstElement('a', productCard);
-    return getProductArticleFromLink(productCardLink);
+    const productLink = getFirstElement('a', productCard);
+    return getProductArticleFromLink(productLink);
 }
 
 function updateRatingText(productCardRatingWrap, storedRatingValue) {

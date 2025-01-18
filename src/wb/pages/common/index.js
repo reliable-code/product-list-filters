@@ -7,9 +7,9 @@ export function getProductArticleFromPathname() {
     return getURLPathElementEnding(2, 'unknown');
 }
 
-export function getProductArticleFromLink(productCardLink) {
-    const productCardLinkHref = productCardLink.getAttribute('href');
-    return getPathnameElementEnding(productCardLinkHref, 4);
+export function getProductArticleFromLink(productLink) {
+    const productLinkHref = productLink.getAttribute('href');
+    return getPathnameElementEnding(productLinkHref, 4);
 }
 
 export function getPriceSpan(priceContainer, selectors) {
