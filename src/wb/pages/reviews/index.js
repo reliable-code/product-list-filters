@@ -17,9 +17,9 @@ import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import {
     applyStyles,
-    hideElement,
-    showElement,
-    updateElementDisplay,
+    assignElementToDisplayGroup,
+    handleDisplayGroups,
+    initDisplayGroups,
 } from '../../../common/dom/manipulation';
 import {
     isGreaterThanFilter,
@@ -168,17 +168,20 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 function processReviewCards() {
     const reviewCards = getAllElements(SELECTORS.REVIEWS);
     state.isFullLoadComplete = reviewCards.length >= state.totalReviewCount;
-    reviewCards.forEach(processReviewCard);
+
+    const displayGroups = initDisplayGroups();
+    reviewCards.forEach((reviewCard) => {
+        const shouldHide = processReviewCard(reviewCard);
+        assignElementToDisplayGroup(shouldHide, displayGroups, reviewCard);
+    });
+    handleDisplayGroups(displayGroups);
 
     updateVisibleReviewsCount(reviewCards);
     if (!state.isAverageRatingFinalized) updateAverageRating();
 }
 
 function processReviewCard(reviewCard) {
-    if (!filterEnabled.value) {
-        showElement(reviewCard);
-        return;
-    }
+    if (!filterEnabled.value) return false;
 
     removeHighlights(reviewCard);
 
@@ -188,17 +191,11 @@ function processReviewCard(reviewCard) {
         const productVariationWrap = getFirstElement(SELECTORS.PRODUCT_VARIATION_WRAP, reviewCard);
         const reviewTextWrap = getFirstElement(SELECTORS.REVIEW_TEXT_WRAP, reviewCard);
 
-        if (!productVariationWrap || !reviewTextWrap) {
-            hideElement(reviewCard);
-            return;
-        }
+        if (!productVariationWrap || !reviewTextWrap) return true;
 
         const ratingWrap = getFirstElement(SELECTORS.REVIEW_RATING_WRAP, reviewCard);
 
-        if (!ratingWrap) {
-            hideElement(reviewCard);
-            return;
-        }
+        if (!ratingWrap) return true;
 
         cachedData = {
             productVariationWrap,
@@ -219,17 +216,14 @@ function processReviewCard(reviewCard) {
         highlightSearchStringsByFilter(variationFilter, cachedData.productVariationWrap);
     }
 
-    if (waitFullLoad.value && !state.isFullLoadComplete) {
-        hideElement(reviewCard);
-        return;
-    }
+    if (waitFullLoad.value && !state.isFullLoadComplete) return true;
 
-    const shouldHide =
+    return (
         isNotMatchTextFilter(cachedData.productVariationText, variationFilter) ||
         isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter) ||
         isLessThanFilter(cachedData.rating, minRatingFilter) ||
-        isGreaterThanFilter(cachedData.rating, maxRatingFilter);
-    updateElementDisplay(reviewCard, shouldHide);
+        isGreaterThanFilter(cachedData.rating, maxRatingFilter)
+    );
 }
 
 function getRating(ratingWrap) {
