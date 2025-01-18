@@ -124,11 +124,16 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
-        const priceInfoWrap = getFirstElement(SELECTORS.PRICE_INFO_WRAP, productCard);
-        if (!priceInfoWrap) return inStockOnlyFilter.value;
+        const productLink = getFirstElement('a', productCard);
+        if (!productLink) return true;
+
+        const productArticle = getProductArticleFromLink(productLink);
 
         const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
         if (!nameWrap) return true;
+
+        const priceInfoWrap = getFirstElement(SELECTORS.PRICE_INFO_WRAP, productCard);
+        if (!priceInfoWrap) return inStockOnlyFilter.value;
 
         const priceInfoContainer = priceInfoWrap.parentNode;
 
@@ -136,6 +141,7 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
         nameWrap.title = name;
 
         cachedData = {
+            productArticle,
             priceInfoWrap,
             priceInfoContainer,
             name,
@@ -160,20 +166,19 @@ async function appendStoredPricesIfNeeded(productCard, cachedData) {
     const outOfStockLabel = getFirstElement(SELECTORS.OUT_OF_STOCK_LABEL, productCard);
     if (outOfStockLabel) return;
 
-    await appendStoredPrices(productCard, cachedData);
+    await appendStoredPrices(cachedData);
 }
 
-async function appendStoredPrices(productCard, cachedData) {
-    const priceSpan = getPriceSpan(productCard, SELECTORS);
-    const productCardLink = getFirstElement('a', productCard);
-    if (!priceSpan || !productCardLink) return;
-
+async function appendStoredPrices(cachedData) {
     const {
+        productArticle,
         priceInfoWrap,
         priceInfoContainer,
     } = cachedData;
 
-    const productArticle = getProductArticleFromLink(productCardLink);
+    const priceSpan = getPriceSpan(priceInfoWrap, SELECTORS);
+    if (!priceSpan) return;
+
     cachedData.priceData = await appendPriceHistory(priceInfoWrap, priceSpan, productArticle);
     if (!cachedData.priceData) return;
 
