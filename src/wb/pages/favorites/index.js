@@ -8,9 +8,9 @@ import {
 } from '../../../common/filter/factories/genericControls';
 import {
     applyStyles,
-    hideElement,
-    showElement,
-    updateElementDisplay,
+    assignElementToDisplayGroup,
+    handleDisplayGroups,
+    initDisplayGroups,
 } from '../../../common/dom/manipulation';
 import { getAllElements, getFirstElement } from '../../../common/dom/helpers';
 import {
@@ -55,7 +55,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     filtersContainer.classList.add('input-search');
 
     const nameFilterDiv = createSearchFilterControl(
-        nameFilter, STYLES.CONTROL, STYLES.TEXT_INPUT,
+        nameFilter,
+        STYLES.CONTROL,
+        STYLES.TEXT_INPUT,
     );
     const bestPriceDiv = createCheckboxFilterControl(
         'Лучшая цена: ',
@@ -102,38 +104,34 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 async function processProductCards(priceTolerancePercentChanged = false) {
     const productCards = [...getAllElements(SELECTORS.PRODUCT_CARDS)];
 
-    await Promise.all(productCards.map(
-        (productCard) => processProductCard(productCard, priceTolerancePercentChanged),
-    ));
+    const displayGroups = initDisplayGroups();
+    await Promise.all(
+        productCards.map(async (productCard) => {
+            const shouldHide = await processProductCard(productCard, priceTolerancePercentChanged);
+            assignElementToDisplayGroup(shouldHide, displayGroups, productCard);
+        }),
+    );
+    handleDisplayGroups(displayGroups);
 }
 
 async function processProductCard(productCard, priceTolerancePercentChanged) {
-    if (!filterEnabled.value) {
-        showElement(productCard);
-        return;
-    }
+    if (!filterEnabled.value) return false;
 
     const priceContainer = getFirstElement(SELECTORS.PRICE_CONTAINER, productCard);
-    if (!priceContainer) {
-        updateElementDisplay(productCard, inStockOnlyFilter.value);
-        return;
-    }
+    if (!priceContainer) return inStockOnlyFilter.value;
 
     await handlePriceData(productCard, priceContainer, priceTolerancePercentChanged);
 
     const productCardNameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
-    if (!productCardNameWrap) {
-        hideElement(productCard);
-        return;
-    }
+    if (!productCardNameWrap) return true;
 
     const productCardName = productCardNameWrap.innerText;
     productCardNameWrap.title = productCardName;
 
-    const shouldHide =
+    return (
         isNotMatchTextFilter(productCardName, nameFilter) ||
-        isNotMatchBestPriceFilter(productCard);
-    updateElementDisplay(productCard, shouldHide);
+        isNotMatchBestPriceFilter(productCard)
+    );
 }
 
 async function handlePriceData(productCard, priceContainer, priceTolerancePercentChanged) {
