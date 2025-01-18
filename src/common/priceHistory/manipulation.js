@@ -1,5 +1,4 @@
 import { createDiv, createSpan } from '../dom/factories/elements';
-import { ATTRIBUTES } from './attributes';
 import { getElementInnerNumber } from '../dom/helpers';
 import { getStorageValue, setStorageValueAsync } from '../storage';
 import { ProductData } from '../models/productData';
@@ -314,24 +313,6 @@ export function highlightIfGoodPrice(isGoodPrice, priceInfoContainer) {
         applyGoodPriceStyles(priceInfoContainer);
     } else {
         removeGoodPriceStyles(priceInfoContainer);
-    }
-}
-
-export function checkIfGoodPriceFromAttributes(
-    priceWrapContainer, productCard, priceTolerancePercentValue,
-) {
-    const currentPrice = productCard.getAttribute(ATTRIBUTES.CURRENT_PRICE);
-    const lowestPrice = productCard.getAttribute(ATTRIBUTES.LOWEST_PRICE);
-
-    const priceToleranceFactor = 1 + (priceTolerancePercentValue / 100);
-    const goodPrice = lowestPrice * priceToleranceFactor;
-
-    if (currentPrice <= goodPrice) {
-        applyGoodPriceStyles(priceWrapContainer);
-        productCard.setAttribute(ATTRIBUTES.GOOD_PRICE, '');
-    } else {
-        removeGoodPriceStyles(priceWrapContainer);
-        productCard.removeAttribute(ATTRIBUTES.GOOD_PRICE);
     }
 }
 
