@@ -36,6 +36,10 @@ const priceTolerancePercent = createGlobalFilter('price-tolerance-percent', 3, o
 const inStockOnlyFilter = createGlobalFilter('in-stock-only-filter', true);
 const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
 
+const state = {
+    productCardsCache: new WeakMap(),
+};
+
 export async function initFavoritesMods() {
     const filterContainer = await waitForElement(document, SELECTORS.FILTER_CONTAINER);
     appendFilterControlsIfNeeded(filterContainer, appendFiltersContainer);
@@ -117,19 +121,33 @@ async function processProductCards(priceTolerancePercentChanged = false) {
 async function processProductCard(productCard, priceTolerancePercentChanged) {
     if (!filterEnabled.value) return false;
 
-    const priceInfoWrap = getFirstElement(SELECTORS.PRICE_INFO_WRAP, productCard);
-    if (!priceInfoWrap) return inStockOnlyFilter.value;
+    let cachedData = state.productCardsCache.get(productCard);
 
-    await handlePriceData(productCard, priceInfoWrap, priceTolerancePercentChanged);
+    if (!cachedData) {
+        const priceInfoWrap = getFirstElement(SELECTORS.PRICE_INFO_WRAP, productCard);
+        if (!priceInfoWrap) return inStockOnlyFilter.value;
 
-    const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
-    if (!nameWrap) return true;
+        const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME, productCard);
+        if (!nameWrap) return true;
 
-    const name = nameWrap.innerText;
-    nameWrap.title = name;
+        const priceInfoContainer = priceInfoWrap.parentNode;
+
+        const name = nameWrap.innerText;
+        nameWrap.title = name;
+
+        cachedData = {
+            priceInfoWrap,
+            priceInfoContainer,
+            name,
+        };
+
+        state.productCardsCache.set(productCard, cachedData);
+    }
+
+    await handlePriceData(productCard, cachedData.priceInfoWrap, priceTolerancePercentChanged);
 
     return (
-        isNotMatchTextFilter(name, nameFilter) ||
+        isNotMatchTextFilter(cachedData.name, nameFilter) ||
         isNotMatchBestPriceFilter(productCard)
     );
 }
