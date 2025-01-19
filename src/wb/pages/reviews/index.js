@@ -37,7 +37,7 @@ import { createSeparator } from '../../../common/filter/factories/helpers';
 import {
     getReviewsLastProductArticle,
     setReviewsLastProductArticle,
-    setStoredRatingValue,
+    setStoredRating,
 } from '../../../common/db/specific';
 import { getAverageRating } from '../../../common/rating/helpers';
 
@@ -248,15 +248,18 @@ function updateAverageRating() {
     state.averageRatingWrap.textContent = averageRatingRounded;
 
     if (state.isFullLoadComplete) {
-        setStoredRatingValue(state.productArticle, averageRatingRounded);
+        setStoredRating(state.productArticle, averageRatingRounded);
         state.isAverageRatingFinalized = true;
     }
 }
 
 function initReviewsContainerObserver() {
     if (state.reviewsContainerObserver) return;
-    state.reviewsContainerObserver = new MutationObserver(debounce(processReviewCards));
+
     const reviewsContainer = getFirstElement(SELECTORS.REVIEWS_LIST);
+    if (!reviewsContainer) return;
+
+    state.reviewsContainerObserver = new MutationObserver(debounce(processReviewCards));
     state.reviewsContainerObserver.observe(reviewsContainer, {
         childList: true,
     });

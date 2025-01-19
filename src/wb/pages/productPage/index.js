@@ -2,7 +2,7 @@ import { waitForElement } from '../../../common/dom/utils';
 import { getFirstElement, getFirstTextNode } from '../../../common/dom/helpers';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { getPriceSpan, getProductArticleFromPathname } from '../common';
-import { getStoredRatingValue } from '../../../common/db/specific';
+import { getStoredRating } from '../../../common/db/specific';
 import { SELECTORS } from './selectors';
 
 const state = {
@@ -48,7 +48,7 @@ async function replaceRatingIfNeeded() {
 }
 
 async function tryReplaceRatingIfStored() {
-    const storedRating = getStoredRatingValue(state.productArticle);
+    const storedRating = getStoredRating(state.productArticle);
     if (!storedRating) return;
 
     await tryReplaceRating(storedRating);

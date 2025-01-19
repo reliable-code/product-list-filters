@@ -13,7 +13,7 @@ import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
 import { initReviewsMods } from '../reviews';
 import { roundToPrecision } from '../../../common/mathUtils';
-import { getStoredRatingValue, setStoredRatingValue } from '../../../common/db/specific';
+import { getStoredRating, setStoredRating } from '../../../common/db/specific';
 import { getURLQueryParam, setQueryParamsAndRedirect } from '../../../common/url';
 
 export async function initProductPageMods() {
@@ -105,7 +105,7 @@ function getStarsContainer(productReviewsWrap) {
 function dislikeProduct(starsContainer) {
     const productArticle = getProductArticleFromPathname();
 
-    setStoredRatingValue(productArticle, 1);
+    setStoredRating(productArticle, 1);
     replaceRatingValue(starsContainer, 1);
 }
 
@@ -152,7 +152,7 @@ async function appendRatingValue() {
     const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
     const starsContainer = getStarsContainer(productReviewsWrap);
     const productArticle = getProductArticleFromPathname();
-    const storedRatingValue = getStoredRatingValue(productArticle);
+    const storedRatingValue = getStoredRating(productArticle);
 
     if (storedRatingValue) {
         replaceRatingValue(starsContainer, storedRatingValue);
@@ -175,7 +175,7 @@ async function appendRatingValue() {
 
         if (!ratingValue) return;
 
-        setStoredRatingValue(productArticle, ratingValue);
+        setStoredRating(productArticle, ratingValue);
         replaceRatingValue(starsContainer, ratingValue);
     } catch (error) {
         console.error('Error while appending rating value:', error);

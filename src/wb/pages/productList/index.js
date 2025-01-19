@@ -31,7 +31,7 @@ import { createFilterFactory } from '../../../common/filter/factories/createFilt
 import { SELECTORS } from './selectors';
 import { STYLES } from '../common/styles';
 import { createSeparator } from '../../../common/filter/factories/helpers';
-import { getStoredRatingValue } from '../../../common/db/specific';
+import { getStoredRating } from '../../../common/db/specific';
 import { getProductArticleFromLink } from '../common';
 
 const SECTION_ID = getSectionId();
@@ -150,7 +150,7 @@ function processProductCard(productCard) {
         nameWrap.title = name;
         nameWrap.style.whiteSpace = 'normal';
 
-        const storedRating = getStoredRatingValue(productArticle);
+        const storedRating = getStoredRating(productArticle);
         const reviewsCount = getElementInnerNumber(reviewsWrap, true, false, 0);
         const rating = getProductCardRating(ratingWrap, storedRating);
         const price = getElementInnerNumber(priceWrap, true);

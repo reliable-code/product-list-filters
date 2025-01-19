@@ -6,7 +6,7 @@ export const STORAGE_KEYS = {
     REVIEWS_LAST_PRODUCT_ARTICLE: 'reviews-last-product-article',
 };
 
-export function setStoredRatingValue(productArticle, ratingValue) {
+export function setStoredRating(productArticle, ratingValue) {
     const productStorageKey = getProductStorageKey(productArticle);
     const storedProduct = getStorageValue(productStorageKey);
     const currentProduct = getCurrentProduct(storedProduct);
@@ -26,13 +26,13 @@ function getCurrentProduct(storedProduct) {
     return storedProduct ? ProductData.fromObject(storedProduct) : new ProductData();
 }
 
-function getStoredProductValue(productArticle) {
+function getStoredProduct(productArticle) {
     const productStorageKey = getProductStorageKey(productArticle);
     return getStorageValue(productStorageKey);
 }
 
-export function getStoredRatingValue(productArticle) {
-    const storedProduct = getStoredProductValue(productArticle);
+export function getStoredRating(productArticle) {
+    const storedProduct = getStoredProduct(productArticle);
     return storedProduct?.rating ?? null;
 }
 

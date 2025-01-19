@@ -46,11 +46,7 @@ import { getHashOrDefault } from '../../../common/hash/helpers';
 import { STYLES } from '../common/styles';
 import { SELECTORS } from '../common/selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
-import {
-    getStoredRatingValue,
-    setStoredRatingValue,
-    STORAGE_KEYS,
-} from '../../../common/db/specific';
+import { getStoredRating, setStoredRating, STORAGE_KEYS } from '../../../common/db/specific';
 
 // todo: wrap into init func
 const SECTION_ID = getSectionId();
@@ -227,7 +223,7 @@ function processProductCard(productCard, rateUpdated) {
 function processProductCardRating(ratingContainer, productLinkHref, productArticle) {
     if (!ratingContainer) return { noRatingContainer: true };
 
-    const storedRating = getStoredRatingValue(productArticle);
+    const storedRating = getStoredRating(productArticle);
     const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, ratingContainer, true);
     const ratingWrap = getFirstElement(SELECTORS.PRODUCT_CARD_RATING_WRAP, ratingContainer, true);
 
@@ -278,7 +274,7 @@ function appendProductDislikeButton(ratingContainer, productArticle) {
 }
 
 async function dislikeProductOnProductList(productArticle) {
-    setStoredRatingValue(productArticle, 1);
+    setStoredRating(productArticle, 1);
     processProductCards();
 }
 
@@ -291,7 +287,7 @@ function shouldHideByNoRating(cachedData) {
 }
 
 function checkStoredRating(cachedData) {
-    const storedRating = getStoredRatingValue(cachedData.productArticle);
+    const storedRating = getStoredRating(cachedData.productArticle);
     if (!storedRating) return;
 
     cachedData.storedRating = storedRating;
