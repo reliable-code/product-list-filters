@@ -3,10 +3,16 @@ import { getFirstElement, getFirstTextNode } from '../../../common/dom/helpers';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { getPriceSpan, getProductArticleFromPathname } from '../common';
 import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
-import { SELECTORS } from './selectors';
 import { getStoredRatingValue } from '../../../common/db/specific';
+import { SELECTORS } from './selectors';
+
+const state = {
+    productArticle: null,
+};
 
 export async function initProductPageMods() {
+    state.productArticle = getProductArticleFromPathname();
+
     await Promise.all([
         initAppendPriceHistory(),
         appendRatingValue(),
