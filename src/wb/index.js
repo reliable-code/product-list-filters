@@ -2,9 +2,9 @@ import { initProductListMods } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
 import { initFavoritesMods } from './pages/favorites';
 import { initReviewsMods } from './pages/reviews';
-import { pathnameIncludes, somePathElementEquals } from '../common/url';
-import { debounce } from '../common/dom/utils';
+import { getURLQueryParam, pathnameIncludes, somePathElementEquals } from '../common/url';
 import { runMigration } from './db';
+import { debounce } from '../common/dom/utils';
 
 runMigration();
 
@@ -26,16 +26,30 @@ await initMods();
 
 async function initMods() {
     try {
-        const currentPageModsFunction = getPageModsFunction();
-        if (!currentPageModsFunction) return;
+        const currentPathname = window.location.pathname;
+        const currentQueryParam = getURLQueryParam('search');
 
-        await currentPageModsFunction();
+        if (
+            (lastPathname !== null && lastPathname !== currentPathname) ||
+            (lastQueryParam !== null && lastQueryParam !== currentQueryParam)
+        ) {
+            window.location.reload();
+            return;
+        }
+
+        lastPathname = currentPathname;
+        lastQueryParam = currentQueryParam;
+
+        const pageModsFunc = getPageModsFunc();
+        if (!pageModsFunc) return;
+
+        await pageModsFunc();
     } catch (error) {
         console.error('Error in initMods:', error);
     }
 }
 
-function getPageModsFunction() {
+function getPageModsFunc() {
     if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
         if (pathnameIncludes('detail')) {
             return initProductPageMods;
