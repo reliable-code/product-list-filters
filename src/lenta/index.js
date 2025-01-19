@@ -22,6 +22,7 @@ import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { ATTRIBUTES } from './attributes';
 import { createFilterFactory } from '../common/filter/factories/createFilter';
+import { waitForElement } from '../common/dom/utils';
 
 const SECTION_ID = getURLPathElementEnding(2);
 
@@ -39,12 +40,12 @@ const sortEnabled = createGlobalFilter('sort-enabled', true);
 
 setInterval(initProcessProductCards, 100);
 
-function initProcessProductCards() {
+async function initProcessProductCards() {
     const productCardList = getFirstElement(SELECTORS.PRODUCT_CARD_LIST);
 
     if (productCardList) {
         appendFilterControlsIfNeeded(productCardList, appendFiltersContainer);
-        processProductCards();
+        await processProductCards();
     } else if (pathnameIncludes('order')) {
         attachOrderItemsRemoveFunctionIfNeeded();
     } else if (pathnameIncludes('basket')) {
@@ -119,20 +120,20 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.prepend(filtersContainer);
 }
 
-function processProductCards() {
+async function processProductCards() {
     const pagination = getFirstElement(SELECTORS.PAGINATION);
 
     if (pagination) setElementOrder(pagination, 99999);
 
-    const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
+    const productCards = [...getAllElements(SELECTORS.PRODUCT_CARD)];
 
-    productCards.forEach(processProductCard);
+    await Promise.all(productCards.map(processProductCard));
 }
 
-function processProductCard(productCard) {
+async function processProductCard(productCard) {
     const productCardName = getAndExpandProductCardName(productCard);
 
-    const productCardPrice = getFirstElement(SELECTORS.MAIN_PRICE, productCard, true);
+    const productCardPrice = await waitForElement(productCard, SELECTORS.MAIN_PRICE);
     if (!productCardPrice) return;
 
     const priceValue = getPriceValueAttribute(productCard, productCardPrice);
