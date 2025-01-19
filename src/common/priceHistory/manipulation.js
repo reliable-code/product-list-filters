@@ -14,8 +14,8 @@ import { getFormattedPriceInRUB as getFormattedPrice } from '../priceUtils';
 import { createChart } from '../dom/factories/chart';
 
 export async function appendPriceHistory(priceContainer, priceSpan, productArticle) {
-    const currentPriceValue = getElementInnerNumber(priceSpan, true);
-    if (!currentPriceValue) return null;
+    const currentPrice = getElementInnerNumber(priceSpan, true);
+    if (!currentPrice) return null;
 
     const productStorageKey = `product-${productArticle}`;
     const storedProduct = getStorageValue(productStorageKey);
@@ -25,28 +25,28 @@ export async function appendPriceHistory(priceContainer, priceSpan, productArtic
     const highestPriceKey = 'highestPrice';
 
     currentProduct =
-        updateAndAppendStoredPriceValue(
+        updateAndAppendStoredPrice(
             currentProduct,
             lowestPriceKey,
-            currentPriceValue,
-            (storedPrice) => currentPriceValue <= storedPrice.value,
+            currentPrice,
+            (storedPrice) => currentPrice <= storedPrice.value,
             'Мин. цена',
             '#d6f5b1',
             priceContainer,
         );
 
     currentProduct =
-        updateAndAppendStoredPriceValue(
+        updateAndAppendStoredPrice(
             currentProduct,
             highestPriceKey,
-            currentPriceValue,
-            (storedPrice) => currentPriceValue >= storedPrice.value,
+            currentPrice,
+            (storedPrice) => currentPrice >= storedPrice.value,
             'Макс. цена',
             '#fed2ea',
             priceContainer,
         );
 
-    currentProduct = updatePriceHistory(currentProduct, currentPriceValue);
+    currentProduct = updatePriceHistory(currentProduct, currentPrice);
 
     currentProduct.updateLastCheckDate();
 
@@ -57,7 +57,7 @@ export async function appendPriceHistory(priceContainer, priceSpan, productArtic
 
     await setStorageValueAsync(productStorageKey, currentProduct);
 
-    return new PriceData(currentPriceValue, lowestPriceValue, highestPriceValue);
+    return new PriceData(currentPrice, lowestPriceValue, highestPriceValue);
 }
 
 function getCurrentProduct(storedProduct) {
@@ -68,7 +68,7 @@ function getCurrentProduct(storedProduct) {
         : ProductData.fromObject(storedProduct);
 }
 
-function updateAndAppendStoredPriceValue(
+function updateAndAppendStoredPrice(
     product, priceKey, currentPriceValue, compareCondition, label, color, priceContainer,
 ) {
     let storedPrice = product[priceKey];
@@ -282,15 +282,17 @@ function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
     return chartContainer;
 }
 
-function updatePriceHistory(currentProduct, currentPriceValue) {
+function updatePriceHistory(currentProduct, currentPrice) {
     const { priceHistory } = currentProduct;
     const currentDate = getDateTimestamp();
     const currentDatePriceHistory = priceHistory[currentDate] || {};
 
-    const lowestPrice =
-        Math.min(currentDatePriceHistory.lowest ?? currentPriceValue, currentPriceValue);
-    const highestPrice =
-        Math.max(currentDatePriceHistory.highest ?? currentPriceValue, currentPriceValue);
+    const lowestPrice = Math.min(
+        currentDatePriceHistory.lowest ?? currentPrice, currentPrice,
+    );
+    const highestPrice = Math.max(
+        currentDatePriceHistory.highest ?? currentPrice, currentPrice,
+    );
 
     currentProduct.priceHistory[currentDate] = {
         lowest: lowestPrice,
