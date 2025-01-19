@@ -95,14 +95,12 @@ function updateAndAppendStoredPrice(
     }
 
     const { priceHistory } = product;
-    appendStoredPriceValue(
-        label, storedPrice, color, priceHistory, currentPriceValue, priceContainer,
-    );
+    appendStoredPrice(label, storedPrice, color, priceHistory, currentPriceValue, priceContainer);
 
     return product;
 }
 
-function appendStoredPriceValue(
+function appendStoredPrice(
     label, storedPrice, color, priceHistory, currentPrice, priceContainer,
 ) {
     const divContent = `${label}: `;
