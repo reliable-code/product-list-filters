@@ -13,18 +13,16 @@ hideUnwantedElements();
 (function observeHead() {
     const { head } = document;
 
-    const headObserver = new MutationObserver(debounce(addInitModsToQueue, 750));
+    const headObserver = new MutationObserver(debounce(initMods, 750));
     headObserver.observe(head, {
         childList: true,
     });
 }());
 
-let initModsQueue = Promise.resolve();
+let lastPathname = null;
+let lastQueryParam = null;
 
-async function addInitModsToQueue() {
-    alert('addInitModsToQueue');
-    initModsQueue = initModsQueue.then(initMods);
-}
+await initMods();
 
 async function initMods() {
     try {
