@@ -36,7 +36,16 @@ async function initAppendPriceHistory() {
     const productArticle = getProductArticleFromPathname();
     const priceSpan = getFirstElement('span', priceContainer);
 
-    await appendPriceHistory(priceContainer, priceSpan, productArticle);
+    await appendPriceHistory(priceContainer, priceSpan, productArticle, isProductUnavailable());
+}
+
+function isProductUnavailable() {
+    const addToCartButton = getFirstElement(SELECTORS.ADD_TO_CART_BUTTON);
+    if (!addToCartButton) return true;
+
+    const buttonText = addToCartButton.textContent.trim();
+
+    return buttonText === 'Узнать о поступлении';
 }
 
 async function initSkipFirstGalleryVideo() {
