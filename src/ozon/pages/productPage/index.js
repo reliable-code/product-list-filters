@@ -106,15 +106,15 @@ function dislikeProduct(starsContainer) {
     const productArticle = getProductArticleFromPathname();
 
     setStoredRating(productArticle, 1);
-    replaceRatingValue(starsContainer, 1);
+    replaceRating(starsContainer, 1);
 }
 
-function replaceRatingValue(starsContainer, ratingValue) {
+function replaceRating(starsContainer, rating) {
     const SEPARATOR = ' • ';
 
     const starsContainerTextParts = starsContainer.textContent.split(SEPARATOR);
     const reviewsCountText = starsContainerTextParts[1] || starsContainerTextParts[0];
-    starsContainer.textContent = [ratingValue, reviewsCountText].join(SEPARATOR);
+    starsContainer.textContent = [rating, reviewsCountText].join(SEPARATOR);
 }
 
 async function appendBadReviewsLink() {
@@ -152,10 +152,10 @@ async function appendRatingValue() {
     const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
     const starsContainer = getStarsContainer(productReviewsWrap);
     const productArticle = getProductArticleFromPathname();
-    const storedRatingValue = getStoredRating(productArticle);
+    const storedRating = getStoredRating(productArticle);
 
-    if (storedRatingValue) {
-        replaceRatingValue(starsContainer, storedRatingValue);
+    if (storedRating) {
+        replaceRating(starsContainer, storedRating);
     }
 
     try {
@@ -176,7 +176,7 @@ async function appendRatingValue() {
         if (!ratingValue) return;
 
         setStoredRating(productArticle, ratingValue);
-        replaceRatingValue(starsContainer, ratingValue);
+        replaceRating(starsContainer, ratingValue);
     } catch (error) {
         console.error('Error while appending rating value:', error);
     }
