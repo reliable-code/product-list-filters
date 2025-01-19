@@ -43,11 +43,11 @@ async function tryAppendPriceHistory() {
 async function replaceRatingIfNeeded() {
     if (state.replaceRatingPassed) return;
 
-    await tryReplaceRating();
+    await tryReplaceRatingIfStored();
     state.replaceRatingPassed = true;
 }
 
-async function tryReplaceRating() {
+async function tryReplaceRatingIfStored() {
     const storedRating = getStoredRatingValue(state.productArticle);
     if (!storedRating) return;
 
