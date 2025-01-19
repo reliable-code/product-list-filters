@@ -72,3 +72,10 @@ export function setQueryParamsAndRedirect(queryParams) {
         console.error('Failed to redirect:', error);
     }
 }
+
+export function interceptHistoryMethod(method, callback) {
+    return function (...args) {
+        method.apply(this, args);
+        callback();
+    };
+}
