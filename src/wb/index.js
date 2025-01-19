@@ -22,25 +22,39 @@ hideUnwantedElements();
 let initModsQueue = Promise.resolve();
 
 async function addInitModsToQueue() {
+    alert('addInitModsToQueue');
     initModsQueue = initModsQueue.then(initMods);
 }
 
 async function initMods() {
     try {
-        if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
-            if (pathnameIncludes('detail')) {
-                await initProductPageMods();
-            } else if (somePathElementEquals('feedbacks')) {
-                await initReviewsMods();
-            } else {
-                await initProductListMods();
-            }
-        } else if (somePathElementEquals('favorites')) {
-            await initFavoritesMods();
-        }
+        const currentPageModsFunction = getPageModsFunction();
+        if (!currentPageModsFunction) return;
+
+        await currentPageModsFunction();
     } catch (error) {
         console.error('Error in initMods:', error);
     }
+}
+
+function getPageModsFunction() {
+    if (somePathElementEquals('catalog') || somePathElementEquals('brands')) {
+        if (pathnameIncludes('detail')) {
+            return initProductPageMods;
+        }
+
+        if (somePathElementEquals('feedbacks')) {
+            return initReviewsMods;
+        }
+
+        return initProductListMods;
+    }
+
+    if (somePathElementEquals('favorites')) {
+        return initFavoritesMods;
+    }
+
+    return null;
 }
 
 export function hideUnwantedElements() {
