@@ -55,7 +55,7 @@ async function tryReplaceRatingIfStored() {
 }
 
 async function tryReplaceRating(storedRating) {
-    const ratingNodeWrap = getFirstElement(SELECTORS.RATING_NODE_WRAP);
+    const ratingNodeWrap = await waitForElement(document, SELECTORS.RATING_NODE_WRAP);
     if (!ratingNodeWrap) return;
 
     const ratingNode = getFirstTextNode(ratingNodeWrap);
