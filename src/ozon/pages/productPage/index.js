@@ -88,27 +88,27 @@ async function extendProductNameMaxHeight() {
 }
 
 async function appendDislikeButton() {
-    const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
-    const productDislikeButtonWrap = createDiv();
+    const reviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
+    const dislikeButtonWrap = createDiv();
 
-    productDislikeButtonWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
+    dislikeButtonWrap.classList = getReviewsInfoClassList(reviewsWrap);
 
-    const starsContainer = getStarsContainer(productReviewsWrap);
-    const productDislikeButton = createDislikeButton(
+    const starsContainer = getStarsContainer(reviewsWrap);
+    const dislikeButton = createDislikeButton(
         () => dislikeProduct(starsContainer),
     );
 
-    productDislikeButtonWrap.append(productDislikeButton);
+    dislikeButtonWrap.append(dislikeButton);
 
-    insertAfter(productReviewsWrap.parentNode, productDislikeButtonWrap);
+    insertAfter(reviewsWrap.parentNode, dislikeButtonWrap);
 }
 
-function getProductReviewsInfoClassList(productReviewsWrap) {
-    return getFirstElement(SELECTORS.PRODUCT_REVIEWS_INFO, productReviewsWrap).classList;
+function getReviewsInfoClassList(reviewsWrap) {
+    return getFirstElement(SELECTORS.PRODUCT_REVIEWS_INFO, reviewsWrap).classList;
 }
 
-function getStarsContainer(productReviewsWrap) {
-    return productReviewsWrap.children[0].children[1];
+function getStarsContainer(reviewsWrap) {
+    return reviewsWrap.children[0].children[1];
 }
 
 function dislikeProduct(starsContainer) {
@@ -127,27 +127,26 @@ function replaceRating(starsContainer, rating) {
 }
 
 async function appendBadReviewsLink() {
-    const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
-    const productReviewsLink = getFirstElement('a', productReviewsWrap);
+    const reviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
+    const reviewsLink = getFirstElement('a', reviewsWrap);
+    if (!reviewsLink) return;
 
-    if (!productReviewsLink) return;
+    const badReviewsLinkWrap = createDiv();
+    badReviewsLinkWrap.classList = getReviewsInfoClassList(reviewsWrap);
 
-    const productBadReviewsLinkWrap = createDiv();
-    productBadReviewsLinkWrap.classList = getProductReviewsInfoClassList(productReviewsWrap);
-
-    const productBadReviewsLink = createLink(
-        STYLES.BAD_REVIEWS_LINK, thumbsDownIcon, `${productReviewsLink.href}?sort=score_asc`,
+    const badReviewsLink = createLink(
+        STYLES.BAD_REVIEWS_LINK, thumbsDownIcon, `${reviewsLink.href}?sort=score_asc`,
     );
-    productBadReviewsLink.addEventListener('click', (event) => {
+    badReviewsLink.addEventListener('click', (event) => {
         event.preventDefault();
         redirectToBadReviews();
     });
-    const productBadReviewsLinkSpan = createSpan(
+    const badReviewsLinkSpan = createSpan(
         STYLES.BAD_REVIEWS_LINK_SPAN, 'Плохие отзывы',
     );
-    productBadReviewsLink.append(productBadReviewsLinkSpan);
-    productBadReviewsLinkWrap.append(productBadReviewsLink);
-    insertAfter(productReviewsWrap.parentNode, productBadReviewsLinkWrap);
+    badReviewsLink.append(badReviewsLinkSpan);
+    badReviewsLinkWrap.append(badReviewsLink);
+    insertAfter(reviewsWrap.parentNode, badReviewsLinkWrap);
 }
 
 function redirectToBadReviews() {
@@ -158,8 +157,8 @@ function redirectToBadReviews() {
 }
 
 async function appendRatingValue() {
-    const productReviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
-    const starsContainer = getStarsContainer(productReviewsWrap);
+    const reviewsWrap = await waitForElement(document, SELECTORS.PRODUCT_REVIEWS_WRAP);
+    const starsContainer = getStarsContainer(reviewsWrap);
     const productArticle = getProductArticleFromPathname();
     const storedRating = getStoredRating(productArticle);
 
@@ -181,7 +180,6 @@ async function appendRatingValue() {
         if (!ratingInfo) return;
 
         const ratingValue = getRatingValueFromRatingInfo(ratingInfo);
-
         if (!ratingValue) return;
 
         setStoredRating(productArticle, ratingValue);
