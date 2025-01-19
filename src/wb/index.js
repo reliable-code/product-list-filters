@@ -2,44 +2,44 @@ import { initProductListMods } from './pages/productList';
 import { initProductPageMods } from './pages/productPage';
 import { initFavoritesMods } from './pages/favorites';
 import { initReviewsMods } from './pages/reviews';
-import { getURLQueryParam, pathnameIncludes, somePathElementEquals } from '../common/url';
+import {
+    getURLQueryParam,
+    interceptHistoryMethod,
+    pathnameIncludes,
+    somePathElementEquals,
+} from '../common/url';
 import { runMigration } from './db';
-import { debounce } from '../common/dom/utils';
 
 runMigration();
 
 hideUnwantedElements();
 
-(function observeHead() {
-    const { head } = document;
-
-    const headObserver = new MutationObserver(debounce(initMods, 750));
-    headObserver.observe(head, {
-        childList: true,
-    });
-}());
-
-let lastPathname = null;
-let lastQueryParam = null;
-
 await initMods();
+
+(function initURLObserver() {
+    const lastPathname = window.location.pathname;
+    const lastSearchParam = getURLQueryParam('search');
+
+    const originalPushState = window.history.pushState;
+    const originalReplaceState = window.history.replaceState;
+
+    window.history.pushState = interceptHistoryMethod(originalPushState, handleURLChange);
+    window.history.replaceState = interceptHistoryMethod(originalReplaceState, handleURLChange);
+
+    window.addEventListener('popstate', handleURLChange);
+
+    function handleURLChange() {
+        const currentPathname = window.location.pathname;
+        const currentSearchParam = getURLQueryParam('search');
+
+        if (lastPathname !== currentPathname || lastSearchParam !== currentSearchParam) {
+            window.location.reload();
+        }
+    }
+}());
 
 async function initMods() {
     try {
-        const currentPathname = window.location.pathname;
-        const currentQueryParam = getURLQueryParam('search');
-
-        if (
-            (lastPathname !== null && lastPathname !== currentPathname) ||
-            (lastQueryParam !== null && lastQueryParam !== currentQueryParam)
-        ) {
-            window.location.reload();
-            return;
-        }
-
-        lastPathname = currentPathname;
-        lastQueryParam = currentQueryParam;
-
         const pageModsFunc = getPageModsFunc();
         if (!pageModsFunc) return;
 
