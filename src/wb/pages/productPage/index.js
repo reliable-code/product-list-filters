@@ -23,6 +23,11 @@ export async function initProductPageMods() {
 async function appendPriceHistoryIfNeeded() {
     if (state.appendPriceHistoryPassed) return;
 
+    await tryAppendPriceHistory();
+    state.appendPriceHistoryPassed = true;
+}
+
+async function tryAppendPriceHistory() {
     const sideContainer = await waitForElement(document, SELECTORS.SIDE_CONTAINER);
     if (!sideContainer) return;
 
@@ -33,7 +38,6 @@ async function appendPriceHistoryIfNeeded() {
     if (!priceSpan) return;
 
     await appendPriceHistory(priceContainer, priceSpan, state.productArticle);
-    state.appendPriceHistoryPassed = true;
 }
 
 async function replaceRatingIfNeeded() {
