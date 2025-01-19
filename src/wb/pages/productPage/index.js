@@ -36,14 +36,12 @@ async function appendPriceHistoryIfNeeded() {
 }
 
 async function appendRatingValue() {
-    const productArticle = getProductArticleFromPathname();
-    const storedRatingValue = getStoredRatingValue(productArticle);
-
-    if (!storedRatingValue) return;
+    const storedRating = getStoredRatingValue(state.productArticle);
+    if (!storedRating) return;
 
     const ratingNodeWrap = getFirstElement(SELECTORS.RATING_NODE_WRAP);
     if (!ratingNodeWrap) return;
 
     const ratingNode = getFirstTextNode(ratingNodeWrap);
-    ratingNode.nodeValue = storedRatingValue;
+    ratingNode.nodeValue = storedRating;
 }
