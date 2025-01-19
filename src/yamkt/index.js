@@ -95,29 +95,21 @@ function processProductCard(productCard) {
         return;
     }
 
-    const productCardNameWrap = getFirstElement(
-        SELECTORS.PRODUCT_CARD_NAME, productCard,
-    );
-    const productCardReviewsWrap = getFirstElement(
-        SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard,
-    );
+    const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
+    const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
 
-    if (!productCardNameWrap || !productCardReviewsWrap) {
+    if (!nameWrap || !reviewsWrap) {
         hideElement(productCard);
         return;
     }
 
-    const productCardName = productCardNameWrap.innerText;
-    const productCardReviewsNumber = getElementInnerNumber(
-        productCardReviewsWrap.children[1], true,
-    );
-    const productCardRatingNumber = getElementInnerNumber(
-        productCardReviewsWrap.children[0], true,
-    );
+    const name = nameWrap.innerText;
+    const reviewsCount = getElementInnerNumber(reviewsWrap.children[1], true);
+    const rating = getElementInnerNumber(reviewsWrap.children[0], true);
 
     const shouldHide =
-        isNotMatchTextFilter(productCardName, nameFilter) ||
-        isLessThanFilter(productCardReviewsNumber, minReviewsFilter) ||
-        isLessThanFilter(productCardRatingNumber, minRatingFilter);
+        isNotMatchTextFilter(name, nameFilter) ||
+        isLessThanFilter(reviewsCount, minReviewsFilter) ||
+        isLessThanFilter(rating, minRatingFilter);
     updateElementDisplay(productCard, shouldHide);
 }
