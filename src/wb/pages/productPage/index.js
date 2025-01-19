@@ -2,24 +2,26 @@ import { waitForElement } from '../../../common/dom/utils';
 import { getFirstElement, getFirstTextNode } from '../../../common/dom/helpers';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { getPriceSpan, getProductArticleFromPathname } from '../common';
-import { ATTRIBUTES } from '../../../common/priceHistory/attributes';
 import { getStoredRatingValue } from '../../../common/db/specific';
 import { SELECTORS } from './selectors';
 
 const state = {
     productArticle: null,
+    appendPriceHistoryPassed: false,
 };
 
 export async function initProductPageMods() {
     state.productArticle = getProductArticleFromPathname();
 
     await Promise.all([
-        initAppendPriceHistory(),
+        appendPriceHistoryIfNeeded(),
         appendRatingValue(),
     ]);
 }
 
-async function initAppendPriceHistory() {
+async function appendPriceHistoryIfNeeded() {
+    if (state.appendPriceHistoryPassed) return;
+
     const sideContainer = await waitForElement(document, SELECTORS.SIDE_CONTAINER);
     if (!sideContainer) return;
 
@@ -29,18 +31,8 @@ async function initAppendPriceHistory() {
     const priceSpan = getPriceSpan(priceContainer, SELECTORS);
     if (!priceSpan) return;
 
-    const productArticle = getProductArticleFromPathname();
-    await appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle);
-}
-
-async function appendPriceHistoryIfNeeded(priceContainer, priceSpan, productArticle) {
-    const priceContainerWrap = priceContainer.parentNode;
-
-    if (priceContainerWrap.hasAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED)) return;
-
-    await appendPriceHistory(priceContainer, priceSpan, productArticle);
-
-    priceContainerWrap.setAttribute(ATTRIBUTES.APPEND_PRICE_HISTORY_PASSED, '');
+    await appendPriceHistory(priceContainer, priceSpan, state.productArticle);
+    state.appendPriceHistoryPassed = true;
 }
 
 async function appendRatingValue() {
