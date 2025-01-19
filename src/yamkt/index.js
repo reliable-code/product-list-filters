@@ -114,3 +114,19 @@ function processProductCard(productCard) {
         isLessThanFilter(rating, minRatingFilter);
     updateElementDisplay(productCard, shouldHide);
 }
+
+function processProductCardRating(productCard) {
+    const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
+
+    const reviewsCount = getElementInnerNumber(
+        reviewsWrap?.children[1], true, false, 0,
+    );
+    const rating = getElementInnerNumber(
+        reviewsWrap?.children[0], true, false, 0,
+    );
+
+    return {
+        reviewsCount,
+        rating,
+    };
+}
