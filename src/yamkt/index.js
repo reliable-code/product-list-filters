@@ -3,10 +3,10 @@ import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter, isNotMatchTextFilter } from '../common/filter/compare';
 import {
     applyStyles,
-    hideElement,
+    assignElementToDisplayGroup,
+    handleDisplayGroups,
+    initDisplayGroups,
     insertAfter,
-    showElement,
-    updateElementDisplay,
 } from '../common/dom/manipulation';
 import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
 import {
@@ -86,33 +86,32 @@ function addInputSpinnerButtons() {
 function processProductCards() {
     const productCards = getAllElements(SELECTORS.PRODUCT_CARD);
 
-    productCards.forEach(processProductCard);
+    const displayGroups = initDisplayGroups();
+    productCards.forEach((productCard) => {
+        const shouldHide = processProductCard(productCard);
+        assignElementToDisplayGroup(shouldHide, displayGroups, productCard);
+    });
+    handleDisplayGroups(displayGroups);
 }
 
 function processProductCard(productCard) {
-    if (!filterEnabled.value) {
-        showElement(productCard);
-        return;
-    }
+    if (!filterEnabled.value) return false;
 
     const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
+    if (!nameWrap) return true;
 
-    if (!nameWrap) {
-        hideElement(productCard);
-        return;
-    }
+    const {
+        reviewsCount,
+        rating,
+    } = processProductCardRating(productCard);
 
     const name = nameWrap.innerText;
 
-    const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
-    const reviewsCount = getElementInnerNumber(reviewsWrap.children[1], true, false, 0);
-    const rating = getElementInnerNumber(reviewsWrap.children[0], true, false, 0);
-
-    const shouldHide =
+    return (
         isNotMatchTextFilter(name, nameFilter) ||
         isLessThanFilter(reviewsCount, minReviewsFilter) ||
-        isLessThanFilter(rating, minRatingFilter);
-    updateElementDisplay(productCard, shouldHide);
+        isLessThanFilter(rating, minRatingFilter)
+    );
 }
 
 function processProductCardRating(productCard) {
