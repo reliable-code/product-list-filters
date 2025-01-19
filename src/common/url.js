@@ -79,3 +79,10 @@ export function interceptHistoryMethod(method, callback) {
         callback();
     };
 }
+
+export function interceptHistoryMethodAsync(method, callback) {
+    return async function (...args) {
+        method.apply(this, args);
+        await callback();
+    };
+}
