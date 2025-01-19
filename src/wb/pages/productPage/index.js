@@ -51,6 +51,10 @@ async function tryReplaceRatingIfStored() {
     const storedRating = getStoredRatingValue(state.productArticle);
     if (!storedRating) return;
 
+    await tryReplaceRating(storedRating);
+}
+
+async function tryReplaceRating(storedRating) {
     const ratingNodeWrap = getFirstElement(SELECTORS.RATING_NODE_WRAP);
     if (!ratingNodeWrap) return;
 
