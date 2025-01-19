@@ -96,16 +96,17 @@ function processProductCard(productCard) {
     }
 
     const nameWrap = getFirstElement(SELECTORS.PRODUCT_CARD_NAME_WRAP, productCard);
-    const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
 
-    if (!nameWrap || !reviewsWrap) {
+    if (!nameWrap) {
         hideElement(productCard);
         return;
     }
 
     const name = nameWrap.innerText;
-    const reviewsCount = getElementInnerNumber(reviewsWrap.children[1], true);
-    const rating = getElementInnerNumber(reviewsWrap.children[0], true);
+
+    const reviewsWrap = getFirstElement(SELECTORS.PRODUCT_CARD_REVIEWS_WRAP, productCard);
+    const reviewsCount = getElementInnerNumber(reviewsWrap.children[1], true, false, 0);
+    const rating = getElementInnerNumber(reviewsWrap.children[0], true, false, 0);
 
     const shouldHide =
         isNotMatchTextFilter(name, nameFilter) ||
