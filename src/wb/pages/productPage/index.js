@@ -8,6 +8,7 @@ import { SELECTORS } from './selectors';
 const state = {
     productArticle: null,
     appendPriceHistoryPassed: false,
+    replaceRatingPassed: false,
 };
 
 export async function initProductPageMods() {
@@ -15,7 +16,7 @@ export async function initProductPageMods() {
 
     await Promise.all([
         appendPriceHistoryIfNeeded(),
-        appendRatingValue(),
+        replaceRatingIfNeeded(),
     ]);
 }
 
@@ -35,7 +36,9 @@ async function appendPriceHistoryIfNeeded() {
     state.appendPriceHistoryPassed = true;
 }
 
-async function appendRatingValue() {
+async function replaceRatingIfNeeded() {
+    if (state.replaceRatingPassed) return;
+
     const storedRating = getStoredRatingValue(state.productArticle);
     if (!storedRating) return;
 
@@ -44,4 +47,6 @@ async function appendRatingValue() {
 
     const ratingNode = getFirstTextNode(ratingNodeWrap);
     ratingNode.nodeValue = storedRating;
+
+    state.replaceRatingPassed = true;
 }
