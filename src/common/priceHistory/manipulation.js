@@ -84,19 +84,22 @@ function updateAndAppendStoredPrice(
     color,
     priceContainer,
 ) {
-    let storedPrice = product[priceKey];
-
-    if (currentPriceValue || storedPrice) {
-        if (currentPriceValue && !skipUpdate && (!storedPrice || compareCondition(storedPrice))) {
-            const currentPrice = new DatedValue(currentPriceValue);
-            product[priceKey] = currentPrice;
-            storedPrice = currentPrice;
+    if (currentPriceValue || product[priceKey]) {
+        if (!skipUpdate) {
+            updateStoredPriceIfNeeded(product, priceKey, currentPriceValue, compareCondition);
         }
         const { priceHistory } = product;
-        appendStoredPrice(label, storedPrice, color, priceHistory, currentPriceValue, priceContainer);
+        appendStoredPrice(label, product[priceKey], color, priceHistory, currentPriceValue, priceContainer);
         return product;
     }
     return product;
+}
+
+function updateStoredPriceIfNeeded(product, priceKey, currentPriceValue, compareCondition) {
+    const storedPrice = product[priceKey];
+    if (!currentPriceValue || (storedPrice && !compareCondition(storedPrice))) return;
+
+    product[priceKey] = new DatedValue(currentPriceValue);
 }
 
 function appendStoredPrice(
