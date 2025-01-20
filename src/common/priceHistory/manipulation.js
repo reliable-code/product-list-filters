@@ -295,24 +295,24 @@ function createPriceChart(labels, lowestPrices, highestPrices, currentPrice) {
     return chartContainer;
 }
 
-function updatePriceHistory(currentProduct, currentPriceValue) {
-    const { priceHistory } = currentProduct;
+function updatePriceHistory(product, currentPrice) {
+    const { priceHistory } = product;
     const currentDate = getDateTimestamp();
     const currentDatePriceHistory = priceHistory[currentDate] || {};
 
     const lowestPrice = Math.min(
-        currentDatePriceHistory.lowest ?? currentPriceValue, currentPriceValue,
+        currentDatePriceHistory.lowest ?? currentPrice, currentPrice,
     );
     const highestPrice = Math.max(
-        currentDatePriceHistory.highest ?? currentPriceValue, currentPriceValue,
+        currentDatePriceHistory.highest ?? currentPrice, currentPrice,
     );
 
-    currentProduct.priceHistory[currentDate] = {
+    product.priceHistory[currentDate] = {
         lowest: lowestPrice,
         highest: highestPrice,
     };
 
-    return currentProduct;
+    return product;
 }
 
 // todo: Determine "good price" based on price history (3-6 months)
