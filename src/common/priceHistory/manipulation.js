@@ -13,6 +13,7 @@ import { getMedian } from '../mathUtils';
 import { getFormattedPriceInRUB as getFormattedPrice } from '../priceUtils';
 import { createChart } from '../dom/factories/chart';
 import { STYLES } from './styles';
+import { applyStyles } from '../dom/manipulation';
 
 export async function appendPriceHistory(
     priceContainer, priceSpan, productArticle, skipUpdate = false,
@@ -300,11 +301,7 @@ export function highlightIfGoodPrice(isGoodPrice, priceInfoContainer) {
 }
 
 function applyGoodPriceStyles(priceWrapContainer) {
-    priceWrapContainer.style.border = '3px solid rgb(214, 245, 177)';
-    priceWrapContainer.style.borderRadius = '14px';
-    priceWrapContainer.style.padding = '4px 10px 6px';
-    priceWrapContainer.style.marginBottom = '5px';
-    priceWrapContainer.style.width = '-webkit-fill-available';
+    applyStyles(priceWrapContainer, STYLES.GOOD_PRICE_CONTAINER);
 }
 
 function removeGoodPriceStyles(priceWrapContainer) {

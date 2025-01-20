@@ -10,4 +10,12 @@ export const STYLES = {
         borderRadius: '8px',
         cursor: 'pointer',
     },
+
+    GOOD_PRICE_CONTAINER: {
+        border: '3px solid rgb(214, 245, 177)',
+        borderRadius: '14px',
+        padding: '4px 10px 6px',
+        marginBottom: '5px',
+        width: '-webkit-fill-available',
+    },
 };
