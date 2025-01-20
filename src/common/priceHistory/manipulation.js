@@ -305,8 +305,8 @@ function applyGoodPriceStyles(priceWrapContainer) {
 }
 
 function removeGoodPriceStyles(priceWrapContainer) {
-    const stylePropertiesToRemove = ['border', 'borderRadius', 'padding', 'marginBottom', 'width'];
-    stylePropertiesToRemove.forEach(
-        (property) => priceWrapContainer.style.removeProperty(property),
-    );
+    Object.keys(STYLES.GOOD_PRICE_CONTAINER)
+        .forEach((property) => {
+            priceWrapContainer.style.removeProperty(property);
+        });
 }
