@@ -15,10 +15,10 @@ function createScrollToFiltersButton(
     }
 
     const button = createButton(controlStyle, `${arrowUpIcon}К фильтрам`);
-    button.addEventListener('mouseover', () => {
+    button.addEventListener('mouseenter', () => {
         button.style.filter = 'brightness(0.9)';
     });
-    button.addEventListener('mouseout', () => {
+    button.addEventListener('mouseleave', () => {
         button.style.filter = 'brightness(1)';
     });
     button.addEventListener('click', () => {
