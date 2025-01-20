@@ -81,19 +81,14 @@ function handleStoredPrice(
 
     if (!currentPriceValue && !storedPrice) return;
 
-    if (!skipUpdate) {
-        updateStoredPriceIfNeeded(product, storedPriceKey, currentPriceValue, updateCondition);
+    if (!skipUpdate && currentPriceValue && (!storedPrice || updateCondition(storedPrice))) {
+        product[storedPriceKey] = new DatedValue(currentPriceValue);
     }
 
     const { priceHistory } = product;
-    appendStoredPrice(storedPrice, currentPriceValue, priceHistory, label, color, priceContainer);
-}
-
-function updateStoredPriceIfNeeded(product, storedPriceKey, currentPriceValue, updateCondition) {
-    const storedPrice = product[storedPriceKey];
-    if (!currentPriceValue || (storedPrice && !updateCondition(storedPrice))) return;
-
-    product[storedPriceKey] = new DatedValue(currentPriceValue);
+    appendStoredPrice(
+        product[storedPriceKey], currentPriceValue, priceHistory, label, color, priceContainer,
+    );
 }
 
 function appendStoredPrice(storedPrice, currentPrice, priceHistory, label, color, priceContainer) {
