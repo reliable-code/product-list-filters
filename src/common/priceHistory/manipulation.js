@@ -78,7 +78,7 @@ function updateAndAppendStoredPrice(
     product,
     priceKey,
     currentPriceValue,
-    compareCondition,
+    updateCondition,
     skipUpdate,
     label,
     color,
@@ -86,7 +86,7 @@ function updateAndAppendStoredPrice(
 ) {
     if (currentPriceValue || product[priceKey]) {
         if (!skipUpdate) {
-            updateStoredPriceIfNeeded(product, priceKey, currentPriceValue, compareCondition);
+            updateStoredPriceIfNeeded(product, priceKey, currentPriceValue, updateCondition);
         }
         const { priceHistory } = product;
         appendStoredPrice(label, product[priceKey], color, priceHistory, currentPriceValue, priceContainer);
@@ -95,9 +95,9 @@ function updateAndAppendStoredPrice(
     return product;
 }
 
-function updateStoredPriceIfNeeded(product, priceKey, currentPriceValue, compareCondition) {
+function updateStoredPriceIfNeeded(product, priceKey, currentPriceValue, updateCondition) {
     const storedPrice = product[priceKey];
-    if (!currentPriceValue || (storedPrice && !compareCondition(storedPrice))) return;
+    if (!currentPriceValue || (storedPrice && !updateCondition(storedPrice))) return;
 
     product[priceKey] = new DatedValue(currentPriceValue);
 }
