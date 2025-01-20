@@ -21,34 +21,29 @@ export async function appendPriceHistory(
 
     const productStorageKey = `product-${productArticle}`;
     const storedProduct = getStorageValue(productStorageKey);
-    let currentProduct = getCurrentProduct(storedProduct);
+    const currentProduct = getCurrentProduct(storedProduct);
 
-    const lowestPriceKey = 'lowestPrice';
-    const highestPriceKey = 'highestPrice';
+    handleStoredPrice(
+        currentProduct,
+        'lowestPrice',
+        currentPriceValue,
+        skipUpdate,
+        (storedPrice) => currentPriceValue <= storedPrice.value,
+        'Мин. цена',
+        '#d6f5b1',
+        priceContainer,
+    );
 
-    currentProduct =
-        updateAndAppendStoredPrice(
-            currentProduct,
-            lowestPriceKey,
-            currentPriceValue,
-            (storedPrice) => currentPriceValue <= storedPrice.value,
-            skipUpdate,
-            'Мин. цена',
-            '#d6f5b1',
-            priceContainer,
-        );
-
-    currentProduct =
-        updateAndAppendStoredPrice(
-            currentProduct,
-            highestPriceKey,
-            currentPriceValue,
-            (storedPrice) => currentPriceValue >= storedPrice.value,
-            skipUpdate,
-            'Макс. цена',
-            '#fed2ea',
-            priceContainer,
-        );
+    handleStoredPrice(
+        currentProduct,
+        'highestPrice',
+        currentPriceValue,
+        skipUpdate,
+        (storedPrice) => currentPriceValue >= storedPrice.value,
+        'Макс. цена',
+        '#fed2ea',
+        priceContainer,
+    );
 
     if (!skipUpdate) updatePriceHistory(currentProduct, currentPriceValue);
 
@@ -72,44 +67,42 @@ function getCurrentProduct(storedProduct) {
         : ProductData.fromObject(storedProduct);
 }
 
-function updateAndAppendStoredPrice(
+function handleStoredPrice(
     product,
-    priceKey,
+    storedPriceKey,
     currentPriceValue,
-    updateCondition,
     skipUpdate,
+    updateCondition,
     label,
     color,
     priceContainer,
 ) {
-    if (currentPriceValue || product[priceKey]) {
-        if (!skipUpdate) {
-            updateStoredPriceIfNeeded(product, priceKey, currentPriceValue, updateCondition);
-        }
-        const { priceHistory } = product;
-        appendStoredPrice(label, product[priceKey], color, priceHistory, currentPriceValue, priceContainer);
-        return product;
+    const storedPrice = product[storedPriceKey];
+
+    if (!currentPriceValue && !storedPrice) return;
+
+    if (!skipUpdate) {
+        updateStoredPriceIfNeeded(product, storedPriceKey, currentPriceValue, updateCondition);
     }
-    return product;
+
+    const { priceHistory } = product;
+    appendStoredPrice(storedPrice, currentPriceValue, priceHistory, label, color, priceContainer);
 }
 
-function updateStoredPriceIfNeeded(product, priceKey, currentPriceValue, updateCondition) {
-    const storedPrice = product[priceKey];
+function updateStoredPriceIfNeeded(product, storedPriceKey, currentPriceValue, updateCondition) {
+    const storedPrice = product[storedPriceKey];
     if (!currentPriceValue || (storedPrice && !updateCondition(storedPrice))) return;
 
-    product[priceKey] = new DatedValue(currentPriceValue);
+    product[storedPriceKey] = new DatedValue(currentPriceValue);
 }
 
-function appendStoredPrice(
-    label, storedPrice, color, priceHistory, currentPrice, priceContainer,
-) {
-    const divContent = `${label}: `;
+function appendStoredPrice(storedPrice, currentPrice, priceHistory, label, color, priceContainer) {
     const divStyle = {
         color: '#000',
         fontSize: '16px',
         padding: '17px 0px 7px',
     };
-    const storedPriceContainer = createDiv(divStyle, divContent);
+    const storedPriceContainer = createDiv(divStyle, `${label}: `);
 
     const spanText = getFormattedPrice(storedPrice.value);
     const spanStyle = {
