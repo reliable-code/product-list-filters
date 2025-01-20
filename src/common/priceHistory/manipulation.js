@@ -23,7 +23,7 @@ export async function appendPriceHistory(
     const storedProduct = getStorageValue(productStorageKey);
     const currentProduct = getCurrentProduct(storedProduct);
 
-    handleStoredPrice(
+    updateAndAppendStoredPrice(
         currentProduct,
         'lowestPrice',
         currentPriceValue,
@@ -34,7 +34,7 @@ export async function appendPriceHistory(
         priceContainer,
     );
 
-    handleStoredPrice(
+    updateAndAppendStoredPrice(
         currentProduct,
         'highestPrice',
         currentPriceValue,
@@ -67,7 +67,7 @@ function getCurrentProduct(storedProduct) {
         : ProductData.fromObject(storedProduct);
 }
 
-function handleStoredPrice(
+function updateAndAppendStoredPrice(
     product,
     storedPriceKey,
     currentPriceValue,
