@@ -12,6 +12,7 @@ import { createAndShowModal } from '../dom/factories/modal';
 import { getMedian } from '../mathUtils';
 import { getFormattedPriceInRUB as getFormattedPrice } from '../priceUtils';
 import { createChart } from '../dom/factories/chart';
+import { STYLES } from './styles';
 
 export async function appendPriceHistory(
     priceContainer, priceSpan, productArticle, skipUpdate = false,
@@ -92,38 +93,28 @@ function updateAndAppendStoredPrice(
 }
 
 function appendStoredPrice(storedPrice, currentPrice, priceHistory, label, color, priceContainer) {
-    const divStyle = {
-        color: '#000',
-        fontSize: '16px',
-        padding: '17px 0px 7px',
-    };
-    const storedPriceContainer = createDiv(divStyle, `${label}: `);
+    const storedPriceContainer = createDiv(STYLES.STORED_PRICE_CONTAINER, `${label}: `);
 
-    const spanText = getFormattedPrice(storedPrice.value);
-    const spanStyle = {
-        fontWeight: 'bold',
-        padding: '6px 12px',
-        borderRadius: '8px',
-        cursor: 'pointer',
-        background: color,
-    };
-    const storedPriceSpan = createSpan(spanStyle, spanText);
+    const formattedStoredPrice = getFormattedPrice(storedPrice.value);
 
-    storedPriceSpan.addEventListener('mouseover', () => {
-        storedPriceSpan.textContent = getLocalDateFromTimestamp(storedPrice.date);
+    const storedPriceWrap = createSpan(STYLES.STORED_PRICE_WRAP, formattedStoredPrice);
+    storedPriceWrap.style.background = color;
+
+    storedPriceWrap.addEventListener('mouseenter', () => {
+        storedPriceWrap.textContent = getLocalDateFromTimestamp(storedPrice.date);
     });
-    storedPriceSpan.addEventListener('mouseleave', () => {
-        storedPriceSpan.textContent = spanText;
+    storedPriceWrap.addEventListener('mouseleave', () => {
+        storedPriceWrap.textContent = formattedStoredPrice;
     });
 
-    storedPriceSpan.addEventListener('click', (event) => {
+    storedPriceWrap.addEventListener('click', (event) => {
         event.stopPropagation();
         event.preventDefault();
         // priceHistory = generateTestData(100, currentPrice);
         showPriceHistoryInModal(priceHistory, currentPrice);
     });
 
-    storedPriceContainer.append(storedPriceSpan);
+    storedPriceContainer.append(storedPriceWrap);
     priceContainer.parentNode.append(storedPriceContainer);
 }
 
