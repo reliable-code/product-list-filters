@@ -67,28 +67,26 @@ function processComment(comment) {
     const shouldHide = isLessThanFilter(rating, minRatingFilter);
 
     if (shouldHide) {
-        hideElement(comment);
-        hideEmptyParentRecursively(comment);
+        hideElementWithParents(comment);
     } else {
-        showElement(comment);
-        showParentRecursively(comment);
+        showElementWithParents(comment);
     }
 }
 
-function hideEmptyParentRecursively(element) {
-    const parent = element.parentElement;
+function hideElementWithParents(element) {
+    hideElement(element);
 
+    const parent = element.parentElement;
     if (parent && [...parent.children].every((child) => child.style.display === 'none')) {
-        hideElement(parent);
-        hideEmptyParentRecursively(parent);
+        hideElementWithParents(parent);
     }
 }
 
-function showParentRecursively(element) {
-    const parent = element.parentElement;
+function showElementWithParents(element) {
+    showElement(element);
 
+    const parent = element.parentElement;
     if (parent && parent.style.display === 'none') {
-        showElement(parent);
-        showParentRecursively(parent);
+        showElementWithParents(parent);
     }
 }
