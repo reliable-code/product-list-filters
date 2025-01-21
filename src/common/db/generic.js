@@ -31,7 +31,7 @@ function processEntriesByKeys(keys, processEntry, log) {
     keys.forEach((key) => {
         const value = getStorageValue(key);
 
-        if (log) console.log(`${key}: ${value}`);
+        if (log) console.log(key, value);
 
         processEntry(key, value);
 
