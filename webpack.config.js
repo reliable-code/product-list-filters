@@ -6,6 +6,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const entries = [
     'dns',
+    'habr',
     'kinop',
     'lavka',
     'lenta',
