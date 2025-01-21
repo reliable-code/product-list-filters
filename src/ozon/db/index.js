@@ -9,10 +9,9 @@ export function runMigration() {
 
 function migrationTask() {
     const keyFilterCondition = (key) => key.startsWith('product-');
+
     const processEntry = (key, value) => {
-        updateProductLastCheckDate(key, 'lastCheckDate', value);
-        updateProductPriceDate(key, 'lowestPrice', value);
-        updateProductPriceDate(key, 'highestPrice', value);
+        // process entry code
     };
 
     processEntriesByKeyFilter(keyFilterCondition, processEntry, true);

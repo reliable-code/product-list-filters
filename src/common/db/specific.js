@@ -1,5 +1,7 @@
 import { getStorageValue, setStorageValue } from '../storage';
 import { RatedProductData as ProductData } from '../models/ratedProductData';
+import { getDateMonthsAgo } from '../dateUtils';
+import { processEntriesByKeyFilter } from './generic';
 
 export const STORAGE_KEYS = {
     LAST_RATE_UPDATE: 'last-rate-update',
@@ -42,4 +44,27 @@ export function setReviewsLastProductArticle(productArticle) {
 
 export function getReviewsLastProductArticle() {
     return getStorageValue(STORAGE_KEYS.REVIEWS_LAST_PRODUCT_ARTICLE);
+}
+
+export function deleteStaleProductEntries() {
+    const keyFilterCondition = (key) => key.startsWith('product-');
+
+    const lastCheckDates = [];
+
+    const processEntry = (key, value) => {
+        const lastCheckDate = new Date(value.lastCheckDate);
+        if (lastCheckDate < getDateMonthsAgo(9)) {
+            lastCheckDates.push(value.lastCheckDate);
+            // window.GM_deleteValue(key);
+        }
+    };
+
+    processEntriesByKeyFilter(keyFilterCondition, processEntry, false);
+
+    const sortedLastCheckDates = [...lastCheckDates]
+        .sort((a, b) => new Date(a) - new Date(b));
+
+    sortedLastCheckDates.forEach((lastCheckDate) => {
+        console.log(new Date(lastCheckDate).toLocaleDateString());
+    });
 }
