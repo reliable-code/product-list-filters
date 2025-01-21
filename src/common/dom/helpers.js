@@ -67,7 +67,13 @@ export function getNodeInnerNumber(node, cleanText = false, replaceComma = false
 function parseNumber(text, cleanText, replaceComma) {
     if (cleanText) text = removeNonNumber(text);
     if (replaceComma) text = text.replace(',', '.');
-    const number = +text;
+
+    const number = Number(text);
+
+    if (Number.isNaN(number)) {
+        console.log(`Invalid number: ${text}`);
+        return 0;
+    }
 
     return number;
 }
