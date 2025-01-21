@@ -1,5 +1,5 @@
 import { applyStyles, hideElement, showElement } from '../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import { getAllElements, getFirstElement } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMinRatingFilterControl,
@@ -14,6 +14,10 @@ const { createGlobalFilter } = createFilterFactory(processComments);
 
 const minRatingFilter = createGlobalFilter('min-rating-filter', 4);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
+
+const state = {
+    commentsCache: new WeakMap(),
+};
 
 initProcessComments();
 
@@ -55,16 +59,28 @@ function processComments() {
 
 function processComment(comment) {
     if (!filterEnabled.value) {
-        showElement(comment);
+        showElementWithParents(comment);
         return;
     }
 
-    const ratingWrap = getFirstElement(SELECTORS.RATING_WRAP, comment);
-    if (!ratingWrap) return;
+    let cachedData = state.commentsCache.get(comment);
 
-    const rating = getElementInnerNumber(ratingWrap);
+    if (!cachedData) {
+        const ratingWrap = getFirstElement(SELECTORS.RATING_WRAP, comment);
+        if (!ratingWrap) return;
 
-    const shouldHide = isLessThanFilter(rating, minRatingFilter);
+        const ratingText = ratingWrap.innerText.trim();
+        if (ratingText === '') return;
+        const rating = +ratingText;
+
+        cachedData = {
+            rating,
+        };
+
+        state.commentsCache.set(comment, cachedData);
+    }
+
+    const shouldHide = isLessThanFilter(cachedData.rating, minRatingFilter);
 
     if (shouldHide) {
         hideElementWithParents(comment);
