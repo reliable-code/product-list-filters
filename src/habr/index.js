@@ -9,6 +9,7 @@ import { STYLES } from './styles';
 import { createFilterFactory } from '../common/filter/factories/createFilter';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { isLessThanFilter } from '../common/filter/compare';
+import { waitForElement } from '../common/dom/utils';
 
 const { createGlobalFilter } = createFilterFactory(processComments);
 
@@ -19,20 +20,20 @@ const state = {
     commentsCache: new WeakMap(),
 };
 
-initProcessComments();
+await initProcessComments();
 
-function initProcessComments() {
-    const commentsTree = getFirstElement(SELECTORS.COMMENTS_TREE);
+async function initProcessComments() {
+    const commentsTree = await waitForElement(document, SELECTORS.COMMENTS_TREE);
 
-    const observer = new MutationObserver(() => executeProcessComments());
+    const observer = new MutationObserver(executeProcessComments);
     observer.observe(commentsTree, {
         childList: true,
         subtree: true,
     });
 }
 
-function executeProcessComments() {
-    const commentsHeader = getFirstElement(SELECTORS.COMMENTS_HEADER);
+async function executeProcessComments() {
+    const commentsHeader = await waitForElement(document, SELECTORS.COMMENTS_HEADER);
     appendFilterControlsIfNeeded(commentsHeader, appendFiltersContainer);
     processComments();
 }
