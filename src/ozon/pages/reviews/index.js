@@ -12,6 +12,7 @@ import {
     createHasPhotoFilterControl,
     createLikesFilterControl,
     createMaxRatingFilterControl,
+    createMinLikesFilterControl,
     createMinRatingFilterControl,
     createWaitFullLoadFilterControl,
 } from '../../../common/filter/factories/specificControls';
@@ -156,8 +157,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.TEXT_INPUT,
     );
-    const minLikesDiv = createLikesFilterControl(
-        'Мин. лайков: ',
+    const minLikesDiv = createMinLikesFilterControl(
         minLikesFilter,
         STYLES.CONTROL,
         STYLES.NUMBER_INPUT,

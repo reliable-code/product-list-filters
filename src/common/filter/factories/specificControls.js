@@ -182,6 +182,19 @@ export function createMaxPriceFilterControl(
     );
 }
 
+export function createMinLikesFilterControl(
+    inputValue,
+    controlStyle = {},
+    inputStyle = {},
+) {
+    return createLikesFilterControl(
+        'Мин. лайков: ',
+        inputValue,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createLikesFilterControl(
     labelText,
     inputValue,

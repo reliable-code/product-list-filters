@@ -2,7 +2,7 @@ import { applyStyles, hideElement, showElement } from '../common/dom/manipulatio
 import { getAllElements, getFirstElement } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
-    createMinRatingFilterControl,
+    createMinLikesFilterControl,
 } from '../common/filter/factories/specificControls';
 import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
@@ -41,8 +41,8 @@ async function executeProcessComments() {
 function appendFiltersContainer(filtersContainer, parentNode) {
     applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
-    const minRatingDiv = createMinRatingFilterControl(
-        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT, 1, 0,
+    const minRatingDiv = createMinLikesFilterControl(
+        minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
