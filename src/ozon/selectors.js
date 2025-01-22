@@ -1,5 +1,5 @@
 export const SELECTORS = {
-    PAGINATOR_CONTENT: '#paginatorContent',
+    PAGINATOR: '#paginator',
     PROFILE_LOGO: '[data-widget="profileLogo"]',
     ORDER_INFO: '[data-widget="orderInfo"]',
     FAVORITES: '[data-widget="favoriteCounter"]',

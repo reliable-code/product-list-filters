@@ -79,7 +79,7 @@ function getSectionId() {
     return getHashOrDefault(sectionName);
 }
 
-export async function initProductListMods(paginatorContent) {
+export async function initProductListMods(paginator) {
     const searchResultsSort = await waitForElement(document, SELECTORS.SEARCH_RESULTS_SORT);
     appendFilterControlsIfNeeded(searchResultsSort, appendFiltersContainer);
 
@@ -88,7 +88,7 @@ export async function initProductListMods(paginatorContent) {
     processProductCards();
     const observer = new MutationObserver(debounce(() => processProductCards(), 150));
 
-    observer.observe(paginatorContent, {
+    observer.observe(paginator, {
         childList: true,
         subtree: true,
     });

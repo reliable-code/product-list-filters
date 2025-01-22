@@ -60,9 +60,9 @@ async function initMods() {
 
     fixLinks();
 
-    const paginatorContent = getFirstElement(SELECTORS.PAGINATOR_CONTENT);
-    if (paginatorContent) {
-        await initProductListMods(paginatorContent);
+    const paginator = getFirstElement(SELECTORS.PAGINATOR);
+    if (paginator) {
+        await initProductListMods(paginator);
         return;
     }
 
