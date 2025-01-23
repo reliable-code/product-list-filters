@@ -163,6 +163,8 @@ function processProductCard(productCard, rateUpdated) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
+        productCard.removeAttribute('data-index');
+
         const productLink = getFirstElement('a', productCard);
         if (!productLink) return true;
 
