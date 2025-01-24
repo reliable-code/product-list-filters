@@ -205,7 +205,7 @@ function processProductCard(productCard, rateUpdated) {
         };
 
         state.productCardsCache.set(productCard, cachedData);
-    } else if (rateUpdated && !cachedData.storedRating) {
+    } else if (rateUpdated) {
         checkStoredRating(cachedData);
     }
 
@@ -277,7 +277,7 @@ function appendProductDislikeButton(ratingContainer, productArticle) {
 
 async function dislikeProductOnProductList(productArticle) {
     setStoredRating(productArticle, 1);
-    processProductCards();
+    processProductCards(true);
 }
 
 function setLineClamp(nameWrap) {
