@@ -249,7 +249,7 @@ function processProductCards() {
 
 function processProductCard(productCardLink) {
     const productCardLinksParent = productCardLink.parentNode;
-    const productCard = productCardLinksParent.parentNode.parentNode.parentNode;
+    const productCard = productCardLinksParent.parentNode.parentNode;
     productCard.style.flex = 'none';
     productCard.style.width = '25%';
 
