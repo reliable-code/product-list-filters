@@ -1,4 +1,4 @@
-export async function waitForElement(parentNode, selector, timeout = null) {
+export function waitForElement(parentNode, selector, timeout = null) {
     const existingElement = parentNode.querySelector(selector);
     if (existingElement) return Promise.resolve(existingElement);
 
@@ -9,7 +9,7 @@ export async function waitForElement(parentNode, selector, timeout = null) {
             subtree: true,
         });
 
-        let timeoutId = null;
+        let timeoutId;
         if (timeout) {
             timeoutId = setTimeout(() => {
                 observer.disconnect();
@@ -29,7 +29,7 @@ export async function waitForElement(parentNode, selector, timeout = null) {
     });
 }
 
-export async function waitUntilElementGone(parentNode, selector) {
+export function waitUntilElementGone(parentNode, selector) {
     const existingElement = parentNode.querySelector(selector);
     if (!existingElement) return Promise.resolve();
 
@@ -46,6 +46,31 @@ export async function waitUntilElementGone(parentNode, selector) {
             observer.disconnect();
             resolve();
         }
+    });
+}
+
+export function waitUntilElementStabilized(element, timeout = 350) {
+    return new Promise((resolve) => {
+        let timeoutId;
+
+        const observer = new MutationObserver(() => {
+            clearTimeout(timeoutId);
+            scheduleCompletion();
+        });
+
+        function scheduleCompletion() {
+            timeoutId = setTimeout(() => {
+                observer.disconnect();
+                resolve();
+            }, timeout);
+        }
+
+        scheduleCompletion();
+
+        observer.observe(element, {
+            childList: true,
+            subtree: true,
+        });
     });
 }
 
