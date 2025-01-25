@@ -1,4 +1,4 @@
-import { waitForElement } from '../../../common/dom/utils';
+import { waitForElement, waitUntilElementStabilized } from '../../../common/dom/utils';
 import { getFirstElement, getFirstTextNode } from '../../../common/dom/helpers';
 import { appendPriceHistory } from '../../../common/priceHistory/manipulation';
 import { getPriceSpan, getProductArticleFromPathname } from '../common';
@@ -30,6 +30,8 @@ async function appendPriceHistoryIfNeeded() {
 async function tryAppendPriceHistory() {
     const sideContainer = await waitForElement(document, SELECTORS.SIDE_CONTAINER);
     if (!sideContainer) return;
+
+    await waitUntilElementStabilized(sideContainer);
 
     const priceContainer = getFirstElement(SELECTORS.PRICE_CONTAINER, sideContainer);
     if (!priceContainer) return;
