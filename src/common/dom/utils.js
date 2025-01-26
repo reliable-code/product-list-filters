@@ -49,7 +49,7 @@ export function waitUntilElementGone(parentNode, selector) {
     });
 }
 
-export function waitUntilElementStabilized(element, timeout = 350) {
+export function waitUntilElementStabilized(element, timeout = 400) {
     return new Promise((resolve) => {
         let timeoutId;
 
