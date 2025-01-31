@@ -182,3 +182,16 @@ export function styleStringToObject(styleString) {
             return styleObject;
         }, {});
 }
+
+export function saveToFile(content, filename, fileType = 'text/plain') {
+    const blob = new Blob([content], { type: fileType });
+    const objectURL = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = objectURL;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    requestAnimationFrame(() => URL.revokeObjectURL(objectURL));
+}
