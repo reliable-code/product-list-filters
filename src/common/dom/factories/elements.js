@@ -56,6 +56,18 @@ export function createActionLink(onClick, innerHTML = null, styles = {}) {
 
     return link;
 }
+
+export function createActionLinkWithIcon(onClick, iconName = null, innerHTML = null, styles = {}) {
+    styles.display ||= 'inline-flex';
+    styles.alignItems ||= 'center';
+    styles.gap ||= '0.25em';
+
+    const link = createActionLink(onClick, innerHTML, styles);
+    link.prepend(createLucideIcon(iconName));
+
+    return link;
+}
+
 export function createButton(styles = {}, innerHTML = null, onClick = null) {
     const button = createElement('button', styles, innerHTML);
     if (onClick) button.addEventListener('click', onClick);
