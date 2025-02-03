@@ -26,6 +26,7 @@
   "dependencies": {
     "chart.js": "^4.4.6",
     "chartjs-plugin-annotation": "^3.1.0",
+    "lucide": "^0.474.0",
     "webpack-monkey": "^0.2.1"
   }
 }
