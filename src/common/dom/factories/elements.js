@@ -50,7 +50,7 @@ export function createLink(styles = {}, innerHTML = null, href = null) {
 
 export function createButton(styles = {}, innerHTML = null, onClick = null) {
     const button = createElement('button', styles, innerHTML);
-    if (onClick) button.onclick = onClick;
+    if (onClick) button.addEventListener('click', onClick);
 
     return button;
 }
