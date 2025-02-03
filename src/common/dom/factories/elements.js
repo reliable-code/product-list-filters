@@ -57,7 +57,7 @@ export function createActionLink(onClick, innerHTML = null, styles = {}) {
     return link;
 }
 
-export function createActionLinkWithIcon(onClick, iconName = null, innerHTML = null, styles = {}) {
+export function createActionLinkWithIcon(onClick, iconName, innerHTML = null, styles = {}) {
     styles.display ||= 'inline-flex';
     styles.alignItems ||= 'center';
     styles.gap ||= '0.25em';
