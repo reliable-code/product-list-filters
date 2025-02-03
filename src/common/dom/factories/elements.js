@@ -59,6 +59,9 @@ export function createDiv(styles = {}, innerHTML = null) {
     return createElement('div', styles, innerHTML);
 }
 
+export function createIcon(styles = {}) {
+    return createElement('i', styles);
+}
 export function createElement(tagName, styles, innerHTML = null) {
     if (typeof styles !== 'object' || styles === null) {
         throw new TypeError('styles should be an object');
