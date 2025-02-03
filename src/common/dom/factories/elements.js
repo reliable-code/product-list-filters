@@ -48,6 +48,14 @@ export function createLink(styles = {}, innerHTML = null, href = null) {
     return link;
 }
 
+export function createActionLink(onClick, innerHTML = null, styles = {}) {
+    styles.cursor ||= 'pointer';
+
+    const link = createLink(styles, innerHTML);
+    if (onClick) link.addEventListener('click', onClick);
+
+    return link;
+}
 export function createButton(styles = {}, innerHTML = null, onClick = null) {
     const button = createElement('button', styles, innerHTML);
     if (onClick) button.addEventListener('click', onClick);
