@@ -1,6 +1,6 @@
 import { createActionLink, createActionLinkWithIcon, createDiv } from './elements';
 
-function createControl(element, controlStyles = {}, labelText = null) {
+export function createControl(element, controlStyles = {}, labelText = null) {
     const control = createDiv(controlStyles, labelText);
     control.append(element);
     return control;
