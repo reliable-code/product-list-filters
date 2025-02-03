@@ -63,15 +63,17 @@ export function createIcon(styles = {}) {
     return createElement('i', styles);
 }
 
-export function createLucideIcon(iconName, styles = {
-    width: '1em',
-    height: '1em',
-    paddingBottom: '1px',
-}) {
+export function createLucideIcon(iconName, styles = {}) {
+    styles.width ||= '1em';
+    styles.height ||= '1em';
+    styles.paddingBottom ||= '1px';
+
     const icon = createIcon(styles);
     icon.setAttribute('data-lucide', iconName);
+
     return icon;
 }
+
 export function createElement(tagName, styles, innerHTML = null) {
     if (typeof styles !== 'object' || styles === null) {
         throw new TypeError('styles should be an object');
