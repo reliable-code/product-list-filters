@@ -8,21 +8,21 @@ function createControl(element, controlStyles = {}, labelText = null) {
 
 export function createActionLinkControl(
     onClick,
-    innerHTML = null,
+    linkText = null,
     controlStyles = {},
     linkStyles = {},
 ) {
-    const link = createActionLink(onClick, innerHTML, linkStyles);
+    const link = createActionLink(onClick, linkText, linkStyles);
     return createControl(link, controlStyles);
 }
 
 export function createActionLinkWithIconControl(
     onClick,
-    innerHTML = null,
+    linkText = null,
     iconName = null,
     controlStyles = {},
     linkStyles = {},
 ) {
-    const link = createActionLinkWithIcon(onClick, iconName, innerHTML, linkStyles);
+    const link = createActionLinkWithIcon(onClick, iconName, linkText, linkStyles);
     return createControl(link, controlStyles);
 }
