@@ -68,6 +68,7 @@ const filterEnabled = createGlobalFilter('reviews-filter-enabled', true);
 
 const state = {
     isProductPage: false,
+    productArticle: null,
     reviewsContainer: null,
     stickyReviewsInfo: null,
     stickyReviewsInfoDefaultText: null,
@@ -78,6 +79,8 @@ const state = {
 
 export async function initReviewsMods(needScrollToComments = true, isProductPage = false) {
     state.isProductPage = isProductPage;
+    state.productArticle = getProductArticleFromPathname();
+
     if (needScrollToComments) await initScrollToComments();
 
     resetFiltersIfNotLastProduct();
@@ -114,7 +117,7 @@ function scrollToComments(comments, offset = 80) {
 }
 
 function resetFiltersIfNotLastProduct() {
-    const productArticle = getProductArticleFromPathname();
+    const { productArticle } = state;
     const lastProductArticle = getReviewsLastProductArticle();
 
     if (productArticle !== lastProductArticle) {
