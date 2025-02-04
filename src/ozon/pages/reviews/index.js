@@ -1,3 +1,4 @@
+import { createIcons, Download } from 'lucide';
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
@@ -22,6 +23,7 @@ import { createFilterFactory } from '../../../common/filter/factories/createFilt
 import {
     applyStyles,
     hideElement,
+    saveToFile,
     showElement,
     updateElementDisplay,
 } from '../../../common/dom/manipulation';
@@ -49,6 +51,8 @@ import {
     setReviewsLastProductArticle,
 } from '../../../common/db/specific';
 import { getAverageRating } from '../../../common/rating/helpers';
+
+import { createActionLinkWithIconControl } from '../../../common/dom/factories/controls';
 
 const { createGlobalFilter } = createFilterFactory(processReviewCards);
 
@@ -197,6 +201,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
+    const downloadDiv = createActionLinkWithIconControl(() => {
+        saveToFile(gatherVisibleReviewsData(), 'saved_text.txt');
+    }, 'Скачать', 'download', STYLES.CONTROL);
+
     filtersContainer.append(
         variationFilterDiv,
         reviewTextFilterDiv,
@@ -208,9 +216,11 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         waitFullLoadDiv,
         separatorDiv,
         filterEnabledDiv,
+        downloadDiv,
     );
 
     parentNode.append(filtersContainer);
+    createIcons({ icons: { Download } });
     addScrollToFiltersButton();
 }
 
