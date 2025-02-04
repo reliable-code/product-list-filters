@@ -214,6 +214,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton();
 }
 
+function gatherVisibleReviewsData() {
+    return [...state.reviewCardsCache]
+        .filter(([reviewCard]) => reviewCard.style.display !== 'none')
+        .map(([reviewCard, data]) => reviewCard.innerText)
+        .join('\n');
+}
+
 async function initVariables() {
     if (state.reviewsContainer) return;
 
