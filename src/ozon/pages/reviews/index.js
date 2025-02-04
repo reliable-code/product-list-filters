@@ -228,7 +228,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 function saveVisibleReviewsData() {
-    saveToFile(getSelectedVisibleReviewsDataAsJson(), 'saved_text.txt');
+    saveToFile(
+        getSelectedVisibleReviewsDataAsJson(),
+        `reviews_${state.productArticle || Date.now()}.txt`,
+    );
 }
 
 function getSelectedVisibleReviewsDataAsJson() {
