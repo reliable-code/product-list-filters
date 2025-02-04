@@ -287,6 +287,12 @@ function processReviewCard(reviewCard) {
 
         const hasPhoto = hasElement('img', reviewContent);
 
+        const authorWrap = getFirstElement(SELECTORS.AUTHOR_WRAP, reviewHeader);
+        const authorText = authorWrap?.innerText;
+        const author = authorText !== 'Пользователь предпочёл скрыть свои данные'
+            ? authorText
+            : null;
+
         cachedData = {
             productVariationWrap,
             productVariationText,
@@ -296,6 +302,7 @@ function processReviewCard(reviewCard) {
             dislikesNumber,
             rating,
             hasPhoto,
+            author,
         };
 
         state.reviewCardsCache.set(reviewCard, cachedData);

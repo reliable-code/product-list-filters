@@ -9,6 +9,7 @@ export const SELECTORS = {
     PRODUCT_VARIATION_WRAP: ':scope > div:nth-of-type(1) a',
     REVIEW_SURVEY_WRAP: ':scope > div:nth-of-type(1) > div > div:nth-of-type(2)',
     REVIEW_TEXT_WRAP: ':scope > div:nth-of-type(2)',
+    AUTHOR_WRAP: ':scope > div:nth-of-type(1) > div:nth-of-type(2)',
     STICKY_REVIEWS_INFO: '[data-widget="webStickyProducts"] [data-widget="webReviewProductScore"] .tsBodyControl400Small',
     UNNECESSARY_ELEMENTS: '[data-widget="separator"], [data-widget="skuGrid"]',
     PAGINATOR: '[data-widget="paginator"]',
