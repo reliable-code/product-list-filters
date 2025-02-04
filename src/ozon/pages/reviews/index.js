@@ -293,12 +293,8 @@ function processReviewCard(reviewCard) {
         const reviewText = reviewTextWraps.map((textWrap) => textWrap.innerText)
             .join(' ');
 
-        const likesNumber = getElementInnerNumber(
-            likeButton, true, false, 0,
-        );
-        const dislikesNumber = getElementInnerNumber(
-            dislikeButton, true, false, 0,
-        );
+        const likes = getElementInnerNumber(likeButton, true, false, 0);
+        const dislikes = getElementInnerNumber(dislikeButton, true, false, 0);
 
         const rating = getRating(reviewHeader);
 
@@ -315,8 +311,8 @@ function processReviewCard(reviewCard) {
             productVariationText,
             reviewTextWraps,
             reviewText,
-            likesNumber,
-            dislikesNumber,
+            likes,
+            dislikes,
             rating,
             hasPhoto,
             author,
@@ -341,8 +337,8 @@ function processReviewCard(reviewCard) {
     const shouldHide =
         isNotMatchTextFilter(cachedData.productVariationText, variationFilter) ||
         isNotMatchTextFilter(cachedData.reviewText, reviewTextFilter) ||
-        isLessThanFilter(cachedData.likesNumber, minLikesFilter) ||
-        isGreaterThanFilter(cachedData.dislikesNumber, maxDislikesFilter) ||
+        isLessThanFilter(cachedData.likes, minLikesFilter) ||
+        isGreaterThanFilter(cachedData.dislikes, maxDislikesFilter) ||
         isLessThanFilter(cachedData.rating, minRatingFilter) ||
         isGreaterThanFilter(cachedData.rating, maxRatingFilter) ||
         isNotEqualBoolFilter(cachedData.hasPhoto, hasPhotoFilter);
