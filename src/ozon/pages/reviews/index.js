@@ -201,9 +201,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
-    const downloadDiv = createActionLinkWithIconControl(() => {
-        saveToFile(getSelectedVisibleReviewsDataAsJson(), 'saved_text.txt');
-    }, 'Скачать', 'download', STYLES.CONTROL);
+    const downloadDiv = createActionLinkWithIconControl(
+        saveVisibleReviewsData, 'Скачать', 'download', STYLES.CONTROL,
+    );
 
     filtersContainer.append(
         variationFilterDiv,
@@ -222,6 +222,10 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     parentNode.append(filtersContainer);
     createIcons({ icons: { Download } });
     addScrollToFiltersButton();
+}
+
+function saveVisibleReviewsData() {
+    saveToFile(getSelectedVisibleReviewsDataAsJson(), 'saved_text.txt');
 }
 
 function getSelectedVisibleReviewsDataAsJson() {
