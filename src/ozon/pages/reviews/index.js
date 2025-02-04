@@ -202,7 +202,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     const downloadDiv = createActionLinkWithIconControl(() => {
-        saveToFile(gatherVisibleReviewsData(), 'saved_text.txt');
+        saveToFile(getSelectedVisibleReviewsDataAsJson(), 'saved_text.txt');
     }, 'Скачать', 'download', STYLES.CONTROL);
 
     filtersContainer.append(
@@ -224,11 +224,15 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     addScrollToFiltersButton();
 }
 
-function gatherVisibleReviewsData() {
+function getSelectedVisibleReviewsDataAsJson() {
+    return JSON.stringify(getSelectedVisibleReviewsData());
+}
+
+function getSelectedVisibleReviewsData() {
+    const fields = ['author', 'productVariationText', 'rating', 'reviewText', 'likes', 'dislikes'];
     return [...state.reviewCardsCache]
         .filter(([reviewCard]) => reviewCard.style.display !== 'none')
-        .map(([reviewCard, data]) => reviewCard.innerText)
-        .join('\n');
+        .map(([, data]) => Object.fromEntries(fields.map((key) => [key, data[key]])));
 }
 
 async function initVariables() {
