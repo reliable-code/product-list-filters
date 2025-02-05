@@ -240,7 +240,7 @@ function getSelectedVisibleReviewsDataAsJson() {
 }
 
 function getSelectedVisibleReviewsData() {
-    const fields = ['author', 'productVariationText', 'rating', 'reviewText', 'likes', 'dislikes'];
+    const fields = ['author', 'productVariationText', 'reviewText'];
     return [...state.reviewCardsCache]
         .filter(([reviewCard, data]) => reviewCard.style.display !== 'none' && data.reviewText)
         .map(([, data]) => Object.fromEntries(fields.map((key) => [key, data[key]])));
