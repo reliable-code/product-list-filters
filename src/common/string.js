@@ -14,3 +14,8 @@ export function capitalize(stringValue) {
     return stringValue.charAt(0)
         .toUpperCase() + stringValue.slice(1);
 }
+
+export function normalizeSpacing(stringValue) {
+    return stringValue.replace(/\s+/g, ' ')
+        .trim();
+}
