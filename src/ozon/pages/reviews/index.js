@@ -6,6 +6,7 @@ import {
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
+    getNormalizedSpacingText,
     hasElement,
 } from '../../../common/dom/helpers';
 import {
@@ -304,7 +305,7 @@ function processReviewCard(reviewCard) {
         const dislikeButton = reviewFooter && findElementByText(reviewFooter, 'button', 'Нет');
 
         const productVariationText = productVariationWrap?.innerText || '';
-        const reviewText = reviewTextWraps.map((textWrap) => textWrap.innerText)
+        const reviewText = reviewTextWraps.map(getNormalizedSpacingText)
             .join(' ');
 
         const likes = getElementInnerNumber(likeButton, true, false, 0);
