@@ -206,7 +206,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     const downloadDiv = createActionLinkWithIconControl(
-        saveVisibleReviewsData, 'Скачать', 'download', STYLES.CONTROL,
+        saveVisibleReviewsData, 'Скачать', 'download', STYLES.DOWNLOAD_CONTROL,
     );
 
     filtersContainer.append(

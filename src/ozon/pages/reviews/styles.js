@@ -16,5 +16,9 @@ export const STYLES = {
         width: '330px',
     },
     CONTROL: COMMON_STYLES.CONTROL,
+    DOWNLOAD_CONTROL: {
+        ...COMMON_STYLES.CONTROL,
+        margin: '0 19px 0 auto',
+    },
     CHECKBOX_INPUT: COMMON_STYLES.CHECKBOX_INPUT,
 };
