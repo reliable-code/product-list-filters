@@ -1,4 +1,4 @@
-import { removeNonNumber } from '../string';
+import { normalizeSpacing, removeNonNumber } from '../string';
 
 export function hasElement(selector, parentNode = document) {
     return !!parentNode.querySelector(selector);
@@ -88,4 +88,8 @@ export function getNonEmptyTextNodes(element) {
         : [...node.childNodes].flatMap(traverse));
 
     return traverse(element);
+}
+
+export function getNormalizedSpacingText(element) {
+    return normalizeSpacing(element.textContent);
 }
