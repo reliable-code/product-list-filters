@@ -34,6 +34,7 @@ import {
     getFirstElement,
 } from '../../../common/dom/helpers';
 import {
+    createCardsPerRowControl,
     createEnabledFilterControl,
     createMaxPriceFilterControl,
     createMaxReviewsFilterControl,
@@ -63,8 +64,8 @@ const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
 const noRatingFilter = createSectionFilter('no-rating-filter', false);
 const maxPriceFilter = createSectionFilter('max-price-filter');
 const filterEnabled = createSectionFilter('filter-enabled', true);
-const maxNameLines = createGlobalFilter('max-name-lines', 2);
 const cardsPerRow = createGlobalFilter('cards-per-row', 4);
+const maxNameLines = createGlobalFilter('max-name-lines', 2);
 
 const state = {
     clonedProductCardsWrap: null,
@@ -119,21 +120,15 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
+    const cardsPerRowDiv = createCardsPerRowControl(
+        cardsPerRow, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
     const maxNameLinesDiv = createNumberFilterControl(
         'Строк имени: ',
         maxNameLines,
         1,
         1,
         10,
-        STYLES.CONTROL,
-        STYLES.NUMBER_INPUT,
-    );
-    const cardsPerRowDiv = createNumberFilterControl(
-        'Колонок: ',
-        cardsPerRow,
-        1,
-        2,
-        5,
         STYLES.CONTROL,
         STYLES.NUMBER_INPUT,
     );
@@ -146,8 +141,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         noRatingDiv,
         maxPriceDiv,
         filterEnabledDiv,
-        maxNameLinesDiv,
         cardsPerRowDiv,
+        maxNameLinesDiv,
     );
 
     parentNode.append(filtersContainer);

@@ -212,6 +212,22 @@ export function createLikesFilterControl(
     );
 }
 
+export function createCardsPerRowControl(
+    inputValue,
+    controlStyle = {},
+    inputStyle = {},
+) {
+    return createNumberFilterControl(
+        'Колонок: ',
+        inputValue,
+        '1',
+        '2',
+        '6',
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createNoRatingFilterControl(
     inputValue,
     controlStyle = {},
