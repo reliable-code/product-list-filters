@@ -6,7 +6,7 @@
 // @grant        GM_getValue
 // @match        https://megamarket.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      1.0.73877098
+// @version      1.0.73894053
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=megamarket.ru
 // @author       reliable-code
 // ==/UserScript==
