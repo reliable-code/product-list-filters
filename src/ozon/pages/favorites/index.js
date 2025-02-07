@@ -1,9 +1,9 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import {
     addScrollToFiltersButton,
-    getFirstProductCardsWrap,
+    cloneProductCardsToWrap,
+    getClonedProductCardsWrap,
     getProductArticleFromLinkHref,
-    moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
     wrapReviewsWrapContentWithLink,
 } from '../common';
@@ -44,7 +44,7 @@ const priceTolerancePercent = createGlobalFilter('price-tolerance-percent', 3, o
 const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
 
 const state = {
-    firstProductCardsWrap: null,
+    clonedProductCardsWrap: null,
     productCardsCache: new WeakMap(),
 };
 
@@ -101,13 +101,15 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 }
 
 async function processProductCards(priceTolerancePercentChanged = false) {
-    const productCards = [...getAllElements(COMMON_SELECTORS.PRODUCT_CARDS)];
-    state.firstProductCardsWrap ??= getFirstProductCardsWrap();
-    moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
+    const productCards = getAllElements(COMMON_SELECTORS.PRODUCT_CARDS);
+    state.clonedProductCardsWrap ??= getClonedProductCardsWrap();
+    cloneProductCardsToWrap(productCards, state.clonedProductCardsWrap);
+
+    const clonedProductCards = [...getAllElements(COMMON_SELECTORS.CLONED_PRODUCT_CARDS)];
 
     const displayGroups = initDisplayGroups();
     await Promise.all(
-        productCards.map(async (productCard) => {
+        clonedProductCards.map(async (productCard) => {
             const shouldHide = await processProductCard(productCard, priceTolerancePercentChanged);
             assignElementToDisplayGroup(shouldHide, displayGroups, productCard);
         }),
@@ -121,8 +123,6 @@ async function processProductCard(productCard, priceTolerancePercentChanged) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
-        productCard.removeAttribute('data-index');
-
         const productLink = getFirstElement('a', productCard);
         if (!productLink) return true;
 

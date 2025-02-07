@@ -3,10 +3,10 @@ import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
     addScrollToFiltersButton,
+    cloneProductCardsToWrap,
     createDislikeButton,
-    getFirstProductCardsWrap,
+    getClonedProductCardsWrap,
     getProductArticleFromLinkHref,
-    moveProductCardsToFirstWrap,
     setCommonFiltersContainerStyles,
     wrapReviewsWrapContentWithLink,
 } from '../common';
@@ -67,7 +67,7 @@ const nameLinesNumber = createGlobalFilter('name-lines-number', 2);
 // const rowCardsNumber = createGlobalFilter('row-cards-number', 4);
 
 const state = {
-    firstProductCardsWrap: null,
+    clonedProductCardsWrap: null,
     productCardsCache: new WeakMap(),
 };
 
@@ -146,11 +146,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function processProductCards(rateUpdated = false) {
     const productCards = getAllElements(SELECTORS.PRODUCT_CARDS);
-    state.firstProductCardsWrap ??= getFirstProductCardsWrap();
-    moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
+    state.clonedProductCardsWrap ??= getClonedProductCardsWrap();
+    cloneProductCardsToWrap(productCards, state.clonedProductCardsWrap);
+
+    const clonedProductCards = getAllElements(SELECTORS.CLONED_PRODUCT_CARDS);
 
     const displayGroups = initDisplayGroups();
-    productCards.forEach((productCard) => {
+    clonedProductCards.forEach((productCard) => {
         const shouldHide = processProductCard(productCard, rateUpdated);
         assignElementToDisplayGroup(shouldHide, displayGroups, productCard);
     });
@@ -163,8 +165,6 @@ function processProductCard(productCard, rateUpdated) {
     let cachedData = state.productCardsCache.get(productCard);
 
     if (!cachedData) {
-        productCard.removeAttribute('data-index');
-
         const productLink = getFirstElement('a', productCard);
         if (!productLink) return true;
 
