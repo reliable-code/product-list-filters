@@ -95,3 +95,7 @@ export function hideUnwantedElements() {
 export function addScrollToFiltersButton(parentNode = document.body) {
     addScrollToFiltersButtonBase(parentNode, STYLES.SCROLL_TO_FILTERS_BUTTON);
 }
+
+export function setProductCardsPerRow(productCardsWrap, cardsPerRow) {
+    productCardsWrap.style.gridTemplateColumns = `repeat(${cardsPerRow * 3}, 1fr)`;
+}

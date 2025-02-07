@@ -8,6 +8,7 @@ import {
     getClonedProductCardsWrap,
     getProductArticleFromLinkHref,
     setCommonFiltersContainerStyles,
+    setProductCardsPerRow,
     wrapReviewsWrapContentWithLink,
 } from '../common';
 import {
@@ -155,7 +156,7 @@ function processProductCards(rateUpdated = false) {
     cloneProductCardsToWrap(productCards, state.clonedProductCardsWrap);
 
     const clonedProductCards = getAllElements(SELECTORS.CLONED_PRODUCT_CARDS);
-    setGridColumns();
+    setProductCardsPerRow(state.clonedProductCardsWrap, cardsPerRow.value);
 
     const displayGroups = initDisplayGroups();
     clonedProductCards.forEach((productCard) => {
@@ -288,10 +289,6 @@ async function dislikeProductOnProductList(productArticle) {
 
 function setLineClamp(nameWrap) {
     nameWrap.parentNode.style.webkitLineClamp = maxNameLines.value;
-}
-
-function setGridColumns() {
-    state.clonedProductCardsWrap.style.gridTemplateColumns = `repeat(${cardsPerRow.value * 3}, 1fr)`;
 }
 
 function shouldHideByNoRating(cachedData) {
