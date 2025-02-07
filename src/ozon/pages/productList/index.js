@@ -63,8 +63,8 @@ const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
 const noRatingFilter = createSectionFilter('no-rating-filter', false);
 const maxPriceFilter = createSectionFilter('max-price-filter');
 const filterEnabled = createSectionFilter('filter-enabled', true);
-const nameLinesNumber = createGlobalFilter('name-lines-number', 2);
 // const rowCardsNumber = createGlobalFilter('row-cards-number', 4);
+const maxNameLines = createGlobalFilter('max-name-lines', 2);
 
 const state = {
     clonedProductCardsWrap: null,
@@ -119,9 +119,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
-    const nameLinesNumberDiv = createNumberFilterControl(
+    const maxNameLinesDiv = createNumberFilterControl(
         'Строк: ',
-        nameLinesNumber,
+        maxNameLines,
         1,
         1,
         10,
@@ -137,7 +137,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         noRatingDiv,
         maxPriceDiv,
         filterEnabledDiv,
-        nameLinesNumberDiv,
+        maxNameLinesDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -281,7 +281,7 @@ async function dislikeProductOnProductList(productArticle) {
 }
 
 function setLineClamp(nameWrap) {
-    nameWrap.parentNode.style.webkitLineClamp = nameLinesNumber.value;
+    nameWrap.parentNode.style.webkitLineClamp = maxNameLines.value;
 }
 
 function shouldHideByNoRating(cachedData) {
