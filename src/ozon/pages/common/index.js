@@ -1,6 +1,6 @@
 import { heartStrikeDislikeIcon } from './icons';
 import { getPathnameElementEnding, getURLPathElementEnding } from '../../../common/url';
-import { createLink, createSpan } from '../../../common/dom/factories/elements';
+import { createDiv, createLink, createSpan } from '../../../common/dom/factories/elements';
 import { getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
@@ -52,6 +52,16 @@ export function addInputSpinnerButtons() {
             -webkit-appearance: auto;
         }
     `);
+}
+
+export function getClonedProductCardsWrap() {
+    const searchResultsContainer = getFirstElement(SELECTORS.SEARCH_RESULTS_CONTAINER);
+    const clonedProductCardsWrap = createDiv();
+    clonedProductCardsWrap.id = 'clonedProductCardsWrap';
+    clonedProductCardsWrap.style.display = 'grid';
+    clonedProductCardsWrap.style.gridTemplateColumns = 'repeat(12, 1fr)';
+    searchResultsContainer.parentNode.prepend(clonedProductCardsWrap);
+    return clonedProductCardsWrap;
 }
 
 export function cloneProductCardsToWrap(productCards, clonedProductCardsWrap) {
