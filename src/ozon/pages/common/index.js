@@ -56,10 +56,8 @@ export function addInputSpinnerButtons() {
 
 export function getClonedProductCardsWrap() {
     const searchResultsContainer = getFirstElement(SELECTORS.SEARCH_RESULTS_CONTAINER);
-    const clonedProductCardsWrap = createDiv();
+    const clonedProductCardsWrap = createDiv(STYLES.CLONED_PRODUCT_CARDS_WRAP);
     clonedProductCardsWrap.id = 'clonedProductCardsWrap';
-    clonedProductCardsWrap.style.display = 'grid';
-    clonedProductCardsWrap.style.gridTemplateColumns = 'repeat(12, 1fr)';
     searchResultsContainer.parentNode.prepend(clonedProductCardsWrap);
     return clonedProductCardsWrap;
 }

@@ -58,4 +58,8 @@ export const STYLES = {
         display: 'none',
         gap: '4px',
     },
+    CLONED_PRODUCT_CARDS_WRAP: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(12, 1fr)',
+    },
 };
