@@ -54,6 +54,14 @@ export function addInputSpinnerButtons() {
     `);
 }
 
+export function cloneProductCardsToWrap(productCards, clonedProductCardsWrap) {
+    productCards.forEach((productCard) => {
+        const productCardClone = productCard.cloneNode(true);
+        clonedProductCardsWrap.appendChild(productCardClone);
+        productCard.remove();
+    });
+}
+
 export function getFirstProductCardsWrap() {
     return getFirstElement(SELECTORS.PRODUCT_CARDS_WRAP);
 }
