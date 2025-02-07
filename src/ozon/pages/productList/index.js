@@ -63,8 +63,8 @@ const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
 const noRatingFilter = createSectionFilter('no-rating-filter', false);
 const maxPriceFilter = createSectionFilter('max-price-filter');
 const filterEnabled = createSectionFilter('filter-enabled', true);
-// const rowCardsNumber = createGlobalFilter('row-cards-number', 4);
 const maxNameLines = createGlobalFilter('max-name-lines', 2);
+const cardsPerRow = createGlobalFilter('cards-per-row', 4);
 
 const state = {
     clonedProductCardsWrap: null,
@@ -120,11 +120,20 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
     const maxNameLinesDiv = createNumberFilterControl(
-        'Строк: ',
+        'Строк имени: ',
         maxNameLines,
         1,
         1,
         10,
+        STYLES.CONTROL,
+        STYLES.NUMBER_INPUT,
+    );
+    const cardsPerRowDiv = createNumberFilterControl(
+        'Колонок: ',
+        cardsPerRow,
+        1,
+        2,
+        5,
         STYLES.CONTROL,
         STYLES.NUMBER_INPUT,
     );
@@ -138,6 +147,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         maxPriceDiv,
         filterEnabledDiv,
         maxNameLinesDiv,
+        cardsPerRowDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -150,6 +160,7 @@ function processProductCards(rateUpdated = false) {
     cloneProductCardsToWrap(productCards, state.clonedProductCardsWrap);
 
     const clonedProductCards = getAllElements(SELECTORS.CLONED_PRODUCT_CARDS);
+    setGridColumns();
 
     const displayGroups = initDisplayGroups();
     clonedProductCards.forEach((productCard) => {
@@ -282,6 +293,10 @@ async function dislikeProductOnProductList(productArticle) {
 
 function setLineClamp(nameWrap) {
     nameWrap.parentNode.style.webkitLineClamp = maxNameLines.value;
+}
+
+function setGridColumns() {
+    state.clonedProductCardsWrap.style.gridTemplateColumns = `repeat(${cardsPerRow.value * 3}, 1fr)`;
 }
 
 function shouldHideByNoRating(cachedData) {
