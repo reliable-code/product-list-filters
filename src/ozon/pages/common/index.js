@@ -70,22 +70,6 @@ export function cloneProductCardsToWrap(productCards, clonedProductCardsWrap) {
     });
 }
 
-export function getFirstProductCardsWrap() {
-    return getFirstElement(SELECTORS.PRODUCT_CARDS_WRAP);
-}
-
-export function moveProductCardsToFirstWrap(productCards, firstProductCardsWrap) {
-    productCards.forEach((productCard) => {
-        moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap);
-    });
-}
-
-export function moveProductCardToFirstWrapIfNeeded(productCard, firstProductCardsWrap) {
-    if (productCard.parentNode === firstProductCardsWrap) return;
-
-    firstProductCardsWrap.appendChild(productCard);
-}
-
 export function wrapReviewsWrapContentWithLink(reviewsWrap, productLinkHref) {
     const href = `${productLinkHref}?scrollTo=comments`;
     wrapElementContentWithLink(href, reviewsWrap);
