@@ -1,3 +1,4 @@
+import { createIcons, PanelLeftClose, PanelLeftOpen } from 'lucide';
 import { addStorageValueListener } from '../../../common/storage';
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
@@ -49,6 +50,7 @@ import { STYLES } from './styles';
 import { SELECTORS } from '../common/selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { getStoredRating, setStoredRating, STORAGE_KEYS } from '../../../common/db/specific';
+import { toggleSidebarControl } from '../common/controls';
 
 // todo: wrap into init func
 const SECTION_ID = getSectionId();
@@ -134,6 +136,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.NUMBER_INPUT,
     );
+    const toggleSidebarDiv = toggleSidebarControl(
+        '[data-widget="filtersDesktop"]', STYLES.CONTROL,
+    );
 
     filtersContainer.append(
         nameFilterDiv,
@@ -145,9 +150,16 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         filterEnabledDiv,
         cardsPerRowDiv,
         maxNameLinesDiv,
+        toggleSidebarDiv,
     );
 
     parentNode.append(filtersContainer);
+    createIcons({
+        icons: {
+            PanelLeftClose,
+            PanelLeftOpen,
+        },
+    });
     addScrollToFiltersButton(parentNode);
 }
 
