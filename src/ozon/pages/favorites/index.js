@@ -5,6 +5,7 @@ import {
     cloneProductCardsToWrap,
     getClonedProductCardsWrap,
     getProductArticleFromLinkHref,
+    setProductCardsPerRow,
     wrapReviewsWrapContentWithLink,
 } from '../common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
@@ -14,6 +15,7 @@ import {
     createNumberFilterControl,
 } from '../../../common/filter/factories/genericControls';
 import {
+    applyStyles,
     assignElementToDisplayGroup,
     handleDisplayGroups,
     initDisplayGroups,
@@ -25,6 +27,7 @@ import {
     highlightIfGoodPrice,
 } from '../../../common/priceHistory/manipulation';
 import {
+    createCardsPerRowControl,
     createEnabledFilterControl,
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
@@ -42,6 +45,7 @@ const nameFilter = createGlobalFilter('favorites-name-filter');
 const bestPriceFilter = createGlobalFilter('best-price-filter', false);
 const priceTolerancePercent = createGlobalFilter('price-tolerance-percent', 3, onPriceTolerancePercentChange);
 const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
+const cardsPerRow = createGlobalFilter('favorites-cards-per-row', 4);
 
 const state = {
     clonedProductCardsWrap: null,
@@ -92,9 +96,12 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.CHECKBOX_INPUT,
     );
+    const cardsPerRowDiv = createCardsPerRowControl(
+        cardsPerRow, STYLES.PUSHED_RIGHT_CONTROL, STYLES.NUMBER_INPUT,
+    );
 
     filtersContainer.append(
-        nameFilterDiv, bestPriceDiv, priceTolerancePercentDiv, filterEnabledDiv,
+        nameFilterDiv, bestPriceDiv, priceTolerancePercentDiv, filterEnabledDiv, cardsPerRowDiv,
     );
 
     parentNode.append(filtersContainer);
@@ -107,6 +114,7 @@ async function processProductCards(priceTolerancePercentChanged = false) {
     cloneProductCardsToWrap(productCards, state.clonedProductCardsWrap);
 
     const clonedProductCards = [...getAllElements(COMMON_SELECTORS.CLONED_PRODUCT_CARDS)];
+    setProductCardsPerRow(state.clonedProductCardsWrap, cardsPerRow.value);
 
     const displayGroups = initDisplayGroups();
     await Promise.all(
