@@ -2,12 +2,12 @@ import { addStorageValueListener } from '../../../common/storage';
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
+    addInputSpinnerButtons,
     addScrollToFiltersButton,
     cloneProductCardsToWrap,
     createDislikeButton,
     getClonedProductCardsWrap,
     getProductArticleFromLinkHref,
-    setCommonFiltersContainerStyles,
     setProductCardsPerRow,
     wrapReviewsWrapContentWithLink,
 } from '../common';
@@ -45,7 +45,7 @@ import {
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { getHashOrDefault } from '../../../common/hash/helpers';
-import { STYLES } from '../common/styles';
+import { STYLES } from './styles';
 import { SELECTORS } from '../common/selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { getStoredRating, setStoredRating, STORAGE_KEYS } from '../../../common/db/specific';
@@ -97,7 +97,8 @@ export async function initProductListMods(paginator) {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    setCommonFiltersContainerStyles(filtersContainer);
+    addInputSpinnerButtons();
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
     applyStyles(parentNode, { position: 'relative' });
 
     const nameFilterDiv = createSearchFilterControl(

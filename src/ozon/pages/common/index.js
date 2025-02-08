@@ -5,7 +5,7 @@ import { getFirstElement } from '../../../common/dom/helpers';
 import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { addScrollToFiltersButtonBase } from '../../../common/filter/factories/helpers';
-import { applyStyles, wrapElementContentWithLink } from '../../../common/dom/manipulation';
+import { wrapElementContentWithLink } from '../../../common/dom/manipulation';
 
 export function getProductArticleFromLink(productLink) {
     const productLinkHref = productLink.getAttribute('href');
@@ -37,12 +37,6 @@ export function createDislikeButton(onClick, needLabel = true) {
     }
 
     return productDislikeButton;
-}
-
-export function setCommonFiltersContainerStyles(filtersContainer) {
-    addInputSpinnerButtons();
-
-    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 }
 
 export function addInputSpinnerButtons() {

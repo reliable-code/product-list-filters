@@ -1,10 +1,10 @@
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import {
+    addInputSpinnerButtons,
     addScrollToFiltersButton,
     cloneProductCardsToWrap,
     getClonedProductCardsWrap,
     getProductArticleFromLinkHref,
-    setCommonFiltersContainerStyles,
     wrapReviewsWrapContentWithLink,
 } from '../common';
 import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
@@ -29,7 +29,7 @@ import {
     createSearchFilterControl,
 } from '../../../common/filter/factories/specificControls';
 import { SELECTORS as COMMON_SELECTORS } from '../common/selectors';
-import { STYLES } from '../common/styles';
+import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { clearQueryParams } from '../../../common/url';
@@ -64,7 +64,8 @@ export async function initFavoritesMods() {
 }
 
 function appendFiltersContainer(filtersContainer, parentNode) {
-    setCommonFiltersContainerStyles(filtersContainer);
+    addInputSpinnerButtons();
+    applyStyles(filtersContainer, STYLES.FILTERS_CONTAINER);
 
     const nameFilterDiv = createSearchFilterControl(
         nameFilter,

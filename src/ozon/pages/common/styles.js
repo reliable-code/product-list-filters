@@ -5,18 +5,14 @@ export const STYLES_BASE = {
         borderRadius: '6px',
         padding: '6px 10px',
     },
+};
+
+export const COMMON_STYLES = {
     FILTERS_CONTAINER: {
         display: 'flex',
         flexFlow: 'wrap',
         gap: '15px',
         paddingBottom: '14px',
-    },
-};
-
-export const STYLES = {
-    FILTERS_CONTAINER: {
-        ...STYLES_BASE.FILTERS_CONTAINER,
-        minWidth: '1250px',
     },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
@@ -26,15 +22,18 @@ export const STYLES = {
         ...STYLES_BASE.INPUT,
         width: '180px',
     },
-    CONTROL: {
-        display: 'flex',
-        alignItems: 'center',
-    },
     CHECKBOX_INPUT: {
         marginLeft: '5px',
         width: '25px',
         height: '25px',
     },
+    CONTROL: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+};
+
+export const STYLES = {
     DISLIKE_BUTTON: {
         display: 'inline-flex',
         alignItems: 'center',
