@@ -1,3 +1,4 @@
+import { createIcons, PanelLeftClose, PanelLeftOpen } from 'lucide';
 import { debounce, waitForElement } from '../../../common/dom/utils';
 import {
     addInputSpinnerButtons,
@@ -36,6 +37,7 @@ import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { clearQueryParams } from '../../../common/url';
+import { toggleSidebarControl } from '../common/controls';
 
 const { createGlobalFilter } = createFilterFactory(processProductCards);
 
@@ -99,12 +101,26 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const cardsPerRowDiv = createCardsPerRowControl(
         cardsPerRow, STYLES.PUSHED_RIGHT_CONTROL, STYLES.NUMBER_INPUT,
     );
+    const toggleSidebarDiv = toggleSidebarControl(
+        SELECTORS.SIDEBAR, STYLES.CONTROL,
+    );
 
     filtersContainer.append(
-        nameFilterDiv, bestPriceDiv, priceTolerancePercentDiv, filterEnabledDiv, cardsPerRowDiv,
+        nameFilterDiv,
+        bestPriceDiv,
+        priceTolerancePercentDiv,
+        filterEnabledDiv,
+        cardsPerRowDiv,
+        toggleSidebarDiv,
     );
 
     parentNode.append(filtersContainer);
+    createIcons({
+        icons: {
+            PanelLeftClose,
+            PanelLeftOpen,
+        },
+    });
     addScrollToFiltersButton(parentNode);
 }
 
