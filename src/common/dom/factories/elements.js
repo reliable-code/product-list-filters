@@ -57,13 +57,15 @@ export function createActionLink(onClick, innerHTML = null, styles = {}) {
     return link;
 }
 
-export function createActionLinkWithIcon(onClick, iconName, innerHTML = null, styles = {}) {
-    styles.display ||= 'inline-flex';
-    styles.alignItems ||= 'center';
-    styles.gap ||= '0.25em';
+export function createActionLinkWithIcon(
+    onClick, iconName, innerHTML = null, linkStyles = {}, iconStyles = {},
+) {
+    linkStyles.display ||= 'inline-flex';
+    linkStyles.alignItems ||= 'center';
+    linkStyles.gap ||= '0.25em';
 
-    const link = createActionLink(onClick, innerHTML, styles);
-    link.prepend(createLucideIcon(iconName));
+    const link = createActionLink(onClick, innerHTML, linkStyles);
+    link.prepend(createLucideIcon(iconName, iconStyles));
 
     return link;
 }
