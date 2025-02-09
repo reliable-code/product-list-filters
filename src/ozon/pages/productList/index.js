@@ -50,7 +50,7 @@ import { STYLES } from './styles';
 import { SELECTORS } from '../common/selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { getStoredRating, setStoredRating, STORAGE_KEYS } from '../../../common/db/specific';
-import { toggleSidebarControl } from '../common/controls';
+import { createToggleSidebarControl } from '../common/controls';
 
 // todo: wrap into init func
 const SECTION_ID = getSectionId();
@@ -69,6 +69,7 @@ const maxPriceFilter = createSectionFilter('max-price-filter');
 const filterEnabled = createSectionFilter('filter-enabled', true);
 const cardsPerRow = createGlobalFilter('cards-per-row', 4);
 const maxNameLines = createGlobalFilter('max-name-lines', 2);
+const shouldHideSidebar = createGlobalFilter('should-hide-sidebar', false);
 
 const state = {
     clonedProductCardsWrap: null,
@@ -136,8 +137,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
         STYLES.CONTROL,
         STYLES.NUMBER_INPUT,
     );
-    const toggleSidebarDiv = toggleSidebarControl(
-        '[data-widget="filtersDesktop"]', STYLES.CONTROL,
+    const toggleSidebarDiv = createToggleSidebarControl(
+        shouldHideSidebar, '[data-widget="filtersDesktop"]', STYLES.CONTROL,
     );
 
     filtersContainer.append(

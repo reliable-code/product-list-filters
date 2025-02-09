@@ -1,39 +1,45 @@
 import { createActionLinkWithIcon, createDiv } from '../../../common/dom/factories/elements';
 
-export function toggleSidebarControl(
+export function createToggleSidebarControl(
+    shouldHideSidebar,
     sidebarSelector,
     controlStyles = {},
     linkStyles = {},
 ) {
-    const hiddenLinkStyles = {
-        ...linkStyles,
-        display: 'none',
-    };
     const iconStyles = {
         width: '1.15em',
         height: '1.15em',
         paddingBottom: '2px',
     };
+
     const hideSidebarLink = createActionLinkWithIcon(
-        toggleSidebar, 'panel-left-close', 'Скрыть панель', linkStyles, iconStyles,
+        () => setSidebarVisibility(true),
+        'panel-left-close',
+        'Скрыть панель',
+        linkStyles,
+        iconStyles,
     );
     const showSidebarLink = createActionLinkWithIcon(
-        toggleSidebar, 'panel-left-open', 'Показать панель', hiddenLinkStyles, iconStyles,
+        () => setSidebarVisibility(false),
+        'panel-left-open',
+        'Показать панель',
+        linkStyles,
+        iconStyles,
     );
 
-    function toggleSidebar() {
+    function setSidebarVisibility(hidden) {
         const sidebar = document.querySelector(sidebarSelector);
         if (!sidebar) return;
 
-        const sidebarWrap = sidebar.parentNode;
+        shouldHideSidebar.updateValue(hidden);
 
-        const isSidebarWrapVisible = sidebarWrap.style.display !== 'none';
+        sidebar.parentNode.style.display = hidden ? 'none' : '';
 
-        sidebarWrap.style.display = isSidebarWrapVisible ? 'none' : '';
-
-        hideSidebarLink.style.display = isSidebarWrapVisible ? 'none' : 'inline-flex';
-        showSidebarLink.style.display = isSidebarWrapVisible ? 'inline-flex' : 'none';
+        hideSidebarLink.style.display = hidden ? 'none' : 'inline-flex';
+        showSidebarLink.style.display = hidden ? 'inline-flex' : 'none';
     }
+
+    setSidebarVisibility(shouldHideSidebar.value);
 
     const control = createDiv(controlStyles);
     control.append(hideSidebarLink, showSidebarLink);

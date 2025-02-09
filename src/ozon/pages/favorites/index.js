@@ -37,7 +37,7 @@ import { STYLES } from './styles';
 import { SELECTORS } from './selectors';
 import { createFilterFactory } from '../../../common/filter/factories/createFilter';
 import { clearQueryParams } from '../../../common/url';
-import { toggleSidebarControl } from '../common/controls';
+import { createToggleSidebarControl } from '../common/controls';
 
 const { createGlobalFilter } = createFilterFactory(processProductCards);
 
@@ -48,6 +48,7 @@ const bestPriceFilter = createGlobalFilter('best-price-filter', false);
 const priceTolerancePercent = createGlobalFilter('price-tolerance-percent', 3, onPriceTolerancePercentChange);
 const filterEnabled = createGlobalFilter('favorites-filter-enabled', true);
 const cardsPerRow = createGlobalFilter('favorites-cards-per-row', 4);
+const shouldHideSidebar = createGlobalFilter('favorites-should-hide-sidebar', false);
 
 const state = {
     clonedProductCardsWrap: null,
@@ -101,8 +102,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const cardsPerRowDiv = createCardsPerRowControl(
         cardsPerRow, STYLES.PUSHED_RIGHT_CONTROL, STYLES.NUMBER_INPUT,
     );
-    const toggleSidebarDiv = toggleSidebarControl(
-        SELECTORS.SIDEBAR, STYLES.CONTROL,
+    const toggleSidebarDiv = createToggleSidebarControl(
+        shouldHideSidebar, SELECTORS.SIDEBAR, STYLES.CONTROL,
     );
 
     filtersContainer.append(
