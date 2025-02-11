@@ -81,7 +81,7 @@ async function initVariables() {
     state.productArticle = getProductArticleFromPathname();
 
     const totalReviewCountWrap = await waitForElement(document, SELECTORS.TOTAL_REVIEWS_COUNT_WRAP);
-    state.totalReviewCount = getElementInnerNumber(totalReviewCountWrap);
+    state.totalReviewCount = getElementInnerNumber(totalReviewCountWrap, true);
 
     state.stickyReviewsInfo = getFirstElement(SELECTORS.STICKY_REVIEWS_INFO);
     state.stickyReviewsInfoDefaultText = state.stickyReviewsInfo.textContent.trim();
