@@ -7,5 +7,6 @@ module.exports = {
     match: ['https://megamarket.ru/*'],
     description: 'Hide product cards & offers by filter',
     icon: 'https://www.google.com/s2/favicons?sz=64&domain=megamarket.ru',
+    downloadURL: 'https://raw.githubusercontent.com/reliable-code/product-list-filters/main/dist/mgmkt.user.js',
     ...commonMeta,
 };
