@@ -222,7 +222,7 @@ export function createCardsPerRowControl(
         inputValue,
         '1',
         '2',
-        '6',
+        '7',
         controlStyle,
         inputStyle,
     );
