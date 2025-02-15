@@ -50,11 +50,13 @@ function initModsAfterBodyInitialization() {
 async function initMods() {
     if (somePathElementEquals('gocheckout')) {
         initCheckoutMods();
+        fixLinks();
         return;
     }
 
     if (somePathElementEquals('cart')) {
         initCartMods();
+        fixLinks();
         return;
     }
 
@@ -91,7 +93,7 @@ function fixLinks() {
     wrapFirstElementWithLink('/my/main', SELECTORS.PROFILE_LOGO);
     wrapFirstElementWithLink('/my/orderlist', SELECTORS.ORDER_INFO);
     wrapFirstElementWithLink('/my/favorites?avail=inStock', SELECTORS.FAVORITES);
-    wrapFirstElementWithLink('/my/cart', SELECTORS.HEADER_ICON);
+    wrapFirstElementWithLink('/cart', SELECTORS.HEADER_ICON);
 }
 
 async function replaceFavoritesLink() {
