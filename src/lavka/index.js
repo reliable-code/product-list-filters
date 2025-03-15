@@ -3,7 +3,11 @@ import { removeNonDigit } from '../common/string';
 import { appendFilterControlsIfNeeded } from '../common/filter/manager';
 import { pathnameIncludes, somePathElementEquals } from '../common/url';
 import { createDiv } from '../common/dom/factories/elements';
-import { isGreaterThanFilter, isLessThanFilter } from '../common/filter/compare';
+import {
+    isGreaterThanFilter,
+    isLessThanFilter,
+    isNotEqualBoolFilter,
+} from '../common/filter/compare';
 import {
     createCheckboxFilterControl,
     createNumberFilterControl,
@@ -14,7 +18,12 @@ import {
     showElement,
     updateElementDisplay,
 } from '../common/dom/manipulation';
-import { getAllElements, getElementInnerNumber, getFirstElement } from '../common/dom/helpers';
+import {
+    getAllElements,
+    getElementInnerNumber,
+    getFirstElement,
+    hasElement,
+} from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
     createMaxPriceFilterControl,
@@ -31,6 +40,7 @@ const { createGlobalFilter } = createFilterFactory(processProductCards);
 const minDiscountFilter = createGlobalFilter('min-discount-filter');
 const minPriceFilter = createGlobalFilter('min-price-filter');
 const maxPriceFilter = createGlobalFilter('max-price-filter');
+const hasPlusPointsFilter = createGlobalFilter('has-plus-points-filter', false);
 const filterEnabled = createGlobalFilter('filter-enabled', true);
 
 const observerReloadInterval = createGlobalFilter(
@@ -179,6 +189,9 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const maxPriceDiv = createMaxPriceFilterControl(
         maxPriceFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
+    const hasPlusPointsDiv = createCheckboxFilterControl(
+        'Баллы: ', hasPlusPointsFilter, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
+    );
     const separatorDiv = createSeparator(
         STYLES.CONTROL,
     );
@@ -187,7 +200,7 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     );
 
     filtersContainer.append(
-        minDiscountDiv, minPriceDiv, maxPriceDiv, separatorDiv, filterEnabledDiv,
+        minDiscountDiv, minPriceDiv, maxPriceDiv, hasPlusPointsDiv, separatorDiv, filterEnabledDiv,
     );
     insertAfter(parentNode.firstChild, filtersContainer);
 }
@@ -263,10 +276,13 @@ function processProductCard(productCardLink) {
     const priceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE_WRAP, productCard);
     const price = getElementInnerNumber(priceWrap, true);
 
+    const hasPlusPoints = hasElement(SELECTORS.PRODUCT_CARD_PLUS_POINTS, productCard);
+
     const shouldHide =
         isLessThanFilter(discountValue, minDiscountFilter) ||
         isLessThanFilter(price, minPriceFilter) ||
-        isGreaterThanFilter(price, maxPriceFilter);
+        isGreaterThanFilter(price, maxPriceFilter) ||
+        isNotEqualBoolFilter(hasPlusPoints, hasPlusPointsFilter);
     updateElementDisplay(productCard, shouldHide);
 }
 
