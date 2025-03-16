@@ -361,7 +361,7 @@ function processReviewCard(reviewCard) {
 }
 
 function getRating(reviewHeader) {
-    return getAllElements('svg[style*="255, 168, 0"]', reviewHeader).length;
+    return getAllElements('svg[style*="255, 165, 0"]', reviewHeader).length;
 }
 
 function readMoreClick(reviewCard) {
