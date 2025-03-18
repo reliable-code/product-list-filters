@@ -8,5 +8,5 @@ export const SELECTORS = {
     FILTER_LIST_ITEM: '[data-qa^="reviews_filter_list_item"]',
     FILTER_TITLE_WRAP: '[data-qa="reviews_filter_title"]',
     FILTER_COUNT_WRAP: '[data-qa="reviews_filter_amount"]',
-    REVIEWS_CONTAINER: '#rating',
+    REVIEWS_CONTAINER: '#otzivi',
 };

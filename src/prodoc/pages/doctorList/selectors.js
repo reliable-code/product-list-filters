@@ -1,6 +1,6 @@
 export const SELECTORS = {
     LIST_HEADER: '.h2_rating',
-    DOCTOR_FILTERS: '.doctor-filters',
+    DOCTOR_FILTERS: '.vue-the-doctors-filters > .b-container',
     DOCTOR_CARD: '.b-doctor-card',
     DOCTOR_CARD_NAME: '.b-doctor-card__name-surname',
     PROFILE_CARD: '.b-profile-card',
