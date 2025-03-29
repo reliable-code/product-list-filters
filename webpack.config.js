@@ -5,6 +5,7 @@ const { EsbuildPlugin } = require('esbuild-loader');
 const isProduction = process.env.NODE_ENV === 'production';
 
 const entries = [
+    'ali',
     'dns',
     'habr',
     'kinop',
