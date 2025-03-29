@@ -22,8 +22,9 @@ import { SELECTORS } from './selectors';
 import { STYLES } from './styles';
 import { createFilterFactory } from '../common/filter/factories/createFilter';
 import { debounce } from '../common/dom/utils';
+import { getHashOrDefault } from '../common/hash/helpers';
 
-const SECTION_ID = getURLPathElement(3);
+const SECTION_ID = getHashOrDefault(getURLPathElement(3));
 
 const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
 
