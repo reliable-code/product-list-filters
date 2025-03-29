@@ -30,7 +30,7 @@ const { createSectionFilter } = createFilterFactory(processProductCards, SECTION
 
 const nameFilter = createSectionFilter('name-filter');
 const minReviewsFilter = createSectionFilter('min-reviews-filter');
-const minRatingFilter = createSectionFilter('min-rating-filter', 4.5);
+const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
 const filterEnabled = createSectionFilter('filter-enabled', true);
 
 const productsListContainer = getFirstElement(SELECTORS.PRODUCT_LIST_CONTAINER);
