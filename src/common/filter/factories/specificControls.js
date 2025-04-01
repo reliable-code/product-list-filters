@@ -228,6 +228,22 @@ export function createCardsPerRowControl(
     );
 }
 
+export function createMaxNameLinesControl(
+    inputValue,
+    controlStyle = {},
+    inputStyle = {},
+) {
+    return createNumberFilterControl(
+        'Строк имени: ',
+        inputValue,
+        1,
+        1,
+        10,
+        controlStyle,
+        inputStyle,
+    );
+}
+
 export function createNoRatingFilterControl(
     inputValue,
     controlStyle = {},

@@ -23,7 +23,6 @@ import {
     isLessThanFilter,
     isNotMatchTextFilter,
 } from '../../../common/filter/compare';
-import { createNumberFilterControl } from '../../../common/filter/factories/genericControls';
 import {
     applyStyles,
     assignElementToDisplayGroup,
@@ -38,6 +37,7 @@ import {
 import {
     createCardsPerRowControl,
     createEnabledFilterControl,
+    createMaxNameLinesControl,
     createMaxPriceFilterControl,
     createMaxReviewsFilterControl,
     createMinRatingFilterControl,
@@ -128,14 +128,8 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const cardsPerRowDiv = createCardsPerRowControl(
         cardsPerRow, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
-    const maxNameLinesDiv = createNumberFilterControl(
-        'Строк имени: ',
-        maxNameLines,
-        1,
-        1,
-        10,
-        STYLES.CONTROL,
-        STYLES.NUMBER_INPUT,
+    const maxNameLinesDiv = createMaxNameLinesControl(
+        maxNameLines, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
     const toggleSidebarDiv = createToggleSidebarControl(
         shouldHideSidebar, '[data-widget="filtersDesktop"]', STYLES.CONTROL,
