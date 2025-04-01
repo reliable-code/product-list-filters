@@ -99,6 +99,8 @@ function processProductCard(productCard) {
         return;
     }
 
+    setNameWrapLineCount(nameWrap, 4);
+
     const name = nameWrap.innerText;
     const reviewsCount = getFirstElementInnerNumber(ratingWrap, 'div:nth-child(2)', true);
     const rating = getFirstElementInnerNumber(ratingWrap, 'div:nth-child(1) > span');
@@ -109,4 +111,12 @@ function processProductCard(productCard) {
         isLessThanFilter(rating, minRatingFilter);
 
     updateElementDisplay(productCard, shouldHide);
+}
+
+function setNameWrapLineCount(nameWrap, lineCount) {
+    const lineHeight = 16;
+    const nameWrapHeight = lineCount * lineHeight;
+    nameWrap.style.height = `${nameWrapHeight}px`;
+    nameWrap.style.maxHeight = `${nameWrapHeight}px`;
+    nameWrap.style.webkitLineClamp = lineCount;
 }
