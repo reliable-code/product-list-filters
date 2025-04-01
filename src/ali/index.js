@@ -14,6 +14,7 @@ import {
 } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
+    createMaxNameLinesControl,
     createMinRatingFilterControl,
     createMinReviewsFilterControl,
     createSearchFilterControl,
@@ -26,11 +27,15 @@ import { getHashOrDefault } from '../common/hash/helpers';
 
 const SECTION_ID = getHashOrDefault(getURLPathElement(3));
 
-const { createSectionFilter } = createFilterFactory(processProductCards, SECTION_ID);
+const {
+    createGlobalFilter,
+    createSectionFilter,
+} = createFilterFactory(processProductCards, SECTION_ID);
 
 const nameFilter = createSectionFilter('name-filter');
 const minReviewsFilter = createSectionFilter('min-reviews-filter');
 const minRatingFilter = createSectionFilter('min-rating-filter', 4.8);
+const maxNameLines = createGlobalFilter('max-name-lines', 4);
 const filterEnabled = createSectionFilter('filter-enabled', true);
 
 const productsListContainer = getFirstElement(SELECTORS.PRODUCT_LIST_CONTAINER);
@@ -68,12 +73,15 @@ function appendFiltersContainer(filtersContainer, parentNode) {
     const minRatingDiv = createMinRatingFilterControl(
         minRatingFilter, STYLES.CONTROL, STYLES.NUMBER_INPUT,
     );
+    const maxNameLinesDiv = createMaxNameLinesControl(
+        maxNameLines, STYLES.CONTROL, STYLES.NUMBER_INPUT,
+    );
     const filterEnabledDiv = createEnabledFilterControl(
         filterEnabled, STYLES.CONTROL, STYLES.CHECKBOX_INPUT,
     );
 
     filtersContainer.append(
-        nameFilterDiv, minReviewsDiv, minRatingDiv, filterEnabledDiv,
+        nameFilterDiv, minReviewsDiv, minRatingDiv, maxNameLinesDiv, filterEnabledDiv,
     );
 
     parentNode.prepend(filtersContainer);
@@ -99,7 +107,7 @@ function processProductCard(productCard) {
         return;
     }
 
-    setNameWrapLineCount(nameWrap, 4);
+    setNameWrapLineClamp(nameWrap);
 
     const name = nameWrap.innerText;
     const reviewsCount = getFirstElementInnerNumber(ratingWrap, 'div:nth-child(2)', true);
@@ -113,7 +121,8 @@ function processProductCard(productCard) {
     updateElementDisplay(productCard, shouldHide);
 }
 
-function setNameWrapLineCount(nameWrap, lineCount) {
+function setNameWrapLineClamp(nameWrap) {
+    const lineCount = maxNameLines.value;
     const lineHeight = 16;
     const nameWrapHeight = lineCount * lineHeight;
     nameWrap.style.height = `${nameWrapHeight}px`;
