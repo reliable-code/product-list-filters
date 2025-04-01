@@ -224,7 +224,7 @@ function processProductCard(productCard, rateUpdated) {
         checkStoredRating(cachedData);
     }
 
-    setLineClamp(cachedData.nameWrap);
+    setNameWrapLineClamp(cachedData.nameWrap);
 
     if (shouldHideByNoRating(cachedData)) return true;
 
@@ -295,7 +295,7 @@ async function dislikeProductOnProductList(productArticle) {
     processProductCards(true);
 }
 
-function setLineClamp(nameWrap) {
+function setNameWrapLineClamp(nameWrap) {
     nameWrap.parentNode.style.webkitLineClamp = maxNameLines.value;
 }
 

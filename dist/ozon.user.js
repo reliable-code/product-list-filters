@@ -9,7 +9,7 @@
 // @grant        GM_getValue
 // @match        https://www.ozon.ru/*
 // @namespace    https://github.com/reliable-code/product-list-filters
-// @version      3.1.74352547
+// @version      3.1.74352579
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=ozon.ru
 // @author       reliable-code
 // @downloadURL  https://raw.githubusercontent.com/reliable-code/product-list-filters/main/dist/ozon.user.js
