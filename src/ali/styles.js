@@ -3,7 +3,7 @@ const STYLES_BASE = {
         marginLeft: '6px',
         border: '1px solid #d9d9d9',
         borderRadius: '8px',
-        padding: '7px 14px',
+        padding: '7px 14px 6px',
         fontSize: '15px',
     },
 };
@@ -16,7 +16,7 @@ export const STYLES = {
     CONTROL: {
         display: 'flex',
         alignItems: 'center',
-        fontSize: '15px',
+        fontSize: '14px',
     },
     TEXT_INPUT: {
         ...STYLES_BASE.INPUT,
@@ -24,7 +24,7 @@ export const STYLES = {
     },
     NUMBER_INPUT: {
         ...STYLES_BASE.INPUT,
-        width: '90px',
+        width: '80px',
     },
     CHECKBOX_INPUT: {
         marginLeft: '6px',
