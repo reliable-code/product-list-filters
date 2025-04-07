@@ -190,7 +190,7 @@ function getAndExpandProductCardName(productCard) {
 
 function expandProductCardName(productCardNameWrap) {
     const newHeight = '72px';
-    productCardNameWrap.querySelector('p').style.height = newHeight;
+    productCardNameWrap.querySelector('.card-name_content').style.height = newHeight;
 }
 
 function getPriceValueAttribute(productCard, productCardPrice) {
