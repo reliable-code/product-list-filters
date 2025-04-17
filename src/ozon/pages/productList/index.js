@@ -5,10 +5,10 @@ import { appendFilterControlsIfNeeded } from '../../../common/filter/manager';
 import {
     addInputSpinnerButtons,
     addScrollToFiltersButton,
-    cloneProductCardsToWrap,
     createDislikeButton,
-    getClonedProductCardsWrap,
+    getFirstProductCardsWrap,
     getProductArticleFromLinkHref,
+    moveProductCardsToFirstWrap,
     setProductCardsPerRow,
     wrapReviewsWrapContentWithLink,
 } from '../common';
@@ -72,7 +72,7 @@ const maxNameLines = createGlobalFilter('max-name-lines', 2);
 const shouldHideSidebar = createGlobalFilter('should-hide-sidebar', false);
 
 const state = {
-    clonedProductCardsWrap: null,
+    firstProductCardsWrap: null,
     productCardsCache: new WeakMap(),
 };
 
@@ -160,14 +160,13 @@ function appendFiltersContainer(filtersContainer, parentNode) {
 
 function processProductCards(rateUpdated = false) {
     const productCards = getAllElements(SELECTORS.PRODUCT_CARDS);
-    state.clonedProductCardsWrap ??= getClonedProductCardsWrap();
-    cloneProductCardsToWrap(productCards, state.clonedProductCardsWrap);
+    state.firstProductCardsWrap ??= getFirstProductCardsWrap();
+    moveProductCardsToFirstWrap(productCards, state.firstProductCardsWrap);
 
-    const clonedProductCards = getAllElements(SELECTORS.CLONED_PRODUCT_CARDS);
-    setProductCardsPerRow(state.clonedProductCardsWrap, cardsPerRow.value);
+    setProductCardsPerRow(state.firstProductCardsWrap, cardsPerRow.value);
 
     const displayGroups = initDisplayGroups();
-    clonedProductCards.forEach((productCard) => {
+    productCards.forEach((productCard) => {
         const shouldHide = processProductCard(productCard, rateUpdated);
         assignElementToDisplayGroup(shouldHide, displayGroups, productCard);
     });
