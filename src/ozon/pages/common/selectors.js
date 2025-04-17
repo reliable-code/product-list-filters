@@ -1,6 +1,6 @@
 export const SELECTORS = {
     SEARCH_RESULTS_SORT: '[data-widget="searchResultsSort"]',
-    PRODUCT_CARDS: '.tile-root',
+    PRODUCT_CARDS: '[data-widget="tileGridDesktop"] > .tile-root',
     CLONED_PRODUCT_CARDS: '#clonedProductCardsWrap > .tile-root',
     PRODUCT_CARD_NAME_WRAP: '.tsBody500Medium',
     PRODUCT_CARD_PRICE_WRAP: '.tsHeadline500Medium',
