@@ -80,7 +80,8 @@ export function hideUnwantedElements() {
         [data-widget="skuShelfGoods"],
         [data-widget="tagList"],
         [data-widget="webInstallmentPurchase"],
-        [data-widget="webOneClickButton"] {
+        [data-widget="webOneClickButton"],
+        #contentScrollPaginator > :nth-child(2) {
             display: none !important;
         }
     `);
