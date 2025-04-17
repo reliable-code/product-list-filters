@@ -93,3 +93,14 @@ export function addScrollToFiltersButton(parentNode = document.body) {
 export function setProductCardsPerRow(productCardsWrap, cardsPerRow) {
     productCardsWrap.style.gridTemplateColumns = `repeat(${cardsPerRow * 3}, 1fr)`;
 }
+
+export function getFirstProductCardsWrap() {
+    return getFirstElement(SELECTORS.PRODUCT_CARDS_WRAP);
+}
+
+export function moveProductCardsToFirstWrap(productCards, firstProductCardsWrap) {
+    productCards.forEach((productCard) => {
+        if (productCard.parentNode === firstProductCardsWrap) return;
+        firstProductCardsWrap.appendChild(productCard);
+    });
+}
