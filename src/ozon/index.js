@@ -1,5 +1,5 @@
 import { runMigration as migrateDb } from './db';
-import { hideUnwantedElements } from './pages/common';
+import { addCustomStyles, hideUnwantedElements } from './pages/common';
 import { waitForElement } from '../common/dom/utils';
 import { initFavoritesMods } from './pages/favorites';
 import { initProductListMods } from './pages/productList';
@@ -14,6 +14,7 @@ import { wrapFirstElementWithLink } from '../common/dom/manipulation';
 migrateDb();
 
 hideUnwantedElements();
+addCustomStyles();
 
 let initModsQueue = Promise.resolve();
 

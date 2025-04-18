@@ -87,6 +87,14 @@ export function hideUnwantedElements() {
     `);
 }
 
+export function addCustomStyles() {
+    window.GM_addStyle(`
+        [data-widget="wallpaper"] {
+            background-color: #fff !important;
+        }
+    `);
+}
+
 export function addScrollToFiltersButton(parentNode = document.body) {
     addScrollToFiltersButtonBase(parentNode, STYLES.SCROLL_TO_FILTERS_BUTTON);
 }
