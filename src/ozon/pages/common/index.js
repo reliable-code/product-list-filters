@@ -81,6 +81,8 @@ export function hideUnwantedElements() {
         [data-widget="tagList"],
         [data-widget="webInstallmentPurchase"],
         [data-widget="webOneClickButton"],
+        [data-widget="webPricePerStars"],
+        [data-widget="header"] > div:nth-child(2),
         #contentScrollPaginator > :nth-child(2) {
             display: none !important;
         }
@@ -91,6 +93,10 @@ export function addCustomStyles() {
     window.GM_addStyle(`
         [data-widget="wallpaper"] {
             background-color: #fff !important;
+        }
+        
+        [data-widget="container"] {
+            margin: 0 auto !important;
         }
     `);
 }
