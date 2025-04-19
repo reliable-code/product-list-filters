@@ -81,7 +81,6 @@ export function hideUnwantedElements() {
         [data-widget="tagList"],
         [data-widget="webInstallmentPurchase"],
         [data-widget="webOneClickButton"],
-        [data-widget="webPricePerStars"],
         [data-widget="header"] > div:nth-child(2),
         #contentScrollPaginator > :nth-child(2) {
             display: none !important;

@@ -1,4 +1,5 @@
 export const SELECTORS = {
+    PRICE_PER_STARS: '[data-widget="webPricePerStars"]',
     PRODUCT_REVIEWS_WRAP: '[data-widget="webSingleProductScore"]',
     PRICE_CONTAINER: '[data-widget="webPrice"]',
     ADD_TO_CART_BUTTON: '[data-widget="webAddToCart"] button',

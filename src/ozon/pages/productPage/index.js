@@ -19,6 +19,7 @@ import { getURLQueryParam, setQueryParamsAndRedirect } from '../../../common/url
 export async function initProductPageMods() {
     const needScrollToComments = getURLQueryParam('scrollTo') === 'comments';
     await Promise.all([
+        hideUnwantedElements(),
         initAppendPriceHistory(),
         initSkipFirstGalleryVideo(),
         extendProductNameMaxHeight(),
@@ -27,6 +28,13 @@ export async function initProductPageMods() {
         appendRatingValue(),
         initReviewsMods(needScrollToComments, true),
     ]);
+}
+
+function hideUnwantedElements() {
+    const pricePerStars = getFirstElement(SELECTORS.PRICE_PER_STARS);
+    if (pricePerStars) {
+        pricePerStars.parentNode.style.display = 'none';
+    }
 }
 
 async function initAppendPriceHistory() {
