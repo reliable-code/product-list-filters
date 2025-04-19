@@ -19,10 +19,10 @@ import {
     updateElementDisplay,
 } from '../common/dom/manipulation';
 import {
+    findElementByText,
     getAllElements,
     getElementInnerNumber,
     getFirstElement,
-    hasElement,
 } from '../common/dom/helpers';
 import {
     createEnabledFilterControl,
@@ -276,7 +276,9 @@ function processProductCard(productCardLink) {
     const priceWrap = getFirstElement(SELECTORS.PRODUCT_CARD_PRICE_WRAP, productCard);
     const price = getElementInnerNumber(priceWrap, true);
 
-    const hasPlusPoints = hasElement(SELECTORS.PRODUCT_CARD_PLUS_POINTS, productCard);
+    const hasPlusPoints = !!findElementByText(
+        productCard, SELECTORS.PRODUCT_CARD_PLUS_POINTS, 'вернётся на Плюс',
+    );
 
     const shouldHide =
         isLessThanFilter(discountValue, minDiscountFilter) ||
